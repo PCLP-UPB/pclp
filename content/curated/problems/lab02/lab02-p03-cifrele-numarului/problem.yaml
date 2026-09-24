@@ -1,0 +1,54 @@
+id: lab02-p03-cifrele-numarului
+lab: lab02
+number: 3
+title: "Radiografia unui număr"
+difficulty: 2
+estimated_minutes: 20
+concepts: [do-while, operatorul %, long long, tip de date]
+statement: |
+  Scrie un program care citește un număr natural (poate fi foarte mare, de până la
+  18 cifre) și afișează: câte cifre are, suma cifrelor lui pare, câte cifre impare are
+  și care este cea mai mare cifră a sa.
+
+  **Date de intrare**
+
+  Un număr natural `n`.
+
+  **Date de ieșire**
+
+  Patru linii:
+
+  ```
+  Cifre: C
+  Suma cifrelor pare: S
+  Cifre impare: I
+  Cifra maxima: M
+  ```
+
+  Cifra 0 este considerată pară. Numărul 0 are o singură cifră.
+
+  **Restricții**
+
+  - `0 ≤ n ≤ 999 999 999 999 999 999`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  9072581
+  ```
+
+  Ieșire:
+  ```
+  Cifre: 7
+  Suma cifrelor pare: 10
+  Cifre impare: 4
+  Cifra maxima: 9
+  ```
+hints:
+  - "Ultima cifră a lui n este n % 10, iar n / 10 este numărul fără ultima cifră. Un int nu poate ține 18 cifre: alege un tip mai mare."
+  - "Repetă «ia ultima cifră, prelucreaz-o, taie-o» până când numărul devine 0, actualizând patru variabile."
+  - "Pentru n = 0 bucla trebuie să ruleze totuși o dată. Ce instrucțiune repetitivă execută corpul cel puțin o dată, înainte de a verifica condiția?"
+pitfalls:
+  - "Cu while (n > 0), numărul 0 ar avea 0 cifre."
+  - "long long se citește cu %lld, nu cu %d."

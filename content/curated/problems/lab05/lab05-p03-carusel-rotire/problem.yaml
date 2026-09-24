@@ -1,0 +1,95 @@
+id: lab05-p03-carusel-rotire
+lab: lab05
+number: 3
+title: "Caruselul de reclame"
+difficulty: 2
+estimated_minutes: 25
+concepts: [aritmetică cu pointeri, echivalența dintre vector și pointer, interschimbare prin pointeri, indirectare]
+statement: |
+  Un panou publicitar afișează ciclic `n` reclame, identificate prin coduri numerice. Operatorul poate roti lista de reclame: o rotire cu `k` mută primele `k` reclame la finalul listei (rotire spre stânga); dacă `k` este negativ, rotirea se face spre dreapta cu `|k|` poziții. Se dau `q` rotiri care se aplică una după alta; după fiecare, afișați lista.
+
+  Implementați și folosiți funcțiile:
+
+  ```c
+  void interschimba(int *a, int *b);
+  void inverseaza(int *st, int *dr);    /* inverseaza elementele de la st la dr, inclusiv */
+  void roteste(int *v, int n, int k);
+  ```
+
+  **Constrângere:** în aceste trei funcții **nu aveți voie să folosiți operatorul `[]`** — lucrați doar cu pointeri și aritmetică cu pointeri. Rotirea trebuie făcută în același vector (fără vector auxiliar).
+
+  **Date de intrare**
+
+  Pe prima linie `n`; pe a doua linie `n` numere întregi (codurile). Pe a treia linie `q`, apoi `q` linii cu câte un întreg `k`.
+
+  **Date de ieșire**
+
+  `q` linii; fiecare conține cele `n` coduri după rotirea curentă, separate prin câte un spațiu.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1000`, `1 ≤ q ≤ 100`
+  - `-10^6 ≤ k ≤ 10^6`; codurile sunt întregi în `[-10^6, 10^6]`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  6
+  10 20 30 40 50 60
+  3
+  2
+  -1
+  6
+  ```
+
+  Ieșire:
+  ```
+  30 40 50 60 10 20
+  20 30 40 50 60 10
+  20 30 40 50 60 10
+  ```
+starter: |
+  #include <stdio.h>
+
+  #define NMAX 1000
+
+  void interschimba(int *a, int *b)
+  {
+      /* TODO */
+  }
+
+  void inverseaza(int *st, int *dr)
+  {
+      /* TODO: fara [] */
+  }
+
+  void roteste(int *v, int n, int k)
+  {
+      /* TODO: fara [] */
+  }
+
+  int main(void)
+  {
+      int n, q, k, i;
+      int v[NMAX];
+
+      scanf("%d", &n);
+      for (i = 0; i < n; i++) {
+          scanf("%d", v + i);
+      }
+      scanf("%d", &q);
+      for (i = 0; i < q; i++) {
+          scanf("%d", &k);
+          /* TODO: roteste si afiseaza */
+      }
+
+      return 0;
+  }
+hints:
+  - "O rotire cu `n` poziții lasă vectorul neschimbat, deci contează doar `k % n`. O rotire la dreapta cu `|k|` este o rotire la stânga cu `n - |k|`."
+  - "Pentru inversare folosește doi pointeri, unul la început și unul la sfârșit, care se apropie unul de altul și interschimbă valorile. O rotire se poate obține din trei inversări."
+  - "Pseudocod: k = k mod n (adus în [0, n)); inverseaza(v, v+k-1); inverseaza(v+k, v+n-1); inverseaza(v, v+n-1). Verifică pe hârtie cu 1 2 3 4 5 și k = 2."
+pitfalls:
+  - "Sfârșitul unui segment de `k` elemente care începe la `v` este `v + k - 1`, nu `v + k`."
+  - "`k % n` poate fi negativ pentru `k < 0`; adaugă `n` în acest caz."

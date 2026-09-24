@@ -1,0 +1,19 @@
+# Context de build = rădăcina repo-ului (vezi env/compose.yaml)
+.git
+.gitignore
+**/.venv
+**/__pycache__
+**/*.pyc
+**/node_modules
+.DS_Store
+**/.DS_Store
+# directoare de lucru / artefacte
+work/
+env/work/
+dist/
+**/predari/
+# soluții de referință — DOAR pentru profesor, niciodată în imaginea studentului
+solutions/
+content/build/dump/
+# documentație și unelte de dezvoltare care nu trebuie în imagine
+docs/

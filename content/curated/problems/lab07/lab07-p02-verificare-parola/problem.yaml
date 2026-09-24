@@ -1,0 +1,58 @@
+id: lab07-p02-verificare-parola
+lab: lab07
+number: 2
+title: "Verificatorul de parole"
+difficulty: 2
+estimated_minutes: 20
+concepts: [șir de caractere, fgets, strlen, islower, isupper, ctype.h]
+statement: |
+  Un formular de înregistrare verifică parolele alese de utilizatori. O parolă este **puternică** dacă respectă toate regulile de mai jos; fiecare regulă are un cod:
+
+  | cod | regulă încălcată |
+  |---|---|
+  | `lungime` | parola are mai puțin de 8 caractere |
+  | `mica` | nu conține nicio literă mică |
+  | `mare` | nu conține nicio literă mare |
+  | `cifra` | nu conține nicio cifră |
+  | `special` | nu conține niciun caracter special (orice caracter care nu e literă, cifră sau spațiu) |
+  | `spatiu` | conține cel puțin un spațiu |
+  | `repetitie` | conține același caracter de 3 ori la rând |
+
+  Pentru fiecare parolă afișați-o între ghilimele, urmată de `:` și apoi fie ` PUTERNICA`, fie codurile regulilor încălcate, **în ordinea din tabel**, separate prin `, `.
+
+  **Date de intrare**
+
+  Mai multe linii, până la sfârșitul fișierului; fiecare linie (fără caracterul de linie nouă) este o parolă și poate conține spații. O linie goală reprezintă parola vidă.
+
+  **Date de ieșire**
+
+  Câte o linie pentru fiecare parolă, de forma `"<parola>": <rezultat>`.
+
+  **Restricții**
+
+  - cel mult 1000 de parole, fiecare de cel mult 100 de caractere ASCII afișabile
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  parola
+  Pclp2025!
+  Aaa111#bbb
+  My Pass 12!
+  ```
+
+  Ieșire:
+  ```
+  "parola": lungime, mare, cifra, special
+  "Pclp2025!": PUTERNICA
+  "Aaa111#bbb": repetitie
+  "My Pass 12!": spatiu
+  ```
+hints:
+  - "Citește fiecare linie cu `fgets`, apoi elimină `'\\n'` de la final (dacă există) — altfel el ar fi considerat caracter special."
+  - "Parcurge parola o singură dată și numără literele mici, mari, cifrele, spațiile și celelalte caractere, folosind funcțiile din `ctype.h`. Repetiția se verifică comparând caracterul curent cu cele două dinaintea lui."
+  - "Pentru separatori ține un contor al motivelor deja afișate: primul motiv e precedat de un spațiu, următoarele de `\", \"`."
+pitfalls:
+  - "Ultima linie poate să nu se termine cu `'\\n'` — nu presupune că ultimul caracter e mereu newline."
+  - "Funcțiile din `ctype.h` primesc un `int` care trebuie să fie reprezentabil ca `unsigned char` (sau EOF); fă cast la `unsigned char`."

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{{ u.title }}{% endblock %}
+{% block bodyclass %}panelmode{% endblock %}
+{% block mainclass %}wide{% endblock %}
+{% block content %}
+<div class="readerbar">
+  <select onchange="location.href='/carte/'+this.value+'/'" aria-label="Alege capitolul">
+    <optgroup label="Laboratoare">{% for x in units %}{% if x.kind == "lab" %}<option value="{{ x.id }}" {% if x.id == u.id %}selected{% endif %}>{{ x.icon }} Lab {{ x.number }} · {{ x.short }}</option>{% endif %}{% endfor %}</optgroup>
+    <optgroup label="Ghiduri">{% for x in units %}{% if x.kind == "guide" %}<option value="{{ x.id }}" {% if x.id == u.id %}selected{% endif %}>{{ x.icon }} {{ x.title }}</option>{% endif %}{% endfor %}</optgroup>
+  </select>
+  {% if prev %}<a class="btn small ghost" href="/carte/{{ prev.id }}/" title="{{ prev.title }}">← {{ prev.short|truncatechars:18 }}</a>{% endif %}
+  {% if next %}<a class="btn small ghost" href="/carte/{{ next.id }}/" title="{{ next.title }}">{{ next.short|truncatechars:18 }} →</a>{% endif %}
+  <div class="progressbar"><span id="readprog" style="width:0"></span></div>
+  <label class="switch"><input type="checkbox" id="allterms"> toți termenii</label>
+  <a class="btn small" href="/capitol/{{ u.id }}/">Concepte</a>
+  {% if u.week %}<a class="btn small primary" href="/saptamana/{{ u.week }}/">Săptămâna {{ u.week }}</a>{% endif %}
+</div>
+<div class="three">
+  <nav class="side" aria-label="Cuprins">
+    <div class="kicker" style="margin:4px 8px 6px">{{ u.icon }} {% if u.kind == "lab" %}Laboratorul {{ u.number }}{% else %}Ghid{% endif %}</div>
+    <ul class="toc">
+      {% for s in sections %}{% if s.level <= 3 %}<li class="lv{{ s.level }}{% if s.level == 1 %} part{% endif %}"><a href="#s-{{ s.id }}" data-sec="{{ s.id }}">{{ s.title }}</a></li>{% endif %}{% endfor %}
+    </ul>
+    {% if problems %}
+    <div class="kicker" style="margin:18px 8px 6px">Probleme de rezolvat</div>
+    <ul class="toc">{% for p in problems %}<li class="lv2"><a href="/problema/{{ p.id }}/">{{ p.number }}. {{ p.title }}</a></li>{% endfor %}</ul>
+    {% endif %}
+  </nav>
+  <article class="text" data-unit="{{ u.id }}">
+    <h1 style="margin-top:.2em">{{ u.icon }} {{ u.title }}</h1>
+    <p class="muted small">Sursa: {% for s in u.sources %}<a class="ext" href="{{ s }}" target="_blank" rel="noopener">{{ s|cut:"https://" }}</a>{% if not forloop.last %} · {% endif %}{% endfor %}{% if u.authors %}<br>Autori: {{ u.authors|join:", " }}{% endif %}</p>
+    {% for b in blocks %}
+      {% if b.t == "h" and b.part == "laborator" and b.sec == "lab-exercitii" %}<div class="partbanner">🧪 Exercițiile rezolvate împreună la laborator (enunțul original)</div>{% endif %}
+      {% if b.t == "h" and b.part == "problemset" and b.sec == "problemset" %}<div class="partbanner">🏠 Problemset (extra) — probleme propuse pentru acasă</div>{% endif %}
+      {{ b.html }}
+    {% endfor %}
+    {% if problems %}
+      <div class="partbanner">🎯 Cele {{ problems|length }} probleme ale săptămânii, cu teste automate și indicii: <a href="/saptamana/{{ u.week }}/">vezi lista →</a></div>
+    {% endif %}
+  </article>
+  <aside class="side rightcol"><div class="panel"><div id="panelwrap" hidden><button class="btn small ghost" id="backsec" type="button">← termenii secțiunii</button><div id="panel"></div></div><div id="secterms"></div></div></aside>
+</div>
+{% endblock %}
+{% block scripts %}{{ sec_terms|json_script:"secterms-data" }}<script>window.SEC_TERMS = JSON.parse(document.getElementById("secterms-data").textContent);</script>{% endblock %}

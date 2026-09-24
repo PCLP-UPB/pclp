@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Prompturi AI{% endblock %}
+{% block content %}
+<h1>Prompturi AI pentru învățare</h1>
+<p>Folosește AI-ul ca pe un tutore: cere explicații, contraexemple, teste și feedback — nu soluții gata făcute. Toate prompturile tale intră în arhiva săptămânii și sunt parte din procesul evaluat.</p>
+<div class="grid g3" style="margin:16px 0">
+  <div class="card"><h3>În portal</h3><p class="small">Tutorele din pagina fiecărei probleme și butonul „✨ Explică” (selectează un termen în laborator). Se salvează automat. <a href="/setari/">Setări AI</a></p></div>
+  <div class="card"><h3>În VS Code și terminal</h3><p class="small">Extensia <b>Continue</b> (cu cheia ta sau un model local) sau un CLI instalat cu <code>pclp ai-install gemini|claude|codex</code>. Sesiunile se copiază automat în <code>.pclp/ai/</code>.</p></div>
+  <div class="card"><h3>În afara containerului</h3><p class="small">ChatGPT, Gemini etc. în browser sau pe telefon? Salvează promptul cu formularul de mai jos, altfel nu apare în arhivă.</p></div>
+</div>
+
+<h2>Principii</h2>
+<ul>
+  <li><b>Întâi încearcă singur.</b> Scrie ce ai înțeles și ce ai încercat, apoi cere feedback.</li>
+  <li><b>Cere explicații, nu cod.</b> „De ce…?”, „Ce se întâmplă dacă…?”, „Care e diferența dintre…?”</li>
+  <li><b>Dă context:</b> enunțul, mesajul de eroare exact, doar funcția relevantă.</li>
+  <li><b>Verifică răspunsul</b> cu compilatorul, testele, <code>man</code> și laboratorul — AI-ul greșește.</li>
+  <li><b>Cere să fii întrebat:</b> „pune-mi 3 întrebări ca să verific că am înțeles”.</li>
+</ul>
+
+<h2 id="biblioteca">Biblioteca de prompturi</h2>
+{% for u, prs in labs %}
+<details class="rdet" {% if u.week == week %}open{% endif %}><summary>{{ u.icon }} {{ u.title }} <span class="muted small">({{ prs|length }})</span></summary>
+  {% for pr in prs %}
+  <details class="promptcard"><summary><b>{{ pr.title }}</b> <span class="muted small">— {{ pr.moment }}</span></summary>
+    <div class="body"><pre id="lp{{ pr.id }}">{{ pr.prompt }}</pre><button class="btn small" data-copy="lp{{ pr.id }}" type="button">⧉ Copiază</button>
+    {% for c in pr.concepts %}<a class="chip small" href="/termen/{{ c.id }}/">{{ c.label }}</a> {% endfor %}</div>
+  </details>
+  {% endfor %}
+</details>
+{% endfor %}
+
+<h2 id="extern">Am folosit un AI din afara containerului</h2>
+<form class="card" method="post" action="/prompturi/extern/" style="max-width:760px">{% csrf_token %}
+  <div class="formrow">
+    <div><label class="f">Unealta</label><select name="tool"><option>ChatGPT</option><option>Claude.ai</option><option>Gemini</option><option>Copilot</option><option>DeepSeek</option><option>Perplexity</option><option>altul</option></select></div>
+    <div><label class="f">Problema (opțional)</label><select name="problem"><option value="">—</option>{% for p in problems %}<option value="{{ p.id }}">{{ p.id }} · {{ p.title|truncatechars:40 }}</option>{% endfor %}</select></div>
+  </div>
+  <label class="f">Promptul (copiat exact)</label><textarea name="prompt" rows="4" required></textarea>
+  <label class="f">Răspunsul (copiat sau un rezumat)</label><textarea name="answer" rows="4"></textarea>
+  <label class="f">Ce ai învățat / ce ai făcut cu răspunsul</label><textarea name="notes" rows="2"></textarea>
+  <label class="f">Link la conversația partajată (opțional)</label><input type="url" name="link" placeholder="https://chatgpt.com/share/…">
+  <p style="margin-top:12px"><button class="btn primary">Salvează în arhiva săptămânii</button></p>
+</form>
+
+<h2>Prompturile tale</h2>
+<div class="grid g2">
+  <div class="card"><h3>Din portal</h3>
+    {% for r in portal %}<div class="small" style="border-bottom:1px dashed var(--line);padding:6px 0"><span class="muted">{{ r.ts|slice:":16" }} · {{ r.kind }} · {{ r.model }}</span><div>{{ r.prompt|truncatechars:160 }}</div></div>
+    {% empty %}<p class="muted small">Încă nimic.</p>{% endfor %}
+  </div>
+  <div class="card"><h3>Externe (salvate manual)</h3>
+    {% for r in external %}<div class="small" style="border-bottom:1px dashed var(--line);padding:6px 0"><span class="muted">{{ r.ts|slice:":16" }} · {{ r.tool }}{% if r.problem %} · {{ r.problem }}{% endif %}</span><div>{{ r.prompt|truncatechars:160 }}</div></div>
+    {% empty %}<p class="muted small">Încă nimic.</p>{% endfor %}
+  </div>
+</div>
+{% endblock %}

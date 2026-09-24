@@ -1,0 +1,21 @@
+02:06:19 WARN eveniment 16
+02:15:10 WARN eveniment 19
+02:26:53 WARN eveniment 22
+02:31:32 ERROR eveniment 23
+02:47:00 ERROR eveniment 27
+02:51:11 WARN eveniment 28
+03:02:35 ERROR eveniment 31
+03:07:48 WARN eveniment 33
+03:26:12 WARN eveniment 38
+03:36:17 ERROR eveniment 41
+03:39:01 WARN eveniment 43
+03:52:34 ERROR eveniment 47
+03:52:59 WARN eveniment 48
+04:04:01 WARN eveniment 51
+04:08:43 WARN eveniment 53
+04:13:20 ERROR eveniment 55
+04:18:29 ERROR eveniment 57
+04:20:43 ERROR eveniment 58
+INFO: 0, WARN: 10, ERROR: 8
+Cea mai lunga pauza: 394 secunde (01:07:15 - 01:13:49)
+Linii invalide: 2

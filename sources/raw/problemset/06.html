@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>PCLP Laborator06 - Problemset (extra) | PCLP - CA, CB, CD</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="PCLP Laborator06 - Problemset (extra)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="PCLP Laborator06: Problemset (extra)" />
+<meta property="og:description" content="PCLP Laborator06: Problemset (extra)" />
+<link rel="canonical" href="https://acs-pclp.github.io/problemset/06" />
+<meta property="og:url" content="https://acs-pclp.github.io/problemset/06" />
+<meta property="og:site_name" content="PCLP - CA, CB, CD" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-01-12T00:01:20+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="PCLP Laborator06 - Problemset (extra)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-01-12T00:01:20+00:00","datePublished":"2026-01-12T00:01:20+00:00","description":"PCLP Laborator06: Problemset (extra)","headline":"PCLP Laborator06 - Problemset (extra)","mainEntityOfPage":{"@type":"WebPage","@id":"https://acs-pclp.github.io/problemset/06"},"url":"https://acs-pclp.github.io/problemset/06"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://acs-pclp.github.io/feed.xml" title="PCLP - CA, CB, CD" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">PCLP - CA, CB, CD</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <h1 id="pclp-laborator06-problemset-extra">PCLP Laborator06: Problemset (extra)</h1>
+<p>Probleme extra propuse pentru <a href="https://acs-pclp.github.io/laboratoare/06">PCLP Laborator06</a>.</p>
+<ol>
+<li>
+<p>Se dorește citirea unui șir de numere <strong>naturale</strong> de la tastatură terminat cu un -1, care nu face parte din șir (există mereu cel puțin un element pozitiv în șir).
+Se cere să se aloce dinamic memoria folosită. Să se gestioneze într-un mod eficient memoria alocată.</p>
+<ul>
+<li>
+<p><strong>Indicații</strong>  de implementare:</p>
+<ul>
+<li>
+<p>Avem nevoie de 3 variabile:</p>
+<ul>
+<li>
+<p><code>int *v</code> - array-ul care urmează să fie alocat/realocat dinamic</p>
+</li>
+<li>
+<p><code>int capacity</code>  - acesta va conține în <strong>orice moment</strong> numărul de elemente <strong>alocate</strong> către care pointează v.</p>
+<ul>
+<li>Prin urmare mereu vor exista <code>v[0], v[1], …, v[capacity - 1]</code></li>
+</ul>
+</li>
+<li>
+<p><code>int size</code> - acesta conține în <strong>orice moment</strong> numărul de elemente <strong>folosite</strong> din vector.</p>
+<ul>
+<li>
+<p>Presupunem că pe măsură ce citim elemente, adăugăm mereu la finalul vectorului.</p>
+</li>
+<li>
+<p>Elementele <strong>ocupate</strong> sunt mereu <code>v[0], v[1], …, v[size - 1]</code> (evident dacă <code>size &gt; 0</code>)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Observăm că întotdeauna trebuie să avem <code>size &lt;= capacity</code> (folosim cel mult câte elemente am alocat).</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Algoritm:</p>
+<ul>
+<li>
+<p>Inițial: <code>size = 0, capacity = 1, v = malloc(capacity * sizeof(int))</code>;</p>
+</li>
+<li>
+<p>Cât timp <strong>NU</strong> am ajuns la -1</p>
+<ul>
+<li>
+<p>Citesc x (următorul element).</p>
+</li>
+<li>
+<p><strong>Dacă</strong> x  este -1, mă opresc.</p>
+</li>
+<li>
+<p>Altfel</p>
+<ul>
+<li>
+<p>Dacă <code>size == capacity</code> (vectorul e plin)</p>
+<ul>
+<li>resize: <code>++capacity</code>;</li>
+</ul>
+</li>
+<li>
+<p>Adaugă elementul in vector și reactualizează size.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>La final dacă <code>size &lt; capacity</code>, aplic operația de resize si <code>capacity = size</code> (dacă am alocat prea multă memorie, eliberez surplusul).</p>
+</li>
+<li>
+<p>Afișez size si capacity pe ecran.</p>
+</li>
+<li>
+<p>Afișez elementele vectorului pe ecran.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Exemplu</strong></p>
+<p>Input:</p>
+<pre><code>0 1 2 5 9 -1
+</code></pre>
+<p>Output:</p>
+<pre><code>5 5
+0 1 2 5 9
+</code></pre>
+<p><code>Follow-up:</code> In loc sa incrementati, dublati capacitatea vectorului pentru realocarea memoriei.
+Discutati cu asistentul care sunt avantajele/dezavantajele unei astfel de abordari.</p>
+</li>
+<li>
+<p>Dorim să implementăm un API minimal ce aloca o matrice de numere întregi de <code>n</code> x <code>m</code> elemente sub forma unui vector, pentru a stoca elementele contiguu în memorie.</p>
+<ul>
+<li>Creati functia <code>alloc_matrix(int n, int m)</code> ce intoarce un <code>int*</code> (pointer catre începutul matricei).
+Afisati matricea si demonstrați că aceasta este stocată contiguu.</li>
+</ul>
+<p>Creati functia <code>int access_elem(int *mat, int n, int i, int j)</code> ce returneaza un pointer la elementul de pe linia i și coloana j din matrice.</p>
+<p>Creați funcția <code>free_matrix(int *mat)</code> care eiberează resursele folosite.</p>
+<p><strong>Input</strong>: Pe prima linie se află n și m, dimensiunile matricei.
+Pe următoarele n linii se află câte m elemente, care reprezintă elementele matricei.</p>
+<p>Pe ultima linie se află doi indici i și j pentru care dorim să aflăm elementul din matrice. (indexare de la 0).</p>
+<p><strong>Output</strong>: elementele matricei, element din matrice cu indecsii i si j</p>
+<p><strong>Exemplu</strong></p>
+<p>Input:</p>
+<pre><code>3 3
+1 2 3
+4 5 6
+7 8 9
+1 1
+</code></pre>
+<p>Output:</p>
+<pre><code>1 2 3
+4 5 6
+7 8 9
+5
+</code></pre>
+<p><strong>Explicatii</strong>:</p>
+<p>Se primesc de la tastatura <code>n = 3</code>, <code>m = 3</code>, elementele matricei și poziția <code>(1, 1)</code>.
+Se aloca memoria si se afiseaza matricea, dupa care se afiseaza elementul de pe poziția <code>(1, 1)</code> din matrice returnat de functia <code>access_elem()</code>.</p>
+<ul>
+<li>
+<p><code>Follow-up</code>: modificați implementarea voastră astfel încât să nu folosiți operatorul <code>[]</code>.</p>
+</li>
+<li>
+<p><code>Follow-up</code>: faceți implementarea generică.
+Alocarea trebuie să țină pentru un element de orice tip, nu doar de tipul <code>int</code>.</p>
+<p><code>Hint</code>: Pentru funcțiile de <code>alloc_matrix</code> și <code>access_elem</code> trebuie să mai adaugați un parametru ce reprezintă numărul de bytes pentru fiecare element al matricei.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Se citesc două numere <code>n</code> și <code>m</code>, urmate de elementele unei matrice <code>n x m</code>.
+Alocă dinamic matricea, calculează și afișează suma fiecărei linii și a fiecărei coloane.</p>
+<p><strong>Exemplu</strong></p>
+<p>Input:</p>
+<pre><code>2 3
+1 2 3
+4 5 6
+</code></pre>
+<p>Ouput:</p>
+<pre><code>Sume linii: 6 15
+Sume coloane: 5 7 9
+</code></pre>
+<p><code>Hint</code> Alocă matricea ca tablou de pointeri către linii (<code>int **mat</code>).</p>
+</li>
+<li>
+<p>Se citește un vector de n numere întregi. Creează un nou vector, alocat dinamic, care să conțină doar numerele prime din vectorul inițial. De fiecare dată când se va identifica un nou număr prim în vectorul citit, vectorul rezultat va fi realocat (<code>realloc</code>), astfel încât dimensiunea vectorului la fiecare pas va fi minimă.
+Se va afișa noul vector.</p>
+<p><strong>Exemplu</strong></p>
+<p>Input:</p>
+<pre><code>6
+2 4 7 9 13 15
+</code></pre>
+<p>Output:</p>
+<pre><code>2 7 13
+</code></pre></li>
+<li>
+<p>Se citește un vector de n numere întregi cu elementele în ordine aleatoare.
+După sortare, se vor elimina elementele duplicate prin redimensionarea dinamică a vectorului.
+Se va afișa vectorul rezultat.</p>
+<p><strong>Exemplu</strong></p>
+<p>Input:</p>
+<pre><code>8
+1 2 3 2 3 3 5 3 1 5 2 5 1
+</code></pre>
+<p>Output:</p>
+<pre><code>1 2 3 5
+</code></pre>
+<p><code>Hint</code> Sortează, apoi copiază doar valorile unice într-un nou vector realocat la fiecare pas (<code>realloc</code>).</p>
+</li>
+<li>
+<p>Rezolvați problema <a href="https://leetcode.com/problems/build-array-from-permutation">Permutation</a> de pe LeetCode, utilizând alocare dinamică de memorie pentru cei doi vectori.</p>
+</li>
+<li>
+<p>Rezolvați problema <a href="https://leetcode.com/problems/concatenation-of-array/">Concatenation of Array</a> de pe LeetCode utilizând alocare / realocare dinamică de memorie pentru cei doi vectori.</p>
+</li>
+<li>
+<p>Rezolvați problema <a href="https://leetcode.com/problems/reshape-the-matrix">Reshape</a> de pe LeetCode utilizând alocare dinamică de memorie pentru cele două matrice.</p>
+</li>
+</ol>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">PCLP - CA, CB, CD</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">PCLP - CA, CB, CD</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>https://acs-pclp.github.io/</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

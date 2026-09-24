@@ -1,0 +1,65 @@
+#!/bin/bash
+# PCLP entrypoint.
+# Rulează ca root (PID 1 sub `init: true` / tini): aliniază uid-ul lui `student` cu proprietarul
+# directorului ~/work montat de pe host (Linux), repară permisiunile, apoi coboară la `student`
+# și pornește supervisorul (snapshot watcher, portal, code-server).
+set -u
+W=/home/student/work
+
+log() { echo "[pclp-entrypoint] $*" >&2; }
+
+if [ "$(id -u)" = "0" ]; then
+    mkdir -p "$W"
+    want_uid="${PUID:-}"
+    want_gid="${PGID:-}"
+    if [ -z "$want_uid" ]; then
+        # Linux: directorul montat aparține utilizatorului de pe host -> preluăm uid-ul lui.
+        # Docker Desktop (macOS/Windows) raportează de obicei root sau 1000 -> rămânem pe 1000.
+        owner_uid=$(stat -c %u "$W")
+        owner_gid=$(stat -c %g "$W")
+        if [ "$owner_uid" != "0" ]; then want_uid=$owner_uid; want_gid=$owner_gid; fi
+    fi
+    want_uid=${want_uid:-1000}
+    want_gid=${want_gid:-$want_uid}
+    cur_uid=$(id -u student); cur_gid=$(id -g student)
+    if [ "$want_gid" != "$cur_gid" ]; then
+        if getent group "$want_gid" >/dev/null; then
+            usermod -g "$want_gid" student
+        else
+            groupmod -o -g "$want_gid" student
+        fi
+        log "gid student -> $want_gid"
+    fi
+    if [ "$want_uid" != "$cur_uid" ]; then
+        usermod -o -u "$want_uid" student
+        log "uid student -> $want_uid"
+    fi
+    # $HOME (fără work) și extensiile trebuie să fie ale lui student
+    find /home/student -xdev -path "$W" -prune -o ! -user student -exec chown -h student:"$(id -g student)" {} + 2>/dev/null
+    chown -R student:"$(id -g student)" /opt/pclp/extensions 2>/dev/null
+    # work/ creat de daemon ca root (bind mount inexistent pe host) -> îl dăm studentului
+    if [ "$(stat -c %u "$W")" != "$(id -u student)" ]; then
+        log "ajustez proprietarul pentru $W"
+        chown -R student:"$(id -g student)" "$W" 2>/dev/null || log "ATENȚIE: nu pot schimba proprietarul lui $W"
+    fi
+    exec setpriv --reuid=student --regid="$(id -g student)" --init-groups \
+        env HOME=/home/student USER=student LOGNAME=student SHELL=/bin/bash \
+        /opt/pclp/bin/entrypoint "$@"
+fi
+
+# ---------------- de aici rulăm ca student ----------------
+cd "$W" || exit 1
+export HOME=/home/student
+umask 022
+
+/opt/pclp/bin/pclp-home-links || log "pclp-home-links a eșuat"
+
+if [ ! -d "$W/.git" ]; then
+    log "prima pornire: inițializez ~/work"
+    pclp init --auto || log "pclp init --auto a eșuat"
+fi
+
+if [ "$#" -gt 0 ]; then
+    exec "$@"
+fi
+exec /opt/pclp/bin/pclp-supervise

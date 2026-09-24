@@ -1,0 +1,68 @@
+id: lab10-p07-inventar
+lab: lab10
+number: 7
+title: "Inventar persistent cu comenzi"
+difficulty: 3
+estimated_minutes: 45
+concepts: [vector extensibil, realloc, câmp pointer alocat dinamic, structură, fișier text, mod w, fscanf, fprintf, strcmp]
+statement: |
+  Un magazin de bricolaj ține inventarul în fișierul text `inventar.txt`, câte un produs pe linie:
+  `nume cantitate` (numele are 1–63 caractere, fără spații; cantitatea este un întreg > 0).
+
+  Programul:
+
+  1. încarcă inventarul (dacă fișierul există) și afișează `Incarcate N produse`; dacă fișierul
+     nu există, afișează `Inventar nou` și pornește cu inventarul gol;
+  2. execută comenzile de la tastatură, până la sfârșitul intrării:
+     - `add nume q` — adaugă `q` bucăți (creează produsul dacă nu există); pentru `q ≤ 0` afișează `Cantitate invalida`;
+     - `del nume q` — scade `q` bucăți; produsul inexistent → `Produs inexistent: nume`; dacă `q ≤ 0` sau
+       stocul este mai mic decât `q` → `Cantitate insuficienta: nume (stoc)`; dacă stocul ajunge la 0, produsul dispare;
+     - `list` — afișează produsele în ordine alfabetică, `nume cantitate`, sau `(inventar gol)`;
+     - orice alt cuvânt → `Comanda invalida`;
+  3. salvează inventarul în `inventar.txt` (suprascriindu-l), în ordine alfabetică, format `nume cantitate`;
+  4. redeschide fișierul și afișează `Salvat inventar.txt:` urmat de conținutul lui exact.
+
+  Produsele se țin într-un vector de structuri `{char *nume; int cantitate;}` extins dinamic, cu numele alocate dinamic.
+
+  **Restricții**
+
+  - cel mult 10^4 produse și 10^5 comenzi; cantitățile rămân în domeniul `int`.
+
+  **Exemplu**
+
+  Fișierul `inventar.txt`:
+  ```
+  surub 100
+  piulita 40
+  saiba 250
+  ```
+
+  Intrare (stdin):
+  ```
+  add surub 20
+  del piulita 40
+  add cui 5
+  list
+  del saiba 300
+  ```
+
+  Ieșire (stdout):
+  ```
+  Incarcate 3 produse
+  cui 5
+  saiba 250
+  surub 120
+  Cantitate insuficienta: saiba (250)
+  Salvat inventar.txt:
+  cui 5
+  saiba 250
+  surub 120
+  ```
+hints:
+  - "Separă logica pe funcții: încărcare, căutare după nume, adăugare, ștergere, listare, salvare, eliberare."
+  - "La ștergerea unui produs din vector nu e nevoie să muți toate elementele: poți pune ultimul element în locul celui șters (ordinea nu contează, fiindcă listezi sortat)."
+  - "Pentru list și save sortează cu qsort și un comparator care apelează strcmp pe câmpurile nume. Nu uita să eliberezi numele produsului șters înainte să-l suprascrii."
+pitfalls:
+  - "Dacă inventar.txt lipsește nu este o eroare — programul trebuie să continue cu un inventar gol."
+  - "Suprascrierea elementului șters fără free pe numele lui produce memory leak."
+  - "Deschiderea pentru salvare cu \"a\" ar adăuga la vechiul conținut în loc să îl înlocuiască."

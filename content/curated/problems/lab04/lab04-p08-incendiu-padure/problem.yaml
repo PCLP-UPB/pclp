@@ -1,0 +1,72 @@
+id: lab04-p08-incendiu-padure
+lab: lab04
+number: 8
+title: "Incendiu în pădure"
+difficulty: 4
+estimated_minutes: 45
+concepts: [matrice, simulare, matrice auxiliară, depășirea limitelor, char]
+statement: |
+  Un grup de studenți modelează răspândirea unui incendiu de pădure pe o hartă cu `n`
+  linii și `m` coloane. Fiecare celulă conține:
+
+  - `T` — un copac;
+  - `F` — un copac care arde;
+  - `.` — teren gol;
+  - `*` — cenușă.
+
+  În fiecare minut, **toate celulele se schimbă simultan**, după starea de la începutul
+  minutului:
+
+  - o celulă `F` devine `*` (copacul a ars complet);
+  - o celulă `T` care are cel puțin un vecin `F` (sus, jos, stânga sau dreapta) devine `F`;
+  - celelalte celule rămân neschimbate.
+
+  Scrie un program care afișează harta după `k` minute, minutul în care nu mai arde nicio
+  celulă și câți copaci rămân neatinși la final.
+
+  **Date de intrare**
+
+  Pe prima linie, trei numere naturale `n m k`. Urmează `n` linii cu câte `m` caractere
+  (fără spații între ele): harta inițială.
+
+  **Date de ieșire**
+
+  - `n` linii cu câte `m` caractere: harta după `k` minute;
+  - linia `Stingere: S minute`, unde `S` este primul minut după care nu mai arde nicio
+    celulă (0 dacă inițial nu arde nimic);
+  - linia `Copaci ramasi: C` — numărul de celule `T` după stingere.
+
+  **Restricții**
+
+  - `1 ≤ n, m ≤ 100`
+  - `0 ≤ k ≤ 100 000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  5 7 2
+  TTT.TTT
+  TFT.TTT
+  TTT..TT
+  ..TTTTT
+  TT.T..F
+  ```
+
+  Ieșire:
+  ```
+  F*F.TTT
+  ***.TTT
+  F*F..TF
+  ..TTTF*
+  TT.T..*
+  Stingere: 7 minute
+  Copaci ramasi: 2
+  ```
+hints:
+  - "Dacă modifici harta în timp ce o parcurgi, un copac aprins chiar în acest minut poate aprinde imediat vecinul următor. Ca schimbările să fie simultane, ai nevoie de a doua matrice."
+  - "Pentru fiecare minut: construiește noua hartă în matricea auxiliară citind doar din cea veche, apoi copiaz-o înapoi. Scrie o funcție care spune dacă vecinul (i, j) arde și care întoarce 0 pentru coordonate în afara hărții."
+  - "Continuă simularea până când nu mai arde nimic, chiar dacă ai trecut de minutul k, ca să afli minutul stingerii. Dacă k este mai mare decât acesta, harta de la minutul k este chiar harta finală. Citește caracterele cu \" %c\"."
+pitfalls:
+  - "Doar vecinii pe orizontală și verticală contează, nu și cei pe diagonală."
+  - "Accesarea h[i − 1][j] pentru i = 0 citește în afara matricei."

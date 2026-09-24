@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>PCLP Laborator04 - Tablouri. Particularizare - vectori și matrici | PCLP - CA, CB, CD</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="PCLP Laborator04 - Tablouri. Particularizare - vectori și matrici" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="PCLP Laborator04: Tablouri. Particularizare: vectori și matrici Obiective În acest laborator vom studia: tablouri in C - particularizare vectori și matrici (alocare statică): declarare, reprezentare în memorie, inițializare, citire/afișare algoritmi de bază pe vectori: parcurgeri, căutare liniară, sortare, cautare binară algoritmi de bază pe matrici: parcurgeri, operații matriciale (adunare, scădere, înmultire, putere, transpusă) De asemenea, vom exersa lucrul cu funcții. Vom încerca să modularizăm cât mai fin astfel să avem câte o funcție pentru fiecare operație. HINT: Gândiți-vă cum organizați codul, astfel încât să reutilizați funcțiile implementate la exercițiile anterioare. Materiale utile [OCW/Suport Teoretic pentru Laborator] Tablouri. Particularizare - vectori [OCW/Suport Teoretic pentru Laborator] Tablouri. Particularizare - matrice Exerciții a. Realizați o funcție care primește ca parametru un vector v. Funcția va citi de la tastatură numărul de elemente și elementele. Elementele vor fi salvate în vector și va întoarce numărul de elemente. b. Realizati o funcție care primește ca parametru un număr întreg n și un vector v. Funcția va afișa pe ecran pe o singura linie toate elementele vectorului (despărțite prin spațiu). int v[NMAX]; int n = read_array(v); // userul introduce numărul 5 // apoi 5 elemente - spre exemplu 10 30 -1 4 5 // functia returneaza cate elemente a citit // elementele citite se salvează în vectorul v print_array(n, v); // va afisa pe ecran fix linia &quot;10 30 -1 4 5\n&quot; Realizați câte o funcție pentru fiecare din următoarele cerințe. Exemplele date se vor referi la vectorul cu elementele din exemplul de la exercițiul 1(n = 5, v = {10,30, -1, 4, 5}). a. Calcularea sumei elementelor dintr-un vector v cu n elemente int sum = sum_array(n, v); // sum = 48, pentru ca 10 + 30 - 1 + 4 + 5 = 48 b. Determinarea elementului minim dintr-un vector v cu n elemente int min = min_array(n, v); // min == -1, pentru ca -1 e cel mai mic element c. Poziția elementului maxim dintr-un vector v cu n elemente. Dacă elementul apare de mai multe ori, se va alege prima poziție a acestuia. int posmax = posmax_array(n, v); // posmax == 1, pentru ca 30 e cel mai mare element d. Calcularea mediei aritmetice a elementelor dintr-un vector cu n elemente HINT: Ce funcție deja implementată e utilă? (Modularizare &amp; reutilizare) double avg = avg_array(n, v); // avg = 9.6 e. Găsirea unui element într-un vector v cu n elemente. Se va căuta liniar de la stanga la dreapta pentru prima apariție a elementului x în vector. Se va returna poziția lui dacă exista (număr între 0 și n - 1) sau -1 dacă elementul nu exista în șir. int pos = find_array(n, v, 30) ; // pos == 1 (v[1] == 30) int pos = find_array(n, v, 4) ; // pos == 3 (v[3] == 4) int pos = find_array(n, v, 13) ; // pos == -1 (elementul nu exista in sir) Implementați și testați algoritmul de sortare selection sort. sort_array(n, v); print_array(n, v); // va afisa &quot;-1 4 5 10 30&quot; Scrieți o funcție care să înmulțească 2 matrice a și b (dimensiuni n, m, p). Rezultatul se va stoca în matricea c, care are dimensiunile n x p. void multiply_matrix(int n, int m, int p, int a[NMAX][NMAX], int b[NMAX][NMAX], int c[NMAX][NMAX]); Atenție! a, b, c pot reprezenta în memorie aceeași matrice: multiply_matrix(n, n, n, a, a, a); Exemplu: int a[NMAX][NMAX] = { { 0, 1, 1, 1}, { 1, 1, 1, 1}, { 0, 10, 0, 0}, { 0, 10, 0, 0} }; int b[NMAX][NMAX] = { { -1, 10, 1}, { -2, 20, 2}, { -3, 30, 3}, { -4, 40, 4} }; A * B = -9 90 9 -10 100 10 -20 200 20 -20 200 20 [BONUS] Folosind funcția de la exercițiul anterior, să se scrie o funcție care ridica o matrice pătratică a (n x n) la puterea k, rezultatul fiind stocat în matricea b. void power_matrix(int n, int a[NMAX][NMAX], int k, int b[NMAX][NMAX]); Atenție! a, b pot reprezenta în memorie aceeași matrice: void multiply_matrix(n, n, n, a, a); Exemplu: int n = 4; int a[NMAX][NMAX] = { { 0, 1, 1, 1}, { 1, 1, 1, 1}, { 0, 10, 0, 0}, { 0, 10, 0, 0} }; a^2 = n = 4, m = 4: 1 21 1 1 1 22 2 2 10 10 10 10 10 10 10 10 a^10 = n = 4, m = 4: 1923434 11014355 2298075 2298075 2298075 12937789 2733889 2733889 4358140 22980750 5101950 5101950 4358140 22980750 5101950 5101950 Problemset (extra) Vă propunem să lucrați acasă probleme din PCLP Laborator04: Problemset (extra)." />
+<meta property="og:description" content="PCLP Laborator04: Tablouri. Particularizare: vectori și matrici Obiective În acest laborator vom studia: tablouri in C - particularizare vectori și matrici (alocare statică): declarare, reprezentare în memorie, inițializare, citire/afișare algoritmi de bază pe vectori: parcurgeri, căutare liniară, sortare, cautare binară algoritmi de bază pe matrici: parcurgeri, operații matriciale (adunare, scădere, înmultire, putere, transpusă) De asemenea, vom exersa lucrul cu funcții. Vom încerca să modularizăm cât mai fin astfel să avem câte o funcție pentru fiecare operație. HINT: Gândiți-vă cum organizați codul, astfel încât să reutilizați funcțiile implementate la exercițiile anterioare. Materiale utile [OCW/Suport Teoretic pentru Laborator] Tablouri. Particularizare - vectori [OCW/Suport Teoretic pentru Laborator] Tablouri. Particularizare - matrice Exerciții a. Realizați o funcție care primește ca parametru un vector v. Funcția va citi de la tastatură numărul de elemente și elementele. Elementele vor fi salvate în vector și va întoarce numărul de elemente. b. Realizati o funcție care primește ca parametru un număr întreg n și un vector v. Funcția va afișa pe ecran pe o singura linie toate elementele vectorului (despărțite prin spațiu). int v[NMAX]; int n = read_array(v); // userul introduce numărul 5 // apoi 5 elemente - spre exemplu 10 30 -1 4 5 // functia returneaza cate elemente a citit // elementele citite se salvează în vectorul v print_array(n, v); // va afisa pe ecran fix linia &quot;10 30 -1 4 5\n&quot; Realizați câte o funcție pentru fiecare din următoarele cerințe. Exemplele date se vor referi la vectorul cu elementele din exemplul de la exercițiul 1(n = 5, v = {10,30, -1, 4, 5}). a. Calcularea sumei elementelor dintr-un vector v cu n elemente int sum = sum_array(n, v); // sum = 48, pentru ca 10 + 30 - 1 + 4 + 5 = 48 b. Determinarea elementului minim dintr-un vector v cu n elemente int min = min_array(n, v); // min == -1, pentru ca -1 e cel mai mic element c. Poziția elementului maxim dintr-un vector v cu n elemente. Dacă elementul apare de mai multe ori, se va alege prima poziție a acestuia. int posmax = posmax_array(n, v); // posmax == 1, pentru ca 30 e cel mai mare element d. Calcularea mediei aritmetice a elementelor dintr-un vector cu n elemente HINT: Ce funcție deja implementată e utilă? (Modularizare &amp; reutilizare) double avg = avg_array(n, v); // avg = 9.6 e. Găsirea unui element într-un vector v cu n elemente. Se va căuta liniar de la stanga la dreapta pentru prima apariție a elementului x în vector. Se va returna poziția lui dacă exista (număr între 0 și n - 1) sau -1 dacă elementul nu exista în șir. int pos = find_array(n, v, 30) ; // pos == 1 (v[1] == 30) int pos = find_array(n, v, 4) ; // pos == 3 (v[3] == 4) int pos = find_array(n, v, 13) ; // pos == -1 (elementul nu exista in sir) Implementați și testați algoritmul de sortare selection sort. sort_array(n, v); print_array(n, v); // va afisa &quot;-1 4 5 10 30&quot; Scrieți o funcție care să înmulțească 2 matrice a și b (dimensiuni n, m, p). Rezultatul se va stoca în matricea c, care are dimensiunile n x p. void multiply_matrix(int n, int m, int p, int a[NMAX][NMAX], int b[NMAX][NMAX], int c[NMAX][NMAX]); Atenție! a, b, c pot reprezenta în memorie aceeași matrice: multiply_matrix(n, n, n, a, a, a); Exemplu: int a[NMAX][NMAX] = { { 0, 1, 1, 1}, { 1, 1, 1, 1}, { 0, 10, 0, 0}, { 0, 10, 0, 0} }; int b[NMAX][NMAX] = { { -1, 10, 1}, { -2, 20, 2}, { -3, 30, 3}, { -4, 40, 4} }; A * B = -9 90 9 -10 100 10 -20 200 20 -20 200 20 [BONUS] Folosind funcția de la exercițiul anterior, să se scrie o funcție care ridica o matrice pătratică a (n x n) la puterea k, rezultatul fiind stocat în matricea b. void power_matrix(int n, int a[NMAX][NMAX], int k, int b[NMAX][NMAX]); Atenție! a, b pot reprezenta în memorie aceeași matrice: void multiply_matrix(n, n, n, a, a); Exemplu: int n = 4; int a[NMAX][NMAX] = { { 0, 1, 1, 1}, { 1, 1, 1, 1}, { 0, 10, 0, 0}, { 0, 10, 0, 0} }; a^2 = n = 4, m = 4: 1 21 1 1 1 22 2 2 10 10 10 10 10 10 10 10 a^10 = n = 4, m = 4: 1923434 11014355 2298075 2298075 2298075 12937789 2733889 2733889 4358140 22980750 5101950 5101950 4358140 22980750 5101950 5101950 Problemset (extra) Vă propunem să lucrați acasă probleme din PCLP Laborator04: Problemset (extra)." />
+<link rel="canonical" href="https://acs-pclp.github.io/laboratoare/04" />
+<meta property="og:url" content="https://acs-pclp.github.io/laboratoare/04" />
+<meta property="og:site_name" content="PCLP - CA, CB, CD" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-01-12T00:01:20+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="PCLP Laborator04 - Tablouri. Particularizare - vectori și matrici" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-01-12T00:01:20+00:00","datePublished":"2026-01-12T00:01:20+00:00","description":"PCLP Laborator04: Tablouri. Particularizare: vectori și matrici Obiective În acest laborator vom studia: tablouri in C - particularizare vectori și matrici (alocare statică): declarare, reprezentare în memorie, inițializare, citire/afișare algoritmi de bază pe vectori: parcurgeri, căutare liniară, sortare, cautare binară algoritmi de bază pe matrici: parcurgeri, operații matriciale (adunare, scădere, înmultire, putere, transpusă) De asemenea, vom exersa lucrul cu funcții. Vom încerca să modularizăm cât mai fin astfel să avem câte o funcție pentru fiecare operație. HINT: Gândiți-vă cum organizați codul, astfel încât să reutilizați funcțiile implementate la exercițiile anterioare. Materiale utile [OCW/Suport Teoretic pentru Laborator] Tablouri. Particularizare - vectori [OCW/Suport Teoretic pentru Laborator] Tablouri. Particularizare - matrice Exerciții a. Realizați o funcție care primește ca parametru un vector v. Funcția va citi de la tastatură numărul de elemente și elementele. Elementele vor fi salvate în vector și va întoarce numărul de elemente. b. Realizati o funcție care primește ca parametru un număr întreg n și un vector v. Funcția va afișa pe ecran pe o singura linie toate elementele vectorului (despărțite prin spațiu). int v[NMAX]; int n = read_array(v); // userul introduce numărul 5 // apoi 5 elemente - spre exemplu 10 30 -1 4 5 // functia returneaza cate elemente a citit // elementele citite se salvează în vectorul v print_array(n, v); // va afisa pe ecran fix linia &quot;10 30 -1 4 5\\n&quot; Realizați câte o funcție pentru fiecare din următoarele cerințe. Exemplele date se vor referi la vectorul cu elementele din exemplul de la exercițiul 1(n = 5, v = {10,30, -1, 4, 5}). a. Calcularea sumei elementelor dintr-un vector v cu n elemente int sum = sum_array(n, v); // sum = 48, pentru ca 10 + 30 - 1 + 4 + 5 = 48 b. Determinarea elementului minim dintr-un vector v cu n elemente int min = min_array(n, v); // min == -1, pentru ca -1 e cel mai mic element c. Poziția elementului maxim dintr-un vector v cu n elemente. Dacă elementul apare de mai multe ori, se va alege prima poziție a acestuia. int posmax = posmax_array(n, v); // posmax == 1, pentru ca 30 e cel mai mare element d. Calcularea mediei aritmetice a elementelor dintr-un vector cu n elemente HINT: Ce funcție deja implementată e utilă? (Modularizare &amp; reutilizare) double avg = avg_array(n, v); // avg = 9.6 e. Găsirea unui element într-un vector v cu n elemente. Se va căuta liniar de la stanga la dreapta pentru prima apariție a elementului x în vector. Se va returna poziția lui dacă exista (număr între 0 și n - 1) sau -1 dacă elementul nu exista în șir. int pos = find_array(n, v, 30) ; // pos == 1 (v[1] == 30) int pos = find_array(n, v, 4) ; // pos == 3 (v[3] == 4) int pos = find_array(n, v, 13) ; // pos == -1 (elementul nu exista in sir) Implementați și testați algoritmul de sortare selection sort. sort_array(n, v); print_array(n, v); // va afisa &quot;-1 4 5 10 30&quot; Scrieți o funcție care să înmulțească 2 matrice a și b (dimensiuni n, m, p). Rezultatul se va stoca în matricea c, care are dimensiunile n x p. void multiply_matrix(int n, int m, int p, int a[NMAX][NMAX], int b[NMAX][NMAX], int c[NMAX][NMAX]); Atenție! a, b, c pot reprezenta în memorie aceeași matrice: multiply_matrix(n, n, n, a, a, a); Exemplu: int a[NMAX][NMAX] = { { 0, 1, 1, 1}, { 1, 1, 1, 1}, { 0, 10, 0, 0}, { 0, 10, 0, 0} }; int b[NMAX][NMAX] = { { -1, 10, 1}, { -2, 20, 2}, { -3, 30, 3}, { -4, 40, 4} }; A * B = -9 90 9 -10 100 10 -20 200 20 -20 200 20 [BONUS] Folosind funcția de la exercițiul anterior, să se scrie o funcție care ridica o matrice pătratică a (n x n) la puterea k, rezultatul fiind stocat în matricea b. void power_matrix(int n, int a[NMAX][NMAX], int k, int b[NMAX][NMAX]); Atenție! a, b pot reprezenta în memorie aceeași matrice: void multiply_matrix(n, n, n, a, a); Exemplu: int n = 4; int a[NMAX][NMAX] = { { 0, 1, 1, 1}, { 1, 1, 1, 1}, { 0, 10, 0, 0}, { 0, 10, 0, 0} }; a^2 = n = 4, m = 4: 1 21 1 1 1 22 2 2 10 10 10 10 10 10 10 10 a^10 = n = 4, m = 4: 1923434 11014355 2298075 2298075 2298075 12937789 2733889 2733889 4358140 22980750 5101950 5101950 4358140 22980750 5101950 5101950 Problemset (extra) Vă propunem să lucrați acasă probleme din PCLP Laborator04: Problemset (extra).","headline":"PCLP Laborator04 - Tablouri. Particularizare - vectori și matrici","mainEntityOfPage":{"@type":"WebPage","@id":"https://acs-pclp.github.io/laboratoare/04"},"url":"https://acs-pclp.github.io/laboratoare/04"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://acs-pclp.github.io/feed.xml" title="PCLP - CA, CB, CD" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">PCLP - CA, CB, CD</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <h1 id="pclp-laborator04-tablouri-particularizare-vectori-i-matrici">PCLP Laborator04: Tablouri. Particularizare: vectori și matrici</h1>
+<h2 id="obiective">Obiective</h2>
+<p>În acest laborator vom studia:</p>
+<ul>
+<li>tablouri in C - particularizare vectori și matrici</li>
+<li>(alocare statică): declarare, reprezentare în memorie, inițializare, citire/afișare</li>
+<li>algoritmi de bază pe vectori: parcurgeri, căutare liniară, sortare, cautare binară</li>
+<li>algoritmi de bază pe matrici: parcurgeri, operații matriciale (adunare, scădere, înmultire, putere, transpusă)</li>
+</ul>
+<p>De asemenea, vom exersa lucrul cu funcții. Vom încerca să modularizăm cât mai fin astfel să avem câte o funcție pentru fiecare operație.</p>
+<p><strong>HINT:</strong> Gândiți-vă cum organizați codul, astfel încât să reutilizați funcțiile implementate la exercițiile anterioare.</p>
+<h2 id="materiale-utile">Materiale utile</h2>
+<ul>
+<li>
+<p><a href="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab04">[OCW/Suport Teoretic pentru Laborator] Tablouri. Particularizare - vectori</a></p>
+</li>
+<li>
+<p><a href="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab04">[OCW/Suport Teoretic pentru Laborator] Tablouri. Particularizare - matrice</a></p>
+</li>
+</ul>
+<h2 id="exerciii">Exerciții</h2>
+<ol>
+<li>
+<p>a.    Realizați o funcție care primește ca parametru un vector <strong>v</strong>. Funcția va citi de la tastatură numărul de elemente și elementele. Elementele vor fi salvate în vector și va întoarce numărul de elemente.</p>
+<p>b.    Realizati o funcție care primește ca parametru un număr întreg  <strong>n</strong> și un vector <strong>v</strong>. Funcția va afișa pe ecran pe <strong>o singura linie</strong> toate elementele vectorului (<strong>despărțite prin spațiu</strong>).</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">v</span><span class="p">[</span><span class="n">NMAX</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">read_array</span><span class="p">(</span><span class="n">v</span><span class="p">);</span>      <span class="c1">// userul introduce numărul 5</span>
+                            <span class="c1">// apoi 5 elemente - spre exemplu 10 30 -1 4 5</span>
+                            <span class="c1">// functia returneaza cate elemente a citit</span>
+                            <span class="c1">// elementele citite se salvează în vectorul v</span>
+<span class="n">print_array</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>          <span class="c1">// va afisa pe ecran fix linia "10 30 -1 4 5\n"</span>
+</code></pre></div></div>
+</li>
+<li>
+<p>Realizați câte o funcție pentru fiecare din următoarele cerințe. Exemplele date se vor referi la vectorul cu elementele din exemplul de la exercițiul 1(<strong>n = 5, v = {10,30, -1, 4, 5}</strong>).</p>
+<p>a. Calcularea <strong>sumei elementelor</strong> dintr-un vector <strong>v</strong> cu <strong>n</strong> elemente</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">sum_array</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span> <span class="c1">// sum = 48, pentru ca 10 + 30 - 1 + 4 + 5 = 48</span>
+</code></pre></div></div>
+<p>b. Determinarea <strong>elementului minim</strong> dintr-un vector <strong>v</strong> cu <strong>n</strong> elemente</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">min</span> <span class="o">=</span> <span class="n">min_array</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span> <span class="c1">// min == -1, pentru ca -1 e cel mai mic element</span>
+</code></pre></div></div>
+<p>c. <strong>Poziția</strong> elementului <strong>maxim</strong> dintr-un vector <strong>v</strong> cu <strong>n</strong> elemente. Dacă elementul apare de mai multe ori, se va alege prima poziție a acestuia.</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">posmax</span> <span class="o">=</span> <span class="n">posmax_array</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span> <span class="c1">// posmax == 1, pentru ca 30 e cel mai mare element</span>
+</code></pre></div></div>
+<p>d. Calcularea mediei aritmetice a elementelor dintr-un vector cu n elemente</p>
+<p><strong>HINT</strong>: Ce funcție deja implementată e utilă? <strong>(Modularizare &amp; reutilizare)</strong></p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">double</span> <span class="n">avg</span> <span class="o">=</span> <span class="n">avg_array</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span> <span class="c1">// avg = 9.6</span>
+</code></pre></div></div>
+<p>e. <strong>Găsirea unui element</strong> într-un vector <strong>v</strong> cu <strong>n</strong> elemente. Se va căuta <strong>liniar</strong> de la stanga la dreapta pentru prima apariție a elementului x în vector. Se va returna poziția lui dacă exista (număr între <strong>0</strong>  și <strong>n - 1</strong>) sau <strong>-1</strong> dacă elementul nu exista în șir.</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">find_array</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span> <span class="p">;</span> <span class="c1">// pos == 1 (v[1] == 30)</span>
+<span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">find_array</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="p">;</span>  <span class="c1">// pos == 3 (v[3] == 4)</span>
+<span class="kt">int</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">find_array</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span> <span class="p">;</span> <span class="c1">// pos == -1 (elementul nu exista in sir)</span>
+</code></pre></div></div>
+</li>
+<li>
+<p>Implementați și testați algoritmul de sortare <strong>selection sort</strong>.</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sort_array</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span>
+<span class="n">print_array</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">v</span><span class="p">);</span> <span class="c1">// va afisa "-1 4 5 10 30"</span>
+</code></pre></div></div>
+</li>
+<li>
+<p>Scrieți o funcție care să înmulțească 2 matrice <strong>a</strong> și <strong>b</strong> (dimensiuni <strong>n</strong>, <strong>m</strong>, <strong>p</strong>). Rezultatul se va stoca în matricea <strong>c</strong>, care are dimensiunile <strong>n</strong> x <strong>p</strong>.</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">multiply_matrix</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">,</span> <span class="kt">int</span> <span class="n">p</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">NMAX</span><span class="p">][</span><span class="n">NMAX</span><span class="p">],</span>
+    <span class="kt">int</span> <span class="n">b</span><span class="p">[</span><span class="n">NMAX</span><span class="p">][</span><span class="n">NMAX</span><span class="p">],</span> <span class="kt">int</span> <span class="n">c</span><span class="p">[</span><span class="n">NMAX</span><span class="p">][</span><span class="n">NMAX</span><span class="p">]);</span>
+</code></pre></div></div>
+<p><strong>Atenție!</strong> a, b, c pot reprezenta în memorie aceeași matrice:</p>
+<p><code>multiply_matrix(n, n, n, a, a, a);</code></p>
+<p><strong>Exemplu:</strong></p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">NMAX</span><span class="p">][</span><span class="n">NMAX</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">},</span>
+    <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="n">b</span><span class="p">[</span><span class="n">NMAX</span><span class="p">][</span><span class="n">NMAX</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span>  <span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span>  <span class="mi">2</span><span class="p">},</span>
+    <span class="p">{</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span>  <span class="mi">3</span><span class="p">},</span>
+    <span class="p">{</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span>  <span class="mi">4</span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">A</span> <span class="o">*</span> <span class="n">B</span> <span class="o">=</span>
+<span class="o">-</span><span class="mi">9</span>        <span class="mi">90</span>         <span class="mi">9</span>
+<span class="o">-</span><span class="mi">10</span>       <span class="mi">100</span>        <span class="mi">10</span>
+<span class="o">-</span><span class="mi">20</span>       <span class="mi">200</span>        <span class="mi">20</span>
+<span class="o">-</span><span class="mi">20</span>       <span class="mi">200</span>        <span class="mi">20</span>
+</code></pre></div></div>
+</li>
+<li>
+<p><strong>[BONUS]</strong> Folosind funcția de la exercițiul anterior, să se scrie o funcție care ridica o matrice pătratică
+a (n x n) la puterea k, rezultatul fiind stocat în matricea b.</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">power_matrix</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">NMAX</span><span class="p">][</span><span class="n">NMAX</span><span class="p">],</span> <span class="kt">int</span> <span class="n">k</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">[</span><span class="n">NMAX</span><span class="p">][</span><span class="n">NMAX</span><span class="p">]);</span>
+</code></pre></div></div>
+<p><strong>Atenție!</strong> a, b pot reprezenta în memorie aceeași matrice:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">multiply_matrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+</code></pre></div></div>
+<p><strong>Exemplu:</strong></p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="n">NMAX</span><span class="p">][</span><span class="n">NMAX</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">1</span><span class="p">},</span>
+    <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">},</span>
+    <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">a</span><span class="o">^</span><span class="mi">2</span> <span class="o">=</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">4</span><span class="o">:</span>
+        <span class="mi">1</span>        <span class="mi">21</span>         <span class="mi">1</span>         <span class="mi">1</span>
+        <span class="mi">1</span>        <span class="mi">22</span>         <span class="mi">2</span>         <span class="mi">2</span>
+        <span class="mi">10</span>       <span class="mi">10</span>        <span class="mi">10</span>        <span class="mi">10</span>
+        <span class="mi">10</span>       <span class="mi">10</span>        <span class="mi">10</span>        <span class="mi">10</span>
+
+<span class="n">a</span><span class="o">^</span><span class="mi">10</span> <span class="o">=</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">4</span><span class="o">:</span>
+<span class="mi">1923434</span>  <span class="mi">11014355</span>   <span class="mi">2298075</span>   <span class="mi">2298075</span>
+<span class="mi">2298075</span>  <span class="mi">12937789</span>   <span class="mi">2733889</span>   <span class="mi">2733889</span>
+<span class="mi">4358140</span>  <span class="mi">22980750</span>   <span class="mi">5101950</span>   <span class="mi">5101950</span>
+<span class="mi">4358140</span>  <span class="mi">22980750</span>   <span class="mi">5101950</span>   <span class="mi">5101950</span>
+</code></pre></div></div>
+</li>
+</ol>
+<h2 id="problemset-extra">Problemset (extra)</h2>
+<p>Vă propunem să lucrați acasă probleme din <a href="https://acs-pclp.github.io/problemset/04">PCLP Laborator04: Problemset (extra)</a>.</p>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">PCLP - CA, CB, CD</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">PCLP - CA, CB, CD</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>https://acs-pclp.github.io/</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

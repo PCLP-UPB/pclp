@@ -1,0 +1,58 @@
+id: lab09-p06-hexdump
+lab: lab09
+number: 6
+title: "hexdump -C în C"
+difficulty: 3
+estimated_minutes: 35
+concepts: [fișier binar, fread, hexdump, fopen, fclose, buffer]
+statement: |
+  Scrie o clonă a comenzii `hexdump -C`: programul afișează conținutul unui fișier oarecare,
+  octet cu octet, câte 16 octeți pe linie.
+
+  **Date de intrare**
+
+  Pe stdin, o linie cu numele fișierului (fără spații).
+
+  **Date de ieșire**
+
+  Pentru fiecare grup de (cel mult) 16 octeți consecutivi se afișează o linie formată din:
+
+  1. offsetul primului octet din grup, în hexazecimal, pe 8 cifre (`%08lx`), urmat de **două** spații;
+  2. pentru fiecare poziție `i = 0..15`: octetul în hexa pe 2 cifre (litere mici) urmat de un spațiu,
+     sau **trei spații** dacă grupul are mai puțin de `i + 1` octeți; după poziția 7 se mai adaugă un spațiu;
+  3. un spațiu, caracterul `|`, reprezentarea textuală a octeților din grup (octeții 32..126 apar ca
+     atare, toți ceilalți ca `.`) și caracterul `|`.
+
+  După ultima linie (sau direct, pentru un fișier gol) se afișează dimensiunea fișierului
+  în hexazecimal, pe 8 cifre. Nu se face comprimarea liniilor identice (`*`) pe care o face `hexdump`.
+
+  Dacă fișierul nu poate fi deschis: `Eroare: nu pot deschide fisierul <nume>`.
+
+  **Restricții**
+
+  - fișierul are cel mult 10^6 octeți și poate conține orice valori (inclusiv 0).
+
+  **Exemplu**
+
+  Fișierul `salut.bin` are 21 de octeți: textul `Salut, PCLP!`, un caracter `'\n'`,
+  octeții cu valorile 0, 1, 2, 255, 127 și apoi textul `ABC`.
+
+  Intrare (stdin):
+  ```
+  salut.bin
+  ```
+
+  Ieșire (stdout):
+  ```
+  00000000  53 61 6c 75 74 2c 20 50  43 4c 50 21 0a 00 01 02  |Salut, PCLP!....|
+  00000010  ff 7f 41 42 43                                    |..ABC|
+  00000015
+  ```
+hints:
+  - "Fișierul poate conține orice octet, deci trebuie deschis în mod binar și citit în blocuri, nu cu funcții pentru text (fgets se oprește la '\\n', iar un octet 0 ar „tăia” șirul)."
+  - "fread(buf, 1, 16, f) întoarce câți octeți a citit efectiv: 16 pentru liniile pline, mai puțin pentru ultima. Folosește acest număr și pentru completarea cu spații, și pentru actualizarea offsetului."
+  - "Pseudocod: offset = 0; cât timp (n = fread(buf, 1, 16, f)) > 0: afișează offset; pentru i de la 0 la 15 afișează buf[i] cu %02x sau 3 spații, plus un spațiu extra după i == 7; afișează \" |\", caracterele (printabil sau '.'), \"|\\n\"; offset += n. La final afișează offset cu %08lx."
+pitfalls:
+  - "Bufferul trebuie să fie unsigned char: un char cu semn afișat cu %02x ar da ffffffff pentru octeții ≥ 0x80."
+  - "Deschiderea cu \"r\" în loc de \"rb\" poate modifica octeții CR-LF pe Windows."
+  - "Ultima linie incompletă trebuie completată cu spații, altfel coloana | nu mai este aliniată și ieșirea nu corespunde."

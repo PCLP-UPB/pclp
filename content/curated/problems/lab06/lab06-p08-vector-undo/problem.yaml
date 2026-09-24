@@ -1,0 +1,87 @@
+id: lab06-p08-vector-undo
+lab: lab06
+number: 8
+title: "Vector extensibil cu anulare"
+difficulty: 4
+estimated_minutes: 60
+concepts: [vector extensibil, dublarea capacității, realloc, pointer la pointer, realocare prin pointer auxiliar, parametru de tip pointer]
+statement: |
+  Implementați un vector de întregi care își gestionează singur memoria și care permite **anularea** (undo) operațiilor. Vectorul este descris de trei variabile din `main`: `int *v` (zona alocată), `int size` (elemente folosite) și `int cap` (elemente alocate). Inițial `v = NULL`, `size = cap = 0`.
+
+  **Politica de capacitate** (trebuie respectată exact):
+
+  - la adăugare, dacă `size == cap`, capacitatea devine 2 (dacă era 0) sau se dublează;
+  - după scoaterea unui element, dacă `cap > 2` și `size <= cap / 4` (împărțire întreagă), capacitatea se înjumătățește.
+
+  Implementați și folosiți:
+
+  ```c
+  int vec_adauga(int **v, int *size, int *cap, int x);           /* 1 = succes, 0 = eroare de alocare */
+  int vec_scoate(int **v, int *size, int *cap, int *x);          /* 1 = succes, 0 = vector gol */
+  ```
+
+  Comenzi (pozițiile sunt numerotate de la 1):
+
+  | comandă | efect |
+  |---|---|
+  | `A x` | adaugă `x` la final |
+  | `P` | scoate ultimul element și îl afișează; dacă vectorul e gol, afișează `EROARE` |
+  | `G i` | afișează elementul de pe poziția `i` sau `EROARE` dacă nu există |
+  | `S i x` | înlocuiește elementul de pe poziția `i` cu `x`; `EROARE` dacă poziția nu există |
+  | `U` | anulează cea mai recentă operație `A`, `P` sau `S` reușită care nu a fost încă anulată; `EROARE` dacă nu există |
+  | `T` | afișează `size=<size> cap=<cap>` |
+
+  Anularea unui `A` scoate elementul adăugat, anularea unui `P` adaugă la loc elementul scos, anularea unui `S` pune la loc valoarea veche. Anulările respectă aceeași politică de capacitate și nu pot fi ele însele anulate. Operațiile eșuate (cu `EROARE`) nu intră în istoric.
+
+  Istoricul se păstrează tot într-un vector alocat dinamic (de exemplu, câte trei întregi per operație). Nu folosiți structuri.
+
+  **Date de intrare**
+
+  Pe prima linie `q`, apoi `q` comenzi, câte una pe linie.
+
+  **Date de ieșire**
+
+  Rezultatele comenzilor `P`, `G`, `T` și mesajele `EROARE`, câte unul pe linie.
+
+  **Restricții**
+
+  - `1 ≤ q ≤ 20000`; valorile sunt întregi din `[-10^6, 10^6]`; pozițiile sunt întregi din `[-10, 30000]`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  14
+  A 5
+  A 8
+  A 13
+  T
+  S 2 80
+  G 2
+  P
+  T
+  U
+  U
+  G 2
+  U
+  U
+  T
+  ```
+
+  Ieșire:
+  ```
+  size=3 cap=4
+  80
+  13
+  size=2 cap=4
+  8
+  size=1 cap=2
+  ```
+hints:
+  - "Funcțiile trebuie să poată schimba pointerul `v` din `main` (când `realloc` mută zona), deci primesc adresa lui: `int **v`. În interior, elementul `k` este `(*v)[k]`."
+  - "Pentru UNDO memorează, la fiecare operație reușită, ce trebuie făcut ca să o anulezi: tipul operației, poziția și valoarea veche. Istoricul e o stivă: UNDO ia ultima intrare și o elimină."
+  - "Pseudocod vec_scoate: dacă *size == 0 returnează 0; (*size)--; *x = (*v)[*size]; dacă *cap > 2 și *size <= *cap / 4: tmp = realloc(*v, (*cap / 2) * sizeof(int)); dacă tmp != NULL: *v = tmp; *cap /= 2. Returnează 1. UNDO pentru A = vec_scoate; pentru P = vec_adauga(valoarea scoasă); pentru S = restaurare directă."
+pitfalls:
+  - "`*v[k]` înseamnă `*(v[k])` — pentru elementul `k` al vectorului scrie `(*v)[k]`."
+  - "Dacă funcția primește `int *v` în loc de `int **v`, după un `realloc` care mută zona, `main` rămâne cu adresa veche (eliberată)."
+  - "La final eliberează ambii vectori: datele și istoricul."

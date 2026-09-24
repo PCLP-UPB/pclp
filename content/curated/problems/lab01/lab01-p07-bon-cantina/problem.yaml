@@ -1,0 +1,66 @@
+id: lab01-p07-bon-cantina
+lab: lab01
+number: 7
+title: "Bonul de la cantină"
+difficulty: 3
+estimated_minutes: 25
+concepts: [printf, lățime de afișare, precizie de afișare, aliniere la stânga, double]
+statement: |
+  Cantina facultății vrea să tipărească bonuri frumos aliniate. Meniul zilei are trei
+  produse, în această ordine: `Ciorba`, `Snitel cu piure`, `Clatite`. Pentru fiecare se
+  citesc cantitatea și prețul unitar. Studenții primesc o reducere de 10% din total.
+
+  **Date de intrare**
+
+  Trei linii, câte una pentru fiecare produs (în ordinea de mai sus). Fiecare linie
+  conține un număr natural `q` (cantitatea) și un număr real `p` (prețul unitar, în lei).
+
+  **Date de ieșire**
+
+  Bonul are 9 linii:
+
+  1. textul `CANTINA POLITEHNICA`;
+  2. o linie formată din 39 de caractere `-`;
+  3. – 5. câte o linie pentru fiecare produs, formată din: numele produsului aliniat la
+     stânga într-un câmp de 16 caractere, cantitatea aliniată la dreapta într-un câmp de
+     3 caractere, textul ` x `, prețul unitar într-un câmp de 6 caractere cu 2 zecimale,
+     textul ` = `, apoi valoarea `q · p` într-un câmp de 8 caractere cu 2 zecimale;
+  6. din nou 39 de caractere `-`;
+  7. – 9. trei linii formate dintr-o etichetă aliniată la stânga într-un câmp de
+     31 de caractere, urmată de o sumă într-un câmp de 8 caractere cu 2 zecimale:
+     - `TOTAL` — suma valorilor celor trei produse;
+     - `Reducere student 10%` — minus 10% din total (valoare negativă);
+     - `DE PLATA` — totalul după reducere.
+
+  **Restricții**
+
+  - `1 ≤ q ≤ 20`
+  - `0.5 ≤ p ≤ 99.9`, cu cel mult o zecimală
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  2 8.5
+  1 17
+  3 6.5
+  ```
+
+  Ieșire:
+  ```
+  CANTINA POLITEHNICA
+  ---------------------------------------
+  Ciorba            2 x   8.50 =    17.00
+  Snitel cu piure   1 x  17.00 =    17.00
+  Clatite           3 x   6.50 =    19.50
+  ---------------------------------------
+  TOTAL                             53.50
+  Reducere student 10%              -5.35
+  DE PLATA                          48.15
+  ```
+hints:
+  - "Toată dificultatea stă în specificatorii de format: lățimea (numărul de caractere ocupate), precizia (numărul de zecimale) și alinierea."
+  - "Un număr între % și literă dă lățimea minimă; un - în față aliniază la stânga; .2 după lățime fixează două zecimale. %s poate afișa și un text constant, aliniat într-un câmp."
+  - "Numără caracterele: 16 + 3 + 3 (\" x \") + 6 + 3 (\" = \") + 8 = 39, exact cât linia de liniuțe. Liniile de la final: 31 + 8 = 39."
+pitfalls:
+  - "Reducerea se afișează cu semnul minus, în același câmp de 8 caractere."

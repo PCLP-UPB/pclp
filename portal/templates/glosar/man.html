@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ p.name }}({{ p.section }}){% endblock %}
+{% block bodyclass %}panelmode{% endblock %}
+{% block mainclass %}wide{% endblock %}
+{% block content %}
+<div class="three">
+  <nav class="side">
+    <div class="kicker" style="margin:4px 8px 6px"><a href="/man/">← Manualul C</a></div>
+    <ul class="toc">{% for s in p.sections %}<li class="lv1"><a href="#s-{{ s.id }}" data-sec="{{ s.id }}">{{ s.title }}</a></li>{% endfor %}</ul>
+  </nav>
+  <article class="text man explainable" data-unit="">
+    <div class="kicker">Pagină de manual · secțiunea {{ p.section }}</div>
+    <h1><code>{{ p.name }}({{ p.section }})</code></h1>
+    <p>{{ p.summary }}</p>
+    <p>În terminal: <span class="cmd">{{ p.command }}</span> {% if concept %}· Concept la curs: <a href="/termen/{{ concept.id }}/" data-panel="{{ concept.id }}">{{ concept.label }}</a>{% endif %}</p>
+    {% for s in p.sections %}
+      <h2 class="rh" id="s-{{ s.id }}" data-sec="{{ s.id }}">{{ s.title }}</h2>
+      <div>{{ s.html|safe }}</div>
+    {% endfor %}
+    <p class="muted small">Text din proiectul Linux man-pages (și POSIX Programmer's Manual pentru fișierele antet), generat cu mandoc din pachetele instalate în container.</p>
+  </article>
+  <aside class="side rightcol"><div id="panel" class="panel"><p class="muted small">Identificatorii subliniați sunt concepte ale cursului — clic ca să vezi definiția în română. Selectează un termen englezesc ca să ți-l explice AI-ul.</p></div></aside>
+</div>
+{% endblock %}

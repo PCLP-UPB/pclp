@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "PCLP: depanează fișierul curent (gdb)",
+      "type": "gdb",
+      "request": "launch",
+      "target": "${fileDirname}/${fileBasenameNoExtension}",
+      "cwd": "${fileDirname}",
+      "valuesFormatting": "prettyPrinters",
+      "arguments": "",
+      "preLaunchTask": "PCLP: compilează fișierul curent"
+    }
+  ]
+}

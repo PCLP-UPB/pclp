@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>PCLP Laborator11 - Parametrii liniei de comandă. Preprocesorul. Funcții cu număr variabil de parametri. Opțiuni de compilare | PCLP - CA, CB, CD</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="PCLP Laborator11 - Parametrii liniei de comandă. Preprocesorul. Funcții cu număr variabil de parametri. Opțiuni de compilare" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="PCLP Laborator11: Parametrii liniei de comandă. Preprocesorul. Funcții cu număr variabil de parametri. Opțiuni de compilare" />
+<meta property="og:description" content="PCLP Laborator11: Parametrii liniei de comandă. Preprocesorul. Funcții cu număr variabil de parametri. Opțiuni de compilare" />
+<link rel="canonical" href="https://acs-pclp.github.io/laboratoare/11" />
+<meta property="og:url" content="https://acs-pclp.github.io/laboratoare/11" />
+<meta property="og:site_name" content="PCLP - CA, CB, CD" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-01-12T00:01:20+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="PCLP Laborator11 - Parametrii liniei de comandă. Preprocesorul. Funcții cu număr variabil de parametri. Opțiuni de compilare" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-01-12T00:01:20+00:00","datePublished":"2026-01-12T00:01:20+00:00","description":"PCLP Laborator11: Parametrii liniei de comandă. Preprocesorul. Funcții cu număr variabil de parametri. Opțiuni de compilare","headline":"PCLP Laborator11 - Parametrii liniei de comandă. Preprocesorul. Funcții cu număr variabil de parametri. Opțiuni de compilare","mainEntityOfPage":{"@type":"WebPage","@id":"https://acs-pclp.github.io/laboratoare/11"},"url":"https://acs-pclp.github.io/laboratoare/11"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://acs-pclp.github.io/feed.xml" title="PCLP - CA, CB, CD" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">PCLP - CA, CB, CD</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <h1 id="pclp-laborator11-parametrii-liniei-de-comand-preprocesorul-funcii-cu-numr-variabil-de-parametri-opiuni-de-compilare">PCLP Laborator11: Parametrii liniei de comandă. Preprocesorul. Funcții cu număr variabil de parametri. Opțiuni de compilare</h1>
+<h2 id="obiective">Obiective</h2>
+<p>În acest laborator vom studia:</p>
+<ul>
+<li>cum putem primi/procesa parametrii în linie de comandă într-un program C;</li>
+<li>preprocesor - macro-uri: definire, folosire, practici de urmat;</li>
+<li>preprocesor - compilare conditionată, organizarea unui proiect în fișiere headere și sursă, includere multiplă.</li>
+</ul>
+<blockquote>
+<p>De fiecare dată când uitați sa eliberați memoria sau să închideți un fișier, un ponei moare.
+Aveți grijă de ei!</p>
+</blockquote>
+<h2 id="materiale-utile">Materiale utile</h2>
+<ul>
+<li><a href="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab11">[OCW/Suport Teoretic pentru Laborator] Parametrii liniei de comandă. Preprocesorul. Funcții cu număr variabil de parametri. Opțiuni de compilare</a></li>
+</ul>
+<h2 id="exerciii">Exerciții</h2>
+<ol>
+<li>
+<p>Să se realizeze un program care să afișeze numărul și parametrii liniei de comandă primiți.
+<code>Hint</code>: <a href="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab11#parametrii_liniei_de_comanda">Exemplul1</a></p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp"># presupunem existența executabilului gigel
+</span>
+<span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">gigel</span> <span class="n">e</span> <span class="n">pe</span> <span class="n">val</span><span class="o">!</span> <span class="n">_2020</span>
+<span class="n">argc</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">.</span><span class="o">/</span><span class="n">gigel</span>
+<span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">e</span>
+<span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">pe</span>
+<span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="o">!</span>
+<span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">_2020</span>
+</code></pre></div></div>
+</li>
+<li>
+<p>Scrieți un program C care primește argumente în linia de comandă.
+Acesta trebuie să respecte următoarele reguli:</p>
+<ul>
+<li>Numele executabilului va fi <code>gigel</code>.</li>
+<li>Primește cel puțin <code>2 argumente</code> în linia de comandă.
+În caz contrar, se va afișa la <code>stderr</code> mesajul <code>Gigele, cel putin doua!</code>, iar programul se va termina cu codul de ieșire 2.</li>
+<li>Dacă lista de argumente conține stringuri care nu reprezinta numere întregi fără semn, se va afișa la <code>stderr</code> mesajul <code>Gigele, da-mi numere naturale!</code>.
+În acest caz, programul va ieși cu valoarea -1.</li>
+<li>Dacă nu s-a întâlnit o eroare menționată anterior:
+<ul>
+<li>Lista de argumente reprezintă un șir de numere naturale (unsigned int).
+Se cere sortarea listei folosind functia qsort .</li>
+<li>Se afișează lista pe ecran.</li>
+<li>Programul va ieși cu codul 0</li>
+</ul>
+</li>
+</ul>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">darius</span><span class="err">@</span><span class="n">pc</span><span class="o">:</span><span class="err">$</span> <span class="n">gcc</span> <span class="n">gigel</span><span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="n">gigel</span>
+
+<span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">gigel</span>
+<span class="n">Gigele</span><span class="p">,</span> <span class="n">cel</span> <span class="n">putin</span> <span class="n">doua</span><span class="o">!</span>
+<span class="n">darius</span><span class="err">@</span><span class="n">pc</span><span class="o">:</span><span class="err">$</span> <span class="n">echo</span> <span class="err">$</span><span class="o">?</span>
+<span class="mi">2</span>
+
+<span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">gigel</span> <span class="n">e</span>
+<span class="n">Gigele</span><span class="p">,</span> <span class="n">cel</span> <span class="n">putin</span> <span class="n">doua</span><span class="o">!</span>
+<span class="n">darius</span><span class="err">@</span><span class="n">pc</span><span class="o">:</span><span class="err">$</span> <span class="n">echo</span> <span class="err">$</span><span class="o">?</span>
+<span class="mi">2</span>
+
+<span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">gigel</span> <span class="n">e</span> <span class="n">pe</span>
+<span class="n">Gigele</span><span class="p">,</span> <span class="n">da</span><span class="o">-</span><span class="n">mi</span> <span class="n">numere</span> <span class="n">naturale</span><span class="o">!</span>
+<span class="n">darius</span><span class="err">@</span><span class="n">pc</span><span class="o">:</span><span class="err">$</span> <span class="n">echo</span> <span class="err">$</span><span class="o">?</span>
+<span class="mi">255</span>
+
+<span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">gigel</span> <span class="mi">1</span> <span class="mi">2</span>
+<span class="mi">1</span> <span class="mi">2</span>
+<span class="n">darius</span><span class="err">@</span><span class="n">pc</span><span class="o">:</span><span class="err">$</span> <span class="n">echo</span> <span class="err">$</span><span class="o">?</span>
+<span class="mi">0</span>
+
+<span class="n">darius</span><span class="err">@</span><span class="n">pc</span><span class="o">:</span><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">gigel</span> <span class="mi">20</span> <span class="mi">10</span> <span class="mi">234</span>
+<span class="mi">10</span> <span class="mi">20</span> <span class="mi">234</span>
+<span class="n">darius</span><span class="err">@</span><span class="n">pc</span><span class="o">:</span><span class="err">$</span> <span class="n">echo</span> <span class="err">$</span><span class="o">?</span>
+<span class="mi">0</span>
+
+<span class="n">darius</span><span class="err">@</span><span class="n">pc</span><span class="o">:</span><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">gigel</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span><span class="mi">2</span>
+<span class="n">Gigele</span><span class="p">,</span> <span class="n">da</span><span class="o">-</span><span class="n">mi</span> <span class="n">numere</span> <span class="n">naturale</span><span class="o">!</span>
+<span class="n">darius</span><span class="err">@</span><span class="n">pc</span><span class="o">:</span><span class="err">$</span> <span class="n">echo</span> <span class="err">$</span><span class="o">?</span>
+<span class="mi">255</span>
+</code></pre></div></div>
+</li>
+<li>
+<p>Realizați un macro <code>SWAP(x, y)</code>.</p>
+<p><code>Hint</code>: Puteți folosi <code>sizeof</code> pentru a determina câtă memorie este necesara pentru variabila de interschimbare. De asemenea, puteți consulta și <a href="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab11#parametrii_liniei_de_comanda">Exemplul 5</a>.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">test_int</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// interschimbare variabile de tip int</span>
+    <span class="kt">int</span> <span class="n">xi</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">yi</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%d %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">);</span>
+    <span class="n">SWAP</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%d %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">test_char</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// interschimbare variabile de tip char</span>
+    <span class="kt">char</span> <span class="n">xc</span> <span class="o">=</span> <span class="sc">'A'</span><span class="p">,</span> <span class="n">yc</span> <span class="o">=</span> <span class="sc">'B'</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%c %c</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">);</span>
+    <span class="n">SWAP</span><span class="p">(</span><span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%c %c</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">xc</span><span class="p">,</span> <span class="n">yc</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">test_ptr</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// interschimbare variabile de tip char*</span>
+    <span class="kt">char</span><span class="o">*</span> <span class="n">xs</span> <span class="o">=</span> <span class="s">"GIGEL"</span><span class="p">,</span> <span class="o">*</span><span class="n">ys</span> <span class="o">=</span> <span class="s">"NOT GIGEL"</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%s %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">);</span>
+    <span class="n">SWAP</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%s %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">test_struct</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// interschimbare variabile de tip struct</span>
+    <span class="n">student_t</span> <span class="n">xstud</span><span class="p">,</span> <span class="n">ystud</span><span class="p">;</span>
+    <span class="c1">// citire xstud, ystud</span>
+    <span class="c1">// afisare xstud, ystud</span>
+    <span class="n">SWAP</span><span class="p">(</span><span class="n">xstud</span><span class="p">,</span> <span class="n">ystud</span><span class="p">);</span>
+    <span class="c1">// afisare xstud, ystud</span>
+<span class="p">}</span>
+</code></pre></div></div>
+</li>
+<li>
+<p>Modificați programul de la <code>exercițiul 2</code> astfel încât dacă la compilare este definit un anumit simbol, lista va fi sortată crescător sau descrescător.</p>
+<p>Folosiți o directivă <code>#error</code> pentru a preveni compilarea programului dacă niciunul dintre simboluri nu este definit.</p>
+<p><code>Hint</code>: Pentru acest exercițiu, s-ar putea să vă fie utile directivele <code>#ifdef</code> sau <code>#ifndef</code>.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp"># daca nu se defineste un simbol, programul nu va compila
+</span><span class="n">darius</span><span class="err">@</span><span class="n">pc</span><span class="o">:</span><span class="err">$</span> <span class="n">gcc</span> <span class="n">gigel</span><span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="n">gigel</span>
+<span class="n">gigel</span><span class="p">.</span><span class="n">c</span><span class="o">:</span> <span class="n">In</span> <span class="n">function</span> <span class="err">'</span><span class="n">cmp</span><span class="err">'</span><span class="o">:</span>
+<span class="n">gigel</span><span class="p">.</span><span class="n">c</span><span class="o">:</span><span class="mi">21</span><span class="o">:</span><span class="mi">3</span><span class="o">:</span> <span class="n">error</span><span class="o">:</span> <span class="err">#</span><span class="n">error</span> <span class="s">"Please define SORT_ASC or SORT_DESC"</span>
+<span class="mi">21</span> <span class="o">|</span>  <span class="err">#</span><span class="n">error</span> <span class="s">"Please define SORT_ASC or SORT_DESC"</span>
+    <span class="o">|</span>   <span class="o">^~~~~</span>
+
+<span class="cp"># daca se defineste SORT_ASC, programul va compila
+</span><span class="n">darius</span><span class="err">@</span><span class="n">pc</span><span class="o">:/</span><span class="n">darius</span><span class="o">/</span><span class="n">git</span><span class="o">/</span><span class="n">pc</span><span class="o">/</span><span class="n">lab</span><span class="o">/</span><span class="n">lab13</span><span class="err">$</span> <span class="n">gcc</span> <span class="n">gigel</span><span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="n">gigel</span> <span class="o">-</span><span class="n">DSORT_ASC</span>
+<span class="cp"># lista afisata este sortata crescator
+</span><span class="n">darius</span><span class="err">@</span><span class="n">pc</span><span class="o">:/</span><span class="n">darius</span><span class="o">/</span><span class="n">git</span><span class="o">/</span><span class="n">pc</span><span class="o">/</span><span class="n">lab</span><span class="o">/</span><span class="n">lab13</span><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">gigel</span> <span class="mi">30</span> <span class="mi">20</span> <span class="mi">10</span> <span class="mi">20</span> <span class="mi">30</span>
+<span class="mi">10</span> <span class="mi">20</span> <span class="mi">20</span> <span class="mi">30</span> <span class="mi">30</span>
+
+<span class="cp"># daca se defineste SORT_DESC, programul va compila
+</span><span class="n">darius</span><span class="err">@</span><span class="n">pc</span><span class="o">:/</span><span class="n">darius</span><span class="o">/</span><span class="n">git</span><span class="o">/</span><span class="n">pc</span><span class="o">/</span><span class="n">lab</span><span class="o">/</span><span class="n">lab13</span><span class="err">$</span> <span class="n">gcc</span> <span class="n">gigel</span><span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="n">gigel</span> <span class="o">-</span><span class="n">DSORT_DESC</span>
+<span class="cp"># lista afisata este sortata descrescator
+</span><span class="n">darius</span><span class="err">@</span><span class="n">pc</span><span class="o">:/</span><span class="n">darius</span><span class="o">/</span><span class="n">git</span><span class="o">/</span><span class="n">pc</span><span class="o">/</span><span class="n">lab</span><span class="o">/</span><span class="n">lab13</span><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">gigel</span> <span class="mi">30</span> <span class="mi">20</span> <span class="mi">10</span> <span class="mi">20</span> <span class="mi">30</span>
+<span class="mi">30</span> <span class="mi">30</span> <span class="mi">20</span> <span class="mi">20</span> <span class="mi">10</span>
+</code></pre></div></div>
+</li>
+<li>
+<p>Analizați împreună cu asistentul <a href="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab05#studiu_de_caz">exemplul funcției listf de pe ocw</a>.</p>
+</li>
+</ol>
+<p>    a. Rulați programul dat în exemplu.</p>
+<p>    b. Modificați programul anterior a.i. să apelați funcția listf pentru a afișa valorile corespunzătoare pentru următoarele funcții matematice:</p>
+<p>      i. <code>sin</code></p>
+<p>      ii. <code>cos</code></p>
+<p>      iii. <code>exp</code></p>
+<p>      iv. <code>log10</code></p>
+<p>      v. <code>sqrt</code></p>
+<p>      vi. <code>fabs</code></p>
+<p><strong>ATENȚIE</strong>! Se dorește implementarea unei soluții modularizate, de aceea <strong>obligatoriu</strong> se va defini un vector de pointeri la funcții.
+Orice altă soluție nu se va puncta.</p>
+<ol>
+<li>Realizați implementarea funcției cu număr variabil de parametri numită <code>gcd</code>, care să permită aflarea celui mai mare divizor comun (gcd) al parametrilor dați (cel puțin două elemente care sunt numere naturale).
+Puteți presupune că lista se termină cu un număr negativ.</li>
+</ol>
+<p><strong>Hint</strong>: Exemplu 8 din teoria indicată de pe ocw.</p>
+<p><strong>Exemplu</strong>:</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">gcd</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+<span class="c1">// va printa 5 pentru ca gcd(5, 10) = 5</span>
+
+<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">gcd</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+<span class="c1">// va printa 1 pentru ca gcd(5, 10, 2, 100) = 1</span>
+
+<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">gcd</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+<span class="c1">// va printa 5 pentru ca gcd(500, 10, 25, 75) = 5</span>
+
+<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">gcd</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">2048</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+<span class="c1">// va printa 16 pentru ca gcd(1024, 48, 64, 256, 2048) = 16</span>
+</code></pre></div></div>
+<h2 id="problemset-extra">Problemset (extra)</h2>
+<p>Vă propunem să lucrați acasă probleme din <a href="https://acs-pclp.github.io/problemset/11">PCLP Laborator11: Problemset (extra)</a>.</p>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">PCLP - CA, CB, CD</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">PCLP - CA, CB, CD</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>https://acs-pclp.github.io/</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

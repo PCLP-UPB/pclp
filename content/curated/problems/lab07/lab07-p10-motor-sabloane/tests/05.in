@@ -1,0 +1,307 @@
+6
+a=Bucuresti
+b=ion ION iOn
+nume=
+oras=12345
+cod=  spatii  
+x1=abc def ghi
+{{nume|rev|upper|lower}}} ok, ok, 
+- 
+} {{cod|bad}}{ {{lipsa|bad}}
+{ { ok, {{nume|bad|upper}}{ {{lipsa|lower|lower}}
+- } {{oras}}
+
+{{b}}{{oras|lower|upper|len}}text 
+{ text text - } 
+{{lipsa|bad|lower|cap}}{{cod}}} {{cod|lower|cap}}{{lipsa|cap|rev|bad}}
+{{cod|len}}{{cod}}text ok, ok, {{b|lower|bad|upper}}
+{{oras|cap|bad}}
+{{lipsa|lower}}ok, {{a|rev|cap}}{ - - 
+{{x1|lower|len|lower}}{{x1|lower|rev|bad}}
+- text - 
+{ {{lipsa|lower}}{{a|rev|cap|cap}}} {{b|bad|bad}}- 
+
+ok, {{lipsa|rev}}
+{{cod|len|upper|bad}}{{nume|upper}}{ } 
+{ { 
+{ {{lipsa|upper|bad}}} text - 
+{{x1|bad|cap}}{{oras}}
+text text {{a|rev|bad}}{{x1|upper|cap|len}}{ } 
+{ {{nume}}{ {{lipsa|lower|len}}{{x1}}
+} 
+{{a|upper|rev|lower}}text 
+- {{x1}}{ 
+{{lipsa}}{{x1|cap|rev|len}}{ {{oras|upper}}} 
+text text text {{x1}}{ {{lipsa|len}}
+{{a|rev|cap}}{{a|rev}}{{a|lower}}{{nume|lower|cap|upper}}
+{{b|bad}}- {{a|len}}ok, } {{a|upper}}
+- {{oras}}- } 
+{{cod|rev}}
+
+ok, {{x1|rev}}text ok, 
+text ok, ok, 
+{{lipsa|cap}}- 
+ok, { { {{oras|len|upper}}
+{{nume|len|bad}}ok, 
+
+{{lipsa}}{{x1|bad|upper}}{{oras|len|rev|rev}}} 
+{{a|len|lower|rev}}{{cod}}
+- } 
+text {{b}}{{oras|len}}
+
+{{b}}{{b|cap|rev|upper}}{{lipsa|lower|upper|cap}}ok, {{nume|bad|cap}}} 
+ok, text text {{cod|upper|lower}}{{b|rev}}
+- - {{nume}}text } 
+{{oras|len}}{{lipsa|rev|len|bad}}{{x1}}ok, ok, ok, 
+ok, } text {{b|rev|bad|cap}}{{oras|rev|len|upper}}{{oras}}
+- { text } {{cod|lower|lower}}
+ok, {{oras|upper}}
+{{b|lower|cap|lower}}{{lipsa}}{{oras|len|upper}}{{oras|cap}}
+{{x1}}{ {{a|bad|rev|lower}}{{a|lower}}ok, {{x1|cap}}
+{{nume|lower|lower|upper}}ok, 
+- ok, { {{a|upper|cap|rev}}{ - 
+{{nume}}{{nume}}- {{cod|bad|bad|rev}}{{oras}}} 
+
+} {{b|upper|cap}}ok, { {{nume|rev|lower|rev}}{{cod}}
+text text } {{a|cap}}} { 
+{{nume|bad|len}}{{nume|len|bad|lower}}{{oras|upper}}
+{{oras}}- {{nume|upper|cap|len}}{{x1|len}}- ok, 
+text {{lipsa|rev}}text {{a|upper|lower}}
+text {{lipsa|upper|rev|cap}}{{oras}}{{oras|bad|lower}}
+{{b}}} {{lipsa|len|lower}}{{lipsa|cap|len}}{ - 
+{{nume|rev|rev|len}}{{b|cap|rev|lower}}
+{ ok, ok, text { {{lipsa|upper|lower}}
+} 
+{{b|cap|bad}}
+ok, 
+{{a}}{ {{a}}ok, { text 
+{{a|rev|cap}}{{a|cap|cap}}{ 
+{{x1|lower|bad}}
+text 
+{{b|bad|len|bad}}ok, 
+- {{x1|len|cap}}{{oras|upper}}{{lipsa}}{ 
+text {{b}}text {{lipsa}}{{a|len|lower}}} 
+
+- } - - ok, 
+{{nume|rev|lower}}
+{{oras|cap}}} - {{oras|bad}}
+{{x1|bad|upper|cap}}{ {{oras|bad|lower|rev}}{ {{a|cap|lower}}
+{{a}}} ok, {{oras|lower|len}}text ok, 
+{{oras|bad|rev|lower}}} {{cod|lower|bad}}{{cod|len|cap|upper}}
+ok, {{cod|upper}}
+text {{b}}- {{cod}}{{oras|upper}}
+
+{{lipsa}}- ok, 
+
+{{cod|lower|bad|len}}{{a}}text 
+
+{ } text 
+
+
+} 
+{{oras|lower|lower|lower}}{{nume|cap|bad|rev}}{{cod|lower|rev}}text {{a}}
+
+{{oras|upper|len|bad}}{{nume|rev|upper}}
+ok, {{oras}}{{cod|upper|len}}
+ok, {{oras|cap|upper|rev}}{{a}}{{nume}}ok, ok, 
+- ok, - text 
+- {{oras|len|upper}}{{cod|cap|len}}ok, ok, {{a}}
+{{x1}}text {{cod|upper}}ok, ok, 
+- 
+- {{oras}}ok, 
+
+{{nume|upper|lower|bad}}{{a|rev|cap|rev}}- {{a|lower|rev|len}}
+{{lipsa|cap}}
+text {{lipsa|len|upper|len}}
+
+{{nume|lower|lower|rev}}{ 
+{{b}}} { ok, 
+{{nume}}{{b|len|rev}}{{b}}{{b|bad}}
+
+{{lipsa|lower|rev|lower}}{{b|upper|lower}}
+{{x1}}{{b}}
+
+{{a|len|upper|upper}}text { 
+{{oras|lower|len}}{{nume}}- { 
+{{cod|len|rev}}ok, {{x1|bad}}- {{b}}{{b}}
+{{cod}}- ok, ok, {{lipsa|lower|upper|rev}}
+{{a|rev|lower}}{ 
+{{oras}}{{a|lower}}{{cod}}{{b|bad|bad|cap}}
+{{oras|rev|lower}}{{cod}}{{oras|lower|cap|len}}{{b}}{{oras|rev}}{ 
+{{lipsa|len}}{{oras|rev|upper}}ok, - - 
+text {{x1|upper}}} {{cod}}{{b|cap|lower|bad}}ok, 
+{{x1|len|rev}}
+- {{cod}}ok, - {{x1}}
+} {{x1}}
+ok, { } {{nume|cap|rev|cap}}
+
+{{lipsa}}{{nume|upper}}{{lipsa|bad}}ok, - 
+{{oras|rev}}{{cod|cap|cap}}{{x1|lower|cap}}
+{{cod|bad}}ok, { 
+text {{a}}text {{nume|bad|rev|cap}}{{cod|bad|len}}{{nume|lower|cap|cap}}
+{ { 
+{{nume|bad}}} 
+{{x1|lower}}} {{b|bad|cap}}{{nume|rev|bad|bad}}{ {{a|cap|upper}}
+ok, {{cod|rev}}{{a|upper}}
+{{b|lower|bad|lower}}{{nume}}{{a}}
+{{cod}}{{cod|len|len}}{{oras|bad|cap}}{{b|len}}
+} 
+ok, {{lipsa|upper}}} 
+ok, } ok, 
+
+{{x1}}} { - ok, { 
+{{oras|bad|cap}}{{b|lower}}{{lipsa|len|rev|lower}}{{lipsa}}
+{{oras|cap}}
+{{oras}}text 
+} ok, {{lipsa|cap|len|cap}}{{a|cap|lower}}- {{nume|cap|lower|bad}}
+} {{cod}}text } } { 
+- - } {{x1|cap|len}}
+{{lipsa|cap|bad|cap}}{{lipsa|cap}}
+ok, 
+
+{{b|upper|len}}
+text { text ok, 
+
+} - 
+- {{oras}}text } 
+ok, 
+
+ok, 
+ok, - text { ok, 
+text {{b|lower}}- {{b|bad|rev|cap}}{{oras|rev|cap}}
+{{lipsa|len|len}}- {{cod}}{{cod|cap|upper}}ok, 
+{{x1|bad|lower}}{{nume|upper|bad}}{{a}}{{oras|cap|cap|lower}}ok, 
+- {{x1|len|lower}}- 
+} text 
+{{b|rev|lower}}
+{{x1|lower|lower|cap}}- {{lipsa|lower|len}}{{b|cap|rev}}{{lipsa}}} 
+{{oras}}{{lipsa|upper|cap}}{{lipsa}}{{a|len|rev}}{{b}}} 
+ok, ok, 
+} 
+text ok, ok, 
+
+text - } 
+text {{cod|cap}}{{cod|upper|rev}}} {{b}}
+{ { } {{a|upper|bad|lower}}ok, 
+{{lipsa|rev|upper}}{{a|upper|bad|len}}{{b}}{{cod|len|lower}}
+ok, {{nume}}{{a}}{{x1|lower|rev|upper}}
+text ok, - {{oras|bad|bad|lower}}{{cod|rev|upper|bad}}{ 
+{{cod|bad|lower}}} - {{a|rev|rev|bad}}{{b|rev}}{{a|rev|upper}}
+- {{nume|bad|lower}}ok, {{lipsa|rev|upper}}
+{{b|len|rev}}{ 
+{{lipsa|cap}}} {{b}}- } {{cod|upper|upper}}
+{ {{cod|len|lower|cap}}{{a}}text ok, {{x1|lower|len}}
+{{cod}}} ok, {{oras|len|cap}}{ text 
+{{a}}
+{{oras|cap}}{{a}}
+- - { - 
+{{a}}text 
+{ {{nume}}{{a|rev|rev|len}}
+- {{b|upper|bad}}{{cod|len}}
+{ } 
+} - } {{lipsa|upper}}
+text } - {{lipsa}}{{cod}}- 
+{ {{x1}}
+{{lipsa|upper}}- ok, text 
+{{lipsa|cap}}{{lipsa}}text - {{cod|len}}
+{{lipsa|lower|cap}}{{cod|bad}}{{x1|bad|cap}}
+{{b}}
+{{a}}{{oras|rev}}{{oras|upper}}- { } 
+{{b}}
+} } 
+- text {{a|len|upper}}{ {{a|cap|bad}}} 
+text - {{a|len}}{{cod|rev|rev}}{ {{b|rev|lower|bad}}
+} ok, - {{oras|rev|upper}}- { 
+text } text text {{b}}{{cod|cap|bad|bad}}
+
+{{cod}}{ {{a|lower|len|upper}}{{cod|bad}}text 
+{ } - {{b|bad}}
+
+{ 
+{{b|len|bad|len}}{{a}}text text {{oras}}{{cod|rev|lower}}
+{{nume|lower|upper|bad}}{{b|rev|len|cap}}{{x1|len}}- 
+
+{{b|lower}}{{oras|rev|bad}}{{b|bad}}ok, } 
+} text ok, 
+} {{b|cap}}{{oras|bad}}{{a|lower}}ok, { 
+- {{nume}}
+{{lipsa|cap|len}}{{oras}}
+{{b|upper|lower}}
+ok, - {{b|bad}}{{x1|len|cap|lower}}{{nume|len|bad}}} 
+- text 
+{{nume|rev}}{{cod|bad|cap}}{{cod|rev|lower|bad}}{{b|rev|lower|lower}}
+{{x1|upper|lower|cap}}} { 
+text {{b|rev|len}}} {{x1|rev}}
+
+
+- 
+{{b|len}}{{cod|len|lower}}{{nume|upper}}text } } 
+{{oras|lower}}
+text {{oras|cap|bad}}{{x1|lower|len}}} - 
+} 
+{{nume|len|lower|lower}}ok, text {{cod}}{{cod|len|lower|cap}}
+text {{b|len|lower}}} { 
+
+{{x1}}{ ok, 
+{ { {{nume|len}}
+- { text {{oras}}text {{a}}
+{{nume|lower}}
+} } 
+- {{x1|len}}
+
+} 
+{{nume}}ok, {{nume|lower|bad}}- 
+- - {{nume|lower|len|lower}}{ 
+{{oras}}
+{{x1|upper|lower|upper}}{{a}}ok, - text {{x1|rev|rev}}
+text ok, {{cod|len|upper}}text } 
+{{cod|lower}}
+{{lipsa|len|cap|cap}}ok, 
+{{lipsa|bad}}{{cod|lower|lower}}
+
+{{b|bad|len|bad}}} { - text {{b|bad}}
+- {{nume|upper|lower}}{{oras|lower|bad|len}}
+{{oras|lower|cap}}{ {{a|cap|cap|bad}}
+{ { 
+{{a}}{{a|len|upper|lower}}{ ok, {{nume|cap|bad|len}}{{nume|cap|len|bad}}
+text { {{cod|len|lower|upper}}
+
+ok, { 
+{{nume|upper|upper}}text {{x1|len|upper}}text {{b}}
+{{cod|rev|len|len}}{{nume}}ok, {{lipsa|rev|len}}
+- {{oras|bad|bad}}
+- ok, {{lipsa|cap|len|cap}}
+{{lipsa}}{{cod}}{ 
+{{b|bad|len|rev}}- 
+{{x1|rev}}{{cod|bad}}{{x1|cap|lower}}
+
+} {{lipsa|cap|upper|lower}}} {{a}}- 
+{{nume|len|lower|cap}}- {{x1|cap|lower|cap}}{{oras|upper}}{{cod|cap|bad}}{{lipsa|len|upper|rev}}
+{{a|lower|upper|cap}}{{cod|bad|upper|rev}}
+- } { ok, {{b|lower|rev}}text 
+
+{{oras|lower|cap|len}}{{nume|cap|lower|lower}}
+{{x1|bad|bad|lower}}} {{b|cap|rev}}- - 
+text ok, 
+{{lipsa|rev|lower}}{{b}}- text {{nume|bad|upper}}} 
+} ok, {{nume|len|upper|bad}}{ 
+{ {{nume|cap|lower|rev}}
+{{b|cap}}{{b|upper}}{{b|cap}}{{a|lower|lower|upper}}{{nume|len|bad}}
+{{lipsa|bad|cap|rev}}{{x1}}{{nume|rev}}
+{ { {{oras|len|rev|upper}}
+{{cod|rev|upper}}} 
+- } 
+ok, {{x1|lower|lower}}ok, { - { 
+
+{ {{nume|upper}}
+{{x1|bad}}- {{x1|rev|upper}}ok, { 
+{{lipsa|len|len}}} {{lipsa}}{{a|bad|bad|upper}}
+{{x1|len}}} {{a}}
+{{lipsa|bad|cap|cap}}{{b}}{ 
+ok, 
+{{nume}}text text text 
+} {{lipsa}}{{x1|rev|bad|lower}}{{oras|rev}}
+{{x1|lower|len}}
+{{lipsa|lower|cap|len}}{{nume}}{ {{lipsa|lower|rev|lower}}
+{{oras|lower}}} {{b}}{ 
+ok, - 

@@ -1,0 +1,75 @@
+<div class="weekstrip" aria-label="Săptămânile semestrului">
+  {% for x in weeks %}<a href="/saptamana/{{ x.week }}/" class="{% if x.week == n %}on{% endif %} {% if x.week == CURRENT_WEEK %}now{% endif %}" title="{{ x.start_date }}{% if x.note %} · {{ x.note }}{% endif %}">{{ x.week }}</a>{% endfor %}
+</div>
+<div class="hero">
+  <div class="card main">
+    <div class="kicker">Săptămâna {{ n }}{% if start %} · {{ start|date:"j M" }} – {{ end|date:"j M Y" }}{% endif %}{% if n == CURRENT_WEEK %} · săptămâna curentă{% endif %}</div>
+    {% if u %}
+      <h1>{{ u.icon }} {{ u.title }}</h1>
+      <p>Citește laboratorul, rezolvă problemele de mai jos în VS Code și folosește AI-ul ca pe un tutore. La final trimite arhiva săptămânii pe Moodle.</p>
+      <p style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn primary" href="/carte/{{ u.id }}/">Citește laboratorul</a><a class="btn" href="/capitol/{{ u.id }}/">Conceptele săptămânii</a><a class="btn" href="{{ CODE_URL }}" target="pclp-code">Deschide VS Code ↗</a></p>
+      <div class="small muted" style="margin-top:10px">Probleme rezolvate: {{ solved }} / {{ problems|length }}</div>
+      <div class="progressbar" style="margin-top:4px"><span style="width:{% widthratio solved problems|length|default:1 100 %}%"></span></div>
+    {% else %}
+      <h1>{{ w.note|default:"Fără laborator" }}</h1>
+      <p>Săptămâna aceasta nu are laborator nou. Reia problemele nerezolvate și conceptele de reluat din <a href="/progres/">Progres</a>.</p>
+    {% endif %}
+  </div>
+  <div class="card">
+    <h3>La finalul săptămânii</h3>
+    <ol class="small" style="padding-left:18px;margin:0">
+      <li>În terminalul din VS Code rulează <code>pclp submit {{ n }}</code>.</li>
+      <li>Încarcă pe Moodle arhiva din <code>work/predari/</code>.</li>
+      <li>Lipește în textul predării <b>codul de verificare</b> afișat (<code>PCLP-xxxx-…</code>).</li>
+    </ol>
+    <p class="small muted" style="margin-top:8px">Arhiva conține doar codul (istoricul modificărilor), comenzile din terminal și prompturile AI. <a href="/despre/">Ce se înregistrează?</a></p>
+    {% if not ai_ok %}<p class="small" style="margin-top:8px">💡 Poți folosi AI-ul tău preferat direct aici: <a href="/setari/">configurează-l</a>.</p>{% endif %}
+  </div>
+</div>
+
+{% if u %}
+<div class="grid g2">
+  <div class="card">
+    <h2>🎯 Problemele săptămânii</h2>
+    <p class="small muted">Dificultate crescătoare. Fiecare are teste automate (<code>pclp test</code>) și indicii în trepte.</p>
+    <ul class="plist">
+    {% for p in problems %}
+      <li><span class="pnum {{ p.status }}">{{ p.number }}</span>
+        <span><a class="ptitle" href="/problema/{{ p.id }}/">{{ p.title }}</a>
+          <div class="pmeta">{% if p.minutes %}~{{ p.minutes }} min{% endif %}{% if p.status == "rezolvat" %} · <span class="badge ok">rezolvat</span>{% elif p.status == "lucru" %} · <span class="badge work">în lucru</span>{% endif %}{% if p.last_tests.total %} · teste {{ p.last_tests.passed }}/{{ p.last_tests.total }}{% endif %}</div></span>
+        <span class="diff" title="dificultate {{ p.difficulty }}/5">{% for i in "12345" %}{% if forloop.counter <= p.difficulty %}●{% else %}○{% endif %}{% endfor %}</span></li>
+    {% empty %}<li><span></span><span class="muted">Problemele se adaugă curând.</span><span></span></li>
+    {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <div class="card">
+      <h2>🧠 Concepte de bază</h2>
+      {% for lvl, name, cs in groups %}{% if cs %}
+        <div class="kicker" style="margin-top:8px">Nivel {{ lvl }} · {{ name }}</div>
+        <ul class="tlist">{% for c in cs|slice:":24" %}<li><a class="tl l{{ c.level }}" href="/termen/{{ c.id }}/" data-t="{{ c.id }}">{{ c.label }}</a></li>{% endfor %}{% if cs|length > 24 %}<li><a href="/capitol/{{ u.id }}/">+{{ cs|length|add:"-24" }}</a></li>{% endif %}</ul>
+      {% endif %}{% endfor %}
+    </div>
+    {% if guides %}<div class="card" style="margin-top:16px"><h3>📚 De citit săptămâna aceasta</h3>{% for g in guides %}<a class="chip" href="/carte/{{ g.id }}/">{{ g.icon }} {{ g.title }}</a> {% endfor %}</div>{% endif %}
+  </div>
+</div>
+
+{% if prompts %}
+<h2>🤖 Prompturi recomandate săptămâna aceasta</h2>
+<p class="muted small">Copiază-le în AI-ul tău preferat (sau în tutorele din pagina problemei). Sunt gândite ca să te ajute să înveți, nu să primești soluția. Dacă folosești un AI din afara containerului, <a href="/prompturi/#extern">salvează promptul aici</a> ca să intre în arhivă.</p>
+{% for pr in prompts %}
+<details class="promptcard"><summary><b>{{ pr.title }}</b> <span class="muted small">— {{ pr.moment }}</span></summary>
+  <div class="body"><pre id="wp{{ forloop.counter }}">{{ pr.prompt }}</pre><button class="btn small" data-copy="wp{{ forloop.counter }}" type="button">⧉ Copiază</button>
+  {% for c in pr.concepts %}<a class="chip small" href="/termen/{{ c.id }}/">{{ c.label }}</a> {% endfor %}</div>
+</details>
+{% endfor %}
+{% endif %}
+
+{% if lab_ex or extra %}
+<h2>🧪 Exercițiile originale ale laboratorului</h2>
+<div class="grid g2">
+  {% if lab_ex %}<div class="card"><h3>La laborator</h3><ul class="plist">{% for p in lab_ex %}<li><span class="pnum">{{ p.number }}</span><span><a href="/problema/{{ p.id }}/">{{ p.title }}</a></span><span></span></li>{% endfor %}</ul></div>{% endif %}
+  {% if extra %}<div class="card"><h3>Problemset (extra)</h3><ul class="plist">{% for p in extra %}<li><span class="pnum">{{ p.number }}</span><span><a href="/problema/{{ p.id }}/">{{ p.title }}</a></span><span></span></li>{% endfor %}</ul></div>{% endif %}
+</div>
+{% endif %}
+{% endif %}

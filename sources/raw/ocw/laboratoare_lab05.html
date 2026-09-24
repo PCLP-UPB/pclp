@@ -1,0 +1,580 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:laboratoare:lab05</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-10-24T15:25:12+0300"/>
+<meta name="keywords" content="programare,laboratoare,lab05"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare:laboratoare"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/laboratoare/lab05"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab05"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:laboratoare';var JSINFO = {"id":"programare:laboratoare:lab05","namespace":"programare:laboratoare","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#pclp_laborator05pointeri_abordarea_lucrului_cu_tablouri_folosind_pointeri">PCLP Laborator05: Pointeri. Abordarea lucrului cu tablouri folosind pointeri</a></div></li>
+<li class="level2"><div class="li"><a href="#obiective">Obiective</a></div></li>
+<li class="level2"><div class="li"><a href="#notiunea_de_pointer">Noţiunea de pointer</a></div></li>
+<li class="level2"><div class="li"><a href="#operatori">Operatori</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#operatorul_de_referentiere">Operatorul de referențiere</a></div></li>
+<li class="level3"><div class="li"><a href="#operatorul_de_dereferentiere">Operatorul de dereferențiere</a></div></li>
+<li class="level3"><div class="li"><a href="#particularitati">Particularități</a></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><a href="#tipuri_de_pointeri">Tipuri de pointeri</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#pointeri_la_date">Pointeri la date</a></div></li>
+<li class="level3"><div class="li"><a href="#pointeri_la_tablouri">Pointeri la tablouri</a></div></li>
+<li class="level3"><div class="li"><a href="#pointeri_in_functii">Pointeri în funcţii</a></div></li>
+<li class="level3"><div class="li"><a href="#studiu_de_caz">Studiu de caz</a></div></li>
+<li class="level3"><div class="li"><a href="#exercitii">Exerciții</a></div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h2 class="sectionedit1" id="pclp_laborator05pointeri_abordarea_lucrului_cu_tablouri_folosind_pointeri">PCLP Laborator05: Pointeri. Abordarea lucrului cu tablouri folosind pointeri</h2>
+<div class="level2">
+
+<p>
+<strong>Responsabili:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="mailto:&#x6e;&#x65;&#x61;&#x74;&#x75;&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x6e;&#x65;&#x61;&#x74;&#x75;&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Darius Neațu (2019-2020)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;" class="mail" title="&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;">Dorinel Filip (2019-2020)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x74;&#x65;&#x6f;&#x64;&#x6f;&#x72;&#x2e;&#x6d;&#x61;&#x74;&#x65;&#x69;&#x2e;&#x62;&#x69;&#x72;&#x6c;&#x65;&#x61;&#x6e;&#x75;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x74;&#x65;&#x6f;&#x64;&#x6f;&#x72;&#x2e;&#x6d;&#x61;&#x74;&#x65;&#x69;&#x2e;&#x62;&#x69;&#x72;&#x6c;&#x65;&#x61;&#x6e;&#x75;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Bîrleanu Teodor Matei (2025 - prezent)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x6c;&#x61;&#x75;&#x72;&#x61;&#x2e;&#x76;&#x61;&#x73;&#x69;&#x6c;&#x65;&#x73;&#x63;&#x75;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;" class="mail" title="&#x6c;&#x61;&#x75;&#x72;&#x61;&#x2e;&#x76;&#x61;&#x73;&#x69;&#x6c;&#x65;&#x73;&#x63;&#x75;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;">Laura Vasilescu</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT1 SECTION "PCLP Laborator05: Pointeri. Abordarea lucrului cu tablouri folosind pointeri" [1-361] -->
+<h2 class="sectionedit2" id="obiective">Obiective</h2>
+<div class="level2">
+
+<p>
+În urma parcurgerii acestui laborator, studentul va fi capabil:
+</p>
+<ul>
+<li class="level1"><div class="li">  să înţeleagă noţiunea de pointer şi modurile în care se poate opera cu memoria în limbajul C</div>
+</li>
+<li class="level1"><div class="li">  să cunoască modul în care pointerii sunt folosiţi în a returna sau modifica parametri în cadrul unei funcţii</div>
+</li>
+<li class="level1"><div class="li">  să înţeleagă noţiunea de pointer la o funcţie şi să-l folosească în situaţiile în care acesta este necesar;</div>
+</li>
+<li class="level1"><div class="li">  să folosească funcţiile de alocare şi de eliberare a memoriei</div>
+</li>
+</ul>
+
+<p>
+<a href="/courses/lib/exe/fetch.php?hash=842c41&amp;media=http%3A%2F%2Fimgs.xkcd.com%2Fcomics%2Fpointers.png" class="media" title="http://imgs.xkcd.com/comics/pointers.png"><img src="/courses/lib/exe/fetch.php?hash=842c41&amp;media=http%3A%2F%2Fimgs.xkcd.com%2Fcomics%2Fpointers.png" class="mediaright" alt="" /></a>
+</p>
+
+</div>
+<!-- EDIT2 SECTION "Obiective" [362-921] -->
+<h2 class="sectionedit3" id="notiunea_de_pointer">Noţiunea de pointer</h2>
+<div class="level2">
+
+<p>
+Un <strong>pointer</strong> este o variabilă care reţine o adresă de memorie.
+</p>
+
+<p>
+În C, un pointer poate reprezenta:
+</p>
+<ol>
+<li class="level1"><div class="li"> adresa unor date de un anumit tip </div>
+<ul>
+<li class="level2"><div class="li"> tip elementar, structură, şir de caractere etc.</div>
+</li>
+<li class="level2"><div class="li"> operațiile cu pointeri sunt determinate de dimensiunea tipului de date</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> adresa unei funcții</div>
+<ul>
+<li class="level2"><div class="li"> adresa la care punctul curent de execuţie va sări, în cazul în care acea funcţie este apelată</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> adresa unei adrese de memorie</div>
+<ul>
+<li class="level2"><div class="li"> acest tip de pointer poate fi redus la prima situaţie</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> adresa unei zone cu conţinut necunoscut (pointer către void)</div>
+</li>
+</ol>
+
+<p>
+<p><div class="notetip">
+Dimensiunea unui pointer depinde de arhitectura și sistemul de operare pe care a fost compilat programul. Dimensiunea unui pointer se determină cu <strong><code>sizeof(void *)</code></strong> și nu este în mod necesar egală cu dimensiunea unui tip de date întreg.
+</p>
+
+<p>
+În cadrul laboratorului și al temelor de casă se vor utiliza mașini și pointeri pe 32 de biți.
+
+</div></p>
+</p>
+
+</div>
+<!-- EDIT3 SECTION "Noţiunea de pointer" [922-1897] -->
+<h2 class="sectionedit4" id="operatori">Operatori</h2>
+<div class="level2">
+
+</div>
+<!-- EDIT4 SECTION "Operatori" [1898-1920] -->
+<h3 class="sectionedit5" id="operatorul_de_referentiere">Operatorul de referențiere</h3>
+<div class="level3">
+
+<p>
+<strong><code>&amp;</code></strong> - apare în fața variabilei asupra căreia acționează
+</p>
+
+<p>
+Este aplicat unei <strong>variabile, avand ORICE tip de date,</strong> și <strong>obține ADRESA de (din) memorie</strong> a variabilei respective.
+</p>
+
+</div>
+<!-- EDIT5 SECTION "Operatorul de referențiere" [1921-2151] -->
+<h3 class="sectionedit6" id="operatorul_de_dereferentiere">Operatorul de dereferențiere</h3>
+<div class="level3">
+
+<p>
+<strong><code>*</code></strong> - apare în fața variabilei asupra căreia acționează
+</p>
+
+<p>
+Este aplicat unei <strong>variabile de tip pointer</strong> și <strong>obține valoarea stocată</strong> la adresa respectivă (indicata de pointer).
+</p>
+
+<p>
+<p><div class="notewarning">
+Declararea unui pointer nu înseamnă alocarea unei zone de memorie în care pot fi stocate date. Un pointer este tot un tip de date, a cărui valoare este un număr ce reprezintă o adresă de memorie.
+
+</div></p>
+</p>
+
+<p>
+Pentru ca dereferențierea să aibă loc cu succes, pointer-ul trebuie să indice o adresă de memorie validă, la care programul are acces. Această adresă poate fi adresa unei variabile declarate în prealabil sau adresa unui bloc de memorie alocat dinamic (după cum vom vedea mai departe).
+</p>
+
+<p>
+Este indicată inițializarea pointerilor cu constanta <a href="http://www.cplusplus.com/reference/cstddef/NULL/" class="urlextern" title="http://www.cplusplus.com/reference/cstddef/NULL/"  rel="nofollow"> NULL</a>, compatibilă cu orice tip de pointer, care indica, prin convenție, un pointer neinițializat.
+</p>
+
+</div>
+<!-- EDIT6 SECTION "Operatorul de dereferențiere" [2152-3123] -->
+<h3 class="sectionedit7" id="particularitati">Particularități</h3>
+<div class="level3">
+<pre class="code c"><span class="kw4">int</span> <span class="sy0">*</span>a<span class="sy0">;</span>             <span class="coMULTI">/* Pointer */</span>
+<span class="kw4">int</span> b <span class="sy0">=</span> <span class="nu0">5</span><span class="sy0">;</span>          <span class="coMULTI">/* Variabila */</span>
+<span class="kw4">char</span> <span class="sy0">*</span>c<span class="sy0">;</span>            <span class="coMULTI">/* Pointer catre un caracter (sau sir de caractere) */</span>
+<span class="kw4">void</span> <span class="sy0">*</span>buff <span class="sy0">=</span> NULL<span class="sy0">;</span>  <span class="coMULTI">/* Pointer catre void, initializat la NULL */</span>
+&nbsp;
+<span class="coMULTI">/* Asignare NEVALIDA; a este un pointer neinitializat */</span>
+<span class="sy0">*</span>a <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span> 
+&nbsp;
+<span class="coMULTI">/* a ia adresa variabilei b */</span>      
+a <span class="sy0">=</span> <span class="sy0">&amp;</span>b<span class="sy0">;</span>
+&nbsp;
+<span class="coMULTI">/* Continutul memoriei de la adresa a (care a fost initializata mai sus) 
+   ia valoarea 5. Acest lucru este echivalent cu &quot;b = 5;&quot; 
+ */</span>
+<span class="sy0">*</span>a <span class="sy0">=</span> <span class="nu0">5</span><span class="sy0">;</span>   </pre>
+
+<p>
+În cazul declaraţiilor de pointeri, operatorul <code>*</code>este asociat numelui variabilei, şi nu numelui tipului, astfel că, pentru o declaraţie de mai multe variabile, operatorul <code>*</code> trebuie să apară pentru fiecare variabilă în parte şi este recomandat ca şi formatarea codului să indice această asociere. De exemplu:
+</p>
+<pre class="code c"><span class="coMULTI">/* sir1 e pointer, sir2 si sir3 sunt caractere */</span>
+<span class="kw4">char</span> <span class="sy0">*</span>sir1<span class="sy0">,</span> sir2<span class="sy0">,</span> sir3<span class="sy0">;</span> 
+&nbsp;
+<span class="coMULTI">/* a, b si c sunt pointeri */</span>
+<span class="kw4">int</span> <span class="sy0">*</span>a<span class="sy0">,</span> <span class="sy0">*</span>b<span class="sy0">,</span> <span class="sy0">*</span>c<span class="sy0">;</span>
+&nbsp;
+<span class="coMULTI">/* Doar a este pointer; formatarea codului este nerecomandata */</span>
+<span class="kw4">char</span><span class="sy0">*</span> a<span class="sy0">,</span> b<span class="sy0">;</span></pre>
+
+<p>
+Operatorul <code>*</code> poate fi folosit şi în specificarea numelui unui tip (de exemplu în cazul unui <code>cast</code>), şi în acest caz el apare după numele tipului. De exemplu:
+</p>
+<pre class="code c"><span class="kw4">void</span> <span class="sy0">*</span>var <span class="sy0">=</span> NULL<span class="sy0">;</span>
+<span class="kw4">int</span> <span class="sy0">*</span>num <span class="sy0">=</span> <span class="br0">&#40;</span><span class="kw4">int</span> <span class="sy0">*</span><span class="br0">&#41;</span>var<span class="sy0">;</span> <span class="co1">// Operatie valida, dar riscanta</span></pre>
+
+<p>
+<p><div class="notewarning">
+Un pointer către <code>void</code> nu poate fi folosit direct în operaţii cu pointeri, ci trebuie convertit mai întâi la un pointer către un tip de date. 
+
+</div></p>
+De exemplu:
+</p>
+<pre class="code c"><span class="kw4">void</span> <span class="sy0">*</span>mem<span class="sy0">;</span>
+<span class="co1">//[...]</span>
+<span class="sy0">*</span>mem <span class="sy0">=</span> <span class="nu0">10</span><span class="sy0">;</span>        <span class="co1">// Operatie ILEGALA</span>
+<span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">int</span> <span class="sy0">*</span><span class="br0">&#41;</span>mem<span class="br0">&#41;</span> <span class="sy0">=</span> <span class="nu0">10</span><span class="sy0">;</span> <span class="co1">// Operatie legala, dar riscanta</span></pre>
+
+</div>
+<!-- EDIT7 SECTION "Particularități" [3124-4767] -->
+<h2 class="sectionedit8" id="tipuri_de_pointeri">Tipuri de pointeri</h2>
+<div class="level2">
+
+</div>
+<!-- EDIT8 SECTION "Tipuri de pointeri" [4768-4800] -->
+<h3 class="sectionedit9" id="pointeri_la_date">Pointeri la date</h3>
+<div class="level3">
+
+</div>
+
+<h5 id="stocarea_datelor_la_o_anumita_adresacitirea_datelor_de_la_o_anumita_adresa">Stocarea datelor la o anumită adresă; Citirea datelor de la o anumită adresă</h5>
+<div class="level5">
+<pre class="code c"><span class="sy0">*</span>p <span class="sy0">=</span> y<span class="sy0">;</span>         <span class="co1">// Ia valoarea y si pune-o la adresa indicata de p</span>
+x <span class="sy0">=</span> <span class="sy0">*</span>p<span class="sy0">;</span>         <span class="co1">// Ia valoarea de la adresa indicata de p si pune-o in variabila x</span>
+<span class="sy0">*</span>s1<span class="sy0">++</span> <span class="sy0">=</span> <span class="sy0">*</span>s2<span class="sy0">++;</span> </pre>
+
+</div>
+
+<h5 id="atribuirea_unei_adrese_unui_pointer">Atribuirea unei adrese unui pointer</h5>
+<div class="level5">
+<pre class="code c">p1 <span class="sy0">=</span> p2<span class="sy0">;</span>
+p <span class="sy0">=</span> NULL<span class="sy0">;</span>
+p <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/malloc.html"><span class="kw3">malloc</span></a><span class="br0">&#40;</span>n<span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Veti studia malloc() intr-un laborator ulterior</span></pre>
+
+</div>
+
+<h5 id="interpretarea_diferita_a_datelor_din_memorie">Interpretarea diferită a datelor din memorie</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">int</span> n<span class="sy0">;</span>
+<span class="kw4">short</span> s1<span class="sy0">,</span> s2<span class="sy0">;</span>
+s1 <span class="sy0">=</span> <span class="sy0">*</span><span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">short</span><span class="sy0">*</span><span class="br0">&#41;</span><span class="sy0">&amp;</span>n<span class="br0">&#41;</span><span class="sy0">;</span>     <span class="co1">// Extrage primul cuvant din intregul n</span>
+s2 <span class="sy0">=</span> <span class="sy0">*</span><span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">short</span><span class="sy0">*</span><span class="br0">&#41;</span><span class="sy0">&amp;</span>n <span class="sy0">+</span> <span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Extrage cel de-al doilea cuvant din intregul n</span></pre>
+
+</div>
+
+<h5 id="aritmetica_cu_pointeri">Aritmetică cu pointeri</h5>
+<div class="level5">
+
+<p>
+Adunarea sau scăderea unui întreg la un pointer, incrementarea sau decrementarea unui pointer. Aceste operaţii lucrează în multipli de dimensiunea tipului de date la care pointerii se referă, pentru a permite accesul la memorie ca într-un vector (a se vedea laboratorul de <span class="curid"><a href="/courses/programare/laboratoare/lab05" class="wikilink1" title="programare:laboratoare:lab05">tablouri</a></span>). De exemplu: 
+</p>
+<pre class="code c"><span class="kw4">int</span> <span class="sy0">*</span>num<span class="sy0">;</span>
+&nbsp;
+<span class="coMULTI">/* Aduna la adresa initiala dimensiunea tipului de date referit 
+   de pointer (pe sizeof(int)), dand acces  la urmatorul intreg
+   care ar fi stocat daca zona aceea de memorie ar fi organizata 
+   sub forma unui vector
+  */</span>
+num<span class="sy0">++;</span>
+&nbsp;
+<span class="coMULTI">/* Incrementeaza adresa cu 5 * sizeof(int) */</span>
+num <span class="sy0">=</span> num <span class="sy0">+</span> <span class="nu0">5</span><span class="sy0">;</span> </pre>
+
+</div>
+<!-- EDIT9 SECTION "Pointeri la date" [4801-6169] -->
+<h3 class="sectionedit10" id="pointeri_la_tablouri">Pointeri la tablouri</h3>
+<div class="level3">
+
+<p>
+După cum a fost prezentat în <span class="curid"><a href="/courses/programare/laboratoare/lab05" class="wikilink1" title="programare:laboratoare:lab05">laboratorul de vectori</a></span>, o variabilă vector conţine adresa de început a vectorului (adresa primei componente a vectorului), şi de aceea este echivalentă cu un pointer la tipul elementelor din vector. Această echivalenţă este exploatată, de obicei, în argumentele de tip vector şi în lucrul cu vectori alocaţi dinamic. De exemplu, pentru declararea unei funcţii care primeşte un vector de întregi şi dimensiunea lui, avem două posibilităţi:
+</p>
+<pre class="code c"><span class="kw4">void</span> printVec<span class="br0">&#40;</span><span class="kw4">int</span> a<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="sy0">,</span> <span class="kw4">int</span> n<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+sau
+</p>
+<pre class="code c"><span class="kw4">void</span> printVec<span class="br0">&#40;</span><span class="kw4">int</span> <span class="sy0">*</span>a<span class="sy0">,</span> <span class="kw4">int</span> n<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+În interiorul funcţiei ne putem referi la elementele vectorului <code>a</code> fie prin indici, fie prin indirectare, indiferent de felul cum a fost declarat parametrul vector <code>a</code>:
+</p>
+<pre class="code c"><span class="kw4">void</span> printVec <span class="br0">&#40;</span><span class="kw4">int</span> a<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="sy0">,</span> <span class="kw4">int</span> n<span class="br0">&#41;</span> 
+<span class="br0">&#123;</span>
+  <span class="kw4">int</span> i<span class="sy0">;</span>
+  <span class="kw1">for</span> <span class="br0">&#40;</span>i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%6d&quot;</span><span class="sy0">,</span> a<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Indexare</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+sau
+</p>
+<pre class="code c"><span class="kw4">void</span> printVec <span class="br0">&#40;</span><span class="kw4">int</span> <span class="sy0">*</span>a<span class="sy0">,</span> <span class="kw4">int</span> n<span class="br0">&#41;</span> 
+<span class="br0">&#123;</span>
+  <span class="kw4">int</span> i<span class="sy0">;</span>
+  <span class="kw1">for</span> <span class="br0">&#40;</span>i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%6d&quot;</span><span class="sy0">,</span> <span class="sy0">*</span>a<span class="sy0">++</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Indirectare</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Astfel, există următoarele echivalenţe de notaţii pentru un vector <code>a</code>:
+</p>
+<pre class="code c">a<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span> <span class="sy0">&lt;==&gt;</span> <span class="sy0">*</span>a
+a<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span> <span class="sy0">&lt;==&gt;</span> <span class="sy0">*</span><span class="br0">&#40;</span>a <span class="sy0">+</span> <span class="nu0">1</span><span class="br0">&#41;</span>
+a<span class="br0">&#91;</span>k<span class="br0">&#93;</span> <span class="sy0">&lt;==&gt;</span> <span class="sy0">*</span><span class="br0">&#40;</span>a <span class="sy0">+</span> k<span class="br0">&#41;</span>
+<span class="sy0">&amp;</span>a<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span> <span class="sy0">&lt;==&gt;</span> a
+<span class="sy0">&amp;</span>a<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span> <span class="sy0">&lt;==&gt;</span> a <span class="sy0">+</span> <span class="nu0">1</span>
+<span class="sy0">&amp;</span>a<span class="br0">&#91;</span>k<span class="br0">&#93;</span> <span class="sy0">&lt;==&gt;</span> a <span class="sy0">+</span> k</pre>
+
+<p>
+Diferenţa dintre o variabilă pointer şi un nume de vector este aceea că un nume de vector este un pointer constant (adresa sa este alocată de către compilatorul C şi nu mai poate fi modificată la execuţie), deci nu poate apărea în stânga unei atribuiri, în timp ce o variabilă pointer are un conţinut modificabil prin atribuire sau prin operaţii aritmetice. De exemplu:
+</p>
+<pre class="code c"><span class="kw4">int</span> a<span class="br0">&#91;</span><span class="nu0">100</span><span class="br0">&#93;</span><span class="sy0">,</span> <span class="sy0">*</span>p<span class="sy0">;</span>
+p <span class="sy0">=</span> a<span class="sy0">;</span> <span class="sy0">++</span>p<span class="sy0">;</span> <span class="co1">//corect</span>
+a <span class="sy0">=</span> p<span class="sy0">;</span> <span class="sy0">++</span>a<span class="sy0">;</span> <span class="co1">//EROARE</span></pre>
+
+<p>
+De asemenea, o variabilă de tip vector conţine şi informaţii legate de lungimea vectorului şi dimensiunea totală ocupată în memorie, în timp ce un pointer doar descrie o poziţie în memorie (e o valoarea punctuală). Operatorul <code>sizeof(v)</code> pentru un vector <code>v[N]</code> de tipul <code>T</code> va fi <code>N * sizeof(T)</code>, în timp ce <code>sizeof(v)</code> pentru o variabila <code>v</code> de tipul <code>T *</code> va fi <code>sizeof(T *)</code>, adică dimensiunea unui pointer.
+</p>
+
+<p>
+Ca o ultimă notă, este importat de remarcat că o funcţie poate avea ca rezultat un pointer, dar nu poate avea ca rezultat un vector.
+</p>
+
+</div>
+<!-- EDIT10 SECTION "Pointeri la tablouri" [6170-8493] -->
+<h3 class="sectionedit11" id="pointeri_in_functii">Pointeri în funcţii</h3>
+<div class="level3">
+
+<p>
+În cadrul funcţiilor, pointerii pot fi folosiţi, printre altele, pentru:
+</p>
+<ul>
+<li class="level1"><div class="li"> Transmiterea de rezultate prin argumente </div>
+</li>
+<li class="level1"><div class="li"> Transmiterea unei adrese prin rezultatul funcţiei </div>
+</li>
+<li class="level1"><div class="li"> Utilizarea unor funcţii cu nume diferite (date prin adresele acestora)</div>
+</li>
+</ul>
+
+<p>
+O funcţie care trebuie să modifice mai multe valori primite prin argumente sau care trebuie să transmită mai multe rezultate calculate în cadrul funcţiei trebuie să folosească argumente de tip pointer. 
+</p>
+
+<p>
+De exemplu, o funcţie care primeşte ca parametru un număr, pe care il modifica:
+</p>
+<pre class="code c"><span class="co1">// Functie care incrementeaza un intreg n modulo m</span>
+<span class="kw4">int</span> incmod <span class="br0">&#40;</span><span class="kw4">int</span> <span class="sy0">*</span>n<span class="sy0">,</span> <span class="kw4">int</span> m<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw1">return</span> <span class="sy0">++</span><span class="br0">&#40;</span><span class="sy0">*</span>n<span class="br0">&#41;</span> <span class="sy0">%</span> m<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">// Utilizarea functiei</span>
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw4">int</span> n <span class="sy0">=</span> <span class="nu0">10</span><span class="sy0">;</span>
+  <span class="kw4">int</span> m <span class="sy0">=</span> <span class="nu0">15</span><span class="sy0">;</span>
+&nbsp;
+  incmod<span class="br0">&#40;</span><span class="sy0">&amp;</span>n<span class="sy0">,</span> m<span class="br0">&#41;</span><span class="sy0">;</span>  
+  <span class="co1">// Afisam noua valoare a lui n</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;n: %d&quot;</span><span class="sy0">,</span> n<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span></pre>
+
+<p>
+O funcţie care trebuie să modifice două sau mai multe argumente, le va specifica pe acestea individual, prin câte un pointer, sau într-un mod unificat, printr-un vector, ca în exemplul următor:
+</p>
+<pre class="code c"><span class="kw4">void</span> inctime <span class="br0">&#40;</span><span class="kw4">int</span> <span class="sy0">*</span>h<span class="sy0">,</span> <span class="kw4">int</span> <span class="sy0">*</span>m<span class="sy0">,</span> <span class="kw4">int</span> <span class="sy0">*</span>s<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="co1">// sau</span>
+<span class="kw4">void</span> inctime <span class="br0">&#40;</span><span class="kw4">int</span> t<span class="br0">&#91;</span><span class="nu0">3</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// t[0]=h, t[1]=m, t[2]=s</span></pre>
+
+<p>
+O funcţie poate avea ca rezultat un pointer, dar acest pointer nu trebuie să conţină adresa unei variabile locale. De obicei, rezultatul pointer este egal cu unul din argumente, eventual modificat în funcţie. De exemplu:
+</p>
+<pre class="code c"><span class="co1">// Incrementare pointer p</span>
+<span class="kw4">char</span> <span class="sy0">*</span>incptr<span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy0">*</span>p<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw1">return</span> <span class="sy0">++</span>p<span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+O variabila locală are o existenţă temporară, garantată numai pe durata execuţiei funcţiei în care este definită (cu excepţia variabilelor locale statice), şi de aceea adresa unei astfel de variabile nu trebuie transmisă în afara funcţiei, pentru a fi folosită ulterior. De exemplu, următoarea secvenţă de cod este <code>greşită</code>:
+</p>
+<pre class="code c"><span class="co1">// Vector cu cifrele unui nr intreg</span>
+<span class="kw4">int</span> <span class="sy0">*</span> cifre <span class="br0">&#40;</span><span class="kw4">int</span> n<span class="br0">&#41;</span> <span class="br0">&#123;</span> 
+  <span class="kw4">int</span> k<span class="sy0">,</span> c<span class="br0">&#91;</span><span class="nu0">5</span><span class="br0">&#93;</span><span class="sy0">;</span> <span class="co1">// Vector local</span>
+&nbsp;
+  <span class="kw1">for</span> <span class="br0">&#40;</span>k <span class="sy0">=</span> <span class="nu0">4</span><span class="sy0">;</span> k <span class="sy0">&gt;=</span> <span class="nu0">0</span><span class="sy0">;</span> k<span class="sy0">--</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    c<span class="br0">&#91;</span>k<span class="br0">&#93;</span> <span class="sy0">=</span> n <span class="sy0">%</span> <span class="nu0">10</span><span class="sy0">;</span>
+    n <span class="sy0">=</span> n <span class="sy0">/</span> <span class="nu0">10</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span>
+&nbsp;
+  <span class="kw1">return</span> c<span class="sy0">;</span> <span class="co1">// Aici este eroarea !</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Astfel, o funcţie care trebuie să transmită ca rezultat un vector poate fi scrisă corect în două feluri:
+</p>
+<ul>
+<li class="level1"><div class="li"> Primeşte ca argument adresa vectorului (definit şi alocat în altă funcţie) şi depune rezultatele la adresa primită (soluţia recomandată!); </div>
+</li>
+<li class="level1"><div class="li"> Alocă dinamic memoria pentru vector (folosind <code>malloc</code>), iar această alocare se menţine şi la ieşirea din funcţie.</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT11 SECTION "Pointeri în funcţii" [8494-10938] -->
+<h3 class="sectionedit12" id="studiu_de_caz">Studiu de caz</h3>
+<div class="level3">
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Pointeri la funcţii
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Pointeri la funcţii
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Anumite aplicaţii numerice necesită scrierea unei funcţii care să poată apela o funcţie cu nume necunoscut, dar cu prototip şi efect cunoscut. 
+</p>
+
+<p>
+De exemplu, o funcţie care să calculeze integrala definită a oricărei funcţii cu un singur argument sau care să determine o radăcină reala a oricărei ecuaţii (neliniare). 
+</p>
+
+<p>
+Aici vom lua ca exemplu o funcţie <code>listf</code> care poate afişa (lista) valorile unei alte funcţii cu un singur argument, într-un interval dat şi cu un pas dat. Exemple de utilizare a funcţiei <code>listf</code> pentru afişarea valorilor unor funcţii de bibliotecă:
+</p>
+<pre class="code c"><span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  listf<span class="br0">&#40;</span><a href="http://www.opengroup.org/onlinepubs/009695399/functions/sin.html"><span class="kw3">sin</span></a><span class="sy0">,</span> <span class="nu16">0.0</span><span class="sy0">,</span> <span class="nu16">2.0</span> <span class="sy0">*</span> M_PI<span class="sy0">,</span> M_PI <span class="sy0">/</span> <span class="nu16">10.0</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  listf<span class="br0">&#40;</span><a href="http://www.opengroup.org/onlinepubs/009695399/functions/exp.html"><span class="kw3">exp</span></a><span class="sy0">,</span> <span class="nu16">1.0</span><span class="sy0">,</span> <span class="nu16">20.0</span><span class="sy0">,</span> <span class="nu16">1.0</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Problemele apar la definirea unei astfel de funcţii, care primeşte ca argument numele (adresa) unei funcţii. Prin convenţie, în limbajul C, numele unei funcţii neînsoţit de o listă de argumente şi de parantezele <code>()</code> specifice unui apel este interpretat ca un pointer către funcţia respectivă (fără a se folosi operatorul de adresare <code>&amp;</code>). Deci <code>sin</code> este adresa funcţiei sin(x) în apelul funcţiei <code>listf</code>. Declararea unui argument formal (sau a unei variabile) de tip pointer la o funcţie are forma următoare:
+</p>
+<pre class="code c">tip <span class="br0">&#40;</span><span class="sy0">*</span>pf<span class="br0">&#41;</span> <span class="br0">&#40;</span>lista_arg_formale<span class="br0">&#41;</span></pre>
+
+<p>
+unde:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>pf</code> este numele argumentului (variabilei) pointer la funcţie </div>
+</li>
+<li class="level1"><div class="li"> <code>tip</code> este tipul rezultatului funcţiei</div>
+</li>
+</ul>
+
+<p>
+Parantezele sunt importante, deoarece absenţa lor modifică interpretarea declaraţiei. De exemplu, putem avea:
+</p>
+<pre class="code c">tip <span class="sy0">*</span> f<span class="br0">&#40;</span>lista_arg_formale<span class="br0">&#41;</span> <span class="co1">// functie cu rezultat pointer, si NU pointer</span></pre>
+
+<p>
+În concluzie, definirea funcţiei <code>listf</code> este:
+</p>
+<pre class="code c"><span class="kw4">void</span> listf <span class="br0">&#40;</span><span class="kw4">double</span> <span class="br0">&#40;</span><span class="sy0">*</span>fp<span class="br0">&#41;</span><span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span><span class="sy0">,</span> <span class="kw4">double</span> min<span class="sy0">,</span> <span class="kw4">double</span> max<span class="sy0">,</span> <span class="kw4">double</span> pas<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw4">double</span> x<span class="sy0">,</span>y<span class="sy0">;</span>
+&nbsp;
+  <span class="kw1">for</span> <span class="br0">&#40;</span>x <span class="sy0">=</span> min<span class="sy0">;</span> x <span class="sy0">&lt;=</span> max<span class="sy0">;</span> x <span class="sy0">=</span> x <span class="sy0">+</span> pas<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    y<span class="sy0">=</span><span class="br0">&#40;</span><span class="sy0">*</span>fp<span class="br0">&#41;</span><span class="br0">&#40;</span>x<span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// apel functie de la adresa din &quot;fp&quot;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;<span class="es1">\n</span>%20.10lf %20.10lf&quot;</span><span class="sy0">,</span> x<span class="sy0">,</span> y<span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+O eroare de programare care trece de compilare şi se manifestă la execuţie este apelarea unei funcţii fără paranteze; compilatorul nu apelează funcţia şi consideră că programatorul vrea să folosească adresa funcţiei. De exemplu:
+</p>
+<pre class="code c"><span class="kw1">if</span> <span class="br0">&#40;</span>kbhit<span class="br0">&#41;</span>
+  <span class="kw2">break</span><span class="sy0">;</span> <span class="co1">// echivalent cu if(1) break;</span>
+&nbsp;
+<span class="kw1">if</span> <span class="br0">&#40;</span>kbhit<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> 
+  <span class="kw2">break</span><span class="sy0">;</span> <span class="co1">// iesire din ciclu la apasarea unei taste</span></pre>
+</div></div><div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Expresii complexe cu pointeri
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Expresii complexe cu pointeri
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Deşi sunt întâlnite mai rar în practică, limbajul C permite declararea unor tipuri de date complexe, precum: 
+</p>
+<pre class="code c"><span class="kw4">char</span> <span class="sy0">*</span><span class="br0">&#40;</span><span class="sy0">*</span><span class="br0">&#40;</span><span class="sy0">*</span>x<span class="br0">&#41;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#91;</span><span class="nu0">10</span><span class="br0">&#93;</span><span class="sy0">;</span> </pre>
+
+<p>
+În interpretarea acestor expresii, operatorii <code>()</code> şi <code>[]</code> au precedenţa în faţa <code>*</code> şi modul de interpretare al acestor expresii este pornind <code>din interior spre exterior</code>. Astfel expresia dată ca exemplu mai sus este (numerele de sub expresie reprezintă ordinea de interpretare):
+</p>
+<ol>
+<li class="level1"><div class="li"> o variabila <code>x</code></div>
+</li>
+<li class="level1"><div class="li"> care este un pointer la o funcţie</div>
+</li>
+<li class="level1"><div class="li"> fără nici un parametru</div>
+</li>
+<li class="level1"><div class="li"> şi care întoarce un pointer</div>
+</li>
+<li class="level1"><div class="li"> la un vector de 10 elemente</div>
+</li>
+<li class="level1"><div class="li"> de tip pointer</div>
+</li>
+<li class="level1"><div class="li"> către tipul <code>char</code></div>
+</li>
+</ol>
+
+<p>
+Folosind acest procedeu, se pot rezolva şi alte situaţii aparent extrem de complexe:
+</p>
+<pre class="code c">    <span class="kw4">unsigned</span> <span class="kw4">int</span> <span class="sy0">*</span><span class="br0">&#40;</span><span class="sy0">*</span> <span class="kw4">const</span> <span class="sy0">*</span>name<span class="br0">&#91;</span><span class="nu0">5</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="nu0">10</span><span class="br0">&#93;</span> <span class="br0">&#41;</span> <span class="br0">&#40;</span> <span class="kw4">void</span> <span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+care semnifică o matrice de 5&times;10 de pointeri către pointeri constanţi la o funcţie, care nu ia nici un parametru, şi care întoarce un pointer către tipul <code>unsigned int</code>.
+</p>
+</div></div>
+</div>
+<!-- EDIT12 SECTION "Studiu de caz" [10939-14362] -->
+<h3 class="sectionedit13" id="exercitii">Exerciții</h3>
+<div class="level3">
+
+<p>
+Exercițiile pentru laborator se găsesc pe <a href="https://acs-pclp.github.io/laboratoare/05" class="urlextern" title="https://acs-pclp.github.io/laboratoare/05"  rel="nofollow"> PCLP Laborator05: Pointeri. Abordarea lucrului cu tablouri folosind pointeri</a>.
+</p>
+
+</div>
+<!-- EDIT13 SECTION "Exerciții" [14363-] --></div>
+</body>
+</html>

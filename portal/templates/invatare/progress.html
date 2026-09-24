@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Progres{% endblock %}
+{% block content %}
+<h1>Progresul tău</h1>
+<p class="muted">Vizibil doar pentru tine, în portal. Profesorul evaluează procesul din arhiva săptămânală (cod, terminal, prompturi), iar învățarea prin testele de la curs.</p>
+<table class="t">
+  <tr><th>Laborator</th><th>Probleme rezolvate</th><th>În lucru</th><th>Întrebări corecte</th></tr>
+  {% for r in labs %}<tr><td><a href="/saptamana/{{ r.u.week }}/">{{ r.u.icon }} {{ r.u.short }}</a></td>
+    <td><div class="progressbar" style="max-width:160px;display:inline-block;width:120px;vertical-align:middle"><span style="width:{% widthratio r.done r.total|default:1 100 %}%"></span></div> {{ r.done }} / {{ r.total }}</td>
+    <td>{{ r.work }}</td><td>{% if r.quiz %}{{ r.quiz.0 }}% <span class="muted small">({{ r.quiz.1 }} răspunsuri)</span>{% else %}<span class="muted">—</span>{% endif %}</td></tr>{% endfor %}
+</table>
+<div class="grid g2" style="margin-top:18px">
+  <div class="card"><h2>De reluat</h2>
+    {% if review %}<p class="small muted">Concepte la care ai greșit recent.</p><ul class="tlist">{% for c in review %}<li><a class="tl l{{ c.level }}" href="/termen/{{ c.id }}/" data-t="{{ c.id }}">{{ c.label }}</a></li>{% endfor %}</ul>
+    {% else %}<p class="muted">Nimic de reluat. <a href="/intrebari/">Testează-te</a>.</p>{% endif %}
+  </div>
+  <div class="card"><h2>Prompturi AI înregistrate</h2>
+    <p>{{ n_ai_portal }} din portal · {{ n_ai_ext }} externe salvate manual</p>
+    <p class="small muted">Sesiunile din VS Code (Continue) și din CLI-urile AI se colectează automat. Vezi <a href="/prompturi/">Prompturi AI</a>.</p>
+  </div>
+</div>
+{% if history %}
+<h2>Seturi de întrebări</h2>
+<table class="t small"><tr><th>Data</th><th>Capitole</th><th>Scor</th></tr>{% for h in history %}<tr><td><a href="/intrebari/{{ h.id }}/">{{ h.created|date:"j M, H:i" }}</a></td><td>{{ h.config.units|join:", " }}</td><td>{{ h.score }} / {{ h.total }}</td></tr>{% endfor %}</table>
+{% endif %}
+{% endblock %}

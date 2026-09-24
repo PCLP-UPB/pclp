@@ -1,0 +1,69 @@
+id: lab09-p08-ultimele-linii
+lab: lab09
+number: 8
+title: "tail: ultimele linii dintr-un jurnal"
+difficulty: 4
+estimated_minutes: 45
+concepts: [fseek, SEEK_END, SEEK_SET, ftell, fgetc, poziție curentă în fișier, fișier binar, sfârșit de linie]
+statement: |
+  Implementează două moduri ale utilitarului `tail` pentru un fișier text care poate fi foarte mare
+  (jurnale de server de mulți GB), deci **nu** trebuie citit în memorie:
+
+  - `-n K`: afișează ultimele `K` linii ale fișierului;
+  - `+n K`: afișează fișierul începând cu linia `K` (numerotare de la 1) până la final.
+
+  O linie este o secvență de caractere terminată cu `'\n'`; dacă fișierul nu se termină cu `'\n'`,
+  ultimul fragment este tot o linie. Liniile se afișează exact ca în fișier, fiecare urmată de `'\n'`
+  (inclusiv ultima, chiar dacă în fișier nu avea `'\n'`).
+
+  **Date de intrare**
+
+  Pe stdin: pe prima linie numele fișierului, pe a doua linie modul și `K` (`-n K` sau `+n K`).
+
+  **Date de ieșire**
+
+  - pentru `-n K`: ultimele `min(K, numărul de linii)` linii;
+  - pentru `+n K`: liniile `K, K+1, ...` (nimic dacă fișierul are mai puțin de `K` linii; `K = 0` se tratează ca `K = 1`);
+  - dacă fișierul nu poate fi deschis: `Eroare: nu pot deschide fisierul <nume>`.
+
+  **Restricții**
+
+  - 0 ≤ K ≤ 10^9; fișierul poate avea până la câțiva GB — soluția pentru `-n` trebuie să pornească
+    de la **sfârșitul** fișierului și să citească doar cât e nevoie (se verifică la evaluare).
+
+  **Exemplu**
+
+  Fișierul `jurnal.txt`:
+  ```
+  linia 1: eveniment 7
+  linia 2: eveniment 1
+  linia 3: eveniment 8
+  linia 4: eveniment 2
+  linia 5: eveniment 9
+  linia 6: eveniment 3
+  linia 7: eveniment 10
+  linia 8: eveniment 4
+  linia 9: eveniment 11
+  linia 10: eveniment 5
+  ```
+
+  Intrare (stdin):
+  ```
+  jurnal.txt
+  -n 3
+  ```
+
+  Ieșire (stdout):
+  ```
+  linia 8: eveniment 4
+  linia 9: eveniment 11
+  linia 10: eveniment 5
+  ```
+hints:
+  - "Pentru -n nu ai nevoie de numărul total de linii: pornește de la ultimul octet și mergi înapoi, numărând caracterele '\\n'. Când ai găsit K separatori, ai găsit începutul porțiunii de afișat."
+  - "Deschide fișierul în mod binar ca pozițiile să fie exact octeți. Cu fseek(f, pos, SEEK_SET) + fgetc(f) citești octetul de la poziția pos. Atenție la '\\n'-ul final: el închide ultima linie și nu trebuie numărat ca separator."
+  - "Pseudocod -n: size = dimensiune; pos = size; dacă ultimul octet e '\\n' atunci pos = size - 1; găsite = 0; start = 0; cât timp pos > 0: dacă octetul de la pos - 1 e '\\n' { găsite++; dacă găsite == K { start = pos; stop } } pos--. Apoi fseek la start și copiază tot până la EOF, adăugând '\\n' dacă ultimul caracter nu era '\\n'."
+pitfalls:
+  - "Soluția care citește tot fișierul într-un vector de linii trece testele mici, dar nu funcționează pe jurnale de GB — cerința interzice asta."
+  - "Cazurile K = 0, fișier gol și K mai mare decât numărul de linii trebuie tratate explicit."
+  - "Un fișier care nu se termină cu '\\n' are o linie în plus față de numărul de '\\n'-uri."

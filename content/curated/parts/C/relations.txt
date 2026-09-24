@@ -1,0 +1,267 @@
+fișier text|is_a|fișier|lab09#introducere|source_explicit
+fișier binar|is_a|fișier|lab09#introducere|source_explicit
+fișier|requires|flux|lab09#introducere|source_explicit
+stdin|is_a|flux|lab09#introducere|source_explicit
+stdout|is_a|flux|lab09#introducere|source_explicit
+stderr|is_a|flux|lab09#introducere|source_explicit
+FILE|is_a|structură|lab09#introducere|source_explicit
+FILE|declared_in|stdio.h|lab09#introducere|source_explicit
+fișier|requires|FILE|lab09#introducere|source_explicit
+fopen|declared_in|stdio.h|lab09#introducere|source_explicit
+fopen|returns|FILE|lab09#fopen|source_explicit
+fopen|returns|NULL|lab09#fopen|source_explicit
+fopen|requires|mod de deschidere|lab09#fopen|source_explicit
+mod r|part_of|mod de deschidere|lab09#fopen|source_explicit
+mod w|part_of|mod de deschidere|lab09#fopen|source_explicit
+mod a|part_of|mod de deschidere|lab09#fopen|source_explicit
+fclose|declared_in|stdio.h|lab09#introducere|source_explicit
+fclose|pairs_with|fopen|lab09#introducere|source_explicit
+fclose|returns|EOF|lab09#fclose|source_explicit
+fclose|prevents|fișier neînchis|debugging#valgrind|source_explicit
+verificarea deschiderii fișierului|requires|fopen|lab09#exemplu_1|source_explicit
+verificarea deschiderii fișierului|uses|stderr|lab09#exemplu_1|source_explicit
+fseek|declared_in|stdio.h||editorial
+fseek|operates_on|poziție curentă în fișier|lab09#fseek|source_explicit
+ftell|declared_in|stdio.h||editorial
+ftell|returns|poziție curentă în fișier|lab09#ftell|source_explicit
+ftell|pairs_with|fseek|lab09#exemplu_2|source_explicit
+dimensiunea unui fișier|uses|fseek|lab09#exemplu_2|source_explicit
+dimensiunea unui fișier|uses|ftell|lab09#exemplu_2|source_explicit
+feof|declared_in|stdio.h||editorial
+fflush|declared_in|stdio.h||editorial
+fflush|operates_on|buffer|lab09#fflush|source_explicit
+buffer|part_of|FILE|lab09#introducere|source_explicit
+fprintf|declared_in|stdio.h||editorial
+fprintf|requires|printf|lab09#citirescriere_cu_format|source_explicit
+fprintf|operates_on|fișier text|lab09#citirescriere_cu_format|source_explicit
+fprintf|is_a|funcție variadică|lab11#definirea_functiilor_cu_numar_variabil_de_parametri|source_explicit
+fscanf|declared_in|stdio.h||editorial
+fscanf|requires|scanf|lab09#citirescriere_cu_format|source_explicit
+fscanf|operates_on|fișier text|lab09#citirescriere_cu_format|source_explicit
+fread|declared_in|stdio.h||editorial
+fread|requires|fișier binar|lab09#citirescriere_fara_conversie|source_explicit
+fread|requires|sizeof|lab09#exemplu_3|source_explicit
+fread|operates_on|înregistrare|lab09#citirescriere_fara_conversie|source_explicit
+fread|pairs_with|fwrite|lab09#citirescriere_fara_conversie|source_explicit
+fwrite|declared_in|stdio.h||editorial
+fwrite|requires|fișier binar|lab09#citirescriere_fara_conversie|source_explicit
+fwrite|operates_on|înregistrare|lab09#citirescriere_fara_conversie|source_explicit
+înregistrare|requires|structură|lab09#citirescriere_fara_conversie|source_explicit
+fwrite|alternative_to|fprintf|lab09#citirea_si_scrierea_indin_fisiere|source_explicit
+fgetc|declared_in|stdio.h||editorial
+fgetc|returns|EOF|lab09#citirescriere_la_nivel_de_caracter|source_explicit
+fgets|declared_in|stdio.h||editorial
+fgets|requires|șir de caractere|lab09#citirescriere_la_nivel_de_caracter|source_explicit
+fputc|declared_in|stdio.h||editorial
+fputc|pairs_with|fgetc|lab09#citirescriere_la_nivel_de_caracter|source_explicit
+sfârșit de linie|part_of|fișier text|lab09#citirea_si_scrierea_indin_fisiere|source_explicit
+endianness|requires|fișier binar|lab09#exemplu_3|source_explicit
+hexdump|operates_on|fișier binar|lab09#lab-exercitii|source_explicit
+hexdump|requires|endianness|lab09#lab-exercitii|source_explicit
+__attribute__((__packed__))|operates_on|structură|lab10#lab-exercitii|source_explicit
+__attribute__((__packed__))|pairs_with|fwrite|lab10#lab-exercitii|source_explicit
+redirectare|operates_on|stdout|logging#terminal|source_explicit
+argc|part_of|parametrii liniei de comandă|lab11#parametrii_liniei_de_comanda|source_explicit
+argv|part_of|parametrii liniei de comandă|lab11#parametrii_liniei_de_comanda|source_explicit
+argc|part_of|main|lab11#parametrii_liniei_de_comanda|source_explicit
+argv|part_of|main|lab11#parametrii_liniei_de_comanda|source_explicit
+argv|requires|șir de caractere|lab11#parametrii_liniei_de_comanda|source_explicit
+argv|requires|vector|lab11#parametrii_liniei_de_comanda|source_explicit
+parametrii liniei de comandă|requires|main|lab11#parametrii_liniei_de_comanda|source_explicit
+exit|returns|cod de ieșire|debugging#instalare2|editorial
+exit|pairs_with|perror|debugging#instalare2|source_explicit
+preprocesor|part_of|compilator|lab11#preprocesorul|source_explicit
+preprocesor|operates_on|directivă de preprocesare|lab11#preprocesorul|source_explicit
+preprocesor|has_property|substituție textuală|lab11#preprocesorul|source_explicit
+-E|uses|preprocesor|lab11#preprocesorul|source_explicit
+-E|part_of|gcc|lab11#preprocesorul|source_explicit
+-D|part_of|gcc|lab11#definirea_de_simboluri|source_explicit
+-D|alternative_to|#define|lab11#definirea_de_simboluri|source_explicit
+#include|is_a|directivă de preprocesare|lab11#incluziune|source_explicit
+#define|is_a|directivă de preprocesare|lab11#definirea_de_simboluri|source_explicit
+#undef|is_a|directivă de preprocesare|lab11#definirea_de_simboluri|source_explicit
+#if|is_a|directivă de preprocesare|lab11#instructiuni_de_compilare_conditionata|source_explicit
+#ifdef|is_a|directivă de preprocesare|lab11#instructiuni_de_compilare_conditionata|source_explicit
+#ifndef|is_a|directivă de preprocesare|lab11#instructiuni_de_compilare_conditionata|source_explicit
+#endif|is_a|directivă de preprocesare|lab11#instructiuni_de_compilare_conditionata|source_explicit
+#error|is_a|directivă de preprocesare|lab11#alte_instructiuni|source_explicit
+#pragma once|is_a|directivă de preprocesare|logging#pclogh|editorial
+directivă de preprocesare|requires|preprocesor|lab11#preprocesorul|source_explicit
+#undef|requires|#define|lab11#definirea_de_simboluri|source_explicit
+constantă simbolică|requires|#define|lab11#definirea_de_macro-uri|source_explicit
+constantă simbolică|uses|tablou|lab11#definirea_de_macro-uri|source_explicit
+macro|requires|#define|lab11#definirea_de_macro-uri|source_explicit
+macro|requires|constantă simbolică|lab11#definirea_de_macro-uri|source_explicit
+macro|alternative_to|funcție|lab11#definirea_de_macro-uri|source_explicit
+macro|has_property|substituție textuală|lab11#definirea_de_macro-uri|source_explicit
+parantezarea macro-urilor|operates_on|macro|lab11#definirea_de_macro-uri|source_explicit
+parantezarea macro-urilor|requires|substituție textuală|lab11#definirea_de_macro-uri|source_explicit
+macro pe mai multe linii|is_a|macro|lab11#definirea_de_macro-uri|source_explicit
+-E|detects|substituție textuală|lab11#definirea_de_macro-uri|source_explicit
+compilare condiționată|uses|#if|lab11#instructiuni_de_compilare_conditionata|source_explicit
+compilare condiționată|uses|#ifdef|lab11#instructiuni_de_compilare_conditionata|source_explicit
+compilare condiționată|requires|#define|lab11#definirea_de_simboluri|source_explicit
+compilare condiționată|uses|-D|lab11#definirea_de_simboluri|source_explicit
+#ifdef|pairs_with|#endif|lab11#instructiuni_de_compilare_conditionata|source_explicit
+#ifdef|alternative_to|#ifndef|lab11#instructiuni_de_compilare_conditionata|source_explicit
+#error|pairs_with|#ifdef|lab11#lab-exercitii|source_explicit
+include guard|uses|#ifndef|lab11#includere_multipla|source_explicit
+include guard|uses|#define|lab11#includere_multipla|source_explicit
+include guard|operates_on|fișier antet|lab11#includere_multipla|source_explicit
+include guard|requires|#include|lab11#includere_multipla|source_explicit
+include guard|is_a|compilare condiționată|lab11#instructiuni_de_compilare_conditionata|source_explicit
+#pragma once|alternative_to|include guard||editorial
+#pragma once|operates_on|fișier antet|logging#pclogh|source_explicit
+macro predefinit|is_a|macro|logging#de_unde_luam_metadatele_in_c|source_explicit
+__FILE__|is_a|macro predefinit|logging#de_unde_luam_metadatele_in_c|source_explicit
+__LINE__|is_a|macro predefinit|logging#de_unde_luam_metadatele_in_c|source_explicit
+macro variadic|is_a|macro|logging#pclog_-_macro|source_explicit
+macro variadic|requires|funcție variadică|logging#pclog_-_macro|source_explicit
+_DEBUG|requires|#ifdef|logging#exercitii|source_explicit
+_DEBUG|uses|-D|logging#pclog_-_macro|source_explicit
+funcție variadică|is_a|funcție|lab11#introducere|source_explicit
+funcție variadică|requires|parametru fixat|lab11#definirea_functiilor_cu_numar_variabil_de_parametri|source_explicit
+funcție variadică|requires|stdarg.h|lab11#implementarea_functiilor_cu_numar_variabil_de_parametri|source_explicit
+printf|is_a|funcție variadică|lab11#introducere|source_explicit
+scanf|is_a|funcție variadică|lab11#introducere|source_explicit
+va_list|declared_in|stdarg.h|lab11#implementarea_functiilor_cu_numar_variabil_de_parametri|source_explicit
+va_start|declared_in|stdarg.h|lab11#implementarea_functiilor_cu_numar_variabil_de_parametri|source_explicit
+va_arg|declared_in|stdarg.h|lab11#implementarea_functiilor_cu_numar_variabil_de_parametri|source_explicit
+va_end|declared_in|stdarg.h|lab11#implementarea_functiilor_cu_numar_variabil_de_parametri|source_explicit
+va_start|operates_on|va_list|lab11#implementarea_functiilor_cu_numar_variabil_de_parametri|source_explicit
+va_arg|operates_on|va_list|lab11#implementarea_functiilor_cu_numar_variabil_de_parametri|source_explicit
+va_end|operates_on|va_list|lab11#implementarea_functiilor_cu_numar_variabil_de_parametri|source_explicit
+va_start|requires|parametru fixat|lab11#implementarea_functiilor_cu_numar_variabil_de_parametri|source_explicit
+va_start|pairs_with|va_end|lab11#implementarea_functiilor_cu_numar_variabil_de_parametri|source_explicit
+va_arg|requires|va_start|lab11#implementarea_functiilor_cu_numar_variabil_de_parametri|source_explicit
+va_arg|requires|promovarea argumentelor|lab11#implementarea_functiilor_cu_numar_variabil_de_parametri|source_explicit
+valoare terminator|operates_on|funcție variadică|lab11#implementarea_functiilor_cu_numar_variabil_de_parametri|source_explicit
+valoare terminator|pairs_with|va_arg|lab11#implementarea_functiilor_cu_numar_variabil_de_parametri|source_explicit
+make|uses|gcc|lab11#utilitarul_make|source_explicit
+operator pe biți|is_a|operator|lab12#operatori_pe_biti_in_c|source_explicit
+ȘI pe biți|is_a|operator pe biți|lab12#operatori_pe_biti_in_c|source_explicit
+SAU pe biți|is_a|operator pe biți|lab12#operatori_pe_biti_in_c|source_explicit
+SAU-EXCLUSIV pe biți|is_a|operator pe biți|lab12#operatori_pe_biti_in_c|source_explicit
+negare pe biți|is_a|operator pe biți|lab12#operatori_pe_biti_in_c|source_explicit
+deplasare la stânga|is_a|operator pe biți|lab12#operatori_pe_biti_in_c|source_explicit
+deplasare la dreapta|is_a|operator pe biți|lab12#operatori_pe_biti_in_c|source_explicit
+atribuire compusă pe biți|is_a|operator pe biți|lab12#operatori_pe_biti_in_c|source_explicit
+operator pe biți|requires|tip de date|lab12#dimensiunea_tipurilor_implicite_in_c_calculul_memoriei_unui_program|source_explicit
+operator pe biți|requires|sizeof|lab12#dimensiunea_tipurilor_implicite_in_c_calculul_memoriei_unui_program|source_explicit
+deplasare la stânga|alternative_to|deplasare la dreapta|lab12#bit_logical_shift|source_explicit
+mască|requires|deplasare la stânga|lab12#cum_verificam_daca_bitul_i_dintr-un_numar_n_este_setat|source_explicit
+testarea unui bit|uses|mască|lab12#cum_verificam_daca_bitul_i_dintr-un_numar_n_este_setat|source_explicit
+testarea unui bit|uses|ȘI pe biți|lab12#cum_verificam_daca_bitul_i_dintr-un_numar_n_este_setat|source_explicit
+setarea unui bit|uses|mască|lab12#cum_setam_valoarea_devine_1_bitul_i_dintr-un_numar_n|source_explicit
+setarea unui bit|uses|SAU pe biți|lab12#cum_setam_valoarea_devine_1_bitul_i_dintr-un_numar_n|source_explicit
+resetarea unui bit|uses|mască|lab12#cum_resetam_valoarea_devine_0_bitul_i_dintr-un_numar_n|source_explicit
+resetarea unui bit|uses|ȘI pe biți|lab12#cum_resetam_valoarea_devine_0_bitul_i_dintr-un_numar_n|source_explicit
+resetarea unui bit|uses|negare pe biți|lab12#cum_resetam_valoarea_devine_0_bitul_i_dintr-un_numar_n|source_explicit
+bitset|requires|testarea unui bit|lab12#5-bitset|source_explicit
+bitset|requires|setarea unui bit|lab12#5-bitset|source_explicit
+bitset|requires|resetarea unui bit|lab12#5-bitset|source_explicit
+bitset|requires|vector|lab12#5-bitset|source_explicit
+bitset|requires|unsigned|lab12#5-bitset|source_explicit
+bitset|requires|typedef|lab12#5-bitset|source_explicit
+MSB|requires|operator pe biți|lab12#b2-msb-lsb|source_explicit
+LSB|requires|operator pe biți|lab12#b2-msb-lsb|source_explicit
+MSB|alternative_to|LSB|lab12#b2-msb-lsb|source_explicit
+optimizare cu operații pe biți|uses|deplasare la stânga|lab12#left_shift|source_explicit
+optimizare cu operații pe biți|uses|deplasare la dreapta|lab12#right_shift|source_explicit
+interschimbare cu XOR|uses|SAU-EXCLUSIV pe biți|code-understanding#reverse_by_what|source_explicit
+interschimbare cu XOR|requires|pointer|code-understanding#reverse_by_what|source_explicit
+debugging|operates_on|bug|debugging#de_ce_debugging|source_explicit
+debugging|uses|debugger|debugging#tooluri_de_debugging|source_explicit
+debugging|uses|logging|debugging#logging|source_explicit
+debugging|requires|înțelegerea codului|debugging#de_ce_debugging|source_explicit
+gdb|is_a|debugger|debugging#gdb|source_explicit
+gdb|requires|-g|debugging#exemplu|source_explicit
+-g|part_of|gcc|debugging#exemplu|source_explicit
+gdb|detects|segmentation fault|debugging#exemplu|source_explicit
+gdb|operates_on|core dump||editorial
+gdb run|part_of|gdb|debugging#comenzi_uzuale|source_explicit
+gdb break|part_of|gdb|debugging#comenzi_uzuale|source_explicit
+gdb next|part_of|gdb|debugging#comenzi_uzuale|source_explicit
+gdb step|part_of|gdb|debugging#comenzi_uzuale|source_explicit
+gdb continue|part_of|gdb|debugging#comenzi_uzuale|source_explicit
+gdb print|part_of|gdb|debugging#comenzi_uzuale|source_explicit
+breakpoint|part_of|gdb|debugging#comenzi_uzuale|source_explicit
+gdb break|operates_on|breakpoint|debugging#comenzi_uzuale|source_explicit
+gdb continue|requires|breakpoint|debugging#comenzi_uzuale|source_explicit
+gdb next|alternative_to|gdb step|debugging#comenzi_uzuale|source_explicit
+gdb print|operates_on|variabilă|debugging#comenzi_uzuale|source_explicit
+call stack|requires|stivă||editorial
+watch|operates_on|expresie|debugging#exemplu1|source_explicit
+debugging în IDE|uses|gdb|debugging#exemplu1|source_explicit
+debugging în IDE|uses|call stack|debugging#exemplu1|source_explicit
+debugging în IDE|uses|watch|debugging#exemplu1|source_explicit
+segmentation fault|is_a|bug|debugging#de_ce_debugging|source_explicit
+segmentation fault|causes|core dump|debugging#exemplu|source_explicit
+segmentation fault|requires|pointer|debugging#exemplu|source_explicit
+NULL|causes|segmentation fault|debugging#exemplu|source_explicit
+returnarea adresei unei variabile locale|causes|comportament nedefinit|debugging#exemplu|source_explicit
+returnarea adresei unei variabile locale|causes|segmentation fault|debugging#exemplu|source_explicit
+returnarea adresei unei variabile locale|requires|stivă|debugging#exemplu|source_explicit
+valgrind|requires|-g|debugging#instalare2|source_explicit
+valgrind|requires|heap|debugging#valgrind|source_explicit
+valgrind|detects|memory leak|debugging#valgrind|source_explicit
+valgrind|detects|invalid write|debugging#instalare2|source_explicit
+valgrind|detects|invalid read|debugging#instalare2|source_explicit
+valgrind|detects|fișier neînchis|debugging#valgrind|source_explicit
+malloc|causes|invalid write|debugging#instalare2|source_explicit
+--leak-check=full|part_of|valgrind|debugging#instalare2|source_explicit
+--leak-check=full|detects|memory leak|debugging#instalare2|source_explicit
+LEAK SUMMARY|part_of|valgrind|debugging#instalare2|source_explicit
+free|prevents|memory leak|debugging#instalare2|source_explicit
+fișier neînchis|requires|fopen|debugging#valgrind|source_explicit
+perror|uses|stderr|debugging#instalare2|source_explicit
+perror|pairs_with|malloc|debugging#instalare2|source_explicit
+valgrind|pairs_with|gdb|debugging#tooluri_de_debugging|editorial
+logging|uses|fprintf|logging#terminal|source_explicit
+logging|uses|stderr|logging#terminal|source_explicit
+logging|uses|fișier|logging#persistent_in_fisier|source_explicit
+logging|uses|metadate de log|logging#ce_logam|source_explicit
+logging|uses|redirectare|logging#terminal|source_explicit
+logging|detects|bug|logging#de_ce_logam|source_explicit
+logging|has_property|nivel de logare|logging#syslog_in_codul_c|source_explicit
+metadate de log|uses|macro predefinit|logging#de_unde_luam_metadatele_in_c|source_explicit
+syslog|is_a|funcție variadică|logging#syslog_in_codul_c|source_explicit
+syslog|uses|nivel de logare|logging#syslog_in_codul_c|source_explicit
+syslog|requires|printf|logging#syslog_in_codul_c|source_explicit
+syslog|alternative_to|pclog|logging#cu_ce_logam|source_explicit
+nivel de logare|uses|_DEBUG|logging#exercitii|source_explicit
+pclog|is_a|macro variadic|logging#pclog_-_macro|source_explicit
+pclog|uses|fprintf|logging#pclogh|source_explicit
+pclog|uses|macro predefinit|logging#pclog_-_macro|source_explicit
+pclog|uses|_DEBUG|logging#pclog_-_macro|source_explicit
+pclog|uses|macro pe mai multe linii|logging#pclogh|source_explicit
+pclog|uses|#pragma once|logging#pclogh|source_explicit
+pclog|requires|logging|logging#pclog|source_explicit
+test unitar|operates_on|funcție|unit-tests#ce_este_un_test_unitar|source_explicit
+test unitar|requires|caz de test|unit-tests#ce_este_un_test_unitar|source_explicit
+test unitar|detects|bug|unit-tests#exercitii|source_explicit
+test unitar|uses|aserțiune|unit-tests#formatul_unui_test_unitar|source_explicit
+test unitar|has_property|principiile testelor unitare|unit-tests#principii_de_scriere|source_explicit
+test unitar|part_of|suită de teste|unit-tests#formatul_unui_test_unitar|source_explicit
+caz limită|is_a|caz de test|unit-tests#scrierea_unui_test_unitar|source_explicit
+Google Test|uses|macro|unit-tests#formatul_unui_test_unitar|source_explicit
+Google Test|uses|make|unit-tests#folosirea_unui_test_unitar|source_explicit
+TEST|part_of|Google Test|unit-tests#formatul_unui_test_unitar|source_explicit
+TEST|is_a|macro|unit-tests#formatul_unui_test_unitar|source_explicit
+TEST|requires|suită de teste|unit-tests#formatul_unui_test_unitar|source_explicit
+EXPECT_EQ|is_a|aserțiune|unit-tests#macro-uri_folosite_in_scrierea_testelor|source_explicit
+ASSERT_EQ|is_a|aserțiune|unit-tests#macro-uri_folosite_in_scrierea_testelor|source_explicit
+EXPECT_EQ|part_of|Google Test|unit-tests#macro-uri_folosite_in_scrierea_testelor|source_explicit
+ASSERT_EQ|part_of|Google Test|unit-tests#macro-uri_folosite_in_scrierea_testelor|source_explicit
+EXPECT_EQ|alternative_to|ASSERT_EQ|unit-tests#macro-uri_folosite_in_scrierea_testelor|source_explicit
+test unitar|pairs_with|debugging|unit-tests#exercitii|source_explicit
+test unitar|requires|coding style|unit-tests#de_ce_avem_nevoie_de_teste_unitare|source_explicit
+înțelegerea codului|uses|urmărirea execuției|code-understanding#ce_avem_in_vedere_in_acest_tutorial|source_explicit
+înțelegerea codului|requires|efect lateral|code-understanding#ce_avem_in_vedere_in_acest_tutorial|source_explicit
+nume sugestive|part_of|coding style|code-understanding#mutating_strings_again|editorial
+nume sugestive|prevents|bug|code-understanding#mutating_strings_again|source_explicit
+sequence point|requires|efect lateral|code-understanding#mutating_strings_again|source_explicit
+efect lateral|causes|comportament nedefinit|code-understanding#mutating_strings_again|source_explicit
+folosirea bibliotecii standard|prevents|segmentation fault|code-understanding#reinventing_the_wheel|source_explicit
+folosirea bibliotecii standard|requires|strlen|code-understanding#reinventing_the_wheel|source_explicit
+urmărirea execuției|precedes|debugging||editorial

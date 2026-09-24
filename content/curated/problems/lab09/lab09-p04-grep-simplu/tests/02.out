@@ -1,0 +1,4 @@
+1: GET /index.html 200
+3: GET /imagini/logo.png 404
+4: GET /index.html 304
+Total: 3 linii

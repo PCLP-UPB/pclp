@@ -1,0 +1,51 @@
+id: lab01-p06-baze-si-alinieri
+lab: lab01
+number: 6
+title: "Baze de numerație și alinieri"
+difficulty: 2
+estimated_minutes: 20
+concepts: [printf, specificator de format, "%o", "%x", lățime de afișare, aliniere la stânga]
+statement: |
+  La Proiectare Logică lucrezi des cu numere în bazele 8 și 16. Scrie un program care
+  citește un număr natural și îl afișează în mai multe feluri, folosind doar
+  specificatorii de format ai funcției `printf`.
+
+  **Date de intrare**
+
+  Un număr natural `n`.
+
+  **Date de ieșire**
+
+  Șase linii, în ordinea:
+
+  1. `Zecimal: ` urmat de `n` în baza 10;
+  2. `Octal: ` urmat de `n` în baza 8;
+  3. `Hexazecimal: ` urmat de `n` în baza 16, cu litere mici;
+  4. `HEX pe 8 cifre: ` urmat de `n` în baza 16, cu litere mari, pe exact 8 cifre (completat cu zerouri în față);
+  5. `Dreapta: [` urmat de `n` în baza 10 aliniat la dreapta într-un câmp de 10 caractere, apoi `]`;
+  6. `Stanga: [` urmat de `n` în baza 10 aliniat la stânga într-un câmp de 10 caractere, apoi `]`.
+
+  **Restricții**
+
+  - `0 ≤ n ≤ 2 147 483 647` (orice număr are cel mult 10 cifre zecimale și 8 cifre hexazecimale)
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  2024
+  ```
+
+  Ieșire:
+  ```
+  Zecimal: 2024
+  Octal: 3750
+  Hexazecimal: 7e8
+  HEX pe 8 cifre: 000007E8
+  Dreapta: [      2024]
+  Stanga: [2024      ]
+  ```
+hints:
+  - "printf știe singur să convertească în bazele 8 și 16: caută în tabelul de descriptori literele o, x și X."
+  - "Între % și litera descriptorului poți pune o lățime (numărul minim de caractere). Un 0 în fața lățimii completează cu zerouri, iar un - aliniază la stânga."
+  - "Liniile 4–6 folosesc, pe rând: lățime 8 cu zerouri și X; lățime 10 cu d; lățime 10 aliniată la stânga cu d. Parantezele pătrate sunt text obișnuit în șirul de format."

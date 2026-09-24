@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>PCLP Laborator10 - Operații avansate cu tablouri, alocare dinamică de memorie, șiruri de caractere, structuri și fișiere | PCLP - CA, CB, CD</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="PCLP Laborator10 - Operații avansate cu tablouri, alocare dinamică de memorie, șiruri de caractere, structuri și fișiere" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="PCLP Laborator10: Operații avansate cu tablouri, alocare dinamică de memorie, șiruri de caractere, structuri și fișiere" />
+<meta property="og:description" content="PCLP Laborator10: Operații avansate cu tablouri, alocare dinamică de memorie, șiruri de caractere, structuri și fișiere" />
+<link rel="canonical" href="https://acs-pclp.github.io/laboratoare/10" />
+<meta property="og:url" content="https://acs-pclp.github.io/laboratoare/10" />
+<meta property="og:site_name" content="PCLP - CA, CB, CD" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-01-12T00:01:20+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="PCLP Laborator10 - Operații avansate cu tablouri, alocare dinamică de memorie, șiruri de caractere, structuri și fișiere" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-01-12T00:01:20+00:00","datePublished":"2026-01-12T00:01:20+00:00","description":"PCLP Laborator10: Operații avansate cu tablouri, alocare dinamică de memorie, șiruri de caractere, structuri și fișiere","headline":"PCLP Laborator10 - Operații avansate cu tablouri, alocare dinamică de memorie, șiruri de caractere, structuri și fișiere","mainEntityOfPage":{"@type":"WebPage","@id":"https://acs-pclp.github.io/laboratoare/10"},"url":"https://acs-pclp.github.io/laboratoare/10"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://acs-pclp.github.io/feed.xml" title="PCLP - CA, CB, CD" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">PCLP - CA, CB, CD</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <h1 id="pclp-laborator10-operaii-avansate-cu-tablouri-alocare-dinamic-de-memorie-iruri-de-caractere-structuri-i-fiiere">PCLP Laborator10: Operații avansate cu tablouri, alocare dinamică de memorie, șiruri de caractere, structuri și fișiere</h1>
+<h2 id="obiective">Obiective</h2>
+<p>În acest laborator vom studia:</p>
+<ul>
+<li>lucrul cu structuri, tablouri și alocare dinamică</li>
+<li>aplicații complexe: citirea/prelucrarea/afișarea eficientă a unui tablou de structuri alocate dinamic în/din fișiere text/binare</li>
+</ul>
+<h2 id="materiale-utile">Materiale utile</h2>
+<p>Acest laborator nu are pagină nouă de teorie, însă necesită recapitularea noțiunilor indicate.</p>
+<ul>
+<li><a href="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab06">[OCW/Suport Teoretic pentru Laborator] Alocarea dinamică a memoriei. Aplicaţii folosind tablouri</a></li>
+<li><a href="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab07">[OCW/Suport Teoretic pentru Laborator] Prelucrarea şirurilor de caractere. Funcţii. Aplicaţii</a></li>
+<li><a href="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab08">[OCW/Suport Teoretic pentru Laborator] Tipuri de date definite de utilizator: structuri, uniuni, enumuri</a></li>
+<li><a href="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab09">[OCW/Suport Teoretic pentru Laborator] Operaţii cu fişiere. Aplicaţii folosind fişiere</a></li>
+</ul>
+<p>Pentru o aprofundare mai bună a conceptelor prezentate în laborator, vă recomandăm să parcurgeți materialele din următoarele arhive:</p>
+<ul>
+<li><strong><a href="/_resources/demo/demo_parsing.zip">demo_parsing.zip</a></strong></li>
+<li><strong><a href="/_resources/demo/demo_struct_and_binary_files.zip">demo_struct_and_binary_files.zip</a></strong></li>
+</ul>
+<h2 id="exerciii">Exerciții</h2>
+<p><strong>ATENȚIE:</strong> Toate exercițiile vor fi verificate și cu valgrind. Toate sarcinile se vor realiza folosind o abordare modularizată (cu funcții). Discutați cu asistentul alegerile voastre, dacă nu sunteți siguri care ar trebui să fie semnăturile funcțiilor.</p>
+<ol>
+<li>Fie definiția de mai jos a unei structuri:</li>
+</ol>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// maxim 30 de caractere printabile + '\0'</span>
+<span class="cp">#define NAME_LEN 31
+</span>
+<span class="k">struct</span> <span class="nc">__attribute__</span><span class="p">((</span><span class="n">__packed__</span><span class="p">))</span> <span class="n">person</span> <span class="p">{</span>
+	<span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="n">NAME_LEN</span><span class="p">];</span>
+	<span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="c1">// sau</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="nc">__attribute__</span><span class="p">((</span><span class="n">__packed__</span><span class="p">))</span> <span class="p">{</span>
+	<span class="kt">char</span> <span class="n">name</span><span class="p">[</span><span class="n">NAME_LEN</span><span class="p">];</span>
+	<span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">person_t</span><span class="p">;</span>
+</code></pre></div></div>
+<p>a. Scrieți un program care citește membrii unei astfel de structuri și face scrierea ei într-un fișier <strong>binar</strong> (<strong>1-gigel.bin</strong>). Reprezentarea în fișier a informației trebuie să aibă <code>sizeof(struct person)</code> (<code>sizeof(person_t)</code>), iar - prin convenție, toți octeții nefolosiți ai structurii (rezultați, de exemplu, prin citirea unui nume mai scurt de 30 de caractere), trebuie să fie inițializați la zero.</p>
+<p><strong>Important</strong>! În codul programului vostru trebuie să aveți exact un apel al funcției <code>fwrite</code> (nu mai multe).</p>
+<p>Exemplu:</p>
+<p>Se vor citi următoarele date de la <code>stdin</code>:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Gigel</span> <span class="mi">25</span>
+</code></pre></div></div>
+<p>Se va genera fișierul <strong>1-gigel.bin</strong> având următorul conținut:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">hexdump</span> <span class="o">-</span><span class="n">C</span> <span class="mi">1</span><span class="o">-</span><span class="n">gigel</span><span class="p">.</span><span class="n">bin</span>
+<span class="mo">00000000</span>  <span class="mi">47</span> <span class="mi">69</span> <span class="mi">67</span> <span class="mi">65</span> <span class="mi">6</span><span class="n">c</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span>  <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span>  <span class="o">|</span><span class="n">Gigel</span><span class="p">...........</span><span class="o">|</span>
+<span class="mo">00000010</span>  <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span>  <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mi">19</span>  <span class="o">|</span><span class="p">................</span><span class="o">|</span>
+<span class="mo">00000020</span>  <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span>                                          <span class="o">|</span><span class="p">...</span><span class="o">|</span>
+<span class="mo">00000023</span>
+
+<span class="c1">// putem inspecta si dimensiunea fișierul: 35 bytes (0x23)</span>
+<span class="c1">// 35 = 31 (NAME_LEN bytes pentru name) + 4 (19 00 00 00 == 25)</span>
+<span class="err">$</span> <span class="n">ls</span> <span class="o">-</span><span class="n">l</span> <span class="n">gigel</span><span class="p">.</span><span class="n">bin</span>     
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span>  <span class="mi">1</span> <span class="n">dorinel</span>  <span class="n">wheel</span>  <span class="mi">35</span> <span class="n">Nov</span> <span class="mi">26</span> <span class="mo">00</span><span class="o">:</span><span class="mi">33</span> <span class="mi">1</span><span class="o">-</span><span class="n">gigel</span><span class="p">.</span><span class="n">bin</span>
+</code></pre></div></div>
+<p>b. Scrieți un program care citește structura din fișierul general anterior și afișează, pe ecran, numele și vârsta persoanei.</p>
+<p><strong>Important!</strong> În codul programului vostru trebuie să aveți exact un apel al funcției <code>fread</code>  (nu mai multe).</p>
+<ol start="2">
+<li>Fie varianta alternativă a structurii:</li>
+</ol>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="nc">person</span> <span class="p">{</span>
+	<span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">// sau</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">person_t</span><span class="p">;</span>
+<span class="c1">// Obs. name are lungime variabilă și se alocată dinamic</span>
+</code></pre></div></div>
+<p>a. Refaceți exercițiul <strong>1.a.</strong> considerând folosirea câmpului nume alocat dinamic. Noul fișier se va numi <strong>2-gigel.bin</strong>.</p>
+<p><strong>Restricția de a folosi un singur apel de <code>fwrite</code> nu se mai păstrează.</strong></p>
+<p>De data aceasta folosiți convenția de la laboratorul trecut (de a preceda câmpul nume de lungimea lui în octeți, sub forma unui int) și asigurați-vă că structura ocupă exact același număr de octeți ca cea din exemplul următor.</p>
+<p>Exemplu:</p>
+<p>Se vor citi următoarele date de la <code>stdin</code>:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Gigel</span> <span class="mi">25</span>
+</code></pre></div></div>
+<p>Se va genera fișierul <strong>2-gigel.bin</strong> având următorul conținut:</p>
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">hexdump</span> <span class="o">-</span><span class="n">C</span> <span class="mi">2</span><span class="o">-</span><span class="n">gigel</span><span class="p">.</span><span class="n">bin</span> 
+<span class="mo">00000000</span>  <span class="mo">06</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mi">47</span> <span class="mi">69</span> <span class="mi">67</span> <span class="mi">65</span>  <span class="mi">6</span><span class="n">c</span> <span class="mo">00</span> <span class="mi">19</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span>        <span class="o">|</span><span class="p">....</span><span class="n">Gigel</span><span class="p">.....</span><span class="o">|</span>
+<span class="mo">0000000</span><span class="n">e</span>
+
+<span class="c1">// putem inspecta si dimensiunea fișierul: 14 bytes (0x0e)</span>
+<span class="c1">// 14 = 4 (06 00 00 00 == lungime in bytes) + 6 ("Gigel\0") + 4 (19 00 00 00 == 25)</span>
+<span class="err">$</span> <span class="n">ls</span> <span class="o">-</span><span class="n">l</span> <span class="mi">2</span><span class="o">-</span><span class="n">gigel</span><span class="p">.</span><span class="n">bin</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span>  <span class="mi">1</span> <span class="n">dorinel</span>  <span class="n">wheel</span>  <span class="mi">14</span> <span class="n">Nov</span> <span class="mi">26</span> <span class="mo">00</span><span class="o">:</span><span class="mi">48</span> <span class="n">gigel2</span><span class="p">.</span><span class="n">bin</span>
+</code></pre></div></div>
+<p>b. Scrieți un program care citește structura creată la punctul anterior și afișează informațiile persoanei pe ecran.</p>
+<p><strong>Restricția de a folosi un singur apel de <code>fread</code> nu se mai păstrează.</strong></p>
+<p><strong>Mențiune! Afișarea câmpurilor se va face obligatoriu, prin utilizarea structurii, după crearea unei variabile de acel tip.</strong></p>
+<ol start="3">
+<li>Creați un program care citește de la tastatură un număr natural <code>n</code>, apoi scrie n structuri, de tipul celor din exercițiul 2, cu date citite de la <code>stdin</code> într-un fișier binar <strong>3-gigel.bin</strong>. Formatul de reprezentare a array-ului trebuie să eficient.</li>
+</ol>
+<p>Verificați corectitudinea modului de reprezentare prin crearea unui program care citește cele n structuri din fișier și afișează detaliile persoanelor din acele structuri.</p>
+<p><strong>Mențiune! Afișarea structurilor se va face obligatoriu, prin utilizarea structurii, după citirea întregului array în memorie.</strong></p>
+<h2 id="problemset-extra">Problemset (extra)</h2>
+<p>Vă propunem să lucrați acasă probleme din <a href="https://acs-pclp.github.io/problemset/10">PCLP Laborator10: Problemset (extra)</a>.</p>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">PCLP - CA, CB, CD</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">PCLP - CA, CB, CD</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>https://acs-pclp.github.io/</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

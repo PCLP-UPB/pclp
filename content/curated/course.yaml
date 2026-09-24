@@ -1,0 +1,33 @@
+# Calendarul semestrului. Profesorul modifică aici datele și maparea săptămână → laborator.
+course: "Programarea Calculatoarelor și Limbaje de Programare (PCLP)"
+short: "PCLP"
+semester_start: "2026-09-28"   # luni, prima săptămână de școală
+timezone: "Europe/Bucharest"
+# Săptămânile fără laborator (vacanță) se marchează cu lab: null.
+weeks:
+  - {week: 1, lab: lab01}
+  - {week: 2, lab: lab02}
+  - {week: 3, lab: lab03}
+  - {week: 4, lab: lab04}
+  - {week: 5, lab: lab05}
+  - {week: 6, lab: lab06}
+  - {week: 7, lab: lab07}
+  - {week: 8, lab: lab08}
+  - {week: 9, lab: lab09}
+  - {week: 10, lab: lab10}
+  - {week: 11, lab: lab11}
+  - {week: 12, lab: lab12}
+  - {week: 13, lab: null, note: "Recapitulare"}
+  - {week: 14, lab: null, note: "Test practic"}
+# Ghidurile recomandate pe săptămâni (apar la „De citit săptămâna aceasta”).
+guides:
+  1: [vm-setup, coding-style]
+  2: [read-docs]
+  3: [good-practices]
+  4: [debugging]
+  6: [debugging]
+  8: [code-understanding]
+  9: [logging]
+  11: [unit-tests]
+# Numărul minim de ore de lucru recomandat pe săptămână (afișat studentului, informativ).
+recommended_hours: 4

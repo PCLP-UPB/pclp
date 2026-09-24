@@ -1,0 +1,70 @@
+id: lab08-p02-calculator-fractii
+lab: lab08
+number: 2
+title: "Calculator de fracții"
+difficulty: 2
+estimated_minutes: 30
+concepts: [structură, typedef, operatorul de acces la membru, atribuirea structurilor, apel prin valoare]
+statement: |
+  Scrieți un calculator care lucrează exact cu fracții. Fiecare linie a intrării conține o operație `a/b op c/d`, unde `op` este unul dintre `+`, `-`, `*`, `/`. Afișați rezultatul ca fracție ireductibilă, cu numitorul pozitiv; dacă numitorul rezultatului este 1, afișați doar numărătorul.
+
+  Dacă una dintre fracțiile date are numitorul 0 sau dacă se împarte la o fracție egală cu 0, afișați `EROARE`.
+
+  Definiți tipul:
+
+  ```c
+  typedef struct {
+      long long num;
+      long long den;
+  } Fractie;
+  ```
+
+  și implementați funcțiile de mai jos, care primesc și **returnează** structuri:
+
+  ```c
+  Fractie simplifica(Fractie f);
+  Fractie aduna(Fractie a, Fractie b);
+  Fractie scade(Fractie a, Fractie b);
+  Fractie inmulteste(Fractie a, Fractie b);
+  Fractie imparte(Fractie a, Fractie b);
+  ```
+
+  **Date de intrare**
+
+  Operații, câte una pe linie, până la sfârșitul fișierului. Între fracții și operator există câte un spațiu; în interiorul unei fracții nu există spații (numerele pot avea semn, de exemplu `-3/4` sau `3/-4`).
+
+  **Date de ieșire**
+
+  Câte o linie pentru fiecare operație.
+
+  **Restricții**
+
+  - cel mult 1000 de operații
+  - numărătorii și numitorii sunt întregi din `[-10000, 10000]`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  1/2 + 1/3
+  3/4 - 3/4
+  2/3 * 9/4
+  1/2 / -3/4
+  5/0 + 1/2
+  ```
+
+  Ieșire:
+  ```
+  5/6
+  0
+  3/2
+  -2/3
+  EROARE
+  ```
+hints:
+  - "O fracție are două câmpuri; funcțiile pot returna direct o structură nouă, exact ca pe un `int`. Poți citi direct în câmpuri cu `scanf` și formatul `\"%lld/%lld %c %lld/%lld\"`."
+  - "Scăderea e adunare cu opusul, împărțirea e înmulțire cu inversa. Pentru simplificare împarte ambele câmpuri la cmmdc-ul valorilor absolute."
+  - "După simplificare, dacă numitorul e negativ, schimbă semnul ambelor câmpuri. Rezultatul 0 devine 0/1, deci se afișează `0`. Verifică EROARE înainte de a calcula."
+pitfalls:
+  - "Algoritmul lui Euclid cu numere negative poate da un cmmdc negativ — lucrează cu valori absolute."
+  - "Nu uita de numitorul negativ din intrare (`3/-4`) și de împărțirea la `0/k`."

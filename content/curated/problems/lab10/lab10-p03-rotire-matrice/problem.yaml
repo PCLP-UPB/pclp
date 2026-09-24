@@ -1,0 +1,52 @@
+id: lab10-p03-rotire-matrice
+lab: lab10
+number: 3
+title: "Rotirea unei matrice citite din fișier"
+difficulty: 2
+estimated_minutes: 30
+concepts: [matrice alocată dinamic, vector de pointeri, eliberarea unei matrice, fscanf, fprintf, fișier text]
+statement: |
+  Fișierul `matrice.txt` conține pe prima linie dimensiunile `n` și `m`, apoi `n` linii cu câte `m`
+  numere întregi. Scrie un program care:
+
+  1. citește matricea într-o zonă **alocată dinamic** (`n` linii de câte `m` elemente);
+  2. construiește o nouă matrice alocată dinamic, de dimensiune `m × n`, obținută prin **rotirea**
+     matricei inițiale cu 90° în sensul acelor de ceasornic;
+  3. scrie rezultatul în fișierul `rotita.txt`, în același format (prima linie `m n`, apoi `m` linii
+     cu câte `n` numere separate prin câte un spațiu);
+  4. eliberează toată memoria, redeschide `rotita.txt` și afișează conținutul lui pe ecran.
+
+  **Date de ieșire**
+
+  - conținutul fișierului `rotita.txt`;
+  - `Eroare: nu pot deschide matrice.txt` dacă fișierul nu există;
+  - `Date incomplete` dacă dimensiunile nu sunt numere strict pozitive sau fișierul are mai puțin de `n · m` numere.
+
+  **Restricții**
+
+  - 1 ≤ n, m ≤ 1000; elementele sunt în domeniul `int`.
+
+  **Exemplu**
+
+  Fișierul `matrice.txt`:
+  ```
+  2 3
+  1 2 3
+  4 5 6
+  ```
+
+  Ieșire (stdout):
+  ```
+  3 2
+  4 1
+  5 2
+  6 3
+  ```
+hints:
+  - "Desenează o matrice 2×3 și rezultatul rotirii ei: prima coloană citită de jos în sus devine prima linie."
+  - "Elementul de pe linia i și coloana j din matricea inițială ajunge pe linia j și coloana n - 1 - i în matricea rotită."
+  - "Scrie funcții separate: alocare (vector de n pointeri + câte un malloc pe linie), eliberare (întâi liniile, apoi vectorul), rotire, scriere în fișier, afișarea unui fișier caracter cu caracter."
+pitfalls:
+  - "Matricea rotită are dimensiunile inversate (m linii, n coloane) — o greșeală frecventă este alocarea n × m."
+  - "La eliberare trebuie parcurse toate liniile înainte de free pe vectorul de pointeri."
+  - "Dacă citirea eșuează la jumătate, eliberează ce ai alocat și închide fișierul înainte de a ieși."

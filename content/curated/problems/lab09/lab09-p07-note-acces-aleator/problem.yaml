@@ -1,0 +1,83 @@
+id: lab09-p07-note-acces-aleator
+lab: lab09
+number: 7
+title: "Acces aleator într-un fișier binar de note"
+difficulty: 3
+estimated_minutes: 40
+concepts: [fișier binar, înregistrare, mod de actualizare, fseek, SEEK_SET, SEEK_END, ftell, fread, fwrite, fflush, structură]
+statement: |
+  Fișierul binar `note.bin` conține o succesiune de înregistrări de câte 8 octeți
+  (presupunem `sizeof(int) == 4`, little-endian, fără antet):
+
+  | octeți | câmp |
+  |---|---|
+  | 0–3 | `id` (int) |
+  | 4–7 | `nota` (int) |
+
+  Numărul de înregistrări se deduce din dimensiunea fișierului. Programul deschide fișierul
+  **o singură dată pentru citire și scriere** (`"r+b"`) și execută comenzile citite de la
+  tastatură, **fără să încarce tot fișierul în memorie** (se poziționează direct pe înregistrarea cerută).
+
+  **Date de intrare**
+
+  Pe stdin, comenzi (una pe linie), până la sfârșitul intrării:
+
+  - `nr` → afișează `Inregistrari: N`;
+  - `get k` → afișează `k: id=I nota=V` pentru înregistrarea cu indicele `k` (numerotare de la 0);
+  - `set k v` → schimbă nota înregistrării `k` în fișier și afișează `Actualizat k: id=I nota=V` (cu noua notă);
+  - `max` → afișează `Max: k: id=I nota=V` pentru prima înregistrare cu nota maximă, sau `Fisier gol`.
+
+  Pentru `get`/`set` cu un indice în afara intervalului `[0, N-1]` se afișează `Index invalid: k`.
+
+  **Date de ieșire**
+
+  Răspunsurile la comenzi, apoi, după închiderea fișierului, programul îl **redeschide**
+  pentru citire și afișează `Continut final:` urmat de câte o linie `id nota` pentru fiecare înregistrare.
+
+  Dacă `note.bin` nu poate fi deschis: `Eroare: nu pot deschide note.bin` (și nimic altceva).
+
+  **Restricții**
+
+  - cel mult 10^5 înregistrări și 10^4 comenzi.
+
+  **Exemplu**
+
+  Fișierul binar `note.bin` (32 octeți, afișat cu `hexdump -C`):
+  ```
+  00000000  65 00 00 00 07 00 00 00  66 00 00 00 0a 00 00 00  |e.......f.......|
+  00000010  67 00 00 00 05 00 00 00  68 00 00 00 09 00 00 00  |g.......h.......|
+  00000020
+  ```
+
+  Intrare (stdin):
+  ```
+  nr
+  get 2
+  set 2 8
+  get 2
+  get 4
+  max
+  ```
+
+  Ieșire (stdout):
+  ```
+  Inregistrari: 4
+  2: id=103 nota=5
+  Actualizat 2: id=103 nota=8
+  2: id=103 nota=8
+  Index invalid: 4
+  Max: 1: id=102 nota=10
+  Continut final:
+  101 7
+  102 10
+  103 8
+  104 9
+  ```
+hints:
+  - "Înregistrarea k începe la octetul k * 8. Cu fseek(f, k * sizeof(record), SEEK_SET) ajungi direct la ea, apoi o citești sau o scrii cu un singur fread/fwrite."
+  - "Definește o structură cu două câmpuri int (8 octeți, fără padding) și scrie funcții mici: numărul de înregistrări (fseek la final + ftell împărțit la 8), citește înregistrarea k, scrie înregistrarea k."
+  - "Pentru set: citește înregistrarea k, modifică nota în structură, fă din nou fseek la k * 8 și scrie structura. Pentru max parcurge toate indicii cu aceeași funcție de citire. La final: fclose, fopen(\"rb\") și citire secvențială cât timp fread întoarce 1."
+pitfalls:
+  - "Deschiderea cu \"w+b\" ar șterge conținutul fișierului; pentru actualizare pe loc se folosește \"r+b\"."
+  - "Pe un flux deschis pentru actualizare, între o citire și o scriere (sau invers) este obligatoriu un fseek (sau fflush); altfel comportamentul este nedefinit."
+  - "Verifică indicele înainte de fseek: fseek dincolo de final reușește, dar fread nu mai citește nimic."

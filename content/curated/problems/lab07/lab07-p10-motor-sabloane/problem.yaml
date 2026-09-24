@@ -1,0 +1,69 @@
+id: lab07-p10-motor-sabloane
+lab: lab07
+number: 10
+title: "Motor de șabloane"
+difficulty: 5
+estimated_minutes: 90
+concepts: [strstr, strchr, strcmp, memcpy, realloc, șir de caractere, spațiu pentru terminator, toupper]
+statement: |
+  Un generator de e-mailuri personalizate completează un **șablon** folosind o listă de variabile. În șablon, o expresie de forma `{{ ... }}` se înlocuiește cu valoarea ei. Expresia conține numele unei variabile, urmat opțional de unul sau mai multe **filtre**, separate prin `|`; spațiile din jurul numelui și al filtrelor se ignoră. Filtrele se aplică de la stânga la dreapta:
+
+  | filtru | efect |
+  |---|---|
+  | `upper` | toate literele devin mari |
+  | `lower` | toate literele devin mici |
+  | `cap` | prima literă a fiecărui cuvânt (secvență de caractere fără spații) devine mare, celelalte litere devin mici |
+  | `rev` | inversează șirul |
+  | `len` | înlocuiește șirul cu lungimea lui, scrisă în baza 10 |
+
+  Erori: dacă variabila nu există, întreaga expresie se înlocuiește cu `[?<nume>]`; dacă variabila există, dar un filtru nu există (inclusiv un filtru vid, ca în `{{a|}}`), expresia se înlocuiește cu `[!<filtru>]` pentru primul filtru invalid. Numele și filtrele din mesaje apar fără spațiile de la capete.
+
+  Regula de potrivire: se caută de la stânga la dreapta prima apariție a lui `{{`, apoi prima apariție a lui `}}` **după** ea; conținutul dintre ele este expresia. Căutarea continuă după `}}`. Dacă un `{{` nu mai are un `}}` după el, restul liniei se copiază neschimbat.
+
+  Variabilele: fiecare definiție are forma `nume=valoare`; numele e textul dinaintea primului `=`, fără spațiile de la capete, iar valoarea e tot textul de după primul `=`, exact (poate fi vidă sau poate conține spații). Dacă o variabilă e definită de mai multe ori, contează ultima definiție.
+
+  Liniile rezultate pot fi oricât de lungi, deci se construiesc în **șiruri alocate dinamic care cresc** (cu `realloc`); toate valorile intermediare se alocă dinamic și se eliberează.
+
+  **Date de intrare**
+
+  Pe prima linie `k`, apoi `k` linii cu definiții. Urmează liniile șablonului, până la sfârșitul fișierului.
+
+  **Date de ieșire**
+
+  Liniile șablonului completate, apoi o linie `Substitutii: <s>, erori: <e>`, unde `s` e numărul de expresii înlocuite cu succes și `e` numărul de expresii cu eroare.
+
+  **Restricții**
+
+  - `0 ≤ k ≤ 100`; fiecare definiție conține cel puțin un `=`
+  - cel mult 1000 de linii de șablon; toate liniile din intrare au cel mult 1000 de caractere ASCII afișabile sau spații
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3
+  nume=ana maria POPESCU
+  curs=PCLP
+  nota=10
+  Buna, {{ nume | cap }}!
+  Ai obtinut {{nota}} la {{curs|lower}} ({{curs|len}} litere).
+  {{prenume}} {{nota|dublu}} {{nume|upper|rev}}
+  Acolada {{ neinchisa
+  ```
+
+  Ieșire:
+  ```
+  Buna, Ana Maria Popescu!
+  Ai obtinut 10 la pclp (4 litere).
+  [?prenume] [!dublu] UCSEPOP AIRAM ANA
+  Acolada {{ neinchisa
+  Substitutii: 5, erori: 2
+  ```
+hints:
+  - "Separă problema în funcții mici: căutarea unei variabile, aplicarea unui filtru pe un șir, evaluarea unei expresii (nume + filtre) și „randarea” unei linii. Pentru rezultatul liniei folosește un șir dinamic cu lungime și capacitate, la care adaugi bucăți cu o funcție de tip „append” care face `realloc` la nevoie."
+  - "Pentru o linie: `start = strstr(p, \"{{\")`, apoi `sf = strstr(start + 2, \"}}\")`. Copiază textul dintre p și start, evaluează expresia (copiată într-un șir nou, terminat cu `'\\0'`), adaugă rezultatul, apoi continuă de la `sf + 2`."
+  - "Nu folosi `strtok` pentru filtre: ar ignora filtrele vide și nu poate fi folosit în paralel cu altă împărțire. Caută `'|'` cu `strchr`, pune `'\\0'` în locul lui și continuă de după el. Aplică filtrele pe o copie alocată a valorii; `len` produce un șir nou (de exemplu cu `sprintf` într-un buffer mic, apoi copiat), deci eliberează-l pe cel vechi."
+pitfalls:
+  - "Fiecare copie temporară (expresia, valoarea filtrată, mesajul de eroare, linia rezultată) trebuie eliberată, inclusiv pe ramurile de eroare."
+  - "Căutarea lui `}}` trebuie să înceapă după `{{`: în `}}{{a}}` primul `}}` nu închide nimic."
+  - "Valoarea unei variabile poate fi vidă — `{{gol|len}}` produce `0`, nu o eroare."

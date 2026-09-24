@@ -1,0 +1,17 @@
+long long|is_a|tip de date||editorial
+împărțire întreagă|requires|int||editorial
+lățime de afișare|part_of|specificator de format||editorial
+precizie de afișare|part_of|specificator de format||editorial
+getchar|declared_in|stdio.h||editorial
+putchar|declared_in|stdio.h||editorial
+getchar|alternative_to|scanf||editorial
+%c|is_a|specificator de format||editorial
+%x|is_a|specificator de format||editorial
+%o|is_a|specificator de format||editorial
+%%|is_a|specificator de format||editorial
+cod ASCII|has_property|char||editorial
+variabilă locală|is_a|variabilă||editorial
+apel de funcție|requires|funcție||editorial
+vector de frecvență|requires|vector||editorial
+interclasare|requires|vector||editorial
+număr prim|requires|operatorul modulo||editorial

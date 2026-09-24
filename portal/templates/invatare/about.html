@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Despre{% endblock %}
+{% block content %}
+<h1>Despre mediul PCLP</h1>
+<p>Totul rulează local, în containerul Docker de pe laptopul tău: acest portal, VS Code (code-server), compilatorul, gdb și valgrind.</p>
+<h2>Ce se înregistrează</h2>
+<p>Scopul e ca profesorul să vadă <b>cum ai lucrat</b> (procesul), nu doar rezultatul. Se înregistrează doar trei lucruri, toate în folderul tău <code>work/</code>:</p>
+<ol>
+  <li><b>Modificările codului</b> — instantanee git automate ale fișierelor sursă din <code>work/</code> (la câteva secunde după ce salvezi și la fiecare compilare).</li>
+  <li><b>Comenzile din terminal</b> — comanda, ora, folderul și codul de ieșire; plus mesajele compilatorului, ale lui <code>make</code> și <code>valgrind</code> (pentru că erorile de compilare fac parte din proces).</li>
+  <li><b>Prompturile AI</b> — cele din portal, sesiunile din VS Code (Continue) și din CLI-urile AI din container, și prompturile externe pe care le salvezi manual.</li>
+</ol>
+<h2>Ce NU se înregistrează</h2>
+<ul>
+  <li>tastele apăsate, ce copiezi sau lipești, timpul petrecut în editor;</li>
+  <li>ieșirea generală a terminalului (în afară de compilator / make / valgrind);</li>
+  <li>ce faci în afara containerului; cheile API; activitatea din portal (ce citești, indiciile deschise, întrebările de verificare).</li>
+</ul>
+<h2>Predarea săptămânală</h2>
+<p><code>pclp submit &lt;săptămâna&gt;</code> creează o arhivă cu istoricul codului, comenzile și prompturile, plus un <b>cod de verificare</b> (amprenta SHA-256 a arhivei). Încarci arhiva pe Moodle și lipești codul în textul predării. Codul arată că arhiva nu a fost modificată după ce ai creat-o.</p>
+<h2>Surse</h2>
+<ul class="small">
+  <li>Laboratoarele și ghidurile: <a class="ext" href="https://ocw.cs.pub.ro/courses/programare" target="_blank" rel="noopener">OCW — Programarea Calculatoarelor</a> și <a class="ext" href="https://acs-pclp.github.io/" target="_blank" rel="noopener">acs-pclp.github.io</a>, cu autorii menționați în fiecare capitol.</li>
+  <li>Paginile de manual: proiectul Linux man-pages și POSIX Programmer's Manual (pachetele Ubuntu din container).</li>
+  <li>Conceptele, relațiile, problemele săptămânale și prompturile: curate pentru acest mediu. Definițiile sunt reformulări verificate față de secțiunea citată.</li>
+</ul>
+<p class="muted small">Baza de conținut: {{ built }}.</p>
+{% endblock %}

@@ -1,0 +1,5 @@
+GET /index.html 200
+POST /login 302
+GET /imagini/logo.png 404
+GET /index.html 304
+DELETE /cont 403

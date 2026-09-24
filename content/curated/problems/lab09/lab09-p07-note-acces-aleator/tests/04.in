@@ -1,0 +1,6 @@
+get -1
+set 10 5
+set 0 10
+max
+set 3 10
+nr

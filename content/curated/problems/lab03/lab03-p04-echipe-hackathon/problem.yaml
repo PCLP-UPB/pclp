@@ -1,0 +1,76 @@
+id: lab03-p04-echipe-hackathon
+lab: lab03
+number: 4
+title: "Echipe pentru hackathon"
+difficulty: 2
+estimated_minutes: 25
+concepts: [funcție, long long, overflow, return]
+statement: |
+  La hackathonul facultății, organizatorii se întreabă în câte feluri pot forma o echipă
+  de `k` studenți dintr-o grupă de `n` studenți (ordinea în echipă nu contează). Răspunsul
+  este numărul de combinări:
+
+  `C(n, k) = n! / (k! · (n − k)!)`, iar `C(n, k) = 0` dacă `k > n`.
+
+  Scrie funcția `long long combinari(int n, int k)` și folosește-o pentru a răspunde la
+  `q` întrebări. Atenție: factorialele depășesc rapid orice tip întreg (de exemplu 21!
+  nu încape în `long long`), deși rezultatul final încape.
+
+  **Date de intrare**
+
+  Pe prima linie, numărul `q`. Pe fiecare dintre următoarele `q` linii, două numere
+  naturale `n k`.
+
+  **Date de ieșire**
+
+  `q` linii, de forma `C(n, k) = R`.
+
+  **Restricții**
+
+  - `1 ≤ q ≤ 1000`
+  - `0 ≤ n ≤ 60`, `0 ≤ k ≤ 60`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4
+  5 2
+  30 3
+  10 0
+  3 5
+  ```
+
+  Ieșire:
+  ```
+  C(5, 2) = 10
+  C(30, 3) = 4060
+  C(10, 0) = 1
+  C(3, 5) = 0
+  ```
+starter: |
+  #include <stdio.h>
+
+  long long combinari(int n, int k)
+  {
+  	/* TODO: fără factoriale */
+  }
+
+  int main(void)
+  {
+  	int q, i, n, k;
+
+  	scanf("%d", &q);
+  	for (i = 0; i < q; i++) {
+  		scanf("%d%d", &n, &k);
+  		printf("C(%d, %d) = %lld\n", n, k, combinari(n, k));
+  	}
+
+  	return 0;
+  }
+hints:
+  - "Nu calcula factorialele separat. Se poate construi C(n, k) pas cu pas, fiecare pas fiind tot un număr de combinări (deci un întreg)."
+  - "C(n, i + 1) = C(n, i) · (n − i) / (i + 1). Pornind de la C(n, 0) = 1, faci k pași. Și C(n, k) = C(n, n − k), deci poți folosi valoarea mai mică dintre k și n − k."
+  - "Ordinea operațiilor contează: înmulțește întâi cu (n − i), abia apoi împarte la (i + 1) — atunci împărțirea este exactă. Tratează separat cazul k > n."
+pitfalls:
+  - "r * ((n - i) / (i + 1)) face mai întâi o împărțire întreagă care pierde informație."

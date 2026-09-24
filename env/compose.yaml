@@ -1,0 +1,34 @@
+# PCLP — mediul de lucru (varianta pentru dezvoltare: construiește imaginea local).
+#   docker compose -f env/compose.yaml build
+#   docker compose -f env/compose.yaml up -d
+# Directorul de lucru al studentului este ./work (relativ la ACEST fișier) sau $PCLP_WORK_DIR.
+# Studenții folosesc env/compose.student.yaml (fără `build`, doar imaginea publicată).
+services:
+  pclp:
+    image: pclp-env:latest
+    build:
+      context: ..
+      dockerfile: env/Dockerfile
+      args:
+        PCLP_VERSION: ${PCLP_VERSION:-dev}
+    container_name: pclp
+    hostname: pclp
+    init: true
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${PCLP_PORT_VSCODE:-8080}:8080"   # VS Code (code-server)
+      - "127.0.0.1:${PCLP_PORT_PORTAL:-8000}:8000"   # portalul cursului
+    volumes:
+      - ${PCLP_WORK_DIR:-./work}:/home/student/work
+    environment:
+      # Pe Linux, dacă fișierele din work/ apar cu alt proprietar, setați PUID/PGID = `id -u` / `id -g`.
+      PUID: ${PUID:-}
+      PGID: ${PGID:-}
+      TZ: ${TZ:-Europe/Bucharest}
+      # adresa VS Code văzută din browser (pentru butoanele „Deschide în VS Code” din portal)
+      PCLP_CODE_URL: http://localhost:${PCLP_PORT_VSCODE:-8080}
+    cap_add:
+      - SYS_PTRACE            # gdb, valgrind
+    security_opt:
+      - seccomp:unconfined    # gdb (dezactivarea ASLR), valgrind
+    stop_grace_period: 30s

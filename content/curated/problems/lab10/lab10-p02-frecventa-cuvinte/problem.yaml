@@ -1,0 +1,57 @@
+id: lab10-p02-frecventa-cuvinte
+lab: lab10
+number: 2
+title: "Frecvența cuvintelor dintr-un text"
+difficulty: 2
+estimated_minutes: 35
+concepts: [vector extensibil, realloc, realocare prin pointer auxiliar, structură, câmp pointer alocat dinamic, strcmp, tolower, eliberarea memoriei alocate dinamic]
+statement: |
+  Se citește un text de la tastatură, până la sfârșitul intrării. Un **cuvânt** este o secvență
+  maximală de litere (`a–z`, `A–Z`); orice alt caracter (cifră, spațiu, semn de punctuație) separă cuvintele.
+  Cuvintele se compară fără a ține cont de majuscule (se transformă în litere mici).
+
+  Afișează numărul total de cuvinte, numărul de cuvinte distincte și lista cuvintelor distincte cu
+  numărul de apariții, ordonată **descrescător după frecvență**, iar la frecvențe egale **alfabetic**.
+
+  Cuvintele se păstrează într-un vector de structuri `{char *cuvant; int aparitii;}` **extins dinamic**
+  (cu `realloc`), iar fiecare cuvânt este alocat exact cât îi trebuie.
+
+  **Date de intrare**
+
+  Un text oarecare (posibil vid), pe oricâte linii.
+
+  **Date de ieșire**
+
+  Prima linie: `Cuvinte: T, distincte: D`. Apoi `D` linii de forma `cuvant aparitii`.
+
+  **Restricții**
+
+  - textul are cel mult 10^6 caractere; un cuvânt are cel mult 100 de litere;
+  - numărul de cuvinte distincte nu este cunoscut dinainte.
+
+  **Exemplu**
+
+  Intrare (stdin):
+  ```
+  Ana are mere. Ana are si pere!
+  Mere, pere, prune; ANA.
+  ```
+
+  Ieșire (stdout):
+  ```
+  Cuvinte: 11, distincte: 6
+  ana 3
+  are 2
+  mere 2
+  pere 2
+  prune 1
+  si 1
+  ```
+hints:
+  - "Citește caracter cu caracter și construiește cuvântul curent într-un buffer; când întâlnești un caracter care nu e literă, cuvântul (dacă nu e vid) se încheie și trebuie înregistrat."
+  - "Pentru fiecare cuvânt încheiat caută-l în vector; dacă există, crește contorul, altfel adaugă-l (dublează capacitatea cu realloc când vectorul e plin). La final sortează cu qsort și o funcție de comparare pe două criterii."
+  - "Comparatorul: dacă aparițiile diferă întoarce b.aparitii - a.aparitii, altfel strcmp(a.cuvant, b.cuvant). La eliberare: întâi fiecare cuvânt, apoi vectorul."
+pitfalls:
+  - "p = realloc(p, ...) pierde memoria dacă realloc eșuează; folosește un pointer auxiliar."
+  - "Ultimul cuvânt din text poate să nu fie urmat de niciun separator (testul 06) — tratează și EOF ca separator."
+  - "strdup nu este în standardul C11; scrie o funcție proprie (malloc(strlen + 1) + strcpy)."

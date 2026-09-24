@@ -1,0 +1,62 @@
+id: lab04-p04-catalog-laborator
+lab: lab04
+number: 4
+title: "Catalogul de laborator"
+difficulty: 2
+estimated_minutes: 25
+concepts: [matrice, parcurgere pe linii, parcurgere pe coloane, buclă imbricată]
+statement: |
+  Asistentul ține notele de laborator într-un tabel: fiecare linie corespunde unui
+  student, fiecare coloană unui laborator. Scrie un program care calculează:
+
+  - totalul punctelor fiecărui student (suma pe linie);
+  - media fiecărui laborator (media pe coloană), cu două zecimale;
+  - studentul cu cel mai mare total (la egalitate, cel cu numărul de ordine mai mic).
+
+  Studenții și laboratoarele se numerotează de la 1.
+
+  **Date de intrare**
+
+  Pe prima linie, două numere naturale `n m`: numărul de studenți și de laboratoare.
+  Urmează `n` linii cu câte `m` numere naturale: notele.
+
+  **Date de ieșire**
+
+  Trei linii:
+
+  ```
+  Totaluri: t1 t2 ... tn
+  Medii: x1 x2 ... xm
+  Cel mai bun student: s
+  ```
+
+  Mediile se afișează cu exact două zecimale. Fiecare valoare de pe primele două linii
+  este precedată de un spațiu.
+
+  **Restricții**
+
+  - `1 ≤ n, m ≤ 50`
+  - `0 ≤ nota ≤ 10`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3 4
+  8 9 10 7
+  10 10 9 9
+  5 6 7 8
+  ```
+
+  Ieșire:
+  ```
+  Totaluri: 34 38 26
+  Medii: 7.67 8.33 8.67 8.00
+  Cel mai bun student: 2
+  ```
+hints:
+  - "Păstrează notele într-o matrice note[student][laborator] și alege nume sugestive pentru indici, ca să nu-i inversezi."
+  - "Suma pe linia i: fixezi i și parcurgi toate coloanele. Suma pe coloana j: fixezi j și parcurgi toate liniile — adică bucla exterioară merge pe coloane."
+  - "Resetează suma la 0 înainte de fiecare linie/coloană. Media unei coloane este suma ei împărțită (real) la n, numărul de studenți."
+pitfalls:
+  - "Inversarea indicilor (note[j][i]) poate trece neobservată pe matrice pătratice, dar e greșită pe cele dreptunghiulare."

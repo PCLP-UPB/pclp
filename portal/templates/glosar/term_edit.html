@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Editează: {{ c.label }}{% endblock %}
+{% block content %}
+<div class="kicker">Mod autor · editare</div>
+<h1>{{ c.label }} <a class="btn small ghost" href="/termen/{{ c.id }}/">vezi pagina</a></h1>
+<p class="muted small">Editările se salvează ca strat peste baza de conținut. Rulează <code>python manage.py exporta_editari</code> ca să le scrii în fișierele curate (<code>content/curated/*.tsv|txt</code>) și reconstruiește baza.</p>
+<div class="grid g2">
+<form class="card" method="post">{% csrf_token %}<input type="hidden" name="action" value="save">
+  <h2>Concept</h2>
+  <label class="f">Denumire</label><input type="text" name="label" value="{{ c.label }}">
+  <div class="formrow">
+    <div><label class="f">Tip</label><select name="kind">{% for k in kinds %}<option {% if k == c.kind %}selected{% endif %}>{{ k }}</option>{% endfor %}</select></div>
+    <div><label class="f">Nivel</label><select name="level">{% for l in "123" %}<option value="{{ l }}" {% if c.level|stringformat:'s' == l %}selected{% endif %}>{{ l }}</option>{% endfor %}</select></div>
+    <div><label class="f">Unitate</label><select name="unit">{% for u in units %}<option value="{{ u.id }}" {% if u.id == c.unit %}selected{% endif %}>{{ u.id }} · {{ u.short }}</option>{% endfor %}</select></div>
+  </div>
+  <label class="f">Definiție (reformulare scurtă)</label><textarea name="definition" rows="4">{{ c.definition }}</textarea>
+  <label class="f">Sinonime suplimentare (separate prin ;)</label><input type="text" name="extra_aliases" value="{{ c.edit.extra_aliases|join:'; ' }}">
+  <p class="small muted">Din baza de conținut: {{ c.aliases|join:", "|default:"—" }}</p>
+  <label class="f">Pagina de manual</label><input type="text" name="man" value="{{ c.man }}" placeholder="malloc.3">
+  <label class="f">Locul definiției</label>
+  <select name="def_location">
+    <option value="">automat</option>
+    {% for d in candidates %}{% if d %}<option value="{{ d.unit }}:{{ d.block }}" {% if c.edit.def_location == d.unit|add:":"|add:d.block|stringformat:"s" %}selected{% endif %}>[{{ d.unit }} #{{ d.block }}, scor {{ d.score }}] {{ d.sentence|truncatechars:90 }}</option>{% endif %}{% endfor %}
+  </select>
+  <p style="margin-top:14px"><button class="btn primary">Salvează</button></p>
+</form>
+
+<div class="card">
+  <h2>Relații</h2>
+  <ul class="rels small">
+  {% for r in rels %}
+    <li style="{% if r.hidden %}opacity:.5{% endif %}"><b>{{ c.label }}</b> <span class="verb">{{ r.verb }}</span> {{ r.other.label }}
+      <form method="post" style="display:inline">{% csrf_token %}
+      {% if r.added %}<input type="hidden" name="action" value="delrel"><input type="hidden" name="edit" value="{{ r.edit_id }}"><button class="btn small ghost">șterge</button>
+      {% elif r.hidden %}<input type="hidden" name="action" value="unhide"><input type="hidden" name="relation" value="{{ r.id }}"><button class="btn small ghost">reafișează</button>
+      {% else %}<input type="hidden" name="action" value="hide"><input type="hidden" name="relation" value="{{ r.id }}"><button class="btn small ghost">ascunde</button>{% endif %}
+      </form>
+    </li>
+  {% endfor %}
+  </ul>
+  <form method="post" style="margin-top:12px">{% csrf_token %}<input type="hidden" name="action" value="addrel">
+    <div class="formrow">
+      <div><label class="f">Sens</label><select name="dir"><option value="out">{{ c.label }} → alt termen</option><option value="in">alt termen → {{ c.label }}</option></select></div>
+      <div><label class="f">Predicat</label><select name="pred">{% for p in preds %}<option value="{{ p.id }}">{{ p.label }}</option>{% endfor %}</select></div>
+    </div>
+    <label class="f">Celălalt termen</label><input type="text" name="other" list="alllabels" placeholder="denumirea exactă">
+    <label class="small"><input type="checkbox" name="create"> creează termenul dacă nu există</label>
+    <p><button class="btn">Adaugă relația</button></p>
+  </form>
+  <form method="post" onsubmit="return confirm('Renunți la toate editările pentru acest concept?')">{% csrf_token %}<input type="hidden" name="action" value="revert"><button class="btn ghost">Revino la forma din laborator</button></form>
+</div>
+</div>
+{% endblock %}

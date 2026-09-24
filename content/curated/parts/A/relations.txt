@@ -1,0 +1,256 @@
+compilator|uses|compilare|lab01#introducere|source_explicit
+gcc|is_a|compilator|lab01#compilatorul_gcc|source_explicit
+compilare|requires|fișier sursă|lab01#utilizare_gcc|source_explicit
+compilare|precedes|link-editare|lab01#utilizare_gcc|source_explicit
+link-editare|requires|fișier obiect|lab03#clase_de_stocare_fisiere_antet_vs_biblioteci|source_explicit
+link-editare|uses|bibliotecă|lab03#clase_de_stocare_fisiere_antet_vs_biblioteci|source_explicit
+link-editare|part_of|compilare||editorial
+fișier executabil|requires|link-editare|lab03#clase_de_stocare_fisiere_antet_vs_biblioteci|source_explicit
+fișier obiect|requires|compilare|lab03#clase_de_stocare_fisiere_antet_vs_biblioteci|source_explicit
+compilare|requires|compilator|lab01#introducere|source_explicit
+program|requires|instrucțiune|lab01#introducere|source_explicit
+-o|part_of|gcc|lab01#utilizare_gcc|source_explicit
+-Wall|part_of|gcc|lab01#utilizare_gcc|source_explicit
+-lm|part_of|gcc|lab01#exemplu|source_explicit
+-Wall|detects|avertisment|lab01#utilizare_gcc|source_explicit
+-o|operates_on|fișier executabil|lab01#utilizare_gcc|source_explicit
+-lm|pairs_with|math.h|lab01#utilizare_gcc|source_explicit
+-lm|uses|link-editare|lab01#exemplu|source_explicit
+-lm|requires|bibliotecă||editorial
+avertisment|alternative_to|eroare de compilare||editorial
+compilator|detects|eroare de compilare|lab01#interactiunea_program-utilizator|source_explicit
+gcc|requires|terminal|lab01#compilatorul_gcc|source_explicit
+make|uses|Makefile|lab01#utilitarul_make|source_explicit
+make|uses|gcc|lab01#utilitarul_make|source_explicit
+make|requires|compilare|lab01#utilitarul_make|source_explicit
+make|requires|terminal||editorial
+editor de cod|operates_on|fișier sursă|lab01#editoare|source_explicit
+pagină de manual|requires|terminal|read-docs#exemple_de_documentatii|source_explicit
+testarea codului din surse externe|prevents|comportament nedefinit|read-docs#dezavantaje|editorial
+comportament nedefinit|causes|segmentation fault|read-docs#dezavantaje|source_explicit
+valgrind|detects|comportament nedefinit|read-docs#dezavantaje|source_explicit
+main|is_a|funcție|lab03#functia_main|source_explicit
+main|returns|int|lab03#functia_main|source_explicit
+main|part_of|program|lab01#introducere|source_explicit
+return|part_of|main|lab01#introducere|source_explicit
+comentariu|part_of|fișier sursă|lab01#introducere|editorial
+bloc de instrucțiuni|part_of|funcție|lab01#introducere|source_explicit
+bloc de instrucțiuni|requires|instrucțiune||editorial
+#include|operates_on|fișier antet|lab01#introducere|source_explicit
+#include|is_a|preprocesor|lab01#introducere|source_explicit
+stdio.h|is_a|fișier antet|lab01#introducere|source_explicit
+math.h|is_a|fișier antet|lab02#functii_matematice|source_explicit
+stdlib.h|is_a|fișier antet|lab02#studiu_de_caz|source_explicit
+time.h|is_a|fișier antet|lab02#studiu_de_caz|source_explicit
+printf|declared_in|stdio.h|lab01#introducere|source_explicit
+scanf|declared_in|stdio.h|lab01#introducere|source_explicit
+sqrt|declared_in|math.h|lab02#functii_matematice|source_explicit
+pow|declared_in|math.h|lab02#functii_matematice|source_explicit
+fabs|declared_in|math.h|lab02#functii_matematice|source_explicit
+rand|declared_in|stdlib.h|lab02#studiu_de_caz|source_explicit
+srand|declared_in|stdlib.h||editorial
+clock|declared_in|time.h|lab02#studiu_de_caz|source_explicit
+printf|requires|specificator de format|lab01#interactiunea_program-utilizator|source_explicit
+scanf|requires|specificator de format|lab01#interactiunea_program-utilizator|source_explicit
+scanf|requires|operatorul adresă|lab01#interactiunea_program-utilizator|source_explicit
+scanf|pairs_with|printf|lab01#interactiunea_program-utilizator|editorial
+printf|requires|expresie|lab01#interactiunea_program-utilizator|source_explicit
+%d|is_a|specificator de format|lab01#interactiunea_program-utilizator|source_explicit
+%f|is_a|specificator de format|lab01#interactiunea_program-utilizator|source_explicit
+%lf|is_a|specificator de format|lab01#interactiunea_program-utilizator|source_explicit
+%d|operates_on|int|lab01#interactiunea_program-utilizator|source_explicit
+%f|operates_on|float|lab01#interactiunea_program-utilizator|source_explicit
+%lf|operates_on|double|lab01#interactiunea_program-utilizator|source_explicit
+caracterul linie nouă|pairs_with|printf|lab01#introducere|editorial
+specificator de format|requires|tip de date||editorial
+variabilă|requires|tip de date|lab02#tipuri_fundamentale_de_date|source_explicit
+int|is_a|tip de date|lab02#tipuri_fundamentale_de_date|source_explicit
+char|is_a|tip de date|lab02#tipuri_fundamentale_de_date|source_explicit
+float|is_a|tip de date|lab02#tipuri_fundamentale_de_date|source_explicit
+double|is_a|tip de date|lab02#tipuri_fundamentale_de_date|source_explicit
+void|is_a|tip de date|lab03#tipul_de_date_void|source_explicit
+long|operates_on|int|lab02#tipuri_fundamentale_de_date|source_explicit
+long|operates_on|double|lab02#tipuri_fundamentale_de_date|source_explicit
+unsigned|operates_on|int|lab02#tipuri_fundamentale_de_date|source_explicit
+unsigned|operates_on|char|lab02#tipuri_fundamentale_de_date|source_explicit
+double|alternative_to|float|lab02#tipuri_fundamentale_de_date|editorial
+tip de date|causes|overflow|lab02#tipuri_fundamentale_de_date|source_explicit
+overflow|requires|tip de date|lab02#tipuri_fundamentale_de_date|source_explicit
+tip de date|requires|sizeof||editorial
+sizeof|operates_on|tip de date|lab02#operatori|source_explicit
+sizeof|is_a|operator|lab02#operatori|source_explicit
+expresie|requires|operator|lab02#operatori|source_explicit
+operator|has_property|precedența operatorilor|lab02#operatori|source_explicit
+operator|has_property|asociativitate|lab02#operatori|source_explicit
+operatorul de atribuire|is_a|operator|lab02#operatori|source_explicit
+operatorul de egalitate|is_a|operator|lab02#operatori|source_explicit
+operator relațional|is_a|operator|lab02#operatori|source_explicit
+operator logic|is_a|operator|lab02#operatori|source_explicit
+operatorul modulo|is_a|operator|lab02#operatori|source_explicit
+operatorul de împărțire|is_a|operator|lab02#operatori|source_explicit
+operatorul de incrementare|is_a|operator|lab02#operatori|source_explicit
+operatorul condițional|is_a|operator|lab02#operatori|source_explicit
+conversie de tip|is_a|operator|lab02#operatori|source_explicit
+operatorul de indexare|is_a|operator|lab02#operatori|source_explicit
+operatorul adresă|is_a|operator|lab02#operatori|source_explicit
+operator pe biți|is_a|operator|lab02#operatori|source_explicit
+confuzia între = și ==|requires|operatorul de atribuire|lab02#operatori|source_explicit
+confuzia între = și ==|requires|operatorul de egalitate|lab02#operatori|source_explicit
+-Wall|detects|confuzia între = și ==||editorial
+precedența operatorilor|requires|operator pe biți|lab02#operatori|source_explicit
+conversie de tip|pairs_with|operatorul de împărțire|lab02#studiu_de_caz|source_explicit
+operatorul condițional|alternative_to|if|lab03#functii_recursive|editorial
+operatorul adresă|requires|adresă de memorie|lab01#interactiunea_program-utilizator|source_explicit
+adresă de memorie|precedes|pointer|lab03#transmiterea_parametrilor_prin_valoare|source_explicit
+operatorul adresă|precedes|pointer||editorial
+math.h|requires|-lm|lab01#utilizare_gcc|source_explicit
+pow|returns|double|lab02#functii_matematice|source_explicit
+sqrt|returns|double|lab02#functii_matematice|source_explicit
+srand|pairs_with|rand|lab02#studiu_de_caz|source_explicit
+măsurarea timpului de execuție|uses|clock|lab02#studiu_de_caz|source_explicit
+măsurarea timpului de execuție|uses|conversie de tip|lab02#studiu_de_caz|source_explicit
+instrucțiune condițională|is_a|instrucțiune|lab02#instructiuni|source_explicit
+instrucțiune de repetiție|is_a|instrucțiune|lab02#instructiuni|source_explicit
+if|is_a|instrucțiune condițională|lab02#instructiuni_conditionale|source_explicit
+switch|is_a|instrucțiune condițională|lab02#instructiuni_conditionale|source_explicit
+switch|alternative_to|if|lab02#switch|source_explicit
+while|is_a|instrucțiune de repetiție|lab02#instructiuni_de_repetitie|source_explicit
+do-while|is_a|instrucțiune de repetiție|lab02#instructiuni_de_repetitie|source_explicit
+for|is_a|instrucțiune de repetiție|lab02#instructiuni_de_repetitie|source_explicit
+if|requires|expresie|lab02#if-else|source_explicit
+if|requires|operator relațional||editorial
+if|requires|operator logic||editorial
+if|uses|bloc de instrucțiuni|lab02#if-else|source_explicit
+while|requires|expresie|lab02#while|source_explicit
+do-while|requires|while|lab02#do__while|source_explicit
+for|requires|while|lab02#for|source_explicit
+for|alternative_to|while|lab02#for|source_explicit
+for|uses|operatorul de incrementare|lab02#for|source_explicit
+break|pairs_with|switch|lab02#switch|source_explicit
+fall-through|part_of|switch|lab02#switch|source_explicit
+break|prevents|fall-through|lab02#switch|source_explicit
+break|operates_on|instrucțiune de repetiție|lab02#break|source_explicit
+continue|operates_on|instrucțiune de repetiție|lab02#continue|source_explicit
+break|alternative_to|continue||editorial
+buclă infinită|requires|break|lab02#for|source_explicit
+continue|causes|buclă infinită|lab02#continue|source_explicit
+for|causes|buclă infinită|lab02#for|source_explicit
+buclă imbricată|requires|instrucțiune de repetiție|lab04#exemple_de_programe|source_explicit
+index cross-talk|requires|buclă imbricată|lab04#exemple_de_programe|source_explicit
+goto|is_a|instrucțiune|lab02#goto|source_explicit
+coding style|prevents|goto|coding-style#motivatie|source_explicit
+return|is_a|instrucțiune|lab02#return|source_explicit
+return|part_of|funcție|lab03#definirea_si_apelul_unei_functii_in_c|source_explicit
+funcție|requires|instrucțiune||editorial
+funcție|requires|tip de date|lab03#definirea_si_apelul_unei_functii_in_c|source_explicit
+funcție|has_property|tip returnat|lab03#definirea_si_apelul_unei_functii_in_c|source_explicit
+funcție|has_property|parametru|lab03#definirea_si_apelul_unei_functii_in_c|source_explicit
+declarația funcției|part_of|funcție|lab03#definirea_si_apelul_unei_functii_in_c|source_explicit
+definiția funcției|part_of|funcție|lab03#definirea_si_apelul_unei_functii_in_c|source_explicit
+declarația funcției|precedes|apelul funcției|lab03#definirea_si_apelul_unei_functii_in_c|source_explicit
+definiția funcției|requires|declarația funcției|lab03#definirea_si_apelul_unei_functii_in_c|source_explicit
+apelul funcției|requires|funcție|lab03#definirea_si_apelul_unei_functii_in_c|source_explicit
+apel prin valoare|requires|parametru|lab03#transmiterea_parametrilor_prin_valoare|source_explicit
+apel prin valoare|requires|apelul funcției|lab03#transmiterea_parametrilor|source_explicit
+apel prin valoare|precedes|pointer|lab03#transmiterea_parametrilor|source_explicit
+printf|uses|apel prin valoare|lab03#transmiterea_parametrilor_prin_valoare|source_explicit
+scanf|uses|adresă de memorie|lab03#transmiterea_parametrilor_prin_valoare|source_explicit
+tip returnat|requires|tip de date|lab03#definirea_si_apelul_unei_functii_in_c|source_explicit
+return|returns|tip returnat|lab03#definirea_si_apelul_unei_functii_in_c|source_explicit
+recursivitate|requires|funcție|lab03#functii_recursive|source_explicit
+recursivitate|requires|apelul funcției|lab03#functii_recursive|source_explicit
+recursivitate|requires|condiție de oprire|lab03#functii_recursive|source_explicit
+recursivitate|causes|stack overflow|lab03#functii_recursive|source_explicit
+condiție de oprire|prevents|stack overflow|lab03#functii_recursive|source_explicit
+condiție de oprire|requires|if|lab03#functii_recursive|editorial
+abordare iterativă|alternative_to|recursivitate|lab03#lab-exercitii|source_explicit
+abordare iterativă|requires|instrucțiune de repetiție||editorial
+clasă de stocare|requires|link-editare|lab03#clase_de_stocare_fisiere_antet_vs_biblioteci|source_explicit
+clasă de stocare|requires|funcție|lab03#clase_de_stocare_fisiere_antet_vs_biblioteci|source_explicit
+static|is_a|clasă de stocare|lab03#clase_de_stocare_fisiere_antet_vs_biblioteci|source_explicit
+extern|is_a|clasă de stocare|lab03#clase_de_stocare_fisiere_antet_vs_biblioteci|source_explicit
+static|alternative_to|extern|lab03#clase_de_stocare_fisiere_antet_vs_biblioteci|source_explicit
+variabilă globală|is_a|variabilă|lab03#clase_de_stocare_fisiere_antet_vs_biblioteci|source_explicit
+coding style|prevents|variabilă globală|coding-style#motivatie|source_explicit
+fișier antet|part_of|bibliotecă|lab03#clase_de_stocare_fisiere_antet_vs_biblioteci|source_explicit
+fișier antet|requires|declarația funcției|lab03#clase_de_stocare_fisiere_antet_vs_biblioteci|source_explicit
+fișier antet|pairs_with|fișier sursă|good-practices#organizare_surse|source_explicit
+declarația funcției|pairs_with|definiția funcției|lab03#definirea_si_apelul_unei_functii_in_c|source_explicit
+organizarea surselor|uses|fișier antet|good-practices#organizare_surse|source_explicit
+organizarea surselor|uses|static|good-practices#organizare_surse|source_explicit
+organizarea surselor|requires|compilarea mai multor fișiere sursă|good-practices#exemplu|source_explicit
+compilarea mai multor fișiere sursă|requires|link-editare|lab03#clase_de_stocare_fisiere_antet_vs_biblioteci|editorial
+compilarea mai multor fișiere sursă|uses|make||editorial
+modularizare|requires|funcție|coding-style#conventie1|source_explicit
+modularizare|uses|organizarea surselor|coding-style#conventie1|source_explicit
+indentare|part_of|coding style|coding-style#conventie1|source_explicit
+spațiere|part_of|coding style|coding-style#conventie1|source_explicit
+nume sugestive|part_of|coding style|coding-style#conventie1|source_explicit
+comentariu|part_of|coding style|coding-style#conventie1|source_explicit
+checker de coding style|detects|coding style|coding-style#coding_style_checker|source_explicit
+const|operates_on|parametru|good-practices#cand_ar_trebui_sa_am_un_parametru_declarat_const_intr-o_functie|source_explicit
+const|causes|eroare de compilare|good-practices#cand_ar_trebui_sa_am_un_parametru_declarat_const_intr-o_functie|source_explicit
+apel prin valoare|precedes|structură|good-practices#cand_este_bine_sa_trimit_variabile_parametri_la_o_functie_si_cand_nu|source_explicit
+vector|is_a|tablou|lab04#tablouri_multidimensionale|source_explicit
+matrice|is_a|tablou|lab04#tablouri_multidimensionale|source_explicit
+matrice|requires|vector|lab04#matrice|source_explicit
+tablou|requires|variabilă||editorial
+tablou|requires|tip de date|lab04#vectori|source_explicit
+tablou|requires|indice|lab04#vectori|source_explicit
+operatorul de indexare|requires|indice|lab04#reprezentarea_in_memorie|source_explicit
+operatorul de indexare|operates_on|tablou|lab04#reprezentarea_in_memorie|source_explicit
+constantă simbolică|requires|preprocesor|lab04#vectori|editorial
+inițializarea tabloului|operates_on|tablou|lab04#vectori|source_explicit
+inițializarea tabloului|prevents|element neinițializat|lab04#vectori|source_explicit
+tablou|requires|for|lab04#exemple_de_programe|editorial
+depășirea limitelor tabloului|requires|indice|lab04#exemple_de_programe|source_explicit
+verificarea indicilor|prevents|depășirea limitelor tabloului|lab04#exemple_de_programe|source_explicit
+depășirea limitelor tabloului|causes|segmentation fault||editorial
+depășirea limitelor tabloului|causes|comportament nedefinit|lab04#reprezentarea_in_memorie|source_explicit
+valgrind|detects|depășirea limitelor tabloului||editorial
+constantă simbolică|prevents|depășirea limitelor tabloului|lab04#exemple_de_programe|editorial
+reprezentarea tablourilor în memorie|requires|sizeof|lab04#reprezentarea_in_memorie|source_explicit
+reprezentarea tablourilor în memorie|requires|adresă de memorie|lab04#reprezentarea_in_memorie|source_explicit
+reprezentarea tablourilor în memorie|precedes|pointer|lab04#reprezentarea_in_memorie|editorial
+tablou ca parametru|requires|funcție|lab04#reprezentarea_in_memorie|source_explicit
+tablou ca parametru|requires|reprezentarea tablourilor în memorie|lab04#reprezentarea_in_memorie|source_explicit
+numărul de elemente al unui tablou|uses|sizeof|good-practices#exemplu|source_explicit
+interschimbare|requires|variabilă|lab04#exemple_de_programe|source_explicit
+căutare secvențială|requires|vector|lab04#cautare_secventiala|source_explicit
+căutare secvențială|uses|break|lab04#cautare_secventiala|source_explicit
+căutare binară|requires|sortare|lab04#cautare_binara_iterativa|source_explicit
+căutare binară|alternative_to|căutare secvențială|lab04#cautare_binara_iterativa|source_explicit
+căutare binară|uses|abordare iterativă|lab04#cautare_binara_iterativa|source_explicit
+căutare binară|uses|recursivitate|lab04#cautare_binara_iterativa|source_explicit
+căutare binară|uses|calcularea mijlocului intervalului|lab04#cautare_binara_iterativa|source_explicit
+calcularea mijlocului intervalului|prevents|overflow|lab04#cautare_binara_iterativa|source_explicit
+sortare|requires|vector|lab04#bubble_sort|editorial
+bubble sort|is_a|sortare|lab04#bubble_sort|source_explicit
+sortare prin selecție|is_a|sortare|lab04#sortarea_prin_selectie|source_explicit
+bubble sort|uses|interschimbare|lab04#bubble_sort|source_explicit
+sortare prin selecție|uses|interschimbare|lab04#sortarea_prin_selectie|source_explicit
+sortare prin selecție|alternative_to|bubble sort|lab04#sortarea_prin_selectie|source_explicit
+sortare|uses|buclă imbricată||editorial
+înmulțirea matricelor|operates_on|matrice|lab04#inmultirea_matricelor|source_explicit
+înmulțirea matricelor|uses|buclă imbricată||editorial
+matrice|requires|buclă imbricată|lab04#exemple_de_programe1|editorial
+vector|precedes|șir de caractere||editorial
+tablou|precedes|pointer||editorial
+tablou|precedes|alocare dinamică|lab04#vectori|editorial
+funcție|precedes|recursivitate||editorial
+funcție|precedes|fișier antet||editorial
+malloc|declared_in|stdlib.h|good-practices#programare_defensiva|source_explicit
+mașină virtuală|pairs_with|terminal|vm-setup#vm_ssh_scp|editorial
+gcc|pairs_with|make|vm-setup#instalare_utilitare_compilare|source_explicit
+pagină de manual|operates_on|gcc|lab01#utilizare_gcc|source_explicit
+pagină de manual|operates_on|scanf|read-docs#exemple_de_documentatii|source_explicit
+testarea codului din surse externe|uses|pagină de manual|read-docs#cum_integram_o_functionalitate_in_codul_nostru|source_explicit
+testarea codului din surse externe|uses|-Wall|read-docs#cum_integram_o_functionalitate_in_codul_nostru|source_explicit
+switch|requires|expresie|lab02#switch|source_explicit
+rand|pairs_with|time.h|lab02#studiu_de_caz|source_explicit
+parametru|requires|variabilă||editorial
+programare defensivă|uses|return|good-practices#programare_defensiva|source_explicit
+programare defensivă|prevents|segmentation fault|good-practices#programare_defensiva|source_explicit
+indentare|operates_on|bloc de instrucțiuni|coding-style#conventie1|source_explicit
+operatorul de împărțire|requires|int||editorial
+operatorul de împărțire|pairs_with|operatorul modulo|lab02#operatori|editorial

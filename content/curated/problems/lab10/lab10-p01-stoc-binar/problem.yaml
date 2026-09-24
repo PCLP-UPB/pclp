@@ -1,0 +1,69 @@
+id: lab10-p01-stoc-binar
+lab: lab10
+number: 1
+title: "Stocul unui depozit într-un fișier binar"
+difficulty: 1
+estimated_minutes: 25
+concepts: [structură, vector de structuri, vector alocat dinamic, calloc, fwrite, fread, fișier binar, dimensiunea unui fișier, free]
+statement: |
+  Un depozit ține evidența articolelor într-un fișier binar. Fiecare articol este descris de structura:
+
+  ```c
+  typedef struct {
+      char cod[8];     // maxim 7 caractere + '\0'; octeții nefolosiți sunt 0
+      int cantitate;
+      int pret;
+  } articol_t;         // 16 octeți (presupunem sizeof(int) == 4)
+  ```
+
+  Scrie un program care:
+
+  1. citește de la tastatură `n` articole într-un vector **alocat dinamic**;
+  2. scrie **tot vectorul** în fișierul `stoc.bin` cu **un singur apel** `fwrite`, apoi închide fișierul și eliberează vectorul;
+  3. redeschide `stoc.bin`, determină numărul de articole din dimensiunea fișierului, le citește cu
+     **un singur apel** `fread` într-un vector nou alocat și afișează raportul.
+
+  **Date de intrare**
+
+  Pe prima linie `n`; pe fiecare din următoarele `n` linii: `cod cantitate pret`
+  (codul are 1–7 caractere, fără spații).
+
+  **Date de ieșire**
+
+  ```
+  stoc.bin: D octeti, N articole
+  <cod> <cantitate> x <pret> = <valoare>      (câte o linie pentru fiecare articol)
+  Total: T
+  ```
+  unde valoare = cantitate × pret, iar T este suma valorilor (pot depăși domeniul `int`).
+
+  **Restricții**
+
+  - 0 ≤ n ≤ 10^5; 0 ≤ cantitate, pret ≤ 10^7.
+
+  **Exemplu**
+
+  Intrare (stdin):
+  ```
+  3
+  A100 5 20
+  B7 12 3
+  XYZ1234 1 999
+  ```
+
+  Ieșire (stdout):
+  ```
+  stoc.bin: 48 octeti, 3 articole
+  A100 5 x 20 = 100
+  B7 12 x 3 = 36
+  XYZ1234 1 x 999 = 999
+  Total: 1135
+  ```
+hints:
+  - "Pentru că structura nu conține pointeri, un vector de structuri este o zonă continuă de memorie și poate fi scris/citit dintr-o bucată."
+  - "fwrite(v, sizeof(articol_t), n, f) scrie tot vectorul. La recitire: fseek la final + ftell dă dimensiunea, iar numărul de articole este dimensiunea / sizeof(articol_t)."
+  - "Folosește calloc pentru primul vector, ca octeții nefolosiți din cod să fie 0. Pașii: calloc, citire, fopen(\"wb\"), fwrite, fclose, free; fopen(\"rb\"), dimensiune, malloc, fread, fclose, afișare, free."
+pitfalls:
+  - "Produsul cantitate × pret poate depăși int — fă calculul în long long."
+  - "malloc(0) poate întoarce NULL; tratează separat cazul n = 0 sau alocă n + 1 elemente."
+  - "Nu uita fclose înainte de redeschidere: fără el, datele pot fi încă în buffer."

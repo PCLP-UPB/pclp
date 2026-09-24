@@ -1,0 +1,642 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:laboratoare:lab09</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-11-26T17:12:20+0200"/>
+<meta name="keywords" content="programare,laboratoare,lab09"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare:laboratoare"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/laboratoare/lab09"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab09"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:laboratoare';var JSINFO = {"id":"programare:laboratoare:lab09","namespace":"programare:laboratoare","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#pclp_laborator09operatii_cu_fisiere_aplicatii_folosind_fisiere">PCLP Laborator09: Operaţii cu fişiere. Aplicaţii folosind fişiere</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#obiective">Obiective</a></div></li>
+<li class="level3"><div class="li"><a href="#notiuni_teoretice">Noţiuni teoretice</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#introducere">Introducere</a></div></li>
+<li class="level4"><div class="li"><a href="#functii">Funcții</a></div></li>
+<li class="level4"><div class="li"><a href="#citirea_si_scrierea_indin_fisiere">Citirea şi scrierea în/din fişiere</a></div></li>
+<li class="level4"><div class="li"><a href="#citirescriere_cu_format">Citire/scriere cu format</a></div></li>
+<li class="level4"><div class="li"><a href="#citirescriere_fara_conversie">Citire/scriere fără conversie</a></div></li>
+<li class="level4"><div class="li"><a href="#citirescriere_la_nivel_de_caracter">Citire/scriere la nivel de caracter</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#exercitii">Exerciții</a></div></li>
+<li class="level3"><div class="li"><a href="#referinte">Referinţe</a></div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h2 class="sectionedit1" id="pclp_laborator09operatii_cu_fisiere_aplicatii_folosind_fisiere">PCLP Laborator09: Operaţii cu fişiere. Aplicaţii folosind fişiere</h2>
+<div class="level2">
+
+<p>
+<strong>Resposabili:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="mailto:&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;" class="mail" title="&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;">Dorinel Filip (2016-2020)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x6e;&#x65;&#x61;&#x74;&#x75;&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x6e;&#x65;&#x61;&#x74;&#x75;&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Darius Neațu (2019-2020)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x6d;&#x69;&#x68;&#x61;&#x65;&#x6c;&#x61;&#x2e;&#x76;&#x61;&#x73;&#x69;&#x6c;&#x65;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x6d;&#x69;&#x68;&#x61;&#x65;&#x6c;&#x61;&#x2e;&#x76;&#x61;&#x73;&#x69;&#x6c;&#x65;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Mihaela Vasile (2015)</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT1 SECTION "PCLP Laborator09: Operaţii cu fişiere. Aplicaţii folosind fişiere" [1-276] -->
+<h3 class="sectionedit2" id="obiective">Obiective</h3>
+<div class="level3">
+
+<p>
+În urma parcurgerii acestui laborator studentul va fi capabil să:
+</p>
+<ul>
+<li class="level1"><div class="li"> lucreze cu fişiere text (deschidere, închidere, citire, scriere)</div>
+</li>
+<li class="level1"><div class="li"> înteleaga un fişier binar şi să lucreze cu el;</div>
+</li>
+<li class="level1"><div class="li"> să se poziţioneze in interiorul unui fişier;</div>
+</li>
+<li class="level1"><div class="li"> poată determina poziţia în cadrul unui fişier;</div>
+</li>
+<li class="level1"><div class="li"> înteleagă diferenţa între organizarea internă a fişierelor pe sistemele de operare Linux şi Windows.</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT2 SECTION "Obiective" [277-711] -->
+<h3 class="sectionedit3" id="notiuni_teoretice">Noţiuni teoretice</h3>
+<div class="level3">
+
+</div>
+
+<h4 id="introducere">Introducere</h4>
+<div class="level4">
+
+<p>
+Un fişier este o structură dinamică, situată în memoria secundară (pe disk-uri). Limbajul C permite operarea cu fişiere:
+</p>
+<ul>
+<li class="level1"><div class="li"> de <strong>tip text</strong> - un astfel de fişier conţine o succesiune de <strong>linii</strong>, separate prin new line (&#039;\n&#039;) </div>
+</li>
+<li class="level1"><div class="li"> de <strong>tip binar</strong> - un astfel de fişier conţine o succesiune de octeti, <strong>fără nici o structură</strong>.</div>
+</li>
+</ul>
+
+<p>
+Prelucrarea unui fişier presupune asocierea acestuia cu un canal de I/E (numit flux sau stream). Există trei canale predefinite, care se deschid automat la lansarea unui program:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>stdin</strong> - fişier de intrare, text, este intrarea standard - tastatura </div>
+</li>
+<li class="level1"><div class="li"> <strong>stdout</strong> - fişier de iesire, text, este ieşirea standard - ecranul monitorului.</div>
+</li>
+<li class="level1"><div class="li"> <strong>stderr</strong> – fişier de iesire, text, este ieşirea standard unde sunt scris mesajele de eroare - ecran.</div>
+</li>
+</ul>
+
+<p>
+Pentru a prelucra un fişier, trebuie parcurse următoarele etape:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>se defineşte</strong> o variabilă de tip <strong>FILE</strong>* pentru accesarea fişierului; <strong>FILE</strong> este un tip structură definit în &lt;stdio.h&gt;, care conţine informaţii referitoare la fişier şi la tamponul de transfer de date între memoria centrală şi fişier (adresa, lungimea tamponului, modul de utilizare a fişierului, indicator de sfârsit, de poziţie în fişier). Puteți citi mai multe <a href="http://stackoverflow.com/questions/5672746/what-exactly-is-the-file-keyword-in-c" class="urlextern" title="http://stackoverflow.com/questions/5672746/what-exactly-is-the-file-keyword-in-c"  rel="nofollow"> aici </a>.</div>
+</li>
+<li class="level1"><div class="li"> <strong>se deschide fişieru</strong>l pentru un anumit <strong>mod de acces</strong>, folosind funcţia de bibliotecă <strong>fopen</strong>, care realizează şi asocierea între variabila fişier şi numele extern al fişierului </div>
+</li>
+<li class="level1"><div class="li"> <strong>se prelucrează fişierul</strong> în citire/scriere cu <strong>funcţiile specifice</strong> </div>
+</li>
+<li class="level1"><div class="li"> <strong>se închide fişierul</strong> folosind funcţia de bibliotecă <strong>fclose</strong> </div>
+</li>
+</ul>
+
+</div>
+
+<h4 id="functii">Funcții</h4>
+<div class="level4">
+
+<p>
+Mai jos se prezintă restul funcţiilor de prelucrare a fişierelor. Pentru documentația oficială puteți citi <a href="http://www.cplusplus.com/reference/cstdio/" class="urlextern" title="http://www.cplusplus.com/reference/cstdio/"  rel="nofollow"> aici</a>.
+</p>
+
+</div>
+
+<h5 id="fopen">fopen</h5>
+<div class="level5">
+<pre class="code c">FILE <span class="sy0">*</span><a href="http://www.opengroup.org/onlinepubs/009695399/functions/fopen.html"><span class="kw3">fopen</span></a><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>filename<span class="sy0">,</span> <span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>mod<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+deschide fişierul cu numele <strong>filename</strong> pentru acces de tip <strong>mod</strong>. 
+</p>
+
+<p>
+Returnează <strong>pointer la fişier</strong> sau <strong>NULL</strong> dacă fişierul nu poate fi deschis; valoarea returnată este memorată în variabila fişier, care a fost declarată pentru accesarea lui. 
+</p>
+
+<p>
+Modul de deschidere poate fi:
+</p>
+<ul>
+<li class="level1"><div class="li"> “<strong>r</strong>”	- <strong>readonly</strong> , este permisă doar citirea dintr-un fişier existent</div>
+</li>
+<li class="level1"><div class="li"> “<strong>w</strong>”	- <strong>write</strong>, crează un nou fişier, sau dacă există deja, distruge vechiul continut </div>
+</li>
+<li class="level1"><div class="li"> “<strong>a</strong>”	- <strong>append</strong>, deschide pentru scriere un fişier existent ( scrierea se va face în continuarea </div>
+</li>
+</ul>
+
+<p>
+		informaţiei deja existente în fişier, deci pointerul  de acces se plasează la sfârşitul fişierului )
+</p>
+<ul>
+<li class="level1"><div class="li"> “<strong>+</strong>”	- permite scrierea şi citirea - <strong>actualizare</strong> (ex: “r+”, “w+”, “a+”). Între read şi write trebuie repoziţionat cursorul de acces printr-un apel la <strong>fseek</strong>. </div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> “<strong>b</strong>”	- specifică fişier de tip <strong>binar</strong> </div>
+</li>
+<li class="level1"><div class="li"> “<strong>t</strong>”	- specifică fişier de tip <strong>text</strong> (implicit), la care se face automat conversia CR-LF(“\n\f”) în sau din CR (&#039;\n&#039;). </div>
+</li>
+</ul>
+
+</div>
+
+<h5 id="fclose">fclose</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">int</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fclose.html"><span class="kw3">fclose</span></a><span class="br0">&#40;</span>FILE <span class="sy0">*</span>pFile<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+<strong>închide fişierul</strong> asociat cu variabila <strong>pFile</strong> şi eliberează zona tampon; returnează 0 la succes, <abbr title="End of file">EOF</abbr> (end of file) la eroare 
+</p>
+
+</div>
+
+<h5 id="fseek">fseek</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">int</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fseek.html"><span class="kw3">fseek</span></a><span class="br0">&#40;</span>FILE <span class="sy0">*</span>pFile<span class="sy0">,</span> <span class="kw4">long</span> offset<span class="sy0">,</span> <span class="kw4">int</span> whence<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+<strong>repoziţionează pointerul</strong> asociat fişierului <strong>pFile</strong>; offset - numărul de octeţi între poziţia dată de whence şi noua poziţie. 
+</p>
+
+<p>
+whence - are una din cele trei valori posibile:
+</p>
+<ul>
+<li class="level1"><div class="li"> SEEK_SET  = 0 - Căutarea se face de la începutul fişierului </div>
+</li>
+<li class="level1"><div class="li"> SEEK_CUR = 1 - Căutare din poziţia curentă </div>
+</li>
+<li class="level1"><div class="li"> SEEK_END = 2 - Căutare de la sfârşitul fişierului </div>
+</li>
+</ul>
+
+</div>
+
+<h5 id="ftell">ftell</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">long</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/ftell.html"><span class="kw3">ftell</span></a><span class="br0">&#40;</span>FILE <span class="sy0">*</span>pFile<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+<strong>întoarce poziţia curentă</strong> în cadrul fișierului asociat cu pFile.
+</p>
+
+</div>
+
+<h5 id="fgetpos">fgetpos</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">int</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fgetpos.html"><span class="kw3">fgetpos</span></a><span class="br0">&#40;</span>FILE <span class="sy0">*</span>pFile<span class="sy0">,</span> fpos_t <span class="sy0">*</span>ptr<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+această funcţie <strong>memorează poziţia curentă</strong> în variabila ptr în cadrul fişierului asociat cu pFile (ptr va putea fi folosit ulterior cu funcţia fsetpos).
+</p>
+
+</div>
+
+<h5 id="fsetpos">fsetpos</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">int</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fsetpos.html"><span class="kw3">fsetpos</span></a><span class="br0">&#40;</span>FILE <span class="sy0">*</span>pFile<span class="sy0">,</span> <span class="kw4">const</span> fpos_t <span class="sy0">*</span>ptr<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+această funcţie <strong>setează poziţia curentă</strong> în fişierul asociat cu pFile la valoarea ptr, obţinută anterior prin funcţia fgetpos.
+</p>
+
+</div>
+
+<h5 id="feof">feof</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">int</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/feof.html"><span class="kw3">feof</span></a><span class="br0">&#40;</span>FILE <span class="sy0">*</span>fis<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+returnează 0 dacă nu s-a detectat <strong>sfârşit de fişier</strong> la ultima operaţie de citire, respectiv o valoare nenulă (adevărată) pentru sfârşit de fişier. 
+</p>
+
+</div>
+
+<h5 id="freopen">freopen</h5>
+<div class="level5">
+<pre class="code c">FILE<span class="sy0">*</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/freopen.html"><span class="kw3">freopen</span></a><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>filename<span class="sy0">,</span> <span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>mode<span class="sy0">,</span> FILE <span class="sy0">*</span>fp<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+se închide fişierul fp, se deschide fişierul cu numele filename în modul mode şi acesta se asociază la fp; se întoarce fp sau NULL în caz de eroare.
+</p>
+
+</div>
+
+<h5 id="fflush">fflush</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">int</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fflush.html"><span class="kw3">fflush</span></a><span class="br0">&#40;</span>FILE <span class="sy0">*</span>fp<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Această funcţie se utilizează pentru fişierele deschise pentru scriere şi are ca efect scrierea în fişier a datelor din bufferul asociat acestuia, care înca nu au fost puse în fişier.
+</p>
+
+</div>
+
+<h4 id="citirea_si_scrierea_indin_fisiere">Citirea şi scrierea în/din fişiere</h4>
+<div class="level4">
+
+<p>
+Citirea/scrierea în fişiere se poate face în două moduri (în funcție de tipul fişierului): în mod text sau în mod binar. Principalele diferenţe dintre cele două moduri sunt:
+</p>
+<ul>
+<li class="level1"><div class="li"> în modul text, la sfarsitul fişierului se pune un caracter suplimentar, care indică sfârşitul de fişier. În DOS şi Windows se utilizează caracterul cu codul <abbr title="American Standard Code for Information Interchange">ASCII</abbr> 26 (Ctrl-Z), iar în Unix se utilizează caracterul cu codul <abbr title="American Standard Code for Information Interchange">ASCII</abbr> 4. Dacă citim un fişier în mod text, citirea se va opri la intâlnirea acestui caracter, chiar dacă mai există şi alte caractere după el. În modul binar nu există caracter de sfârşit de fişier (mai precis, caracterul cu codul 26, respectiv 4, este tratat la fel ca şi celelalte caractere).</div>
+</li>
+<li class="level1"><div class="li"> în DOS şi Windows, în modul text, sfârşitul de linie este reprezentat prin două caractere, CR (Carriage Return, cod <abbr title="American Standard Code for Information Interchange">ASCII</abbr> 13) şi LF (Line Feed, cod <abbr title="American Standard Code for Information Interchange">ASCII</abbr> 10). Atunci când în modul text scriem un caracter &#039;\n&#039; (LF) în fişier, acesta va fi convertit într-o secventă de 2 caractere CR şi LF. Când citim în mod text dintr-un fişier, secvenţa CR, LF este convertită într-un &#039;\n&#039; (LF). În Unix, sfârşitul de linie este reprezentat doar prin caracterul LF. În mod binar, atât în DOS-Windows cât şi în Unix, sfârşitul de linie este reprezentat doar prin caracterul LF.</div>
+</li>
+</ul>
+
+<p>
+Modul binar se utilizează de obicei pentru a scrie în fişier datele exact aşa cum sunt reprezentate în memorie (cu functiile <strong>fread</strong>, <strong>fwrite</strong>) - de exemplu pentru un număr intreg se va scrie reprezentarea internă a acestuia, pe 2 sau pe 4 octeti.
+</p>
+
+<p>
+Modul text este utilizat mai ales pentru scrierea cu format (cu funcţiile fprintf, fscanf) - în cazul acesta pentru un număr întreg se vor scrie caracterele <abbr title="American Standard Code for Information Interchange">ASCII</abbr> utilizate pentru a reprezenta cifrele acestuia (adică un şir de caractere cum ar fi “1” sau “542”). 
+</p>
+
+</div>
+
+<h4 id="citirescriere_cu_format">Citire/scriere cu format</h4>
+<div class="level4">
+<pre class="code c"><span class="kw4">int</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fprintf.html"><span class="kw3">fprintf</span></a><span class="br0">&#40;</span>FILE <span class="sy0">*</span>fp<span class="sy0">,</span> <span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>format<span class="sy0">,</span> ...<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="kw4">int</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fscanf.html"><span class="kw3">fscanf</span></a><span class="br0">&#40;</span>FILE <span class="sy0">*</span>fp<span class="sy0">,</span> <span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>format<span class="sy0">,</span> ...<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Funcţiile sunt utilizate pentru citire/scriere în mod text şi sunt asemănătoare cu printf/scanf (diferenţa fiind că trebuie dat pointerul la fişier ca prim parametru).
+</p>
+
+</div>
+
+<h5 id="exemplu_1">Exemplu 1</h5>
+<div class="level5">
+
+<p>
+Să presupunem că avem următorul fișier care pe prima linie conține un număr natural nenul n, iar pe a doua linie se află n numere întregi reprezentând elementele unui vector. Se cere citirea vectorului, dublarea fiecarui element, apoi salvarea rezultatelor în fișierul “gigel.out”.
+</p>
+<pre class="code c">gigel.<span class="me1">in</span>
+<span class="nu0">5</span>
+<span class="nu0">1</span> <span class="nu0">3</span> <span class="sy0">-</span><span class="nu0">1</span> <span class="nu0">6</span> <span class="nu0">7</span></pre>
+
+<p>
+Rulați și înțelegeți următorul cod C.
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#define NMAX 100</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// numele fisierului de intrare</span>
+    <span class="kw4">char</span> input_filename<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy0">=</span> <span class="st0">&quot;gigel.in&quot;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// deschidere fisier de intrare pentru</span>
+    <span class="co1">// citire (r) in modul text (t)</span>
+    FILE <span class="sy0">*</span>in <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fopen.html"><span class="kw3">fopen</span></a><span class="br0">&#40;</span>input_filename<span class="sy0">,</span> <span class="st0">&quot;rt&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// verific daca fisierul a fost deschis cu succes</span>
+    <span class="co1">// altfel opresc executia (in cazul acestei probleme)</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>in <span class="sy0">==</span> NULL<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fprintf.html"><span class="kw3">fprintf</span></a><span class="br0">&#40;</span>stderr<span class="sy0">,</span> <span class="st0">&quot;ERROR: Can't open file %s&quot;</span><span class="sy0">,</span> input_filename<span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="kw1">return</span> <span class="sy0">-</span><span class="nu0">1</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw4">int</span> n<span class="sy0">,</span> v<span class="br0">&#91;</span>NMAX<span class="br0">&#93;</span><span class="sy0">,</span> i<span class="sy0">;</span> <span class="co1">// numarul de elemente &amp;&amp; vectorul</span>
+&nbsp;
+    <span class="co1">// citesc n din fisier</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fscanf.html"><span class="kw3">fscanf</span></a><span class="br0">&#40;</span>in<span class="sy0">,</span> <span class="st0">&quot;%d&quot;</span><span class="sy0">,</span> <span class="sy0">&amp;</span>n<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="co1">//citesc tabloul</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span>i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> <span class="sy0">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fscanf.html"><span class="kw3">fscanf</span></a><span class="br0">&#40;</span>in<span class="sy0">,</span> <span class="st0">&quot;%d&quot;</span><span class="sy0">,</span> <span class="sy0">&amp;</span>v<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="co1">// deoarece stiu sigur ca nu mai am nimic de citit</span>
+    <span class="co1">// pot inchide fisierul de intrare</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fclose.html"><span class="kw3">fclose</span></a><span class="br0">&#40;</span>in<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// dublez elementele din vector</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span>i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> <span class="sy0">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        v<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy0">*=</span> <span class="nu0">1</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="co1">// deschid fisierul pentru a scrie rezultatele</span>
+    <span class="kw4">char</span> output_filename<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy0">=</span> <span class="st0">&quot;gigel.out&quot;</span><span class="sy0">;</span>
+    <span class="co1">// deschid pentru scriere (w) in modul text (t)</span>
+    FILE <span class="sy0">*</span>out <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fopen.html"><span class="kw3">fopen</span></a><span class="br0">&#40;</span>output_filename<span class="sy0">,</span> <span class="st0">&quot;wt&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// verific daca fisierul a fost deschis cu succes</span>
+    <span class="co1">// altfel opresc executia (in cazul acestei probleme)</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>out <span class="sy0">==</span> NULL<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fprintf.html"><span class="kw3">fprintf</span></a><span class="br0">&#40;</span>stderr<span class="sy0">,</span> <span class="st0">&quot;ERROR: Can't open file %s&quot;</span><span class="sy0">,</span> output_filename<span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="kw1">return</span> <span class="sy0">-</span><span class="nu0">1</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="co1">// scriu n si vectorul in fisier</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fprintf.html"><span class="kw3">fprintf</span></a><span class="br0">&#40;</span>out<span class="sy0">,</span> <span class="st0">&quot;%d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> n<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span>i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> <span class="sy0">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fprintf.html"><span class="kw3">fprintf</span></a><span class="br0">&#40;</span>out<span class="sy0">,</span> <span class="st0">&quot;%d &quot;</span><span class="sy0">,</span> v<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fprintf.html"><span class="kw3">fprintf</span></a><span class="br0">&#40;</span>out<span class="sy0">,</span> <span class="st0">&quot;<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// inchid fisierul de iesire</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fclose.html"><span class="kw3">fclose</span></a><span class="br0">&#40;</span>out<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Pentru exemplul de fișier de intrare de mai sus, rezultatul este următorul.
+</p>
+<pre class="code c">gigel.<span class="me1">out</span>
+<span class="nu0">5</span>
+<span class="nu0">2</span> <span class="nu0">6</span> <span class="sy0">-</span><span class="nu0">2</span> <span class="nu0">12</span> <span class="nu0">14</span> </pre>
+
+</div>
+
+<h5 id="exemplu_2">Exemplu 2</h5>
+<div class="level5">
+
+<p>
+Fie un fișier text cu un nume dat. Scrieți o funcție care calculează numărul de bytes (dimensiune fișierului).
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span> sizeof_file<span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy0">*</span>filename<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// deschidere fisier de intrare pentru</span>
+    <span class="co1">// citire (r) in modul text (t)</span>
+    FILE <span class="sy0">*</span>file <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fopen.html"><span class="kw3">fopen</span></a><span class="br0">&#40;</span>filename<span class="sy0">,</span> <span class="st0">&quot;rt&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// verific daca fisierul a fost deschis cu succes</span>
+    <span class="co1">// altfel opresc executia</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>file <span class="sy0">==</span> NULL<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span> <span class="sy0">-</span><span class="nu0">1</span><span class="sy0">;</span> <span class="co1">// nu am putut calcula dimensiunea</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="co1">// ma pozitionez la sfarsit</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fseek.html"><span class="kw3">fseek</span></a><span class="br0">&#40;</span>file<span class="sy0">,</span> <span class="nu0">0</span><span class="sy0">,</span> SEEK_END<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="co1">// acum cursorul este dupa ultimul caracter</span>
+    <span class="co1">// deci ftell imi va spune pozitia, care este echivalenta cu numarul de bytes</span>
+    <span class="kw4">int</span> bytes_count <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/ftell.html"><span class="kw3">ftell</span></a><span class="br0">&#40;</span>file<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// inchid fisierul</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fclose.html"><span class="kw3">fclose</span></a><span class="br0">&#40;</span>file<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> bytes_count<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// numele fisierului de intrare</span>
+    <span class="kw4">char</span> filename<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy0">=</span> <span class="st0">&quot;gigel.in&quot;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw4">int</span> sz <span class="sy0">=</span> sizeof_file<span class="br0">&#40;</span>filename<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>sz <span class="sy0">&lt;</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="co1">// afisez la stderr</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fprintf.html"><span class="kw3">fprintf</span></a><span class="br0">&#40;</span>stderr<span class="sy0">,</span> <span class="st0">&quot;ERROR: Can't open file %s&quot;</span><span class="sy0">,</span> filename<span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="kw1">return</span> <span class="sy0">-</span><span class="nu0">1</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="co1">// afisez la stdout rezultatul</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;fisierul %s are %d bytes<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> filename<span class="sy0">,</span> sz<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// pot folosi tot fprintf pentru a afisa la stdout</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fprintf.html"><span class="kw3">fprintf</span></a><span class="br0">&#40;</span>stdout<span class="sy0">,</span> <span class="st0">&quot;fisierul %s are %d bytes<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> filename<span class="sy0">,</span> sz<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+</div>
+
+<h4 id="citirescriere_fara_conversie">Citire/scriere fără conversie</h4>
+<div class="level4">
+<pre class="code c"><span class="kw4">size_t</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fread.html"><span class="kw3">fread</span></a><span class="br0">&#40;</span><span class="kw4">void</span> <span class="sy0">*</span>ptr<span class="sy0">,</span> <span class="kw4">size_t</span> size<span class="sy0">,</span> <span class="kw4">size_t</span> nrec<span class="sy0">,</span> FILE <span class="sy0">*</span>fp<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="kw4">size_t</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fwrite.html"><span class="kw3">fwrite</span></a><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">void</span> <span class="sy0">*</span>ptr<span class="sy0">,</span> <span class="kw4">size_t</span> size<span class="sy0">,</span> <span class="kw4">size_t</span> nrec<span class="sy0">,</span> FILE <span class="sy0">*</span>fp<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Cu aceste funcţii lucrăm cand deschidem fişierul în mod binar; citirea/scrierea se face fără nici un fel de conversie sau interpretare. Se lucrează cu “înregistrări”, adică zone compacte de memorie: funcţia fread citeşte nrec înregistrări începănd de la poziţia curentă din fişierul fp, o înregistrare având dimensiunea size. Acestea sunt depuse în tabloul ptr. “Înregistrările” pot fi asociate cu structurile din C - adică în mod uzual, tabloul ptr este un tablou de structuri (dar în loc de structuri putem avea şi tipuri simple de date).
+</p>
+
+</div>
+
+<h5 id="exemplu_3">Exemplu 3</h5>
+<div class="level5">
+
+<p>
+Să reluăm problema de la Exemplul 1. Să presupunem că rezolvăm aceeași problemă, doar ca fișierul de intrare este binar: primii 4 bytes din fișier reprezintă numarul n (numărul de elemente); următorii 4*n bytes reprezintă vectorul.
+</p>
+
+<p>
+Luăm ca exemplul fișierul text care are conținutul.
+</p>
+<pre class="code c">gigel.<span class="me1">in</span>
+<span class="nu0">3</span>
+<span class="nu0">1</span> <span class="nu0">2</span> <span class="nu0">3</span></pre>
+
+<p>
+Fișierul binar echivalent este “gigel_in.bin”. 
+</p>
+<pre class="code c">gigel_in.<span class="me1">bin</span>
+<span class="nu8">0300</span> <span class="nu8">0000</span> <span class="nu8">0100</span> <span class="nu8">0000</span> <span class="nu8">0200</span> <span class="nu8">0000</span> <span class="nu8">0300</span> <span class="nu8">0000</span></pre>
+
+<p>
+<p><div class="notewarning">
+</p>
+<ul>
+<li class="level1"><div class="li"> Fișierul poate fi descărcat de <a href="https://ocw.cs.pub.ro/courses/_media/programare/laboratoare/gigel_in.bin.zip" class="urlextern" title="https://ocw.cs.pub.ro/courses/_media/programare/laboratoare/gigel_in.bin.zip"  rel="nofollow"> aici</a>.</div>
+</li>
+<li class="level1"><div class="li"> Pentru a putea vizualiza continutul mai usor, acesta poate fi deschis cu <a href="https://www.sublimetext.com/" class="urlextern" title="https://www.sublimetext.com/"  rel="nofollow"> Sublime</a>. Observați reprezentarea în baza 16 a numerelor. Fiecare grup de câte 2 cifre reprezintă un octet. 4 astfel de grupuri formează un int: “0300 0000” semnifică numărul 3.</div>
+</li>
+<li class="level1"><div class="li"> Atenție la <a href="https://en.wikipedia.org/wiki/Endianness" class="urlextern" title="https://en.wikipedia.org/wiki/Endianness"  rel="nofollow">| Endianness</a>!</div>
+</li>
+</ul>
+
+<p>
+
+</div></p>
+Următoarea sursă C citește vectorul din fișierul “gigel_in.bin”, dublează elementele și apoi scrie rezultatul în “gigel_out.bin”.
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#define NMAX 100</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// numele fisierului de intrare</span>
+    <span class="kw4">char</span> input_filename<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy0">=</span> <span class="st0">&quot;gigel_in.bin&quot;</span><span class="sy0">;</span>
+    FILE <span class="sy0">*</span>in<span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// incerc sa dechid pentru citire (r)</span>
+    <span class="co1">// fisierul in mod binar (b)</span>
+    <span class="co1">// observati alt mod de a scrie deschiderea &amp;&amp; verificarea</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>in <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fopen.html"><span class="kw3">fopen</span></a><span class="br0">&#40;</span>input_filename<span class="sy0">,</span> <span class="st0">&quot;rb&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="sy0">==</span> NULL<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fprintf.html"><span class="kw3">fprintf</span></a><span class="br0">&#40;</span>stderr<span class="sy0">,</span> <span class="st0">&quot;Can't open %s&quot;</span><span class="sy0">,</span> input_filename<span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="kw1">return</span> <span class="sy0">-</span><span class="nu0">1</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="co1">// numarul de elemente, vectorul, variabila de iterare</span>
+    <span class="kw4">int</span> n<span class="sy0">,</span> v<span class="br0">&#91;</span>NMAX<span class="br0">&#93;</span><span class="sy0">,</span> i<span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// doresc sa citesc tinand cont de:</span>
+    <span class="co1">// voi stoca in n (deci specific adresa lui n ca la scanf =&gt; &amp;n)</span>
+    <span class="co1">// valoarea citita are dimensiunea unui int =&gt; sizeof(int)</span>
+    <span class="co1">// citesc o singura variabila =&gt; 1</span>
+    <span class="co1">// voi citi din fisierul asociat cu variabila in</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fread.html"><span class="kw3">fread</span></a><span class="br0">&#40;</span><span class="sy0">&amp;</span>n<span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><span class="sy0">,</span> <span class="nu0">1</span><span class="sy0">,</span> in<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// fread permite citirea unui vector printr-un singur apel</span>
+    <span class="co1">// doresc sa citesc tinand cont de:</span>
+    <span class="co1">// voi stoca in v (care este adresa primului element)</span>
+    <span class="co1">// o valoare citita are dimensiunea unui int =&gt; sizeof(int)</span>
+    <span class="co1">// citesc n valori</span>
+    <span class="co1">// voi citi din fisierul asociat cu variabila in</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fread.html"><span class="kw3">fread</span></a><span class="br0">&#40;</span>v<span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><span class="sy0">,</span> n<span class="sy0">,</span> in<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// pot inchide fisierul</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fclose.html"><span class="kw3">fclose</span></a><span class="br0">&#40;</span>in<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+     <span class="co1">// dublez elementele din vector</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span>i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> <span class="sy0">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        v<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy0">*=</span> <span class="nu0">1</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="co1">// salvez rezultatul in fisierul out</span>
+     <span class="co1">// numele fisierului de intrare</span>
+    <span class="kw4">char</span> output_filename<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy0">=</span> <span class="st0">&quot;gigel_out.bin&quot;</span><span class="sy0">;</span>
+    FILE <span class="sy0">*</span>out<span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// incerc sa dechid pentru scriere (w)</span>
+    <span class="co1">// fisierul in mod binar (b)</span>
+    <span class="co1">// observati alt mod de a scrie deschiderea &amp;&amp; verificarea</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>out <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fopen.html"><span class="kw3">fopen</span></a><span class="br0">&#40;</span>output_filename<span class="sy0">,</span> <span class="st0">&quot;wb&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="sy0">==</span> NULL<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fprintf.html"><span class="kw3">fprintf</span></a><span class="br0">&#40;</span>stderr<span class="sy0">,</span> <span class="st0">&quot;Can't open %s&quot;</span><span class="sy0">,</span> output_filename<span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="kw1">return</span> <span class="sy0">-</span><span class="nu0">1</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="co1">// doresc sa scriu tinand cont de:</span>
+    <span class="co1">// voi scrie valoare de la adresa lui n (&amp;n)</span>
+    <span class="co1">// valoarea scrisa are dimensiunea unui int =&gt; sizeof(int)</span>
+    <span class="co1">// scriu o singura variabila =&gt; 1</span>
+    <span class="co1">// voi scrie in fisierul asociat cu variabila out</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fwrite.html"><span class="kw3">fwrite</span></a><span class="br0">&#40;</span><span class="sy0">&amp;</span>n<span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><span class="sy0">,</span> <span class="nu0">1</span><span class="sy0">,</span> out<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+&nbsp;
+    <span class="co1">// fwrite permite scrierea unui vector printr-un singur apel</span>
+    <span class="co1">// doresc sa scriu tinand cont de:</span>
+    <span class="co1">// voi scrie elemente incepand de la adresa indicata de v</span>
+    <span class="co1">// o valoare scrisa are dimensiunea unui int =&gt; sizeof(int)</span>
+    <span class="co1">// scriu n valori</span>
+    <span class="co1">// voi scrie in fisierul asociat cu variabila out</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fwrite.html"><span class="kw3">fwrite</span></a><span class="br0">&#40;</span>v<span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><span class="sy0">,</span> n<span class="sy0">,</span> out<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// inchid fisierul</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fclose.html"><span class="kw3">fclose</span></a><span class="br0">&#40;</span>out<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Rezultatul îl putem vizualiza tot cu Sublime.
+</p>
+<pre class="code c">gigel_out.<span class="me1">bin</span>
+<span class="nu8">0300</span> <span class="nu8">0000</span> <span class="nu8">0200</span> <span class="nu8">0000</span> <span class="nu8">0400</span> <span class="nu8">0000</span> <span class="nu8">0600</span> <span class="nu8">0000</span></pre>
+
+<p>
+<p><div class="notewarning">
+</p>
+<ul>
+<li class="level1"><div class="li"> În acest exemplu am pus extensia “bin” pentru a sugera faptul că fișierele sunt binare. Acest lucru este irelevant pentru funcțiile fread și fwrite.</div>
+</li>
+</ul>
+
+<p>
+
+</div></p>
+</p>
+
+</div>
+
+<h4 id="citirescriere_la_nivel_de_caracter">Citire/scriere la nivel de caracter</h4>
+<div class="level4">
+<pre class="code c"><span class="kw4">int</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fgetc.html"><span class="kw3">fgetc</span></a><span class="br0">&#40;</span>FILE <span class="sy0">*</span>fp<span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// întoarce următorul caracter din fişier, EOF la sfârşit de fişier</span></pre>
+<pre class="code c"><span class="kw4">char</span><span class="sy0">*</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fgets.html"><span class="kw3">fgets</span></a><span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy0">*</span>s<span class="sy0">,</span> <span class="kw4">int</span> n<span class="sy0">,</span> FILE <span class="sy0">*</span>fp<span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// întoarce următoarele n caractere de la pointer sau pâna la sfârşitul de linie</span></pre>
+<pre class="code c"><span class="kw4">int</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fputc.html"><span class="kw3">fputc</span></a><span class="br0">&#40;</span><span class="kw4">int</span> c<span class="sy0">,</span> FILE <span class="sy0">*</span>fp<span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">//pune caracterul c in fişier</span></pre>
+<pre class="code c"><span class="kw4">int</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/ungetc.html"><span class="kw3">ungetc</span></a><span class="br0">&#40;</span><span class="kw4">int</span> c<span class="sy0">,</span> FILE <span class="sy0">*</span>fp<span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// pune c în bufferul asociat lui fp (c va fi următorul caracter citit din fp)</span></pre>
+
+</div>
+<!-- EDIT3 SECTION "Noţiuni teoretice" [712-16430] -->
+<h3 class="sectionedit4" id="exercitii">Exerciții</h3>
+<div class="level3">
+
+<p>
+Exercițiile pentru laborator se găsesc pe <a href="https://acs-pclp.github.io/laboratoare/09" class="urlextern" title="https://acs-pclp.github.io/laboratoare/09"  rel="nofollow"> PCLP Laborator09: Operaţii cu fişiere. Aplicaţii folosind fişiere</a>.
+</p>
+
+</div>
+<!-- EDIT4 SECTION "Exerciții" [16431-16616] -->
+<h3 class="sectionedit5" id="referinte">Referinţe</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <a href="http://crasseux.com/books/ctutorial/Input-and-output.html#Input%20and%20output" class="urlextern" title="http://crasseux.com/books/ctutorial/Input-and-output.html#Input%20and%20output"  rel="nofollow">The GNU Programming Tools - Input and Output</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT5 SECTION "Referinţe" [16617-] --></div>
+</body>
+</html>

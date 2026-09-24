@@ -1,0 +1,69 @@
+id: lab03-p08-impartire-grupe
+lab: lab03
+number: 8
+title: "Împărțirea în grupe de proiect"
+difficulty: 4
+estimated_minutes: 40
+concepts: [recursivitate, condiție de oprire, funcție, long long]
+statement: |
+  Pentru proiectul de semestru, cei `n` studenți ai unei serii trebuie împărțiți în
+  grupe. O grupă poate avea orice mărime de la 1 la `k` studenți. Coordonatorul vrea să
+  știe câte **structuri** diferite de împărțire există, adică în câte moduri se poate
+  scrie `n` ca sumă de mărimi de grupe, fiecare între 1 și `k`, **fără să conteze
+  ordinea** grupelor (contează doar câte grupe de fiecare mărime există).
+
+  De exemplu, pentru `n = 5` și `k = 3` sunt 5 structuri:
+  `3+2`, `3+1+1`, `2+2+1`, `2+1+1+1`, `1+1+1+1+1`.
+
+  Scrie o funcție **recursivă** `long long moduri(int n, int k)` care calculează acest
+  număr.
+
+  **Date de intrare**
+
+  Pe o linie, două numere naturale `n k`.
+
+  **Date de ieșire**
+
+  Un singur număr: numărul de structuri de împărțire.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 60`
+  - `1 ≤ k ≤ 100`
+  - nu folosi vectori
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  5 3
+  ```
+
+  Ieșire:
+  ```
+  5
+  ```
+starter: |
+  #include <stdio.h>
+
+  long long moduri(int n, int k)
+  {
+  	/* TODO: cazuri de bază + recurență */
+  }
+
+  int main(void)
+  {
+  	int n, k;
+
+  	scanf("%d%d", &n, &k);
+  	printf("%lld\n", moduri(n, k));
+
+  	return 0;
+  }
+hints:
+  - "Ca să nu numeri aceeași structură de mai multe ori, gândește-te la grupe ordonate descrescător după mărime. Uită-te la grupele de mărime exact k: fie există cel puțin una, fie niciuna."
+  - "Dacă există cel puțin o grupă de mărime k, o scoți și rămâne aceeași problemă pentru n − k studenți, tot cu grupe ≤ k. Dacă nu există niciuna, problema devine: n studenți, grupe ≤ k − 1."
+  - "moduri(n, k) = moduri(n − k, k) + moduri(n, k − 1). Cazuri de bază: n = 0 → 1 (s-au împărțit toți); k = 0 și n > 0 → 0; dacă k > n, e același lucru cu moduri(n, n)."
+pitfalls:
+  - "3+2 și 2+3 sunt aceeași structură; nu număra ordinea."
+  - "Fără cazul k > n, apare apelul moduri(n − k, k) cu n − k negativ."

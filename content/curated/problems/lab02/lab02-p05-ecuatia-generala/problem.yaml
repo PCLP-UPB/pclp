@@ -1,0 +1,53 @@
+id: lab02-p05-ecuatia-generala
+lab: lab02
+number: 5
+title: "Ecuația de grad cel mult doi"
+difficulty: 3
+estimated_minutes: 30
+concepts: [if-else, sqrt, math.h, conversie de tip, double]
+statement: |
+  Scrie un „rezolvitor” complet pentru ecuația `a·x² + b·x + c = 0` cu coeficienți
+  întregi, care tratează **toate** cazurile, inclusiv cele în care ecuația nu mai este
+  de gradul al doilea.
+
+  **Date de intrare**
+
+  Trei numere întregi `a b c`.
+
+  **Date de ieșire**
+
+  - dacă `a = 0`, `b = 0` și `c = 0`: o linie `Infinitate de solutii`;
+  - dacă `a = 0`, `b = 0` și `c ≠ 0`: o linie `Nicio solutie`;
+  - dacă `a = 0` și `b ≠ 0`: linia `Ecuatie de gradul I`, apoi linia `x = X`;
+  - dacă `a ≠ 0`: prima linie este `Delta = D` (discriminantul `b² − 4ac`), urmată de:
+    - `Nicio solutie reala`, dacă `D < 0`;
+    - `x = X`, dacă `D = 0`;
+    - două linii `x1 = X1` și `x2 = X2`, cu `X1 < X2`, dacă `D > 0`.
+
+  Toate soluțiile se afișează cu exact 3 zecimale. O soluție egală cu 0 se afișează
+  `0.000` (niciodată `-0.000`).
+
+  **Restricții**
+
+  - `-100 ≤ a, b, c ≤ 100`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  1 -3 2
+  ```
+
+  Ieșire:
+  ```
+  Delta = 1
+  x1 = 1.000
+  x2 = 2.000
+  ```
+hints:
+  - "Tratează întâi cazurile în care a = 0 (ecuație de gradul I sau degenerată), abia apoi calculează discriminantul."
+  - "sqrt este declarată în math.h (pe Linux compilezi cu -lm). Ca împărțirea să fie reală, cel puțin un operand trebuie să fie double, de exemplu 2.0 * a. Dacă a < 0, formula cu «−√Δ» dă rădăcina mai mare."
+  - "În virgulă mobilă există și «zero negativ», afișat ca -0.000. Comparația x == 0 este adevărată și pentru el; după ce ai verificat-o, atribuie x = 0."
+pitfalls:
+  - "-b / 2 * a înseamnă (-b / 2) * a, nu -b / (2a)."
+  - "Pentru b = 0, c = 0, rădăcina -0.0 / 7 se afișează -0.000 dacă nu este normalizată."

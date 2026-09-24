@@ -1,0 +1,58 @@
+id: lab01-p02-operatii-de-baza
+lab: lab01
+number: 2
+title: "Calculatorul de buzunar"
+difficulty: 1
+estimated_minutes: 15
+concepts: [printf, scanf, operator aritmetic, împărțire întreagă, "%%"]
+statement: |
+  Un coleg din anul I își face un „calculator de buzunar” în C. Programul primește
+  două numere naturale și afișează rezultatele celor cinci operații aritmetice de bază
+  pentru întregi: adunare, scădere, înmulțire, împărțire întreagă (câtul) și restul
+  împărțirii.
+
+  **Date de intrare**
+
+  Pe o singură linie, două numere naturale `a` și `b`, separate printr-un spațiu.
+
+  **Date de ieșire**
+
+  Cinci linii, în această ordine, de forma:
+
+  ```
+  a + b = suma
+  a - b = diferenta
+  a * b = produsul
+  a / b = catul
+  a % b = restul
+  ```
+
+  Între numere, operatori și semnul `=` se află exact câte un spațiu.
+
+  **Restricții**
+
+  - `0 ≤ a ≤ 30000`
+  - `1 ≤ b ≤ 30000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  17 5
+  ```
+
+  Ieșire:
+  ```
+  17 + 5 = 22
+  17 - 5 = 12
+  17 * 5 = 85
+  17 / 5 = 3
+  17 % 5 = 2
+  ```
+hints:
+  - "Împărțirea a două variabile int în C dă câtul întreg, iar operatorul % dă restul."
+  - "Fiecare linie se poate afișa cu un singur printf care conține trei specificatori %d."
+  - "Caracterul % are un rol special în șirul de format al lui printf; ca să apară pe ecran, trebuie scris de două ori: %%."
+pitfalls:
+  - "Un % simplu în șirul de format este interpretat ca început de specificator, nu ca text."
+  - "Diferența a - b poate fi negativă; %d o afișează corect cu semnul minus."

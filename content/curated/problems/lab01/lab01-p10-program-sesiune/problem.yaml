@@ -1,0 +1,75 @@
+id: lab01-p10-program-sesiune
+lab: lab01
+number: 10
+title: "Maratonul din sesiune"
+difficulty: 5
+estimated_minutes: 40
+concepts: [scanf, format de citire, operatorul %, împărțire întreagă, printf, "%%"]
+statement: |
+  În sesiune, o grupă are trei examene în aceeași zi (uneori programul se prelungește
+  și după miezul nopții!). Primul examen începe la ora dată, examenele durează `d1`,
+  `d2`, `d3` minute, iar între două examene consecutive este o pauză de `p` minute.
+
+  Scrie un program care afișează intervalul orar al fiecărui examen, momentul în care
+  se termină ultimul examen (ziua și ora), durata totală de la începutul primului
+  examen până la finalul ultimului și ce procent din acest timp s-a lucrat efectiv la
+  examene.
+
+  **Date de intrare**
+
+  - prima linie: ora de început, în formatul `hh:mm`;
+  - a doua linie: trei numere naturale `d1 d2 d3`, duratele examenelor în minute;
+  - a treia linie: un număr natural `p`, durata unei pauze în minute.
+
+  **Date de ieșire**
+
+  Șase linii:
+
+  ```
+  Examen 1: HH:MM - HH:MM
+  Examen 2: HH:MM - HH:MM
+  Examen 3: HH:MM - HH:MM
+  Final: ziua Z, ora HH:MM
+  Durata totala: Xh MMmin
+  Timp efectiv de examen: Y.Y%
+  ```
+
+  - orele se afișează ca pe un ceas, între `00:00` și `23:59`, cu ora și minutul pe
+    exact două cifre;
+  - ziua în care începe primul examen este ziua 1;
+  - în durata totală, `X` este numărul de ore (fără zerouri în față), iar minutele se
+    scriu pe exact două cifre;
+  - `Y.Y` este `100 · (d1 + d2 + d3) / durata totală`, cu o zecimală.
+
+  **Restricții**
+
+  - `0 ≤ hh ≤ 23`, `0 ≤ mm ≤ 59`
+  - `1 ≤ d1, d2, d3 ≤ 1000`
+  - `0 ≤ p ≤ 1000`
+  - problema se poate rezolva fără instrucțiuni `if` și fără bucle
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  08:00
+  120 90 180
+  30
+  ```
+
+  Ieșire:
+  ```
+  Examen 1: 08:00 - 10:00
+  Examen 2: 10:30 - 12:00
+  Examen 3: 12:30 - 15:30
+  Final: ziua 1, ora 15:30
+  Durata totala: 7h 30min
+  Timp efectiv de examen: 86.7%
+  ```
+hints:
+  - "E mult mai simplu să lucrezi cu un singur număr decât cu perechi (oră, minut): transformă totul în minute scurse de la miezul nopții din ziua 1."
+  - "Calculează pe rând începutul și sfârșitul fiecărui examen, adunând duratele și pauzele. Abia la afișare transformi un moment t înapoi în oră și minut; restul la 24 aduce ora pe cadranul ceasului, iar t / 1440 spune câte zile au trecut."
+  - "Pseudocod: s1 = hh·60 + mm; e1 = s1 + d1; s2 = e1 + p; ... ; afișare(t) = (t / 60) % 24 și t % 60; ziua = e3 / 1440 + 1; total = e3 - s1. Pentru procent, forțează o împărțire reală (de exemplu 100.0 în loc de 100) și afișează % cu %%."
+pitfalls:
+  - "100 * efectiv / total între întregi pierde zecimalele."
+  - "Fără % 24, după miezul nopții ar apărea ore ca 25:10."

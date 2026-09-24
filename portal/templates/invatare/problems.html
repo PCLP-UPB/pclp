@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Probleme{% endblock %}
+{% block content %}
+<h1>Probleme</h1>
+<p class="muted">Câte 10 probleme pentru fiecare laborator, de la încălzire la provocare. Fiecare are teste automate și trei indicii în trepte.</p>
+<div class="grid g2">
+{% for r in rows %}
+  <div class="card">
+    <div class="kicker">Laboratorul {{ r.u.number }}{% if r.week %} · săptămâna {{ r.week }}{% endif %}</div>
+    <h3 style="margin:.2em 0 .5em"><a href="/saptamana/{{ r.week }}/">{{ r.u.icon }} {{ r.u.title }}</a></h3>
+    <ul class="plist">{% for p in r.problems %}
+      <li><span class="pnum {{ p.status }}">{{ p.number }}</span><span><a href="/problema/{{ p.id }}/">{{ p.title }}</a></span><span class="diff">{% for i in "12345" %}{% if forloop.counter <= p.difficulty %}●{% else %}○{% endif %}{% endfor %}</span></li>
+    {% empty %}<li><span></span><span class="muted small">În pregătire.</span><span></span></li>{% endfor %}</ul>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

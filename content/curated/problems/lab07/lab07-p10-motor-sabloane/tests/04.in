@@ -1,0 +1,6 @@
+2
+  spatiu  =  cu spatii  
+x=Hello World
+<{{spatiu}}> <{{spatiu|len}}>
+{{x|rev|upper|rev}} {{x|cap|len|len}}
+{{x|lower|cap}}{{x|lower|cap}}

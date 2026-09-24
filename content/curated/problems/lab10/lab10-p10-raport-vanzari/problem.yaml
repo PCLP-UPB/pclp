@@ -1,0 +1,87 @@
+id: lab10-p10-raport-vanzari
+lab: lab10
+number: 10
+title: "Raport de vânzări din două fișiere"
+difficulty: 5
+estimated_minutes: 90
+concepts: [vector de structuri, vector extensibil, realloc, pointer la funcție, fgets, sscanf, strcmp, memcpy, fișier text, structură]
+statement: |
+  O cafenea online are două fișiere text:
+
+  - `produse.csv` — antet `cod,nume,pret`, apoi câte un produs pe linie: `cod` (întreg, unic), `nume`
+    (1–31 caractere, poate conține spații, fără virgule), `pret` în **bani** (întreg). Liniile care nu respectă
+    formatul se ignoră fără mesaj;
+  - `vanzari.txt` — câte o vânzare pe linie: `YYYY-MM-DD cod cantitate`.
+
+  O linie de vânzare este **validă** dacă are exact trei câmpuri, data are exact forma `YYYY-MM-DD`
+  (cifre, luna 01–12, ziua 01–31 — nu se verifică numărul de zile al lunii) și cantitatea este un întreg > 0.
+  Liniile goale se ignoră. Pentru o linie invalidă se afișează `Linia N: format invalid`, iar pentru o linie
+  validă cu un cod care nu există în catalog, `Linia N: cod necunoscut C` (în ordinea liniilor).
+
+  După procesare se afișează raportul:
+
+  ```
+  Vanzari pe produse:
+  <cod> <nume>: <cantitate> buc, <incasari> lei      (toate produsele, descrescător după încasări, apoi crescător după cod)
+  Vanzari pe luni:
+  YYYY-MM: <incasari> lei                           (doar lunile cu vânzări, cronologic)
+  Cea mai buna zi: YYYY-MM-DD (<incasari> lei)       (la egalitate, cea mai veche zi; "-" dacă nu există vânzări)
+  Total: <incasari> lei
+  ```
+  Sumele se afișează în lei, cu exact 2 zecimale (`12.50`), calculate **în bani, pe întregi**.
+
+  Dacă `produse.csv` lipsește: `Eroare: nu pot deschide produse.csv`; altfel, dacă `vanzari.txt` lipsește:
+  `Eroare: nu pot deschide vanzari.txt`.
+
+  **Restricții**
+
+  - cel mult 10^4 produse și 10^6 vânzări; liniile au cel mult 200 de caractere;
+  - căutarea produsului după cod trebuie să fie eficientă (de exemplu, sortare + căutare binară cu `bsearch`).
+
+  **Exemplu**
+
+  Fișierul `produse.csv`:
+  ```
+  cod,nume,pret
+  10,Cafea boabe,4599
+  20,Ceai verde,1250
+  30,Cana ceramica,3500
+  40,Filtre hartie,899
+  ```
+
+  Fișierul `vanzari.txt`:
+  ```
+  2024-01-15 10 2
+  2024-01-15 20 4
+  2024-01-20 30 1
+  2024-02-01 10 1
+  2024-02-01 99 3
+  2024-02-30 20 1
+  2024-13-01 20 1
+  2024-02-03 20 10
+  ```
+
+  Ieșire (stdout):
+  ```
+  Linia 5: cod necunoscut 99
+  Linia 7: format invalid
+  Vanzari pe produse:
+  20 Ceai verde: 15 buc, 187.50 lei
+  10 Cafea boabe: 3 buc, 137.97 lei
+  30 Cana ceramica: 1 buc, 35.00 lei
+  40 Filtre hartie: 0 buc, 0.00 lei
+  Vanzari pe luni:
+  2024-01: 176.98 lei
+  2024-02: 183.49 lei
+  Cea mai buna zi: 2024-01-15 (141.98 lei)
+  Total: 360.47 lei
+  ```
+hints:
+  - "Împarte problema în etape: încărcarea catalogului, procesarea vânzărilor (validare + acumulare), trei agregări (pe produs, pe lună, pe zi) și afișarea. Fiecare agregare este un vector de structuri."
+  - "Sortează catalogul după cod și folosește bsearch pentru fiecare vânzare. Pentru luni și zile, un vector de {cheie text, sumă} în care cauți/adaugi; datele în formatul YYYY-MM-DD se sortează cronologic cu strcmp."
+  - "La final re-sortează produsele cu un alt comparator (încasări descrescător, apoi cod), sortează lunile și zilele cu strcmp și alege ziua maximă parcurgând vectorul sortat (prima întâlnită la egalitate e cea mai veche). Afișarea sumelor: bani / 100, bani % 100 cu %02lld."
+pitfalls:
+  - "Folosirea float/double pentru bani produce erori de rotunjire la afișarea cu 2 zecimale."
+  - "Comparatorul care întoarce a.incasari - b.incasari poate depăși int pentru valori long long — compară explicit."
+  - "sscanf(\"%s %d %d\") acceptă și linii cu câmpuri în plus; verifică explicit că nu mai urmează nimic."
+  - "bsearch cere ca vectorul să fie sortat cu ACELAȘI comparator folosit la căutare."

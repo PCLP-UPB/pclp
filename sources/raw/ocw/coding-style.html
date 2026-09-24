@@ -1,0 +1,437 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:coding-style</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-11-21T13:29:33+0200"/>
+<meta name="keywords" content="programare,coding-style"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/coding-style"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/coding-style"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare';var JSINFO = {"id":"programare:coding-style","namespace":"programare","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#coding_style_pclp_laborator_si_teme">Coding style PCLP laborator și teme</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#motivatie">Motivație</a></div></li>
+<li class="level3"><div class="li"><a href="#conventie">Convenție</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#exemple_-_constructii_in_c">Exemple - construcții în C</a></div></li>
+<li class="level4"><div class="li"><a href="#coding_style_checker">Coding Style checker</a></div></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h2 class="sectionedit1" id="coding_style_pclp_laborator_si_teme">Coding style PCLP laborator și teme</h2>
+<div class="level2">
+
+<p>
+<strong>Responsabili:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="mailto:&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x2e;&#x6e;&#x65;&#x61;&#x74;&#x75;&#x40;&#x75;&#x70;&#x62;&#x2e;&#x72;&#x6f;" class="mail" title="&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x2e;&#x6e;&#x65;&#x61;&#x74;&#x75;&#x40;&#x75;&#x70;&#x62;&#x2e;&#x72;&#x6f;">Darius Neațu  </a> (2018 - prezent)</div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x75;&#x70;&#x62;&#x2e;&#x72;&#x6f;" class="mail" title="&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x75;&#x70;&#x62;&#x2e;&#x72;&#x6f;">Dorinel Filip</a> (2018 - prezent)</div>
+</li>
+</ul>
+
+<p>
+Această pagină are o importanță deosebită pentru modul vostru de formare ca programatori. Vă rugăm să o citiți integral!
+</p>
+
+</div>
+<!-- EDIT1 SECTION "Coding style PCLP laborator și teme" [1-329] -->
+<h3 class="sectionedit2" id="motivatie">Motivație</h3>
+<div class="level3">
+
+<p>
+Este foarte important să putem scrie cod corect, eficient, dar, în aceeași măsură, codul nostru trebuie să poată fi înțeles și de alte persoane. 
+</p>
+
+<p>
+Imaginați-vă următoarele scenarii:
+1. 2 colegi scriu cod în maniere cu totul diferite, iar la un moment dat <strong>trebuie</strong> să îl combine pentru a face produsul final. Deoarece nici unul nu înțelege ce a făcut celălalt pentru că au scris cod cum au vrut, acum sunt nevoiți să stea și să facă modificări astfel încât să ajungă la un numitor comun și să poată colabora. Nu era mai bine ca fiecare să fi urmat aceleași <strong>convenții</strong> de la bun început?
+</p>
+
+<p>
+2. Un alt scenariu, mai aproape de voi, este chiar acum când voi scrieți primele programe în C. Se întămplă (și este normal) să uităm anumite lucruri o dată cu trecerea timpului, prin urmare voi veți simți nevoia să vă uitați pe programele scrise de voi (ex. cum aloc dinamic un tablou 3D în C, cum am rezolvat tema X care avea o idee asemănătoare cu ce îmi trebuie mie acum). Ce se va întâmpla dacă nu aveți un coding style adecvat? Răspunsul este simplu: nu veți înțelege propriu cod! Pentru lucrurile simple evident că trebuie să treaca un timp destul de lung, dar pentru cele grele și foarte grele puteți ajunge în situația în care să “uitați” cum se codează o chestie de pe o zi pe alta.
+</p>
+
+<p>
+<strong>Toate</strong> scenariile de mai sus reprezintă exemple care v-ar putea afecta în sens negativ, de aceea la materia PC (și multe altele în facultate) vi se va impune să urmăriți anumite aspecte care să vă obisnuiască încă de la început, când lucrurile sunt foarte simple, astfel încât aceste deprinderi să intre în modul vostru normal de a coda.
+</p>
+
+<p>
+<p><div class="notewarning">Pe lângă respectarea convenției (a coding style-ului), este important să scriem cod <strong>reutilizabil</strong> și <strong>ușor de întreținut</strong>.
+</p>
+
+<p>
+ În mare, acest lucru se obține prin <strong>modularizarea bună a codului</strong> și prin <strong>evitarea unor practici nerecomandate</strong> care fac codul greu de înțeles și întrețnut.
+</p>
+
+<p>
+În consecință, este <strong>nerecomandată</strong> utilizarea <strong>variabilelor globale</strong> și a <strong>salturilor nedisciplinate</strong> (goto).
+</p>
+
+<p>
+Utilizarea celor 2 de mai sus în cazuri în care nu sunt absolut necesare, precum și scrierea de funcții nejustificat de lungi vor atrage după sine depunctarea în cadrul temelor de casă.
+</div></p>
+</p>
+
+</div>
+<!-- EDIT2 SECTION "Motivație" [330-2722] -->
+<h3 class="sectionedit3" id="conventie">Convenție</h3>
+<div class="level3">
+
+<p>
+Cum rezolvăm problemele de mai sus? Scenariul 2 se poate rezolva prin a scrie într-un mod ordonat, propriu, codul. Este de ajuns? Răspunsul este nu, întrucât e foarte puțin probabil să scrii cod de unul singur tot timpul. Colaborarea este un lucru care va veni la un moment dat în ajutorul vostru.
+</p>
+
+<p>
+Pentru a rezolva toate problemele care pot apărea, vom folosi o <strong> convenție de coding style</strong>. Convențiile sunt seturi de reguli acceptate de comunități largi. Există mici diferențe între ele, fapt care face ca atunci când se trece de la o convenție la alta (ex. alta firmă) să nu reprezinte o problemă.
+</p>
+
+</div>
+
+<h5 id="conventie1">Convenție</h5>
+<div class="level5">
+
+<p>
+Vom încerca să enumerăm lucrurile pe care trebuie să le aveți in vedere, apoi vom trece prin toate instrucțiunile limbajului C și vom da exemple. 
+</p>
+
+<p>
+Codul trebuie să fie:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>clar</strong> și <strong> modularizat</strong></div>
+<ul>
+<li class="level2"><div class="li"> Codul se va împărți în componente astfel încât să existe o separație logică (ex. mai multe fișiere - sursă și header, mai mule funcții etc). Fiecare bucată elementară de logică va fi mutată într-o funcție (ceea ce permite și <strong>reutilizarea</strong> codului. Funcțiile care au ceva în comun (ex. funcții matematice) vor fi grupate.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>expresiv</strong></div>
+<ul>
+<li class="level2"><div class="li"> <strong>Numele</strong> entităților trebuie să fie sugestive.</div>
+<ul>
+<li class="level3"><div class="li"> Numele de variabilă trebuie să fie sugestiv și să arate la ce e folosită aceea variabilă. Este perfect ok să avem nume precum <strong>i, j, k, p, q</strong> pentru index/contor folosit atunci cand lucrăm cu tablouri, dar pentru lucruri netriviale, numele de variabilă trebuie să arate mai mult (ex. <strong> int count_duplicates;</strong> vs <strong>int c;</strong> - prima situatie exprimă clar ca acest contor este folosit pentru a număra duplicatele, în schimb în cea dea doua situație nu putem înțelege la ce e folosit *c* fără a citi tot codul care îl folosește).</div>
+</li>
+<li class="level3"><div class="li"> <strong>Numele de funcții</strong> reflectă de asemenea acțiunea pe care aceasta o realizează. Exemplu: <strong>int count_duplicates(int n, int v[NMAX]); </strong> vs <strong>int f(int n, int v[NMAX]);</strong>. Primul caz spune ce face funcția, în cel de-al doilea caz numele funcției nu ne spune nimic.</div>
+<ul>
+<li class="level4"><div class="li"> <strong>Convenție</strong>: numele de variabile și funcții vor fi sugestive, vor fi compuse din litere mici, cifre sau underscore (în cazul in care dorim să avem mai mult cuvinte).</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"> <strong>Comentariile</strong> ajută la îmbunătățirea expresivității, atunci când numele și organizarea codului nu sunt suficiente. Exemplu: o funcție care care caută duplicatele dintr-un vector, apoi șterge elementele duplicate, iar din cele ramăse le șterge pe toate pare sau divizibile cu 1007 și returnează și câte numere sunt prime. Nu putem exprima întreaga funcționalitate doar prin numele funcției, astfel că o vom numi <strong> update_array</strong>, iar înainte de semnatura funcției vom explica algoritmul de update în <strong>câteva</strong> cuvinte.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  <strong>lizibil</strong></div>
+<ul>
+<li class="level2"><div class="li"> O componentă foarte importantă o reprezintă spațierea. Codul trebuie să fie cât mai aerisit (să conțină spații, linii goale unde e cazul). </div>
+</li>
+<li class="level2"><div class="li"> Funcțiile nu trebuie să fie foarte lungi (maximum 80 de linii în C), liniile nu trebuie să fie foarte lungi (maximum 80 de caractere pe linie în C).</div>
+</li>
+<li class="level2"><div class="li"> Indentarea joacă un rol foarte important. De <strong>fiecare</strong> dată când se deschide o pereche de acolate (”{}”), în interiorul lor codul se indenteaza cu un tab (4 spații) mai la dreapta.</div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+<h4 id="exemple_-_constructii_in_c">Exemple - construcții în C</h4>
+<div class="level4">
+
+</div>
+
+<h5 id="if_-_else">if - else</h5>
+<div class="level5">
+
+<p>
+Cititi exemplele cu if-else de mai jos si analizati:
+</p>
+<ul>
+<li class="level1"><div class="li"> spatierea (if spatiu (; spațiu operator spațiu; etc)</div>
+<ul>
+<li class="level2"><div class="li"> Pentru operatorii binari avem convenția: <strong>operand1 spatiu operator spatiu operand2</strong>. (Ex. “x + 2”, int x =  y + 2;”)</div>
+</li>
+<li class="level2"><div class="li"> Pentru operatorii unari nu lăsăm spațiu între operator și operand. (Ex. “i++”, ”++i”).</div>
+</li>
+<li class="level2"><div class="li"> Nu lăsăm spațiu niciodată înainte de &#039;;&#039;.</div>
+</li>
+<li class="level2"><div class="li"> Lăsăm spațiu mereu după virgulă, niciodată înainte.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> identarea (de fiecare data când se intră în &#039;{}&#039; se scrie cu un tab mai la dreapta)</div>
+</li>
+<li class="level1"><div class="li"> cum se închid și deschid acoladele</div>
+<ul>
+<li class="level2"><div class="li"> chiar dacă avem o singură instrucțiune în if și nu e nevoie să punem acolade, în convenția stabilită vom pune pentru a pastra aspectul unitar al codului; un alt motiv ar putea fi acela că putem adăuga direct intrucțiuni noi fără să omitem din greșeală să mai punem și acolade. </div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> cum se scrie o cascadă de if-else if-uri</div>
+</li>
+</ul>
+<pre class="code c"><span class="kw1">if</span> <span class="br0">&#40;</span>condition<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Gigel!<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+...
+<span class="kw1">if</span> <span class="br0">&#40;</span>n <span class="sy0">%</span> <span class="nu0">2</span> <span class="sy0">==</span> <span class="nu0">0</span> <span class="sy0">&amp;&amp;</span> n <span class="sy0">&gt;</span> <span class="nu0">10</span> <span class="sy0">&amp;&amp;</span> <span class="br0">&#40;</span>n <span class="sy0">%</span> <span class="nu0">3</span> <span class="sy0">==</span> <span class="nu0">1</span> <span class="sy0">||</span> n <span class="sy0">%</span> <span class="nu0">7</span> <span class="sy0">==</span> <span class="nu0">2</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    ...
+<span class="br0">&#125;</span>
+...
+&nbsp;
+<span class="kw1">if</span> <span class="br0">&#40;</span>condition<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    ...
+<span class="br0">&#125;</span> <span class="kw1">else</span> <span class="br0">&#123;</span>
+    ...
+<span class="br0">&#125;</span>
+&nbsp;
+...
+<span class="kw1">if</span> <span class="br0">&#40;</span>condition1<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    ...
+<span class="br0">&#125;</span> <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>condition2<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    ...
+<span class="br0">&#125;</span> <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>condition3<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    ...
+<span class="br0">&#125;</span> <span class="kw1">else</span> <span class="br0">&#123;</span>
+    ...
+<span class="br0">&#125;</span></pre>
+
+</div>
+
+<h5 id="forwhiledo_while">for/while/do while</h5>
+<div class="level5">
+
+<p>
+Citiți exemplele cu for de mai jos și analizați
+</p>
+<ul>
+<li class="level1"><div class="li"> spațierea</div>
+</li>
+<li class="level1"><div class="li"> identarea (de fiecare dată când se intră în {} se scrie cu un tab mai la dreapta)</div>
+</li>
+<li class="level1"><div class="li"> cum se închid și deschid acoladele</div>
+</li>
+<li class="level1"><div class="li"> cum se scriu for-uri imbricate</div>
+</li>
+</ul>
+<pre class="code c"><span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;=</span> n<span class="sy0">;</span> <span class="sy0">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d&quot;</span><span class="sy0">,</span> i<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+...
+<span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> n<span class="sy0">;</span> i <span class="sy0">&gt;=</span> <span class="nu0">0</span><span class="sy0">;</span> <span class="sy0">--</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d&quot;</span><span class="sy0">,</span> i<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+...
+&nbsp;
+<span class="kw4">int</span> found <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> n<span class="sy0">;</span> i <span class="sy0">&gt;=</span> <span class="nu0">0</span> <span class="sy0">&amp;&amp;</span> <span class="sy0">!</span>found<span class="sy0">;</span> i <span class="sy0">-=</span> <span class="nu0">2</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    ...
+    <span class="kw1">if</span> <span class="br0">&#40;</span>...<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+         <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d&quot;</span><span class="sy0">,</span> i<span class="br0">&#41;</span><span class="sy0">;</span>
+         found <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+...
+&nbsp;
+<span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">3</span><span class="sy0">;</span> i <span class="sy0">*</span> i <span class="sy0">&lt;=</span> n<span class="sy0">;</span> i <span class="sy0">+=</span> <span class="nu0">2</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>  <span class="co1">// i * i &lt;= n simuleaza conditia i &lt;= sqrt(n) fara a lucra cu numere reale</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>n <span class="sy0">%</span> i <span class="sy0">==</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+          <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d&quot;</span><span class="sy0">,</span> i<span class="br0">&#41;</span><span class="sy0">;</span>             <span class="co1">// afiseaza pe ecran toate numerele impare de la 3 la sqrt(n)</span>
+                                       <span class="co1">// care sunt divizori ai lui n</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+... 
+<span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> <span class="sy0">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> j <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> j <span class="sy0">&lt;</span> n<span class="sy0">;</span> <span class="sy0">++</span>j<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+         <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d &quot;</span><span class="sy0">,</span> j<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Observațiile de mai sus sunt valabile și pentru celelalte cicluri repetitive.
+</p>
+
+</div>
+
+<h5 id="functions">functions</h5>
+<div class="level5">
+
+<p>
+Analizați exemplele de funcții de mai jos și observați că.
+</p>
+<ul>
+<li class="level1"><div class="li"> numele funcțiilor e sugestiv</div>
+</li>
+<li class="level1"><div class="li"> cum pune &#039;{}&#039; față de celelalte cazuri</div>
+</li>
+<li class="level1"><div class="li"> spațierea se menține și la nivelul listei de parametri</div>
+<ul>
+<li class="level2"><div class="li"> ATENȚIE! Nu punem spațiu între numele funcției și &#039;(&#039;</div>
+</li>
+<li class="level2"><div class="li"> Asemănător cu instrucțiunile, lăsăm un spațiu între &#039;)&#039; și &#039;{&#039;</div>
+</li>
+<li class="level2"><div class="li"> Lăsăm un spațiu mereu după virgulă, niciodată înainte de virgulă.</div>
+</li>
+</ul>
+</li>
+</ul>
+<pre class="code c"><span class="kw4">void</span> clean_display<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    ...
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+...
+&nbsp;
+<span class="kw4">void</span> print_array<span class="br0">&#40;</span><span class="kw4">int</span> n<span class="sy0">,</span> <span class="kw4">int</span> v<span class="br0">&#91;</span>NMAX<span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    ...
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> print_gigel<span class="br0">&#40;</span><span class="kw4">int</span> gigel<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    ...
+    <span class="kw1">return</span> result<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> count_duplicates<span class="br0">&#40;</span><span class="kw4">int</span> n<span class="sy0">,</span> <span class="kw4">int</span> v<span class="br0">&#91;</span>NMAX<span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> x <span class="sy0">=</span> n<span class="sy0">;</span>             <span class="co1">// niciodata nu lasam prima linie dintr-un block {} goala, nu are sens</span>
+    ...
+                           <span class="co1">// daca avem mai multe declaratii/alocari etc putem lasa o linie goala sa aratam ca ca s-a terminat initializarea</span>
+    <span class="kw4">int</span> cnt <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;=</span> n<span class="sy0">;</span> <span class="sy0">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        ...
+    <span class="br0">&#125;</span>
+                          <span class="co1">// mai las o linie goala (optional) sa arat ca s-a terminat algoritmul </span>
+    print_gigel<span class="br0">&#40;</span>cnt<span class="br0">&#41;</span><span class="sy0">;</span>    
+    <span class="kw1">return</span> cnt<span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+</div>
+
+<h5 id="programs">programs</h5>
+<div class="level5">
+
+<p>
+Fie următorul șablon de program. Analizați:
+</p>
+<ul>
+<li class="level1"><div class="li"> cum scriem în fișier mai multe funcții</div>
+</li>
+<li class="level1"><div class="li"> care e structura generală a unui program</div>
+</li>
+</ul>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+...                 <span class="co1">// alte biblioteci incluse sau macro-uri</span>
+<span class="co2">#include &lt;math.h&gt;</span>
+<span class="co2">#define NMAX 100    // nu vom declara tablouri cu int v[100]; ci vom folosi un macro pentru dimensiune      </span>
+                    <span class="co1">// linie goala</span>
+<span class="kw4">void</span> dummy<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+<span class="br0">&#125;</span>
+                    <span class="co1">// lasam o linie goala intre functii</span>
+<span class="kw4">int</span> print_array<span class="br0">&#40;</span><span class="kw4">int</span> n<span class="sy0">,</span> <span class="kw4">int</span> v<span class="br0">&#91;</span>NMAX<span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+     ...
+<span class="br0">&#125;</span>
+                    <span class="co1">// lasam o linie goala intre functii</span>
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+   ...
+   <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+<p><div class="noteclassic">
+Evident ca atunci când fișierul &#039;main.c&#039; devine prea mare, este nevoie să grupăm componentele după logică și să le mutăm în alte fișiere sursă C/headere.
+
+</div></p>
+</p>
+
+</div>
+
+<h4 id="coding_style_checker">Coding Style checker</h4>
+<div class="level4">
+
+<p>
+Pentru a vă ajuta la teme și a evita eventualele depunctări pentru chestii standard, echipa vă pune la dispoziție scriptul *cs.sh*. Acesta va fi folosit la teme pentru a depuncta în mod automat cele mai frecvente erori de coding style.
+</p>
+
+<p>
+<p><div class="noteclassic">
+Conveția impusă de checkerul nostru este cea din <a href="https://www.kernel.org/doc/html/v4.10/process/coding-style.html" class="urlextern" title="https://www.kernel.org/doc/html/v4.10/process/coding-style.html"  rel="nofollow"> Linux Kernel</a>, cu mici ajustări.
+
+</div></p>
+</p>
+
+<p>
+<p><div class="noteclassic">
+Checkerul de coding style se găsește la adresa <a href="https://cutt.ly/pclp-cs-2025-v1" class="urlextern" title="https://cutt.ly/pclp-cs-2025-v1"  rel="nofollow">https://cutt.ly/pclp-cs-2025-v1</a>.
+
+</div></p>
+</p>
+
+<p>
+<p><div class="notewarning">
+ATENȚIE! Anumite aspecte de coding style nu pot fi verificate automat prin checker. De aceea punctajul final pentru coding style se acordă după corectarea manuală.
+
+</div></p>
+</p>
+
+</div>
+<!-- EDIT3 SECTION "Convenție" [2723-] --></div>
+</body>
+</html>

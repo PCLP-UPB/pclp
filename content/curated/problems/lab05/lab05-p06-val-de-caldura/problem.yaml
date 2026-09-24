@@ -1,0 +1,61 @@
+id: lab05-p06-val-de-caldura
+lab: lab05
+number: 6
+title: "Valul de căldură"
+difficulty: 3
+estimated_minutes: 30
+concepts: [pointer returnat de funcție, NULL, aritmetică cu pointeri, parametru de tip pointer]
+statement: |
+  Meteorologii definesc un „val de căldură” pentru un prag `P` ca o succesiune de zile **consecutive** în care temperatura a fost cel puțin `P`. Pentru mai multe praguri, aflați cel mai lung val de căldură din seria de `n` zile (zilele sunt numerotate de la 1). Dacă există mai multe valuri de lungime maximă, se alege cel care începe primul.
+
+  Implementați și folosiți funcția:
+
+  ```c
+  int *cea_mai_lunga_perioada(int *v, int n, int prag, int *lungime);
+  ```
+
+  care returnează **adresa** primului element al valului găsit (un pointer în interiorul lui `v`) și scrie lungimea la adresa `lungime`. Dacă nicio zi nu atinge pragul, funcția returnează `NULL`. Ziua de început se calculează în `main` din rezultatul funcției, prin diferență de pointeri.
+
+  **Date de intrare**
+
+  Pe prima linie `n`; pe a doua linie `n` temperaturi întregi. Pe a treia linie `q`, apoi `q` linii cu câte un prag.
+
+  **Date de ieșire**
+
+  Câte o linie pentru fiecare prag, în ordinea din intrare:
+
+  - `prag <P>: zilele <start>-<sfarsit> (<L> zile)` dacă există un val;
+  - `prag <P>: niciuna` altfel.
+
+  (Formatul se păstrează și pentru `L = 1`: „`(1 zile)`”.)
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 10000`, `1 ≤ q ≤ 100`
+  - temperaturile și pragurile sunt întregi din `[-100, 100]`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  10
+  28 31 33 30 27 35 36 34 29 30
+  3
+  30
+  35
+  40
+  ```
+
+  Ieșire:
+  ```
+  prag 30: zilele 2-4 (3 zile)
+  prag 35: zilele 6-7 (2 zile)
+  prag 40: niciuna
+  ```
+hints:
+  - "Un pointer poate indica „unde începe” ceva într-un vector. Dacă funcția returnează un astfel de pointer, poziția se obține cu `rezultat - v`. `NULL` e valoarea naturală pentru „nu am găsit”."
+  - "Parcurge vectorul ținând minte începutul secvenței curente (sau `NULL` dacă ziua curentă e sub prag) și cel mai bun început + lungimea găsite până acum."
+  - "Pseudocod: pentru p de la v la v+n-1: dacă *p >= prag: dacă start_curent e NULL atunci start_curent = p; dacă p - start_curent + 1 > *lungime atunci actualizează *lungime și start_max. Altfel start_curent = NULL. Returnează start_max. Actualizarea la fiecare pas prinde și secvența de la final."
+pitfalls:
+  - "Nu returna adresa unei variabile locale din funcție — pointerul returnat trebuie să indice în vectorul primit."
+  - "Testează rezultatul cu `NULL` înainte să calculezi poziția sau să-l dereferențiezi."

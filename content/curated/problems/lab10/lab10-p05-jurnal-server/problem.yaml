@@ -1,0 +1,67 @@
+id: lab10-p05-jurnal-server
+lab: lab10
+number: 5
+title: "Filtrarea jurnalului unui server"
+difficulty: 3
+estimated_minutes: 45
+concepts: [enumerare, structură, vector extensibil, câmp pointer alocat dinamic, sscanf, fgets, fișier text, strcmp]
+statement: |
+  Fișierul `server.log` conține câte un eveniment pe linie, în forma `HH:MM:SS NIVEL mesaj`,
+  în ordine cronologică. `NIVEL` este `INFO`, `WARN` sau `ERROR` (în această ordine a gravității),
+  iar ora este validă doar dacă are exact 8 caractere în forma `HH:MM:SS` (00–23, 00–59, 00–59).
+  Liniile care nu respectă formatul (inclusiv cele cu alt nivel) sunt **invalide** și se ignoră.
+
+  De la tastatură se citește un filtru: `NIVEL_MINIM ORA_START ORA_STOP`.
+
+  **Date de ieșire**
+
+  1. liniile valide (complete, exact ca în fișier) cu nivelul **cel puțin** `NIVEL_MINIM` și ora în intervalul
+     `[ORA_START, ORA_STOP]` (inclusiv capetele), în ordinea din fișier;
+  2. `INFO: a, WARN: b, ERROR: c` — câte linii de fiecare nivel au fost afișate la pasul 1;
+  3. `Cea mai lunga pauza: S secunde (T1 - T2)` — cea mai mare diferență de timp dintre două linii valide
+     **consecutive** din tot fișierul (fără filtru; la egalitate, prima apariție), sau `Cea mai lunga pauza: -`
+     dacă există mai puțin de două linii valide;
+  4. `Linii invalide: k`.
+
+  Dacă filtrul este invalid se afișează doar `Filtru invalid`; dacă fișierul lipsește,
+  `Eroare: nu pot deschide server.log`.
+
+  **Restricții**
+
+  - cel mult 10^5 linii, fiecare de cel mult 500 de caractere.
+
+  **Exemplu**
+
+  Fișierul `server.log`:
+  ```
+  08:00:00 INFO server pornit
+  08:00:05 INFO conexiune noua 10.0.0.7
+  08:03:10 WARN memorie 85%
+  08:03:11 ERROR baza de date indisponibila
+  08:15:00 INFO reconectare reusita
+  8:16:00 INFO ora gresita
+  08:20:30 DEBUG nivel necunoscut
+  08:21:00 WARN raspuns lent
+  ```
+
+  Intrare (stdin):
+  ```
+  WARN 08:00:00 08:20:00
+  ```
+
+  Ieșire (stdout):
+  ```
+  08:03:10 WARN memorie 85%
+  08:03:11 ERROR baza de date indisponibila
+  INFO: 0, WARN: 1, ERROR: 1
+  Cea mai lunga pauza: 709 secunde (08:03:11 - 08:15:00)
+  Linii invalide: 2
+  ```
+hints:
+  - "Transformă ora în număr de secunde de la miezul nopții: comparațiile de interval și diferențele devin simple operații cu întregi."
+  - "Un enum {INFO, WARN, ERROR} îți dă direct ordinea gravității, iar un vector de 3 contoare indexat cu nivelul face statistica. Validează ora verificând lungimea, pozițiile ':' și intervalele."
+  - "Structura per eveniment: {secunde, nivel, linie alocată dinamic}. După încărcare: o parcurgere pentru filtru și contoare, alta pentru pauza maximă (diferența v[i] - v[i-1])."
+pitfalls:
+  - "sscanf(\"%d:%d:%d\") acceptă și „8:16:00” — cerința cere exact două cifre pentru fiecare componentă."
+  - "Compararea orelor ca șiruri merge doar dacă sunt validate; conversia în secunde e mai sigură."
+  - "Liniile alocate dinamic trebuie eliberate una câte una înainte de free pe vector."

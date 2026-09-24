@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Laboratoare și concepte{% endblock %}
+{% block content %}
+<h1>Laboratoare și concepte</h1>
+<p class="muted">{{ n }} concepte legate de textul laboratoarelor. Fiecare definiție trimite la secțiunea din laborator din care provine.</p>
+<div class="tabs">
+  <a href="?tab=capitole" {% if tab == "capitole" %}class="on"{% endif %}>Pe capitole</a>
+  <a href="?tab=az" {% if tab == "az" %}class="on"{% endif %}>Index A–Z</a>
+  <a href="?tab=arbore" {% if tab == "arbore" %}class="on"{% endif %}>Arborele de învățare</a>
+  <a href="/graf/">Graful prerechizitelor</a>
+</div>
+{% if tab == "az" %}
+  <div class="letters">{% for l, cs in letters %}<a href="#L-{{ l }}">{{ l }}</a>{% endfor %}</div>
+  <div class="az">{% for l, cs in letters %}<h2 id="L-{{ l }}">{{ l }}</h2><ul>{% for c in cs %}<li><a class="tl l{{ c.level }}{% if c.origin == 'claude' %} added{% endif %}" href="/termen/{{ c.id }}/" data-t="{{ c.id }}">{{ c.label }}</a> <span class="muted small">{{ c.kind }}</span></li>{% endfor %}</ul>{% endfor %}</div>
+{% elif tab == "arbore" %}
+  {% for u, nodes in unit_trees %}
+  <details class="rdet" {% if forloop.first %}open{% endif %}><summary>{{ u.icon }} {{ u.title }} <span class="muted small">({{ nodes|length }} rădăcini)</span></summary>
+    <ul class="tree">{% for n in nodes %}{% include "glosar/_otree.html" with n=n %}{% endfor %}</ul>
+  </details>
+  {% endfor %}
+{% else %}
+  <h2>Laboratoare</h2>
+  <div class="grid g3">
+  {% for ch in chapters %}{% if ch.u.kind == "lab" %}
+    <div class="card chaptercard">
+      <div class="icon">{{ ch.u.icon }}</div>
+      <div class="kicker">Laboratorul {{ ch.u.number }}{% if ch.u.week %} · săpt. {{ ch.u.week }}{% endif %}</div>
+      <h3><a href="/capitol/{{ ch.u.id }}/">{{ ch.u.title }}</a></h3>
+      <ul class="tlist small">{% for c in ch.base %}<li><a class="tl l1" href="/termen/{{ c.id }}/" data-t="{{ c.id }}">{{ c.label }}</a></li>{% endfor %}</ul>
+      <div class="small"><a href="/carte/{{ ch.u.id }}/">Citește</a> · <a href="/capitol/{{ ch.u.id }}/">{{ ch.n }} concepte</a></div>
+    </div>
+  {% endif %}{% endfor %}
+  </div>
+  <h2>Ghiduri</h2>
+  <div class="grid g3">
+  {% for ch in chapters %}{% if ch.u.kind == "guide" %}
+    <div class="card chaptercard"><div class="icon">{{ ch.u.icon }}</div><h3><a href="/carte/{{ ch.u.id }}/">{{ ch.u.title }}</a></h3><div class="small"><a href="/capitol/{{ ch.u.id }}/">{{ ch.n }} concepte</a></div></div>
+  {% endif %}{% endfor %}
+  </div>
+{% endif %}
+{% endblock %}

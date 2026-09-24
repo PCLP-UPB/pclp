@@ -1,0 +1,56 @@
+id: lab01-p01-salut-grupa
+lab: lab01
+number: 1
+title: "Salut, grupă!"
+difficulty: 1
+estimated_minutes: 10
+concepts: [printf, scanf, "%d", variabilă, int]
+statement: |
+  Asistentul de laborator vrea un program care să salute grupa la începutul orei și
+  să spună câte locuri au rămas libere în sală.
+
+  Scrie un program care citește numărul grupei, numărul de studenți prezenți și
+  capacitatea sălii, apoi afișează un mesaj de salut, numărul de studenți și numărul
+  de locuri libere.
+
+  **Date de intrare**
+
+  Pe o singură linie se află trei numere întregi `G N C`, separate prin câte un spațiu:
+  numărul grupei, numărul de studenți prezenți și numărul de locuri din sală.
+
+  **Date de ieșire**
+
+  Programul afișează exact trei linii:
+
+  ```
+  Salut, grupa G!
+  Studenti prezenti: N
+  Locuri libere: L
+  ```
+
+  unde `L = C - N`. Textul se scrie fără diacritice, exact ca mai sus.
+
+  **Restricții**
+
+  - `100 ≤ G ≤ 999`
+  - `0 ≤ N ≤ C ≤ 500`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  312 28 30
+  ```
+
+  Ieșire:
+  ```
+  Salut, grupa 312!
+  Studenti prezenti: 28
+  Locuri libere: 2
+  ```
+hints:
+  - "Ai nevoie de trei variabile de tip int: una pentru fiecare număr citit."
+  - "Un singur apel scanf cu trei specificatori %d poate citi toate cele trei valori; nu uita operatorul & în fața fiecărei variabile."
+  - "Pașii: citește G, N, C; afișează linia de salut; afișează N; afișează diferența C - N. Fiecare linie se termină cu \\n."
+pitfalls:
+  - "Textul trebuie să fie identic: fără diacritice, cu virgulă după «Salut» și cu semnul exclamării."

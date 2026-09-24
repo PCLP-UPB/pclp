@@ -1,0 +1,67 @@
+id: lab06-p04-editor-imagine
+lab: lab06
+number: 4
+title: "Editor de imagini"
+difficulty: 3
+estimated_minutes: 40
+concepts: [matrice alocată dinamic, vector de pointeri, eliberarea unei matrice, malloc, free]
+statement: |
+  O imagine în tonuri de gri este o matrice de `n` linii și `m` coloane cu valori între 0 și 255. Un editor simplu aplică pe rând `q` operații:
+
+  - `R` — rotire cu 90° în sensul acelor de ceasornic;
+  - `L` — rotire cu 90° în sens invers acelor de ceasornic;
+  - `H` — oglindire sus-jos (prima linie devine ultima);
+  - `V` — oglindire stânga-dreapta (prima coloană devine ultima).
+
+  Afișați imaginea finală.
+
+  Imaginea se memorează într-o matrice alocată dinamic (vector de pointeri la linii). După o rotire dimensiunile se schimbă, deci rezultatul se construiește într-o **matrice nouă**, iar cea veche se eliberează imediat. Implementați cel puțin:
+
+  ```c
+  int **aloca_matrice(int n, int m);
+  void elibereaza_matrice(int **a, int n);
+  int **roteste_dreapta(int **a, int n, int m);   /* returneaza o matrice noua m x n */
+  int **roteste_stanga(int **a, int n, int m);
+  void oglindeste_orizontal(int **a, int n);       /* fara a copia elemente! */
+  void oglindeste_vertical(int **a, int n, int m);
+  ```
+
+  `oglindeste_orizontal` trebuie să lucreze doar cu pointerii la linii, fără să copieze vreun element.
+
+  **Date de intrare**
+
+  Pe prima linie `n m`, apoi `n` linii cu câte `m` valori. Urmează `q`, apoi `q` litere din `{R, L, H, V}` separate prin spații (dacă `q = 0`, linia lipsește).
+
+  **Date de ieșire**
+
+  Pe prima linie dimensiunile finale, `n m`; apoi imaginea finală, câte o linie pe rând, valorile separate prin spațiu.
+
+  **Restricții**
+
+  - `1 ≤ n, m ≤ 200`, `0 ≤ q ≤ 50`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  2 3
+  1 2 3
+  4 5 6
+  2
+  R H
+  ```
+
+  Ieșire:
+  ```
+  3 2
+  6 3
+  5 2
+  4 1
+  ```
+hints:
+  - "La o rotire, o imagine `n × m` devine `m × n`, deci ai nevoie de altă matrice. Scrie pe hârtie unde ajunge elementul `a[i][j]` pentru o matrice 2 × 3."
+  - "Pentru rotirea la dreapta, `a[i][j]` ajunge în noua matrice pe linia `j`, coloana `n - 1 - i`. După construirea matricei noi, eliberează-o pe cea veche (cu numărul ei de linii) și interschimbă `n` cu `m`."
+  - "Oglindirea sus-jos: interschimbă `a[i]` cu `a[n-1-i]` pentru i < n/2 — sunt pointeri, deci liniile „se mută” fără să copiezi valori. Oglindirea stânga-dreapta: inversează fiecare linie."
+pitfalls:
+  - "Eliberează matricea veche cu numărul ei de linii, înainte să schimbi `n` și `m`."
+  - "Fiecare rotire alocă o matrice nouă; dacă nu o eliberezi pe cea veche, programul pierde memorie la fiecare `R`/`L`."

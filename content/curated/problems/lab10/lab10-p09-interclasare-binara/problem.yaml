@@ -1,0 +1,70 @@
+id: lab10-p09-interclasare-binara
+lab: lab10
+number: 9
+title: "Interclasarea a două fișiere binare sortate"
+difficulty: 4
+estimated_minutes: 50
+concepts: [fișier binar, înregistrare, fread, fwrite, ftell, fseek, structură, verificarea deschiderii fișierului]
+statement: |
+  Fișierele `a.bin` și `b.bin` conțin înregistrări de 8 octeți (`sizeof(int) == 4`, little-endian, fără antet):
+
+  | octeți | câmp |
+  |---|---|
+  | 0–3 | `id` (int) |
+  | 4–7 | `val` (int) |
+
+  În fiecare fișier, înregistrările ar trebui să fie ordonate **strict crescător** după `id`.
+  Fișierele pot fi mult mai mari decât memoria disponibilă, deci **nu** se încarcă în memorie.
+
+  Programul:
+
+  1. verifică `a.bin`, apoi `b.bin`. Pentru fiecare fișier care are o problemă afișează mesajul corespunzător:
+     - `Eroare: nu pot deschide X` — fișierul nu există;
+     - `Fisier corupt: X` — dimensiunea nu este multiplu de 8;
+     - `Fisier nesortat: X (pozitia k)` — înregistrarea `k` (numerotare de la 0) are `id` mai mic sau egal cu precedenta
+       (se raportează prima astfel de poziție).
+
+     Dacă oricare fișier are o problemă, programul se oprește după verificarea ambelor.
+  2. afișează `a.bin: NA inregistrari, b.bin: NB inregistrari`;
+  3. interclasează cele două fișiere în `c.bin` (același format, sortat strict crescător); dacă un `id` apare în
+     ambele fișiere, în `c.bin` apare o singură dată, cu `val` egal cu suma celor două valori;
+  4. redeschide `c.bin` și afișează `c.bin: N inregistrari (D octeti)`, apoi câte o linie `id val`.
+
+  **Restricții**
+
+  - fișierele pot avea până la 10^9 înregistrări; |val| ≤ 10^8.
+
+  **Exemplu**
+
+  Fișierul binar `a.bin` (24 octeți, afișat cu `hexdump -C`):
+  ```
+  00000000  01 00 00 00 0a 00 00 00  04 00 00 00 28 00 00 00  |............(...|
+  00000010  07 00 00 00 46 00 00 00                           |....F...|
+  00000018
+  ```
+
+  Fișierul binar `b.bin` (24 octeți, afișat cu `hexdump -C`):
+  ```
+  00000000  02 00 00 00 05 00 00 00  04 00 00 00 01 00 00 00  |................|
+  00000010  09 00 00 00 09 00 00 00                           |........|
+  00000018
+  ```
+
+  Ieșire (stdout):
+  ```
+  a.bin: 3 inregistrari, b.bin: 3 inregistrari
+  c.bin: 5 inregistrari (40 octeti)
+  1 10
+  2 5
+  4 41
+  7 70
+  9 9
+  ```
+hints:
+  - "Interclasarea are nevoie să vadă la fiecare pas doar „capul” fiecărui fișier: câte o înregistrare curentă din a și din b, plus un indicator că fișierul nu s-a terminat."
+  - "Verificarea se face într-o trecere separată: dimensiune (fseek/ftell, % 8), apoi citire secvențială comparând fiecare id cu precedentul."
+  - "Pseudocod: citește ra, rb; cât timp (are_a sau are_b): dacă are_a și (nu are_b sau ra.id < rb.id) scrie ra și citește următorul din a; altfel dacă are_b și (nu are_a sau rb.id < ra.id) scrie rb și avansează b; altfel scrie {ra.id, ra.val + rb.val} și avansează în ambele."
+pitfalls:
+  - "Încărcarea ambelor fișiere în memorie și sortarea lor trece testele mici, dar încalcă cerința (se verifică la evaluare)."
+  - "Uitarea cazului în care unul dintre fișiere se termină primul pierde restul celuilalt."
+  - "Fișierele de intrare deschise trebuie închise și pe ramurile de eroare."

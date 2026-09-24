@@ -1,0 +1,64 @@
+id: lab06-p02-comenzi-cafenea
+lab: lab06
+number: 2
+title: "Comenzile cafenelei"
+difficulty: 2
+estimated_minutes: 25
+concepts: [realloc, vector extensibil, dublarea capacității, realocare prin pointer auxiliar, free]
+statement: |
+  Casa de marcat a unei cafenele trimite valorile comenzilor (în bani) una după alta, iar la închidere trimite valoarea `0`. Nu se știe dinainte câte comenzi vor fi, așa că programul trebuie să le memoreze într-un vector **alocat dinamic care crește** pe măsură ce sosesc comenzile.
+
+  Implementați și folosiți funcția:
+
+  ```c
+  int *adauga(int *v, int *n, int *cap, int x);
+  ```
+
+  unde `n` este numărul de elemente folosite și `cap` numărul de elemente alocate. Dacă vectorul e plin, funcția îi **dublează** capacitatea (de la 0 trece la 1) folosind `realloc`, apoi adaugă `x`. Returnează adresa (posibil nouă) a vectorului sau `NULL` dacă realocarea a eșuat.
+
+  După citire afișați numărul de comenzi, totalul încasat, comenzile în ordine inversă și cea mai mare comandă (prima, dacă apare de mai multe ori), cu numărul ei de ordine și câte comenzi au urmat după ea.
+
+  **Date de intrare**
+
+  Numere întregi pozitive separate prin spații și/sau linii noi, terminate de un `0` (care nu este comandă). Ce urmează după `0` se ignoră.
+
+  **Date de ieșire**
+
+  ```
+  comenzi: <n>
+  total: <suma>
+  invers: <comenzile in ordine inversa, fiecare precedata de un spatiu>
+  maxim: <valoare> (comanda <nr>, urmata de <k> comenzi)
+  ```
+
+  Dacă nu există nicio comandă, se afișează doar prima linie (`comenzi: 0`).
+
+  **Restricții**
+
+  - numărul de comenzi este cel mult `200000`
+  - `1 ≤ valoare comandă ≤ 10^6`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  12 25 8
+  40 15 40 9
+  0
+  ```
+
+  Ieșire:
+  ```
+  comenzi: 7
+  total: 149
+  invers: 9 40 15 40 8 25 12
+  maxim: 40 (comanda 4, urmata de 3 comenzi)
+  ```
+hints:
+  - "Păstrează trei lucruri: pointerul la vector, câte elemente ai folosit (`n`) și câte ai alocat (`cap`). Când `n == cap`, e nevoie de mai mult spațiu."
+  - "`realloc` poate muta datele la altă adresă, deci funcția trebuie să întoarcă noua adresă. Pune rezultatul într-un pointer auxiliar și verifică-l înainte să-l folosești. `realloc(NULL, dim)` se comportă ca `malloc`."
+  - "Pseudocod adauga: dacă *n == *cap: *cap = (*cap == 0 ? 1 : 2 * *cap); tmp = realloc(v, *cap * sizeof(int)); dacă tmp e NULL returnează NULL; v = tmp. Apoi v[*n] = x; (*n)++; returnează v. În main: comenzi = NULL, n = cap = 0, iar la final free(comenzi)."
+pitfalls:
+  - "`v = realloc(v, ...)` pierde vechea zonă dacă realocarea eșuează (memory leak) — folosește un pointer auxiliar."
+  - "Dimensiunea pentru `realloc` e în octeți: `cap * sizeof(int)`."
+  - "Nu accesa `comenzi[0]` dacă nu s-a citit nicio comandă."

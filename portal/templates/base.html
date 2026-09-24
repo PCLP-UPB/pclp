@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}PCLP{% endblock %} · PCLP</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23256f4a'/><text x='16' y='22' font-size='15' text-anchor='middle' fill='white' font-family='monospace' font-weight='700'>C</text></svg>">
+<link rel="stylesheet" href="/static/pclp.css?v={{ STATIC_V }}">
+{% block head %}{% endblock %}
+</head>
+<body class="{% block bodyclass %}{% endblock %}">
+<header class="top">
+  <a class="brand" href="/"><span class="logo">C</span><span>PCLP</span></a>
+  <nav class="nav" id="nav">
+    <a href="/saptamana/" {% if request.path|slice:":11" == "/saptamana/" %}class="on"{% endif %}>Săptămâna {{ CURRENT_WEEK }}</a>
+    <a href="/probleme/" {% if request.path|slice:":9" == "/problem" %}class="on"{% endif %}>Probleme</a>
+    <a href="/exploreaza/" {% if request.path|slice:":11" == "/exploreaza" or request.path|slice:":8" == "/termen/" or request.path|slice:":7" == "/carte/" or request.path|slice:":9" == "/capitol/" %}class="on"{% endif %}>Laboratoare &amp; concepte</a>
+    <a href="/man/" {% if request.path|slice:":5" == "/man/" %}class="on"{% endif %}>Manual C</a>
+    <a href="/prompturi/" {% if request.path|slice:":10" == "/prompturi" %}class="on"{% endif %}>Prompturi AI</a>
+    <a href="/intrebari/" {% if request.path|slice:":10" == "/intrebari" %}class="on"{% endif %}>Întrebări</a>
+    <a href="/progres/" {% if request.path|slice:":8" == "/progres" %}class="on"{% endif %}>Progres</a>
+  </nav>
+  <form class="search" action="/cauta/" role="search" autocomplete="off">
+    <input name="q" id="q" type="search" placeholder="Caută un termen… ( / )" value="{{ q|default:'' }}" aria-label="Caută">
+    <div class="sugg" id="sugg" hidden></div>
+  </form>
+  <a class="btn code" href="{{ CODE_URL }}" target="pclp-code" title="Deschide VS Code în browser">VS Code ↗</a>
+  <button class="menu" id="menu" aria-label="Meniu" type="button">☰</button>
+</header>
+{% if messages %}<div class="flash">{% for m in messages %}<div class="msg {{ m.tags }}">{{ m }}</div>{% endfor %}</div>{% endif %}
+<main class="{% block mainclass %}wrap{% endblock %}">
+{% block content %}{% endblock %}
+</main>
+<footer class="foot">
+  <span>PCLP · conținut după laboratoarele de pe <a href="https://ocw.cs.pub.ro/courses/programare" target="_blank" rel="noopener">ocw.cs.pub.ro</a> și <a href="https://acs-pclp.github.io/" target="_blank" rel="noopener">acs-pclp.github.io</a>, plus Linux man-pages.</span>
+  <span><a href="/despre/">Despre</a> · <a href="/setari/">Setări AI</a>{% if AUTHOR %} · <a href="/audit/">Audit</a> · <a href="/termen/nou/">Termen nou</a>{% endif %} · v{{ PCLP_VERSION }}</span>
+</footer>
+<div class="tip" id="tip" hidden></div>
+<button class="explain" id="explain" type="button" hidden>✨ Explică</button>
+<aside class="sheet" id="sheet" hidden><button class="x" type="button" data-close>×</button><div class="sheet-body"></div></aside>
+<div class="lightbox" id="lightbox" hidden><img alt=""></div>
+<script>window.PCLP = {csrf: "{{ csrf_token }}"};</script>
+<script src="/static/pclp.js?v={{ STATIC_V }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,842 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:laboratoare:lab02</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-10-10T19:47:10+0300"/>
+<meta name="keywords" content="programare,laboratoare,lab02"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare:laboratoare"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/laboratoare/lab02"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab02"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:laboratoare';var JSINFO = {"id":"programare:laboratoare:lab02","namespace":"programare:laboratoare","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#pclp_laborator02tipuri_de_date_operatori_instructiunile_limbajului_c">PCLP Laborator02: Tipuri de date. Operatori. Instrucțiunile limbajului C</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#obiective">Obiective</a></div></li>
+<li class="level3"><div class="li"><a href="#tipuri_fundamentale_de_date">Tipuri fundamentale de date</a></div></li>
+<li class="level3"><div class="li"><a href="#operatori">Operatori</a></div></li>
+<li class="level3"><div class="li"><a href="#functii_matematice">Funcții matematice</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#studiu_de_caz">Studiu de caz</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#instructiuni">Instrucţiuni</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#instructiuni_conditionale">Instrucţiuni condiţionale</a></div></li>
+<li class="level4"><div class="li"><a href="#instructiuni_de_repetitie">Instrucţiuni de repetiţie</a></div></li>
+<li class="level4"><div class="li"><a href="#instructiuni_speciale">Instrucţiuni speciale</a></div></li>
+<li class="level4"><div class="li"><a href="#continue">continue</a></div></li>
+<li class="level4"><div class="li"><a href="#return">return</a></div></li>
+<li class="level4"><div class="li"><a href="#goto">goto</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#exercitii">Exerciții</a></div></li>
+<li class="level3"><div class="li"><a href="#referinte">Referinţe</a></div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h2 class="sectionedit1" id="pclp_laborator02tipuri_de_date_operatori_instructiunile_limbajului_c">PCLP Laborator02: Tipuri de date. Operatori. Instrucțiunile limbajului C</h2>
+<div class="level2">
+
+<p>
+<strong>Responsabili:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="mailto:&#x6e;&#x65;&#x61;&#x74;&#x75;&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x6e;&#x65;&#x61;&#x74;&#x75;&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Darius Neațu (2019 - prezent)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;" class="mail" title="&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;">Dorinel Filip (2019 - prezent)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x74;&#x65;&#x6f;&#x64;&#x6f;&#x72;&#x2e;&#x6d;&#x61;&#x74;&#x65;&#x69;&#x2e;&#x62;&#x69;&#x72;&#x6c;&#x65;&#x61;&#x6e;&#x75;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x74;&#x65;&#x6f;&#x64;&#x6f;&#x72;&#x2e;&#x6d;&#x61;&#x74;&#x65;&#x69;&#x2e;&#x62;&#x69;&#x72;&#x6c;&#x65;&#x61;&#x6e;&#x75;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Bîrleanu Teodor Matei (2025 - prezent)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x72;&#x61;&#x72;&#x65;&#x73;&#x39;&#x36;&#x63;&#x68;&#x65;&#x73;&#x65;&#x6c;&#x69;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x72;&#x61;&#x72;&#x65;&#x73;&#x39;&#x36;&#x63;&#x68;&#x65;&#x73;&#x65;&#x6c;&#x69;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Rareș Cheșeli (2017)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x63;&#x61;&#x6c;&#x69;&#x6e;&#x2e;&#x63;&#x72;&#x75;&#x63;&#x65;&#x72;&#x75;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;" class="mail" title="&#x63;&#x61;&#x6c;&#x69;&#x6e;&#x2e;&#x63;&#x72;&#x75;&#x63;&#x65;&#x72;&#x75;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;">Călin Cruceru (2015)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x65;&#x6d;&#x69;&#x6c;&#x2e;&#x72;&#x61;&#x63;&#x65;&#x63;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x65;&#x6d;&#x69;&#x6c;&#x2e;&#x72;&#x61;&#x63;&#x65;&#x63;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Emil Racec (2014, 2012)</a> </div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x62;&#x6f;&#x67;&#x64;&#x61;&#x6e;&#x64;&#x72;&#x75;&#x74;&#x75;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x62;&#x6f;&#x67;&#x64;&#x61;&#x6e;&#x64;&#x72;&#x75;&#x74;&#x75;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Bogdan-Cristian Drutu (2010)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x6f;&#x63;&#x74;&#x61;&#x76;&#x69;&#x61;&#x6e;&#x2e;&#x72;&#x69;&#x6e;&#x63;&#x69;&#x6f;&#x67;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x6f;&#x63;&#x74;&#x61;&#x76;&#x69;&#x61;&#x6e;&#x2e;&#x72;&#x69;&#x6e;&#x63;&#x69;&#x6f;&#x67;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Octavian Rînciog (2010)</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT1 SECTION "PCLP Laborator02: Tipuri de date. Operatori. Instrucțiunile limbajului C" [1-601] -->
+<h3 class="sectionedit2" id="obiective">Obiective</h3>
+<div class="level3">
+
+<p>
+În urma parcurgerii acestui laborator studentul va fi capabil să:
+</p>
+<ul>
+<li class="level1"><div class="li"> utilizeze în cadrul programelor variabile declarate cu tipurile standard (<strong>built-in</strong>) de date</div>
+</li>
+<li class="level1"><div class="li"> înțeleagă și utilizeze operatorii limbajului</div>
+</li>
+<li class="level1"><div class="li"> măsoare timpul de execuție al programelor scrise</div>
+</li>
+<li class="level1"><div class="li"> utilizeze funcțiile matematice din C</div>
+</li>
+<li class="level1"><div class="li"> scrie programe C utilizând structuri condiţionale si de repetiţie</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT2 SECTION "Obiective" [602-1016] -->
+<h3 class="sectionedit3" id="tipuri_fundamentale_de_date">Tipuri fundamentale de date</h3>
+<div class="level3">
+
+<p>
+Tipurile de date reprezintă tipul de informație care poate fi stocat într-o variabilă. Un tip de data definește atât gama de valori pe care o poate lua o variabilă de un anume tip cât și operațiile care se pot efectua asupra ei. În continuare sunt prezentate tipurile fundamentale ale limbajului C, împreună cu o scurtă descriere a acestora:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>char</code> - reprezentat printr-un număr pe 8 biți (un byte). Poate fi echivalent fie cu <code>signed char</code>, fie cu <code>unsigned char</code>. Vezi observația de mai jos cu privire la acest lucru. Este folosit în general pentru reprezentarea caracterelor <abbr title="American Standard Code for Information Interchange">ASCII</abbr>.</div>
+</li>
+<li class="level1"><div class="li"> <code>int</code> - stochează numere întregi. Lungimea sa (și implicit plaja de valori) este dependentă de compilator si sistemul de operare considerat. <strong>În general</strong>, pe Linux, <code>int</code> se reprezintă pe 32 de biți (deci 4 bytes). În acest caz, poate memora numere din intervalul [–2.147.483.648; 2.147.483.647].</div>
+</li>
+<li class="level1"><div class="li"> <code>float</code> - reprezintă un număr real stocat în virgulă mobilă, în gama de valori 3.4E+/-38. În <strong>general</strong> respectă formatul <a href="https://en.wikipedia.org/wiki/IEEE_floating_point" class="urlextern" title="https://en.wikipedia.org/wiki/IEEE_floating_point"  rel="nofollow">IEEE 754 single-precision</a>, ceea ce înseamnă că dimensiunea sa va fi 4 (octeți) și numărul va avea cel puțin 7 zecimale exacte.</div>
+</li>
+<li class="level1"><div class="li"> <code>double</code> - reprezinta un număr real stocat în virgulă mobilă, în gama de valori 1.7E+/-308. În <strong>general</strong> respectă formatul <a href="https://en.wikipedia.org/wiki/IEEE_floating_point" class="urlextern" title="https://en.wikipedia.org/wiki/IEEE_floating_point"  rel="nofollow">IEEE 754 double-precision</a>, ceea ce înseamnă că dimensiunea sa va fi 8 (octeți) și numărul va avea cel puțin 15 zecimale exacte.</div>
+</li>
+</ul>
+
+<p>
+Acestor tipuri fundamentale li se mai pot adăuga un număr de specificatori, după cum urmează:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>short</code> - aplicabil doar pentru <code>int</code>. Tipul rezultat are <strong>cel puțin</strong> 16 biți.</div>
+</li>
+<li class="level1"><div class="li"> <code>long</code> - aplicabil pentru <code>int</code> și <code>double</code>. <code>long int</code> se garantează că are <strong>cel puțin</strong> 32 biți. Legat de <code>long double</code> se garantează doar că este mai mare sau egal ca dimensiune decât <code>double</code>, care la rândul lui este mai mare sau egal decât <code>float</code>.</div>
+</li>
+</ul>
+
+<p>
+și
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>signed</code> - aplicabil pentru <code>int</code> și <code>char</code>. O variabilă declarată <code>int</code> este implicit <code>signed</code>. Cuvântul cheie există în acest caz doar pentru cazuri în care vrem să spunem acest lucru explicit. Aplicat pe <code>char</code> (⇒ <code>signed char</code>), ne garantează faptul că acea variabilă va putea avea orice valoare din intervalul [-128; 127].</div>
+</li>
+<li class="level1"><div class="li"> <code>unsigned</code> - precizează faptul că valoarea variabilei este pozitivă. Aplicabil doar tipurilor întregi.</div>
+</li>
+</ul>
+
+<p>
+Cei 4 specificatori au fost împărțiți în 2 grupuri de specificatori complementari. Asta înseamnă că expresia <code>long signed int a;</code> este corectă. La fel este și <code>unsigned short int b;</code>. Definiția <code>short long int c;</code> nu este însă corectă. De asemenea, <strong>nu</strong> oricare specificator din prima categorie cu unul din a doua se pot combina. De exemplu, <code>long signed char d;</code> și <code>long unsigned double e;</code> nu sunt corecte.
+</p>
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Tipul char
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Tipul char
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+<strong>Observație!</strong>
+În C există 3 “tipuri de <code>char</code>”: <code>char</code>, <code>signed char</code>, <code>unsigned char</code>. Acest lucru este diferit față de <code>int</code>, spre exemplu, unde se garantează că <code>signed int</code> este <strong>mereu</strong> același tip ca <code>int</code>. Pentru <code>char</code> acest lucru nu este adevărat: o variabilă declarată <code>char</code>, poate fi, în funcție de compilator/sistem de operare fie <code>signed char</code>, fie <code>unsigned char</code>. Diferența este subtilă însă importantă atunci când vrem să scriem cod C <strong>portabil</strong>. Ca <strong>best practice</strong>, folosim:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>char</code> - atunci când vrem să stocăm un caracter <abbr title="American Standard Code for Information Interchange">ASCII</abbr>.</div>
+</li>
+<li class="level1"><div class="li"> <code>signed char</code> - atunci când vrem să stocăm un întreg din intervalul [-128; 127].</div>
+</li>
+<li class="level1"><div class="li"> <code>unsigned char</code> - atunci când vrem să stocăm orice întreg din intervalul [0; 255].</div>
+</li>
+</ul>
+
+<p>
+<strong>Observație!</strong>
+În paragraful anterior, acolo unde s-a folosit sintagma <em>în general…</em> înseamnă că acel lucru nu este necesar adevărat atunci când compilăm codul cu compilatorul <strong>X</strong> (gcc, clang, MSVC, Intel, XL C, etc), pe sistemul de operare <strong>Y</strong> (Linux, Windows, SunOS, AIX, etc)  și pe arhitectura hardware <strong>Z</strong> (x86, ARM, PowerPC, Sparc, etc). În unele cazuri vrem să scriem cod <strong>portabil</strong>, deci nu vrem să facem prezumții cu privire la aceste lucruri. Pe parcurs o să devină clar de ce în <strong>C</strong> unele lucruri nu sunt exact specificate.
+</p>
+</div></div>
+<p>
+Uneori ne dorim să folosim tipuri a căror dimensiune este exact specificată (ca în cazul lucrului cu struct-uri, care va fi discutat într-un laborator viitor). Pentru asta, putem folosi tipurile definite în headerul <code>&lt;stdint.h&gt;</code>. 
+</p>
+
+<p>
+Câteva exemple sunt următoarele: <code>int8_t</code>, <code>int16_t</code>, <code>int64_t</code>, <code>uint32_t</code>. Pentru o listă completă consultați <a href="http://en.cppreference.com/w/c/types/integer" class="urlextern" title="http://en.cppreference.com/w/c/types/integer"  rel="nofollow">documentația</a> <strong>oficială</strong> (online) a limbajului.
+</p>
+
+<p>
+<p><div class="notewarning">
+<strong>Atenție!</strong>
+Nu abuzați de aceste tipuri. Ele au fost introduse în limbaj în special pentru a permite efectuarea operațiile pe biți într-un mod <strong>portabil</strong>. Dacă aveți nevoie de un contor pentru o instrucțiune <code>for</code>, cel mai probabil tipul pe care îl vreți este <code>int</code>.
+
+</div></p>
+</p>
+
+<p>
+Determinarea corectă a tipurilor de date care vor fi folosite este esențială pentru securitatea și buna funcționare a aplicațiilor pe care le scrieți. În cazul în care valoarea conținută de o variabilă depașește limitele impuse de tipul de date folosit, se produce așa-numit-ul over-flow care poate cauza erori aparent inexplicabile. (<em>Ca o anecdotă, în fiecare an (până acum trei sau patru ani), Bill Gates primea de la FISC o scrisoare prin care era somat să iși platească taxele, deoarece apărea in evidențele lor ca având datorii însemnate. Asta deoarece valoarea averii lui (mult peste 4.000.000.000$) producea un overflow în softul folosit de către FISC. În final situația a fost soluționată, introducând un câmp special pentru el în softul folosit. (A modifica softul peste tot ar fi introdus un plus de stocare nejustificat pentru fiecare din cei aproximativ 300.000.000 de cetațeni ai SUA.)</em> )
+</p>
+
+</div>
+<!-- EDIT3 SECTION "Tipuri fundamentale de date" [1017-7136] -->
+<h3 class="sectionedit4" id="operatori">Operatori</h3>
+<div class="level3">
+
+<p>
+Operatorii limbajului C pot fi unari, binari sau ternari, fiecare având o precedenţă şi o asociativitate bine definite. Tabelul următor sintetizează operatorii limbajului C. Operatorii sunt prezentaţi în ordine descrescătoare a priorităţii.
+</p>
+<div class="table sectionedit5"><table class="inline">
+	<tr class="row0">
+		<th class="col0 centeralign">  Precedenţă  </th><th class="col1 centeralign">  Operator  </th><th class="col2 centeralign">  Descriere  </th><th class="col3 centeralign">  Asociativitate  </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0 centeralign" rowspan="3">  <strong>1</strong>  </td><td class="col1 centeralign">  <strong>[]</strong>  </td><td class="col2"> Indexare </td><td class="col3 centeralign">  stanga-dreapta  </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0 centeralign">  <strong>. şi -&gt;</strong>  </td><td class="col1"> Selecţie membru (prin structură, respectiv pointer) </td><td class="col2 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row3">
+		<td class="col0 centeralign">  <strong>++ şi --</strong>  </td><td class="col1"> Postincrementare/postdecrementare </td><td class="col2 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row4">
+		<td class="col0 centeralign" rowspan="8">  <strong>2</strong>  </td><td class="col1 centeralign">  <strong>!</strong>  </td><td class="col2"> Negare logică </td><td class="col3 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row5">
+		<td class="col0 centeralign">  <strong>~</strong>  </td><td class="col1"> Complement faţă de 1 pe biţi </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row6">
+		<td class="col0 centeralign">  <strong>++ şi --</strong>  </td><td class="col1"> Preincrementare/predecrementare </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row7">
+		<td class="col0 centeralign">  <strong>+ şi -</strong>  </td><td class="col1"> + şi - unari </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row8">
+		<td class="col0 centeralign">  <strong></strong>*  </td><td class="col1"> Dereferenţiere </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row9">
+		<td class="col0 centeralign">  <strong>&amp;</strong>  </td><td class="col1"> Operator <em>adresă</em> </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row10">
+		<td class="col0 centeralign">  <strong>(tip)</strong>  </td><td class="col1"> Conversie de <strong>tip</strong> </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row11">
+		<td class="col0 centeralign">  <strong>sizeof()</strong>  </td><td class="col1"> Mărimea în octeţi </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row12">
+		<td class="col0 centeralign" rowspan="3">  <strong>3</strong>  </td><td class="col1 centeralign">  <strong></strong>*  </td><td class="col2"> Înmulţire </td><td class="col3 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row13">
+		<td class="col0 centeralign">  <strong>\/</strong>  </td><td class="col1"> Împărţire </td><td class="col2 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row14">
+		<td class="col0 centeralign">  <strong>%</strong>  </td><td class="col1"> Restul împărţirii </td><td class="col2 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row15">
+		<td class="col0 centeralign">  <strong>4</strong>  </td><td class="col1 centeralign">  <strong>+ şi -</strong>  </td><td class="col2"> Adunare/scădere </td><td class="col3 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row16">
+		<td class="col0 centeralign">  <strong>5</strong>  </td><td class="col1 centeralign">  <strong>&lt;&lt; si &gt;&gt;</strong>  </td><td class="col2"> Deplasare stânga/dreapta a biţilor </td><td class="col3 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row17">
+		<td class="col0 centeralign" rowspan="4">  <strong>6</strong>  </td><td class="col1 centeralign">  <strong>&lt;</strong>  </td><td class="col2"> Mai mic </td><td class="col3 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row18">
+		<td class="col0 centeralign">  <strong>&lt;=</strong>  </td><td class="col1"> Mai mic sau egal </td><td class="col2 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row19">
+		<td class="col0 centeralign">  <strong>&gt;</strong>  </td><td class="col1"> Mai mare </td><td class="col2 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row20">
+		<td class="col0 centeralign">  <strong>&gt;=</strong>  </td><td class="col1"> Mai mare sau egal </td><td class="col2 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row21">
+		<td class="col0 centeralign" rowspan="2">  <strong>7</strong>  </td><td class="col1 centeralign">  <strong>==</strong>  </td><td class="col2"> Egal </td><td class="col3 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row22">
+		<td class="col0 centeralign">  <strong>!=</strong>  </td><td class="col1"> Diferit </td><td class="col2 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row23">
+		<td class="col0 centeralign">  <strong>8</strong>  </td><td class="col1 centeralign">  <strong>&amp;</strong>  </td><td class="col2"> ŞI pe biţi </td><td class="col3 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row24">
+		<td class="col0 centeralign">  <strong>9</strong>  </td><td class="col1 centeralign">  <strong>^</strong>  </td><td class="col2"> SAU-EXCLUSIV pe biţi </td><td class="col3 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row25">
+		<td class="col0 centeralign">  <strong>10</strong>  </td><td class="col1 centeralign">  <strong>|</strong>  </td><td class="col2"> SAU pe biţi </td><td class="col3 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row26">
+		<td class="col0 centeralign">  <strong>11</strong>  </td><td class="col1 centeralign">  <strong>&amp;&amp;</strong>  </td><td class="col2"> ŞI logic </td><td class="col3 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row27">
+		<td class="col0 centeralign">  <strong>12</strong>  </td><td class="col1 centeralign">  <strong>||</strong>  </td><td class="col2"> SAU logic </td><td class="col3 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row28">
+		<td class="col0 centeralign">  <strong>13</strong>  </td><td class="col1 centeralign">  <strong>?:</strong>  </td><td class="col2"> Operator condiţional </td><td class="col3 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row29">
+		<td class="col0 centeralign" rowspan="7">  <strong>14</strong>  </td><td class="col1 centeralign">  <strong>=</strong>  </td><td class="col2"> Atribuire </td><td class="col3 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row30">
+		<td class="col0 centeralign">  <strong>+= şi -=</strong>  </td><td class="col1"> Atribuire cu adunare/scădere </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row31">
+		<td class="col0 centeralign">  <strong>*= şi /=</strong>  </td><td class="col1"> Atribuire cu multiplicare/împărţire </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row32">
+		<td class="col0 centeralign">  <strong>%=</strong>  </td><td class="col1"> Atribuire cu modulo </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row33">
+		<td class="col0 centeralign">  <strong>&amp;= si |=</strong>  </td><td class="col1"> Atribuire cu ŞI/SAU </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row34">
+		<td class="col0 centeralign">  <strong>^=</strong>  </td><td class="col1"> Atribuire cu SAU-EXCLUSIV </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row35">
+		<td class="col0 centeralign">  <strong>&lt;&lt;= şi &gt;&gt;=</strong>  </td><td class="col1"> Atribuire cu deplasare de biţi </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row36">
+		<td class="col0 centeralign">  <strong>15</strong>  </td><td class="col1 centeralign">  <strong>,</strong>  </td><td class="col2"> Operator secvenţa </td><td class="col3 centeralign">  stânga-dreapta  </td>
+	</tr>
+</table></div>
+<!-- EDIT5 TABLE [7411-9826] -->
+<p>
+Trebuie avută în vedere precedenţa operatorilor pentru obţinerea rezultatelor scontate. Dacă unele tipuri de precedenţă (cum ar fi cea a operatorilor artimetici) sunt evidente şi nu prezintă (aparent) probleme (şi datorită folosirii lor dese), altele pot duce la erori greu de găsit. De exemplu, următorul fragment de cod nu produce rezultatul dorit, deoarece:
+</p>
+<pre class="code c"><span class="kw1">if</span> <span class="br0">&#40;</span>flags <span class="sy0">&amp;</span> MASK <span class="sy0">==</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  ...
+<span class="br0">&#125;</span></pre>
+
+<p>
+se evaluează mai întai egalitatea care produce ca rezultat (0 pentru False, și 1 pentru True) după care se aplică Și pe biți între flags și 1.
+</p>
+
+<p>
+Pentru a obţine rezultatul dorit se vor folosi parantezele:
+</p>
+<pre class="code c"><span class="kw1">if</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>flags <span class="sy0">&amp;</span> MASK<span class="br0">&#41;</span> <span class="sy0">==</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  ...
+<span class="br0">&#125;</span></pre>
+
+<p>
+acum mai întâi se va face ȘI pe biți între flags și MASK, după care se verifică egalitatea.
+</p>
+
+<p>
+O expresie este o secventă de operanzi și operatori (validă din punct de vedere al sintaxei limbajului C) care realizează una din funcțiile: calculul unei valori, desemnarea unui obiect (variabilă) sau funcţii sau generarea unui efect lateral.
+</p>
+
+<p>
+O altă greşeală frecventă este utilizarea greşită a operatorilor <strong>=</strong> şi <strong>==</strong>. Primul reprezintă atribuire, al doilea comparaţie de egalitate. Apar deseori erori ca:
+</p>
+<pre class="code c"><span class="kw1">if</span> <span class="br0">&#40;</span>a <span class="sy0">=</span> <span class="nu0">2</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  ...
+<span class="br0">&#125;</span></pre>
+
+<p>
+Compilatorul consideră condiţia corectă, deoarece este o expresie validă în limbajul C care face atribuire, care se evaluează mereu la o valoare nenulă.
+</p>
+
+</div>
+<!-- EDIT4 SECTION "Operatori" [7137-11253] -->
+<h3 class="sectionedit6" id="functii_matematice">Funcții matematice</h3>
+<div class="level3">
+
+<p>
+Fișierul antet <code>math.h</code> conține un set de funcții matematice des utilizate în programe. Câteva dintre acestea sunt:
+</p>
+<div class="table sectionedit7"><table class="inline">
+	<tr class="row0">
+		<th class="col0 centeralign">  Antet  </th><th class="col1 centeralign">  Descriere  </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0"> <em><code>double asin(double arg);<br/>
+double acos(double arg);</code></em> </td><td class="col1"> Calculează arcsinusul/arccosinusul valorii <strong>arg</strong>; rezultatul este măsurat în radiani </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"> <em><code>double atan(double arg);<br/>
+double atan2(double y, double x);</code></em> </td><td class="col1"> Calculează arctangenta valorii <strong>arg</strong>, respectiv a fracției y/x </td>
+	</tr>
+	<tr class="row3">
+		<td class="col0"> <em><code>double floor(double num);</code></em> </td><td class="col1"> Întoarce cel mai mare întreg mai mic sau egal cu <strong>num</strong> (partea întreagă inferioară) </td>
+	</tr>
+	<tr class="row4">
+		<td class="col0"> <em><code>double ceil(double num);</code></em> </td><td class="col1"> Întoarce cel mai mic întreg mai mare sau egal cu num (partea întreagă superioară) </td>
+	</tr>
+	<tr class="row5">
+		<td class="col0"> <em><code>double sin(double arg);<br/>
+ double cos(double arg);<br/>
+ double tan(double arg);</code></em> </td><td class="col1"> Calculează sinusul/cosinusul/tangenta parametrului <strong>arg</strong>, considerată în radiani </td>
+	</tr>
+	<tr class="row6">
+		<td class="col0"> <em><code>double sinh(double arg);<br/>
+double cosh(double arg);<br/>
+double tanh(double arg);</code></em> </td><td class="col1">Calculează sinusul/cosinusul/tangenta hiperbolică a parametrului <strong>arg</strong> </td>
+	</tr>
+	<tr class="row7">
+		<td class="col0"> <em><code>double exp(double arg);</code></em> </td><td class="col1"> Întoarce valoarea <code>e</code><sup><code>arg</code></sup> </td>
+	</tr>
+	<tr class="row8">
+		<td class="col0"> <em><code>double pow(double base, double exp);</code></em> </td><td class="col1"> Întoarce valoarea <code>base</code><sup><code>exp</code></sup> </td>
+	</tr>
+	<tr class="row9">
+		<td class="col0"> <em><code>double log(double num);</code></em> </td><td class="col1"> Calculează logaritmul natural (de bază <strong>e</strong>) al valorii <strong>num</strong> </td>
+	</tr>
+	<tr class="row10">
+		<td class="col0"> <em><code>double log10(double num);</code></em> </td><td class="col1"> Calculează logaritmul în baza 10 al parametrului </td>
+	</tr>
+	<tr class="row11">
+		<td class="col0"> <em><code>double sqrt(double num);</code></em> </td><td class="col1"> Calculează radăcina pătrată a parametrului </td>
+	</tr>
+	<tr class="row12">
+		<td class="col0"> <em><code>double fmod(double x, double y);</code></em> </td><td class="col1"> Întoarce restul împarțirii lui <strong>x</strong> la <strong>y</strong> </td>
+	</tr>
+	<tr class="row13">
+		<td class="col0"> <em><code>double fabs(double arg);</code></em> </td><td class="col1"> Întoarce valoarea absolută a lui <strong>arg</strong> </td>
+	</tr>
+</table></div>
+<!-- EDIT7 TABLE [11409-12972] -->
+</div>
+
+<h4 id="studiu_de_caz">Studiu de caz</h4>
+<div class="level4">
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Măsurarea timpului de execuție a programelor
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Măsurarea timpului de execuție a programelor
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Uneori este utilă măsurarea timpului de execuție a unei anumite parți a unui program sau chiar a întregului program. În acest scop putem folosi funcția <code>clock()</code> din fișierul antet <code>time.h</code>. Această funcție întoarce o aproximare a numărului de cicluri de ceas trecute de la pornirea programului. Pentru a obţine o valoare în secunde, împărțim această valoare la constanta <strong>CLOCKS_PER_SEC</strong>. Funcţia are antetul:
+</p>
+<pre class="code c">clock_t <a href="http://www.opengroup.org/onlinepubs/009695399/functions/clock.html"><span class="kw3">clock</span></a><span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Următorul fragment este un exemplu de utilizare a acestei funcții:
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;time.h&gt;</span>
+&nbsp;
+&nbsp;
+clock_t t_start<span class="sy0">,</span> t_stop<span class="sy0">;</span>
+<span class="kw4">float</span> seconds<span class="sy0">;</span>
+&nbsp;
+<span class="co1">// Marcam momentul de inceput</span>
+t_start <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/clock.html"><span class="kw3">clock</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="co1">// Executam operatia pentru care masuram timpul de executie</span>
+<span class="co1">// [....]</span>
+&nbsp;
+<span class="co1">// Marcam momentul de sfarsit</span>
+t_stop <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/clock.html"><span class="kw3">clock</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+seconds <span class="sy0">=</span> <span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">float</span><span class="br0">&#41;</span><span class="br0">&#40;</span>t_stop <span class="sy0">-</span> t_start<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="sy0">/</span> CLOCKS_PER_SEC<span class="sy0">;</span>
+&nbsp;
+<a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Timp de executie: %.3f sec.<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> seconds<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Următorul fragment este un exemplu de funcție care are ca scop oprirea programului pentru un anumit timp:
+</p>
+<pre class="code c"><span class="kw4">void</span> wait<span class="br0">&#40;</span><span class="kw4">int</span> seconds<span class="br0">&#41;</span><span class="br0">&#123;</span>
+  clock_t endwait<span class="sy0">;</span>
+  endwait <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/clock.html"><span class="kw3">clock</span></a> <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">+</span> seconds <span class="sy0">*</span> CLOCKS_PER_SEC <span class="sy0">;</span>
+  <span class="kw1">while</span> <span class="br0">&#40;</span><a href="http://www.opengroup.org/onlinepubs/009695399/functions/clock.html"><span class="kw3">clock</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">&lt;</span> endwait<span class="br0">&#41;</span> <span class="br0">&#123;</span><span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+</div></div><div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Generarea numerelor aleatoare
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Generarea numerelor aleatoare
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Valorile aleatoare (a căror valoare nu poate fi prezisă dinaintea rulării programului şi care diferă între 2 rulări) pot fi generate în C cu funcţia:
+</p>
+<pre class="code c"><span class="kw4">int</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/rand.html"><span class="kw3">rand</span></a><span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+care face parte din antetul <code>stdlib.h</code>. Această întoarce o valoare cuprinsă între 0 și <strong>RAND_MAX</strong> (valoare care este dependenta de librariile folosite, dar care se garantează a fi minim 32767).
+</p>
+
+<p>
+Numerele generate nu sunt cu adevărat aleatoare, ci pseudo-aleatoare; aceste numere sunt uniform distribuite pe orice interval, dar șirul de numere aleatoare generate este dependent de prima valoare, care trebuie aleasă de utilizator sau programator. Această valoare, numită <strong>seed</strong>, se selectează cu funcţia:
+</p>
+<pre class="code c"><span class="kw4">void</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/srand.html"><span class="kw3">srand</span></a><span class="br0">&#40;</span><span class="kw4">unsigned</span> <span class="kw4">int</span> seed<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Cea mai întalnită utilizare a funcției de inițializare presupune setarea unui <strong>seed</strong> egal cu valoarea ceasului sistemului de la pornirea programului, prin instrucțiunea:
+</p>
+<pre class="code c"><a href="http://www.opengroup.org/onlinepubs/009695399/functions/srand.html"><span class="kw3">srand</span></a><span class="br0">&#40;</span><span class="br0">&#40;</span><span class="kw4">unsigned</span><span class="br0">&#41;</span><a href="http://www.opengroup.org/onlinepubs/009695399/functions/time.html"><span class="kw3">time</span></a><span class="br0">&#40;</span>NULL<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span> 
+d <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/rand.html"><span class="kw3">rand</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">//generează valori random.</span></pre>
+
+<p>
+Funcția <code>time()</code> din fişierul antet <code>time.h</code> întoarce numărul de secunde trecute de la ora 00:00, din data de 1 ianuarie 1970. Funcția primește şi un parametru de tip pointer, care reprezintă adresa unei variabile în care se salvează valoarea returnată. Pentru laboratorul curent, parametrul va avea valoarea <strong>NULL</strong>.
+</p>
+</div></div>
+</div>
+<!-- EDIT6 SECTION "Funcții matematice" [11254-15666] -->
+<h3 class="sectionedit8" id="instructiuni">Instrucţiuni</h3>
+<div class="level3">
+
+</div>
+
+<h4 id="instructiuni_conditionale">Instrucţiuni condiţionale</h4>
+<div class="level4">
+
+</div>
+
+<h5 id="if-else">If-else</h5>
+<div class="level5">
+
+<p>
+<code>if…else</code> este cea mai simplă instrucţiune condiţională. Poate fi folosită în mai multe forme:
+</p>
+<pre class="code c"><span class="kw1">if</span> <span class="br0">&#40;</span>condition<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="co1">// instructions</span>
+  <span class="co1">//...</span>
+<span class="br0">&#125;</span></pre>
+<pre class="code c"><span class="kw1">if</span> <span class="br0">&#40;</span>condition<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="co1">// instructions</span>
+  <span class="co1">// ...</span>
+<span class="br0">&#125;</span> <span class="kw1">else</span> <span class="br0">&#123;</span>
+  <span class="co1">// other instructions</span>
+  <span class="co1">// ...</span>
+<span class="br0">&#125;</span></pre>
+<pre class="code c"><span class="kw1">if</span> <span class="br0">&#40;</span>condition1<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  ...
+<span class="br0">&#125;</span> <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>condition2<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  ...
+<span class="br0">&#125;</span>
+  ...
+<span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>conditionN<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  ...
+<span class="br0">&#125;</span></pre>
+
+<p>
+Instrucţiunea evaluează expresia <code>condition</code> şi execută instrucţiunile dintre acolade doar dacă rezultatul este nenul. În varianta cu <code>else</code>, pentru rezultat nul este executat blocul de instrucţiuni aflat după <code>else</code>.
+</p>
+
+<p>
+În al treilea caz, sunt evaluate pe rând condiţiile şi este executat blocul corespunzător primei condiţii adevărate. Un exemplu de folosire este:
+</p>
+<pre class="code c"><span class="kw1">if</span> <span class="br0">&#40;</span>a <span class="sy0">==</span> b<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Numerele sunt egale&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span> <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>a <span class="sy0">&gt;</span> b<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;A este mai mare&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+</div>
+
+<h5 id="switch">Switch</h5>
+<div class="level5">
+
+<p>
+<code>switch</code> este o instrucţiune menită să simplifice structurile condiţionale cu mai multe condiţii.
+</p>
+<pre class="code c"><span class="kw1">switch</span> <span class="br0">&#40;</span>expression<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw1">case</span> constant1<span class="sy0">:</span>
+    <span class="co1">// instructions1</span>
+  <span class="kw1">case</span> constant2<span class="sy0">:</span>
+    <span class="co1">// instructions2</span>
+  ...
+  <span class="kw1">default</span><span class="sy0">:</span>
+    <span class="co1">// instructions</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Valoarea <code>expression</code> este evaluată la un tip intreg, apoi această valoare este comparată cu fiecare constantă; este rulat blocul de instrucţiuni al valorii găsite. În caz ca numărul nu este egal cu nici una dintre constante, este executat blocul aflat după <code>default</code>.
+</p>
+
+<p>
+<p><div class="noteimportant">
+După executarea ultimei instrucţiuni dintr-un bloc <code>case</code>, execuţia nu continua după blocul <code>switch</code>, ci la inceputul următorului bloc <code>case <em>constant</em></code> sau <code>default</code>. Pentru a ieşi din blocul <code>switch</code>, se foloseşte instrucţiunea <code>break</code>.
+
+</div></p>
+</p>
+<pre class="code c"><span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw4">char</span> c<span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Alegeţi o opţiune:<span class="es1">\n</span><span class="es1">\t</span>[a] afişare<span class="es1">\n</span><span class="es1">\t</span>[s] ştergere<span class="es1">\n</span><span class="es1">\t</span>[e] ieşire<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/scanf.html"><span class="kw3">scanf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%c&quot;</span><span class="sy0">,</span> <span class="sy0">&amp;</span>c<span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Aţi ales: &quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  <span class="kw1">switch</span> <span class="br0">&#40;</span>c<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw1">case</span> <span class="st0">'a'</span><span class="sy0">:</span>
+      <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;afişare&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+      <span class="kw2">break</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">case</span> <span class="st0">'s'</span><span class="sy0">:</span>
+      <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;ştergere&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+      <span class="kw2">break</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">case</span> <span class="st0">'e'</span><span class="sy0">:</span>
+      <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;ieşire&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+      <span class="kw2">break</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">default</span><span class="sy0">:</span>
+      <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;O opţiune inexistentă&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+      <span class="kw2">break</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span>
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+<pre class="code c"><span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw4">int</span> n<span class="sy0">,</span> n2<span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Introduceţi o valoare între 0 şi 5:&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/scanf.html"><span class="kw3">scanf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d&quot;</span><span class="sy0">,</span> <span class="sy0">&amp;</span>n<span class="br0">&#41;</span><span class="sy0">;</span>
+  n2 <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span>
+  <span class="kw1">switch</span> <span class="br0">&#40;</span>n<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw1">case</span> <span class="nu0">5</span><span class="sy0">:</span>
+      n2 <span class="sy0">*=</span> <span class="nu0">2</span><span class="sy0">;</span>
+      <span class="coMULTI">/* fără break, continuă la următoarea instrucţiune */</span>
+    <span class="kw1">case</span> <span class="nu0">4</span><span class="sy0">:</span>
+      n2 <span class="sy0">*=</span> <span class="nu0">2</span><span class="sy0">;</span>
+    <span class="kw1">case</span> <span class="nu0">3</span><span class="sy0">:</span>
+      n2 <span class="sy0">*=</span> <span class="nu0">2</span><span class="sy0">;</span>
+    <span class="kw1">case</span> <span class="nu0">2</span><span class="sy0">:</span>
+      n2 <span class="sy0">*=</span> <span class="nu0">2</span><span class="sy0">;</span>
+    <span class="kw1">case</span> <span class="nu0">1</span><span class="sy0">:</span>
+      n2 <span class="sy0">*=</span> <span class="nu0">2</span><span class="sy0">;</span>
+    <span class="kw1">case</span> <span class="nu0">0</span><span class="sy0">:</span>
+      <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;2 la puterea %d este %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> n<span class="sy0">,</span> n2<span class="br0">&#41;</span><span class="sy0">;</span>
+      <span class="kw2">break</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">default</span><span class="sy0">:</span>
+      <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span> <span class="st0">&quot;Valoare invalidă<span class="es1">\n</span>&quot;</span> <span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span>
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+</div>
+
+<h4 id="instructiuni_de_repetitie">Instrucţiuni de repetiţie</h4>
+<div class="level4">
+
+</div>
+
+<h5 id="while">while</h5>
+<div class="level5">
+
+<p>
+<code>while</code> execută un bloc de instrucţiuni atâta timp cât o anumită condiţie este adevărată. Forma generală a unui ciclu while este:
+</p>
+<pre class="code c"><span class="kw1">while</span> <span class="br0">&#40;</span>expression<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="co1">// instructions</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Câtă vreme <code>expression</code> are o valoare nenulă, instrucţiunile din blocul de după <code>while</code> sunt executate. Expresia este reevaluată după fiecare ciclu. Un astfel de ciclu poate să se execute o dată, de mai multe ori sau niciodată, în funcţie de valoarea la care se evaluează expresia.
+</p>
+
+</div>
+
+<h5 id="do__while">do ... while</h5>
+<div class="level5">
+
+<p>
+<code>do … while</code> este o instrucţiune repetitivă similara cu cea precedentă, singura diferenţa fiind că expresia este evaluată după executarea instrucţiunilor, nu înainte. Astfel, blocul va fi executat cel puţin o dată.
+</p>
+<pre class="code c"><span class="kw1">do</span> <span class="br0">&#123;</span>
+  <span class="co1">// instructions</span>
+<span class="br0">&#125;</span> <span class="kw1">while</span> <span class="br0">&#40;</span>expression<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</div>
+
+<h5 id="for">for</h5>
+<div class="level5">
+
+<p>
+<code>for</code> reprezintă o formă mai simplă de a scrie un while însotit de o expresie iniţiala şi de o expresie de incrementare. Forma sa este:
+</p>
+<pre class="code c"><span class="kw1">for</span> <span class="br0">&#40;</span>expression1<span class="sy0">;</span> expression2<span class="sy0">;</span> expression3<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="co1">// instructions</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Secvenţa de cod de mai sus este echivalentă cu:
+</p>
+<pre class="code c">expression1
+<span class="kw1">while</span> <span class="br0">&#40;</span>expression2<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="co1">// instructions</span>
+  expression3
+<span class="br0">&#125;</span></pre>
+
+<p>
+În cazul instrucţiunii <code>for</code>, oricare dintre cele 3 expresii poate lipsi. Lipsa expresiei condiţionale este echivalentă cu o buclă infinită, cum ar fi:
+</p>
+<pre class="code c"><span class="kw1">for</span> <span class="br0">&#40;</span> <span class="sy0">;</span> <span class="sy0">;</span> <span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="coMULTI">/* instrucţiunile de aici sunt intr-o buclă infinită */</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+<p><div class="noteimportant">
+În acest caz, ieşirea din buclă trebuie făcută explicit, cu ajutorul instrucţiunii <code>break</code>.
+
+</div></p>
+</p>
+
+<p>
+Exemplul următor prezintă un ciclu cu funcţionalitate identică (tipărirea primelor 10 numere naturale), folosind cele 3 instrucţiuni repetitive:
+</p>
+<pre class="code c"><span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw4">short</span> i<span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Ciclu for<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  <span class="kw1">for</span> <span class="br0">&#40;</span>i <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span> i <span class="sy0">&lt;=</span> <span class="nu0">10</span><span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;i=%d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> i<span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span>
+&nbsp;
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Ciclu while<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  i <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span>
+  <span class="kw1">while</span> <span class="br0">&#40;</span>i <span class="sy0">&lt;=</span> <span class="nu0">10</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;i=%d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> i<span class="br0">&#41;</span><span class="sy0">;</span>
+    i<span class="sy0">++;</span>
+  <span class="br0">&#125;</span>
+&nbsp;
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Ciclu do while<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+  <span class="kw1">do</span> <span class="br0">&#123;</span>
+    i<span class="sy0">++;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;i=%d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> i<span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span> <span class="kw1">while</span><span class="br0">&#40;</span>i <span class="sy0">&lt;</span> <span class="nu0">10</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Pentru blocuri de o singură instrucţiune (cum este si cazul instructiunii executate de for in exemplul de mai sus) nu este nevoie sa folosim acolade. Totusi, folosirea acoladelor, chiar si in aceasta situatie, este recomandata pentru o depanare mai usoara si o lizibilitate mai buna a programelor.
+</p>
+
+</div>
+
+<h4 id="instructiuni_speciale">Instrucţiuni speciale</h4>
+<div class="level4">
+
+</div>
+
+<h5 id="break">break</h5>
+<div class="level5">
+
+<p>
+<code>break</code>, pe lângă utilizarea descrisă la instrucţiunea switch, poate fi folosită pentru a ieşi forţat dintr-o instrucţiune de repetiţie. Secventa următoare este echivalentă cu cele de mai sus:
+</p>
+<pre class="code c">i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="kw1">for</span><span class="br0">&#40;</span> <span class="sy0">;</span> <span class="sy0">;</span> <span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  i<span class="sy0">++;</span>
+  <span class="kw1">if</span> <span class="br0">&#40;</span>i <span class="sy0">&gt;</span> <span class="nu0">10</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw2">break</span><span class="sy0">;</span> <span class="coMULTI">/* ieşire forţată din bucla */</span>
+  <span class="br0">&#125;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span> <span class="st0">&quot;i=%d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> i <span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+</div>
+
+<h4 id="continue">continue</h4>
+<div class="level4">
+
+<p>
+<code>continue</code> forţează terminarea iteraţiei curente a buclei si trecerea la iteraţia următoare. În cazul instrucţiunii <code>for</code>, acest lucru presupune executarea instrucţiunii de incrementare; apoi se evaluează condiţia de continuare a buclei. Exemplul următor demonstrează implementarea unei bucle infinite cu ajutorul instrucţiunii <code>continue</code>:
+</p>
+<pre class="code c"><span class="kw1">for</span> <span class="br0">&#40;</span>i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> <span class="nu0">10</span><span class="sy0">;</span> <span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw1">if</span> <span class="br0">&#40;</span>i <span class="sy0">==</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw1">continue</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span>
+  i<span class="sy0">++;</span>
+<span class="br0">&#125;</span></pre>
+
+</div>
+
+<h4 id="return">return</h4>
+<div class="level4">
+
+<p>
+<code>return</code> este instrucţiunea de terminare a funcţiei curente. Aceasta poate fi apelată in forma <code>return</code>; în cazul funcţiilor care returnează <code>void</code> şi în forma <code>return <em>result</em></code>; pentru funcţiile care întorc o valoare.
+</p>
+
+</div>
+
+<h4 id="goto">goto</h4>
+<div class="level4">
+
+<p>
+<code>goto</code> este o instrucţiune de salt a execuţiei. Instrucţiunea primeşte ca parametru o etichetă; următoarea instrucţiune executată după <code>goto</code> este cea de la eticheta dată.
+</p>
+<pre class="code c"><span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw1">goto</span> et<span class="sy0">;</span>	
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Asta nu apare la executie<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+et<span class="sy0">:</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Asta apare la rulare<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+<p><div class="noteimportant">
+În majoritatea cazurilor, utilizarea instrucţiunii <code>goto</code> nu este recomandată şi poate fi evitată folosind alte instrucţiuni de control şi funcţii. Programele care folosesc această instrucţiune pentru a sări între secvenţe îndepărtate de cod sunt dificil de depanat şi analizat.
+
+</div></p>
+</p>
+
+</div>
+<!-- EDIT8 SECTION "Instrucţiuni" [15667-22581] -->
+<h3 class="sectionedit9" id="exercitii">Exerciții</h3>
+<div class="level3">
+
+<p>
+Exercițiile pentru laborator se găsesc pe <a href="https://acs-pclp.github.io/laboratoare/02" class="urlextern" title="https://acs-pclp.github.io/laboratoare/02"  rel="nofollow"> PCLP Laborator02 - Tipuri de date. Operatori. Instrucțiunile limbajului C</a>.
+</p>
+
+</div>
+<!-- EDIT9 SECTION "Exerciții" [22582-22771] -->
+<h3 class="sectionedit10" id="referinte">Referinţe</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <a href="https://en.wikipedia.org/wiki/C_data_types" class="urlextern" title="https://en.wikipedia.org/wiki/C_data_types"  rel="nofollow">Wikipedia - C data types</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="http://en.wikipedia.org/wiki/Operators_in_C_and_C%2B%2B" class="urlextern" title="http://en.wikipedia.org/wiki/Operators_in_C_and_C%2B%2B"  rel="nofollow">Wikipedia - Operators in C and C++</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="http://en.wikipedia.org/wiki/C_mathematical_functions" class="urlextern" title="http://en.wikipedia.org/wiki/C_mathematical_functions"  rel="nofollow">Wikipedia - C mathematical functions</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="http://www.tutorialspoint.com/ansi_c/c_control_statements.htm" class="urlextern" title="http://www.tutorialspoint.com/ansi_c/c_control_statements.htm"  rel="nofollow">C - Control Statements</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT10 SECTION "Referinţe" [22772-] --></div>
+</body>
+</html>

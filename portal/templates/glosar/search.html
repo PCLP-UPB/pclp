@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Căutare: {{ q }}{% endblock %}
+{% block content %}
+<h1>Rezultate pentru „{{ q }}”</h1>
+{% if res.concepts %}
+<h2>Concepte</h2>
+<div class="grid g3">{% for c in res.concepts|slice:":12" %}
+  <a class="card" href="/termen/{{ c.id }}/" style="display:block;color:inherit;text-decoration:none"><b class="tl l{{ c.level }}">{{ c.label }}</b> <span class="badge">{{ c.kind }}</span><div class="small muted">{{ c.definition|truncatechars:140 }}</div></a>
+{% endfor %}</div>
+{% endif %}
+{% if res.blocks %}
+<h2>În laboratoare</h2>
+<ul class="rels">{% for b in res.blocks %}<li><a href="/carte/{{ b.unit }}/#b{{ b.i }}"><b>{{ b.unit_title }}</b> · {{ b.section_title }}</a><div class="small">{{ b.snip }}</div></li>{% endfor %}</ul>
+{% endif %}
+{% if res.man %}
+<h2>În manual</h2>
+<ul class="rels">{% for m in res.man %}<li><a href="/man/{{ m.id }}/"><code>{{ m.name }}</code></a><div class="small">{{ m.snip }}</div></li>{% endfor %}</ul>
+{% endif %}
+{% if not res.concepts and not res.blocks and not res.man %}<p class="muted">Niciun rezultat.</p>{% endif %}
+{% endblock %}

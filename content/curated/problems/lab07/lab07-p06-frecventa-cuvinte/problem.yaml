@@ -1,0 +1,56 @@
+id: lab07-p06-frecventa-cuvinte
+lab: lab07
+number: 6
+title: "Cele mai frecvente cuvinte"
+difficulty: 3
+estimated_minutes: 45
+concepts: [vector de pointeri la șiruri, strcmp, strcpy, realloc, tolower, șir de caractere]
+statement: |
+  Pentru un instrument de analiză a textelor, determinați cele mai frecvente `k` cuvinte dintr-un text. Un **cuvânt** este o secvență maximală de litere (`a`–`z`, `A`–`Z`); orice alt caracter este separator. Cuvintele se compară fără a ține cont de majuscule și se afișează cu litere mici.
+
+  Cuvintele distincte se memorează într-un vector de pointeri la șiruri alocat dinamic (care crește cu `realloc`), fiecare cuvânt fiind copiat într-o zonă alocată exact cât îi trebuie; frecvențele se țin într-un vector paralel. Ordinea de afișare: frecvența descrescătoare, iar la frecvențe egale, alfabetic (ordinea dată de `strcmp`).
+
+  **Date de intrare**
+
+  Pe prima linie `k`. Urmează textul, pe una sau mai multe linii, până la sfârșitul fișierului.
+
+  **Date de ieșire**
+
+  ```
+  cuvinte: <numarul total de cuvinte>
+  distincte: <numarul de cuvinte distincte>
+  ```
+
+  urmate de cel mult `k` linii de forma `<loc>. <cuvant> <frecventa>` (dacă sunt mai puțin de `k` cuvinte distincte, se afișează toate).
+
+  **Restricții**
+
+  - `1 ≤ k ≤ 100`
+  - textul are cel mult 2000 de linii, fiecare de cel mult 1000 de caractere; un cuvânt are cel mult 30 de litere
+  - există cel mult 5000 de cuvinte distincte
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3
+  Ana are mere. Mere are si Ana!
+  Dar pere? Ana nu are pere, are MERE.
+  ```
+
+  Ieșire:
+  ```
+  cuvinte: 15
+  distincte: 7
+  1. are 4
+  2. ana 3
+  3. mere 3
+  ```
+hints:
+  - "Extrage cuvintele caracter cu caracter: sari peste caracterele care nu sunt litere, apoi copiază literele consecutive (trecute prin `tolower`) într-un buffer local și pune `'\\0'`."
+  - "Pentru fiecare cuvânt caută-l în vectorul de cuvinte distincte cu `strcmp`. Dacă nu există, mărește vectorii (de pointeri și de frecvențe) și salvează o **copie** a cuvântului, alocată cu `malloc(strlen(w) + 1)`."
+  - "Sortează interschimbând pointerii (și frecvențele corespunzătoare) — conținutul șirurilor nu trebuie mutat. Compară întâi frecvențele, apoi, la egalitate, rezultatul lui `strcmp`."
+pitfalls:
+  - "Dacă salvezi adresa bufferului local `w` în loc de o copie, toate intrările vor indica același șir (ultimul cuvânt citit)."
+  - "O funcție care realocă vectorul de pointeri trebuie să primească adresa lui (`char ***`) sau să returneze noua adresă."
+  - "La final eliberează fiecare cuvânt, apoi vectorii."

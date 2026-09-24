@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ u.title }} — concepte{% endblock %}
+{% block bodyclass %}panelmode{% endblock %}
+{% block mainclass %}wide{% endblock %}
+{% block content %}
+<div class="kicker">{% if u.kind == "lab" %}Laboratorul {{ u.number }}{% if u.week %} · săptămâna {{ u.week }}{% endif %}{% else %}Ghid{% endif %}</div>
+<h1>{{ u.icon }} {{ u.title }}</h1>
+<p><a class="btn primary" href="/carte/{{ u.id }}/">Citește laboratorul</a> {% if u.week %}<a class="btn" href="/saptamana/{{ u.week }}/">Probleme și prompturi</a>{% endif %} <a class="btn ghost" href="/graf/?u={{ u.id }}">Graful prerechizitelor</a></p>
+<div class="three">
+  <nav class="side">
+    <div class="kicker" style="margin:4px 8px 6px">Cuprins</div>
+    <ul class="toc">{% for s in sections %}<li class="lv{{ s.level }}{% if s.level == 1 %} part{% endif %}"><a href="/carte/{{ u.id }}/#s-{{ s.id }}">{{ s.title }}</a></li>{% endfor %}</ul>
+  </nav>
+  <div>
+    <input id="cfilter" class="filterbox" type="search" placeholder="Filtrează conceptele ({{ concepts|length }})…">
+    <div class="checks small">{% for lvl, name, cs in groups %}<label><input type="checkbox" data-lvl="{{ lvl }}" checked> {{ lvl }} · {{ name }} ({{ cs|length }})</label>{% endfor %}</div>
+    {% for lvl, name, cs in groups %}
+    <div class="lvlgroup"><h3>Nivel {{ lvl }} — {{ name }}</h3>
+      <ul class="clist">{% for c in cs %}<li data-id="{{ c.id }}" data-label="{{ c.label }} {{ c.aliases|join:' ' }}" data-level="{{ c.level }}"><span class="tl l{{ c.level }}{% if c.origin == 'claude' %} added{% endif %}">{{ c.label }}</span><span class="k">{{ c.kind }}</span></li>{% endfor %}</ul>
+    </div>
+    {% empty %}<p class="muted">Niciun concept atribuit acestei unități.</p>
+    {% endfor %}
+  </div>
+  <aside class="side rightcol"><div id="panel" class="panel"><p class="muted">Alege un concept din listă. Folosește <kbd>←</kbd> <kbd>→</kbd> (sau <kbd>j</kbd>/<kbd>k</kbd>) ca să treci prin listă.</p></div></aside>
+</div>
+{% endblock %}

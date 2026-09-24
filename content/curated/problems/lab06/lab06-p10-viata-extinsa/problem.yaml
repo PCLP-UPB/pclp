@@ -1,0 +1,68 @@
+id: lab06-p10-viata-extinsa
+lab: lab06
+number: 10
+title: "Viața pe o planșă care crește"
+difficulty: 5
+estimated_minutes: 90
+concepts: [matrice alocată dinamic, eliberarea unei matrice, calloc, vector de pointeri, memory leak]
+statement: |
+  Simulați „Jocul vieții” al lui Conway pe o planșă **nelimitată**. Fiecare celulă este vie (`#`) sau moartă (`.`); la fiecare generație, toate celulele se actualizează simultan după numărul de vecini vii (din cei 8 vecini):
+
+  - o celulă vie cu 2 sau 3 vecini vii rămâne vie, altfel moare;
+  - o celulă moartă cu exact 3 vecini vii devine vie.
+
+  Planșa nu are margini, așa că programul trebuie să o memoreze într-o matrice alocată dinamic care **se adaptează**: la fiecare generație se construiește o matrice nouă, mai mare cu câte o linie/coloană pe fiecare parte (acolo pot apărea celule noi), apoi aceasta se **decupează** la cel mai mic dreptunghi care conține toate celulele vii. Matricele care nu mai sunt necesare se eliberează imediat. Implementați cel puțin:
+
+  ```c
+  char **aloca_tabla(int r, int c);
+  void elibereaza_tabla(char **t, int r);
+  char **generatie(char **t, int r, int c);                     /* rezultat (r+2) x (c+2) */
+  char **decupeaza(char **t, int r, int c, int *nr, int *nc);   /* NULL daca nu exista celule vii */
+  ```
+
+  Tabla inițială se decupează și ea înainte de simulare. Afișați planșa după `K` generații.
+
+  **Date de intrare**
+
+  Pe prima linie `R C K`. Urmează `R` linii cu câte `C` caractere `.` sau `#`.
+
+  **Date de ieșire**
+
+  Dacă după `K` generații nu mai există celule vii: `planseta goala`. Altfel:
+
+  ```
+  celule vii: <numar>
+  dimensiuni: <linii> x <coloane>
+  ```
+
+  urmate de planșa decupată, câte o linie de caractere `.`/`#` pentru fiecare rând.
+
+  **Restricții**
+
+  - `1 ≤ R, C ≤ 50`, `0 ≤ K ≤ 100`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4 5 1
+  .....
+  ..#..
+  ..#..
+  ..#..
+  ```
+
+  Ieșire:
+  ```
+  celule vii: 3
+  dimensiuni: 1 x 3
+  ###
+  ```
+hints:
+  - "Celulele noi pot apărea doar lângă celulele vii existente, deci o tablă cu o bordură de o celulă în plus pe fiecare parte e suficientă pentru generația următoare. Celula (i, j) din tabla mărită corespunde celulei (i-1, j-1) din cea veche."
+  - "Scrie o funcție care spune dacă o celulă e vie, întorcând 0 pentru coordonate din afara tablei — astfel numărarea vecinilor nu are cazuri speciale. Citește doar din tabla veche și scrie doar în cea nouă."
+  - "Pseudocod pe generație: marita = generatie(tabla, r, c); elibereaza_tabla(tabla, r); noua = decupeaza(marita, r+2, c+2, &nr, &nc); elibereaza_tabla(marita, r+2); tabla = noua; r = nr; c = nc. Decuparea: găsești liniile/coloanele minime și maxime cu celule vii și copiezi dreptunghiul într-o tablă nouă."
+pitfalls:
+  - "Eliberează fiecare tablă cu numărul ei de linii: tabla mărită are `r + 2` linii."
+  - "Dacă actualizezi celulele în aceeași matrice din care citești vecinii, rezultatul e greșit — generația trebuie calculată simultan."
+  - "O planșă fără celule vii are 0 linii: nu apela funcții care accesează `t[0]`."

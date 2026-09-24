@@ -1,0 +1,4 @@
+"": lungime, mica, mare, cifra, special
+"1234567": lungime, mica, mare, special
+"ABCDEFGH": mica, cifra, special
+"!!!": lungime, mica, mare, cifra, repetitie

@@ -1,0 +1,39 @@
+{
+  "telemetry.telemetryLevel": "off",
+  "chat.disableAIFeatures": true,
+  "chat.commandCenter.enabled": false,
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+  "workbench.startupEditor": "none",
+  "workbench.enableExperiments": false,
+  "update.mode": "none",
+  "extensions.autoUpdate": false,
+  "extensions.ignoreRecommendations": true,
+  "security.workspace.trust.enabled": false,
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.profiles.linux": {
+    "bash": { "path": "/bin/bash", "args": ["-i"] }
+  },
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.exclude": { "**/.git": true, ".pclp/state": true },
+  "editor.rulers": [80],
+  "editor.tabSize": 4,
+  "editor.detectIndentation": false,
+  "[c]": {
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "editor.insertSpaces": false,
+    "editor.tabSize": 4,
+    "editor.formatOnSave": false
+  },
+  "[cpp]": { "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd" },
+  "clangd.path": "/usr/bin/clangd",
+  "clangd.checkUpdates": false,
+  "clangd.arguments": ["--header-insertion=never", "--fallback-style=file"],
+  "C_Cpp.intelliSenseEngine": "disabled",
+  "debug.allowBreakpointsEverywhere": true,
+  "git.enabled": true,
+  "git.autofetch": false,
+  "git.openRepositoryInParentFolders": "never"
+}

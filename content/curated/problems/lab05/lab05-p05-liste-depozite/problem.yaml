@@ -1,0 +1,64 @@
+id: lab05-p05-liste-depozite
+lab: lab05
+number: 5
+title: "Inventarul a două depozite"
+difficulty: 2
+estimated_minutes: 30
+concepts: [aritmetică cu pointeri, indirectare, pointer returnat de funcție, const, echivalența dintre vector și pointer]
+statement: |
+  Două depozite trimit listele codurilor de produse pe care le au în stoc; fiecare listă este sortată crescător și poate conține același cod de mai multe ori (mai multe loturi). Firma vrea:
+
+  1. lista unificată a tuturor loturilor, sortată crescător (interclasare, cu repetiții);
+  2. lista codurilor care există în **ambele** depozite, fiecare cod o singură dată, crescător.
+
+  Implementați și folosiți funcțiile:
+
+  ```c
+  int interclaseaza(const int *a, int na, const int *b, int nb, int *rez);
+  int comune(const int *a, int na, const int *b, int nb, int *rez);
+  ```
+
+  Fiecare scrie rezultatul în vectorul `rez` și returnează numărul de elemente scrise. În aceste două funcții **nu folosiți operatorul `[]`**: parcurgeți vectorii cu pointeri (de exemplu, numărul de elemente scrise poate fi obținut ca diferență de pointeri). Nu sortați nimic — profitați de faptul că listele sunt deja sortate.
+
+  **Date de intrare**
+
+  Pe prima linie `na`, pe a doua linie cele `na` coduri ale primului depozit (linia poate fi goală dacă `na = 0`). Apoi, analog, `nb` și codurile celui de-al doilea depozit.
+
+  **Date de ieșire**
+
+  Două linii:
+
+  ```
+  Interclasare (<numar>): <elementele, fiecare precedat de un spatiu>
+  Comune (<numar>): <elementele, fiecare precedat de un spatiu>
+  ```
+
+  Dacă o listă e goală, linia se termină după `:`.
+
+  **Restricții**
+
+  - `0 ≤ na, nb ≤ 1000`
+  - codurile sunt întregi din `[-10^6, 10^6]`, date în ordine crescătoare (nedescrescătoare)
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  5
+  101 105 105 230 400
+  4
+  99 105 230 230
+  ```
+
+  Ieșire:
+  ```
+  Interclasare (9): 99 101 105 105 105 230 230 230 400
+  Comune (2): 105 230
+  ```
+hints:
+  - "Pentru că ambele liste sunt sortate, e suficient să privești la fiecare pas doar „capul” fiecărei liste — nu e nevoie de o nouă sortare."
+  - "Folosește un pointer care avansează în `a`, unul în `b` și unul care scrie în `rez`. La interclasare copiezi valoarea mai mică și avansezi pointerul respectiv; când o listă se termină, copiezi restul celeilalte. La final, `r - rez` e numărul de elemente scrise."
+  - "Pentru comune: cât timp ambele liste mai au elemente: dacă *a < *b avansează a; dacă *a > *b avansează b; altfel ai găsit o valoare comună — o scrii doar dacă `rez` e încă gol sau ultima valoare scrisă e diferită, apoi avansezi ambii pointeri."
+pitfalls:
+  - "Verificarea ultimei valori scrise, `*(r - 1)`, e validă doar dacă ai scris deja ceva (`r != rez`)."
+  - "Nu uita să copiezi elementele rămase din lista care nu s-a terminat."

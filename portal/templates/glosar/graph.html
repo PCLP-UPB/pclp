@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Graful prerechizitelor{% endblock %}
+{% block mainclass %}wide{% endblock %}
+{% block content %}
+<h1>Graful prerechizitelor</h1>
+<p class="muted">Fiecare coloană e un laborator; o săgeată A → B înseamnă „A presupune cunoașterea lui B” (sau e un tip / o parte a lui B). Clic pe un nod ca să-i vezi legăturile; dublu-clic deschide termenul.</p>
+<div class="checks" style="margin-bottom:10px">
+  <label>Laborator: <select id="gunit" style="width:auto"><option value="">toate</option>{% for u in units %}<option value="{{ u.id }}">{{ u.icon }} {{ u.short }}</option>{% endfor %}</select></label>
+  <label>Nivel maxim: <select id="glevel" style="width:auto"><option value="1">1 · bază</option><option value="2" selected>2 · aprofundare</option><option value="3">3 · detaliu</option></select></label>
+</div>
+<svg id="graph" role="img" aria-label="Graful prerechizitelor"></svg>
+{% endblock %}
+{% block scripts %}
+<script>
+(function () {
+  const svg = document.getElementById("graph"), NS = "http://www.w3.org/2000/svg";
+  const sel = document.getElementById("gunit"), lvl = document.getElementById("glevel");
+  const params = new URLSearchParams(location.search);
+  if (params.get("u")) sel.value = params.get("u");
+  const colors = {1: getComputedStyle(document.documentElement).getPropertyValue("--l1"), 2: getComputedStyle(document.documentElement).getPropertyValue("--l2"), 3: getComputedStyle(document.documentElement).getPropertyValue("--l3")};
+  function el(t, a) { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); return e; }
+  function draw() {
+    fetch(`/api/graf/?u=${sel.value}&nivel=${lvl.value}`).then(r => r.json()).then(d => {
+      svg.innerHTML = "";
+      const W = svg.clientWidth, H = svg.clientHeight;
+      const cols = [...new Set(d.nodes.map(n => n.u))].sort((a, b) => a - b);
+      const colW = Math.max(150, W / Math.max(1, cols.length));
+      const byCol = {};
+      d.nodes.forEach(n => (byCol[n.u] = byCol[n.u] || []).push(n));
+      const pos = {};
+      let maxH = H;
+      cols.forEach((c, ci) => {
+        const list = byCol[c].sort((a, b) => a.level - b.level || a.label.localeCompare(b.label));
+        const step = Math.max(22, (H - 60) / Math.max(1, list.length));
+        maxH = Math.max(maxH, 50 + step * list.length);
+        list.forEach((n, i) => { pos[n.id] = {x: 20 + ci * colW + 10, y: 40 + i * step, n}; });
+      });
+      svg.setAttribute("viewBox", `0 0 ${Math.max(W, cols.length * colW + 40)} ${maxH}`);
+      svg.style.height = Math.min(maxH, window.innerHeight * 0.8) + "px";
+      cols.forEach((c, ci) => { const u = d.units.find(x => x.i === c); const t = el("text", {x: 20 + ci * colW + 10, y: 18, "font-weight": 700, "font-size": 12, fill: "currentColor"}); t.textContent = u ? u.short : ""; svg.appendChild(t); });
+      const gE = el("g", {}), gN = el("g", {});
+      svg.appendChild(gE); svg.appendChild(gN);
+      const edgeEls = [];
+      d.edges.forEach(e => {
+        const a = pos[e.s], b = pos[e.t]; if (!a || !b) return;
+        const mx = (a.x + b.x) / 2;
+        const p = el("path", {d: `M${a.x},${a.y} C${mx},${a.y} ${mx},${b.y} ${b.x},${b.y}`, class: "edge" + (e.p === "requires" ? " req" : ""), opacity: .35});
+        p._e = e; gE.appendChild(p); edgeEls.push(p);
+      });
+      Object.values(pos).forEach(({x, y, n}) => {
+        const g = el("g", {class: "node", transform: `translate(${x},${y})`});
+        g.appendChild(el("circle", {r: n.level === 1 ? 6 : 4.5, fill: colors[n.level]}));
+        const t = el("text", {x: 9, y: 4}); t.textContent = n.label.length > 22 ? n.label.slice(0, 21) + "…" : n.label;
+        g.appendChild(t);
+        g.addEventListener("click", () => {
+          edgeEls.forEach(p => { const on = p._e.s === n.id || p._e.t === n.id; p.setAttribute("opacity", on ? 1 : .08); p.style.strokeWidth = on ? 2 : 1; });
+          gN.querySelectorAll(".node").forEach(x => x.classList.remove("hl")); g.classList.add("hl");
+        });
+        g.addEventListener("dblclick", () => { location.href = `/termen/${n.id}/`; });
+        const tt = el("title", {}); tt.textContent = n.label; g.appendChild(tt);
+        gN.appendChild(g);
+      });
+    });
+  }
+  sel.addEventListener("change", draw); lvl.addEventListener("change", draw);
+  draw();
+})();
+</script>
+{% endblock %}

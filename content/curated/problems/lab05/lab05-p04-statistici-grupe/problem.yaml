@@ -1,0 +1,58 @@
+id: lab05-p04-statistici-grupe
+lab: lab05
+number: 4
+title: "Statistici pe grupe"
+difficulty: 2
+estimated_minutes: 25
+concepts: [parametru de tip pointer, operatorul de dereferențiere, aritmetică cu pointeri, echivalența dintre vector și pointer]
+statement: |
+  Secretariatul a primit notele de la examenul de PCLP pentru `g` grupe. Pentru fiecare grupă trebuie calculate media notelor, câți studenți au promovat (nota cel puțin 5) și nota cea mai frecventă.
+
+  Implementați și folosiți funcția:
+
+  ```c
+  void statistici(const int *note, int n, double *medie, int *promovati, int *nota_frecventa);
+  ```
+
+  care calculează toate cele trei rezultate și le transmite prin pointeri. Dacă mai multe note au aceeași frecvență maximă, se alege **nota cea mai mare** dintre ele.
+
+  **Date de intrare**
+
+  Pe prima linie `g`. Pentru fiecare grupă urmează o linie cu `n` (numărul de studenți) și o linie cu cele `n` note.
+
+  **Date de ieșire**
+
+  Câte o linie pentru fiecare grupă, numerotate de la 1, exact în forma:
+
+  ```
+  Grupa <i>: medie=<media cu 2 zecimale> promovati=<p>/<n> frecventa=<nota>
+  ```
+
+  **Restricții**
+
+  - `1 ≤ g ≤ 20`, `1 ≤ n ≤ 200`
+  - notele sunt numere întregi între 1 și 10
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  2
+  6
+  10 7 4 7 9 3
+  4
+  5 5 6 6
+  ```
+
+  Ieșire:
+  ```
+  Grupa 1: medie=6.67 promovati=4/6 frecventa=7
+  Grupa 2: medie=5.50 promovati=4/4 frecventa=6
+  ```
+hints:
+  - "Funcția are trei rezultate, deci trei parametri de tip pointer. În `main` declari variabilele obișnuite și trimiți adresele lor."
+  - "Pentru nota cea mai frecventă ține un vector de 11 contoare (indicele = nota). După parcurgere alege nota cu contorul maxim; dacă parcurgi notele de la 10 spre 1 și schimbi doar la „strict mai mare”, departajarea iese automat."
+  - "Atenție la precedență: pentru a incrementa valoarea de la adresa `promovati` scrie incrementarea asupra lui `(*promovati)`, nu asupra pointerului. Media: împarte o valoare `double` la `n`."
+pitfalls:
+  - "`*promovati++` incrementează pointerul, nu valoarea — compilatorul nu te avertizează. Folosește `(*promovati)++`."
+  - "`suma / n` cu ambii operanzi `int` face împărțire întreagă."

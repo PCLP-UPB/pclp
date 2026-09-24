@@ -1,0 +1,99 @@
+id: lab06-p03-sala-spectacol
+lab: lab06
+number: 3
+title: "Sala de spectacol"
+difficulty: 2
+estimated_minutes: 30
+concepts: [matrice cu linii de lungimi diferite, calloc, malloc, eliberarea unei matrice, vector de pointeri]
+statement: |
+  O sală de teatru are `n` rânduri, iar rândurile au numere diferite de locuri (sala se lărgește spre spate). Scrieți programul care gestionează rezervările.
+
+  Sala se reprezintă ca o matrice alocată dinamic, în care **fiecare rând are exact câte locuri are în realitate** (0 = liber, 1 = ocupat). Implementați și folosiți funcțiile:
+
+  ```c
+  int **aloca_sala(int n, const int *locuri);   /* toate locurile libere */
+  void elibereaza_sala(int **sala, int n);
+  ```
+
+  Vectorul `locuri` (numărul de locuri pentru fiecare rând) se alocă și el dinamic.
+
+  Pentru fiecare cerere de rezervare `r s` (rândul `r`, locul `s`, numerotate de la 1) afișați:
+
+  - `INVALID` dacă rândul sau locul nu există;
+  - `OCUPAT` dacă locul este deja rezervat;
+  - `OK` altfel (locul devine ocupat).
+
+  La final afișați, pentru fiecare rând, harta locurilor.
+
+  **Date de intrare**
+
+  Pe prima linie `n`. Pe a doua linie `n` numere: numărul de locuri de pe fiecare rând. Pe a treia linie `q`, apoi `q` linii cu câte o cerere `r s`.
+
+  **Date de ieșire**
+
+  `q` linii cu răspunsurile, apoi `n` linii de forma:
+
+  ```
+  Rand <i> (<ocupate>/<total>): <harta>
+  ```
+
+  unde harta conține câte un caracter pentru fiecare loc: `#` ocupat, `.` liber.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100`, `1 ≤` locuri pe rând `≤ 100`
+  - `0 ≤ q ≤ 10000`; `r` și `s` sunt întregi din `[-1000, 1000]`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3
+  4 6 8
+  6
+  1 2
+  2 6
+  1 2
+  1 5
+  3 1
+  4 1
+  ```
+
+  Ieșire:
+  ```
+  OK
+  OK
+  OCUPAT
+  INVALID
+  OK
+  INVALID
+  Rand 1 (1/4): .#..
+  Rand 2 (1/6): .....#
+  Rand 3 (1/8): #.......
+  ```
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  int **aloca_sala(int n, const int *locuri)
+  {
+      /* TODO: vector de n pointeri + fiecare rand alocat separat, initializat cu 0 */
+  }
+
+  void elibereaza_sala(int **sala, int n)
+  {
+      /* TODO */
+  }
+
+  int main(void)
+  {
+      /* TODO: citire, alocare, rezervari, afisare, eliberare */
+      return 0;
+  }
+hints:
+  - "O matrice cu rânduri de lungimi diferite se construiește dintr-un vector de pointeri (`int **`), în care fiecare pointer indică un rând alocat separat, cu lungimea lui."
+  - "`calloc(nr, sizeof(int))` alocă și pune toate valorile pe 0 — exact „toate locurile libere”. Pentru vectorul de pointeri, dimensiunea unui element este `sizeof(int *)`."
+  - "La o cerere, verifică în ordine: 1 ≤ r ≤ n, apoi 1 ≤ s ≤ locuri[r-1], apoi sala[r-1][s-1]. La eliberare: free pentru fiecare rând, apoi free(sala), apoi free(locuri)."
+pitfalls:
+  - "`free(sala)` singur nu eliberează rândurile — rămân `n` zone pierdute (memory leak)."
+  - "Nu citi `locuri[r - 1]` înainte să verifici că `r` e un rând valid."

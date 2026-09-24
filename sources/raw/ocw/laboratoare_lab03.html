@@ -1,0 +1,414 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:laboratoare:lab03</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-10-15T18:08:18+0300"/>
+<meta name="keywords" content="programare,laboratoare,lab03"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare:laboratoare"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/laboratoare/lab03"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab03"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:laboratoare';var JSINFO = {"id":"programare:laboratoare:lab03","namespace":"programare:laboratoare","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#pclp_laborator03functii_recursivitate_clase_de_stocare">PCLP Laborator03: Funcții. Recursivitate. Clase de stocare</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#obiective">Obiective</a></div></li>
+<li class="level3"><div class="li"><a href="#notiuni_teoretice">Noţiuni teoretice</a></div></li>
+<li class="level3"><div class="li"><a href="#definirea_si_apelul_unei_functii_in_c">Definirea şi apelul unei funcţii în C</a></div></li>
+<li class="level3"><div class="li"><a href="#transmiterea_parametrilor">Transmiterea parametrilor</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#transmiterea_parametrilor_prin_valoare">Transmiterea parametrilor prin valoare</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#functii_recursive">Funcţii recursive</a></div></li>
+<li class="level3"><div class="li"><a href="#functia_main">Funcţia main</a></div></li>
+<li class="level3"><div class="li"><a href="#tipul_de_date_void">Tipul de date void</a></div></li>
+<li class="level3"><div class="li"><a href="#clase_de_stocare_fisiere_antet_vs_biblioteci">Clase de stocare. Fişiere antet vs. biblioteci</a></div></li>
+<li class="level3"><div class="li"><a href="#exercitii">Exerciții</a></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><a href="#referinte">Referinţe</a></div></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h2 class="sectionedit1" id="pclp_laborator03functii_recursivitate_clase_de_stocare">PCLP Laborator03: Funcții. Recursivitate. Clase de stocare</h2>
+<div class="level2">
+
+<p>
+<strong>Responsabili:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="mailto:&#x6e;&#x65;&#x61;&#x74;&#x75;&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x6e;&#x65;&#x61;&#x74;&#x75;&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Darius Neațu (2019 - prezent)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;" class="mail" title="&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;">Dorinel Filip (2019 - prezent)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x61;&#x6e;&#x64;&#x72;&#x65;&#x69;&#x2e;&#x70;&#x61;&#x72;&#x76;&#x75;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;" class="mail" title="&#x61;&#x6e;&#x64;&#x72;&#x65;&#x69;&#x2e;&#x70;&#x61;&#x72;&#x76;&#x75;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;">Andrei Pârvu</a> </div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT1 SECTION "PCLP Laborator03: Funcții. Recursivitate. Clase de stocare" [1-269] -->
+<h3 class="sectionedit2" id="obiective">Obiective</h3>
+<div class="level3">
+
+<p>
+În urma parcurgerii acestui laborator, studentul va fi capabil:
+</p>
+<ul>
+<li class="level1"><div class="li"> să declare şi să definească o funcţie în limbajul C</div>
+</li>
+<li class="level1"><div class="li"> să apeleze funcţii definite în acelaşi fişier sursă, cât şi funcţii din alte fişiere sursă sau biblioteci</div>
+</li>
+<li class="level1"><div class="li"> să distingă între parametrii formali şi cei efectivi, între cei transmişi prin valoare şi cei transmişi prin adresa de memorie</div>
+</li>
+<li class="level1"><div class="li"> să explice rolul funcţiei <code>main()</code> într-un program</div>
+</li>
+<li class="level1"><div class="li"> să folosească clasele de stocare în declaraţiile unor funcţii</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT2 SECTION "Obiective" [270-810] -->
+<h3 class="sectionedit3" id="notiuni_teoretice">Noţiuni teoretice</h3>
+<div class="level3">
+
+<p>
+Funcţiile împart taskuri complexe în bucăţi mici mai uşor de înţeles şi de programat. Acestea pot fi refolosite cu alte ocazii, în loc să fie rescrise de la zero. De asemenea, funcţiile sunt utile pentru a ascunde detalii de funcţionare ale anumitor părţi ale programului, ajutând la modul de lucru al acestuia. Utilizând funcţii, care reprezintă unitatea fundamentală de execuţie a programelor C, se obţine o divizare logică a programelor mari şi complexe.
+</p>
+
+<p>
+Împărţirea programelor în funcţii este arbitrară şi depinde de modul de gândire a celui care le creează. De obicei, funcţiile cuprind o serie de instrucţiuni care efectuează un calcul, realizează o acţiune, implementează un algoritm, etc. Crearea funcţiilor trebuie să se bazeze pe următoarele principii: <code>claritate</code>, <code>lizibilitate</code>, <code>uşurinţă în întreţinere</code>, <code>reutilizabilitate</code>.
+</p>
+
+</div>
+<!-- EDIT3 SECTION "Noţiuni teoretice" [811-1738] -->
+<h3 class="sectionedit4" id="definirea_si_apelul_unei_functii_in_c">Definirea şi apelul unei funcţii în C</h3>
+<div class="level3">
+
+<p>
+Caracteristicile definitorii ale unei funcţii în C sunt: numele, parametrii de apel şi valorea returnată. 
+Sintaxa standard de <strong>declarare</strong> a unei funcţii este:
+</p>
+<pre class="code bash"> tip_returnat nume_functie <span class="br0">&#40;</span>tip_param1 nume_param1 , tip_param2 nume_param2, ...<span class="br0">&#41;</span>; </pre>
+
+<p>
+Această declarare poartă numele de <strong>antetul funcţiei</strong> (<strong>function signature</strong> sau simplu<strong> signature</strong>). Lista de parametri <strong>poate</strong> lipsi.
+</p>
+
+<p>
+Odată declarată, o funcţie trebuie <strong>definită</strong>, în sensul că trebuie expandat corpul acesteia cu instrucţiunile pe care trebuie să le execute. 
+</p>
+
+<p>
+Definirea unei funcţii are forma: 
+</p>
+<pre class="code c">tip_returnat nume_functie<span class="br0">&#40;</span>tip_param1 nume_param1<span class="sy0">,</span> tip_param2 nume_param2<span class="sy0">,</span> ...<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  declaratii de variabile si instructiuni<span class="sy0">;</span>
+&nbsp;
+  <span class="kw1">return</span> expresie<span class="sy0">;</span>
+<span class="br0">&#125;</span> </pre>
+
+<p>
+Limbajul C permite separarea declaraţiei unei funcţii de definiţia acesteia (codul care o implementează). Pentru ca funcţia să poată fi folosită, este obligatorie doar declararea acesteia înainte de codul care o apelează. Definiţia poate apărea mai departe în fişierul sursă, sau chiar într-un alt fişier sursă sau bibliotecă.
+</p>
+
+<p>
+Diferite părţi din definirea unei funcţii pot lipsi. Astfel, o funcţie minimală este:
+</p>
+<pre class="code c"> dummy<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span><span class="br0">&#125;</span> </pre>
+
+<p>
+Funcţia de mai sus nu face absolut nimic, nu întoarce nici o valoare şi nu primeşte nici un argument, însă din punct de vedere al limbajului C este perfect validă.
+</p>
+
+<p>
+Tipul returnat de o funcţie poate fi orice tip <strong>standard</strong> sau <strong>definit</strong> de utilizator (<strong>struct</strong>-uri - acoperite într-un laborator următor), inclusiv tipul <strong>void</strong> (care înseamnă că funcția nu returnează nimic).
+</p>
+
+<p>
+Orice funcţie care întoare un rezultat trebuie să conţină instrucţiunea:
+</p>
+<pre class="code c"> <span class="kw1">return</span> expression<span class="sy0">;</span> </pre>
+
+<p>
+Expresia este evaluată şi convertită la tipul de date care trebuie returnat de funcţie. Această instrucţiune termină şi execuţia funcţiei, <strong>indiferent</strong> dacă după aceasta mai urmează sau nu alte instrucţiuni. Dacă este cazul, se pot folosi mai multe instrucţiuni <strong>return</strong> pentru a determina mai multe puncte de ieşire din funcţie, în raport cu evoluţia funcţiei.
+</p>
+
+<p>
+Exemplu:
+</p>
+<dl class="code">
+<dt><a href="/courses/_export/code/programare/laboratoare/lab03?codeblock=4" title="Download Snippet" class="mediafile mf_c">declarare.c</a></dt>
+<dd><pre class="code c"><span class="kw4">int</span> min<span class="br0">&#40;</span><span class="kw4">int</span> x<span class="sy0">,</span> <span class="kw4">int</span> y<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</dd></dl>
+<dl class="code">
+<dt><a href="/courses/_export/code/programare/laboratoare/lab03?codeblock=5" title="Download Snippet" class="mediafile mf_c">definire.c</a></dt>
+<dd><pre class="code c"><span class="kw4">int</span> min<span class="br0">&#40;</span><span class="kw4">int</span> x<span class="sy0">,</span> <span class="kw4">int</span> y<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw1">if</span> <span class="br0">&#40;</span>x <span class="sy0">&lt;</span> y<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw1">return</span> x<span class="sy0">;</span>
+  <span class="br0">&#125;</span>
+&nbsp;
+  <span class="kw1">return</span> y<span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+</dd></dl>
+
+<p>
+Apelul unei funcţii se face specificând <strong>parametrii efectivi</strong> (parametrii care apar în declararea funcţiei se numesc <strong>parametri formali</strong>).
+</p>
+<pre class="code c"><span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw4">int</span> a<span class="sy0">,</span> b<span class="sy0">,</span> minimum<span class="sy0">;</span>
+  <span class="co1">//...........</span>
+  x <span class="sy0">=</span> <span class="nu0">2</span><span class="sy0">;</span>
+  y <span class="sy0">=</span> <span class="nu0">5</span><span class="sy0">;</span>
+  minimum <span class="sy0">=</span> min<span class="br0">&#40;</span>x<span class="sy0">,</span> <span class="nu0">4</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Minimul dintre %d si 4 este: %d&quot;</span><span class="sy0">,</span> x<span class="sy0">,</span> minimum<span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Minimul dintre %d si %d este: %d&quot;</span><span class="sy0">,</span> x<span class="sy0">,</span> y<span class="sy0">,</span> min<span class="br0">&#40;</span>x<span class="sy0">,</span> y<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+</div>
+<!-- EDIT4 SECTION "Definirea şi apelul unei funcţii în C" [1739-4484] -->
+<h3 class="sectionedit5" id="transmiterea_parametrilor">Transmiterea parametrilor</h3>
+<div class="level3">
+
+<p>
+Apelul unei funcţii se face specificând parametrii care se transmit acesteia. În limbajul C, dar şi în alte limbaje de programare există <strong> 2 moduri de transmitere a parametrilor</strong>. Deoarece nu avem încă cunoștințele necesare pentru a înțelege ambele moduri, astăzi vom studia doar unul, urmând ca în laboratorul 8 să revenim și să îl explicăm și pe al doilea.
+</p>
+
+</div>
+
+<h4 id="transmiterea_parametrilor_prin_valoare">Transmiterea parametrilor prin valoare</h4>
+<div class="level4">
+
+<p>
+Funcţia va lucra cu <strong>o copie</strong> a variabilei pe care a primit-o şi <strong>orice</strong> modificare din cadrul funcţiei va opera asupra aceste copii. La sfârşitul execuţiei funcţiei, copia va fi <strong>distrusă</strong> şi astfel se va pierde orice modificare efectuată. 
+</p>
+
+<p>
+Pentru a nu pierde modificările făcute se foloseşte instrucţiunea <strong>return</strong>, care poate întoarce, la terminarea funcţiei, noua valoare a variabilei. Problema apare în cazul în care funcţia modifică mai multe variabile şi se doreşte ca rezultatul lor să fie disponibil şi la terminarea execuţiei funcţiei. 
+</p>
+
+<p>
+Exemplu de transmitere a parametrilor prin valoare:
+</p>
+<pre class="code c">min<span class="br0">&#40;</span>x<span class="sy0">,</span> <span class="nu0">4</span><span class="br0">&#41;</span><span class="sy0">;</span>  <span class="co1">// se face o copie lui x</span></pre>
+
+<p>
+<p><div class="notetip">
+Până acum aţi folosit în programele voastre funcţii care trimit valorile atât prin valoare (de exemplu <code>printf()</code>) cât şi prin intermediul adresei de memorie (de exemplu <code>scanf()</code>). Mecanismul de transfer al valorilor prin intermediul adresei de memorie unde sunt stocate va fi complet „elucidat” în laboratorul de pointeri.
+
+</div></p>
+</p>
+
+</div>
+<!-- EDIT5 SECTION "Transmiterea parametrilor" [4485-6005] -->
+<h3 class="sectionedit6" id="functii_recursive">Funcţii recursive</h3>
+<div class="level3">
+
+<p>
+O funcţie poate să apeleze la rândul ei alte funcţii. Dacă o funcţie se apelează pe sine <strong>însăşi</strong>, atunci funcţia este <strong>recursivă</strong>. Pentru a evita un număr infinit de apeluri recursive, trebuie ca funcţia să includă în corpul ei o <strong>condiţie de oprire</strong>, astfel ca, la un moment dat, recurenţa să se oprească şi să se revină succesiv din apeluri.
+</p>
+
+<p>
+Condiţia trebuie să fie una generică, şi să oprească recurenţa în orice situaţie. Această condiţie se referă în general a parametrii de intrare, pentru care la un anumit moment, răspunsul poate fi returnat direct, fără a mai fi necesar un apel recursiv suplimentar. 
+</p>
+
+<p>
+<code>Exemplu</code>: Calculul recursiv al factorialului
+</p>
+<pre class="code c"><span class="kw4">int</span> fact<span class="br0">&#40;</span><span class="kw4">int</span> n<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw1">if</span> <span class="br0">&#40;</span>n <span class="sy0">==</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw1">return</span> <span class="nu0">1</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span> <span class="kw1">else</span> <span class="br0">&#123;</span>
+    <span class="kw1">return</span> n <span class="sy0">*</span> fact<span class="br0">&#40;</span>n <span class="sy0">-</span> <span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+sau, într-o formă mai compactă:
+</p>
+<pre class="code c"><span class="kw4">int</span> fact<span class="br0">&#40;</span><span class="kw4">int</span> n<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw1">return</span> <span class="br0">&#40;</span>n <span class="sy0">&gt;=</span> <span class="nu0">1</span><span class="br0">&#41;</span> <span class="sy0">?</span> n <span class="sy0">*</span> fact<span class="br0">&#40;</span>n <span class="sy0">-</span> <span class="nu0">1</span><span class="br0">&#41;</span> <span class="sy0">:</span> <span class="nu0">1</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Întotdeauna trebuie avut grijă în lucrul cu funcţii recursive deoarece, la fiecare apel recursiv, contextul este salvat pe stivă pentru a putea fi refăcut la revenirea din recursivitate. În acest fel, în funcţie de numărul apelurilor recursive şi de dimensiunea contextului (variabile, descriptori de fişier, etc.) stiva se poate umple foarte rapid, generând o eroare de tip <a href="http://en.wikipedia.org/wiki/Stack_overflow" class="urlextern" title="http://en.wikipedia.org/wiki/Stack_overflow"  rel="nofollow"> stack overflow</a> (vezi şi <a href="http://en.wikipedia.org/wiki/Infinite_recursion" class="urlextern" title="http://en.wikipedia.org/wiki/Infinite_recursion"  rel="nofollow"> Infinite recursion pe Wikipedia</a>).
+</p>
+
+</div>
+<!-- EDIT6 SECTION "Funcţii recursive" [6006-7522] -->
+<h3 class="sectionedit7" id="functia_main">Funcţia main</h3>
+<div class="level3">
+
+<p>
+Orice program C conţine cel puţin o funcţie, şi anume cea principală, numită <code>main()</code>. Aceasta are un format special de definire:
+</p>
+<pre class="code c"><span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">int</span> argc<span class="sy0">,</span> <span class="kw4">char</span> <span class="sy0">*</span>argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="co1">// some code</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Primul parametru, <code>argc</code>, reprezintă numărul de argumente primite de către program la linia de comandă, incluzând numele cu care a fost apelat programul. Al doilea parametru, <code>argv</code>, este un pointer către conţinutul listei de parametri al căror număr este dat de <code>argc</code>. Lucrul cu parametrii liniei de comandă va fi reluat într-un laborator viitor. 
+</p>
+
+<p>
+Atunci când nu este necesară procesarea parametrilor de la linia de comandă, se poate folosi forma prescurtată a definiţiei funcţiei <code>main</code>, şi anume:
+</p>
+<pre class="code c"><span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="co1">// some code</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+În ambele cazuri, standardul impune ca <code>main</code> să întoarcă o valoare de tip întreg, care să reprezinte codul execuţiei programului şi care va fi pasată înapoi sistemului de operare, la încheierea execuţiei programului. Astfel, instrucţiunea <code>return</code> în funcţia <code>main</code> va însemna şi terminarea execuţiei programului. 
+</p>
+
+<p>
+În mod normal, orice program care se execută corect va întoarce 0, şi o valoare diferită de 0 în cazul în care apar erori. Aceste coduri ar trebui documentate pentru ca apelantul programului să ştie cum să adreseze eroarea respectivă.
+</p>
+
+</div>
+<!-- EDIT7 SECTION "Funcţia main" [7523-8957] -->
+<h3 class="sectionedit8" id="tipul_de_date_void">Tipul de date void</h3>
+<div class="level3">
+
+<p>
+Tipul de date <code>void</code> are mai multe întrebuinţări.
+</p>
+
+<p>
+Atunci când este folosit ca tip returnat de o funcţie, specifică faptul că funcţia nu întoarce nici o valoare. Exemplu:
+</p>
+<pre class="code c"><span class="kw4">void</span> print_nr<span class="br0">&#40;</span><span class="kw4">int</span> number<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Numarul este %d&quot;</span><span class="sy0">,</span> number<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Atunci când este folosit în declaraţia unei funcţii, <code>void</code> semnifică faptul că funcţia nu primeşte nici un parametru. Exemplu:
+</p>
+<pre class="code c"><span class="kw4">int</span> init<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw1">return</span> <span class="nu0">1</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+<p><div class="noteimportant">
+Această declaraţie nu este similară cu următorul caz:
+</p>
+<pre class="code c"><span class="kw4">int</span> init<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw1">return</span> <span class="nu0">1</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+În cel de-al doilea caz, compilatorul nu verifică dacă funcţia este într-adevăr apelată fără nici un parametru. Apelul celei de-a doua funcţii cu un număr arbitrar de parametri nu va produce nici o eroare, în schimb apelul primei funcţii cu un număr de parametri diferit de zero va produce o eroare de tipul:
+</p>
+
+<p>
+<code>too many arguments to function</code>.
+
+</div></p>
+</p>
+
+</div>
+<!-- EDIT8 SECTION "Tipul de date void" [8958-9934] -->
+<h3 class="sectionedit9" id="clase_de_stocare_fisiere_antet_vs_biblioteci">Clase de stocare. Fişiere antet vs. biblioteci</h3>
+<div class="level3">
+
+<p>
+<p><div class="notetip">
+Această secţiune este importantă pentru înţelegerea modului de lucru cu mai multe fişiere sursă şi cu bibliotecile oferite de GCC. Deşi în continuare sunt discutate în contextul funcţiilor, lucrurile se comportă aproximativ la fel şi în cazul variabilelor globale (a căror utilizare este, oricum, descurajată).
+
+</div></p>
+</p>
+
+<p>
+După cum se ştie, într-un fişier sursă (.c) pot fi definite un număr oarecare de funcţii. În momentul în care programul este compilat, din fiecare fişier sursă se generează un fişier obiect (.o), care conţine codul compilat al funcţiilor respective. Aceste funcţii pot apela la rândul lor alte funcţii, care pot fi definite în acelaşi fişier sursă, sau în alt fişier sursă. În orice caz, compilatorul nu are nevoie să ştie care este definiţia funcţiilor apelate, ci numai semnătura acestora (cu alte cuvinte, <code>declaraţia</code> lor), pentru a şti cum să realizeze instrucţiunile de apel din fişierul obiect. Acest lucru explică de ce, pentru a putea folosi o funcţie, trebuie <code>declarată</code> înaintea codului în care este folosită.
+</p>
+
+<p>
+<code>Fişierele antet</code> conţin o colecţie de declaraţii de funcţii, grupate după funcţionalitatea pe care acestea o oferă. Atunci când includem un fişier antet (.h) într-un fişier sursă (.c), compilatorul va cunoaşte toate semnăturile funcţiilor de care are nevoie, şi va fi în stare să genereze codul obiect pentru fiecare fişier sursă în parte. (NOTĂ: Astfel nu are sens includerea unui fişier .c în alt fişier .c; se vor genera două fişiere obiect care vor conţine definiţii comune, şi astfel va apărea un conflict de nume la editarea legăturilor).
+</p>
+
+<p>
+Cu toate acestea, pentru a realiza un fişier executabil, trebuie ca fiecare funcţie să fie <code>definită</code>. Acest lucru este realizat de către editorul de legături; cu alte cuvinte, fiecare funcţie folosită în program trebuie să fie conţinută în fişierul executabil. Acesta caută în fişierele obiect ale programului definiţiile funcţiilor de care are nevoie fiecare funcţie care le apelează, şi construieşte un singur fişier executabil care conţine toate aceste informaţii. <code>Bibliotecile</code> sunt fişiere obiect speciale, al căror unic scop este să conţină definiţiile funcţiilor oferite de către compilator, pentru a fi integrate în executabil de către editorul de legături.
+</p>
+
+<p>
+<code>Clasele de stocare</code> intervin în acest pas al editării de legături. O clasă de stocare aplicată unei funcţii indică dacă funcţia respectivă poate fi folosită şi de către alte fişiere obiect (adică este <code>externă</code>), sau numai în cadrul fişierului obiect generat din fişierul sursă în care este definită (în acest caz funcţia este <code>statică</code>). Dacă nu este specificată nici o clasă de stocare, o funcţie este implicit externă.
+</p>
+
+<p>
+Cuvintele cheie <code>extern</code> şi <code>static</code>, puse în faţa definiţiei funcţiei, îi specifică clasa de stocare. De exemplu, pentru a defini o funcţie internă, se poate scrie:
+</p>
+<pre class="code c"><span class="kw4">static</span> <span class="kw4">int</span> compute_internally<span class="br0">&#40;</span><span class="kw4">int</span><span class="sy0">,</span> <span class="kw4">int</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Funcţia <code>compute_internally</code> nu va putea fi folosită decât de către funcţiile definite în acelaşi fişier sursă şi nu va fi vizibilă de către alte fişiere sursă, în momentul editării  legăturilor.
+</p>
+
+</div>
+<!-- EDIT9 SECTION "Clase de stocare. Fişiere antet vs. biblioteci" [9935-13316] -->
+<h3 class="sectionedit10" id="exercitii">Exerciții</h3>
+<div class="level3">
+
+<p>
+Exercițiile pentru laborator se găsesc pe <a href="https://acs-pclp.github.io/laboratoare/03" class="urlextern" title="https://acs-pclp.github.io/laboratoare/03"  rel="nofollow"> PCLP Laborator03 - Funcții. Recursivitate. Clase de stocare</a>.
+</p>
+
+</div>
+<!-- EDIT10 SECTION "Exerciții" [13317-13493] -->
+<h2 class="sectionedit11" id="referinte">Referinţe</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a href="http://www.tutorialspoint.com/ansi_c/c_using_functions.htm" class="urlextern" title="http://www.tutorialspoint.com/ansi_c/c_using_functions.htm"  rel="nofollow"> C - Using Functions</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="https://github.com/cs-pub-ro/ComputerProgramming/blob/master/Laboratories/Lab4/Lab4.pdf" class="urlextern" title="https://github.com/cs-pub-ro/ComputerProgramming/blob/master/Laboratories/Lab4/Lab4.pdf"  rel="nofollow"> Cheatsheat Functii</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT11 SECTION "Referinţe" [13494-] --></div>
+</body>
+</html>

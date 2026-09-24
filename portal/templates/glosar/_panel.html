@@ -1,0 +1,33 @@
+<div class="panelc">
+  <div class="kicker">{{ c.kind }}{% if unit %} · {{ unit.short|default:unit.title }}{% endif %}</div>
+  <h2><a href="/termen/{{ c.id }}/" class="tl l{{ c.level }}">{{ c.label }}</a></h2>
+  <div>
+    <span class="badge l{{ c.level }}">nivel {{ c.level }} · {{ level_name }}</span>
+    {% if c.origin == "claude" %}<span class="badge added">adăugat de tine · generat de AI · neverificat</span>{% elif c.edited %}<span class="badge edited">editat</span>{% endif %}
+  </div>
+  {% if c.aliases %}<div class="aka small">și: {{ c.aliases|join:", " }}</div>{% endif %}
+  <p class="def">{{ definition_html }}</p>
+  {% if c.origin == "claude" and c.edit.explanation %}<details class="rdet small"><summary>Explicația AI</summary><p style="white-space:pre-wrap">{{ c.edit.explanation }}</p></details>{% endif %}
+  {% if defs.first %}
+  <div class="row"><div class="kicker">Prima definiție în laborator</div>
+    <div class="quote small">{{ defs.first.html }}</div>
+    <a class="small" href="/carte/{{ defs.first.unit }}/?t={{ c.id }}#b{{ defs.first.block }}">Citește în context →</a>
+  </div>
+  {% endif %}
+  {% if prereqs %}<div class="row"><div class="kicker">Presupune cunoașterea</div><ul class="tlist">{% for p in prereqs %}<li><a class="tl l{{ p.level }}" href="/termen/{{ p.id }}/" data-panel="{{ p.id }}" data-t="{{ p.id }}">{{ p.label }}</a></li>{% endfor %}</ul></div>{% endif %}
+  {% if related %}
+  <div class="row"><div class="kicker">Termeni legați</div>
+    <ul class="tlist">{% for r in related|slice:":18" %}<li><a class="tl l{{ r.level }}{% if r.origin == 'claude' %} added{% endif %}" href="/termen/{{ r.id }}/" data-panel="{{ r.id }}" data-t="{{ r.id }}">{{ r.label }}</a></li>{% endfor %}</ul>
+  </div>
+  {% endif %}
+  {% if parent or kids %}
+  <div class="row"><div class="kicker">În arborele de învățare</div>
+    {% if parent %}<div class="small">sub <a href="/termen/{{ parent.id }}/" data-panel="{{ parent.id }}">{{ parent.label }}</a></div>{% endif %}
+    {% if kids %}<div class="small">conține: {% for k in kids|slice:":8" %}<a href="/termen/{{ k.id }}/" data-panel="{{ k.id }}">{{ k.label }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</div>{% endif %}
+  </div>
+  {% endif %}
+  {% if man %}<div class="row"><div class="kicker">Documentație</div><a href="/man/{{ man.id }}/"><code>man {{ man.section }} {{ man.name }}</code></a> <span class="muted small">{{ man.summary|truncatechars:70 }}</span></div>{% endif %}
+  {% if mentions %}<div class="row"><div class="kicker">Apare în</div><span class="small">{% for m in mentions|slice:":6" %}<a href="/carte/{{ m.unit }}/?t={{ c.id }}">{{ m.u.short|default:m.unit }}</a> ({{ m.count }}){% if not forloop.last %} · {% endif %}{% endfor %}</span></div>{% endif %}
+  {% if problems %}<div class="row"><div class="kicker">Exersează</div><span class="small">{% for p in problems|slice:":4" %}<a href="/problema/{{ p.id }}/">{{ p.title }}</a>{% if not forloop.last %} · {% endif %}{% endfor %}</span></div>{% endif %}
+  <div class="nav2"><a href="/termen/{{ c.id }}/">Pagina completă →</a><span><button class="btn small ghost" data-step="-1" type="button">←</button> <span class="pos"></span> <button class="btn small ghost" data-step="1" type="button">→</button></span></div>
+</div>

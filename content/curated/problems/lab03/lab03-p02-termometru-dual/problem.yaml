@@ -1,0 +1,80 @@
+id: lab03-p02-termometru-dual
+lab: lab03
+number: 2
+title: "Termometrul dual"
+difficulty: 1
+estimated_minutes: 20
+concepts: [funcție, double, return, apel de funcție]
+statement: |
+  Un grup de studenți Erasmus din SUA a adus în cămin termometre în grade Fahrenheit.
+  Ca să compare măsurătorile, scrie un program care convertește fiecare valoare în
+  cealaltă scală și, la final, afișează temperatura maximă, în grade Celsius.
+
+  Formulele sunt: `F = C · 9 / 5 + 32` și `C = (F − 32) · 5 / 9`.
+
+  Programul trebuie să conțină funcțiile:
+
+  - `double celsius_to_fahrenheit(double c)`;
+  - `double fahrenheit_to_celsius(double f)`.
+
+  **Date de intrare**
+
+  Pe prima linie, numărul de măsurători `n`. Pe fiecare dintre următoarele `n` linii,
+  un caracter (`C` sau `F`, scala) și un număr real (valoarea), separate printr-un spațiu.
+
+  **Date de ieșire**
+
+  Pentru fiecare măsurătoare, o linie de forma `V C = W F` (dacă valoarea era în Celsius)
+  sau `V F = W C` (dacă era în Fahrenheit). La final, linia `Maxim: M C`, unde `M` este
+  cea mai mare dintre temperaturi, exprimată în Celsius. Toate valorile se afișează cu
+  exact o zecimală.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100`
+  - valorile au cel mult o zecimală
+  - valorile în Celsius sunt între `-10` și `60`, cele în Fahrenheit între `0` și `140`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4
+  C 36.6
+  F 98.6
+  C 21.5
+  F 104
+  ```
+
+  Ieșire:
+  ```
+  36.6 C = 97.9 F
+  98.6 F = 37.0 C
+  21.5 C = 70.7 F
+  104.0 F = 40.0 C
+  Maxim: 40.0 C
+  ```
+starter: |
+  #include <stdio.h>
+
+  double celsius_to_fahrenheit(double c)
+  {
+  	/* TODO */
+  }
+
+  double fahrenheit_to_celsius(double f)
+  {
+  	/* TODO */
+  }
+
+  int main(void)
+  {
+  	/* TODO: citește n, apoi n perechi (scală, valoare) */
+  	return 0;
+  }
+hints:
+  - "Fiecare funcție primește un double și întoarce un double calculat cu formula dată."
+  - "Scrie constantele ca numere reale (9.0 / 5.0). Între întregi, 9 / 5 este 1."
+  - "În main, citește scala cu \" %c\" (cu spațiu în față), apoi valoarea cu %lf. Pentru maxim, transformă întâi fiecare valoare în Celsius și compară doar valori în Celsius."
+pitfalls:
+  - "Maximul trebuie comparat în aceeași unitate: 100 F (37.8 C) este mai mic decât 40 C."

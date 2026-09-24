@@ -1,0 +1,203 @@
+lab09:
+  - title: "Citește un hexdump octet cu octet"
+    when: "după ce ai scris primul fișier binar cu fwrite și l-ai inspectat cu hexdump -C"
+    concepts: ["fișier binar", "fwrite", "endianness", "hexdump"]
+    prompt: |
+      Sunt student în anul I și învăț lucrul cu fișiere binare în C. Am scris un fișier cu fwrite și am obținut următorul hexdump:
+      «lipește aici ieșirea lui hexdump -C»
+      Codul care l-a generat este:
+      «lipește aici codul tău»
+      Explică-mi octet cu octet ce reprezintă fiecare grup din hexdump și de ce apare în această ordine (little-endian). Nu-mi rescrie codul; la final pune-mi 2 întrebări prin care să verific că am înțeles, de exemplu cum ar arăta în hexdump alte valori.
+  - title: "Quiz despre modurile lui fopen"
+    when: "după ce ai citit secțiunea despre fopen"
+    concepts: ["fopen", "mod de deschidere", "mod r", "mod w", "mod a", "fișier text", "fișier binar"]
+    prompt: |
+      Pune-mi pe rând 8 întrebări scurte despre modurile de deschidere ale lui fopen în C ("r", "w", "a", "r+", "w+", "a+", "rb", "wb"): ce se întâmplă dacă fișierul nu există, dacă se păstrează conținutul vechi, unde e plasat cursorul. Așteaptă răspunsul meu după fiecare întrebare, spune-mi dacă e corect și explică-mi pe scurt greșeala, fără să-mi dai dinainte răspunsurile.
+  - title: "Text sau binar? Compară reprezentările"
+    when: "când nu e clar de ce același număr ocupă un număr diferit de octeți în fișier text și în fișier binar"
+    concepts: ["fișier text", "fișier binar", "fprintf", "fwrite", "sizeof"]
+    prompt: |
+      Explică-mi diferența dintre a scrie numărul 257 cu fprintf(f, "%d", x) într-un fișier text și cu fwrite(&x, sizeof(int), 1, f) într-un fișier binar. Arată-mi ce octeți ajung efectiv în fiecare fișier și câți sunt. Apoi dă-mi 3 valori (inclusiv una negativă) și cere-mi să scriu eu octeții pentru ambele variante; corectează-mă după ce răspund.
+  - title: "Explică-mi pagina de manual a lui fseek"
+    when: "când folosești fseek/ftell și nu știi sigur ce întorc"
+    concepts: ["fseek", "ftell", "poziție curentă în fișier", "dimensiunea unui fișier"]
+    prompt: |
+      Ajută-mă să citesc secțiunile RETURN VALUE și DESCRIPTION din man 3 fseek și man 3 ftell. Explică-mi în română, pe scurt, ce înseamnă SEEK_SET, SEEK_CUR și SEEK_END, ce întorc funcțiile la succes și la eroare și cum pot verifica erorile. Apoi dă-mi 3 scenarii (de ex. fseek(f, -4, SEEK_END)) și întreabă-mă unde ajunge cursorul.
+  - title: "Verifică-mi tratarea erorilor la fișiere"
+    when: "după ce ai scris un program care deschide și citește fișiere"
+    concepts: ["fopen", "fclose", "feof", "EOF", "verificarea deschiderii fișierului", "fișier neînchis"]
+    prompt: |
+      Mai jos e codul meu care lucrează cu fișiere. Nu mi-l corecta direct. Pune-mi întrebări care să mă ajute să găsesc singur: unde nu verific rezultatul lui fopen, fread/fscanf, unde pot rămâne fișiere neînchise și dacă folosesc corect feof sau valoarea întoarsă de funcțiile de citire.
+      «lipește aici codul tău»
+
+lab10:
+  - title: "De ce sizeof-ul structurii mele nu e cel așteptat?"
+    when: "când scrii o structură în fișier binar și dimensiunea fișierului te surprinde"
+    concepts: ["structură", "sizeof", "__attribute__((__packed__))", "fwrite", "fișier binar"]
+    prompt: |
+      Am structura de mai jos și când o scriu cu fwrite fișierul are alt număr de octeți decât suma câmpurilor. Explică-mi ce este padding-ul și ce face __attribute__((__packed__)), cu un desen al octeților. Nu-mi scrie soluția exercițiului; întreabă-mă la final ce dimensiune cred că are o altă structură pe care mi-o propui tu.
+      «lipește aici structura ta»
+  - title: "Proiectează formatul unui fișier binar"
+    when: "înainte să scrii un vector de structuri cu câmpuri alocate dinamic într-un fișier"
+    concepts: ["fișier binar", "fwrite", "fread", "alocare dinamică", "șir de caractere"]
+    prompt: |
+      Vreau să salvez într-un fișier binar un vector de structuri care conțin un char * alocat dinamic și un int. Nu-mi da cod. Ghidează-mă cu întrebări să-mi aleg singur formatul fișierului (de ce nu pot scrie direct pointerul, cum marchez lungimea șirului, cum știu la citire câte elemente sunt) și verifică apoi formatul propus de mine.
+  - title: "Interpretează raportul valgrind pentru lucrul cu fișiere"
+    when: "când valgrind raportează erori în programul cu fișiere și alocare dinamică"
+    concepts: ["valgrind", "memory leak", "fișier neînchis", "invalid read"]
+    prompt: |
+      Explică-mi pe rând fiecare mesaj din raportul valgrind de mai jos: ce înseamnă, la ce linie din cod se referă și ce tip de greșeală indică. Nu-mi rescrie codul, lasă-mă pe mine să repar și apoi îți trimit noul raport.
+      «lipește aici ieșirea valgrind»
+      «lipește aici codul tău»
+
+lab11:
+  - title: "De ce macro-ul meu dă un rezultat neașteptat?"
+    when: "când un macro cu parametri nu calculează ce te aștepți"
+    concepts: ["macro", "substituție textuală", "parantezarea macro-urilor", "-E", "preprocesor"]
+    prompt: |
+      Am definit macro-ul de mai jos și rezultatul nu e cel așteptat. Nu-mi spune direct greșeala. Ghidează-mă cu întrebări: cere-mi să scriu de mână expandarea textuală pentru apelul meu, apoi să compar cu ieșirea lui gcc -E, și ajută-mă să înțeleg ce rol joacă precedența operatorilor.
+      «lipește aici macro-ul și apelul»
+  - title: "Simulează argc și argv"
+    when: "după ce ai citit despre parametrii liniei de comandă"
+    concepts: ["argc", "argv", "parametrii liniei de comandă", "șir de caractere"]
+    prompt: |
+      Dă-mi 5 linii de comandă diferite (cu ghilimele, spații multiple, numere negative, căi relative) pentru un program C și cere-mi să spun pentru fiecare valoarea lui argc și conținutul fiecărui argv[i]. Corectează-mă după fiecare răspuns și explică-mi cum desparte shell-ul argumentele.
+  - title: "Quiz despre include guard și compilare condiționată"
+    when: "după secțiunile despre #ifdef, #ifndef și includerea multiplă"
+    concepts: ["include guard", "#ifndef", "#ifdef", "#define", "compilare condiționată", "-D"]
+    prompt: |
+      Pune-mi pe rând 6 întrebări despre compilarea condiționată în C: ce rămâne după preprocesare pentru fragmente de cod cu #ifdef/#ifndef/#else, ce efect are -DSIMBOL la compilare și de ce apare eroarea „redefinition” fără include guard. Fiecare întrebare să conțină un mic fragment de cod. Așteaptă răspunsul meu și explică-mi greșelile.
+  - title: "Urmărește parcurgerea cu va_arg"
+    when: "după ce ai implementat o funcție variadică"
+    concepts: ["funcție variadică", "va_list", "va_start", "va_arg", "va_end", "promovarea argumentelor", "valoare terminator"]
+    prompt: |
+      Mai jos e funcția mea cu număr variabil de parametri și un apel al ei. Cere-mi să urmăresc pas cu pas ce valoare întoarce fiecare va_arg pentru apelul dat. Apoi întreabă-mă ce s-ar întâmpla dacă apelul nu are terminator sau dacă transmit un float în loc de int. Nu-mi rescrie funcția.
+      «lipește aici codul tău»
+  - title: "Explică-mi pagina de manual stdarg"
+    when: "când vrei să înțelegi exact regulile pentru va_start și va_arg"
+    concepts: ["stdarg.h", "va_start", "va_arg", "va_end", "parametru fixat"]
+    prompt: |
+      Explică-mi în română, pe înțelesul unui student din anul I, secțiunile DESCRIPTION din man 3 stdarg pentru va_start, va_arg și va_end. Subliniază ce comportament este nedefinit (de ex. tip greșit la va_arg). La final dă-mi 3 afirmații adevărat/fals despre aceste macro-uri, cu răspunsurile ascunse până răspund eu.
+
+lab12:
+  - title: "Exerciții cu măști, cu răspunsurile ascunse"
+    when: "după secțiunea Lucrul cu măști"
+    concepts: ["mască", "testarea unui bit", "setarea unui bit", "resetarea unui bit", "ȘI pe biți", "SAU pe biți", "deplasare la stânga"]
+    prompt: |
+      Dă-mi 6 exerciții de lucru cu măști pe numere de 8 biți: testarea, setarea, resetarea și inversarea unui bit i, plus extragerea unui grup de biți. Pentru fiecare scrie numărul în binar și cere-mi expresia C și rezultatul. Nu-mi arăta răspunsurile până nu răspund; apoi corectează-mă și explică-mi pe biți.
+  - title: "Calculează de mână operațiile pe biți"
+    when: "când vrei să verifici că înțelegi ~, &, |, ^, << și >>"
+    concepts: ["operator pe biți", "negare pe biți", "SAU-EXCLUSIV pe biți", "deplasare la stânga", "deplasare la dreapta"]
+    prompt: |
+      Pune-mi 8 întrebări de tipul „cât este 13 ^ 7?” sau „cât este ~5 pentru un int pe 32 de biți?”, amestecând toți operatorii pe biți și câteva valori negative. Cere-mi să scriu și reprezentarea binară. După fiecare răspuns spune-mi dacă e corect și explică pas cu pas.
+  - title: "Verifică-mi modelul mental pentru bitset"
+    when: "înainte să implementezi insert_in_set / is_in_set"
+    concepts: ["bitset", "mască", "setarea unui bit", "testarea unui bit"]
+    prompt: |
+      Învăț să reprezint o mulțime ca bitset într-un vector de unsigned char. Nu-mi da implementarea. Dă-mi o secvență de operații (inserări, ștergeri, verificări) și cere-mi să desenez după fiecare conținutul octeților s[0], s[1], s[2] în binar. Apoi verifică desenele mele și întreabă-mă de ce numărul i ajunge în octetul i / 8, la bitul i % 8.
+  - title: "Precedența operatorilor pe biți"
+    when: "când o expresie cu & sau << dă alt rezultat decât te aștepți"
+    concepts: ["operator pe biți", "operator", "expresie"]
+    prompt: |
+      Expresia mea cu operatori pe biți nu dă rezultatul așteptat:
+      «lipește aici expresia»
+      Nu-mi spune direct unde e problema. Cere-mi să pun eu parantezele exact în ordinea în care le aplică compilatorul, apoi explică-mi precedența lui &, |, ^, <<, == și + și dă-mi 3 expresii similare de parantezat.
+
+debugging:
+  - title: "Explică-mi această sesiune gdb"
+    when: "după ce ai rulat programul în gdb și nu înțelegi ce vezi"
+    concepts: ["gdb", "breakpoint", "gdb next", "gdb step", "gdb print", "segmentation fault"]
+    prompt: |
+      Mai jos este o sesiune gdb din terminalul meu și codul programului. Explică-mi ce face fiecare comandă pe care am dat-o și ce înseamnă fiecare linie din răspunsul lui gdb (de ex. adrese, $1 = ..., Program received signal SIGSEGV). Nu-mi spune care e bugul; sugerează-mi următoarele 2-3 comenzi gdb pe care să le încerc ca să-l găsesc singur.
+      «lipește aici sesiunea gdb»
+      «lipește aici codul tău»
+  - title: "Interpretează raportul valgrind"
+    when: "când valgrind raportează Invalid read/write sau leak-uri"
+    concepts: ["valgrind", "invalid read", "invalid write", "memory leak", "LEAK SUMMARY", "--leak-check=full"]
+    prompt: |
+      Explică-mi raportul valgrind de mai jos secțiune cu secțiune: ce înseamnă „Invalid write of size 4”, „0 bytes after a block of size N alloc'd”, „definitely lost” și ce linii din codul meu sunt implicate. Nu-mi corecta codul; întreabă-mă ce cred eu că trebuie schimbat și apoi spune-mi dacă raționamentul meu e corect.
+      «lipește aici ieșirea valgrind»
+      «lipește aici codul tău»
+  - title: "Exersează comenzile gdb pe un program scurt"
+    when: "înainte de primul debugging real, ca să te obișnuiești cu comenzile"
+    concepts: ["gdb", "gdb run", "gdb break", "gdb next", "gdb step", "gdb continue", "gdb print", "-g"]
+    prompt: |
+      Scrie-mi un program C scurt (20-30 de linii) care conține un singur bug ascuns legat de pointeri sau vectori, fără să-mi spui care este. Apoi joacă rolul lui gdb: eu îți dau comenzi (break, run, next, step, print, continue) și tu îmi răspunzi exact cum ar răspunde gdb. Nu-mi dezvălui bugul până nu ți-l spun eu.
+  - title: "Formulează ipoteze despre un bug"
+    when: "când programul dă rezultate greșite și nu știi de unde să începi"
+    concepts: ["debugging", "bug", "breakpoint", "logging"]
+    prompt: |
+      Programul meu dă rezultatul greșit de mai jos. Nu-mi găsi tu bugul. Ajută-mă să aplic un proces de debugging: cere-mi să formulez 2-3 ipoteze, să aleg unde pun breakpoint-uri sau mesaje de log ca să le verific și ce valori mă aștept să văd. Evaluează fiecare pas al meu.
+      «lipește aici codul, intrarea, ieșirea obținută și cea așteptată»
+
+logging:
+  - title: "Ce se întâmplă la preprocesarea macro-ului de log?"
+    when: "după ce ai citit implementarea pclog cu __VA_ARGS__"
+    concepts: ["macro variadic", "macro predefinit", "__FILE__", "__LINE__", "pclog"]
+    prompt: |
+      Dă-mi 3 apeluri ale macro-ului pclog din ghid (cu 0, 1 și 2 argumente după format) și cere-mi să scriu exact ce produce gcc -E pentru fiecare, inclusiv valorile pentru __FILE__ și __LINE__. Corectează-mă și explică-mi rolul lui ##__VA_ARGS__ și de ce __FUNCTION__ nu este înlocuit.
+  - title: "Quiz: stdout, stderr și redirectare"
+    when: "după secțiunea Unde logăm?"
+    concepts: ["stdout", "stderr", "redirectare", "logging"]
+    prompt: |
+      Pune-mi 5 întrebări despre ce apare pe ecran și ce ajunge în fișier când rulez un program care scrie și cu printf și cu fprintf(stderr, ...), folosind redirectări ca > out.txt, 2> err.txt sau ambele. Arată-mi codul și comanda, așteaptă răspunsul meu și explică-mi greșelile.
+  - title: "Ce merită logat?"
+    when: "când adaugi mesaje de log în tema ta"
+    concepts: ["logging", "nivel de logare", "metadate de log", "_DEBUG"]
+    prompt: |
+      Mai jos e o funcție din tema mea. Nu scrie tu logurile. Întreabă-mă ce evenimente cred eu că merită logate, cu ce nivel (eroare sau debug) și ce metadate, apoi comentează alegerile mele: ce lipsește, ce e prea mult și ce ar trebui să apară doar în build-ul cu _DEBUG.
+      «lipește aici codul tău»
+  - title: "Explică-mi pagina de manual syslog"
+    when: "când vrei să folosești syslog în C"
+    concepts: ["syslog", "nivel de logare"]
+    prompt: |
+      Explică-mi în română, pe scurt, man 3 syslog: ce fac openlog, syslog, closelog și setlogmask, ce niveluri de prioritate există și în ce ordine. Apoi întreabă-mă cum aș păstra doar mesajele LOG_ERR într-un build de producție, fără să-mi dai direct codul.
+
+unit-tests:
+  - title: "Găsește cazurile de test"
+    when: "înainte să scrii teste pentru o funcție"
+    concepts: ["test unitar", "caz de test", "caz limită"]
+    prompt: |
+      Vreau să testez funcția de mai jos (doar semnătura și descrierea). Nu-mi scrie testele. Cere-mi să enumăr eu cazurile de test: obișnuite, limită și invalide. Apoi spune-mi ce categorii am omis, sub formă de indicii, nu de liste complete.
+      «lipește aici semnătura și descrierea funcției»
+  - title: "EXPECT sau ASSERT?"
+    when: "după secțiunea despre macro-urile Google Test"
+    concepts: ["aserțiune", "EXPECT_EQ", "ASSERT_EQ", "Google Test"]
+    prompt: |
+      Dă-mi 5 situații de test (de ex. verificarea unui pointer întors de o funcție înainte de a-l folosi, compararea mai multor câmpuri ale unui rezultat) și întreabă-mă pentru fiecare dacă aș folosi EXPECT_* sau ASSERT_* și de ce. Corectează-mi raționamentul.
+  - title: "Recenzie pentru testele mele"
+    when: "după ce ai scris primele teste unitare"
+    concepts: ["test unitar", "principiile testelor unitare", "suită de teste", "TEST"]
+    prompt: |
+      Mai jos sunt testele mele Google Test. Verifică-le după principiile: repetabile, conclusive, izolate, rapide și numele suitelor/testelor. Nu le rescrie; pune-mi întrebări care să mă facă să observ singur problemele.
+      «lipește aici testele tale»
+  - title: "Explică-mi ieșirea Google Test"
+    when: "când un test pică și nu înțelegi mesajul"
+    concepts: ["Google Test", "EXPECT_EQ", "test unitar"]
+    prompt: |
+      Explică-mi linie cu linie ieșirea de mai jos de la rularea testelor Google Test: ce înseamnă [ RUN ], [ FAILED ], „Expected equality of these values” și ce valori s-au comparat. Apoi ajută-mă cu întrebări să decid dacă greșeala este în funcție sau în test.
+      «lipește aici ieșirea testelor»
+
+code-understanding:
+  - title: "Urmărește codul fără să-l rulezi"
+    when: "când citești cod scris de altcineva"
+    concepts: ["înțelegerea codului", "urmărirea execuției"]
+    prompt: |
+      Mai jos e o funcție C pe care nu am scris-o eu. Nu-mi spune ce face. Cere-mi să urmăresc execuția pe o intrare mică aleasă de tine și să scriu valorile variabilelor după fiecare iterație. Apoi întreabă-mă ce cred că face funcția și ce nume mai sugestiv i-aș da.
+      «lipește aici codul»
+  - title: "Vânătoare de comportament nedefinit"
+    when: "după exemplele cu n = n-- și returnarea unui vector local"
+    concepts: ["comportament nedefinit", "efect lateral", "sequence point", "returnarea adresei unei variabile locale"]
+    prompt: |
+      Arată-mi 6 fragmente scurte de cod C, dintre care unele au comportament nedefinit (modificări multiple ale aceleiași variabile într-o expresie, returnarea adresei unei variabile locale, depășirea unui vector) și altele sunt corecte. Pentru fiecare întreabă-mă dacă e corect și de ce. Explică-mi după ce răspund.
+  - title: "Recenzie pentru lizibilitate"
+    when: "înainte să predai o temă"
+    concepts: ["nume sugestive", "înțelegerea codului", "coding style", "folosirea bibliotecii standard"]
+    prompt: |
+      Fă o recenzie de lizibilitate pentru codul de mai jos, ca un coleg senior. Nu rescrie codul. Indică-mi 3-5 locuri unde numele nu descriu ce face codul, unde reimplementez ceva existent în biblioteca standard sau unde o secvență lungă ar putea fi o buclă și întreabă-mă cum le-aș îmbunătăți.
+      «lipește aici codul tău»
+  - title: "Găsește bugul ascuns din precedență"
+    when: "după exemplul Working in security"
+    concepts: ["operator", "expresie", "bug"]
+    prompt: |
+      Dă-mi 4 condiții if scrise greșit din cauza precedenței operatorilor (de ex. cu ?:, ==, &, ||) sau a unei logici care nu acoperă toate cazurile. Pentru fiecare cere-mi să spun cum o evaluează compilatorul și ce a vrut autorul. Nu-mi da răspunsurile înainte să încerc.

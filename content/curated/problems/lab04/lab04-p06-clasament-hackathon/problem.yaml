@@ -1,0 +1,57 @@
+id: lab04-p06-clasament-hackathon
+lab: lab04
+number: 6
+title: "Clasamentul hackathonului"
+difficulty: 3
+estimated_minutes: 35
+concepts: [sortare prin selecție, vectori paraleli, interschimbare, vector]
+statement: |
+  La finalul hackathonului, juriul are punctajele celor `n` echipe, numerotate de la 1 la
+  `n` în ordinea înscrierii. Scrie un program care afișează clasamentul:
+
+  - echipele apar în ordinea descrescătoare a punctajului; la punctaj egal, apare întâi
+    echipa cu numărul mai mic;
+  - locul unei echipe este `1 +` numărul de echipe cu punctaj strict mai mare. Astfel,
+    echipele cu același punctaj împart același loc, iar următorul loc se „sare”
+    (de exemplu: 1, 2, 2, 4).
+
+  Implementează sortarea **prin selecție**.
+
+  **Date de intrare**
+
+  Pe prima linie, numărul `n`. Pe a doua linie, `n` numere naturale: punctajele echipelor
+  1, 2, …, `n`.
+
+  **Date de ieșire**
+
+  `n` linii, de forma `L. Echipa E - P puncte`, în ordinea clasamentului.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1000`
+  - `0 ≤ punctaj ≤ 10 000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  6
+  40 75 60 75 40 90
+  ```
+
+  Ieșire:
+  ```
+  1. Echipa 6 - 90 puncte
+  2. Echipa 2 - 75 puncte
+  2. Echipa 4 - 75 puncte
+  4. Echipa 3 - 60 puncte
+  5. Echipa 1 - 40 puncte
+  5. Echipa 5 - 40 puncte
+  ```
+hints:
+  - "Păstrează doi vectori paraleli: punctajul și numărul echipei. Orice interschimbare trebuie făcută în amândoi, altfel echipele «își pierd» punctajele."
+  - "Sortarea prin selecție: pentru fiecare poziție i, caută printre pozițiile i..n−1 echipa care trebuie să apară prima și adu-o pe poziția i. «Prima» înseamnă: punctaj mai mare sau, la egalitate, număr mai mic."
+  - "După sortare, locul se schimbă doar când punctajul diferă de al echipei precedente; atunci devine poziția curentă + 1 (numerotând pozițiile de la 0)."
+pitfalls:
+  - "Locurile nu sunt 1, 2, 2, 3, ci 1, 2, 2, 4."
+  - "Sortarea prin selecție nu păstrează ordinea inițială a elementelor egale; criteriul trebuie să compare explicit și numerele echipelor."

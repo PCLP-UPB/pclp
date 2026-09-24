@@ -1,0 +1,322 @@
+pointer|is_a|variabilă|lab05#notiunea_de_pointer|source_explicit
+pointer|requires|variabilă||editorial
+pointer|requires|tip de date|lab05#notiunea_de_pointer|source_explicit
+pointer|requires|adresă de memorie|lab05#notiunea_de_pointer|source_explicit
+adresă de memorie|requires|variabilă||editorial
+pointer|has_property|dimensiunea unui pointer|lab05#notiunea_de_pointer|source_explicit
+dimensiunea unui pointer|uses|sizeof|lab05#notiunea_de_pointer|source_explicit
+operatorul de referențiere|is_a|operator|lab05#operatorul_de_referentiere|source_explicit
+operatorul de referențiere|returns|adresă de memorie|lab05#operatorul_de_referentiere|source_explicit
+operatorul de referențiere|operates_on|variabilă|lab05#operatorul_de_referentiere|source_explicit
+operatorul de dereferențiere|is_a|operator|lab05#operatorul_de_dereferentiere|source_explicit
+operatorul de dereferențiere|operates_on|pointer|lab05#operatorul_de_dereferentiere|source_explicit
+operatorul de dereferențiere|requires|pointer||editorial
+operatorul de referențiere|pairs_with|operatorul de dereferențiere||editorial
+operatorul de referențiere|requires|operator||editorial
+declarația unui pointer|part_of|pointer||editorial
+declarația unui pointer|requires|tip de date||editorial
+declarația unui pointer|precedes|operatorul de dereferențiere||editorial
+pointer neinițializat|is_a|pointer||editorial
+pointer neinițializat|causes|segmentation fault|lab05#lab-exercitii|source_explicit
+inițializarea pointerilor cu NULL|prevents|pointer neinițializat|lab05#operatorul_de_dereferentiere|source_explicit
+inițializarea pointerilor cu NULL|uses|NULL|lab05#operatorul_de_dereferentiere|source_explicit
+NULL|requires|pointer||editorial
+NULL|declared_in|stdlib.h||editorial
+NULL|declared_in|stdio.h||editorial
+verificarea validității pointerilor|prevents|segmentation fault||editorial
+verificarea validității pointerilor|prevents|pointer neinițializat|lab06#practici_recomandate|source_explicit
+verificarea validității pointerilor|requires|NULL||editorial
+pointer la void|is_a|pointer|lab05#notiunea_de_pointer|source_explicit
+pointer la void|requires|void||editorial
+pointer la void|requires|cast|lab05#particularitati|source_explicit
+cast|operates_on|pointer la void|lab05#particularitati|source_explicit
+cast|is_a|operator||editorial
+cast|requires|tip de date||editorial
+reinterpretarea datelor din memorie|uses|cast|lab05#interpretarea_diferita_a_datelor_din_memorie|source_explicit
+reinterpretarea datelor din memorie|uses|operatorul de referențiere|lab05#interpretarea_diferita_a_datelor_din_memorie|source_explicit
+reinterpretarea datelor din memorie|requires|aritmetică cu pointeri||editorial
+aritmetică cu pointeri|requires|pointer|lab05#aritmetica_cu_pointeri|source_explicit
+aritmetică cu pointeri|requires|sizeof|lab05#aritmetica_cu_pointeri|source_explicit
+aritmetică cu pointeri|requires|vector|lab05#aritmetica_cu_pointeri|source_explicit
+aritmetică cu pointeri|operates_on|pointer|lab05#aritmetica_cu_pointeri|source_explicit
+echivalența dintre vector și pointer|requires|aritmetică cu pointeri|lab05#pointeri_la_tablouri|source_explicit
+echivalența dintre vector și pointer|requires|vector|lab05#pointeri_la_tablouri|source_explicit
+echivalența dintre vector și pointer|requires|indice|lab05#pointeri_la_tablouri|source_explicit
+pointer constant|part_of|echivalența dintre vector și pointer|lab05#pointeri_la_tablouri|source_explicit
+pointer constant|is_a|pointer||editorial
+indirectare|alternative_to|indice|lab05#pointeri_la_tablouri|source_explicit
+indirectare|uses|operatorul de dereferențiere||editorial
+indirectare|requires|aritmetică cu pointeri||editorial
+sizeof pentru vector și pointer|part_of|echivalența dintre vector și pointer|lab05#pointeri_la_tablouri|source_explicit
+sizeof pentru vector și pointer|requires|sizeof|lab05#pointeri_la_tablouri|source_explicit
+sizeof pentru vector și pointer|uses|dimensiunea unui pointer|lab05#pointeri_la_tablouri|source_explicit
+pointer la pointer|is_a|pointer|lab05#notiunea_de_pointer|source_explicit
+pointer la pointer|requires|pointer||editorial
+parametru de tip pointer|requires|pointer|lab05#pointeri_in_functii|source_explicit
+parametru de tip pointer|requires|parametru|lab05#pointeri_in_functii|source_explicit
+parametru de tip pointer|requires|apel prin valoare||editorial
+parametru de tip pointer|uses|operatorul de referențiere|lab05#pointeri_in_functii|source_explicit
+parametru de tip pointer|uses|operatorul de dereferențiere|lab05#pointeri_in_functii|source_explicit
+parametru de tip pointer|alternative_to|apel prin valoare||editorial
+parametru de tip pointer|requires|funcție||editorial
+interschimbare prin pointeri|uses|parametru de tip pointer|lab05#lab-exercitii|source_explicit
+interschimbare prin pointeri|requires|parametru de tip pointer||editorial
+scanf|uses|parametru de tip pointer||editorial
+pointer returnat de funcție|requires|funcție|lab05#pointeri_in_functii|source_explicit
+pointer returnat de funcție|requires|return||editorial
+pointer returnat de funcție|causes|dangling pointer|lab05#pointeri_in_functii|source_explicit
+dangling pointer|is_a|pointer||editorial
+dangling pointer|requires|stivă||editorial
+dangling pointer|causes|segmentation fault||editorial
+dangling pointer|requires|free||editorial
+valgrind|detects|dangling pointer||editorial
+pointer la funcție|is_a|pointer|lab05#notiunea_de_pointer|source_explicit
+pointer la funcție|requires|funcție|lab05#studiu_de_caz|source_explicit
+pointer la funcție|requires|pointer||editorial
+pointer la funcție|requires|parametru|lab05#studiu_de_caz|source_explicit
+numele funcției ca pointer|part_of|pointer la funcție|lab05#studiu_de_caz|source_explicit
+apelarea unei funcții fără paranteze|requires|numele funcției ca pointer|lab05#studiu_de_caz|source_explicit
+-Wall|detects|apelarea unei funcții fără paranteze||editorial
+expresii complexe cu pointeri|requires|pointer la funcție|lab05#studiu_de_caz|source_explicit
+expresii complexe cu pointeri|requires|pointer la pointer|lab05#studiu_de_caz|source_explicit
+expresii complexe cu pointeri|requires|operator|lab05#studiu_de_caz|source_explicit
+const|operates_on|pointer|lab05#lab-exercitii|source_explicit
+const|requires|pointer||editorial
+endianness|requires|reinterpretarea datelor din memorie||editorial
+endianness|requires|cast||editorial
+funcție generică cu void *|uses|pointer la void|lab05#lab-exercitii|source_explicit
+funcție generică cu void *|uses|sizeof|lab05#lab-exercitii|source_explicit
+funcție generică cu void *|requires|cast||editorial
+funcție generică cu void *|uses|const|lab05#lab-exercitii|source_explicit
+alocare dinamică|requires|pointer|lab05#operatorul_de_dereferentiere|source_explicit
+alocare dinamică|requires|sizeof|lab06#alocarea_memoriei|source_explicit
+alocare dinamică|requires|pointer la void|lab06#alocarea_memoriei|source_explicit
+alocare dinamică|uses|heap|lab06#studiu_de_caz|source_explicit
+alocare dinamică|alternative_to|alocare statică|lab06#studiu_de_caz|source_explicit
+alocare dinamică|alternative_to|alocare automată|lab06#studiu_de_caz|source_explicit
+malloc|part_of|alocare dinamică|lab06#functii_de_alocare_si_eliberare_a_memoriei|source_explicit
+calloc|part_of|alocare dinamică|lab06#functii_de_alocare_si_eliberare_a_memoriei|source_explicit
+realloc|part_of|alocare dinamică|lab06#functii_de_alocare_si_eliberare_a_memoriei|source_explicit
+free|part_of|alocare dinamică|lab06#functii_de_alocare_si_eliberare_a_memoriei|source_explicit
+malloc|declared_in|stdlib.h|lab06#functii_de_alocare_si_eliberare_a_memoriei|source_explicit
+calloc|declared_in|stdlib.h|lab06#functii_de_alocare_si_eliberare_a_memoriei|source_explicit
+realloc|declared_in|stdlib.h|lab06#functii_de_alocare_si_eliberare_a_memoriei|source_explicit
+free|declared_in|stdlib.h|lab06#functii_de_alocare_si_eliberare_a_memoriei|source_explicit
+stdlib.h|is_a|fișier antet|lab06#functii_de_alocare_si_eliberare_a_memoriei|source_explicit
+stdlib.h|requires|#include||editorial
+malloc|returns|pointer la void|lab06#alocarea_memoriei|source_explicit
+calloc|returns|pointer la void|lab06#alocarea_memoriei|source_explicit
+realloc|returns|pointer la void|lab06#alocarea_memoriei|source_explicit
+malloc|returns|NULL|lab06#alocarea_memoriei|source_explicit
+calloc|returns|NULL|lab06#alocarea_memoriei|source_explicit
+realloc|returns|NULL|lab06#exemplu1|source_explicit
+malloc|uses|size_t|lab06#functii_de_alocare_si_eliberare_a_memoriei|source_explicit
+calloc|uses|size_t|lab06#functii_de_alocare_si_eliberare_a_memoriei|source_explicit
+size_t|is_a|unsigned||editorial
+size_t|is_a|tip de date||editorial
+calloc|alternative_to|malloc|lab06#exemplu1|source_explicit
+calloc|prevents|overflow la calculul dimensiunii|lab06#exemplu1|source_explicit
+realloc|requires|malloc|lab06#exemplu1|source_explicit
+realloc|uses|free|lab06#exemplu1|source_explicit
+free|pairs_with|malloc|lab06#eliberarea_memoriei|source_explicit
+free|pairs_with|calloc|lab06#eliberarea_memoriei|source_explicit
+free|pairs_with|realloc|lab06#eliberarea_memoriei|source_explicit
+free|requires|alocare dinamică|lab06#eliberarea_memoriei|source_explicit
+free|operates_on|heap|lab06#studiu_de_caz|source_explicit
+dimensiune în octeți la alocare|uses|sizeof|lab06#exemplu|source_explicit
+dimensiune în octeți la alocare|part_of|alocare dinamică||editorial
+malloc|requires|dimensiune în octeți la alocare|lab06#exemplu|source_explicit
+overflow la calculul dimensiunii|requires|dimensiune în octeți la alocare|lab06#exemplu1|source_explicit
+verificarea rezultatului alocării|uses|NULL|lab06#practici_recomandate|source_explicit
+verificarea rezultatului alocării|pairs_with|malloc|lab06#practici_recomandate|source_explicit
+verificarea rezultatului alocării|uses|if|lab06#exemplu2|source_explicit
+realocare prin pointer auxiliar|uses|realloc|lab06#exemplu1|source_explicit
+realocare prin pointer auxiliar|prevents|memory leak||editorial
+realocare prin pointer auxiliar|requires|verificarea rezultatului alocării||editorial
+memory leak|requires|alocare dinamică|lab06#practici_recomandate|source_explicit
+eliberarea memoriei alocate dinamic|prevents|memory leak|lab06#practici_recomandate|source_explicit
+eliberarea memoriei alocate dinamic|uses|free|lab06#practici_recomandate|source_explicit
+valgrind|detects|memory leak|lab08#lab-exercitii|source_explicit
+free|causes|dangling pointer||editorial
+formatarea declarațiilor de pointeri|part_of|coding style|lab06#practici_recomandate|source_explicit
+formatarea declarațiilor de pointeri|operates_on|declarația unui pointer|lab05#particularitati|source_explicit
+vector alocat dinamic|requires|alocare dinamică|lab06#vectori_alocati_dinamic|source_explicit
+vector alocat dinamic|requires|vector|lab06#vectori_alocati_dinamic|source_explicit
+vector alocat dinamic|uses|malloc|lab06#exemplu2|source_explicit
+vector alocat dinamic|uses|calloc|lab06#exemplu2|source_explicit
+vector alocat dinamic|requires|echivalența dintre vector și pointer|lab05#pointeri_la_tablouri|source_explicit
+vector alocat dinamic|alternative_to|vector|lab06#vectori_alocati_dinamic|source_explicit
+vector extensibil|is_a|vector alocat dinamic|lab06#exemplu2|source_explicit
+vector extensibil|uses|realloc|lab06#exemplu2|source_explicit
+vector extensibil|requires|realocare prin pointer auxiliar||editorial
+dublarea capacității|part_of|vector extensibil|lab06#problemset|source_explicit
+matrice alocată dinamic|requires|pointer la pointer|lab06#matrice_alocate_dinamic|source_explicit
+matrice alocată dinamic|requires|vector de pointeri|lab06#matrice_alocate_dinamic|source_explicit
+matrice alocată dinamic|requires|matrice||editorial
+matrice alocată dinamic|requires|vector alocat dinamic||editorial
+matrice alocată dinamic|uses|calloc|lab06#exemplu3|source_explicit
+matrice alocată dinamic|uses|malloc|lab06#exemplu3|source_explicit
+matrice alocată dinamic|requires|aritmetică cu pointeri|lab06#matrice_alocate_dinamic|source_explicit
+vector de pointeri|is_a|vector||editorial
+vector de pointeri|requires|pointer||editorial
+matrice cu linii de lungimi diferite|is_a|matrice alocată dinamic|lab06#matrice_alocate_dinamic|source_explicit
+vector de vectori|alternative_to|matrice alocată dinamic|lab06#exemplu3|source_explicit
+vector de vectori|requires|matrice||editorial
+matrice stocată contiguu|alternative_to|matrice alocată dinamic|lab06#problemset|source_explicit
+matrice stocată contiguu|uses|malloc||editorial
+matrice stocată contiguu|requires|indice||editorial
+eliberarea unei matrice|part_of|matrice alocată dinamic|lab06#exemplu3|source_explicit
+eliberarea unei matrice|uses|free|lab06#exemplu3|source_explicit
+eliberarea unei matrice|prevents|memory leak||editorial
+separarea alocării de citire|operates_on|matrice alocată dinamic|lab06#observatie|source_explicit
+separarea alocării de citire|requires|funcție||editorial
+heap|alternative_to|stivă|lab06#studiu_de_caz|source_explicit
+alocare automată|uses|stivă|lab06#studiu_de_caz|source_explicit
+stivă|requires|funcție|lab06#studiu_de_caz|source_explicit
+recursivitate|uses|stivă|lab06#studiu_de_caz|source_explicit
+alocare statică|uses|static|lab06#studiu_de_caz|source_explicit
+register|alternative_to|alocare automată|lab06#studiu_de_caz|source_explicit
+șir de caractere|is_a|vector|lab07#siruri_de_caractere|source_explicit
+șir de caractere|requires|char|lab07#siruri_de_caractere|source_explicit
+șir de caractere|requires|vector|lab07#siruri_de_caractere|source_explicit
+șir de caractere|requires|terminator de șir|lab07#siruri_de_caractere|source_explicit
+șir de caractere|requires|echivalența dintre vector și pointer|lab07#siruri_de_caractere|source_explicit
+terminator de șir|part_of|șir de caractere|lab07#siruri_de_caractere|source_explicit
+spațiu pentru terminator|prevents|buffer overflow||editorial
+spațiu pentru terminator|requires|terminator de șir|lab07#siruri_de_caractere|source_explicit
+spațiu pentru terminator|uses|strlen|lab06#exemple_de_programe|source_explicit
+șir literal|is_a|șir de caractere|lab07#siruri_de_caractere|source_explicit
+modificarea unui șir literal|requires|șir literal|lab07#siruri_de_caractere|source_explicit
+modificarea unui șir literal|causes|segmentation fault|lab07#siruri_de_caractere|source_explicit
+%s|is_a|specificator de format||editorial
+%s|operates_on|șir de caractere|lab07#siruri_de_caractere|source_explicit
+%s|pairs_with|printf|lab07#siruri_de_caractere|source_explicit
+%s|pairs_with|scanf|lab07#siruri_de_caractere|source_explicit
+gets|declared_in|stdio.h|lab07#siruri_de_caractere|source_explicit
+puts|declared_in|stdio.h|lab07#siruri_de_caractere|source_explicit
+fgets|declared_in|stdio.h||editorial
+fputs|declared_in|stdio.h||editorial
+gets|causes|buffer overflow|lab07#siruri_de_caractere|source_explicit
+fgets|alternative_to|gets|lab07#siruri_de_caractere|source_explicit
+fgets|prevents|buffer overflow|lab07#lab-exercitii|source_explicit
+fgets|operates_on|șir de caractere|lab07#siruri_de_caractere|source_explicit
+puts|pairs_with|gets|lab07#siruri_de_caractere|source_explicit
+fputs|pairs_with|fgets|lab06#exemple_de_programe|source_explicit
+puts|requires|terminator de șir|lab07#siruri_de_caractere|source_explicit
+buffer overflow|is_a|depășirea limitelor tabloului||editorial
+valgrind|detects|buffer overflow||editorial
+string.h|is_a|fișier antet|lab07#functii_din_stringh|source_explicit
+strlen|declared_in|string.h|lab07#functii_din_stringh|source_explicit
+strcpy|declared_in|string.h|lab07#functii_din_stringh|source_explicit
+strncpy|declared_in|string.h|lab07#functii_din_stringh|source_explicit
+strcat|declared_in|string.h|lab07#functii_din_stringh|source_explicit
+strncat|declared_in|string.h|lab07#functii_din_stringh|source_explicit
+strcmp|declared_in|string.h|lab07#functii_din_stringh|source_explicit
+strchr|declared_in|string.h|lab07#functii_din_stringh|source_explicit
+strrchr|declared_in|string.h|lab07#functii_din_stringh|source_explicit
+strstr|declared_in|string.h|lab07#functii_din_stringh|source_explicit
+strtok|declared_in|string.h|lab07#functii_din_stringh|source_explicit
+strdup|declared_in|string.h|lab07#functii_din_stringh|source_explicit
+memset|declared_in|string.h|lab07#functii_din_stringh|source_explicit
+memcpy|declared_in|string.h|lab07#functii_din_stringh|source_explicit
+memmove|declared_in|string.h|lab07#functii_din_stringh|source_explicit
+strlen|requires|terminator de șir|lab07#strlen|source_explicit
+strlen|returns|size_t|lab07#strlen|source_explicit
+strlen|operates_on|șir de caractere|lab07#strlen|source_explicit
+strcpy|requires|terminator de șir|lab07#strcpy|source_explicit
+strcpy|causes|buffer overflow||editorial
+strcpy|requires|șir de caractere||editorial
+strncpy|alternative_to|strcpy|lab07#strncpy|source_explicit
+strcat|causes|buffer overflow|lab07#strcat|source_explicit
+strcat|requires|șir de caractere||editorial
+strncat|alternative_to|strcat|lab07#strncat|source_explicit
+strcmp|uses|ordine lexicografică|lab07#strcmp|source_explicit
+strcmp|requires|șir de caractere||editorial
+strcmp|returns|int|lab07#strcmp|source_explicit
+strchr|returns|NULL|lab07#strchr|source_explicit
+strrchr|alternative_to|strchr|lab07#strrchr|source_explicit
+strstr|returns|NULL|lab07#strstr|source_explicit
+strchr|returns|pointer|lab07#strchr|source_explicit
+strstr|returns|pointer|lab07#strstr|source_explicit
+strtok|uses|token|lab07#strtok|source_explicit
+strtok|uses|NULL|lab07#strtok|source_explicit
+strtok|requires|while||editorial
+strdup|uses|malloc|lab06#exemple_de_programe|source_explicit
+strdup|uses|strcpy|lab06#exemple_de_programe|source_explicit
+strdup|pairs_with|free|lab07#strdup|source_explicit
+strdup|causes|memory leak||editorial
+memcpy|operates_on|pointer la void|lab07#memcpy|source_explicit
+memset|operates_on|pointer la void|lab07#memset|source_explicit
+memmove|alternative_to|memcpy|lab07#memmove|source_explicit
+memmove|operates_on|zone de memorie suprapuse|lab07#memmove|source_explicit
+memcpy|requires|sizeof||editorial
+memset|requires|dimensiune în octeți la alocare||editorial
+vector de pointeri la șiruri|is_a|vector de pointeri|lab06#exemple_de_programe|source_explicit
+vector de pointeri la șiruri|uses|strcmp|lab06#exemple_de_programe|source_explicit
+vector de pointeri la șiruri|uses|malloc|lab06#exemple_de_programe|source_explicit
+vector de pointeri la șiruri|requires|șir de caractere||editorial
+ctype.h|is_a|fișier antet|lab07#problemset|source_explicit
+tolower|declared_in|ctype.h|lab07#problemset|source_explicit
+toupper|declared_in|ctype.h|lab07#problemset|source_explicit
+islower|declared_in|ctype.h|lab07#problemset|source_explicit
+isupper|declared_in|ctype.h|lab07#problemset|source_explicit
+tolower|pairs_with|isupper||editorial
+toupper|pairs_with|islower||editorial
+tolower|operates_on|char||editorial
+toupper|alternative_to|operator pe biți|lab07#problemset|source_explicit
+structură|is_a|tip de date|lab08#structuri|source_explicit
+structură|requires|tip de date|lab08#structuri|source_explicit
+structură|requires|variabilă|lab08#structuri|source_explicit
+structură|alternative_to|vector|lab08#structuri|source_explicit
+câmp|part_of|structură|lab08#structuri|source_explicit
+câmp|part_of|uniune|lab08#uniuni|source_explicit
+operatorul de acces la membru|is_a|operator|lab08#structuri|source_explicit
+operatorul de acces la membru|operates_on|structură|lab08#structuri|source_explicit
+operatorul de acces la membru|requires|câmp||editorial
+operatorul săgeată|is_a|operator|lab08#structuri|source_explicit
+operatorul săgeată|operates_on|pointer la structură|lab08#structuri|source_explicit
+operatorul săgeată|alternative_to|operatorul de dereferențiere|lab08#structuri|source_explicit
+operatorul săgeată|requires|operatorul de acces la membru|lab08#structuri|source_explicit
+pointer la structură|is_a|pointer||editorial
+pointer la structură|requires|structură||editorial
+pointer la structură|uses|malloc|lab08#structuri|source_explicit
+pointer la structură|uses|sizeof|lab08#structuri|source_explicit
+typedef|operates_on|structură|lab08#structuri|source_explicit
+typedef|operates_on|uniune|lab08#uniuni|source_explicit
+typedef|operates_on|enumerare||editorial
+typedef|requires|tip de date||editorial
+eticheta structurii|part_of|structură|lab08#structuri|source_explicit
+eticheta structurii|pairs_with|typedef|lab08#structuri|source_explicit
+inițializarea structurilor|requires|structură|lab08#structuri|source_explicit
+atribuirea structurilor|requires|structură|lab08#structuri|source_explicit
+atribuirea structurilor|causes|copiere superficială|lab08#diferenta_dintre_copierea_structurilor_si_copierea_pointerilor|source_explicit
+copiere superficială|requires|pointer|lab08#diferenta_dintre_copierea_structurilor_si_copierea_pointerilor|source_explicit
+copiere profundă|prevents|copiere superficială|lab08#lab-exercitii|source_explicit
+copiere profundă|uses|strdup||editorial
+copiere profundă|uses|malloc||editorial
+copiere profundă|requires|câmp pointer alocat dinamic|lab08#lab-exercitii|source_explicit
+vector de structuri|requires|structură|lab08#structuri|source_explicit
+vector de structuri|requires|vector|lab08#structuri|source_explicit
+câmp pointer alocat dinamic|requires|alocare dinamică|lab08#lab-exercitii|source_explicit
+câmp pointer alocat dinamic|requires|pointer la structură||editorial
+câmp pointer alocat dinamic|pairs_with|free|lab08#lab-exercitii|source_explicit
+câmp pointer alocat dinamic|causes|memory leak|lab08#lab-exercitii|source_explicit
+uniune|is_a|tip de date|lab08#uniuni|source_explicit
+uniune|alternative_to|structură|lab08#uniuni|source_explicit
+uniune|requires|structură|lab08#uniuni|source_explicit
+citirea greșită a unei uniuni|requires|uniune|lab08#uniuni|source_explicit
+structuri imbricate|requires|structură|lab08#uniuni|source_explicit
+structuri imbricate|uses|uniune|lab08#uniuni|source_explicit
+enumerare|is_a|tip de date|lab08#exercitii|source_explicit
+enumerare|requires|int||editorial
+listă înlănțuită|uses|nod|lab08#problemset|source_explicit
+listă înlănțuită|alternative_to|vector alocat dinamic|lab08#problemset|source_explicit
+listă înlănțuită|uses|NULL|lab08#problemset|source_explicit
+listă înlănțuită|requires|pointer la structură||editorial
+listă înlănțuită|requires|alocare dinamică||editorial
+listă înlănțuită|prevents|fragmentarea memoriei|lab08#problemset|source_explicit
+nod|is_a|structură|lab08#problemset|source_explicit
+nod|uses|typedef|lab08#problemset|source_explicit
+matrice rară|uses|structură|lab08#problemset|source_explicit
+matrice rară|requires|vector de structuri||editorial
+fragmentarea memoriei|operates_on|heap||editorial

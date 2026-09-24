@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}{{ c.label }}{% endblock %}
+{% block content %}
+<div class="termhead">
+  <div>
+    <div class="kicker">{{ c.kind }}{% if unit %} · <a href="/capitol/{{ unit.id }}/">{{ unit.icon }} {{ unit.title }}</a>{% endif %}</div>
+    <h1>{% if c.kind in "funcție de bibliotecă cuvânt cheie tip de date fișier antet directivă preprocesor specificator de format opțiune de compilare" %}<code>{{ c.label }}</code>{% else %}{{ c.label }}{% endif %}</h1>
+    <span class="badge l{{ c.level }}">nivel {{ c.level }} · {{ level_name }}</span>
+    {% if c.origin == "claude" %}<span class="badge added">adăugat de utilizator · generat de AI · neverificat</span>{% elif c.edited %}<span class="badge edited">editat</span>{% endif %}
+    {% if c.aliases %}<div class="aka">Alte forme: {{ c.aliases|join:", " }}</div>{% endif %}
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    {% if man %}<a class="btn" href="/man/{{ man.id }}/"><code>man {{ man.section }} {{ man.name }}</code></a>{% endif %}
+    <a class="btn" href="/intrebari/?concept={{ c.id }}">Testează-te</a>
+    {% if AUTHOR %}
+      <form method="post" action="/termen/{{ c.id }}/nivel/" style="display:inline-flex;gap:2px">{% csrf_token %}{% for l in "123" %}<button class="btn small{% if c.level|stringformat:'s' == l %} primary{% endif %}" name="level" value="{{ l }}">{{ l }}</button>{% endfor %}</form>
+      <a class="btn" href="/termen/{{ c.id }}/editeaza/">Editează</a>
+    {% endif %}
+    {% if c.new %}<form method="post" action="/termen/{{ c.id }}/sterge/" onsubmit="return confirm('Ștergi acest concept?')">{% csrf_token %}<button class="btn ghost">Șterge</button></form>{% endif %}
+  </div>
+</div>
+
+{% if c.origin == "claude" %}
+<div class="banner-added">Acest termen a fost adăugat prin „Explică”, cu un model AI ({{ c.edit.model }}). Definiția nu a fost verificată de profesor — compar-o cu laboratorul și cu documentația.
+  {% if c.edit.selection %}<div class="quote small" style="margin-top:8px">Selecția: „<mark>{{ c.edit.selection }}</mark>” — {{ c.edit.passage|truncatechars:300 }}</div>{% endif %}
+</div>
+{% endif %}
+
+<p class="bigdef">{{ definition_html }}</p>
+{% if c.review_status == "editorial" %}<p class="muted small">Concept adăugat editorial pentru problemele săptămânii: nu e tratat explicit în textul laboratorului. Definiția urmează documentația standard C.</p>{% else %}<p class="muted small">Definiția este o reformulare scurtă, verificată față de secțiunea citată din laborator — nu o validare independentă.</p>{% endif %}
+{% if c.origin == "claude" and c.edit.explanation %}<div class="card" style="white-space:pre-wrap">{{ c.edit.explanation }}</div>{% endif %}
+
+<div class="grid g2" style="margin-top:18px">
+  <div class="card">
+    <h2>În laborator</h2>
+    {% if defs.first %}
+      <div class="kicker">Prima definiție</div>
+      <div class="quote">{{ defs.first.html }}</div>
+      <div class="small muted">{{ defs.first.unit_obj.short }} · {{ defs.first.section_title }} · <a href="/carte/{{ defs.first.unit }}/?t={{ c.id }}#b{{ defs.first.block }}">Citește în context →</a></div>
+    {% else %}
+      {% if evidence %}<p class="small">Secțiunea de referință: {% for e in evidence %}<a href="/carte/{{ e.unit }}/?t={{ c.id }}#s-{{ e.sec }}">{{ e.u.short }} · {{ e.title }}</a>{% if not forloop.last %}; {% endif %}{% endfor %}</p>{% endif %}
+    {% endif %}
+    {% if defs.extended %}
+      <div class="kicker" style="margin-top:12px">Tratat pe larg</div>
+      <div class="quote">{{ defs.extended.html }}</div>
+      <div class="small muted">{{ defs.extended.unit_obj.short }} · {{ defs.extended.section_title }} · <a href="/carte/{{ defs.extended.unit }}/?t={{ c.id }}#b{{ defs.extended.block }}">Citește →</a></div>
+    {% endif %}
+    {% if dedicated %}
+      <div class="kicker" style="margin-top:12px">Secțiuni dedicate</div>
+      <ul class="small">{% for d in dedicated %}<li><a href="/carte/{{ d.unit }}/#s-{{ d.sec }}">{{ d.u.short }} · {{ d.title }}</a></li>{% endfor %}</ul>
+    {% endif %}
+    {% if defs.other %}
+      <details class="rdet small"><summary>Alte locuri unde e explicat ({{ defs.other|length }})</summary>
+        {% for d in defs.other %}<div class="quote">{{ d.html }}<div class="muted"><a href="/carte/{{ d.unit }}/?t={{ c.id }}#b{{ d.block }}">{{ d.unit_obj.short }} · {{ d.section_title }}</a></div></div>{% endfor %}
+      </details>
+    {% endif %}
+    {% if mentions %}
+      <div class="kicker" style="margin-top:12px">Apariții</div>
+      <p class="small">{% for m in mentions %}<a href="/carte/{{ m.unit }}/?t={{ c.id }}">{{ m.u.icon }} {{ m.u.short|default:m.unit }}</a> <span class="muted">({{ m.count }})</span>{% if not forloop.last %} · {% endif %}{% endfor %}</p>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+      <h2 style="margin:0">Legături</h2>
+      <span class="levelfilter"><button data-lf="1" type="button">bază</button><button data-lf="2" type="button">+ aprofundare</button><button data-lf="3" type="button">+ detaliu</button></span>
+    </div>
+    {% if prereqs %}<div class="kicker" style="margin-top:12px">Presupune cunoașterea</div><ul class="tlist">{% for p in prereqs %}<li><a class="tl l{{ p.level }}" href="/termen/{{ p.id }}/" data-t="{{ p.id }}">{{ p.label }}</a></li>{% endfor %}</ul>{% endif %}
+    {% if related %}<div class="kicker" style="margin-top:12px">Termeni legați</div><ul class="tlist">{% for r in related %}<li><a class="tl l{{ r.level }}{% if r.origin == 'claude' %} added{% endif %}" href="/termen/{{ r.id }}/" data-t="{{ r.id }}">{{ r.label }}</a></li>{% endfor %}</ul>{% endif %}
+    {% if tree %}
+      <div class="kicker" style="margin-top:12px">Structură</div>
+      <ul class="tree">{% for n in tree %}{% include "glosar/_tree.html" with n=n %}{% endfor %}</ul>
+    {% endif %}
+    {% if parent or kids %}
+      <div class="kicker" style="margin-top:12px">Arborele de învățare</div>
+      <p class="small">{% if parent %}Sub <a href="/termen/{{ parent.id }}/">{{ parent.label }}</a>. {% endif %}{% if kids %}Conține: {% for k in kids %}<a href="/termen/{{ k.id }}/">{{ k.label }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}.{% endif %}</p>
+    {% endif %}
+    {% if rels %}
+      <details class="rdet" open><summary>Relații ({{ rels|length }})</summary>
+      <ul class="rels small">
+        {% for r in rels %}{% if not r.hidden %}
+        <li>{% if r.dir == "out" %}<b>{{ c.label }}</b> <span class="verb">{{ r.verb }}</span> <a class="tl l{{ r.other.level }}" href="/termen/{{ r.other.id }}/" data-t="{{ r.other.id }}">{{ r.other.label }}</a>{% else %}<b>{{ c.label }}</b> <span class="verb">{{ r.verb }}</span> <a class="tl l{{ r.other.level }}" href="/termen/{{ r.other.id }}/" data-t="{{ r.other.id }}">{{ r.other.label }}</a>{% endif %}
+          {% if r.unit %}<a class="ev" href="/carte/{{ r.unit }}/#s-{{ r.sec }}">[{{ r.unit }}]</a>{% elif r.added %}<span class="badge">adăugat</span>{% else %}<span class="muted ev">(editorial)</span>{% endif %}
+        </li>
+        {% endif %}{% endfor %}
+      </ul></details>
+    {% endif %}
+  </div>
+</div>
+
+{% if problems or problems_lab %}
+<div class="card" style="margin-top:16px">
+  <h2>Exersează</h2>
+  <ul class="plist">
+  {% for p in problems %}<li><span class="pnum">{{ p.number }}</span><span><a class="ptitle" href="/problema/{{ p.id }}/">{{ p.title }}</a><div class="pmeta">{{ p.unit }}</div></span><span class="diff">{% for i in "12345" %}{% if forloop.counter <= p.difficulty %}●{% else %}○{% endif %}{% endfor %}</span></li>{% endfor %}
+  {% for p in problems_lab|slice:":6" %}<li><span class="pnum">{{ p.number }}</span><span><a href="/problema/{{ p.id }}/">{{ p.title }}</a><div class="pmeta">{{ p.unit }} · {{ p.source }}</div></span><span></span></li>{% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+{% if man %}
+<div class="card" style="margin-top:16px">
+  <div class="kicker">Din manual — <code>{{ man.command }}</code></div>
+  <p><b>{{ man.summary }}</b></p>
+  {% for s in man.sections %}{% if s.id == "synopsis" %}<div class="man">{{ s.html|safe }}</div>{% endif %}{% endfor %}
+  <a href="/man/{{ man.id }}/">Pagina completă de manual →</a>
+</div>
+{% endif %}
+{% endblock %}

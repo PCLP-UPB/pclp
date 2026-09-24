@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Manualul C{% endblock %}
+{% block content %}
+<h1>Manualul C (man pages)</h1>
+<p>Paginile de manual din Linux (<em>man-pages</em>, în engleză) pentru funcțiile, fișierele antet și uneltele folosite la curs.
+Sunt aceleași pagini pe care le deschizi în terminal cu <code>man 3 printf</code>. Identificatorii C din text sunt legați de conceptele cursului.
+Ghidul <a href="/carte/read-docs/">Citirea documentației</a> explică cum să citești o pagină de manual.</p>
+<div class="card" style="margin:14px 0"><b>Cum citești o pagină de manual:</b> începe cu <b>SYNOPSIS</b> (ce <code>#include</code> îți trebuie și semnătura), apoi <b>RETURN VALUE</b> (ce întoarce funcția și cum semnalează erorile), apoi <b>DESCRIPTION</b>. Secțiunea <b>EXAMPLES</b> are adesea un program complet.</div>
+{% for title, pages in groups %}
+<h2>{{ title }}</h2>
+<ul class="az" style="columns:2 360px;list-style:none;padding:0">
+  {% for p in pages %}<li style="break-inside:avoid;padding:3px 0"><a href="/man/{{ p.id }}/"><code>{{ p.name }}({{ p.section }})</code></a> <span class="muted small">{{ p.summary|cut:p.name|truncatechars:80 }}</span></li>{% endfor %}
+</ul>
+{% empty %}
+<p class="muted">Paginile de manual se generează la construirea imaginii Docker (au nevoie de <code>mandoc</code>). În terminal poți folosi oricând <code>man 3 &lt;funcție&gt;</code>.</p>
+{% endfor %}
+{% endblock %}

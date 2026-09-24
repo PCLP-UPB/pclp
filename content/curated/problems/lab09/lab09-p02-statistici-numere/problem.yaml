@@ -1,0 +1,62 @@
+id: lab09-p02-statistici-numere
+lab: lab09
+number: 2
+title: "Statistici pentru numerele dintr-un fișier"
+difficulty: 1
+estimated_minutes: 20
+concepts: [fișier text, fopen, fscanf, fclose, feof, verificarea deschiderii fișierului]
+statement: |
+  Fișierul text `numere.txt` din directorul curent conține un număr **necunoscut** de numere
+  întregi (tip `int`), separate prin spații albe (spații, tab-uri, linii noi — oricâte).
+  Scrie un program care citește toate numerele din fișier și afișează câte sunt,
+  suma, minimul, maximul și media lor aritmetică.
+
+  **Date de intrare**
+
+  Programul nu citește nimic de la tastatură; datele se află în fișierul `numere.txt`.
+
+  **Date de ieșire**
+
+  Dacă fișierul conține cel puțin un număr:
+  ```
+  numere: N
+  suma: S
+  minim: MIN
+  maxim: MAX
+  media: M
+  ```
+  unde media se afișează cu exact 2 zecimale (`%.2f`).
+
+  - Dacă fișierul nu conține niciun număr, se afișează `Fisierul nu contine numere`.
+  - Dacă fișierul nu poate fi deschis, se afișează `Eroare: nu pot deschide numere.txt`.
+
+  **Restricții**
+
+  - cel mult 10^6 numere, fiecare în intervalul tipului `int`;
+  - atenție: suma poate depăși domeniul lui `int`.
+
+  **Exemplu**
+
+  Fișierul `numere.txt`:
+  ```
+  4 -2 10
+  7
+  1
+  ```
+
+  Ieșire (stdout):
+  ```
+  numere: 5
+  suma: 20
+  minim: -2
+  maxim: 10
+  media: 4.00
+  ```
+hints:
+  - "Nu știi dinainte câte numere sunt, deci citirea trebuie să se oprească atunci când fscanf nu mai reușește să citească un număr."
+  - "fscanf întoarce numărul de valori citite cu succes. Folosește această valoare drept condiție a buclei. Minimul și maximul se inițializează cu primul număr citit."
+  - "Pseudocod: count = 0; cât timp fscanf(f, \"%d\", &x) == 1: dacă count == 0 sau x < min atunci min = x (analog max); sum += x (sum de tip long long); count++. La final, media = (double)sum / count."
+pitfalls:
+  - "Bucla while (!feof(f)) { fscanf(...); ... } procesează de două ori ultima valoare (sau o valoare neinițializată), fiindcă feof devine adevărat abia DUPĂ o citire eșuată."
+  - "Media calculată ca sum / count cu operanzi întregi pierde zecimalele — convertește la double."
+  - "Suma a mai multor valori int mari depășește INT_MAX; folosește long long."

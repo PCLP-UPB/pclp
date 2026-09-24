@@ -1,0 +1,79 @@
+id: lab03-p09-forma-poloneza
+lab: lab03
+number: 9
+title: "Calculatorul în formă poloneză"
+difficulty: 4
+estimated_minutes: 45
+concepts: [recursivitate, getchar, funcție, switch, ordinea de evaluare]
+statement: |
+  În **forma poloneză** (prefixată), operatorul se scrie înaintea celor doi operanzi, iar
+  parantezele nu mai sunt necesare. De exemplu, `(2 + 3) * (10 - 4)` se scrie
+  `* + 2 3 - 10 4`. Definiția este recursivă: o expresie este fie un număr natural, fie
+  un operator urmat de **două expresii**.
+
+  Scrie un program care evaluează `n` expresii scrise în formă poloneză. Operatorii
+  posibili sunt `+`, `-`, `*` și `/` (împărțire întreagă, ca în C, cu
+  trunchiere spre 0: de exemplu `-13 / 3 = -4`). Rezolvă problema cu o
+  funcție recursivă care citește și evaluează o expresie, **fără vectori sau șiruri de
+  caractere** (citește caracter cu caracter).
+
+  **Date de intrare**
+
+  Pe prima linie, numărul `n`. Pe fiecare dintre următoarele `n` linii se află o
+  expresie: numere naturale și operatori, separați prin cel puțin un spațiu.
+
+  **Date de ieșire**
+
+  `n` linii, pe fiecare valoarea unei expresii.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100`
+  - fiecare expresie are cel mult 1000 de operatori; numerele din expresii sunt între 0 și 10^6
+  - nu apar împărțiri la 0, iar toate rezultatele intermediare sunt, în modul, cel mult `10^18`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4
+  * + 2 3 - 10 4
+  42
+  / - 7 20 3
+  + * 2    3   * 4 5
+  ```
+
+  Ieșire:
+  ```
+  30
+  42
+  -4
+  26
+  ```
+starter: |
+  #include <stdio.h>
+
+  /* citește și evaluează o expresie în formă poloneză */
+  long long evalueaza(void)
+  {
+  	/* TODO: sari peste spații; dacă urmează o cifră, citește numărul;
+  	 * altfel e un operator: evaluează doi operanzi și aplică operatorul */
+  }
+
+  int main(void)
+  {
+  	int n, i;
+
+  	scanf("%d", &n);
+  	for (i = 0; i < n; i++)
+  		printf("%lld\n", evalueaza());
+
+  	return 0;
+  }
+hints:
+  - "Urmează definiția: dacă primul simbol e un număr, expresia e chiar acel număr; dacă e un operator, după el vin exact două expresii, pe care le poți evalua cu aceeași funcție."
+  - "Cu getchar sari peste spații și linii noi. Dacă ai dat de o cifră, construiește numărul (numar = numar · 10 + cifra) cât timp urmează cifre; caracterul care oprește numărul e un separator și poate fi ignorat."
+  - "Evaluează operanzii în două instrucțiuni separate, salvând rezultatele în două variabile (întâi operandul stâng, apoi cel drept), și abia apoi aplică operatorul. Într-o singură expresie, ca evalueaza() - evalueaza(), C nu garantează care apel se face primul!"
+pitfalls:
+  - "Ordinea de evaluare a operanzilor unui operator aritmetic nu este specificată în C."
+  - "Numerele sunt naturale, deci '-' este întotdeauna operator."

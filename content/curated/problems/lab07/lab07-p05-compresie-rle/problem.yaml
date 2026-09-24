@@ -1,0 +1,65 @@
+id: lab07-p05-compresie-rle
+lab: lab07
+number: 5
+title: "Compresie pe secvențe"
+difficulty: 3
+estimated_minutes: 45
+concepts: [șir de caractere, strlen, malloc, spațiu pentru terminator, isdigit, sprintf]
+statement: |
+  Un protocol de transmisie comprimă textele astfel: fiecare secvență maximală de `L` caractere identice `c` se scrie `c` dacă `L = 1`, respectiv `<L>c` (numărul `L` în baza 10, urmat de caracter) dacă `L ≥ 2`. De exemplu, `aaabccccd` devine `3ab4cd`. Textele originale nu conțin cifre, deci codul se poate decoda fără ambiguitate.
+
+  Programul primește comenzi:
+
+  - `C <text>` — afișează textul comprimat, urmat de ` (<lungime originală> -> <lungime comprimată>)`;
+  - `D <cod>` — afișează textul decomprimat, sau `INVALID` dacă codul nu este valid.
+
+  Un cod este **valid** dacă poate fi obținut prin compresia unui text: fiecare număr începe cu o cifră nenulă, are valoarea cel puțin 2 și este urmat imediat de un caracter care nu este cifră. În plus, textul decomprimat nu poate avea mai mult de `100000` de caractere (altfel codul se consideră `INVALID`).
+
+  Rezultatele se construiesc în șiruri **alocate dinamic**, exact de lungimea necesară (plus terminatorul); pentru decompresie, calculați mai întâi lungimea rezultatului. Implementați și folosiți:
+
+  ```c
+  char *comprima(const char *s);
+  char *decomprima(const char *cod);    /* NULL daca e invalid */
+  ```
+
+  **Date de intrare**
+
+  Câte o comandă pe linie, până la sfârșitul fișierului: litera `C` sau `D`, un spațiu, apoi textul/codul (nevid, fără spații).
+
+  **Date de ieșire**
+
+  Câte o linie pentru fiecare comandă.
+
+  **Restricții**
+
+  - cel mult 1000 de comenzi; textele și codurile au cel mult 1000 de caractere ASCII afișabile, fără spații
+  - textele pentru `C` nu conțin cifre
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  C aaabccccd
+  D 3xy2z
+  C abc
+  D 1a
+  D 12
+  D 02b
+  ```
+
+  Ieșire:
+  ```
+  3ab4cd (9 -> 6)
+  xxxyzz
+  abc (3 -> 3)
+  INVALID
+  INVALID
+  INVALID
+  ```
+hints:
+  - "Compresia: găsește cu doi indici fiecare secvență de caractere identice. Rezultatul nu poate fi mai lung decât textul (o secvență de 2 caractere devine tot 2 caractere), deci `strlen(s) + 1` octeți ajung. `sprintf` returnează câte caractere a scris — util pentru a avansa în rezultat."
+  - "Decompresia în două treceri: prima parcurge codul, verifică regulile și adună lungimile (fără să scrie nimic); dacă e valid, aloci exact `lungime + 1` și faci a doua trecere care scrie caracterele. Poți folosi aceeași funcție pentru ambele treceri, cu un parametru destinație care poate fi `NULL`."
+  - "Construiește numărul cifră cu cifră (`nr = nr * 10 + (c - '0')`) și oprește-te cu INVALID imediat ce depășește 100000 — astfel nu ai depășiri de tip nici pentru numere cu 20 de cifre. Verifică: prima cifră nu e '0', nr ≥ 2, după număr nu urmează sfârșitul șirului."
+pitfalls:
+  - "Un număr foarte lung (de exemplu 20 de cifre) depășește `int` și `long` dacă nu te oprești la timp."
+  - "Nu uita `'\\0'` la finalul fiecărui rezultat și `free` după afișare."

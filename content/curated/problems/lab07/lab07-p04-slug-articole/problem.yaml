@@ -1,0 +1,61 @@
+id: lab07-p04-slug-articole
+lab: lab07
+number: 4
+title: "Adrese pentru articole"
+difficulty: 3
+estimated_minutes: 40
+concepts: [șir de caractere, strcpy, strcmp, strrchr, tolower, vector de pointeri la șiruri, spațiu pentru terminator]
+statement: |
+  Un blog generează automat adresa (slug-ul) fiecărui articol din titlul lui. Regulile:
+
+  1. se păstrează doar literele (transformate în litere mici) și cifrele;
+  2. orice secvență de alte caractere dintre două caractere păstrate devine **o singură** cratimă `-`; nu apar cratime la început sau la final;
+  3. dacă slug-ul are mai mult de 40 de caractere, se păstrează cel mult 40, tăind la o **graniță de cuvânt**: se păstrează cel mai lung prefix de cel mult 40 de caractere care se termină exact înaintea unei cratime; dacă nu există cratimă în primele 40 de caractere, se păstrează primele 40;
+  4. dacă slug-ul rezultat e vid, devine `articol`;
+  5. adresele trebuie să fie **unice**: dacă slug-ul a mai fost emis anterior, se încearcă pe rând `slug-2`, `slug-3`, ... și se alege primul care nu a fost emis.
+
+  Slug-urile emise se păstrează într-un vector de șiruri alocat dinamic (vector de pointeri, fiecare șir alocat exact cât îi trebuie). Implementați cel puțin:
+
+  ```c
+  void fa_slug(const char *titlu, char *slug);
+  ```
+
+  **Date de intrare**
+
+  Câte un titlu pe linie, până la sfârșitul fișierului. O linie poate fi și goală.
+
+  **Date de ieșire**
+
+  Pentru fiecare titlu, slug-ul final pe câte o linie.
+
+  **Restricții**
+
+  - cel mult 1000 de titluri, fiecare de cel mult 300 de caractere ASCII afișabile
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  Top 10 greseli in C (si cum le eviti)!
+     Pointeri & Memorie: ghid complet
+  Top 10 GRESELI in C
+  !!!
+  Un titlu foarte lung despre alocarea dinamica a memoriei in C
+  ```
+
+  Ieșire:
+  ```
+  top-10-greseli-in-c-si-cum-le-eviti
+  pointeri-memorie-ghid-complet
+  top-10-greseli-in-c
+  articol
+  un-titlu-foarte-lung-despre-alocarea
+  ```
+hints:
+  - "Nu scrie cratima imediat ce întâlnești un separator: ține minte doar că „a fost un separator” și scrie cratima abia când urmează un caracter păstrat (și doar dacă slug-ul nu e gol). Așa dispar cratimele duble și cele de la capete."
+  - "Pentru tăiere: dacă lungimea depășește 40, verifică dacă al 41-lea caracter e cratimă (atunci tai exact la 40); altfel pune `'\\0'` pe poziția 40 și caută ultima cratimă cu `strrchr` — acolo e ultima graniță de cuvânt."
+  - "Pentru unicitate, păstrează un vector `char **` crescut cu `realloc`; fiecare slug emis se copiază într-o zonă alocată cu `malloc(strlen(s) + 1)`. Candidatul `slug-k` se poate construi cu `sprintf`; verifici cu `strcmp` contra tuturor slug-urilor emise."
+pitfalls:
+  - "Dacă memorezi în vector adresa bufferului local `slug` în loc de o copie, toate intrările vor arăta ultimul slug."
+  - "`strdup` nu face parte din standardul C11; cu `gcc -std=c11` pe Linux nu este declarat. Scrie-ți propria funcție de copiere (atenție la `+1` pentru `'\\0'`)."
+  - "Fiecare copie alocată trebuie eliberată, apoi și vectorul de pointeri."

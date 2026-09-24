@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>PCLP Laborator07 - Problemset (extra) | PCLP - CA, CB, CD</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="PCLP Laborator07 - Problemset (extra)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="PCLP Laborator07: Problemset (extra)" />
+<meta property="og:description" content="PCLP Laborator07: Problemset (extra)" />
+<link rel="canonical" href="https://acs-pclp.github.io/problemset/07" />
+<meta property="og:url" content="https://acs-pclp.github.io/problemset/07" />
+<meta property="og:site_name" content="PCLP - CA, CB, CD" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-01-12T00:01:20+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="PCLP Laborator07 - Problemset (extra)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-01-12T00:01:20+00:00","datePublished":"2026-01-12T00:01:20+00:00","description":"PCLP Laborator07: Problemset (extra)","headline":"PCLP Laborator07 - Problemset (extra)","mainEntityOfPage":{"@type":"WebPage","@id":"https://acs-pclp.github.io/problemset/07"},"url":"https://acs-pclp.github.io/problemset/07"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://acs-pclp.github.io/feed.xml" title="PCLP - CA, CB, CD" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">PCLP - CA, CB, CD</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <h1 id="pclp-laborator07-problemset-extra">PCLP Laborator07: Problemset (extra)</h1>
+<p>Probleme extra propuse pentru <a href="https://acs-pclp.github.io/laboratoare/07">PCLP Laborator07</a>.</p>
+<ol>
+<li>
+<p>Implementați funcția <code>my_strcmpi(const char *s1, const char *s2)</code> care va întoarce:</p>
+<ul>
+<li><code>0</code> dacă cele două string-uri sunt egale;</li>
+<li><code>&lt; 0</code> dacă șirul de caractere <code>s1</code> se află înaintea lui <code>s2</code> în ordine lexicografică;</li>
+<li><code>&gt; 0</code> dacă șirul de caractere <code>s2</code> se află înaintea lui <code>s1</code> în ordine lexicografică.</li>
+</ul>
+<p>În cazul în care cere 2 șiruri au lungimi diferite, face comparația caracter cu caracter până la caracterul special '\0', inclusiv.</p>
+<p>Comparația se va face fără a ține cont de diferențele între literele mici și mari, iar implementarea se va face fără a folosi funcția <code>strlen</code> și/sau operatorul <code>[]</code>.</p>
+</li>
+<li>
+<p>Scrieți o funcție <code>void count_vowels(const char *s, int counts[])</code> care primește ca prim parametru un șir de caractere și întoarce (prin al 2-lea parametru) numărul de apariții al fiecărei vocale a limbii engleze.</p>
+<p>Numărarea nu va face diferență între literele mari sau cele mici.</p>
+<p>De exemplu, pentru șirul de intrare <code>&quot;Ana are mere.&quot;</code>, rezultatul va fi <code>{3, 3, 0, 0, 0}</code>, deoarece vocalele <code>a</code> și <code>e</code> apar de exact 3 ori fiecare, iar vocalele <code>i</code>, <code>o</code> și <code>u</code> nu apar deloc în text.</p>
+</li>
+<li>
+<p>Scrieți un program care citește linie cu linie perechi de câte 2 cuvinte, iar pentru fiecare pereche afișează textul <code>DA</code>, dacă cuvintele sunt unul anagrama celuilalt, respectiv <code>NU</code> în caz contrar.</p>
+<p>Citirea se va încheia atunci când de la tastatură se citește fie o linie goală, fie o linie care nu conține exact 2 cuvinte separate prin spațiu.</p>
+<p>Hint: Un cuvânt este anagrama unui alt cuvând dacă este format din exact aceleași litere, dar în altă ordine. Numărul de apariții al fiecărei litere trebuie să fie egal în ambele cuvinte.</p>
+</li>
+<li>
+<p>Să se scrie funcția: <code>char* case_reverse(char* string);</code></p>
+</li>
+</ol>
+<p>Funcția primește ca parametru un șir de caractere (<code>string</code>) și <strong>returnează un nou șir, alocat dinamic</strong>, în care:</p>
+<ul>
+<li>toate literele mici devin litere mari;</li>
+<li>toate literele mari devin litere mici;</li>
+<li>orice alte caractere (cifre, spații, semne de punctuație etc.) rămân nemodificate.</li>
+</ul>
+<blockquote>
+<p>Observație: Apelantul este responsabil să elibereze memoria alocată dinamic pentru șirul returnat.</p>
+</blockquote>
+<p><strong>a)</strong> Să se implementeze funcția <code>case_reverse</code> folosind funcțiile din <code>&lt;ctype.h&gt;</code> (de exemplu <code>islower</code>, <code>isupper</code>, <code>tolower</code>, <code>toupper</code>).</p>
+<p><strong>b)</strong> Să se rescrie funcția astfel încât <strong>schimbarea capitalizării</strong> să fie realizată <strong>doar folosind operații pe biți</strong> (de exemplu <code>&amp;</code>, <code>|</code>, <code>^</code>), fără a apela funcțiile din <code>&lt;ctype.h&gt;</code> pentru conversia între litere mici și mari. Se vor trata doar literele din alfabetul englez (<code>'A'</code>–<code>'Z'</code>, <code>'a'</code>–<code>'z'</code>).</p>
+<h3 id="exemplu">Exemplu</h3>
+<p>Pentru șirul de intrare:<br />
+<code>&quot;Abc DeF 123!&quot;</code></p>
+<p>un apel corect al funcției <code>case_reverse</code> trebuie să producă șirul:<br />
+<code>&quot;aBC dEf 123!&quot;</code></p>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">PCLP - CA, CB, CD</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">PCLP - CA, CB, CD</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>https://acs-pclp.github.io/</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

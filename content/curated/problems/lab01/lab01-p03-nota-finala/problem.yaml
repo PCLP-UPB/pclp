@@ -1,0 +1,55 @@
+id: lab01-p03-nota-finala
+lab: lab01
+number: 3
+title: "Nota finală la PCLP"
+difficulty: 2
+estimated_minutes: 15
+concepts: [scanf, printf, double, "%lf", precizie de afișare]
+statement: |
+  La o materie, nota finală se calculează ca medie ponderată: activitatea de laborator
+  contează 30%, lucrarea parțială 20%, iar examenul final 50%.
+
+  Scrie un program care citește cele trei note și afișează nota finală cu exact două
+  zecimale, precum și punctajul echivalent din 100 de puncte (nota înmulțită cu 10),
+  cu o zecimală.
+
+  **Date de intrare**
+
+  Pe o singură linie, trei numere reale `L P E`: nota de laborator, nota la parțial și
+  nota la examen.
+
+  **Date de ieșire**
+
+  Două linii:
+
+  ```
+  Nota finala: X.XX
+  Punctaj: Y.Y/100
+  ```
+
+  unde `X.XX = 0.3·L + 0.2·P + 0.5·E` afișat cu două zecimale, iar `Y.Y` este
+  `10 · X` afișat cu o zecimală.
+
+  **Restricții**
+
+  - `1 ≤ L, P, E ≤ 10`
+  - fiecare notă are cel mult o zecimală
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  7 8 9
+  ```
+
+  Ieșire:
+  ```
+  Nota finala: 8.20
+  Punctaj: 82.0/100
+  ```
+hints:
+  - "Notele pot avea zecimale, deci ai nevoie de un tip real; pentru double, specificatorul de citire este %lf."
+  - "Scrie ponderile ca numere reale (0.3, 0.2, 0.5). Ce se întâmplă dacă scrii 3 / 10?"
+  - "Pentru un număr fix de zecimale folosește precizia din specificator: %.2f pentru două zecimale, %.1f pentru una."
+pitfalls:
+  - "3 / 10 este 0 în C, pentru că ambii operanzi sunt întregi."

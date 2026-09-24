@@ -1,0 +1,67 @@
+id: lab08-p03-clasament-concurs
+lab: lab08
+number: 3
+title: "Clasamentul concursului"
+difficulty: 2
+estimated_minutes: 35
+concepts: [structură, vector de structuri, pointer la structură, operatorul săgeată, atribuirea structurilor, strcmp]
+statement: |
+  La un concurs de programare pe echipe se dau 10 probleme, notate `A`–`J`. Pe parcursul concursului echipele trimit soluții, iar fiecare trimitere primește verdictul `OK` (corectă) sau `WA` (greșită). Regulile de punctaj:
+
+  - o problemă este rezolvată la prima trimitere `OK` pentru ea; trimiterile ulterioare pentru aceeași problemă se ignoră;
+  - pentru fiecare problemă rezolvată, echipa primește ca penalizare minutul trimiterii `OK` plus 20 de minute pentru fiecare trimitere `WA` anterioară la acea problemă;
+  - trimiterile `WA` la probleme nerezolvate nu aduc penalizare.
+
+  Clasamentul: mai multe probleme rezolvate înseamnă loc mai bun; la egalitate, penalizare mai mică; apoi numele în ordinea dată de `strcmp`.
+
+  Folosiți o structură pentru o echipă (nume, probleme rezolvate, penalizare și, pentru fiecare problemă, dacă e rezolvată și câte trimiteri greșite are) și un vector de astfel de structuri. Implementați cel puțin:
+
+  ```c
+  void trimite(Echipa *e, int timp, int problema, int corect);
+  int compara(const Echipa *a, const Echipa *b);
+  ```
+
+  **Date de intrare**
+
+  Pe prima linie `n`, apoi `n` linii cu numele echipelor. Urmează `m`, apoi `m` linii de forma `timp echipa problema verdict`, în ordine cronologică (nedescrescătoare după timp).
+
+  **Date de ieșire**
+
+  `n` linii, în ordinea clasamentului: `<loc>. <nume> <rezolvate> <penalizare>`.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100`, `0 ≤ m ≤ 5000`, `0 ≤ timp ≤ 300`
+  - numele au între 1 și 20 de caractere, fără spații, și sunt distincte; toate trimiterile sunt ale unor echipe existente
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3
+  Pointerii
+  Segfault
+  NullTerminators
+  7
+  12 Segfault A WA
+  20 Pointerii A OK
+  25 Segfault A OK
+  40 NullTerminators B OK
+  55 Pointerii B WA
+  61 Segfault C OK
+  90 Pointerii B OK
+  ```
+
+  Ieșire:
+  ```
+  1. Segfault 2 106
+  2. Pointerii 2 130
+  3. NullTerminators 1 40
+  ```
+hints:
+  - "Pune tot ce ține de o echipă într-o singură structură, inclusiv doi vectori de câte 10 elemente (câte unul pe problemă). Indicele problemei este `litera - 'A'`."
+  - "Funcția care procesează o trimitere modifică echipa, deci primește un pointer la ea; câmpurile se accesează cu `->`. Penalizarea se adaugă doar în momentul rezolvării: timp + 20 × greșeli anterioare."
+  - "Pentru sortare, scrie o funcție de comparare cu trei criterii (rezolvate descrescător, penalizare crescător, `strcmp` pe nume). Două structuri se pot interschimba direct prin atribuire, cu o variabilă auxiliară de tip `Echipa`."
+pitfalls:
+  - "Vectorii din structură trebuie inițializați cu 0 pentru fiecare echipă."
+  - "O trimitere `OK` după ce problema e deja rezolvată nu mai adaugă nimic."

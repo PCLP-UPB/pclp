@@ -1,0 +1,60 @@
+id: lab01-p09-rest-bancnote
+lab: lab01
+number: 9
+title: "Restul la casă"
+difficulty: 4
+estimated_minutes: 30
+concepts: [împărțire întreagă, operatorul %, printf, lățime de afișare, variabilă]
+statement: |
+  Automatul de la librăria Politehnicii dă restul numai în bancnote românești de
+  500, 200, 100, 50, 10, 5 și 1 leu. Ca să nu rămână fără bancnote mici, automatul
+  dă restul folosind cât mai multe bancnote mari: întâi cât mai multe de 500, apoi
+  cât mai multe de 200 din ce a rămas, și așa mai departe până la 1 leu.
+
+  Scrie un program care citește prețul unei cumpărături și suma plătită și afișează
+  restul, câte bancnote din fiecare tip se dau și numărul total de bancnote.
+
+  **Date de intrare**
+
+  Pe o linie, două numere naturale `P` și `A`: prețul și suma plătită, în lei.
+
+  **Date de ieșire**
+
+  Nouă linii:
+
+  - prima linie: `Rest: R lei`, unde `R = A - P`;
+  - câte o linie pentru fiecare tip de bancnotă, în ordinea 500, 200, 100, 50, 10, 5, 1,
+    de forma `V lei x K`, unde valoarea `V` este aliniată la dreapta într-un câmp de
+    3 caractere, iar `K` este numărul de bancnote de acel tip (inclusiv când este 0);
+  - ultima linie: `Total bancnote: T`.
+
+  **Restricții**
+
+  - `1 ≤ P ≤ A ≤ 1 000 000`
+  - problema se rezolvă fără `if` și fără instrucțiuni repetitive
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  37 1000
+  ```
+
+  Ieșire:
+  ```
+  Rest: 963 lei
+  500 lei x 1
+  200 lei x 2
+  100 lei x 0
+   50 lei x 1
+   10 lei x 1
+    5 lei x 0
+    1 lei x 3
+  Total bancnote: 8
+  ```
+hints:
+  - "Câte bancnote de 500 încap în rest? Aceasta este exact împărțirea întreagă. Ce rămâne după ce le dai este restul împărțirii."
+  - "Păstrează o variabilă cu suma care mai trebuie dată și actualizeaz-o după fiecare tip de bancnotă, de la cea mai mare la cea mai mică."
+  - "Pseudocod pentru fiecare valoare V (500, 200, ..., 5): K_V = rest / V; rest = rest % V. La final, bancnotele de 1 leu sunt exact restul rămas. Afișează valoarea cu lățime 3."
+pitfalls:
+  - "Dacă nu actualizezi restul după fiecare tip, aceeași sumă va fi numărată de mai multe ori."

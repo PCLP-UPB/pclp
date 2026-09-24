@@ -1,0 +1,1014 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:laboratoare:lab12</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2026-01-11T17:19:14+0200"/>
+<meta name="keywords" content="programare,laboratoare,lab12"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare:laboratoare"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/laboratoare/lab12"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab12"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:laboratoare';var JSINFO = {"id":"programare:laboratoare:lab12","namespace":"programare:laboratoare","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#pclp_laborator12optimizarea_programelor_cu_operatii_pe_biti">PCLP Laborator12: Optimizarea programelor cu operații pe biți</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#obiective">Obiective</a></div></li>
+<li class="level3"><div class="li"><a href="#motivatie">Motivație</a></div></li>
+<li class="level3"><div class="li"><a href="#dimensiunea_tipurilor_implicite_in_c_calculul_memoriei_unui_program">Dimensiunea tipurilor implicite în C. Calculul memoriei unui program</a></div></li>
+<li class="level3"><div class="li"><a href="#operatori_pe_biti_in_c">Operatori pe biți în C</a></div></li>
+<li class="level3"><div class="li"><a href="#lucrul_cu_masti">Lucrul cu măști</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#cum_verificam_daca_bitul_i_dintr-un_numar_n_este_setat">Cum verificăm dacă  bitul i  dintr-un număr n este setat?</a></div></li>
+<li class="level4"><div class="li"><a href="#cum_setam_valoarea_devine_1_bitul_i_dintr-un_numar_n">Cum setăm (valoarea devine 1)  bitul i  dintr-un număr n?</a></div></li>
+<li class="level4"><div class="li"><a href="#cum_resetam_valoarea_devine_0_bitul_i_dintr-un_numar_n">Cum resetăm (valoarea devine 0)  bitul i  dintr-un număr n?</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#exercitii">Exerciții</a></div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h2 class="sectionedit1" id="pclp_laborator12optimizarea_programelor_cu_operatii_pe_biti">PCLP Laborator12: Optimizarea programelor cu operații pe biți</h2>
+<div class="level2">
+
+<p>
+<strong>Responsabili:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="mailto:&#x6e;&#x65;&#x61;&#x74;&#x75;&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x6e;&#x65;&#x61;&#x74;&#x75;&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Darius Neațu (2019 - Prezent)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;" class="mail" title="&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;">Dorinel Filip (2019 - Prezent)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x74;&#x65;&#x6f;&#x64;&#x6f;&#x72;&#x2e;&#x6d;&#x61;&#x74;&#x65;&#x69;&#x2e;&#x62;&#x69;&#x72;&#x6c;&#x65;&#x61;&#x6e;&#x75;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x74;&#x65;&#x6f;&#x64;&#x6f;&#x72;&#x2e;&#x6d;&#x61;&#x74;&#x65;&#x69;&#x2e;&#x62;&#x69;&#x72;&#x6c;&#x65;&#x61;&#x6e;&#x75;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Bîrleanu Teodor Matei (2025 - prezent)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x72;&#x61;&#x72;&#x65;&#x73;&#x39;&#x36;&#x63;&#x68;&#x65;&#x73;&#x65;&#x6c;&#x69;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x72;&#x61;&#x72;&#x65;&#x73;&#x39;&#x36;&#x63;&#x68;&#x65;&#x73;&#x65;&#x6c;&#x69;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Rareș Cheșeli (2017 - 2018)</a> </div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT1 SECTION "PCLP Laborator12: Optimizarea programelor cu operații pe biți" [1-370] -->
+<h3 class="sectionedit2" id="obiective">Obiective</h3>
+<div class="level3">
+
+<p>
+În urma parcurgerii acestui laborator, studentul va fi capabil:
+</p>
+<ul>
+<li class="level1"><div class="li"> să înțeleagă conceptele legate de operații pe biți</div>
+</li>
+<li class="level1"><div class="li"> să utilizeze operații pe biți pentru optimizare (când este cazul)</div>
+</li>
+<li class="level1"><div class="li"> să înteleagă mai multe despre organizarea datelor în memorie</div>
+</li>
+<li class="level1"><div class="li"> să gestioneze mai bine memoria folosită într-un anumit program C</div>
+</li>
+<li class="level1"><div class="li"> să implementeze o structură de date in C</div>
+</li>
+</ul>
+
+<p>
+<p><div class="notewarning">
+</p>
+<ul>
+<li class="level1"><div class="li"> Laboratorul curent introduce mai multe noțiuni. Pe multe dintre acestea le veți mai întâlni și la alte cursuri din următorii ani, precum: IOCLA, CN/CN2, AA/PA, PC, PM, SO.</div>
+</li>
+<li class="level2"><div class="li"> Secțiunile <strong> Studiu de caz </strong> și <strong> Probleme de interviu </strong> nu sunt obligatorii, dar recomandăm parcurgerea întregului material pentru o viziune de ansamblu mai bună. Atenție! Problemele de interviu sunt mult peste nivelul așteptat la această materie!</div>
+</li>
+</ul>
+
+<p>
+
+</div></p>
+</p>
+
+</div>
+<!-- EDIT2 SECTION "Obiective" [371-1256] -->
+<h3 class="sectionedit3" id="motivatie">Motivație</h3>
+<div class="level3">
+
+<p>
+În cadrul acestui articol vă vom prezenta câteva metode prin care programele se pot optimiza dacă utilizăm eficient operaţiile pe biţi. Un lucru foarte important de reținut este că nu întotdeauna putem folosi aceste operații pentru optimizare, iar laboratorul are ca scop ilustrarea câtorva <strong>exemple</strong>, pe care le puteți întâlni și pe viitor.
+</p>
+
+<p>
+Veți învăța în anul 2 la Analiza Algoritmilor despre complexitatea unui algoritm. Vom considera momentan că un algoritm este mai rapid decât altul dacă are mai puțini pași (exemplu un for cu n = 100 de pași este mai rapid decât un for cu 1000 de pași). 
+</p>
+
+<p>
+În exemplul anterior <strong>performanța</strong> se referă la timp (dacă executăm mai puține instrucțiuni într-un program, ne așteptăm să se termine mai repede). Acest aspect va fi abordat pe larg la materiile AA și PA. 
+</p>
+
+<p>
+În acest laborator vom vorbi despre altă metrică de măsurare a performanței unui program, mai exact despre <strong> memoria folosită </strong> de un program.
+</p>
+
+<p>
+De ce este <strong>important</strong> și acest aspect? Dacă din punct de vedere al timpului de execuție, sunt situații în care putem aștepta mai mult timp pentru a se termina programul, din punctul de vedere al memoriei folosite avem o limitare exactă. Un exemplu simplu este calculatorul nostru, care are 4GB/8GB/16GB. Dacă mașina noastră are X <abbr title="Gigabyte">GB</abbr> RAM, dintre care o parte importantă o ocupă sistemul de operare, asta înseamnă că într-un anumit program nu putem folosi o cantitate nelimitată de RAM (mai multe detalii la CN2, SO). Pentru <strong>simplitate</strong>, momentan presupunem că programul nostru nu poate rula pe o mașină cu X <abbr title="Gigabyte">GB</abbr>, dacă are nevoie de mai mult de X <abbr title="Gigabyte">GB</abbr>.
+</p>
+
+<p>
+Dacă ajungem într-o astfel de situație în mod evident trebuie să schimbăm ceva, însă de multe ori putem păstra algoritmul și să facem câteva modificări în implementare, care exploatează anumite abilități ale limbajului C (ex. operații pe biți).
+</p>
+
+</div>
+<!-- EDIT3 SECTION "Motivație" [1257-3222] -->
+<h3 class="sectionedit4" id="dimensiunea_tipurilor_implicite_in_c_calculul_memoriei_unui_program">Dimensiunea tipurilor implicite în C. Calculul memoriei unui program</h3>
+<div class="level3">
+
+<p>
+În <a href="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab02" class="urlextern" title="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab02"  rel="nofollow">laboratorul 2</a> au fost prezentate tipurile de date implicite din C și dimensiunea acestora.
+</p>
+
+<p>
+Pentru a afla <strong> dimensiunea în bytes </strong> a unei variabile se poate folosi operatorul <strong>sizeof</strong>.
+</p>
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Exemplu
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Exemplu
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Fie codul din următorul cod.
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// afiseaza dimensiunea tipurilor si a unor variabile de un anumit tip</span>
+    <span class="kw4">char</span> xc<span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;sizeof(unsigned char) = %ld B<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">unsigned</span> <span class="kw4">char</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;sizeof(char) = %ld B<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">char</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;sizeof(xc) = %ld B<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span>xc<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw4">short</span> <span class="kw4">int</span> xs<span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;sizeof(unsigned short int) = %ld B<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">unsigned</span> <span class="kw4">short</span> <span class="kw4">int</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;sizeof(short int) = %ld B<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">short</span> <span class="kw4">int</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;sizeof(xs) = %ld B<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span>xs<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw4">int</span> xi<span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;sizeof(unsigned int) = %ld B<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">unsigned</span> <span class="kw4">int</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;sizeof(int) = %ld B<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;sizeof(xi) = %ld B<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span>xi<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// afiseaza dimensiunea unor tablouri cu dimensiune cunoscuta</span>
+    <span class="kw4">char</span> vc<span class="br0">&#91;</span><span class="nu0">100</span><span class="br0">&#93;</span><span class="sy0">;</span>
+    <span class="kw4">short</span> <span class="kw4">int</span> vs<span class="br0">&#91;</span><span class="nu0">100</span><span class="br0">&#93;</span><span class="sy0">;</span>
+    <span class="kw4">int</span> vi<span class="br0">&#91;</span><span class="nu0">100</span><span class="br0">&#93;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;sizeof(vc) = %ld B<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span>vc<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;sizeof(vs) = %ld B<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span>vs<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;sizeof(vi) = %ld B<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span>vi<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+În urma executării acestui program pe o arhitectură de <strong>32 biți</strong> (ceea ce folosim la PC) vom vedea următorul rezultat.
+</p>
+<pre class="code">
+sizeof(unsigned char) = 1 B
+sizeof(char) = 1 B
+sizeof(xc) = 1 B
+
+sizeof(unsigned short int) = 2 B
+sizeof(short int) = 2 B
+sizeof(xs) = 2 B
+
+sizeof(unsigned int) = 4 B
+sizeof(int) = 4 B
+sizeof(xi) = 4 B
+
+sizeof(vc) = 100 B
+sizeof(vs) = 200 B
+sizeof(vi) = 400 B
+</pre>
+</div></div>
+<p>
+<p><div class="noteclassic">
+Putem afla dimensiunea unui tip de date / unei variabile de un anumit tip la <strong> compile time </strong> folosind operatorul sizeof care returnează dimensiunea în bytes a parametrului dat.
+</p>
+
+<p>
+<strong>sizeof</strong> poate fi folosit <strong>și</strong> pentru măsurarea dimesiunii unui vector / matrice alocat(a) static.
+</p>
+
+<p>
+Memoria totală folosită de un program poate fi calculată ca <strong>suma</strong> tuturor dimensiunilor ocupate de variabilele din program.
+</p>
+
+<p>
+De obicei, ne interesează să știm <strong> ordinul de mărime </strong> al spațiului de memorie alocat, astfel, de cele mai multe ori, putem contoriza doar tablourile.
+</p>
+
+<p>
+<p><div class="notewarning">
+Un caz special îl poate reprezenta recursivitatea! Punerea parametrilor pe stivă de un număr foarte mare de ori, este echivalent cu declararea unui tablou de valori pe stivă. Aceste variabile nu pot fi neglijate în calculul memoriei!
+
+</div></p>
+</p>
+
+<p>
+Vom descoperi mai multe în următoare laboratoare. <img src="/courses/lib/images/smileys/icon_cool.gif" class="icon" alt="8-)" />
+
+</div></p>
+</p>
+
+</div>
+<!-- EDIT4 SECTION "Dimensiunea tipurilor implicite în C. Calculul memoriei unui program" [3223-5928] -->
+<h3 class="sectionedit5" id="operatori_pe_biti_in_c">Operatori pe biți în C</h3>
+<div class="level3">
+
+<p>
+Operatorii limbajului C pot fi unari, binari sau ternari, fiecare având o precedenţă şi o asociativitate bine definite (vezi <a href="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab02" class="urlextern" title="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab02"  rel="nofollow"> lab02</a>).
+</p>
+
+<p>
+În tabelul următor reamintim operatorii limbajului C care sunt folosiți la nivel de bit.
+</p>
+<div class="table sectionedit6"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign"> Operator  </th><th class="col1 centeralign">  Descriere  </th><th class="col2 centeralign">  Asociativitate  </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0 centeralign">  <strong>~</strong>  </td><td class="col1"> Complement faţă de 1 pe biţi </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0 centeralign">  <strong>&lt;&lt; si &gt;&gt;</strong>  </td><td class="col1"> Deplasare stânga/dreapta a biţilor </td><td class="col2 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row3">
+		<td class="col0 centeralign">  <strong>&amp;</strong>  </td><td class="col1"> ŞI pe biţi </td><td class="col2 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row4">
+		<td class="col0 centeralign">  <strong>^</strong>  </td><td class="col1"> SAU-EXCLUSIV pe biţi </td><td class="col2 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row5">
+		<td class="col0 centeralign">  <strong>|</strong>  </td><td class="col1"> SAU pe biţi </td><td class="col2 centeralign">  stânga-dreapta  </td>
+	</tr>
+	<tr class="row6">
+		<td class="col0 centeralign">  <strong>&amp;=</strong> și <strong>|=</strong>  </td><td class="col1"> Atribuire cu ŞI/SAU </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row7">
+		<td class="col0 centeralign">  <strong>^=</strong>  </td><td class="col1"> Atribuire cu SAU-EXCLUSIV </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+	<tr class="row8">
+		<td class="col0 centeralign">  <strong>&lt;&lt;=</strong> şi <strong>&gt;&gt;=</strong>  </td><td class="col1"> Atribuire cu deplasare de biţi </td><td class="col2 centeralign">  dreapta-stânga  </td>
+	</tr>
+</table></div>
+<!-- EDIT6 TABLE [6261-6829] -->
+<p>
+<p><div class="notewarning">
+Trebuie avută în vedere precedenţa operatorilor pentru obţinerea rezultatelor dorite!
+</p>
+
+<p>
+Dacă nu sunteți sigur de precendența unui operator, folosiți o pereche de paranteze rotunde în plus în expresia voastră! Nu exagerați cu parantezele, codul poate deveni ilizibil.
+
+</div></p>
+</p>
+
+</div>
+
+<h5 id="bitwise_not">Bitwise NOT</h5>
+<div class="level5">
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Semnificație
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Semnificație
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+<strong> Bitwise NOT </strong> (<strong>complement față de 1</strong>) este operația la nivel de bit care următorul tabel de adevăr.
+</p>
+<div class="table sectionedit7"><table class="inline">
+	<tr class="row0">
+		<th class="col0"> x </th><th class="col1"> ~x </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0"> 0 </th><th class="col1"> 1 </th>
+	</tr>
+	<tr class="row2">
+		<th class="col0"> 1 </th><th class="col1"> 0 </th>
+	</tr>
+</table></div>
+<!-- EDIT7 TABLE [7287-7317] -->
+<p>
+Evident putem extinde această operație și la nivel de număr. Operația se aplică separat pentru fiecare rang binar.
+</p>
+<div class="table sectionedit8"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">  </th><th class="col1"> $b_2$ </th><th class="col2 rightalign">  $b_1$ </th><th class="col3"> $b_0$ </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0 rightalign">  x = 3 </th><th class="col1"> 0 </th><th class="col2"> 1 </th><th class="col3"> 1 </th>
+	</tr>
+	<tr class="row2">
+		<th class="col0"> ~x = 4 </th><th class="col1"> 1 </th><th class="col2"> 0 </th><th class="col3"> 0 </th>
+	</tr>
+</table></div>
+<!-- EDIT8 TABLE [7440-7515] --></div></div>
+</div>
+
+<h5 id="bitwise_and">Bitwise AND</h5>
+<div class="level5">
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Semnificație
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Semnificație
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+<strong> Bitwise AND </strong> (<strong>ȘI pe biți</strong>) este operația la nivel de bit care următorul tabel de adevăr.
+</p>
+<div class="table sectionedit9"><table class="inline">
+	<tr class="row0">
+		<th class="col0"> x </th><th class="col1"> y </th><th class="col2"> x &amp; y </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0"> 0 </th><th class="col1"> 0 </th><th class="col2"> 0 </th>
+	</tr>
+	<tr class="row2">
+		<th class="col0"> 0 </th><th class="col1"> 1 </th><th class="col2"> 0 </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0"> 1 </th><th class="col1"> 0 </th><th class="col2"> 0 </th>
+	</tr>
+	<tr class="row4">
+		<th class="col0"> 1 </th><th class="col1"> 1 </th><th class="col2"> 1 </th>
+	</tr>
+</table></div>
+<!-- EDIT9 TABLE [7672-7745] -->
+<p>
+Evident putem extinde această operație și la nivel de număr. Operația se aplică separat pentru fiecare rang binar.
+</p>
+<div class="table sectionedit10"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">  </th><th class="col1"> $b_2$ </th><th class="col2 rightalign">  $b_1$ </th><th class="col3"> $b_0$ </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0 rightalign">     x = 3 </th><th class="col1"> 0 </th><th class="col2"> 1 </th><th class="col3"> 1 </th>
+	</tr>
+	<tr class="row2">
+		<th class="col0 rightalign">     y = 7 </th><th class="col1"> 1 </th><th class="col2"> 1 </th><th class="col3"> 1 </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0"> x &amp; y = 3 </th><th class="col1"> 0 </th><th class="col2"> 1 </th><th class="col3"> 1 </th>
+	</tr>
+</table></div>
+<!-- EDIT10 TABLE [7868-7975] --></div></div>
+</div>
+
+<h5 id="bitwise_or">Bitwise OR</h5>
+<div class="level5">
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Semnificație
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Semnificație
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+<strong> Bitwise OR </strong> (<strong>SAU pe biți</strong>) este operația la nivel de bit care următorul tabel de adevăr.
+</p>
+<div class="table sectionedit11"><table class="inline">
+	<tr class="row0">
+		<th class="col0"> x </th><th class="col1"> y </th><th class="col2"> x | y </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0"> 0 </th><th class="col1"> 0 </th><th class="col2"> 0 </th>
+	</tr>
+	<tr class="row2">
+		<th class="col0"> 0 </th><th class="col1"> 1 </th><th class="col2"> 1 </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0"> 1 </th><th class="col1"> 0 </th><th class="col2"> 1 </th>
+	</tr>
+	<tr class="row4">
+		<th class="col0"> 1 </th><th class="col1"> 1 </th><th class="col2"> 1 </th>
+	</tr>
+</table></div>
+<!-- EDIT11 TABLE [8130-8207] -->
+<p>
+Evident putem extinde această operație și la nivel de număr. Operația se aplică separat pentru fiecare rang binar.
+</p>
+<div class="table sectionedit12"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">   </th><th class="col1 leftalign"> $b_2$  </th><th class="col2 rightalign">  $b_1$ </th><th class="col3"> $b_0$ </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0"> x </th><th class="col1"> 0 </th><th class="col2"> 1 </th><th class="col3"> 1 </th>
+	</tr>
+	<tr class="row2">
+		<th class="col0"> y </th><th class="col1"> 1 </th><th class="col2"> 0 </th><th class="col3"> 1 </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0"> x | y = 7 </th><th class="col1"> 1 </th><th class="col2"> 1 </th><th class="col3"> 1 </th>
+	</tr>
+</table></div>
+<!-- EDIT12 TABLE [8330-8427] --></div></div>
+</div>
+
+<h5 id="bitwise_xor">Bitwise XOR</h5>
+<div class="level5">
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Semnificație
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Semnificație
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+<strong> Bitwise XOR </strong> (<strong>SAU-EXCLUSIV pe biți</strong>) este operația la nivel de bit care următorul tabel de adevăr.
+</p>
+<div class="table sectionedit13"><table class="inline">
+	<tr class="row0">
+		<th class="col0"> x </th><th class="col1"> y </th><th class="col2"> x ^ y </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0"> 0 </th><th class="col1"> 0 </th><th class="col2"> 0 </th>
+	</tr>
+	<tr class="row2">
+		<th class="col0"> 0 </th><th class="col1"> 1 </th><th class="col2"> 1 </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0"> 1 </th><th class="col1"> 0 </th><th class="col2"> 1 </th>
+	</tr>
+	<tr class="row4">
+		<th class="col0"> 1 </th><th class="col1"> 1 </th><th class="col2"> 0 </th>
+	</tr>
+</table></div>
+<!-- EDIT13 TABLE [8593-8670] -->
+<p>
+Evident putem extinde această operație și la nivel de număr. Operația se aplică separat pentru fiecare rang binar.
+</p>
+<div class="table sectionedit14"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">       </th><th class="col1"> $b_2$ </th><th class="col2 rightalign">  $b_1$ </th><th class="col3"> $b_0$ </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0"> x = 3 </th><th class="col1"> 0 </th><th class="col2"> 1 </th><th class="col3"> 1 </th>
+	</tr>
+	<tr class="row2">
+		<th class="col0"> y = 5 </th><th class="col1"> 1 </th><th class="col2"> 0 </th><th class="col3"> 1 </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0"> x ^ y = 6 </th><th class="col1"> 1 </th><th class="col2"> 1 </th><th class="col3"> 0 </th>
+	</tr>
+</table></div>
+<!-- EDIT14 TABLE [8793-8901] --></div></div>
+</div>
+
+<h5 id="bit_logical_shift">Bit LOGICAL SHIFT</h5>
+<div class="level5">
+
+<p>
+În C sunt definite doar shiftări logice. Acestea pot fi la stânga (&lt;&lt;) sau la dreapta (&gt;&gt;), reprezentând deplasarea in binar a cifrelor și completarea pozițiilor “golite” cu zerouri.
+</p>
+
+</div>
+
+<h5 id="left_shift">LEFT SHIFT</h5>
+<div class="level5">
+
+<p>
+<p><div class="noteclassic">
+Efectul unei deplasări la stânga cu un rang binar este echivalent cu înmulțirea cu 2 a numărului din baza 10.
+Dacă rezultatul nu are loc pe tipul de date folosit, atunci se pot pierde din biți!
+</p>
+
+<p>
+Se poate deduce următoarea relație: $ n &lt;&lt; k = n * 2^k $.
+
+</div></p>
+</p>
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Exemplu
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Exemplu
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Fie un exemplu de deplasarea la stânga, pentru un număr <strong> pe 3 biți </strong>. 
+</p>
+<div class="table sectionedit15"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">            </th><th class="col1"> $b_2$ </th><th class="col2 rightalign">  $b_1$ </th><th class="col3"> $b_0$ </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0 leftalign"> x = 3      </th><th class="col1"> 0 </th><th class="col2"> 1 </th><th class="col3"> 1 </th>
+	</tr>
+	<tr class="row2">
+		<th class="col0"> x « 1 = 6 </th><th class="col1"> 1 </th><th class="col2"> 1 </th><th class="col3"> 0 </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0"> x « 2 = 8 </th><th class="col1"> 1 </th><th class="col2"> 0 </th><th class="col3"> 0 </th>
+	</tr>
+</table></div>
+<!-- EDIT15 TABLE [9527-9647] --></div></div>
+</div>
+
+<h5 id="right_shift">RIGHT SHIFT</h5>
+<div class="level5">
+
+<p>
+<p><div class="noteclassic">
+Efectul unei deplasări la dreapta cu un rang binar este echivalent cu împărțirea întreagă la 2 a numărului din baza 10.
+</p>
+
+<p>
+Se poate deduce următoarea relație: $ n &gt;&gt; k = [n / 2^k ] $.
+
+</div></p>
+</p>
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Exemplu
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Exemplu
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Fie un exemplu de deplasarea la dreapta, pentru un număr <strong> pe 3 biți </strong>. 
+</p>
+<div class="table sectionedit16"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">  </th><th class="col1"> $b_2$ </th><th class="col2 rightalign">  $b_1$ </th><th class="col3"> $b_0$ </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0"> x = 3 </th><th class="col1"> 0 </th><th class="col2"> 1 </th><th class="col3"> 1 </th>
+	</tr>
+	<tr class="row2">
+		<th class="col0"> x » 1 = 1 </th><th class="col1"> 0 </th><th class="col2"> 0 </th><th class="col3"> 1 </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0"> x » 2 = 0 </th><th class="col1"> 0 </th><th class="col2"> 0 </th><th class="col3"> 0 </th>
+	</tr>
+</table></div>
+<!-- EDIT16 TABLE [9981-10086] --></div></div>
+</div>
+<!-- EDIT5 SECTION "Operatori pe biți în C" [5929-10101] -->
+<h3 class="sectionedit17" id="lucrul_cu_masti">Lucrul cu măști</h3>
+<div class="level3">
+
+<p>
+Având la dispoziție operațiile prezentate mai sus, putem răspunde la următoarele întrebări.
+</p>
+<ul>
+<li class="level1"><div class="li"> Cum verificăm dacă <strong> bitul i </strong> dintr-un număr n este <strong> setat </strong>?</div>
+</li>
+<li class="level1"><div class="li"> Cum <strong> setăm bitul i </strong> dintr-un număr n?</div>
+</li>
+<li class="level1"><div class="li"> Cum <strong> resetăm bitul i </strong> dintr-un număr n?</div>
+</li>
+</ul>
+
+<p>
+Pentru a răspunde ușor, pentru fiecare întrebare vom aplica o operație pe biți între n și o valoarea numită <strong> mască </strong>.
+</p>
+
+</div>
+
+<h4 id="cum_verificam_daca_bitul_i_dintr-un_numar_n_este_setat">Cum verificăm dacă  bitul i  dintr-un număr n este setat?</h4>
+<div class="level4">
+
+<p>
+<p><div class="noteclassic">
+Detectarea bitului:
+</p>
+<ul>
+<li class="level1"><div class="li"> pas 1: se aplică următoarea operația <strong> x = n &amp; mask </strong>, unde <strong> mask = (1 « i) </strong></div>
+</li>
+</ul>
+<div class="table sectionedit18"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">       </th><th class="col1"> $b_7$ </th><th class="col2"> … </th><th class="col3 leftalign"> $b_{i+1}$  </th><th class="col4"> $b_i$ </th><th class="col5"> $b_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $b_0$ </th><th class="col8 leftalign">    </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0 centeralign">    n  </th><th class="col1 leftalign"> *     </th><th class="col2"> … </th><th class="col3 centeralign">  *         </th><th class="col4 centeralign">  ?    </th><th class="col5 centeralign">  *        </th><th class="col6"> … </th><th class="col7 centeralign">  *    </th><th class="col8 leftalign">    </th>
+	</tr>
+	<tr class="row2">
+		<th class="col0 leftalign"> mask  </th><th class="col1 leftalign"> 0     </th><th class="col2"> … </th><th class="col3 centeralign">  0         </th><th class="col4 centeralign">  1    </th><th class="col5 centeralign">  0        </th><th class="col6"> … </th><th class="col7 centeralign">  0    </th><th class="col8"> op </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0 centeralign">    x  </th><th class="col1 leftalign"> 0     </th><th class="col2"> … </th><th class="col3 centeralign">  0         </th><th class="col4 centeralign">  ?    </th><th class="col5 centeralign">  0        </th><th class="col6"> … </th><th class="col7 centeralign">  0    </th><th class="col8 leftalign">    </th>
+	</tr>
+</table></div>
+<!-- EDIT18 TABLE [10729-11032] --><ul>
+<li class="level1"><div class="li"> pas 2: deoarece <strong>?</strong> poate avea două valori, x poate fi $0$ sau $2^i$</div>
+<ul>
+<li class="level4"><div class="li"> dacă <strong> x == 0 </strong>, atunci <strong> bitul i este 0 </strong></div>
+</li>
+<li class="level4"><div class="li"> dacă <strong> x &gt; 0  </strong>, atunci <strong> bitul i este 1 </strong> </div>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+
+</div></p>
+</p>
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Implementare C
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Implementare C
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody"><pre class="code C">&nbsp;
+<span class="co1">// is_set</span>
+<span class="co1">// byte    - byte de intrare pentru care vreau sa verific un bit</span>
+<span class="co1">// i       - indexul bitului din byte</span>
+<span class="co1">// @return - 1, daca bitul este 1</span>
+<span class="co1">//           0, daca bitul este 0</span>
+<span class="kw4">int</span> is_set<span class="br0">&#40;</span><span class="kw4">char</span> byte<span class="sy0">,</span> <span class="kw4">int</span> i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">int</span> mask <span class="sy0">=</span> <span class="br0">&#40;</span><span class="nu0">1</span> <span class="sy0">&lt;&lt;</span> i<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">return</span> <span class="br0">&#40;</span>byte <span class="sy0">&amp;</span> mask<span class="br0">&#41;</span> <span class="sy0">!=</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+...
+<span class="kw1">if</span> <span class="br0">&#40;</span>is_set<span class="br0">&#40;</span>mybyte<span class="sy0">,</span> i<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;bitul %d din byteul %d este setat!<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> i<span class="sy0">,</span> mybyte<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span> <span class="kw1">else</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;bitul %d din byteul %d NU este setat!<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> i<span class="sy0">,</span> mybyte<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+...</pre>
+</div></div><div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Explicație pas cu pas
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Explicație pas cu pas
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Această întrebare ne oferă valoarea bitului i.
+</p>
+
+<p>
+Dacă “valoarea este 1”, atunci vom spune că “bitul este setat”. 
+</p>
+
+<p>
+Dacă “valoarea este 0”, atunci vom spune că “bitul nu este “setat”.
+</p>
+
+<p>
+Pentru a <strong> verifica </strong> valoarea bitului i din numărul n, practic noi ar trebui să privim numărul astfel:
+</p>
+<div class="table sectionedit19"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">    </th><th class="col1"> $b_7$ </th><th class="col2"> $b_6$ </th><th class="col3"> … </th><th class="col4"> $b_i$ </th><th class="col5"> … </th><th class="col6"> $b_1$ </th><th class="col7"> $b_0$ </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0 leftalign"> n  </th><th class="col1 leftalign"> *  </th><th class="col2 rightalign">  * </th><th class="col3"> … </th><th class="col4 rightalign">  ? </th><th class="col5"> … </th><th class="col6 leftalign"> *  </th><th class="col7 rightalign">  * </th>
+	</tr>
+</table></div>
+<!-- EDIT19 TABLE [12075-12177] -->
+<p>
+unde <strong></strong>* înseamnă <strong> don&#039;t care </strong> (de la PL),
+iar <strong>?</strong> este valoarea pe care o cautăm.
+</p>
+
+<p>
+Deci am vrea să facem, după cum am zis mai sus, o operație de tipul “scoate” doar bitul i din număr, iar în rest lasă 0 (pentru a evidenția bitul nostru).
+</p>
+<div class="table sectionedit20"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">            </th><th class="col1"> $b_7$ </th><th class="col2"> … </th><th class="col3 leftalign"> $b_{i+1}$  </th><th class="col4"> $b_i$ </th><th class="col5"> $b_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $b_0$ </th><th class="col8 leftalign">    </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0 centeralign">         n  </th><th class="col1 leftalign"> *     </th><th class="col2"> … </th><th class="col3 centeralign">  *         </th><th class="col4 centeralign">  ?    </th><th class="col5 centeralign">  *        </th><th class="col6"> … </th><th class="col7 centeralign">  *    </th><th class="col8 leftalign">    </th>
+	</tr>
+	<tr class="row2">
+		<th class="col0 centeralign">      mask  </th><th class="col1"> $m_7$ </th><th class="col2"> … </th><th class="col3 leftalign"> $m_{i+1}$  </th><th class="col4"> $m_i$ </th><th class="col5"> $m_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $m_0$ </th><th class="col8"> op </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0 leftalign"> n op mask  </th><th class="col1 leftalign"> 0     </th><th class="col2"> … </th><th class="col3 centeralign">  0         </th><th class="col4 centeralign">  ?    </th><th class="col5 centeralign">  0        </th><th class="col6"> … </th><th class="col7 centeralign">  0    </th><th class="col8 leftalign">    </th>
+	</tr>
+</table></div>
+<!-- EDIT20 TABLE [12436-12759] -->
+<p>
+<strong>op</strong> este o operație, iar <strong>mask</strong> un număr. Să analizăm cine pot fi <strong>op</strong> și <strong>biții din mască</strong> ($m_i$).
+</p>
+
+<p>
+Dorim ca:
+</p>
+<ul>
+<li class="level1"><div class="li"> $ ? \ \ op \ \ m_i = \ ? $ , adică operația op aplicată pe $?$ și $m_i$, va avea mereu ca rezultat pe $?$</div>
+</li>
+<li class="level1"><div class="li"> $ * \ \ op \ \ m_j = 0 $ (unde i != j), adică operația op aplicată pe orice valoare și $m_j$, va da 0</div>
+</li>
+</ul>
+
+<p>
+Observăm că:
+</p>
+<ul>
+<li class="level1"><div class="li"> 1 este elementul neutru pentru <strong>ȘI</strong>, ceea ce verifică <strong> ? &amp; 1 = ? </strong>, oricare are fi ? un bit</div>
+</li>
+<li class="level1"><div class="li"> 0 este elementul care poate “șterge” un bit prin <strong>Și</strong>, ceea ce verifică <strong> * &amp; 0 = 0 </strong>, oricare ar fi * un bit</div>
+</li>
+</ul>
+</div></div>
+</div>
+
+<h4 id="cum_setam_valoarea_devine_1_bitul_i_dintr-un_numar_n">Cum setăm (valoarea devine 1)  bitul i  dintr-un număr n?</h4>
+<div class="level4">
+
+<p>
+<p><div class="noteclassic">
+Setarea bitului:
+</p>
+<ul>
+<li class="level1"><div class="li"> pas 1: se aplică următoarea operația <strong> n = n | mask </strong>, unde <strong> mask = (1 « i) </strong></div>
+</li>
+</ul>
+<div class="table sectionedit21"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">            </th><th class="col1"> $b_7$ </th><th class="col2"> … </th><th class="col3"> $b_{i+1}$ </th><th class="col4"> $b_i$ </th><th class="col5"> $b_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $b_0$ </th><th class="col8 leftalign">    </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0 centeralign">         n  </th><th class="col1"> $n_7$ </th><th class="col2"> … </th><th class="col3"> $n_{i+1}$ </th><th class="col4 centeralign">  *    </th><th class="col5"> $n_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $n_0$ </th><th class="col8 leftalign">    </th>
+	</tr>
+	<tr class="row2">
+		<th class="col0 centeralign">      mask  </th><th class="col1"> $0  $ </th><th class="col2"> … </th><th class="col3"> $0      $ </th><th class="col4"> $1  $ </th><th class="col5"> $0      $ </th><th class="col6"> … </th><th class="col7"> $0  $ </th><th class="col8"> op </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0 leftalign"> n op mask  </th><th class="col1"> $n_7$ </th><th class="col2"> … </th><th class="col3"> $n_{i+1}$ </th><th class="col4 centeralign">  1    </th><th class="col5"> $n_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $n_0$ </th><th class="col8 leftalign">    </th>
+	</tr>
+</table></div>
+<!-- EDIT21 TABLE [13554-13873] --><ul>
+<li class="level1"><div class="li"> explicație:</div>
+<ul>
+<li class="level4"><div class="li"> orice valoare are avea bitul $*$ va fi suprascris cu 1</div>
+</li>
+<li class="level4"><div class="li"> ceilalti biți vor fi copiați</div>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+
+</div></p>
+</p>
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Implementare C
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Implementare C
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody"><pre class="code C"><span class="co1">// set</span>
+<span class="co1">// byte    - byte de intrare pentru care vreau sa setez un bit</span>
+<span class="co1">// i       - indexul bitului din byte</span>
+<span class="co1">// @return - noul byte</span>
+<span class="kw4">char</span> set<span class="br0">&#40;</span><span class="kw4">char</span> byte<span class="sy0">,</span> <span class="kw4">int</span> i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">int</span> mask <span class="sy0">=</span> <span class="br0">&#40;</span><span class="nu0">1</span> <span class="sy0">&lt;&lt;</span> i<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">return</span> <span class="br0">&#40;</span>byte <span class="sy0">|</span> mask<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+...
+<span class="me1">mybyte</span> <span class="sy0">=</span> set<span class="br0">&#40;</span>mybyte<span class="sy0">,</span> i<span class="br0">&#41;</span><span class="sy0">;</span>
+...
+&nbsp;</pre>
+</div></div><div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Explicație pas cu pas
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Explicație pas cu pas
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Dorim să facem următoarea operație: schimba doar bitul i in 1, iar pe ceilalți lasă-i neschimbați.
+</p>
+<div class="table sectionedit22"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">            </th><th class="col1"> $b_7$ </th><th class="col2"> … </th><th class="col3"> $b_{i+1}$ </th><th class="col4"> $b_i$ </th><th class="col5"> $b_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $b_0$ </th><th class="col8 leftalign">    </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0 centeralign">         n  </th><th class="col1"> $n_7$ </th><th class="col2"> … </th><th class="col3"> $n_{i+1}$ </th><th class="col4 centeralign">  *    </th><th class="col5"> $n_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $n_0$ </th><th class="col8 leftalign">    </th>
+	</tr>
+	<tr class="row2">
+		<th class="col0 centeralign">      mask  </th><th class="col1"> $m_7$ </th><th class="col2"> … </th><th class="col3"> $m_{i+1}$ </th><th class="col4"> $m_i$ </th><th class="col5"> $m_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $m_0$ </th><th class="col8"> op </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0 leftalign"> n op mask  </th><th class="col1"> $n_7$ </th><th class="col2"> … </th><th class="col3"> $n_{i+1}$ </th><th class="col4 centeralign">  1    </th><th class="col5"> $n_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $n_0$ </th><th class="col8 leftalign">    </th>
+	</tr>
+</table></div>
+<!-- EDIT22 TABLE [14456-14775] -->
+<p>
+<strong>op</strong> este o operație, iar <strong>mask</strong> un număr. Să analizăm cine pot fi <strong>op</strong> și <strong>biții din mască</strong> ($m_i$).
+</p>
+
+<p>
+Dorim ca:
+</p>
+<ul>
+<li class="level1"><div class="li"> $ * \ \ op \ \ m_i = 1 $, adică operația op aplicată pe $*$ (orice) și $m_i$, va avea mereu ca rezultat pe $1$</div>
+</li>
+<li class="level1"><div class="li"> $ n_j \ \ op \ \ m_j = n_j $ (unde i != j), adică operația $op$ aplicată pe $n_j$ și $m_j$, va da $n_j$</div>
+</li>
+</ul>
+
+<p>
+Observăm că:
+</p>
+<ul>
+<li class="level1"><div class="li"> 1 este elementul care poate “umple” un bit prin <strong>SAU</strong>, ceea ce verifică $ * | 1 = 1 $, oricare ar fi * un bit</div>
+</li>
+<li class="level1"><div class="li"> 0 este elementul neutru pentru <strong>SAU</strong>, ceea ce verifică $ n_j | 0 = n_j $, oricare are fi $n_j$ un bit</div>
+</li>
+</ul>
+</div></div>
+</div>
+
+<h4 id="cum_resetam_valoarea_devine_0_bitul_i_dintr-un_numar_n">Cum resetăm (valoarea devine 0)  bitul i  dintr-un număr n?</h4>
+<div class="level4">
+
+<p>
+<p><div class="noteclassic">
+Resetarea bitului:
+</p>
+<ul>
+<li class="level1"><div class="li"> pas 1 / 1: se aplică următoarea operația <strong> n = n &amp; mask </strong>, unde <strong> mask = ~(1 « i) </strong></div>
+</li>
+</ul>
+<div class="table sectionedit23"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">            </th><th class="col1"> $b_7$ </th><th class="col2"> … </th><th class="col3"> $b_{i+1}$ </th><th class="col4"> $b_i$ </th><th class="col5"> $b_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $b_0$ </th><th class="col8 leftalign">    </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0 centeralign">         n  </th><th class="col1"> $n_7$ </th><th class="col2"> … </th><th class="col3"> $n_{i+1}$ </th><th class="col4 centeralign">  *    </th><th class="col5"> $n_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $n_0$ </th><th class="col8 leftalign">    </th>
+	</tr>
+	<tr class="row2">
+		<th class="col0 centeralign">      mask  </th><th class="col1"> $1  $ </th><th class="col2"> … </th><th class="col3"> $1      $ </th><th class="col4"> $0  $ </th><th class="col5"> $1      $ </th><th class="col6"> … </th><th class="col7"> $1  $ </th><th class="col8"> op </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0 leftalign"> n op mask  </th><th class="col1"> $n_7$ </th><th class="col2"> … </th><th class="col3"> $n_{i+1}$ </th><th class="col4 centeralign">  0    </th><th class="col5"> $n_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $n_0$ </th><th class="col8 leftalign">    </th>
+	</tr>
+</table></div>
+<!-- EDIT23 TABLE [15589-15908] --><ul>
+<li class="level1"><div class="li"> explicație:</div>
+<ul>
+<li class="level4"><div class="li"> orice valoare are avea bitul $*$ va fi suprascris cu 0</div>
+</li>
+<li class="level4"><div class="li"> ceilalti biți vor fi copiați</div>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+
+</div></p>
+</p>
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Implementare C
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Implementare C
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody"><pre class="code C"><span class="co1">// reset</span>
+<span class="co1">// byte    - byte de intrare pentru care vreau sa resetez un bit</span>
+<span class="co1">// i       - indexul bitului din byte</span>
+<span class="co1">// @return - noul byte</span>
+<span class="kw4">char</span> reset<span class="br0">&#40;</span><span class="kw4">char</span> byte<span class="sy0">,</span> <span class="kw4">int</span> i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">int</span> mask <span class="sy0">=</span> ~<span class="br0">&#40;</span><span class="nu0">1</span> <span class="sy0">&lt;&lt;</span> i<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">return</span> <span class="br0">&#40;</span>byte <span class="sy0">&amp;</span> mask<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+...
+<span class="me1">mybyte</span> <span class="sy0">=</span> reset<span class="br0">&#40;</span>mybyte<span class="sy0">,</span> i<span class="br0">&#41;</span><span class="sy0">;</span>
+...
+&nbsp;</pre>
+</div></div><div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Explicație pas cu pas
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Explicație pas cu pas
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Dorim să facem următoarea operație: schimba doar bitul i in 0, iar pe ceilalți lasă-i neschimbați.
+</p>
+<div class="table sectionedit24"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">            </th><th class="col1"> $b_7$ </th><th class="col2"> … </th><th class="col3"> $b_{i+1}$ </th><th class="col4"> $b_i$ </th><th class="col5"> $b_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $b_0$ </th><th class="col8 leftalign">    </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0 centeralign">         n  </th><th class="col1"> $n_7$ </th><th class="col2"> … </th><th class="col3"> $n_{i+1}$ </th><th class="col4 centeralign">  *    </th><th class="col5"> $n_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $n_0$ </th><th class="col8 leftalign">    </th>
+	</tr>
+	<tr class="row2">
+		<th class="col0 centeralign">      mask  </th><th class="col1"> $m_7$ </th><th class="col2"> … </th><th class="col3"> $m_{i+1}$ </th><th class="col4"> $m_i$ </th><th class="col5"> $m_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $m_0$ </th><th class="col8"> op </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0 leftalign"> n op mask  </th><th class="col1"> $n_7$ </th><th class="col2"> … </th><th class="col3"> $n_{i+1}$ </th><th class="col4 centeralign">  0    </th><th class="col5"> $n_{i-1}$ </th><th class="col6"> … </th><th class="col7"> $n_0$ </th><th class="col8 leftalign">    </th>
+	</tr>
+</table></div>
+<!-- EDIT24 TABLE [16502-16821] -->
+<p>
+<strong>op</strong> este o operație, iar <strong>mask</strong> un număr. Să analizăm cine pot fi <strong>op</strong> și <strong>biții din mască</strong> ($m_i$).
+</p>
+
+<p>
+Dorim ca:
+</p>
+<ul>
+<li class="level1"><div class="li"> $ * \ \ op \ \ m_i = 0 $, adică operația op aplicată pe $*$ (orice) și $m_i$, va avea mereu ca rezultat pe $0$</div>
+</li>
+<li class="level1"><div class="li"> $ n_j \ \ op \ \ m_j = n_j $ (unde i != j), adică operația $op$ aplicată pe $n_j$ și $m_j$, va da $n_j$</div>
+</li>
+</ul>
+
+<p>
+Observăm că:
+</p>
+<ul>
+<li class="level1"><div class="li"> 0 este elementul care poate “șterge” un bit prin <strong>ȘI</strong>, ceea ce verifică $ * &amp; 0 = 0 $, oricare ar fi * un bit</div>
+</li>
+<li class="level1"><div class="li"> 1 este elementul neutru pentru <strong>ȘI</strong>, ceea ce verifică $ n_j | 1 = n_j $, oricare are fi $n_j$ un bit</div>
+</li>
+</ul>
+</div></div>
+</div>
+<!-- EDIT17 SECTION "Lucrul cu măști" [10102-17437] -->
+<h3 class="sectionedit25" id="exercitii">Exerciții</h3>
+<div class="level3">
+
+<p>
+Exercițiile pentru laborator se găsesc pe <a href="https://acs-pclp.github.io/laboratoare/12" class="urlextern" title="https://acs-pclp.github.io/laboratoare/12"  rel="nofollow"> PPCLP Laborator12: Optimizarea programelor cu operații pe biți</a>.
+</p>
+
+</div>
+<!-- EDIT25 SECTION "Exerciții" [17438-] --></div>
+</body>
+</html>

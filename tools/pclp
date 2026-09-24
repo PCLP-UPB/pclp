@@ -1,0 +1,909 @@
+#!/usr/bin/env python3
+"""pclp — unealta studentului pentru mediul de lucru PCLP (rulează în container).
+
+Comenzi:
+  pclp init [--auto] [--name N --email E --group G]   inițializează ~/work (git + identitate)
+  pclp status                                         informații despre student și activitate
+  pclp snap [-m MESAJ]                                snapshot git acum (se face și automat)
+  pclp submit <săptămână>                             creează arhiva de predare + codul de verificare
+  pclp week                                           săptămâna curentă din semestru
+  pclp test [problemă] [--json] [--valgrind]          rulează testele unei probleme
+  pclp ai-install gemini|claude|codex                 instalează un CLI AI (npm, global pentru student)
+
+Doar biblioteca standard Python 3.
+"""
+from __future__ import annotations
+
+import argparse
+import fcntl
+import glob
+import gzip
+import hashlib
+import io
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+import tarfile
+import tempfile
+import time
+import unicodedata
+from datetime import date, datetime, timezone
+from pathlib import Path
+
+sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+import pclp_logs as L  # noqa: E402
+
+HOME = Path(os.environ.get("HOME", "/home/student"))
+WORK = Path(os.environ.get("PCLP_WORK", HOME / "work"))
+PDIR = WORK / ".pclp"
+STATE = Path(os.environ.get("PCLP_STATE", PDIR / "state"))
+AIDIR = PDIR / "ai"
+CONTENT = Path(os.environ.get("PCLP_CONTENT", "/opt/pclp/content/build"))
+TEMPLATES = Path(os.environ.get("PCLP_HOME", "/opt/pclp")) / "templates"
+VERSION = os.environ.get("PCLP_VERSION", "dev")
+MAX_FILE = 1024 * 1024          # fișiere de lucru > 1 MB nu intră în git
+MAX_AI_FILE = 25 * 1024 * 1024  # sesiuni AI: limită mai mare
+SCHEMA = 1
+
+AI_PACKAGES = {
+    "gemini": ("@google/gemini-cli", "gemini"),
+    "claude": ("@anthropic-ai/claude-code", "claude"),
+    "codex": ("@openai/codex", "codex"),
+}
+
+
+# ---------------------------------------------------------------------------
+# utilitare
+# ---------------------------------------------------------------------------
+def now_iso() -> str:
+    return datetime.now().astimezone().isoformat(timespec="seconds")
+
+
+def die(msg: str, code: int = 1):
+    print(f"pclp: {msg}", file=sys.stderr)
+    sys.exit(code)
+
+
+def git(*args, check=True, capture=True, env=None, input=None) -> subprocess.CompletedProcess:
+    cmd = ["git", "-C", str(WORK), "-c", "commit.gpgsign=false", "-c", "core.hooksPath=/dev/null", *args]
+    e = dict(os.environ)
+    e["PCLP_NO_LOG"] = "1"
+    if env:
+        e.update(env)
+    r = subprocess.run(cmd, capture_output=capture, text=True, env=e, input=input)
+    if check and r.returncode != 0:
+        raise RuntimeError(f"git {' '.join(args)}: {(r.stderr or '').strip()}")
+    return r
+
+
+def git_retry(*args, tries=10, **kw):
+    """Rulează git cu reîncercare dacă index.lock e ocupat (ex. VS Code rulează git în paralel)."""
+    lock = WORK / ".git" / "index.lock"
+    last = None
+    for i in range(tries):
+        try:
+            return git(*args, **kw)
+        except RuntimeError as e:
+            last = e
+            if "index.lock" not in str(e):
+                raise
+            try:
+                if lock.exists() and time.time() - lock.stat().st_mtime > 120:
+                    lock.unlink()  # rămas de la un proces mort
+            except OSError:
+                pass
+            time.sleep(0.5 + i * 0.5)
+    raise last
+
+
+def load_student() -> dict:
+    try:
+        return json.loads((PDIR / "student.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def slugify(s: str) -> str:
+    s = unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode()
+    s = re.sub(r"[^A-Za-z0-9]+", "-", s).strip("-").lower()
+    return s or "student"
+
+
+def host_path(p: Path) -> str:
+    try:
+        return "work/" + str(p.relative_to(WORK))
+    except ValueError:
+        return str(p)
+
+
+class Lock:
+    def __init__(self, name):
+        STATE.mkdir(parents=True, exist_ok=True)
+        self.f = open(STATE / name, "w")
+
+    def __enter__(self):
+        fcntl.flock(self.f, fcntl.LOCK_EX)
+        return self
+
+    def __exit__(self, *a):
+        fcntl.flock(self.f, fcntl.LOCK_UN)
+        self.f.close()
+
+
+def ensure_repo():
+    if not (WORK / ".git").is_dir():
+        die("~/work nu este inițializat. Rulează: pclp init")
+
+
+# ---------------------------------------------------------------------------
+# init
+# ---------------------------------------------------------------------------
+def write_if_missing(path: Path, content: str | bytes):
+    if path.exists():
+        return False
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if isinstance(content, bytes):
+        path.write_bytes(content)
+    else:
+        path.write_text(content, encoding="utf-8")
+    return True
+
+
+def template(name: str, default: str = "") -> str:
+    p = TEMPLATES / name
+    try:
+        return p.read_text(encoding="utf-8")
+    except OSError:
+        return default
+
+
+def ask(prompt: str, default: str = "", validate=None) -> str:
+    while True:
+        v = input(f"{prompt}{f' [{default}]' if default else ''}: ").strip() or default
+        if not v:
+            print("  Câmp obligatoriu.")
+            continue
+        if validate and not validate(v):
+            continue
+        return v
+
+
+def valid_email(v):
+    ok = bool(re.fullmatch(r"[^@\s]+@[^@\s]+\.[^@\s]+", v))
+    if not ok:
+        print("  Adresă de email invalidă.")
+    return ok
+
+
+def valid_group(v):
+    ok = bool(re.fullmatch(r"[0-9]{3}[A-Za-z]{1,3}", v))
+    if not ok:
+        print("  Grupa are forma 311CA (3 cifre + seria).")
+    return ok
+
+
+def apply_identity(st: dict):
+    name = st.get("name") or "Student PCLP"
+    email = st.get("email") or "student@pclp.invalid"
+    git("config", "user.name", name)
+    git("config", "user.email", email)
+
+
+def cmd_init(a):
+    WORK.mkdir(parents=True, exist_ok=True)
+    for d in (PDIR, AIDIR, AIDIR / "external", STATE):
+        d.mkdir(parents=True, exist_ok=True)
+    new_repo = not (WORK / ".git").is_dir()
+    if new_repo:
+        git("init", "-q", "-b", "main")
+
+    # fișiere de bază (nu suprascriem ce există)
+    write_if_missing(WORK / ".gitignore", template("work/gitignore", "*\n!*/\n!*.c\n!*.h\n"))
+    write_if_missing(WORK / ".clang-format", template("work/.clang-format"))
+    write_if_missing(WORK / "compile_flags.txt", template("work/compile_flags.txt", "-xc\n-Wall\n-Wextra\n"))
+    for f in ("tasks.json", "launch.json"):  # VS Code citește .vscode/ doar din rădăcina workspace-ului
+        write_if_missing(WORK / ".vscode" / f, template(f"vscode/{f}"))
+    tutor = template("work/tutor.md", "# Tutore PCLP\n")
+    write_if_missing(WORK / "AGENTS.md", tutor)
+    write_if_missing(WORK / "CLAUDE.md", tutor)
+    write_if_missing(WORK / "GEMINI.md", tutor)
+    write_if_missing(WORK / ".continue" / "rules" / "tutor.md",
+                     "---\nname: Tutore PCLP\nalwaysApply: true\n"
+                     "description: Asistentul se comportă ca un tutore pentru un student din anul I\n---\n\n"
+                     + tutor)
+    for f in ("terminal.log", "tools.log", "tests.log"):
+        (PDIR / f).touch(exist_ok=True)
+
+    st = load_student()
+    changed = False
+    fields = {"name": a.name, "email": a.email, "group": a.group}
+    if any(fields.values()):
+        for k, v in fields.items():
+            if v:
+                st[k] = v.strip()
+                changed = True
+    elif not a.auto and sys.stdin.isatty():
+        print("Configurare PCLP — datele apar în predările tale (trebuie să fie cele din Moodle).")
+        st["name"] = ask("Nume complet (ca în Moodle)", st.get("name", ""))
+        st["email"] = ask("Email Moodle", st.get("email", ""), valid_email)
+        st["group"] = ask("Grupa (ex. 311CA)", st.get("group", ""), valid_group).upper()
+        changed = True
+    for k in ("name", "email", "group"):
+        st.setdefault(k, "")
+    st.setdefault("created_at", now_iso())
+    st["schema"] = SCHEMA
+    if changed:
+        st["updated_at"] = now_iso()
+    sp = PDIR / "student.json"
+    if changed or not sp.exists():
+        sp.write_text(json.dumps(st, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    apply_identity(st)
+
+    if new_repo:
+        git_retry("add", "-A")
+        git_retry("commit", "-q", "--allow-empty", "-m", "pclp: init")
+        print("pclp: ~/work a fost inițializat (git).")
+    elif changed:
+        snap(msg="pclp: identitate actualizată", quiet=True)
+    if st.get("name"):
+        print(f"Student: {st['name']} <{st['email']}>, grupa {st['group']}")
+    elif a.auto:
+        print("pclp: identitatea studentului nu e completată încă (rulează `pclp init`).")
+
+
+# ---------------------------------------------------------------------------
+# colectare sesiuni AI
+# ---------------------------------------------------------------------------
+def ai_source_base(src: dict) -> Path:
+    env = os.environ.get(src["env"])
+    if env:
+        return Path(env) / src["env_suffix"] if src["env_suffix"] else Path(env)
+    return Path(os.path.expanduser(src["base"]))
+
+
+def ai_candidates():
+    """(tool, fișier sursă, cale relativă) pentru fiecare transcriere de copiat."""
+    for src in L.AI_SOURCES:
+        base = ai_source_base(src)
+        if not base.is_dir():
+            continue
+        seen = set()
+        for pat in src["include"]:
+            for f in glob.glob(str(base / pat)):
+                p = Path(f)
+                if p in seen or not p.is_file() or p.is_symlink():
+                    continue
+                seen.add(p)
+                rel = p.relative_to(base)
+                if any(L.SECRET_NAME_RE.search(part) for part in rel.parts):
+                    continue
+                yield src["tool"], p, rel
+        # indexul Continue (sessions.json) are datele sesiunilor — fără secrete
+        if src["tool"] == "continue" and (base / "sessions" / "sessions.json").is_file():
+            pass  # deja inclus de sessions/*.json
+
+
+def ai_changed() -> bool:
+    stamp = STATE / "ai-sync.stamp"
+    t0 = stamp.stat().st_mtime if stamp.exists() else 0
+    return any(p.stat().st_mtime > t0 for _, p, _ in ai_candidates())
+
+
+def ai_sync() -> int:
+    """Copiază transcrierile noi/modificate în .pclp/ai/<tool>/. Întoarce numărul de fișiere copiate."""
+    n = 0
+    skipped = []
+    stamp = STATE / "ai-sync.stamp"
+    start = time.time()
+    for tool, p, rel in ai_candidates():
+        try:
+            size = p.stat().st_size
+            if size > MAX_AI_FILE:
+                skipped.append(f"{tool}/{rel} ({size} B)")
+                continue
+            data = p.read_bytes()
+        except OSError:
+            continue
+        try:
+            data = L.redact(data.decode("utf-8")).encode("utf-8")
+        except UnicodeDecodeError:
+            continue  # nu e text: nu e transcriere
+        dst = AIDIR / tool / rel
+        try:
+            if dst.exists() and dst.read_bytes() == data:
+                continue
+        except OSError:
+            pass
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        tmp = dst.with_name(dst.name + ".tmp-pclp")
+        tmp.write_bytes(data)
+        os.replace(tmp, dst)
+        n += 1
+    if skipped:
+        (AIDIR / "_prea_mari.txt").write_text("\n".join(skipped) + "\n", encoding="utf-8")
+    STATE.mkdir(parents=True, exist_ok=True)
+    stamp.touch()
+    os.utime(stamp, (start, start))
+    return n
+
+
+# ---------------------------------------------------------------------------
+# snapshot
+# ---------------------------------------------------------------------------
+def exclude_large_staged():
+    r = git("diff", "--cached", "--name-only", "--diff-filter=AM", "-z")
+    big = []
+    for rel in filter(None, r.stdout.split("\0")):
+        p = WORK / rel
+        try:
+            size = p.stat().st_size
+        except OSError:
+            continue
+        limit = MAX_AI_FILE if rel.startswith(".pclp/ai/") else MAX_FILE
+        if size > limit:
+            big.append(rel)
+    if big:
+        git_retry("rm", "--cached", "-q", "--", *big)
+        excl = WORK / ".git" / "info" / "exclude"
+        excl.parent.mkdir(parents=True, exist_ok=True)
+        with open(excl, "a", encoding="utf-8") as f:
+            for rel in big:
+                f.write("/" + rel.replace("\\", "\\\\") + "\n")
+    return big
+
+
+def snap(msg: str | None = None, quiet=False) -> str | None:
+    """Întoarce hash-ul commit-ului creat sau None dacă nu era nimic nou."""
+    ensure_repo()
+    with Lock("snap.lock"):
+        st = load_student()
+        if st:
+            apply_identity(st)
+        try:
+            ai_sync()
+        except Exception as e:  # noqa: BLE001
+            print(f"pclp: colectarea sesiunilor AI a eșuat: {e}", file=sys.stderr)
+        git_retry("add", "-A")
+        big = exclude_large_staged()
+        if big and not quiet:
+            print("pclp: fișiere > 1 MB excluse din istoric: " + ", ".join(big), file=sys.stderr)
+        if git("diff", "--cached", "--quiet", check=False).returncode == 0:
+            return None
+        git_retry("commit", "-q", "--no-verify", "-m", msg or f"auto: {now_iso()}")
+        h = git("rev-parse", "HEAD").stdout.strip()
+        if not quiet:
+            print(f"snapshot {h[:10]} — {msg or 'auto'}")
+        return h
+
+
+def cmd_snap(a):
+    if a.auto and not (WORK / ".git").is_dir():
+        return
+    h = snap(a.message, quiet=a.auto)
+    if not h and not a.auto:
+        print("Nimic nou de salvat.")
+
+
+def cmd_ai_changed(a):
+    sys.exit(0 if ai_changed() else 1)
+
+
+# ---------------------------------------------------------------------------
+# statistici pe fereastra săptămânii
+# ---------------------------------------------------------------------------
+def tags() -> dict[int, str]:
+    out = {}
+    for t in git("tag", "-l", "sapt-*").stdout.split():
+        m = re.fullmatch(r"sapt-(\d\d)", t)
+        if m:
+            out[int(m.group(1))] = t
+    return out
+
+
+def prev_tag_for(week: int) -> str | None:
+    """Referința completă (refs/tags/sapt-NN) a ultimei predări anterioare săptămânii `week`."""
+    tg = tags()
+    prev = [w for w in tg if w < week]
+    return "refs/tags/" + tg[max(prev)] if prev else None
+
+
+def commit_time(rev: str) -> datetime:
+    return datetime.fromtimestamp(int(git("log", "-1", "--format=%ct", rev, "--").stdout.strip()), tz=timezone.utc)
+
+
+def head_file(rel: str) -> str:
+    r = git("show", f"HEAD:{rel}", check=False)
+    return r.stdout if r.returncode == 0 else ""
+
+
+def window_stats(since_rev: str | None, since_time: datetime | None) -> dict:
+    rng = f"{since_rev}..HEAD" if since_rev else "HEAD"
+    commits = int(git("rev-list", "--count", rng, "--").stdout.strip() or 0)
+
+    def in_win(ts):
+        return since_time is None or ts is None or ts >= since_time
+
+    cmds = [c for c in L.parse_terminal_log(head_file(".pclp/terminal.log")) if in_win(c["ts"])]
+    blocks = [b for b in L.parse_tools_log(head_file(".pclp/tools.log")) if in_win(b["ts"])]
+    compiles = [b for b in blocks if b["is_compile"]]
+    test_runs = [t for t in L.parse_tests_log(head_file(".pclp/tests.log")) if in_win(t["ts"])]
+    ai_counts: dict[str, int] = {}
+    files = git("ls-files", "-z", "--", ".pclp/ai").stdout.split("\0")
+    for rel in filter(None, files):
+        text = head_file(rel)
+        for m in L.parse_ai_file(rel, text):
+            if m["role"] == "user" and in_win(m["ts"]):
+                ai_counts[m["tool"]] = ai_counts.get(m["tool"], 0) + 1
+    problems = set()
+    base = since_rev or "4b825dc642cb6eb9a060e54bf8d69288fbee4904"  # arborele gol
+    diff = git("diff", "--name-only", base, "HEAD", "--", check=False)
+    for rel in diff.stdout.split():
+        m = re.match(r"(sapt-\d\d/[^/]+)/", rel)
+        if m:
+            problems.add(m.group(1))
+    return {
+        "commits_window": commits,
+        "commits_total": int(git("rev-list", "--count", "HEAD").stdout.strip()),
+        "commands": len(cmds),
+        "failed_commands": sum(1 for c in cmds if c["exit"] not in (0, None)),
+        "compiles": len(compiles),
+        "failed_compiles": sum(1 for b in compiles if b["exit"] != 0),
+        "valgrind_runs": sum(1 for b in blocks if b["tool"] == "valgrind"),
+        "test_runs": len(test_runs),
+        "test_runs_all_passed": sum(1 for t in test_runs if t["total"] and t["passed"] == t["total"]),
+        "ai_prompts": dict(sorted(ai_counts.items())),
+        "problems": sorted(problems),
+    }
+
+
+# ---------------------------------------------------------------------------
+# week
+# ---------------------------------------------------------------------------
+def course_config() -> dict:
+    for p in (CONTENT / "course.json", Path("/opt/pclp/content/course.json")):
+        try:
+            return json.loads(p.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+    return {}
+
+
+def current_week() -> int | None:
+    start = course_config().get("semester_start")
+    if not start:
+        return None
+    try:
+        d0 = date.fromisoformat(str(start)[:10])
+    except ValueError:
+        return None
+    w = (date.today() - d0).days // 7 + 1
+    return max(1, min(14, w))
+
+
+def cmd_week(a):
+    w = current_week()
+    if w is None:
+        print("Data de început a semestrului nu este configurată (course.json: semester_start).",
+              file=sys.stderr)
+        if sys.stdin.isatty():
+            v = input("În ce săptămână suntem (1-14)? ").strip()
+            if v.isdigit() and 1 <= int(v) <= 14:
+                print(int(v))
+                return
+        sys.exit(1)
+    print(w)
+
+
+# ---------------------------------------------------------------------------
+# status
+# ---------------------------------------------------------------------------
+def cmd_status(a):
+    ensure_repo()
+    st = load_student()
+    print("== PCLP ==")
+    if st.get("name"):
+        print(f"Student:   {st['name']} <{st.get('email', '')}>  grupa {st.get('group', '')}")
+    else:
+        print("Student:   (necompletat — rulează `pclp init`)")
+    w = current_week()
+    print(f"Săptămâna: {w if w else '?'}   (imagine {VERSION})")
+    last = git("log", "-1", "--format=%h %cI %s", check=False).stdout.strip()
+    print(f"Ultimul snapshot: {last}")
+    tg = tags()
+    wk = w or (max(tg) + 1 if tg else 1)
+    prev = prev_tag_for(wk)
+    since_time = commit_time(prev) if prev else None
+    s = window_stats(prev, since_time)
+    print(f"De la {'predarea ' + prev.replace('refs/tags/', '') if prev else 'început'}:")
+    print(f"  snapshot-uri: {s['commits_window']}   comenzi: {s['commands']}   "
+          f"compilări: {s['compiles']} (eșuate: {s['failed_compiles']})   valgrind: {s['valgrind_runs']}")
+    ai = ", ".join(f"{k}: {v}" for k, v in s["ai_prompts"].items()) or "0"
+    print(f"  prompturi AI: {ai}")
+    if s["problems"]:
+        print(f"  probleme: {', '.join(s['problems'])}")
+    if tg:
+        print("Predări: " + ", ".join(tg[k] for k in sorted(tg)))
+    dirty = git("status", "--porcelain", check=False).stdout.strip()
+    if dirty:
+        print("(există modificări nesalvate încă — vor intra în următorul snapshot)")
+
+
+# ---------------------------------------------------------------------------
+# submit
+# ---------------------------------------------------------------------------
+def sha256_bytes(b: bytes) -> str:
+    return hashlib.sha256(b).hexdigest()
+
+
+def sha256_file(p: Path) -> str:
+    h = hashlib.sha256()
+    with open(p, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def verification_code(hexdigest: str) -> str:
+    x = hexdigest[:16].upper()
+    return "PCLP-" + "-".join(x[i:i + 4] for i in range(0, 16, 4))
+
+
+def git_blob(rel: str) -> bytes:
+    r = subprocess.run(["git", "-C", str(WORK), "show", f"HEAD:{rel}"], capture_output=True)
+    return r.stdout if r.returncode == 0 else b""
+
+
+def cmd_submit(a):
+    ensure_repo()
+    week = a.week
+    if not 1 <= week <= 14:
+        die("săptămâna trebuie să fie între 1 și 14")
+    st = load_student()
+    if not st.get("name") or not st.get("email"):
+        if sys.stdin.isatty():
+            print("Înainte de predare trebuie să îți completezi datele.")
+            cmd_init(argparse.Namespace(auto=False, name=None, email=None, group=None))
+            st = load_student()
+        else:
+            die("identitatea nu e completată; rulează `pclp init`")
+    wd = f"sapt-{week:02d}"
+    tag = wd
+    if not (WORK / wd).is_dir():
+        print(f"Atenție: directorul {wd}/ nu există în ~/work — arhiva va conține doar istoricul și jurnalele.")
+
+    existing = tags()
+    resub = 0
+    if week in existing:
+        m = re.search(r'"resubmission":\s*(\d+)', git("tag", "-l", "--format=%(contents)", tag).stdout)
+        resub = (int(m.group(1)) if m else 0) + 1
+    created = now_iso()
+
+    # jurnal de predări (în git, înainte de snapshot-ul final)
+    with open(PDIR / "submissions.jsonl", "a", encoding="utf-8") as f:
+        f.write(json.dumps({"week": week, "created_at": created, "resubmission": resub,
+                            "pclp_version": VERSION}, ensure_ascii=False) + "\n")
+    snap(msg=f"pclp: predare {wd}" + (f" (re-predare {resub})" if resub else ""), quiet=True)
+    head = git("rev-parse", "HEAD").stdout.strip()
+    prev = prev_tag_for(week)
+    prev_head = git("rev-list", "-n1", prev, "--").stdout.strip() if prev else None
+    since_time = commit_time(prev) if prev else None
+    tag_msg = json.dumps({"week": week, "resubmission": resub, "created_at": created})
+    git_retry("tag", "-f", "-a", tag, "-m", tag_msg, head)
+
+    stats = window_stats(prev, since_time)
+
+    # --- conținutul arhivei ---
+    entries: dict[str, bytes] = {}
+    bundle_path = STATE / "history.bundle"
+    git("bundle", "create", "-q", str(bundle_path), "--all")
+    entries["history.bundle"] = bundle_path.read_bytes()
+    bundle_path.unlink()
+    for rel in filter(None, git("ls-files", "-z", "--", wd).stdout.split("\0")):
+        entries["files/" + rel[len(wd) + 1:]] = git_blob(rel)
+    entries["logs/terminal.log"] = git_blob(".pclp/terminal.log")
+    entries["logs/tools.log"] = git_blob(".pclp/tools.log")
+    entries["logs/tests.log"] = git_blob(".pclp/tests.log")
+    for rel in filter(None, git("ls-files", "-z", "--", ".pclp/ai").stdout.split("\0")):
+        entries["ai/" + rel[len(".pclp/ai/"):]] = git_blob(rel)
+
+    manifest = {
+        "schema": SCHEMA,
+        "kind": "pclp-submission",
+        "student": {k: st.get(k, "") for k in ("name", "email", "group")},
+        "week": week,
+        "tag": tag,
+        "head": head,
+        "prev_tag": prev.replace("refs/tags/", "") if prev else None,
+        "prev_head": prev_head,
+        "window_start": since_time.isoformat() if since_time else None,
+        "created_at": created,
+        "resubmission": resub,
+        "pclp_version": VERSION,
+        "counts": stats,
+        "files": {k: sha256_bytes(v) for k, v in sorted(entries.items())},
+    }
+    entries["manifest.json"] = (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+
+    outdir = WORK / "predari"
+    outdir.mkdir(exist_ok=True)
+    stamp = datetime.now().strftime("%Y%m%d-%H%M")
+    name = f"{wd}-{slugify(st.get('name', ''))}-{stamp}.tar.gz"
+    out = outdir / name
+    mtime = int(time.time())
+    buf = io.BytesIO()
+    with tarfile.open(fileobj=buf, mode="w", format=tarfile.PAX_FORMAT) as tf:
+        root = name[:-len(".tar.gz")]
+        for arc in sorted(entries):
+            data = entries[arc]
+            ti = tarfile.TarInfo(f"{root}/{arc}")
+            ti.size = len(data)
+            ti.mtime = mtime
+            ti.mode = 0o644
+            ti.uid = ti.gid = 0
+            ti.uname = ti.gname = "pclp"
+            tf.addfile(ti, io.BytesIO(data))
+    with open(out, "wb") as raw, gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=mtime) as gz:
+        gz.write(buf.getvalue())
+    digest = sha256_file(out)
+    code = verification_code(digest)
+    (out.parent / (out.name + ".sha256")).write_text(f"{digest}  {out.name}\n{code}\n", encoding="utf-8")
+
+    ai = ", ".join(f"{k}: {v}" for k, v in stats["ai_prompts"].items()) or "0"
+    bar = "=" * 70
+    print(f"""
+{bar}
+ Predarea pentru săptămâna {week} este gata{' (re-predare #' + str(resub) + ')' if resub else ''}.
+
+ Arhiva:  {host_path(out)}
+          (pe calculatorul tău: în directorul `work/predari/` de lângă compose.yaml)
+
+ COD DE VERIFICARE:   {code}
+ SHA-256 complet:     {digest}
+
+ Pași pe Moodle (tema „Săptămâna {week}”):
+   1. Încarcă fișierul {name}
+   2. Lipește codul {code} în câmpul de text al predării.
+ NU modifica arhiva după ce ai generat codul (codul nu ar mai corespunde).
+
+ Rezumat: {stats['commits_window']} snapshot-uri, {stats['commands']} comenzi, {stats['compiles']} compilări
+          ({stats['failed_compiles']} eșuate), prompturi AI: {ai}
+{bar}""")
+
+
+# ---------------------------------------------------------------------------
+# test
+# ---------------------------------------------------------------------------
+TEST_TIMEOUT = 2.0
+VALGRIND_TIMEOUT = 30.0
+SHOW_LINES = 20
+
+
+def norm_output(s: str) -> str:
+    lines = [ln.rstrip() for ln in s.replace("\r\n", "\n").split("\n")]
+    while lines and not lines[-1]:
+        lines.pop()
+    return "\n".join(lines)
+
+
+def find_problem(pid: str | None) -> tuple[str, Path]:
+    cwd = Path.cwd().resolve()
+    if not pid:
+        # cel mai apropiat director părinte aflat direct sub sapt-NN/
+        for d in [cwd, *cwd.parents]:
+            if re.fullmatch(r"sapt-\d\d", d.parent.name):
+                return d.name, d
+        return cwd.name, cwd
+    cands = sorted(WORK.glob(f"sapt-*/{pid}"))
+    if cands:
+        return pid, cands[-1]
+    if cwd.name == pid:
+        return pid, cwd
+    return pid, cwd
+
+
+def read_text(p: Path, limit=None) -> str:
+    try:
+        t = p.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return ""
+    return t if limit is None else t[:limit]
+
+
+def clip(s: str, max_chars=10000) -> str:
+    return s if len(s) <= max_chars else s[:max_chars] + f"\n[... {len(s) - max_chars} caractere omise]"
+
+
+def clip_lines(s: str, n=SHOW_LINES) -> str:
+    lines = s.split("\n")
+    if len(lines) <= n:
+        return s
+    return "\n".join(lines[:n]) + f"\n[... încă {len(lines) - n} linii]"
+
+
+def run_tests(pid: str, pdir: Path, use_valgrind: bool) -> dict:
+    tdir = CONTENT / "problems" / pid / "tests"
+    res = {"problem": pid, "problem_dir": str(pdir), "compiled": False, "compile_output": "",
+           "tests": [], "passed": 0, "total": 0, "valgrind": use_valgrind, "error": None}
+    if not tdir.is_dir():
+        res["error"] = f"nu există teste pentru problema „{pid}” ({tdir})"
+        return res
+    sources = sorted(p.name for p in pdir.glob("*.c"))
+    if not sources:
+        res["error"] = f"nu există fișiere .c în {pdir}"
+        return res
+    tmp = Path(tempfile.mkdtemp(prefix="pclp-test-"))
+    try:
+        exe = tmp / "main"
+        cc = subprocess.run(["gcc", "-Wall", "-Wextra", "-std=c11", "-g", "-o", str(exe), *sources, "-lm"],
+                            cwd=pdir, capture_output=True, text=True)
+        res["compile_output"] = clip(cc.stdout + cc.stderr)
+        res["compiled"] = cc.returncode == 0 and exe.exists()
+        if not res["compiled"]:
+            return res
+        names = sorted({p.stem for p in tdir.glob("*.in")} | {p.stem for p in tdir.glob("*.out")},
+                       key=lambda x: (len(x), x))
+        for name in names:
+            fin, fout = tdir / f"{name}.in", tdir / f"{name}.out"
+            if not fout.exists():
+                continue
+            stdin = read_text(fin) if fin.exists() else ""
+            expected = read_text(fout)
+            args = [ln for ln in read_text(tdir / f"{name}.args").splitlines() if ln.strip()] \
+                if (tdir / f"{name}.args").exists() else []
+            rdir = tmp / f"run-{name}"
+            if (tdir / f"{name}.files").is_dir():
+                shutil.copytree(tdir / f"{name}.files", rdir)
+            else:
+                rdir.mkdir()
+            t = {"name": name, "ok": False, "timeout": False, "expected": clip(expected), "got": "",
+                 "stdin": clip(stdin), "args": args, "exit_code": None, "stderr": ""}
+            cmd = [str(exe), *args]
+            limit = TEST_TIMEOUT
+            if use_valgrind:
+                vlog = tmp / f"valgrind-{name}.txt"
+                cmd = ["/usr/bin/valgrind", "--leak-check=full", "--error-exitcode=99", "-q",
+                       f"--log-file={vlog}", *cmd]
+                limit = VALGRIND_TIMEOUT
+            try:
+                r = subprocess.run(cmd, cwd=rdir, input=stdin.encode(), capture_output=True, timeout=limit)
+                t["got"] = clip(r.stdout.decode("utf-8", "replace"))
+                t["stderr"] = clip(r.stderr.decode("utf-8", "replace"), 4000)
+                t["exit_code"] = r.returncode
+                t["ok"] = norm_output(r.stdout.decode("utf-8", "replace")) == norm_output(expected)
+            except subprocess.TimeoutExpired as e:
+                t["timeout"] = True
+                t["got"] = clip((e.stdout or b"").decode("utf-8", "replace"))
+            if use_valgrind:
+                vtext = read_text(tmp / f"valgrind-{name}.txt")
+                t["valgrind_output"] = clip(vtext, 6000)
+                t["valgrind_ok"] = not t["timeout"] and t["exit_code"] != 99 and not vtext.strip()
+                t["ok"] = t["ok"] and t["valgrind_ok"]
+            res["tests"].append(t)
+        res["total"] = len(res["tests"])
+        res["passed"] = sum(1 for t in res["tests"] if t["ok"])
+        return res
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
+def log_test_run(res: dict):
+    if not PDIR.is_dir():
+        return
+    line = "\t".join([now_iso(), res["problem"], f"{res['passed']}/{res['total']}",
+                      "compile_ok" if res["compiled"] else "compile_fail",
+                      "valgrind" if res.get("valgrind") else "normal"])
+    try:
+        with open(PDIR / "tests.log", "a", encoding="utf-8") as f:
+            f.write(line + "\n")
+    except OSError:
+        pass
+
+
+def cmd_test(a):
+    pid, pdir = find_problem(a.problem)
+    res = run_tests(pid, pdir, a.valgrind)
+    if res["error"] is None:
+        log_test_run(res)
+    if a.json:
+        print(json.dumps(res, ensure_ascii=False, indent=1))
+        sys.exit(0 if res["compiled"] and res["total"] and res["passed"] == res["total"] else 1)
+    if res["error"]:
+        die(res["error"])
+    print(f"Problema {pid}  ({host_path(pdir)})")
+    if not res["compiled"]:
+        print(res["compile_output"].rstrip())
+        print("✘ Compilarea a eșuat — corectează erorile de mai sus.")
+        sys.exit(1)
+    if res["compile_output"].strip():
+        print(res["compile_output"].rstrip())
+        print("(compilat, dar cu avertismente — merită citite!)")
+    for t in res["tests"]:
+        if t["ok"]:
+            print(f"  ✔ test {t['name']}")
+            continue
+        why = "depășire de timp" if t["timeout"] else "rezultat greșit"
+        if a.valgrind and not t.get("valgrind_ok", True) and not t["timeout"]:
+            why = "erori de memorie (valgrind)" if norm_output(t["got"]) == norm_output(t["expected"]) \
+                else "rezultat greșit + erori de memorie"
+        print(f"  ✘ test {t['name']} — {why}")
+        if t["args"]:
+            print("    argumente: " + " ".join(t["args"]))
+        same = not t["timeout"] and norm_output(t["got"]) == norm_output(t["expected"])
+        for label, key in (() if same else (("intrare", "stdin"), ("așteptat", "expected"), ("obținut", "got"))):
+            print(f"    --- {label} ---")
+            print("    " + clip_lines(t[key].rstrip("\n")).replace("\n", "\n    "))
+        if t.get("stderr", "").strip():
+            print("    --- stderr ---\n    " + clip_lines(t["stderr"].rstrip()).replace("\n", "\n    "))
+        if a.valgrind and t.get("valgrind_output", "").strip():
+            print("    --- valgrind ---\n    " + clip_lines(t["valgrind_output"].rstrip(), 30).replace("\n", "\n    "))
+    ok = res["total"] > 0 and res["passed"] == res["total"]
+    print(f"{'✔' if ok else '✘'} {res['passed']}/{res['total']} teste trecute"
+          + (" (cu valgrind)" if a.valgrind else ""))
+    sys.exit(0 if ok else 1)
+
+
+# ---------------------------------------------------------------------------
+# ai-install
+# ---------------------------------------------------------------------------
+def cmd_ai_install(a):
+    pkg, binname = AI_PACKAGES[a.tool]
+    prefix = os.environ.get("NPM_CONFIG_PREFIX", str(HOME / ".npm-global"))
+    Path(prefix).mkdir(parents=True, exist_ok=True)
+    print(f"Instalez {pkg} în {prefix} ...")
+    r = subprocess.run(["npm", "install", "-g", "--no-fund", "--no-audit", pkg],
+                       env={**os.environ, "NPM_CONFIG_PREFIX": prefix})
+    if r.returncode != 0:
+        die(f"instalarea {pkg} a eșuat (cod {r.returncode})", r.returncode)
+    print(f"""
+Gata. Pornește-l dintr-un terminal, în directorul problemei:  {binname}
+ - Autentificarea/cheia ta rămâne DOAR pe calculatorul tău (work/.pclp/state/, nu intră în predare).
+ - Conversațiile (prompturile și răspunsurile) sunt copiate automat în work/.pclp/ai/{a.tool}/
+   și fac parte din istoricul predat — asta e intenționat: se evaluează procesul.
+ - În ~/work există AGENTS.md / CLAUDE.md / GEMINI.md: asistentul e rugat să se poarte ca un tutore.""")
+
+
+# ---------------------------------------------------------------------------
+def main(argv=None):
+    p = argparse.ArgumentParser(prog="pclp", description="Mediul de lucru PCLP")
+    sub = p.add_subparsers(dest="cmd", required=True)
+    s = sub.add_parser("init", help="inițializează ~/work și datele studentului")
+    s.add_argument("--auto", action="store_true", help="fără întrebări (folosit la prima pornire)")
+    s.add_argument("--name")
+    s.add_argument("--email")
+    s.add_argument("--group")
+    s.set_defaults(fn=cmd_init)
+    s = sub.add_parser("status", help="stare și statistici")
+    s.set_defaults(fn=cmd_status)
+    s = sub.add_parser("snap", help="salvează un snapshot acum")
+    s.add_argument("-m", "--message")
+    s.add_argument("--auto", action="store_true", help=argparse.SUPPRESS)
+    s.set_defaults(fn=cmd_snap)
+    s = sub.add_parser("submit", help="creează arhiva de predare pentru o săptămână")
+    s.add_argument("week", type=int)
+    s.set_defaults(fn=cmd_submit)
+    s = sub.add_parser("week", help="săptămâna curentă a semestrului")
+    s.set_defaults(fn=cmd_week)
+    s = sub.add_parser("test", help="compilează și rulează testele unei probleme")
+    s.add_argument("problem", nargs="?", help="id-ul problemei (implicit: directorul curent)")
+    s.add_argument("--json", action="store_true", help="rezultat JSON (pentru portal)")
+    s.add_argument("--valgrind", action="store_true", help="rulează testele sub valgrind")
+    s.set_defaults(fn=cmd_test)
+    s = sub.add_parser("ai-install", help="instalează un asistent AI în linie de comandă")
+    s.add_argument("tool", choices=sorted(AI_PACKAGES))
+    s.set_defaults(fn=cmd_ai_install)
+    s = sub.add_parser("ai-changed", help=argparse.SUPPRESS)
+    s.set_defaults(fn=cmd_ai_changed)
+    a = p.parse_args(argv)
+    try:
+        a.fn(a)
+    except RuntimeError as e:
+        die(str(e))
+    except KeyboardInterrupt:
+        sys.exit(130)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,443 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:tutoriale:code_understanding</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-11-04T15:38:40+0200"/>
+<meta name="keywords" content="programare,tutoriale,code_understanding"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare:tutoriale"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/tutoriale/code_understanding"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/tutoriale/code_understanding"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:tutoriale';var JSINFO = {"id":"programare:tutoriale:code_understanding","namespace":"programare:tutoriale","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level1"><div class="li"><a href="#code_understanding">Code understanding</a></div>
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#cuprins">Cuprins</a></div></li>
+<li class="level2"><div class="li"><a href="#de_ce_este_nevoie_sa_intelegem_codul_sursa">De ce este nevoie să înțelegem codul sursă?</a></div></li>
+<li class="level2"><div class="li"><a href="#ce_avem_in_vedere_in_acest_tutorial">Ce avem în vedere în acest tutorial?</a></div></li>
+<li class="level2"><div class="li"><a href="#exemple_de_cod">Exemple de cod</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#reverse_by_what">reverse_by… what?</a></div></li>
+<li class="level3"><div class="li"><a href="#mutating_strings_again">Mutating strings again</a></div></li>
+<li class="level3"><div class="li"><a href="#reinventing_the_wheel">Reinventing the wheel</a></div></li>
+<li class="level3"><div class="li"><a href="#working_in_security">Working in security</a></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><a href="#concluzie">Concluzie</a></div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h1 class="sectionedit1" id="code_understanding">Code understanding</h1>
+<div class="level1">
+
+<p>
+<a href="/courses/_detail/pa/new_pa/partners/bitdefender_masterbrand_logo_positive.png?id=programare%3Atutoriale%3Acode_understanding" class="media" title="pa:new_pa:partners:bitdefender_masterbrand_logo_positive.png"><img src="/courses/_media/pa/new_pa/partners/bitdefender_masterbrand_logo_positive.png?w=190&amp;tok=01f884" class="medialeft" alt="" width="190" /></a>
+Bitdefender este un lider recunoscut în domeniul securității IT, care oferă soluții superioare de prevenție, detecție și răspuns la incidente de securitate cibernetică. Milioane de sisteme folosite de oameni, companii și instituții guvernamentale sunt protejate de soluțiile companiei, ceea ce face Bitdefender unul dintre cei mai de încredere experți în combaterea amenințărilor informatice, în protejarea intimității și datelor, a identității digitale și în consolidarea rezilienței la atacuri. Compania a inovat constant în domenii precum antimalware, Internetul Lucrurilor, analiză comportamentală și inteligență artificială, iar tehnologiile Bitdefender sunt licențiate către peste 180 dintre cele mai cunoscute branduri de securitate din lume.
+</p>
+
+<p>
+<strong>Resposabili</strong>:
+</p>
+<ul>
+<li class="level1"><div class="li"> Cristi Olaru</div>
+</li>
+<li class="level1"><div class="li"> Cristi Pătrașcu</div>
+</li>
+<li class="level1"><div class="li"> Cristi Popa</div>
+</li>
+<li class="level1"><div class="li"> Darius Neațu</div>
+</li>
+<li class="level1"><div class="li"> Liza Babu</div>
+</li>
+<li class="level1"><div class="li"> Radu Nichita</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT1 SECTION "Code understanding" [1-1017] -->
+<h2 class="sectionedit2" id="cuprins">Cuprins</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a href="#de_ce_este_nevoie_sa_intelegem_codul_sursa" title="programare:tutoriale:code_understanding ↵" class="wikilink1">De ce este nevoie să înțelegem codul sursă?</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#ce_avem_in_vedere_in_acest_tutorial" title="programare:tutoriale:code_understanding ↵" class="wikilink1">Ce avem în vedere în acest tutorial?</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#exemple_de_cod" title="programare:tutoriale:code_understanding ↵" class="wikilink1">Exemple de cod</a></div>
+<ul>
+<li class="level2"><div class="li"> <a href="#reverse_by_what" title="programare:tutoriale:code_understanding ↵" class="wikilink1">reverse_by… what?</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#mutating_strings_again" title="programare:tutoriale:code_understanding ↵" class="wikilink1">Mutating strings again</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#reinventing_the_wheel" title="programare:tutoriale:code_understanding ↵" class="wikilink1">Reinventing the wheel</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#working_in_security" title="programare:tutoriale:code_understanding ↵" class="wikilink1">Working in security</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <a href="#concluzie" title="programare:tutoriale:code_understanding ↵" class="wikilink1">Concluzie</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT2 SECTION "Cuprins" [1018-1508] -->
+<h2 class="sectionedit3" id="de_ce_este_nevoie_sa_intelegem_codul_sursa">De ce este nevoie să înțelegem codul sursă?</h2>
+<div class="level2">
+
+<p>
+Mai exact, de ce este nevoie să avem această abilitate? Pentru că orice inginer lucrează într-o echipă și va avea întotdeauna de-a face cu cod scris de alte persoane, porțiuni care nu au mai fost întreținute de ani de zile, care trebuie refactorizate sau îmbunătățite. Nu în ultimul rând, este foarte important să înțelegem ce face <strong>propriul</strong> nostru cod, astfel încât atunci când vom reveni asupra lui peste o săptămână, o lună sau un an, să nu ne întrebăm de ce am făcut anumite alegeri.
+</p>
+
+<p>
+Desigur, documentația și comentariile ne pot ajuta acolo unde codul nu este expresiv, dar asta nu înseamnă că trebuie să sacrificăm lizibilitatea în totalitate. Un exemplu relativ celebru în lumea C de astfel de caz este funcția:
+</p>
+<pre class="code cpp"><span class="kw4">float</span> foo<span class="br0">&#40;</span><span class="kw4">float</span> x<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">float</span> xhalf <span class="sy1">=</span> <span class="nu17">0.5f</span><span class="sy2">*</span>x<span class="sy4">;</span>
+    <span class="kw4">int</span> i <span class="sy1">=</span> <span class="sy2">*</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="sy2">*</span><span class="br0">&#41;</span><span class="sy3">&amp;</span>x<span class="sy4">;</span>
+    i <span class="sy1">=</span> <span class="nu12">0x5f3759df</span> <span class="sy2">-</span> <span class="br0">&#40;</span>i<span class="sy1">&gt;&gt;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    x <span class="sy1">=</span> <span class="sy2">*</span><span class="br0">&#40;</span><span class="kw4">float</span><span class="sy2">*</span><span class="br0">&#41;</span><span class="sy3">&amp;</span>i<span class="sy4">;</span>
+    x <span class="sy1">=</span> x<span class="sy2">*</span><span class="br0">&#40;</span><span class="nu17">1.5f</span><span class="sy2">-</span>xhalf<span class="sy2">*</span>x<span class="sy2">*</span>x<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">return</span> x<span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Luați-vă câteva minute pentru a citi cu atenție fiecare instrucțiune. Ce credeți că returnează <code>foo(x)</code>?
+</p>
+
+<details>
+
+<p>
+<summary markdown="span">Spoiler</summary>
+</p>
+
+<p>
+Răspunsul este inversul radicalului lui x! Funcția a fost folosită prima dată în engine-ul jocului <code>Quake III</code>, pornind din nevoia programatorilor de a folosi cât mai eficient resursele limitate ale calculatoarelor din perioada respectivă. Pentru cei curioși, puteți citi explicațiile lui Chris Lamont din <a href="http://www.lomont.org/papers/2003/InvSqrt.pdf" class="urlextern" title="http://www.lomont.org/papers/2003/InvSqrt.pdf"  rel="nofollow">Fast inverse square root</a>, în care demonstrează eficiența acestui algoritm. Canalul de Youtube <a href="https://www.youtube.com/watch?v=p8u_k2LIZyo&amp;ab_channel=Nemean" class="urlextern" title="https://www.youtube.com/watch?v=p8u_k2LIZyo&amp;ab_channel=Nemean"  rel="nofollow">Nemean</a> oferă explicații pentru fiecare instrucțiune în parte și de ce funcția a fost atât de importantă.
+</p>
+
+</details>
+
+</div>
+<!-- EDIT3 SECTION "De ce este nevoie să înțelegem codul sursă?" [1509-3407] -->
+<h2 class="sectionedit4" id="ce_avem_in_vedere_in_acest_tutorial">Ce avem în vedere în acest tutorial?</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> Cum urmărim execuția unui program</div>
+</li>
+<li class="level1"><div class="li"> Atenție la efecte laterale!</div>
+</li>
+<li class="level1"><div class="li"> Practici de urmat în vederea scrierii de cod mentenabil</div>
+</li>
+</ul>
+
+<p>
+În cele ce urmează, vom studia câteva secvențe de cod scrise atât de studenți ACS, cât și de programatori din industrie, acestea rulând la un moment dat pe software din producție.
+</p>
+
+</div>
+<!-- EDIT4 SECTION "Ce avem în vedere în acest tutorial?" [3408-3785] -->
+<h2 class="sectionedit5" id="exemple_de_cod">Exemple de cod</h2>
+<div class="level2">
+
+</div>
+<!-- EDIT5 SECTION "Exemple de cod" [3786-3813] -->
+<h3 class="sectionedit6" id="reverse_by_what">reverse_by… what?</h3>
+<div class="level3">
+<pre class="code cpp"><span class="co1">// în programul original, v este de fapt pointer către un întreg reprezentat pe 8 octeți</span>
+<span class="kw4">void</span> reverse_by_2<span class="br0">&#40;</span><span class="kw4">char</span><span class="sy2">*</span> v<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">char</span><span class="sy2">*</span> aux <span class="sy1">=</span> <span class="br0">&#40;</span><span class="kw4">char</span><span class="sy2">*</span><span class="br0">&#41;</span><span class="kw3">malloc</span> <span class="br0">&#40;</span><span class="nu0">8</span> <span class="sy2">*</span> <span class="kw3">sizeof</span> <span class="br0">&#40;</span><span class="kw4">char</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    aux<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span> <span class="sy1">=</span> v<span class="br0">&#91;</span><span class="nu0">6</span><span class="br0">&#93;</span><span class="sy4">;</span>
+    aux<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span> <span class="sy1">=</span> v<span class="br0">&#91;</span><span class="nu0">7</span><span class="br0">&#93;</span><span class="sy4">;</span>
+    aux<span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span> <span class="sy1">=</span> v<span class="br0">&#91;</span><span class="nu0">4</span><span class="br0">&#93;</span><span class="sy4">;</span>
+    aux<span class="br0">&#91;</span><span class="nu0">3</span><span class="br0">&#93;</span> <span class="sy1">=</span> v<span class="br0">&#91;</span><span class="nu0">5</span><span class="br0">&#93;</span><span class="sy4">;</span>
+    aux<span class="br0">&#91;</span><span class="nu0">4</span><span class="br0">&#93;</span> <span class="sy1">=</span> v<span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span><span class="sy4">;</span>
+    aux<span class="br0">&#91;</span><span class="nu0">5</span><span class="br0">&#93;</span> <span class="sy1">=</span> v<span class="br0">&#91;</span><span class="nu0">3</span><span class="br0">&#93;</span><span class="sy4">;</span>
+    aux<span class="br0">&#91;</span><span class="nu0">6</span><span class="br0">&#93;</span> <span class="sy1">=</span> v<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="sy4">;</span>
+    aux<span class="br0">&#91;</span><span class="nu0">7</span><span class="br0">&#93;</span> <span class="sy1">=</span> v<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span><span class="sy4">;</span>
+    <span class="kw3">memmove</span><span class="br0">&#40;</span>v, aux, <span class="nu0">8</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw3">free</span> <span class="br0">&#40;</span>aux<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Care este scopul funcției de mai sus? Cât timp v-a luat să vă dați seama? Cum credeți că ar putea fi îmbunătățită?
+</p>
+
+<details>
+
+<p>
+<summary markdown="span">Spoiler</summary>
+</p>
+
+<p>
+Deși numele <code>reverse_by_2</code> nu este foarte bine formulat, acesta oferă totuși un mic hint: funcția inversează ordinea octeților 2 câte 2 din întregul <code>*v</code> (în aux se pun în ordine octeții 6, 7, 4, 5, 2, 3, 0, 1). Astfel, un nume mai potrivit ar fi fost <code>reverse_byte_order_2_by_2</code>. Nu este recomandat să aveți nume foarte lungi de funcții, în special cele care sunt apelate uzual, dar prioritizați mereu o variantă mai explicită și lungă în defavoarea uneia scurte și criptice.
+</p>
+
+<p>
+În general, o listă de asignări devine destul de greu de urmărit de la o anumită mărime. Este de preferat să folosiți bucle, făcând astfel codul mai scurt, mai ușor de citit și urmărit. De asemenea, deși câteodată este util să folosiți variabile ajutătore, în acest caz putem implementa funcționalitatea dorită (generalizând pentru un șir de caractere v de lungime 2 * N) astfel:
+</p>
+<pre class="code cpp"><span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> N<span class="sy4">;</span> i <span class="sy2">+</span><span class="sy1">=</span> <span class="nu0">2</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    swap<span class="br0">&#40;</span><span class="sy3">&amp;</span>v<span class="br0">&#91;</span>i<span class="br0">&#93;</span>, <span class="sy3">&amp;</span>v<span class="br0">&#91;</span><span class="nu0">2</span> <span class="sy2">*</span> N <span class="sy2">-</span> <span class="nu0">2</span> <span class="sy2">-</span> i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    swap<span class="br0">&#40;</span><span class="sy3">&amp;</span>v<span class="br0">&#91;</span>i <span class="sy2">+</span> <span class="nu0">1</span><span class="br0">&#93;</span>, <span class="sy3">&amp;</span>v<span class="br0">&#91;</span><span class="nu0">2</span> <span class="sy2">*</span> N <span class="sy2">-</span> <span class="nu0">1</span> <span class="sy2">-</span> i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Fun fact: puteți implementa funcția de swap fără a folosi o a treia variabilă
+</p>
+<pre class="code cpp"><span class="kw4">void</span> swap<span class="br0">&#40;</span><span class="kw4">int</span><span class="sy2">*</span> a, <span class="kw4">int</span><span class="sy2">*</span> b<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="sy2">*</span>a <span class="sy3">^</span><span class="sy1">=</span> <span class="sy2">*</span>b<span class="sy4">;</span>
+    <span class="sy2">*</span>b <span class="sy3">^</span><span class="sy1">=</span> <span class="sy2">*</span>a<span class="sy4">;</span>
+    <span class="sy2">*</span>a <span class="sy3">^</span><span class="sy1">=</span> <span class="sy2">*</span>b<span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+De ce funcționează asta? <a href="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab07" class="urlextern" title="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab07"  rel="nofollow">hint</a>
+</p>
+
+</details>
+
+</div>
+<!-- EDIT6 SECTION "reverse_by… what?" [3814-5803] -->
+<h3 class="sectionedit7" id="mutating_strings_again">Mutating strings again</h3>
+<div class="level3">
+<pre class="code cpp"><span class="co1">// n este lungimea șirului de caractere v și este garantat să fie număr par mai mic decât 256</span>
+<span class="kw4">char</span><span class="sy2">*</span> change_value<span class="br0">&#40;</span><span class="kw4">char</span><span class="sy2">*</span> v, <span class="kw4">int</span> n<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">char</span> aux<span class="br0">&#91;</span><span class="nu0">256</span><span class="br0">&#93;</span><span class="sy4">;</span>
+    <span class="kw3">memmove</span><span class="br0">&#40;</span>aux, v, n<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> n<span class="sy4">;</span> i <span class="sy1">=</span> i <span class="sy2">+</span> <span class="nu0">2</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        swap<span class="br0">&#40;</span>aux<span class="br0">&#91;</span>i<span class="br0">&#93;</span>, aux<span class="br0">&#91;</span>i <span class="sy2">+</span> <span class="nu0">1</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+    reverse_char_array<span class="br0">&#40;</span>aux, n<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">return</span> aux<span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">void</span> reverse_char_array<span class="br0">&#40;</span><span class="kw4">char</span><span class="sy2">*</span> v, <span class="kw4">int</span> n<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> n<span class="sy4">;</span> i<span class="sy2">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        swap<span class="br0">&#40;</span>v<span class="br0">&#91;</span>i<span class="br0">&#93;</span>, v<span class="br0">&#91;</span>n <span class="sy2">-</span> <span class="nu0">1</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+        n <span class="sy1">=</span> n<span class="sy2">--</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Din nou, analizați funcția <code>change_value</code>. Ce valoare returnează? Vedeți ceva în neregulă cu implementările celor 2 funcții? Cum ar putea fi îmbunătățite?
+</p>
+
+<details>
+
+<p>
+<summary markdown="span">Spoiler</summary>
+</p>
+
+<p>
+Funcția <code>change_value</code> este o generalizare a lui <code>reverse_by_2</code>, inversând 2 câte 2 caracterele din v: interschimbăm v[i] cu v[i + 1], deci ordinea lor în v este v[i + 1] → v[i], iar când inversăm tot șirul, ordinea lor o să fie din nou v[i] → v[i + 1], doar că o să se afle pe pozițiile <code>n - i - 2</code> și <code>n - i - 1</code>.
+</p>
+
+<p>
+Codul, însă, în varianta sa actuală, generează comportament nedefinit pentru că <code>change_value</code> returnează un pointer alocat local, iar după ce se termină execuția funcției, memoria la care acesta pointează este dezalocată. Evident, această problemă poate fi rezolvată ușor alocând dinamic șirul <code>aux</code>, dar hai să sesizăm și faptul că numele funcției poate duce la erori de logică atunci când este folosită de o altă persoană. <code>change_value</code> implică faptul că valoarea șirului primit ca parametru, v, este modificată în vreun fel, dar de fapt funcția returneaza un șir nou ce conține modificările aferente.
+</p>
+
+<p>
+Din nou, în industrie este <code>foarte important</code> să dăm nume sugestive funcțiilor, iar acestea să nu facă modificări în plus sau în minus față de cele sugerate de acel nume. Dacă în varianta de la punctul anterior, când modificam șirul efectiv, am propus <code>reverse_byte_order_2_by_2</code>, acum mai potrivit ar fi <code>reversed_byte_order_2_by_2</code>.
+</p>
+
+<p>
+Deși <code>reverse_char_array</code> este un nume foarte sugestiv și ați putea fi tentați să nu mai verificați implementarea acestei funcții, aceasta nu este garantată să producă mereu rezultatul dorit.
+</p>
+
+<p>
+În primul rând, încercați întotdeauna să simplificați codul acolo unde se poate: notând cu N lungimea șirului de caractere v, bucla for va înlocui v[0] cu v[N - 1], v[1] cu v[N - 2], … , atâta timp cât primul indice este mai mic decât cel de-al doilea, dar este un mod foarte ofuscat de a realiza o operație atât de simplă precum inversarea unui șir. Optați mereu pentru versiunea ce interschimbă v[i] cu v[N - 1 - i], i de la 0 la N / 2.
+</p>
+
+<p>
+În al doilea rând, deși pare doar o instrucțiune inutilă la prima vedere, asignarea <code>n = n--</code> produce de fapt comportament nedefinit. Am putea interpreta această linie de cod ca “asignează lui n fosta lui valoare, după care decrementează-l”, însă ceea ce facem de fapt este să încercăm să-i modificăm valoarea lui n de 2 ori între 2 <code>sequence point-uri</code> consecutive.
+</p>
+
+<p>
+În esență, un sequence point este un punct din execuția unui program în care este garantat că toate efectele laterale ale operațiilor trecute s-au terminat, deci putem fi siguri că schimbările pe care vrem ca acestea să le producă au avut loc. În cazul nostru, nu putem ști cu siguranță în ce ordine se efectuează operațiile de decrementare si asignare. Spre exemplu, este posibil ca mai întâi <code>n--</code> să îl decrementeze pe n și să returneze vechea valoare, lăsându-l pe n neschimbat.
+</p>
+
+<p>
+Ca o regulă generală, nu are sens să încercați să deslușiți ce poate face o bucată de cod ce generează comportament nedefinit. Mai multe detalii despre sequence points puteți găsi pe <a href="https://en.wikipedia.org/wiki/Sequence_point" class="urlextern" title="https://en.wikipedia.org/wiki/Sequence_point"  rel="nofollow">Wikipedia</a> și <a href="https://stackoverflow.com/questions/4176328/undefined-behavior-and-sequence-points" class="urlextern" title="https://stackoverflow.com/questions/4176328/undefined-behavior-and-sequence-points"  rel="nofollow">Stack Overflow</a>.
+</p>
+
+</details>
+
+</div>
+<!-- EDIT7 SECTION "Mutating strings again" [5804-9929] -->
+<h3 class="sectionedit8" id="reinventing_the_wheel">Reinventing the wheel</h3>
+<div class="level3">
+<pre class="code cpp"><span class="kw4">void</span> my_strcat<span class="br0">&#40;</span><span class="kw4">char</span><span class="sy2">**</span> s1, <span class="kw4">char</span><span class="sy2">**</span> s2, <span class="kw4">char</span><span class="sy2">**</span> dest<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> cntr <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span>
+    <span class="kw4">char</span> trmn <span class="sy1">=</span> <span class="st0">'<span class="es5">\0</span>'</span><span class="sy4">;</span>
+    <span class="kw4">int</span> s1_len <span class="sy1">=</span> <span class="kw3">strlen</span><span class="br0">&#40;</span><span class="sy2">*</span>s1<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> s2_len <span class="sy1">=</span> <span class="kw3">strlen</span><span class="br0">&#40;</span><span class="sy2">*</span>s2<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> trmn_size <span class="sy1">=</span> <span class="kw3">strlen</span><span class="br0">&#40;</span><span class="sy3">&amp;</span>trmn<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw4">char</span><span class="sy2">*</span> dest_char <span class="sy1">=</span> <span class="br0">&#40;</span><span class="kw4">char</span><span class="sy2">*</span><span class="br0">&#41;</span><span class="kw3">malloc</span><span class="br0">&#40;</span>s1_len<span class="sy2">+</span>s2_len<span class="sy2">+</span>trmn_size<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> s1_len<span class="sy4">;</span> i<span class="sy2">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        dest_char<span class="br0">&#91;</span>cntr<span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#40;</span><span class="sy2">*</span>s1<span class="br0">&#41;</span><span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy4">;</span>
+        cntr<span class="sy2">++</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> s2_len<span class="sy4">;</span> i<span class="sy2">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        dest_char<span class="br0">&#91;</span>cntr<span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#40;</span><span class="sy2">*</span>s2<span class="br0">&#41;</span><span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy4">;</span>
+        cntr<span class="sy2">++</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+    dest_char<span class="br0">&#91;</span>cntr<span class="br0">&#93;</span> <span class="sy1">=</span> trmn<span class="sy4">;</span>
+    <span class="sy2">*</span>dest <span class="sy1">=</span> <span class="sy3">&amp;</span><span class="br0">&#40;</span>dest_char<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Urmăriți cu atenție codul de mai sus, acesta ascunde o eroare.
+</p>
+
+<details>
+
+<p>
+<summary markdown="span">Spoiler</summary>
+</p>
+
+<p>
+Avem un exemplu clasic de <a href="https://en.wikipedia.org/wiki/Segmentation_fault" class="urlextern" title="https://en.wikipedia.org/wiki/Segmentation_fault"  rel="nofollow">segmentation fault</a>! Pentru că <code>trmn</code> este caracterul nul (<code>\0</code>), atunci când se apelează <code>strlen</code> pe adresa acestuia, vom obține valoarea 0: sunt 0 caractere între adresa de început și caracterul terminal.
+</p>
+
+<p>
+Astfel, nu se alocă suficientă memorie pentru șirul <code>dest_char</code>, iar când se scrie la finalul acestuia <code>trmn</code>, ceea ce se întâmplă de fapt este un acces ilegal la memorie.
+</p>
+
+<p>
+Observați cum o funcție la prima vedere banală și cu o implementare “straight forward”, care probabil a fost trecută cu vederea de mulți programatori, poate genera erori chiar și în proiecte din industrie.
+</p>
+
+<p>
+Recomandăm să nu rescrieți funcționalități din bibliotecile standard (dacă nu există un motiv întemeiat), acelea sunt verificate că funcționează cum trebuie în toate situațiile si probabil conțin și optimizări față de variantele voastre de implementare. De asemenea, încercați să nu abuzați de acestea precum în exemplul de mai sus, unde, probabil din exces de zel, autorul a vrut să folosească <code>strlen</code> peste tot.
+</p>
+
+</details>
+
+</div>
+<!-- EDIT8 SECTION "Reinventing the wheel" [9930-11841] -->
+<h3 class="sectionedit9" id="working_in_security">Working in security</h3>
+<div class="level3">
+
+<p>
+Imaginați-vă că lucrați într-o companie de securitate precum <code>Bitdefender</code>. Trebuie să îmbunătățiți un <a href="https://en.wikipedia.org/wiki/Password_manager" class="urlextern" title="https://en.wikipedia.org/wiki/Password_manager"  rel="nofollow">password manager</a> folosit în toată compania. Vreți să rescrieți procesul de adăugare a unei parole noi și după multe căutări, găsiți secvența de cod care vă interesează:
+</p>
+<pre class="code cpp"><span class="kw4">void</span> add_password<span class="br0">&#40;</span><span class="kw4">struct</span> account user, <span class="kw4">char</span><span class="sy2">*</span> password, <span class="kw4">int</span> new_user<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    ...
+    <span class="co1">// nu returnează 0 niciodată</span>
+    <span class="kw4">int</span> pass_hash <span class="sy1">=</span> hash<span class="br0">&#40;</span>password<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="co1">// new_user este 1 sau 0, în funcție dacă operația este efectuată de un utilizator nou sau nu</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>pass_hash <span class="sy1">==</span> new_user <span class="sy4">?</span> <span class="nu0">0</span> <span class="sy4">:</span> get_old_pass_hash<span class="br0">&#40;</span>user<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="co1">// tratează cazul în care se introduce aceeași parolă</span>
+        ...
+        <span class="kw1">return</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="co1">// returneaza un număr între -128 și 127</span>
+    <span class="kw4">int</span> power <span class="sy1">=</span> check_strength<span class="br0">&#40;</span>password<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="co1">// nu vrem să stocăm parolele utilizatorilor nicăieri, așa că suprascriem locația de memorie cu zerouri</span>
+    <span class="kw3">memset</span><span class="br0">&#40;</span>password, <span class="nu0">0</span>, <span class="kw3">sizeof</span><span class="br0">&#40;</span><span class="sy2">*</span>password<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>power <span class="sy1">&gt;=</span> <span class="nu0">70</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        set_strength<span class="br0">&#40;</span>user, pass_hash, <span class="st0">&quot;very strong&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span> <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>power <span class="sy1">&gt;</span> <span class="nu0">0</span> <span class="sy3">||</span> power <span class="sy1">&lt;=</span> <span class="nu0">69</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        set_strength<span class="br0">&#40;</span>user, pass_hash, <span class="st0">&quot;strong&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span> <span class="kw1">else</span> <span class="br0">&#123;</span>
+        set_strength<span class="br0">&#40;</span>user, pass_hash, <span class="st0">&quot;weak&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+    ...
+<span class="br0">&#125;</span></pre>
+
+<p>
+Fiind studenți la ACS, vă dați seama imediat că există câteva bug-uri în implementarea curentă și vă apucați să le reparați.
+</p>
+
+<details>
+
+<p>
+<summary markdown="span">Spoiler</summary>
+</p>
+
+<p>
+Un prim bug provine din precendența operatorilor! Cum se verifică faptul că utilizatorul a introdus parola precedentă?
+</p>
+
+<p>
+Intenția este ca în cazul în care <code>new_user</code> este 1, să comparăm hashul cu 0 (valoare invalidă pentru un hash), iar în cazul în care <code>new_user</code> este 0, să-l comparăm cu vechiul hash. În forma sa actuală, însă, deoarece <code>==</code> are precedență mai mare decât <code>?:</code>, secvența de cod este de fapt echivalentă cu
+</p>
+<pre class="code cpp"><span class="kw1">if</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>pass_hash <span class="sy1">==</span> new_user<span class="br0">&#41;</span> <span class="sy4">?</span> <span class="nu0">0</span> <span class="sy4">:</span> get_old_pass_hash<span class="br0">&#40;</span>user<span class="br0">&#41;</span><span class="br0">&#41;</span></pre>
+
+<p>
+În majoritatea cazurilor <code>pass_hash</code> va fi diferit de 0 sau 1, deci expresia se va evalua la <code>get_old_pass_hash(user)</code>, care este un număr nenul, ceea ce inseamnă că se va intra aproape mereu pe ramura de <code>if</code>! Soluția este una simplă, și anume de a pune între paranteze membrii operatorului ternar:
+</p>
+<pre class="code cpp"><span class="kw1">if</span> <span class="br0">&#40;</span>pass_hash <span class="sy1">==</span> <span class="br0">&#40;</span>new_user <span class="sy4">?</span> <span class="nu0">0</span> <span class="sy4">:</span> get_old_pass_hash<span class="br0">&#40;</span>user<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span></pre>
+
+<p>
+Următorul bug reprezintă o eroare de logică: parola nu va avea niciodată puterea <code>weak</code>. Orice număr mai mic decât 70 este ori mai mare decât 0, ori mai mic sau egal cu 69, deci acea ramură <code>else</code> nu va fi niciodată accesată. Soluția corectă presupune folosirea operatorului <code>și</code> (<code>&amp;&amp;</code>) în loc de <code>sau</code> (<code>||</code>).
+</p>
+
+<p>
+Un ultim bug este însă mai ascuns și nu reprezintă o greșeală propriu-zisă în cod. Funcția <code>memset</code> nu este garantată să fie rulată, compilatorul considerând-o inutilă din moment ce nu se mai accesează locația de memorie <code>password</code> după aceea (vezi <a href="https://www.cryptologie.net/article/419/zeroing-memory-compiler-optimizations-and-memset_s/" class="urlextern" title="https://www.cryptologie.net/article/419/zeroing-memory-compiler-optimizations-and-memset_s/"  rel="nofollow">Zeroing memory, compiler optimizations and memset_s</a>). Atunci când doriți să fiți siguri că ați șters informația de la o locație de memorie, folosiți <a href="https://en.cppreference.com/w/c/string/byte/memset" class="urlextern" title="https://en.cppreference.com/w/c/string/byte/memset"  rel="nofollow">memset_s</a> sau <a href="https://man7.org/linux/man-pages/man3/bzero.3.html" class="urlextern" title="https://man7.org/linux/man-pages/man3/bzero.3.html"  rel="nofollow">bzero</a>.
+</p>
+
+</details>
+
+</div>
+<!-- EDIT9 SECTION "Working in security" [11842-15401] -->
+<h2 class="sectionedit10" id="concluzie">Concluzie</h2>
+<div class="level2">
+
+<p>
+Înțelegerea codului sursă este o abilitate pe care cu toții ne-o rafinăm de-a lungul carierelor noastre. Vă veți confrunta cu funcționalități ale căror creatori au plecat din companie, cu proiecte open-source și, cum probabil v-ați obișnuit deja, veți căuta soluții pe Stack Overflow. Toate aceste experiențe au capabilitatea să vă invețe ceva nou, să deprindeți un obicei ce vă va ajuta nu numai pe voi, ci și pe toți oamenii care vă vor utiliza codul.
+</p>
+
+</div>
+<!-- EDIT10 SECTION "Concluzie" [15402-] --></div>
+</body>
+</html>

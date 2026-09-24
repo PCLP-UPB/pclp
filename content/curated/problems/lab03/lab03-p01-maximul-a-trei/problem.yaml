@@ -1,0 +1,81 @@
+id: lab03-p01-maximul-a-trei
+lab: lab03
+number: 1
+title: "Maximul a trei numere, cu funcții"
+difficulty: 1
+estimated_minutes: 15
+concepts: [funcție, return, parametru formal, apel de funcție]
+statement: |
+  La concursul de robotică al facultății, fiecare echipă face trei încercări, iar în
+  clasament contează doar cel mai bun punctaj. Scrie un program care afișează, pentru
+  fiecare echipă, punctajul maxim.
+
+  Programul trebuie să conțină două funcții:
+
+  - `int max2(int a, int b)` — întoarce cel mai mare dintre `a` și `b`;
+  - `int max3(int a, int b, int c)` — întoarce cel mai mare dintre cele trei numere,
+    **folosind** `max2` (fără alte comparații proprii).
+
+  **Date de intrare**
+
+  Pe prima linie, numărul de echipe `t`. Pe fiecare dintre următoarele `t` linii, trei
+  numere întregi: punctajele unei echipe.
+
+  **Date de ieșire**
+
+  `t` linii, pe fiecare punctajul maxim al echipei respective.
+
+  **Restricții**
+
+  - `1 ≤ t ≤ 1000`
+  - punctajele sunt între `-1 000 000` și `1 000 000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4
+  7 12 5
+  -3 -8 -1
+  10 10 10
+  0 99 99
+  ```
+
+  Ieșire:
+  ```
+  12
+  -1
+  10
+  99
+  ```
+starter: |
+  #include <stdio.h>
+
+  int max2(int a, int b)
+  {
+  	/* TODO: întoarce cel mai mare dintre a și b */
+  }
+
+  int max3(int a, int b, int c)
+  {
+  	/* TODO: folosește max2 */
+  }
+
+  int main(void)
+  {
+  	int t, i, a, b, c;
+
+  	scanf("%d", &t);
+  	for (i = 0; i < t; i++) {
+  		scanf("%d%d%d", &a, &b, &c);
+  		/* TODO: afișează max3(a, b, c) */
+  	}
+
+  	return 0;
+  }
+hints:
+  - "O funcție primește valori prin parametri și dă înapoi un rezultat cu return; nu afișează nimic."
+  - "Rezultatul unei funcții poate fi folosit direct ca argument pentru un alt apel de funcție."
+  - "max3(a, b, c) este maximul dintre max2(a, b) și c — adică tot un apel de max2."
+pitfalls:
+  - "O funcție care întoarce int trebuie să ajungă la return pe orice drum; altfel valoarea este nedefinită."

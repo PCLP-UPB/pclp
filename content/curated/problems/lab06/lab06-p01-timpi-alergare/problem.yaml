@@ -1,0 +1,82 @@
+id: lab06-p01-timpi-alergare
+lab: lab06
+number: 1
+title: "Timpii de la maraton"
+difficulty: 1
+estimated_minutes: 15
+concepts: [malloc, free, vector alocat dinamic, verificarea rezultatului alocării, pointer returnat de funcție]
+statement: |
+  La un semimaraton s-au înregistrat timpii (în secunde) ai celor `n` alergători. Numărul de alergători diferă de la o cursă la alta și poate fi foarte mare, așa că vectorul de timpi trebuie **alocat dinamic**, exact cât e nevoie.
+
+  Afișați timpul mediu și alergătorii care au avut un timp **strict mai mic** decât media, în ordinea din intrare.
+
+  Implementați și folosiți funcția:
+
+  ```c
+  int *citeste_timpi(int *n);
+  ```
+
+  care citește `n` (transmis apelantului prin pointer), alocă vectorul, citește elementele și returnează adresa vectorului (sau `NULL` dacă alocarea eșuează). Eliberați memoria înainte de terminarea programului.
+
+  **Date de intrare**
+
+  Pe prima linie `n`, pe a doua `n` numere întregi pozitive.
+
+  **Date de ieșire**
+
+  ```
+  medie: <media cu 2 zecimale>
+  sub medie: <timpii sub medie, fiecare precedat de un spatiu>
+  total: <cati timpi sunt sub medie>
+  ```
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100000`
+  - `1 ≤ timp ≤ 100000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  6
+  1520 1490 1610 1455 1700 1530
+  ```
+
+  Ieșire:
+  ```
+  medie: 1550.83
+  sub medie: 1520 1490 1455 1530
+  total: 4
+  ```
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  int *citeste_timpi(int *n)
+  {
+      /* TODO: citeste n, aloca, citeste elementele, returneaza vectorul */
+  }
+
+  int main(void)
+  {
+      int n;
+      int *timpi = citeste_timpi(&n);
+
+      if (timpi == NULL) {
+          return 1;
+      }
+
+      /* TODO: medie, afisare */
+
+      /* TODO: eliberare memorie */
+      return 0;
+  }
+hints:
+  - "Un vector alocat cu `malloc` „supraviețuiește” ieșirii din funcție, spre deosebire de un vector local — de aceea funcția poate returna adresa lui."
+  - "Dimensiunea dată lui `malloc` e în octeți: numărul de elemente înmulțit cu `sizeof(int)`. Verifică dacă rezultatul e `NULL`, iar la final apelează `free`."
+  - "Suma poate ajunge la 10^10, deci ține-o într-un `long long`. Un timp `t` e sub medie dacă `t < suma / n`, adică (fără împărțire) `t * n < suma`."
+pitfalls:
+  - "`malloc(n)` alocă doar `n` octeți, nu `n` întregi."
+  - "Nu returna adresa unui vector declarat local în funcție."
+  - "Fiecare `malloc` trebuie să aibă un `free` corespunzător."

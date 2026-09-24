@@ -1,0 +1,57 @@
+id: lab09-p03-pare-impare
+lab: lab09
+number: 3
+title: "Împarte numerele în două fișiere"
+difficulty: 2
+estimated_minutes: 25
+concepts: [fișier text, mod w, fprintf, fclose, fseek, ftell, dimensiunea unui fișier, fscanf]
+statement: |
+  Se citesc de la tastatură `n` și apoi `n` numere întregi. Programul trebuie să:
+
+  1. scrie numerele **pare** în fișierul `pare.txt` și numerele **impare** în fișierul `impare.txt`,
+     câte un număr pe linie (formatul `"%d\n"`), în ordinea citirii;
+  2. închidă ambele fișiere;
+  3. redeschidă fiecare fișier (întâi `pare.txt`, apoi `impare.txt`) pentru citire,
+     determine dimensiunea lui în octeți cu `fseek`/`ftell` și afișeze dimensiunea și numerele din el.
+
+  **Date de intrare**
+
+  Pe prima linie `n`, pe a doua `n` numere întregi separate prin spații.
+
+  **Date de ieșire**
+
+  Două linii, de forma:
+  ```
+  pare.txt (D octeti): x1 x2 ...
+  impare.txt (D octeti): y1 y2 ...
+  ```
+  Dacă un fișier nu conține niciun număr, după `:` se afișează ` (gol)`.
+
+  **Restricții**
+
+  - 0 ≤ n ≤ 1000; numerele sunt în domeniul `int`;
+  - fișierele se creează în directorul curent (dacă există deja, conținutul lor se înlocuiește).
+
+  **Exemplu**
+
+  Intrare (stdin):
+  ```
+  6
+  3 8 -4 7 0 -9
+  ```
+
+  Ieșire (stdout):
+  ```
+  pare.txt (7 octeti): 8 -4 0
+  impare.txt (7 octeti): 3 7 -9
+  ```
+
+  `pare.txt` conține `8\n-4\n0\n`, adică 7 octeți.
+hints:
+  - "Ai nevoie de două variabile FILE * deschise simultan în modul \"w\". Datele scrise cu fprintf ajung sigur în fișier abia după fclose (sau fflush)."
+  - "Scrie o funcție care primește numele unui fișier și face partea de afișare: deschide, află dimensiunea, revine la început, citește numerele, închide. O apelezi de două ori."
+  - "Pentru dimensiune: fseek(f, 0, SEEK_END); size = ftell(f); fseek(f, 0, SEEK_SET); apoi citești cu while (fscanf(f, \"%d\", &x) == 1). Paritatea: x % 2 == 0 (nu x % 2 == 1, care greșește la numere negative)."
+pitfalls:
+  - "Dacă redeschizi fișierul pentru citire înainte de fclose-ul celui de scriere, e posibil ca datele să fie încă în buffer și să citești un fișier gol."
+  - "Pentru x negativ impar, x % 2 este -1, deci testul x % 2 == 1 clasifică greșit numerele."
+  - "După fseek la SEEK_END trebuie să revii la început înainte de a citi."

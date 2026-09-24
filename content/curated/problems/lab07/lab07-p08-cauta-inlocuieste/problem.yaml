@@ -1,0 +1,61 @@
+id: lab07-p08-cauta-inlocuieste
+lab: lab07
+number: 8
+title: "Caută și înlocuiește"
+difficulty: 4
+estimated_minutes: 60
+concepts: [strstr, memcpy, strcpy, strlen, malloc, spațiu pentru terminator, șir de caractere]
+statement: |
+  Implementați funcția „Caută și înlocuiește” a unui editor de text. Se dau un mod, un șir căutat `vechi` (nevid) și un înlocuitor `nou` (posibil vid); ambele pot conține spații. În fiecare linie a textului, aparițiile lui `vechi` se înlocuiesc cu `nou`, **de la stânga la dreapta și fără suprapuneri**: după o înlocuire, căutarea continuă imediat după apariția înlocuită (în textul original).
+
+  Modurile:
+
+  - `TOT` — se înlocuiește orice apariție;
+  - `CUVANT` — se înlocuiește doar o apariție care nu este lipită de o literă sau cifră (caracterul dinaintea ei și cel de după ei, dacă există, nu sunt litere sau cifre). O apariție respinsă nu se înlocuiește, iar căutarea continuă de la următorul caracter.
+
+  Căutarea ține cont de majuscule. Pentru fiecare linie, rezultatul se construiește într-un șir **alocat dinamic de lungime exactă**: numărați mai întâi aparițiile, calculați lungimea, alocați, apoi construiți. Implementați și folosiți:
+
+  ```c
+  char *inlocuieste(const char *s, const char *vechi, const char *nou, int doar_cuvinte, int *nr);
+  ```
+
+  care returnează șirul nou și scrie numărul de înlocuiri la adresa `nr`.
+
+  **Date de intrare**
+
+  Linia 1: modul (`TOT` sau `CUVANT`). Linia 2: șirul `vechi`. Linia 3: șirul `nou` (poate fi o linie goală). Apoi textul, linie cu linie, până la sfârșitul fișierului. Caracterul de linie nouă nu face parte din niciun șir.
+
+  **Date de ieșire**
+
+  Liniile textului după înlocuire, apoi o linie `Inlocuiri: <total>`.
+
+  **Restricții**
+
+  - `vechi` și `nou` au cel mult 1000 de caractere; textul are cel mult 1000 de linii, fiecare de cel mult 1000 de caractere
+  - toate caracterele sunt ASCII afișabile
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  CUVANT
+  cat
+  caine
+  cat de mare e cat-ul? Pisica (cat) nu e catel.
+  concatenare, cat2, Cat, cat
+  ```
+
+  Ieșire:
+  ```
+  caine de mare e caine-ul? Pisica (caine) nu e catel.
+  concatenare, cat2, Cat, caine
+  Inlocuiri: 4
+  ```
+hints:
+  - "`strstr(p, vechi)` găsește prima apariție începând de la adresa `p`. Pentru apariții fără suprapuneri, după o potrivire la adresa `q` continui căutarea de la `q + strlen(vechi)`."
+  - "Rezultatul are lungimea `strlen(s) - nr * strlen(vechi) + nr * strlen(nou)` (plus 1 pentru `'\\0'`). Între două apariții copiezi bucata din original cu `memcpy`, apoi copiezi `nou`; la final copiezi restul liniei."
+  - "Mod CUVANT: pentru o apariție la `q`, e acceptată dacă (q == s sau caracterul q[-1] nu e alfanumeric) și caracterul de la q + strlen(vechi) nu e alfanumeric (poate fi '\\0'). Dacă nu e acceptată, reiei căutarea de la q + 1. Folosește aceeași funcție de „următoarea apariție acceptată” în ambele treceri, ca numărarea și construirea să fie consistente."
+pitfalls:
+  - "Dacă `nou` e mai lung decât `vechi`, rezultatul e mai lung decât linia — nu îl construi în același buffer."
+  - "Nu citi `*(q - 1)` când apariția e chiar la începutul liniei."
+  - "Citește `vechi` și `nou` cu `fgets` (pot conține spații sau pot fi vide) și elimină `'\\n'`."

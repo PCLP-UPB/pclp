@@ -1,0 +1,528 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:laboratoare:lab01</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-10-10T19:12:26+0300"/>
+<meta name="keywords" content="programare,laboratoare,lab01"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare:laboratoare"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/laboratoare/lab01"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab01"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:laboratoare';var JSINFO = {"id":"programare:laboratoare:lab01","namespace":"programare:laboratoare","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#laborator01introducere_unelte_de_programare_configurare">Laborator01: Introducere. Unelte de programare. Configurare</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#obiective">Obiective</a></div></li>
+<li class="level3"><div class="li"><a href="#introducere">Introducere</a></div></li>
+<li class="level3"><div class="li"><a href="#unelte_folosite">Unelte folosite</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#compilatorul_gcc">Compilatorul GCC</a></div></li>
+<li class="level4"><div class="li"><a href="#utilizare_gcc">Utilizare GCC</a></div></li>
+<li class="level4"><div class="li"><a href="#utilitarul_make">Utilitarul Make</a></div></li>
+<li class="level4"><div class="li"><a href="#editoare">Editoare</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#interactiunea_program-utilizator">Interacțiunea program-utilizator</a></div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h2 class="sectionedit1" id="laborator01introducere_unelte_de_programare_configurare">Laborator01: Introducere. Unelte de programare. Configurare</h2>
+<div class="level2">
+
+</div>
+<!-- EDIT1 SECTION "Laborator01: Introducere. Unelte de programare. Configurare" [1-73] -->
+<h3 class="sectionedit2" id="obiective">Obiective</h3>
+<div class="level3">
+
+<p>
+În urma parcurgerii acestui material studentul va fi capabil să:
+</p>
+<ul>
+<li class="level1"><div class="li"> înțeleagă ce înseamnă noțiunile de program, limbaj de programare, compilare/interpretare</div>
+</li>
+<li class="level1"><div class="li"> scrie și compileze programe simple în limbajul C</div>
+</li>
+<li class="level1"><div class="li"> utilizeze utilitarul Make pentru a compila automat programele scrise</div>
+</li>
+<li class="level1"><div class="li"> utilizeze funcțiile din limbaj de citire și scriere a datelor</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT2 SECTION "Obiective" [74-457] -->
+<h3 class="sectionedit3" id="introducere">Introducere</h3>
+<div class="level3">
+
+<p>
+<strong>Calculatorul</strong> este un instrument care stochează, procesează și redă date sub forma unei secvențe de zero și unu (<a href="https://ro.wikipedia.org/wiki/Sistem_binar" class="urlextern" title="https://ro.wikipedia.org/wiki/Sistem_binar"  rel="nofollow"> un sistem binar</a>, despre care veți învăța mai multe semstrul acesta la Proiectare Logică și Introducere în Informatică), fiind utilizat pentru rezolvarea unor probleme folosind acele date. Un <strong>program</strong> este o înșiruire de instrucțiuni pe care calculatorul le va urma <em>întocmai</em> în vederea îndeplinirii unei sarcini. Când calculatorul urmează instrucțiunile dintr-un program, spunem că <em>execută</em> programul.
+</p>
+
+<p>
+Deoarece noi nu putem folosi direct sistemul binar pentru a spune unui calculator ce să facă, utilizăm un <strong>limbaj de programare</strong>, similar limbii vorbite (are o sintaxă, punctuație bine definite și cuvinte-cheie preluate în general din limba engleză) și deci ușor de asimilat. Acesta poate fi “tradus” prin compilare sau interpretare în <em>cod-mașină</em>, limbajul înțeles de calculator și exprimat, în general, în binar.
+</p>
+
+<p>
+Compilarea (specifică limbajelor precum Java, Pascal, C - pe care îl veți folosi anul acesta la Programarea Calculatoarelor și Structuri de Date) constă în traducerea propriu-zisă de către un compilator din limbajul de programare ales în cod-mașină, care va fi executat direct de calculator. Interpretarea (Python, Ruby, JavaScript) implică faptul că programul nu va fi rulat direct de calculator, ci de un alt program, <em>interpretor</em>, care este deja compilat în cod-mașină.
+</p>
+
+<p>
+<em><strong>Pentru acasă</strong></em>
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>Puteți gândi programul ca pe o rețetă care îți spune cum să faci un sendviș cu unt de arahide. În acest model, voi sunteți calculatorul, programul este rețeta, iar limbajul de programare este, desigur, limba în care este scrisă rețeta.</em></div>
+</li>
+<li class="level3"><div class="li"> <em>Încercați să formulați o secvență de instrucțiuni pentru a spune cuiva cum să facă un sendviș cu unt de arahide, fără să omiteți vreun pas sau să îi puneți în ordinea greșită.</em></div>
+</li>
+<li class="level3"><div class="li"> <em>A fost ușor? V-ați amintit toți pașii? Poate ați uitat să menționați că trebuie folosit un cuțit și <a href="https://www.youtube.com/watch?v=cDA3_5982h8" class="urlextern" title="https://www.youtube.com/watch?v=cDA3_5982h8"  rel="nofollow"> cine urmează instrucțiunile are mâinile pline de unt de arahide</a>! Sigur vă veți gândi că un om nu este atât de inapt. Dar un calculator chiar este! El va face numai și numai ce îi spui să facă. Acest lucru poate fi frustrant la început, dar într-un fel este o ușurare: dacă faci totul corect, știi exact ce va face calculatorul, pentru că i-ai spus tu. (<a href="https://en.wikiversity.org/wiki/Introduction_to_Programming/About_Programming" class="urlextern" title="https://en.wikiversity.org/wiki/Introduction_to_Programming/About_Programming"  rel="nofollow">sursa</a>)</em></div>
+</li>
+</ul>
+
+<p>
+C este un limbaj de programare structurată menit să simplifice scrierea programelor apropiate de masină. A fost creat de către Dennis Ritchie (care este și unul dintre creatorii sistemului Unix) în perioada 1968-1973 și a fost dezvoltat în strânsă legatură cu sistemul de operare Unix (cu care vă veți familiariza semestrul acesta prin materia Utilizarea Sistemelor de Operare), care a fost rescris în întregime în C. Utilizarea limbajului s-a extins cu trecerea timpului de la sisteme de operare și aplicaţii de sistem la aplicaţii generale.
+</p>
+
+<p>
+Deşi în prezent, pentru dezvoltarea aplicaţiilor complexe au fost create limbaje de nivel mai înalt (<code>Java, C#, Python</code>), C este în continuare foarte folosit la scrierea sistemelor de operare şi a aplicațiilor de performanţă mare sau dimensiune mică (în lumea dispozitivelor embedded). Nucleele sistemelor Windows şi Linux sunt scrise în C.
+</p>
+
+<p>
+Să începem prin a analiza un program simplu scris în limbajul C, al cărui scop este să afișeze în linia de comandă mesajul “Hello, World!”:
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="co1">//Hello from my first program!</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Hello, World!<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span> </pre>
+
+<p>
+<p><div class="notetip">Puteți testa codul <a href="https://www.onlinegdb.com/" class="urlextern" title="https://www.onlinegdb.com/"  rel="nofollow">aici</a>! 
+</div></p>
+</p>
+
+<p>
+Prima linie reprezintă o instrucțiune de preprocesare care spune programului să includă header-ul standard input output (stdio.h) din biblioteca C, permițând utilizarea funcțiilor de bază precum <em>printf, scanf, getc, puts</em> etc.
+</p>
+
+<p>
+Declarația int main() indică începutul funcției principale, de la care începe execuția în orice program C. Conținutul acestei funcții este încadrat de acolade {}. Conform <a href="https://www.kernel.org/doc/html/v4.10/process/coding-style.html" class="urlextern" title="https://www.kernel.org/doc/html/v4.10/process/coding-style.html"  rel="nofollow">convenției</a>, main fiind o funcție, cele două acolade se află singure pe câte o linie. Pentru alte comenzi (if, while, do, for etc), prima acoladă se va pune pe linia comenzii.
+</p>
+
+<p>
+După fiecare comandă este obligatoriu caracterul punct și virgulă <em>;</em> pentru a indica sfârșitul comenzii. Din această cauză orice comandă în C se poate scrie pe oricâte rânduri, dar acest lucru nu este recomandat decât dacă linia respectivă ar fi extrem de lungă (peste 80 de caractere).
+</p>
+
+<p>
+Așa cum este important să scrii frumos de mână pentru ca ceilalți care citesc să înțeleagă, este important să scrii și cod frumos ca să fie ușor de înțeles. Există niște reguli de bază numite <strong>coding style</strong> pe care le găsiți pe scurt <a href="https://ocw.cs.pub.ro/courses/programare/coding-style" class="urlextern" title="https://ocw.cs.pub.ro/courses/programare/coding-style"  rel="nofollow">aici</a>.
+</p>
+
+<p>
+Textul care urmează după cele două slash-uri reprezintă un comentariu dedicat exclusiv omului, pe care compilatorul nu îl citește. Comentariile sunt în general folosite pentru a explica/clarifica ce fac anumite părți din cod persoanei care citește codul (inclusiv celui care l-a scris!). Există două moduri de a scrie comentarii:
+</p>
+<pre class="code c"><span class="co1">//Everything on this line is a comment.</span>
+This text is not a comment. <span class="me1">It</span> would cause errors when the compiler tries to translate it.
+<span class="coMULTI">/* Comments like this can be written
+   on multiple lines */</span></pre>
+
+<p>
+<a href="/courses/_detail/programare/laboratoare/god_only_knows.jpg?id=programare%3Alaboratoare%3Alab01" class="media" title="programare:laboratoare:god_only_knows.jpg"><img src="/courses/_media/programare/laboratoare/god_only_knows.jpg?w=400&amp;tok=5dd444" class="mediacenter" alt="" width="400" /></a>
+</p>
+
+<p>
+Ultima linie din funcția main, <em>return 0</em>; indică sfârșitul cu succes a programului în C și este obligatorie. Orice program are un exit code la sfârșitul rulării, care indică dacă programul a fost executat cu succes (acest cod este, în general, zero) sau nu (caz în care va fi returnată o altă valoare care semnifică un anumit cod de eroare). În cazul nostru, 0 este <em>exit</em> code.<a href="/courses/_detail/programare/laboratoare/error.png?id=programare%3Alaboratoare%3Alab01" class="media" title="programare:laboratoare:error.png"><img src="/courses/_media/programare/laboratoare/error.png?w=400&amp;tok=d64789" class="mediacenter" alt="" width="400" /></a>
+</p>
+
+</div>
+<!-- EDIT3 SECTION "Introducere" [458-6783] -->
+<h3 class="sectionedit4" id="unelte_folosite">Unelte folosite</h3>
+<div class="level3">
+
+</div>
+
+<h4 id="compilatorul_gcc">Compilatorul GCC</h4>
+<div class="level4">
+
+<p>
+În cadrul laboratorului și pentru testarea temelor de casă se va folosi compilatorul GCC. GCC este unul dintre primele pachete software dezvoltate în cadrul Proiectului GNU (<code>GNU&#039;s Not Unix</code>) de către Free Software Foundation. Deși GCC se traducea iniţial prin <code>GNU C Compiler</code>, acesta a devenit între timp un compilator multifrontend, multi-backend, având suport pentru o serie largă de limbaje, ca C, C++, Objective-C, Ada, Java, etc, astfel că denumirea curentă a devenit <code>GNU Compiler Collection</code>. În cadrul cursului de <a href="http://ocw.cs.pub.ro/programare" class="urlextern" title="http://ocw.cs.pub.ro/programare"  rel="nofollow">Programare</a> ne vom referi totuşi numai la partea de C din suita de compilatoare.
+</p>
+
+<p>
+Compilatorul GCC rulează pe o gamă largă de echipamente hardware (procesoare din familia: <code>i386, alpha, vax, m68k, sparc, HPPA, arm, MIPS, PowerPC,</code> etc.) și de sisteme de operare (<code>GNU/Linux, DOS, Windows 9x/NT/2000, Solaris, Tru64, VMS, Ultrix, Aix </code>), fiind la ora actuală cel mai folosit compilator.
+</p>
+
+<p>
+Compilatorul GCC se apelează din linia de comandă, folosind diferite opțiuni, în funcție de rezultatul care se dorește (specificarea de căi suplimentare de căutare a bibliotecilor/fișierelor antet, link-area unor biblioteci specifice, opțiuni de optimizare, controlul stagiilor de compilare, al avertisementelor, etc.). 
+</p>
+
+</div>
+
+<h4 id="utilizare_gcc">Utilizare GCC</h4>
+<div class="level4">
+
+<p>
+Vom folosi pentru exemplificare un program simplu care tipărește la ieșirea standard un șir de caractere.
+</p>
+<dl class="code">
+<dt><a href="/courses/_export/code/programare/laboratoare/lab01?codeblock=2" title="Download Snippet" class="mediafile mf_c">hello.c</a></dt>
+<dd><pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Hello from your first program!<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+</dd></dl>
+
+<p>
+Pentru compilarea programului se va lansa comanda (în linia de comandă):
+</p>
+<pre class="code bash"> <span class="kw2">gcc</span> hello.c</pre>
+
+<p>
+presupunând că fișierul sursă se numește <code>hello.c</code>.
+</p>
+
+<p>
+Pe un sistem de operare <code>Linux</code>, compilarea default va genera un executabil cu numele <code>a.out</code>. Pentru rularea acestuia, trebuie executată comanda:
+</p>
+<pre class="code bash"> .<span class="sy0">/</span>a.out</pre>
+
+<p>
+Pentru un control mai fin al comportării compilatorului, sunt prezentate în tabelul următor cele mai folosite opţiuni (pentru lista completă studiaţi pagina de manual pentru GCC - <code>man gcc</code>):
+</p>
+<div class="table sectionedit5"><table class="inline">
+	<tr class="row0">
+		<th class="col0"> Opțiune </th><th class="col1"> Efect </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0"><strong>-o</strong> nume_fișier</td><td class="col1">Numele fișierului de ieşire va fi nume_fişier. În cazul în care această opțiune nu este setată, se va folosi numele implicit (pentru fișiere executabile: a.out - pentru Linux).</td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"><strong>-I</strong> cale_către_fișiere_antet</td><td class="col1">Caută fișiere antet și în calea specificată.</td>
+	</tr>
+	<tr class="row3">
+		<td class="col0"><strong>-L</strong> cale_către_biblioteci</td><td class="col1">Caută fișiere bibliotecă și în calea specificată.</td>
+	</tr>
+	<tr class="row4">
+		<td class="col0"><strong>-l</strong> nume_bibliotecă</td><td class="col1">Link-editează biblioteca <code>nume_bibliotecă</code>. <strong>Atenție!!!</strong> <code>nume_bibliotecă</code> nu este întotdeauna același cu numele fișierului antet prin care se include această bibliotecă. Spre exemplu, pentru includerea bibliotecii de funcții matematice, fișierul antet este math.h, iar biblioteca este <code>m</code>.</td>
+	</tr>
+	<tr class="row5">
+		<td class="col0"><strong>-W</strong> tip_warning</td><td class="col1">Afișează tipurile de avertismente specificate (Pentru mai multe detalii <code>man gcc</code> sau <code>gcc –help</code>). Cel mai folosit tip este <code>all</code>. Este indicat ca la compilarea cu <code>-Wall</code> să nu apară nici un fel de avertismente.</td>
+	</tr>
+	<tr class="row6">
+		<td class="col0"><strong>-c</strong></td><td class="col1">Compilează și asamblează, dar nu link-editează. Generează fișiere obiect, cu extensia <code>.o</code>.</td>
+	</tr>
+	<tr class="row7">
+		<td class="col0"><strong>-S</strong></td><td class="col1">Se oprește după faza de compilare, fară să asambleze. Rezultă cod assembler în fișiere cu extensia <code>.s</code>.</td>
+	</tr>
+</table></div>
+<!-- EDIT5 TABLE [9111-10329] -->
+</div>
+
+<h5 id="exemplu">Exemplu</h5>
+<div class="level5">
+<pre class="code bash"><span class="kw2">gcc</span> <span class="re5">-o</span> tema1 tema1.c <span class="re5">-lm</span> <span class="re5">-Wall</span></pre>
+
+<p>
+Comanda de mai sus are ca efect compilarea și link-editarea fişierului <code>tema1.c</code>, cu includerea bibliotecii matematice, afişând toate avertismentele. Fişierul de ieşire se va numi <code>tema1</code>.
+</p>
+
+<p>
+<strong>Atenție!!!</strong> Dacă folosiți opțiunea <strong>-o</strong>, nu adăugați imediat după fișierele sursă. Acest lucru ar avea ca efect suprascrierea acestora și pierderea întregului conținut.
+</p>
+
+</div>
+
+<h4 id="utilitarul_make">Utilitarul Make</h4>
+<div class="level4">
+
+<p>
+<p><div class="noteclassic">
+Instrucțiuni de instalare gcc - <a href="https://ocw.cs.pub.ro/courses/programare/vmchecker_conf#instalare_gccmake" class="urlextern" title="https://ocw.cs.pub.ro/courses/programare/vmchecker_conf#instalare_gccmake"  rel="nofollow"> Instalare gcc/make </a>
+
+</div></p>
+</p>
+
+<p>
+Utilitarul <code>make</code> determină automat care sunt părțile unui proiect care trebuie recompilate ca urmare a operării unor modificări și declanşează comenzile necesare pentru recompilarea lor. Pentru a putea utiliza <code>make</code>, este necesar un fișier de tip <code>makefile</code> (numit de obicei <code>Makefile</code> sau <code>makefile</code>) care descrie relațiile de dependenţă între diferitele fișiere din care se compune programul şi care specifică regulile de actualizare pentru fiecare fişier în parte.
+</p>
+
+<p>
+În mod normal, într-un program, fişierul executabil este actualizat (recompilat) pe baza fișierelor-obiect, care la rândul lor sunt obținute prin compilarea fișierelor sursă. Totuși, acest utilitar poate fi folosit pentru orice proiect care conţine dependenţe şi cu orice compilator/utilitar care poate rula în linia de comandă. Odată creat fișierul <code>makefile</code>, de fiecare dată când apare vreo modificare în fișierele sursă, este suficient să rulăm utilitarul <code>make</code> pentru ca toate recompilările necesare să fie efectuate. Programul <code>make</code> utilizează fișierul Makefile ca bază de date şi pe baza timpilor ultimei modificări a fișierelor din Makefile decide care sunt fișierele care trebuie actualizate. Pentru fiecare din aceste fișiere, sunt executate comenzile precizate in Makefile. În continuare prezentăm un exemplu simplu.
+</p>
+<pre class="code bash"><span class="co0"># Declaratiile de variabile</span>
+CC = <span class="kw2">gcc</span>
+CFLAGS = <span class="re5">-Wall</span> <span class="re5">-lm</span>
+SRC = radical.c
+EXE = radical
+&nbsp;
+<span class="co0"># Regula de compilare</span>
+all:
+	$<span class="br0">&#40;</span>CC<span class="br0">&#41;</span> <span class="re5">-o</span> $<span class="br0">&#40;</span>EXE<span class="br0">&#41;</span> $<span class="br0">&#40;</span>SRC<span class="br0">&#41;</span> $<span class="br0">&#40;</span>CFLAGS<span class="br0">&#41;</span>
+&nbsp;
+<span class="co0"># Regulile de &quot;curatenie&quot; (se folosesc pentru stergerea fisierelor intermediare si/sau rezultate)</span>
+.PHONY : clean
+clean :
+	<span class="kw2">rm</span> <span class="re5">-f</span> $<span class="br0">&#40;</span>EXE<span class="br0">&#41;</span> <span class="sy0">*</span>~</pre>
+
+<p>
+<strong>Atenție!!!</strong> Este obligatorie folosirea tab-urilor (nu spații!).
+Mai multe informații puteți găsiti pe <a href="http://www.gnu.org/software/make" class="urlextern" title="http://www.gnu.org/software/make"  rel="nofollow">pagina proiectului</a>.
+</p>
+
+</div>
+
+<h4 id="editoare">Editoare</h4>
+<div class="level4">
+
+<p>
+Pentru editarea surselor se poate folosi orice editor de text. 
+</p>
+
+<p>
+<strong>Exemple:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> interfața în mod text</div>
+<ul>
+<li class="level3"><div class="li"> <a href="http://www.vim.org" class="urlextern" title="http://www.vim.org"  rel="nofollow">Vim</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="http://www.gnu.org/software/emacs" class="urlextern" title="http://www.gnu.org/software/emacs"  rel="nofollow">Emacs</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="http://www.nano-editor.org" class="urlextern" title="http://www.nano-editor.org"  rel="nofollow">nano</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> interfață grafică</div>
+<ul>
+<li class="level3"><div class="li"> <a href="https://code.visualstudio.com/docs/setup/linux" class="urlextern" title="https://code.visualstudio.com/docs/setup/linux"  rel="nofollow"> Visual Studio Code</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="https://www.sublimetext.com/" class="urlextern" title="https://www.sublimetext.com/"  rel="nofollow"> Sublime Text</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="http://projects.gnome.org/gedit" class="urlextern" title="http://projects.gnome.org/gedit"  rel="nofollow">gedit</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="http://kate-editor.org" class="urlextern" title="http://kate-editor.org"  rel="nofollow">Kate</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="https://www.jetbrains.com/clion" class="urlextern" title="https://www.jetbrains.com/clion"  rel="nofollow">CLion</a> (gratuit pentru studenți)</div>
+</li>
+<li class="level3"><div class="li"> <a href="https://www.codeblocks.org" class="urlextern" title="https://www.codeblocks.org"  rel="nofollow">Code::Blocks</a></div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+<!-- EDIT4 SECTION "Unelte folosite" [6784-13608] -->
+<h3 class="sectionedit6" id="interactiunea_program-utilizator">Interacțiunea program-utilizator</h3>
+<div class="level3">
+
+<p>
+Majoritatea algoritmilor presupun introducerea unor date de intrare și calcularea unor rezultate. În cazul programelor de consolă (cele scrise la laborator), datele sunt introduse de la tastatură și afișate pe ecran (alte variante sunt folosirea fișierelor sau preluarea datelor de la un hardware periferic).
+</p>
+
+<p>
+Programul dat ca exemplu mai sus folosește funcția de afișare <code>printf</code>. Această funcție realizează transferul și conversia de reprezentare a valorii întregi / reale in șir de caractere sub controlul unui format (specificat ca un șir de caractere): 
+</p>
+<pre class="code c"><a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;format&quot;</span><span class="sy0">,</span> expr_1<span class="sy0">,</span> expr_2<span class="sy0">,</span> ...<span class="sy0">,</span> expr_n<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+unde <code>expr_i</code> este o expresie care se evaluează la unul din tipurile fundamentale ale limbajului. Este necesar ca pentru fiecare expresie să existe un specificator de format, şi viceversa.
+</p>
+
+<p>
+În caz contrar, compilatorul va returna o eroare (în afara cazului în care formatul este obtinut la rulare).
+Sintaxa unui descriptor de format este:
+</p>
+<pre class="code">% [ - ] [ Lung ] [ .frac ] [ h|l|L ] descriptor</pre>
+
+<p>
+Semnificația câmpurilor din descriptor este descrisă în tabelul următor:
+</p>
+<div class="table sectionedit7"><table class="inline">
+	<tr class="row0">
+		<th class="col0"> Câmp </th><th class="col1"> Descriere </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0"><strong>-</strong></td><td class="col1">Indică o aliniere la stânga în câmpul de lungime <code>Lung</code> (implicit alinierea se face la dreapta).</td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"><strong>Lung</strong></td><td class="col1">Dacă expresia conține mai puțin de <code>Lung</code> caractere, ea este precedată de spații sau zerouri, dacă <code>Lung</code> începe printr-un zero. Dacă expresia conține mai mult de <code>Lung</code> caractere, câmpul de afișare este extins. În absența lui <code>Lung</code>, expresia va fi afișată cu atâtea caractere câte conține.</td>
+	</tr>
+	<tr class="row3">
+		<td class="col0"><strong>frac</strong></td><td class="col1">Indică numărul de cifre după virgulă (precizia) cu care se face afișarea.</td>
+	</tr>
+	<tr class="row4">
+		<td class="col0"><strong>l</strong></td><td class="col1">Marchează un <code>long int</code>, în timp ce pentru reali <code>l</code> determină afișarea unei valori double.</td>
+	</tr>
+	<tr class="row5">
+		<td class="col0"><strong>h</strong></td><td class="col1">Marchează un <code>short int</code>.</td>
+	</tr>
+	<tr class="row6">
+		<td class="col0"><strong>L</strong></td><td class="col1">Precede unul din descriptorii <code>f</code>, <code>e</code>, <code>E</code>, <code>g</code>, <code>G</code> pentru afișarea unei valori de tip <code>long double</code>.</td>
+	</tr>
+</table></div>
+<!-- EDIT7 TABLE [14786-15607] -->
+<p>
+Tabelul următor prezintă descriptorii și conversiile care au loc:
+</p>
+<div class="table sectionedit8"><table class="inline">
+	<tr class="row0">
+		<th class="col0"> Descriptor </th><th class="col1"> Descriere </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0"><strong>d</strong></td><td class="col1">Întreg cu semn în baza 10.</td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"><strong>u</strong></td><td class="col1">Întreg fără semn în baza 10.</td>
+	</tr>
+	<tr class="row3">
+		<td class="col0"><strong>o</strong></td><td class="col1">Întreg fără semn în baza 8.</td>
+	</tr>
+	<tr class="row4">
+		<td class="col0"><strong>x</strong> sau <strong>X</strong></td><td class="col1">Întreg fără semn în baza 16. Se folosesc literele a, b, c, d, e, f mici, respectiv mari.</td>
+	</tr>
+	<tr class="row5">
+		<td class="col0"><strong>c</strong></td><td class="col1">Caracter.</td>
+	</tr>
+	<tr class="row6">
+		<td class="col0"><strong>s</strong></td><td class="col1">Șir de caractere.</td>
+	</tr>
+	<tr class="row7">
+		<td class="col0"><strong>f</strong></td><td class="col1">Real zecimal de forma [-]xxx.yyyyyy (implicit 6 cifre după virgulă)</td>
+	</tr>
+	<tr class="row8">
+		<td class="col0"><strong>e</strong> sau <strong>E</strong></td><td class="col1">Real zecimal în notație exponențială. Se folosește e mic, respectiv E mare.</td>
+	</tr>
+	<tr class="row9">
+		<td class="col0"><strong>g</strong></td><td class="col1">La fel ca și e, E și f dar afișarea se face cu număr minim de cifre zecimale.</td>
+	</tr>
+</table></div>
+<!-- EDIT8 TABLE [15679-16246] -->
+<p>
+Citirea cu format se realizează cu ajutorul funcției <code>scanf()</code> astfel:
+</p>
+<pre class="code c"><a href="http://www.opengroup.org/onlinepubs/009695399/functions/scanf.html"><span class="kw3">scanf</span></a><span class="br0">&#40;</span><span class="st0">&quot;format&quot;</span><span class="sy0">,</span> <span class="sy0">&amp;</span>var_1<span class="sy0">,</span> <span class="sy0">&amp;</span>var_2<span class="sy0">,</span> ...<span class="sy0">,</span> <span class="sy0">&amp;</span>var_n<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+care citește valorile de la intrarea standard în formatul precizat și le depune în variabilele <code>var_i</code>, returnând numarul de valori citite.
+</p>
+
+<p>
+<strong>Atenție!!!</strong> Funcția <code>scanf</code> primește adresele variabilelor în care are loc citirea. Pentru tipuri fundamentale și/sau structuri, aceasta se obține folosind operatorul de adresă - <code>&amp;</code>.
+</p>
+
+<p>
+Sintaxa descriptorului de format în acest caz este:
+</p>
+<pre class="code">% [*] [ Lung ] [ l ] descriptor</pre>
+
+<p>
+Semnificația campurilor din descriptor este descrisă în tabelul următor:
+</p>
+<div class="table sectionedit9"><table class="inline">
+	<tr class="row0">
+		<th class="col0"> Câmp </th><th class="col1"> Descriere </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0"><strong> * </strong></td><td class="col1">Indică faptul că valoarea citită nu se atribuie unei variabile. (valoarea citită poate fi folosită pentru specificarea lungimii câmpului)</td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"><strong>Lung</strong></td><td class="col1">Indică lungimea câmpului din care se face citirea. În cazul în care e nespecificat, citirea are loc până la primul caracter care nu face parte din număr, sau până la &#039;\n&#039; (linie nouă/enter).</td>
+	</tr>
+	<tr class="row3">
+		<td class="col0"><strong>d</strong></td><td class="col1">Întreg în baza 10.</td>
+	</tr>
+	<tr class="row4">
+		<td class="col0"><strong>o</strong></td><td class="col1">Întreg în baza 8.</td>
+	</tr>
+	<tr class="row5">
+		<td class="col0"><strong>x</strong></td><td class="col1">Întreg în baza 16.</td>
+	</tr>
+	<tr class="row6">
+		<td class="col0"><strong>f</strong></td><td class="col1">Real.</td>
+	</tr>
+	<tr class="row7">
+		<td class="col0"><strong>c</strong></td><td class="col1">Caracter.</td>
+	</tr>
+	<tr class="row8">
+		<td class="col0"><strong>s</strong></td><td class="col1">Șir de caractere.</td>
+	</tr>
+	<tr class="row9">
+		<td class="col0"><strong>L</strong></td><td class="col1">Indică un întreg long sau un real double.</td>
+	</tr>
+	<tr class="row10">
+		<td class="col0"><strong>h</strong></td><td class="col1">Indică un întreg short.</td>
+	</tr>
+</table></div>
+<!-- EDIT9 TABLE [16912-17530] -->
+<p>
+Pentru scrierea și citirea unui singur caracter, biblioteca <code>stdio.h</code> mai definește și funcțiile <code>getchar()</code> și <code>putchar()</code>:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>getchar()</code> are ca efect citirea cu ecou a unui caracter de la terminalul standard. Caracterele introduse de la tastatură sunt puse într-o zonă tampon, până la acționarea tastei <code>ENTER</code>, moment în care în zona tampon se introduce caracterul rând nou. Fiecare apel <code>getchar()</code> preia următorul caracter din zona tampon.</div>
+</li>
+<li class="level1"><div class="li"> <code>putchar()</code> afișează caracterul având codul <abbr title="American Standard Code for Information Interchange">ASCII</abbr> egal cu valoarea expresiei parametru.</div>
+</li>
+</ul>
+
+<p>
+<strong>Nota:</strong> <code>getchar()</code> și <code>putchar()</code> nu sunt de fapt funcții, ci niște macroinstrucțiuni definite în <code>stdio.h</code>
+</p>
+
+<p>
+Pentru citirea și scrierea unei linii biblioteca <code>stdio.h</code> definește funcțiile <code>gets()</code> și <code>puts()</code>:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>gets(zona)</code> - introduce de la terminalul standard un șir de caractere terminat prin acționarea tastei <code>ENTER</code>. Funcția are ca parametru adresa zonei de memorie în care se introduc caracterele citite. Funcția returnează adresa de început a zonei de memorie; la întalnirea sfarșitului de fișier (CTRL+Z) funcția returnează <code>NULL</code>.</div>
+</li>
+<li class="level1"><div class="li"> <code>puts(zona)</code> - afișează la terminalul standard șirul de caractere din zona dată ca parametru, până la caracterul <code>null</code> (<code>\0</code>), care va fi înlocuit prin caracterul linie nouă. Funcția returnează codul ultimului caracter din șirul de caractere afișate sau <code>-1</code> în caz de eroare.</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT6 SECTION "Interacțiunea program-utilizator" [13609-] --></div>
+</body>
+</html>

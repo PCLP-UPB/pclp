@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Termen nou{% endblock %}
+{% block content %}
+<div class="kicker">Mod autor</div>
+<h1>Termen nou</h1>
+<form class="card" method="post" style="max-width:720px">{% csrf_token %}
+  <label class="f">Denumire</label><input type="text" name="label" required>
+  <div class="formrow">
+    <div><label class="f">Tip</label><select name="kind">{% for k in kinds %}<option>{{ k }}</option>{% endfor %}</select></div>
+    <div><label class="f">Nivel</label><select name="level"><option>1</option><option selected>2</option><option>3</option></select></div>
+    <div><label class="f">Unitate</label><select name="unit">{% for u in units %}<option value="{{ u.id }}">{{ u.id }} · {{ u.short }}</option>{% endfor %}</select></div>
+  </div>
+  <label class="f">Definiție</label><textarea name="definition" rows="3"></textarea>
+  <label class="f">Sinonime (separate prin ;)</label><input type="text" name="aliases">
+  <label class="f">Bloc de definiție (opțional, <code>lab05:27</code>)</label><input type="text" name="def_location">
+  <div class="formrow">
+    <div><label class="f">Relație opțională</label><select name="pred"><option value="">—</option>{% for p in preds %}<option value="{{ p.id }}">{{ p.label }}</option>{% endfor %}</select></div>
+    <div><label class="f">cu termenul</label><input type="text" name="other"></div>
+  </div>
+  <p style="margin-top:14px"><button class="btn primary">Creează</button></p>
+</form>
+{% endblock %}

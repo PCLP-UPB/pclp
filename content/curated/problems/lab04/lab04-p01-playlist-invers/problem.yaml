@@ -1,0 +1,44 @@
+id: lab04-p01-playlist-invers
+lab: lab04
+number: 1
+title: "Playlistul pe dos"
+difficulty: 1
+estimated_minutes: 10
+concepts: [vector, indexare, "#define", for]
+statement: |
+  DJ-ul de la petrecerea de Crăciun a facultății vrea să redea playlistul de la coadă
+  la cap. Piesele sunt identificate prin numere. Scrie un program care citește lista și
+  o afișează în ordine inversă.
+
+  **Date de intrare**
+
+  Pe prima linie, numărul `n` de piese. Pe a doua linie, `n` numere întregi: codurile
+  pieselor, în ordinea din playlist.
+
+  **Date de ieșire**
+
+  O singură linie cu cele `n` coduri în ordine inversă, separate prin câte un spațiu.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1000`
+  - codurile sunt între `-10^9` și `10^9`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  5
+  7 3 12 9 1
+  ```
+
+  Ieșire:
+  ```
+  1 9 12 3 7
+  ```
+hints:
+  - "Ca să afișezi ultimul element primul, trebuie să le fi citit pe toate: păstrează-le într-un vector."
+  - "Declară vectorul cu o dimensiune maximă constantă (de exemplu cu #define NMAX 1000) și folosește doar primele n poziții."
+  - "Elementele sunt la indicii 0 … n − 1; parcurge-i de la n − 1 în jos până la 0 inclusiv."
+pitfalls:
+  - "v[n] nu face parte din vector: ultimul element este v[n − 1]."

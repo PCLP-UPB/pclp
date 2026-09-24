@@ -1,0 +1,1520 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:laboratoare:lab11</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-12-30T15:53:02+0200"/>
+<meta name="keywords" content="programare,laboratoare,lab11"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare:laboratoare"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/laboratoare/lab11"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab11"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:laboratoare';var JSINFO = {"id":"programare:laboratoare:lab11","namespace":"programare:laboratoare","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#pclp_laborator11parametrii_liniei_de_comanda_preprocesorul_functii_cu_numar_variabil_de_parametri_optiuni_de_compilare">PCLP Laborator11: Parametrii liniei de comandă. Preprocesorul. Funcții cu număr variabil de parametri. Opțiuni de compilare</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#obiective">Obiective</a></div></li>
+<li class="level3"><div class="li"><a href="#notiuni_teoretice">Noţiuni teoretice</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#parametrii_liniei_de_comanda">Parametrii liniei de comandă</a></div></li>
+<li class="level4"><div class="li"><a href="#preprocesorul">Preprocesorul</a></div></li>
+<li class="level4"><div class="li"><a href="#definirea_de_simboluri">Definirea de simboluri</a></div></li>
+<li class="level4"><div class="li"><a href="#instructiuni_de_compilare_conditionata">Instrucţiuni de compilare condiţionată</a></div></li>
+<li class="level4"><div class="li"><a href="#functii_cu_numar_variabil_de_parametri">Funcţii cu număr variabil de parametri</a></div></li>
+<li class="level4"><div class="li"><a href="#definirea_functiilor_cu_numar_variabil_de_parametri">Definirea funcţiilor cu număr variabil de parametri</a></div></li>
+<li class="level4"><div class="li"><a href="#optiuni_de_compilare">Opțiuni de compilare</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#exercitii">Exerciții</a></div></li>
+<li class="level3"><div class="li"><a href="#referinte">Referinţe</a></div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h2 class="sectionedit1" id="pclp_laborator11parametrii_liniei_de_comanda_preprocesorul_functii_cu_numar_variabil_de_parametri_optiuni_de_compilare">PCLP Laborator11: Parametrii liniei de comandă. Preprocesorul. Funcții cu număr variabil de parametri. Opțiuni de compilare</h2>
+<div class="level2">
+
+<p>
+<strong>Resposabili:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="mailto:&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;" class="mail" title="&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;">Dorinel Filip (2016 - Prezent)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x6e;&#x65;&#x61;&#x74;&#x75;&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x6e;&#x65;&#x61;&#x74;&#x75;&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Darius Neațu (2016 - Prezent)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x6d;&#x69;&#x68;&#x61;&#x65;&#x6c;&#x61;&#x2e;&#x76;&#x61;&#x73;&#x69;&#x6c;&#x65;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x6d;&#x69;&#x68;&#x61;&#x65;&#x6c;&#x61;&#x2e;&#x76;&#x61;&#x73;&#x69;&#x6c;&#x65;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Mihaela Vasile (2015)</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT1 SECTION "PCLP Laborator11: Parametrii liniei de comandă. Preprocesorul. Funcții cu număr variabil de parametri. Opțiuni de compilare" [1-344] -->
+<h3 class="sectionedit2" id="obiective">Obiective</h3>
+<div class="level3">
+
+<p>
+În urma parcurgerii acestui laborator, studentul va fi capabil:
+</p>
+<ul>
+<li class="level1"><div class="li"> să interpreteze şi să manipuleze parametrii liniei de comandă</div>
+</li>
+<li class="level1"><div class="li"> să scrie programe care comunică cu exteriorul (utilizatorul, sistemul de operare, alte programe) prin intermediul parametrilor liniei de comandă</div>
+</li>
+<li class="level1"><div class="li"> să scrie şi să folosească macrodefiniţii</div>
+</li>
+<li class="level1"><div class="li"> să utilizeze macrodefiniţiile în lucrul cu mai multe fişiere</div>
+</li>
+<li class="level1"><div class="li"> să evite erorile care apar frecvent în lucrul cu macrodefiniţii</div>
+</li>
+<li class="level1"><div class="li"> să realizeze funcţii care primesc un număr variabil de parametri</div>
+</li>
+<li class="level1"><div class="li"> să folosească macroinstrucţiunile necesare manipulării stivei de parametri a unei funcţii cu număr variabil de parametri</div>
+</li>
+</ul>
+
+<p>
+<p><div class="notewarning">
+</p>
+<ul>
+<li class="level1"><div class="li"> Laboratorul curent introduce mai multe notiuni. Pe multe dintre acestea le veti mai intalni si la alte cursuri precum USO si SO.</div>
+</li>
+<li class="level2"><div class="li"> Sectiunile marcate cu <strong> studiu de caz </strong> nu sunt obligatorii, dar recomandam parcurgerea intregului material pentru o viziune de ansamblu mai buna.</div>
+</li>
+</ul>
+
+<p>
+
+</div></p>
+</p>
+
+</div>
+<!-- EDIT2 SECTION "Obiective" [345-1361] -->
+<h3 class="sectionedit3" id="notiuni_teoretice">Noţiuni teoretice</h3>
+<div class="level3">
+
+</div>
+
+<h4 id="parametrii_liniei_de_comanda">Parametrii liniei de comandă</h4>
+<div class="level4">
+
+<p>
+Pentru a controla execuţia unui program, de multe ori este de dorit furnizarea datelor de lucru înaintea lansării în execuţie a programului, acesta urmând să se execute apoi fără intervenţia utilizatorului (aşa-numitul „batch mode”). Acest lucru se realizează prin intermediul parametrilor liniei de comandă. (Un exemplu cunoscut este lansarea compilatorului gcc în linia de comandă cu diverse argumente, care îi spun ce şi cum sa compileze.)
+</p>
+
+<p>
+Din punctul de vedere al utilizatorului, parametrii liniei de comandă sunt simple argumente care se adaugă după numele unui program, în linia de comandă, la rularea sa. Elementele acestei liste de argumente sunt şiruri de caractere separate de spaţii. Argumentele care conţin spaţii pot fi combinate într-un singur argument prin inchiderea acestuia între ghilimele. Shell-ul este cel care se ocupă de parsarea liniei de comandă şi de crearea listei de argumente.
+</p>
+
+<p>
+Exemplu de apelare a unui program cu argumente în linia de comandă:
+</p>
+<pre class="code bash"><span class="kw2">gcc</span> <span class="re5">-Wall</span> -I<span class="sy0">/</span>usr<span class="sy0">/</span>include<span class="sy0">/</span>sys <span class="re5">-DDEBUG</span> <span class="re5">-o</span> <span class="st0">&quot;My Shell&quot;</span> myshell.c</pre>
+
+<p>
+În acest caz, argumentele liniei de comandă sunt în acest caz:
+</p>
+<ul>
+<li class="level1"><div class="li"> gcc</div>
+</li>
+<li class="level1"><div class="li"> -Wall</div>
+</li>
+<li class="level1"><div class="li"> -I/usr/include/sys</div>
+</li>
+<li class="level1"><div class="li"> -DDEBUG</div>
+</li>
+<li class="level1"><div class="li"> -o</div>
+</li>
+<li class="level1"><div class="li"> My Shell</div>
+</li>
+<li class="level1"><div class="li"> myshell.c</div>
+</li>
+</ul>
+
+<p>
+Din punctul de vedere al programatorului, parametrii liniei de comandă sunt accesibili prin utilizarea parametrilor funcţiei main(). Astfel, când se doreşte folosirea argumentelor liniei de comandă, funcţia main() se va defini astfel:
+</p>
+<pre class="code c"><span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">int</span> argc<span class="sy0">,</span> <span class="kw4">char</span> <span class="sy0">*</span>argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span></pre>
+
+<p>
+Astfel, funcţia <strong>main()</strong> primeşte, în mod formal, doi parametri, un întreg şi un vector de şiruri de caractere. Numele celor două variabile nu e obligatoriu să fie <strong>argc</strong> şi <strong>argv</strong>, dar tipul lor, da. Semnificaţia lor este următoarea:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>int argc</strong> (argument count) - reprezintă numărul de parametrii ai liniei de comandă. După cum se vede din exemplul anterior, există cel puţin un parametru, acesta fiind chiar numele programului (numele care a fost folosit pentru a lansa în execuţie programul - şi care poate fi diferit de numele executabilului - de exemplu prin crearea unui symlink, în Linux).</div>
+</li>
+<li class="level1"><div class="li"> <strong>char *argv[]</strong> (arguments value) - reprezintă un vector de şiruri de caractere, având <strong>argc</strong> elemente (indexate de la <strong>0</strong> la <strong>argc - 1</strong>). Întotdeauna <strong>argv[0]</strong> conţine <strong>numele programului</strong>.</div>
+</li>
+</ul>
+
+<p>
+Parametrii liniei de comandă se pot accesa prin intermediul vectorului <strong>argv</strong> şi pot fi prelucraţi cu funcţiile standard de prelucrare a şirurilor de caractere.
+</p>
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Exemplu1
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Exemplu1
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Fie urmatorul cod sursa care afiseaza numarul de argumente primite, apoi afiseaza numele extras al executabilului din calea primitita ca argument.
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt; // strrchr</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">int</span> argc<span class="sy0">,</span> <span class="kw4">char</span> <span class="sy0">*</span>argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// afiseaza numarul de argumente + primul argument</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Am primit %d argument(e)<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> argc<span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;argv[0] = %s<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> argv<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// extrage numele executabilului</span>
+    <span class="kw4">char</span> <span class="sy0">*</span>program_name <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strrchr.html"><span class="kw3">strrchr</span></a><span class="br0">&#40;</span>argv<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="sy0">,</span> <span class="st0">'/'</span><span class="br0">&#41;</span> <span class="sy0">+</span> <span class="nu0">1</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Eu sunt programul %s<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> program_name<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Pentru compilare vom rula comanda:
+</p>
+<pre class="code bash"><span class="kw2">gcc</span> <span class="re5">-Wall</span> test.c <span class="re5">-o</span> gigel</pre>
+
+<p>
+Exemple de rulare:
+</p>
+<pre class="code bash">darius<span class="sy0">@</span>pc ~ $ .<span class="sy0">/</span>gigel
+Am primit <span class="nu0">1</span> argument<span class="br0">&#40;</span>e<span class="br0">&#41;</span>
+argv<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span> = .<span class="sy0">/</span>gigel
+Eu sunt programul gigel
+&nbsp;
+darius<span class="sy0">@</span>pc ~ $ <span class="sy0">/</span>home<span class="sy0">/</span>darius<span class="sy0">/</span>gigel
+Am primit <span class="nu0">1</span> argument<span class="br0">&#40;</span>e<span class="br0">&#41;</span>
+argv<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span> = <span class="sy0">/</span>home<span class="sy0">/</span>darius<span class="sy0">/</span>gigel
+Eu sunt programul gigel
+&nbsp;
+darius<span class="sy0">@</span>pc ~ $ .<span class="sy0">/</span>gigel Gigel e pe val<span class="sy0">!</span>
+Am primit <span class="nu0">5</span> argument<span class="br0">&#40;</span>e<span class="br0">&#41;</span>
+argv<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span> = .<span class="sy0">/</span>gigel
+Eu sunt programul gigel</pre>
+</div></div>
+</div>
+
+<h4 id="preprocesorul">Preprocesorul</h4>
+<div class="level4">
+
+<p>
+Preprocesorul este componenta din cadrul compilatorului C care realizează preprocesarea. În urma acestui pas, toate instrucţiunile de preprocesare sunt <strong>înlocuite (substituite)</strong>, pentru a genera cod C „pur”. Preprocesarea este o <strong>prelucrare exclusiv textuală</strong> a fişierului sursă. În acest pas nu se fac nici un fel de verificări sintactice sau semantice asupra codului sursă, ci doar sunt efectuate substituţiile din text. Astfel, preprocesorul va prelucra şi fişiere fără nici un sens în C.
+</p>
+
+<p>
+Se consideră următorul exemplu:
+</p>
+<pre class="code c"><span class="co2">#define EA Ana</span>
+<span class="co2">#define si C</span>
+<span class="co2">#ifdef CIFRE</span>
+<span class="co2">#define CINCI 5</span>
+<span class="co2">#define DOUA 2</span>
+EA are mere. <span class="me1">Mara</span> are DOUA pere shi CINCI cirese.
+<span class="co2">#endif</span>
+Vasilica vrea sa cante o melodie in si bemol.</pre>
+
+<p>
+La rularea comenzii
+</p>
+<pre class="code bash"><span class="kw2">gcc</span> <span class="re5">-E</span> <span class="re5">-DCIFRE</span> rubbish.c</pre>
+
+<p>
+se va obţine următoare ieşire (se cere compilatorului să execute doar pasul de preprocesare (-E), definind în acelaşi timp şi simbolul CIFRE (-DCIFRE) :
+</p>
+<pre class="code c"><span class="co2"># 1 &quot;rubbish.c&quot;</span>
+<span class="co2"># 1 &quot;&lt;built-in&gt;&quot;</span>
+<span class="co2"># 1 &quot;&lt;command line&gt;&quot;</span>
+<span class="co2"># 1 &quot;rubbish.c&quot;</span>
+Ana are mere. <span class="me1">Mara</span> are <span class="nu0">2</span> pere shi <span class="nu0">5</span> cirese.
+<span class="me1">Vasilica</span> vrea sa cante o melodie in C bemol.</pre>
+
+<p>
+Cele mai importante instrucţiuni de preprocesare sunt prezentate în continuare.
+</p>
+
+</div>
+
+<h5 id="incluziune">Incluziune</h5>
+<div class="level5">
+
+<p>
+Probabil cea mai des folosită instrucţiune de preprocesare este cea de incluziune, de forma
+</p>
+<pre class="code c"><span class="co2">#include &lt;nume_fişier&gt;</span></pre>
+
+<p>
+sau
+</p>
+<pre class="code c"><span class="co2">#include &quot;nume_fisier&quot;</span></pre>
+
+<p>
+care are ca rezultat înlocuirea sa cu conţinutul fişierului specificat de <strong>nume_fişier</strong>. Diferenţa dintre cele două versiuni este că cea cu paranteze unghiulare caută <strong>nume_fişier</strong> doar în directorul standard de fişiere antet (numit deobicei <strong>include</strong>), iar cea cu ghilimele caută atât în directorul <strong>include</strong> cât şi în directorul curent.
+</p>
+
+</div>
+
+<h4 id="definirea_de_simboluri">Definirea de simboluri</h4>
+<div class="level4">
+
+<p>
+Definirea de simboluri este cel mai des folosită în conjuncţie cu instrucţiunile de procesare condiţionată, fiind folosită pentru activarea şi dezactivarea unor segmente de cod în funcţie de prezenţa unor simboluri. Definirea unui simbol se face în cod cu instrucţiunea
+</p>
+<pre class="code c"><span class="co2">#define SIMBOL</span></pre>
+
+<p>
+sau se poate realiza şi la compilare, prin folosirea flagului -D al compilatorului (după cum am văzut în exemplul precedent).
+</p>
+
+<p>
+Un simbol poate fi de asemenea „şters” folosind instrucţiunea
+</p>
+<pre class="code c"><span class="co2">#undef SIMBOL</span></pre>
+
+<p>
+în cazul în care nu se mai doreşte prezenţa simbolului de preprocesor ulterior definirii sale.
+</p>
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Exemplu2 (studiu de caz)
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Exemplu2 (studiu de caz)
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Codul urmator defineste cateva simboluri. Simbolul CHANGE este definit la compilare. Definirea acestuia determina modificarea simbolului GIGEL.
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="co1">// am definit GIGEL ca fiind 1</span>
+<span class="co2">#define GIGEL 1</span>
+&nbsp;
+<span class="co1">// Verific daca este definit simbolul CHANGE</span>
+<span class="co2">#ifdef CHANGE</span>
+<span class="co2">#undef GIGEL // sterg GIGEL</span>
+<span class="co2">#define GIGEL 0 // redefinesc simbolul cu alta valoare</span>
+<span class="co2">#endif</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;GIGEL = %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> GIGEL<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Observati diferentele intre cele doua rulari.
+</p>
+<pre class="code bash">darius<span class="sy0">@</span>pc ~ <span class="kw2">gcc</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> test.c <span class="re5">-o</span> <span class="kw3">test</span> <span class="re5">-DCHANGE</span>=<span class="nu0">2017</span>
+darius<span class="sy0">@</span>pc ~ $ .<span class="sy0">/</span><span class="kw3">test</span> 
+GIGEL = <span class="nu0">0</span>
+&nbsp;
+darius<span class="sy0">@</span>pc ~ $ <span class="kw2">gcc</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> test.c <span class="re5">-o</span> <span class="kw3">test</span>
+darius<span class="sy0">@</span>pc ~ $ .<span class="sy0">/</span><span class="kw3">test</span> 
+GIGEL = <span class="nu0">1</span></pre>
+</div></div>
+</div>
+
+<h5 id="definirea_de_macro-uri">Definirea de macro-uri</h5>
+<div class="level5">
+
+<p>
+Instrucţiunile de preprocesare mai pot fi folosite şi pentru definirea de constante simbolice şi macroinstrucţiuni. De exemplu
+</p>
+<pre class="code c"><span class="co2">#define IDENTIFICATOR valoare</span></pre>
+
+<p>
+va duce la înlocuirea peste tot în cadrul codului sursă a şirului <strong>IDENTIFICATOR</strong> cu şirul <strong>valoare</strong>. Înlocuirea nu se face totuşi în interiorul şirurilor de caractere.
+</p>
+
+<p>
+Un exemplu foarte bun este definirea unor macro-uri pentru dimensiunile tablourilor alocate static.
+</p>
+<pre class="code c"><span class="co2">#define NMAX 100</span>
+<span class="co2">#define MMAX 10</span>
+<span class="co2">#define LMAX 10000</span>
+&nbsp;
+...
+<span class="kw4">int</span> a<span class="br0">&#91;</span>NMAX<span class="br0">&#93;</span><span class="br0">&#91;</span>MMAX<span class="br0">&#93;</span><span class="sy0">;</span>
+...
+<span class="kw4">int</span> v<span class="br0">&#91;</span>LMAX<span class="br0">&#93;</span><span class="sy0">;</span>
+...</pre>
+
+<p>
+O macroinstrucţiune este similară unei constante simbolice, ca definire, dar acceptă parametrii. Este folosită în program în mod asemănător unei funcţii, dar la compilare, ea este înlocuită în mod textual cu corpul ei. În plus, nu se face nici un fel de verificare a tipurilor. Spre exemplu:
+</p>
+<pre class="code c"><span class="co2">#define MAX(a, b) a &gt; b ? a : b</span></pre>
+
+<p>
+va returna maximul dintre a şi b, iar
+</p>
+<pre class="code c"><span class="co2">#define DUBLU(a) 2*a</span></pre>
+
+<p>
+va returna dublul lui a.
+</p>
+
+<p>
+<p><div class="noteimportant">
+Deoarece preprocesarea este o prelucrare textuală a codului sursă, în cazul exemplului de mai sus, macroinstrucţiunea în forma prezentată nu va calcula întotdeauna dublul unui număr.
+
+</div></p>
+</p>
+
+<p>
+Astfel, la o folosire de forma:
+</p>
+<pre class="code c">DUBLU<span class="br0">&#40;</span>a <span class="sy0">+</span> <span class="nu0">3</span><span class="br0">&#41;</span></pre>
+
+<p>
+în pasul de preprocesare se va genera expresia
+</p>
+<pre class="code c"><span class="nu0">2</span><span class="sy0">*</span>a<span class="sy0">+</span><span class="nu0">3</span></pre>
+
+<p>
+care bineînţeles că nu realizează funcţia dorită.
+</p>
+
+<p>
+Pentru a evita astfel de probleme, este bine ca întotdeauna în corpul unui macro, numele „parametrilor” să fie închise între paranteze:
+</p>
+<pre class="code c"><span class="co2">#define SQUARE(a) (a)*(a)</span></pre>
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Exemplu3 (studiu de caz)
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Exemplu3 (studiu de caz)
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Fie simbolul SQUARE, care inlocuieste o expresie cu expresia ridicata la patrat. Acesta poate fi definit astfel.
+</p>
+<pre class="code c"><span class="co2">#define SQUARE(a) (a)*(a)</span></pre>
+
+<p>
+Este aceasta expresie este corecta? (oricare ar fi a, va calcula patratul lui a?) Ce se intampla daca inaintea lui <strong>SQUARE</strong> aplicam un operand care are prioritate mai mare decat <strong> * </strong>?
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="co2">#define SQUARE(a) (a) * (a)</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// ceea ce se obtine</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> ~SQUARE<span class="br0">&#40;</span><span class="nu0">2</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// ceea ce se doreste</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> ~<span class="nu0">4</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+<pre class="code bash"><span class="kw2">gcc</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> test.c  <span class="re5">-o</span> <span class="kw3">test</span>
+.<span class="sy0">/</span><span class="kw3">test</span> 
+<span class="re5">-6</span> <span class="sy0">//</span> ceea ce se obtine
+<span class="re5">-5</span> <span class="sy0">//</span> ceea ce se doreste</pre>
+
+<p>
+Operatiile nu se vor executa in ordinea in care dorim. <strong> ~ </strong> are precedenta mai mare decat <strong> * </strong>, deci mai intai se va executa operatia pe biti apoi inmultirea.
+</p>
+
+<p>
+Pentru a fi convinsi ca se intampla acest lucru, putem compila cu -E si sa inspectam codul urmator.
+</p>
+<pre class="code c">... <span class="co1">// continut din stdio.h, alte simboluri etc.</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> ~<span class="br0">&#40;</span><span class="nu0">2</span><span class="br0">&#41;</span> <span class="sy0">*</span> <span class="br0">&#40;</span><span class="nu0">2</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> ~<span class="nu0">4</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Pentru a corecta aceasta greseala, putem adauga inca o paranteza in definitia lui SQUARE.
+</p>
+<pre class="code c"><span class="co2">#define SQUARE(a) ( (a) * (a) )</span></pre>
+
+<p>
+Pentru noua sursa C obtinem urmatorul rezultat.
+</p>
+<pre class="code bash"><span class="kw2">gcc</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> test.c  <span class="re5">-o</span> <span class="kw3">test</span>
+.<span class="sy0">/</span><span class="kw3">test</span> 
+<span class="re5">-5</span> <span class="sy0">//</span> ceea ce se obtine
+<span class="re5">-5</span> <span class="sy0">//</span> ceea ce se doreste</pre>
+</div></div><div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Exemplu4 (studiu de caz)
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Exemplu4 (studiu de caz)
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Sa incercam sa definim un simbol corect pentru aflarea maximului intre 2 expresii numerice.
+</p>
+
+<p>
+Mai sus a fost prezentata urmatoarea varianta.
+</p>
+<pre class="code c"><span class="co2">#define MAX(a, b) a &gt; b ? a : b</span></pre>
+
+<p>
+Fie urmatorul cod C.
+</p>
+<pre class="code C"><span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="co2">#define MAX(a, b) a &gt; b ? a : b</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;max = %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> <span class="nu0">1</span> <span class="sy0">&lt;&lt;</span> MAX<span class="br0">&#40;</span><span class="nu0">19</span> <span class="sy0">+</span> <span class="nu0">1</span><span class="sy0">,</span> <span class="nu0">10</span> <span class="sy0">+</span> <span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Ceea ce ne-am astepta este sa se evalueze cele doua expresii (19 + 1 == 20, 10 + 1 == 11), sa sa calculeze maximul (20) si sa se afiseze <strong> 1048576 </strong> (1 « 20).
+</p>
+<pre class="code bash"><span class="kw2">gcc</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> test.c  <span class="re5">-o</span> <span class="kw3">test</span>
+.<span class="sy0">/</span><span class="kw3">test</span> 
+test.c: In <span class="kw1">function</span> ‘main’:
+test.c:<span class="nu0">6</span>:<span class="nu0">28</span>: warning: suggest parentheses around ‘+’ inside ‘<span class="sy0">&lt;&lt;</span>’ <span class="br0">&#91;</span>-Wparentheses<span class="br0">&#93;</span>
+     <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;max = %d<span class="es1">\n</span>&quot;</span>, <span class="nu0">1</span> <span class="sy0">&lt;&lt;</span> MAX<span class="br0">&#40;</span><span class="nu0">19</span> + <span class="nu0">1</span>, <span class="nu0">10</span> + <span class="nu0">1</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+                            ^
+max = <span class="nu0">20</span></pre>
+
+<p>
+Din nou precedenta operatorilor <strong> + </strong> si <strong> « </strong> impiedica obtinerea rezulatului dorit.
+</p>
+
+<p>
+Solutia este sa punem si la MAX paranteze.
+</p>
+<pre class="code c"><span class="co2">#define MAX(a, b) ((a) &gt; (b) ? (a) : (b))</span></pre>
+
+<p>
+Vom obtine urmatorul rezultat.
+</p>
+<pre class="code bash"><span class="kw2">gcc</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> test.c  <span class="re5">-o</span> <span class="kw3">test</span>
+.<span class="sy0">/</span><span class="kw3">test</span> 
+max = <span class="nu0">1048576</span></pre>
+</div></div><div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Exemplu5 (studiu de caz)
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Exemplu5 (studiu de caz)
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Sa se defineasca un simbol SWAP care sa interschimbe doua variabile de acelasi tip, tipul fiind precizat.
+</p>
+
+<p>
+Pornim de la o posibila secventa de cod care realizeaza acest lucru pentru doua variabile int.
+</p>
+<pre class="code c"><span class="kw4">int</span> a<span class="sy0">,</span> b<span class="sy0">;</span>
+...
+<span class="kw4">int</span> tmp <span class="sy0">=</span> a<span class="sy0">;</span>
+a <span class="sy0">=</span> b<span class="sy0">;</span>
+b <span class="sy0">=</span> tmp<span class="sy0">;</span></pre>
+
+<p>
+Observati ca substituind textual cuvantul “int” cu “double”, bucata de cod nu isi schimba logica. Generalizarea acestui cod, presupune generalizarea tipului acestor variabile. Daca am nota acest type cu “type” (presupunand ca exista acest tip), atunci codul obtinut este urmatorul.
+</p>
+<pre class="code c">type a<span class="sy0">,</span> b<span class="sy0">;</span>
+...
+<span class="me1">type</span> tmp <span class="sy0">=</span> a<span class="sy0">;</span>
+a <span class="sy0">=</span> b<span class="sy0">;</span>
+b <span class="sy0">=</span> tmp<span class="sy0">;</span></pre>
+
+<p>
+Solutia intuitiva de definire a simbolului SWAP este urmatoarea.
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="co2">#define SWAP(type,x,y) type tmp = x; x = y; y = tmp;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// interschimbare int</span>
+    <span class="kw4">int</span> x <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">,</span> y <span class="sy0">=</span> <span class="nu0">2</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;before: x = %d y = %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> x<span class="sy0">,</span> y<span class="br0">&#41;</span><span class="sy0">;</span>
+    SWAP<span class="br0">&#40;</span><span class="kw4">int</span><span class="sy0">,</span> x<span class="sy0">,</span> y<span class="br0">&#41;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;after : x = %d y = %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> x<span class="sy0">,</span> y<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+In urma precompilarii, functia main arata astfel.
+</p>
+<pre class="code c">...
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+&nbsp;
+    <span class="kw4">int</span> x <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">,</span> y <span class="sy0">=</span> <span class="nu0">2</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;before: x = %d y = %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> x<span class="sy0">,</span> y<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw4">int</span> tmp <span class="sy0">=</span> x<span class="sy0">;</span> x <span class="sy0">=</span> y<span class="sy0">;</span> y <span class="sy0">=</span> tmp<span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;after : x = %d y = %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> x<span class="sy0">,</span> y<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Sursa compileaza si ruleaza corect.
+</p>
+<pre class="code c">gcc <span class="sy0">-</span>Wall <span class="sy0">-</span>Wextra test.<span class="me1">c</span>  <span class="sy0">-</span>o test
+.<span class="sy0">/</span>test
+&nbsp;
+before<span class="sy0">:</span> x <span class="sy0">=</span> <span class="nu0">1</span> y <span class="sy0">=</span> <span class="nu0">2</span>
+after <span class="sy0">:</span> x <span class="sy0">=</span> <span class="nu0">2</span> y <span class="sy0">=</span> <span class="nu0">1</span></pre>
+
+<p>
+Urmatoarea sursa nu va compila, intrucat la folosirea repetata a lui SWAP in acelasi scop, variabila tmp va fi declarate de mai multe ori.
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt;</span>
+&nbsp;
+<span class="co2">#define SWAP(type,x,y) type tmp = x; x = y; y = tmp;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// interschimbare int</span>
+    <span class="kw4">int</span> x <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">,</span> y <span class="sy0">=</span> <span class="nu0">2</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;before: x = %d y = %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> x<span class="sy0">,</span> y<span class="br0">&#41;</span><span class="sy0">;</span>
+    SWAP<span class="br0">&#40;</span><span class="kw4">int</span><span class="sy0">,</span> x<span class="sy0">,</span> y<span class="br0">&#41;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;after : x = %d y = %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> x<span class="sy0">,</span> y<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+&nbsp;
+    <span class="co1">// interschimbare pointeri (char *)</span>
+    <span class="kw4">char</span> <span class="sy0">*</span>p <span class="sy0">=</span> strdup<span class="br0">&#40;</span><span class="st0">&quot;A&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw4">char</span> <span class="sy0">*</span>q <span class="sy0">=</span> strdup<span class="br0">&#40;</span><span class="st0">&quot;B&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;before: p = (%s) q = (%s)<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> p<span class="sy0">,</span> q<span class="br0">&#41;</span><span class="sy0">;</span>
+    SWAP<span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy0">*,</span> p<span class="sy0">,</span> q<span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;after : p = (%s) q = (%s)<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> p<span class="sy0">,</span> q<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// elibereaza memoria alocata dinamic</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/free.html"><span class="kw3">free</span></a><span class="br0">&#40;</span>p<span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/free.html"><span class="kw3">free</span></a><span class="br0">&#40;</span>q<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+<pre class="code bash"> <span class="kw2">gcc</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> test.c  <span class="re5">-o</span> <span class="kw3">test</span> <span class="sy0">&amp;&amp;</span> .<span class="sy0">/</span><span class="kw3">test</span> 
+test.c: In <span class="kw1">function</span> ‘main’:
+test.c:<span class="nu0">5</span>:<span class="nu0">29</span>: error: conflicting types <span class="kw1">for</span> ‘tmp’
+ <span class="co0">#define SWAP(type,x,y) type tmp = x; x = y; y = tmp;</span>
+                             ^
+test.c:<span class="nu0">19</span>:<span class="nu0">5</span>: note: <span class="kw1">in</span> expansion of macro ‘SWAP’
+     SWAP<span class="br0">&#40;</span>char <span class="sy0">*</span>, p, q<span class="br0">&#41;</span>;
+     ^
+test.c:<span class="nu0">5</span>:<span class="nu0">29</span>: note: previous definition of ‘tmp’ was here
+ <span class="co0">#define SWAP(type,x,y) type tmp = x; x = y; y = tmp;</span>
+                             ^
+test.c:<span class="nu0">11</span>:<span class="nu0">5</span>: note: <span class="kw1">in</span> expansion of macro ‘SWAP’
+     SWAP<span class="br0">&#40;</span>int, x, y<span class="br0">&#41;</span></pre>
+
+<p>
+Solutia este sa folosim un scop local pentru tmp (<a href="https://en.wikipedia.org/wiki/Scope_(computer_science)#Levels_of_scope" class="urlextern" title="https://en.wikipedia.org/wiki/Scope_(computer_science)#Levels_of_scope"  rel="nofollow"> scope</a>). Pentru lizibilitate putem scrie instructiunile din SWAP pe mai multe randuri. In acest caz vom pune caracterul &#039;\&#039; pentru a marca faptul ca simbolul continua pe randul urmator.
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt;</span>
+&nbsp;
+<span class="co2">#define SWAP(type,x,y) {\
+    type tmp = x; \
+    x = y; \
+    y = tmp; \
+}</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// interschimbare int</span>
+    <span class="kw4">int</span> x <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">,</span> y <span class="sy0">=</span> <span class="nu0">2</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;before: x = %d y = %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> x<span class="sy0">,</span> y<span class="br0">&#41;</span><span class="sy0">;</span>
+    SWAP<span class="br0">&#40;</span><span class="kw4">int</span><span class="sy0">,</span> x<span class="sy0">,</span> y<span class="br0">&#41;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;after : x = %d y = %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> x<span class="sy0">,</span> y<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+&nbsp;
+    <span class="co1">// interschimbare pointeri (char *)</span>
+    <span class="kw4">char</span> <span class="sy0">*</span>p <span class="sy0">=</span> strdup<span class="br0">&#40;</span><span class="st0">&quot;A&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw4">char</span> <span class="sy0">*</span>q <span class="sy0">=</span> strdup<span class="br0">&#40;</span><span class="st0">&quot;B&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;before: p = (%s) q = (%s)<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> p<span class="sy0">,</span> q<span class="br0">&#41;</span><span class="sy0">;</span>
+    SWAP<span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy0">*,</span> p<span class="sy0">,</span> q<span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;after : p = (%s) q = (%s)<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> p<span class="sy0">,</span> q<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// elibereaza memoria alocata dinamic</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/free.html"><span class="kw3">free</span></a><span class="br0">&#40;</span>p<span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/free.html"><span class="kw3">free</span></a><span class="br0">&#40;</span>q<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Inspectati codul dupa etapa de preprocesare. Compilati si rulati codul.
+</p>
+</div></div>
+<p>
+<p><div class="notewarning">
+</p>
+<ul>
+<li class="level1"><div class="li"> ATENTIE! O variabila este vizibila in scopul (<a href="https://en.wikipedia.org/wiki/Scope_(computer_science)#Levels_of_scope" class="urlextern" title="https://en.wikipedia.org/wiki/Scope_(computer_science)#Levels_of_scope"  rel="nofollow"> scope</a>) in care a fost declarata. La iesirea din scop, zona de memorie corespunzatoare este eliberata(<a href="https://blog.feabhas.com/2010/09/scope-and-lifetime-of-variables-in-c/" class="urlextern" title="https://blog.feabhas.com/2010/09/scope-and-lifetime-of-variables-in-c/"  rel="nofollow"> Scope and Lifetime of Variables in C</a>).</div>
+</li>
+</ul>
+
+<p>
+
+</div></p>
+</p>
+
+</div>
+
+<h4 id="instructiuni_de_compilare_conditionata">Instrucţiuni de compilare condiţionată</h4>
+<div class="level4">
+
+<p>
+Instrucţiunile de compilare condiţionată sunt folosite pentru a „ascunde” fragmente de cod în funcţie de anumite condiţii. Formatul este următorul:
+</p>
+<pre class="code c"><span class="co2">#if conditie</span>
+....
+<span class="co2">#else</span>
+....
+<span class="co2">#endif</span></pre>
+
+<p>
+unde conditie este este o expresie constantă întreagă. Pentru realizarea de expresii cu mai multe
+opţiuni se poate folosi şi forma <strong>#elif</strong>:
+</p>
+<pre class="code c"><span class="co2">#if conditie</span>
+...
+<span class="co2">#elif conditie2</span>
+...
+<span class="co2">#elif conditie3</span>
+...
+<span class="co2">#else</span>
+...
+<span class="co2">#endif</span></pre>
+
+<p>
+De obicei condiţia testează existenţa unui simbol. Scenariile tipice de folosire sunt:
+</p>
+<ul>
+<li class="level1"><div class="li"> dezactivarea codului de debug o dată ce problemele au fost remediate</div>
+</li>
+<li class="level1"><div class="li"> compilare condiţionată în funcţie de platforma de rulare</div>
+</li>
+<li class="level1"><div class="li"> prevenirea includerii multiple a fişierelor antet</div>
+</li>
+</ul>
+
+<p>
+În aceste cazuri se foloseşte forma
+</p>
+<pre class="code c"><span class="co2">#ifdef SIMBOL</span></pre>
+
+<p>
+sau
+</p>
+<pre class="code c"><span class="co2">#ifndef SIMBOL</span></pre>
+
+<p>
+care testează dacă simbolul SIMBOL este definit, respectiv nu este definit.
+</p>
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Exemplu 6 (studiu de caz)
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Exemplu 6 (studiu de caz)
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Directivele de preprocesor ar putea fi utile pentru a scrie cod portabil. De exemplu, putem identifica tipul sistemului de operare sau arhitectura procesorului. In exemplul urmator, se doreste folosirea unei functii <code>f</code> care sa aiba implementare de dependenta de sistemul de operare.
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="co2">#ifdef _WIN32 // is _WIN32 defined?</span>
+<span class="co1">//do something for windows like #include &lt;windows.h&gt;</span>
+<span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;_WIN32<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="co2">#elif defined __unix__ // or is __unix__ defined?</span>
+<span class="co1">//do something for unix like #include &lt;unistd.h&gt;</span>
+<span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;__unix__<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="co2">#elif defined __APPLE__ // or is __APPLE__ defined?</span>
+<span class="co1">//do something for mac</span>
+<span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;__APPLE__<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="co2">#endif</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    f<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Sa ne uitam la fisierul C obtinut in urma etapei de preprocesare pe un <strong>sistem UNIX</strong>.
+</p>
+<pre class="code bash"><span class="kw2">gcc</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> <span class="re5">-E</span> test.c</pre>
+<pre class="code c">...
+<span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;__unix__<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    f<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Se observa disparitia acelor directive de preprocesare si faptul ca sursa obtinuta contine doar implementarea pentru Unix.
+Daca rulam aceeasi comanda pe Windows (32bit sau 64 bit) sursa obtinut va fi urmatoarea.
+</p>
+<pre class="code c">...
+<span class="kw4">void</span> f<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;_WIN32<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    f<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+La rularea executabilului, se va afisa pe ecran stringul corespunzator sistemului de operare pe care a fost compilat executabilul.
+</p>
+</div></div>
+</div>
+
+<h5 id="includere_multipla">Includere multipla</h5>
+<div class="level5">
+
+<p>
+Prevenirea includerii multiple a fişierelor antet se realizează astfel:
+</p>
+<pre class="code c"><span class="co2">#ifndef _NUME_FISIER_ANTET_</span>
+<span class="co2">#define _NUME_FISIER_ANTET_</span>
+  <span class="coMULTI">/* corpul fisierului antet */</span>
+  <span class="coMULTI">/* prototipuri de functii, declaratii de tipuri si de constante */</span>
+<span class="co2">#endif</span></pre>
+
+<p>
+Astfel, la prima includere a fişierului antet, simbolul <strong>_NUME_FISIER_ANTET_</strong> nu este definit. Preprocesorul execută ramura <strong>#ifndef</strong> în care este definit simbolul <strong>_NUME_FISIER_ANTET_</strong> şi care conţine şi corpul - conţinutul util - al fişierului antet. La următoarele includeri ale fişierului antet simbolul <strong>_NUME_FISIER_ANTET_</strong> va fi definit iar preprocesorul va sări direct la sfârşitul fişierului antet, după <strong>#endif</strong>.
+</p>
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Exemplu7(studiu de caz)
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Exemplu7(studiu de caz)
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Vom face o ierarhie de fisiere pentru a vedea utilizarea <strong> garzilor </strong> (<a href="https://en.wikipedia.org/wiki/Include_guard" class="urlextern" title="https://en.wikipedia.org/wiki/Include_guard"  rel="nofollow"> include guard</a>).
+</p>
+
+<p>
+Fie sursa test.c in care dorim sa apelam functia  <strong> pc </strong> din fisierul antet <strong>pc.h</strong> si functia <strong> run </strong> din fisierul antet <strong> uso.h </strong>.
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &quot;uso.h&quot;</span>
+<span class="co2">#include &quot;pc.h&quot;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    pc<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    run<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Fisierul <strong>pc.h</strong> are urmatorul continut.
+</p>
+<pre class="code c"><span class="co2">#include &quot;uso.h&quot;</span>
+&nbsp;
+<span class="kw4">void</span> write_in_c<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;write code in C<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">void</span> pc<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    write_in_c<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    compile<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    run<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Fisierul <strong>uso.h</strong> are urmatorul continut.
+</p>
+<pre class="code c"><span class="kw4">void</span> compile<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;compile with gcc<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">void</span> run<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;run<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Daca compilam fisierul sursa C vom obtine urmatoarele erori.
+</p>
+<pre class="code bash"><span class="kw2">gcc</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> test.c  <span class="re5">-o</span> <span class="kw3">test</span>
+In <span class="kw2">file</span> included from pc.h:<span class="nu0">1</span>:<span class="nu0">0</span>,
+                 from test.c:<span class="nu0">3</span>:
+uso.h:<span class="nu0">1</span>:<span class="nu0">6</span>: error: redefinition of ‘compile’
+ void compile<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+      ^
+In <span class="kw2">file</span> included from test.c:<span class="nu0">2</span>:<span class="nu0">0</span>:
+uso.h:<span class="nu0">1</span>:<span class="nu0">6</span>: note: previous definition of ‘compile’ was here
+ void compile<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+      ^
+In <span class="kw2">file</span> included from pc.h:<span class="nu0">1</span>:<span class="nu0">0</span>,
+                 from test.c:<span class="nu0">3</span>:
+uso.h:<span class="nu0">5</span>:<span class="nu0">6</span>: error: redefinition of ‘run’
+ void run<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+      ^
+In <span class="kw2">file</span> included from test.c:<span class="nu0">2</span>:<span class="nu0">0</span>:
+uso.h:<span class="nu0">5</span>:<span class="nu0">6</span>: note: previous definition of ‘run’ was here
+ void run<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span></pre>
+
+<p>
+Functiile compile si run au fost definite de doua ori. Pentru a inspecta aceasta problema oprim, din nou, compilarea in faza de preprocesare.
+</p>
+<pre class="code bash">...
+<span class="co0"># 2 &quot;test.c&quot; 2</span>
+<span class="co0"># 1 &quot;uso.h&quot; 1</span>
+&nbsp;
+<span class="co0"># 1 &quot;uso.h&quot; // aici se include prima oara &quot;uso.h&quot; (linia ''#include &quot;uso.h&quot;'' din &quot;test.c&quot;)</span>
+void compile<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;compile with gcc<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+void run<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;run<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+<span class="co0"># 3 &quot;test.c&quot; 2</span>
+<span class="co0"># 1 &quot;pc.h&quot; 1</span>
+<span class="co0"># 1 &quot;uso.h&quot; 1 // aici se include a doua oara &quot;uso.h&quot; (linia ''#include &quot;pc.h&quot;'' din &quot;test.c&quot; include &quot;pc.h&quot;, </span>
+              <span class="sy0">//</span>care contine linia <span class="st_h">''</span><span class="co0">#include &quot;uso.h&quot;'', instructiune in urma careia se va include din nou &quot;uso.h&quot;</span>
+&nbsp;
+void compile<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;compile with gcc<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+void run<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;run<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+<span class="co0"># 2 &quot;pc.h&quot; 2</span>
+&nbsp;
+void write_in_c<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;write code in C<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+void pc<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    write_in_c<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    compile<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    run<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+<span class="co0"># 4 &quot;test.c&quot; 2</span>
+&nbsp;
+int main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    pc<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    run<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    <span class="kw3">return</span> <span class="nu0">0</span>;
+<span class="br0">&#125;</span></pre>
+
+<p>
+Aplicam solutia de mai sus. Definim in fiecare fisier header cate un simbol.
+Definim simbolul <strong> PC_H </strong> in <strong>pc.h</strong>.
+</p>
+<pre class="code c"><span class="co2">#ifndef PC_H // daca este prima oara</span>
+             <span class="co1">// cand acest fiser este inclus</span>
+<span class="co2">#define PC_H // defineste simbolul pentru a nu</span>
+             <span class="co1">// nu permite o includere ulterioara</span>
+&nbsp;
+<span class="co2">#include &quot;uso.h&quot;</span>
+&nbsp;
+<span class="kw4">void</span> write_in_c<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;write code in C<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">void</span> pc<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    write_in_c<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    compile<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    run<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co2">#endif // sfarsitul codului care depinde de</span>
+       <span class="co1">// existenta simbolului PC_H</span></pre>
+
+<p>
+Definim simbolul <strong> USO_H </strong> in fisierul <strong>uso.h</strong>.
+</p>
+<pre class="code c"><span class="co2">#ifndef USO_H // daca este prima oara</span>
+              <span class="co1">// cand acest fiser este inclus</span>
+<span class="co2">#define USO_H // defineste simbolul pentru a nu</span>
+              <span class="co1">// nu permite o includere ulterioara</span>
+&nbsp;
+<span class="kw4">void</span> compile<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;compile with gcc<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">void</span> run<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;run<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co2">#endif // sfarsitul codului care depinde de</span>
+       <span class="co1">// existenta simbolului USO_H</span></pre>
+
+<p>
+Fisierele antet vor fi incluse o singura data, codul va compila.
+</p>
+<pre class="code c">gcc <span class="sy0">-</span>Wall <span class="sy0">-</span>Wextra test.<span class="me1">c</span>  <span class="sy0">-</span>o test
+.<span class="sy0">/</span>test 
+&nbsp;
+write code in C
+compile with gcc
+run
+run</pre>
+</div></div>
+</div>
+
+<h5 id="alte_instructiuni">Alte instrucţiuni</h5>
+<div class="level5">
+<pre class="code c"><span class="co2">#pragma expresie</span></pre>
+
+<p>
+Sunt folosite pentru a controla din codul sursă comportamentul compilatorului (modul în care generează cod, alinierea structurilor, etc.) iar formatul lor diferă de la compilator la compilator. Pentru a determina ce opţiuni <strong>#pragma</strong> aveţi la dispoziţie consultaţi manualul compilatorului.
+</p>
+<pre class="code c"><span class="co2">#error MESSAGE</span></pre>
+
+<p>
+La întâlnirea acestei instrucţiuni de preprocesare compilatorul va raporta o eroare, având ca text explicativ mesajul <strong>MESSAGE</strong>.
+</p>
+<pre class="code c"><span class="co2">#line NUMBER FILENAME</span></pre>
+
+<p>
+Această instrucţiune de preprocesare modifică numărul liniei curente în valoarea specificată de <strong>NUMBER</strong>. În cazul în care este prezent şi parametru opţional <strong>FILENAME</strong> este modificat şi numele fişierului sursă curent. Astfel, mesajele de eroare şi avertismentele produse de compilator vor folosi numere de linie (şi eventual nume de fişiere) inexistente, „imaginare”, conform acestei instrucţiuni.
+</p>
+
+</div>
+
+<h4 id="functii_cu_numar_variabil_de_parametri">Funcţii cu număr variabil de parametri</h4>
+<div class="level4">
+
+</div>
+
+<h5 id="introducere">Introducere</h5>
+<div class="level5">
+
+<p>
+Marea majoritate a funcţiilor discutate până acum şi totalitatea funcţiilor realizate în cadrul laboratorului
+până în acest moment primeau ca parametrii un număr prestabilit de parametrii, de tipuri bine
+precizate. Acest lucru se datorează faptului că limbajul C este un limbaj <a href="http://en.wikipedia.org/wiki/Strongly-typed_programming_language" class="urlextern" title="http://en.wikipedia.org/wiki/Strongly-typed_programming_language"  rel="nofollow">strong-typed</a>. În cele mai multe cazuri acesta este un aspect pozitiv întrucât compilatorul va sesiza de la compilare situaţiile în care se încearcă pasarea unui număr eronat de parametrii sau a unor parametrii de tipuri necorespunzătoare.
+</p>
+
+<p>
+Limbajul C permite totuşi şi declararea şi folosirea funcţiilor cu un număr (şi eventual tip) variabil de
+parametri. Astfel, numărul şi tipul tuturor parametrilor va fi cunoscut doar la rulare, biblioteca standard
+C punând la dispoziţie o serie de definiţii de tipuri şi macro definiţii care permit parcurgerea listei de
+parametri a unei funcţii cu număr variabil de parametri. Exemplul cel mai comun de astfel de funcţii
+sunt funcţiile din familia <strong>printf()</strong>, <strong>scanf()</strong>.
+</p>
+
+</div>
+
+<h4 id="definirea_functiilor_cu_numar_variabil_de_parametri">Definirea funcţiilor cu număr variabil de parametri</h4>
+<div class="level4">
+
+<p>
+Prototipul funcţiilor cu număr variabil de parametrii arată în felul următor:
+</p>
+<pre class="code c">tip_rezultat nume_funcţie<span class="br0">&#40;</span>listă_parametrii_fixaţi<span class="sy0">,</span> ...<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Notaţia <strong>„ ,… ”</strong> comunică compilatorului faptul că funcţia poate primi un număr arbitrar de parametrii
+începând cu poziţia în care apare. De exemplu, prototipul funcţiei <strong>fprintf()</strong> arată în felul următor:
+</p>
+<pre class="code c"><span class="kw4">void</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fprintf.html"><span class="kw3">fprintf</span></a><span class="br0">&#40;</span>FILE<span class="sy0">*,</span> <span class="kw4">const</span> <span class="kw4">char</span><span class="sy0">*,</span> ...<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Astfel, funcţia <strong>fprintf()</strong> trebuie să primească un pointer la o structură <strong>FILE</strong> şi un string de format şi eventual mai poate primi 0 sau mai multe argumente. Modul în care ele vor fi interpretate fiind
+determinat în cazul de faţă de conţinutul variabilei de tip <strong>const char</strong>* (acesta este motivul pentru care pot apărea erori la rulare în condiţiile în care încercăm să tipărim un număr întreg cu <strong>%s</strong> ).
+</p>
+
+<p>
+<p><div class="noteimportant">
+O funcţie cu număr variabil de parametrii trebuie să aibă cel puţin un parametru fixat, cu nume (motivul acestei limitări rezidă în modalitatea de implementare a funcţiilor cu număr variabil de parametri, după cum se va vedea în paragraful următor).
+
+</div></p>
+</p>
+
+</div>
+
+<h5 id="implementarea_functiilor_cu_numar_variabil_de_parametri">Implementarea funcţiilor cu număr variabil de parametri</h5>
+<div class="level5">
+
+<p>
+Pentru prelucrarea listei de parametrii variabili este necesară includerea fişierului antet <strong>stdarg.h</strong>.
+Acesta conţine declaraţii pentru tipul de date variable argument list (<strong>va_list</strong>) şi o serie de macrodefiniţii
+pentru manipularea unei astfel de liste. În continuare este detaliat modul de lucru cu liste variabile de
+parametri.
+</p>
+<ul>
+<li class="level1"><div class="li">  Declararea unei variabile de tip <strong>va_list</strong> (denumită de obicei <strong>args</strong>, <strong>arguments</strong>, <strong>params</strong>)</div>
+</li>
+<li class="level1"><div class="li">  Iniţializarea variabilei de tip <strong>va_list</strong> cu lista de parametri cu care a fost apelată funcţia se realizează cu macrodefiniţia <strong>va_start(arg_list, last_argument)</strong> unde:</div>
+<ul>
+<li class="level2"><div class="li"> <strong>arg_list</strong> reprezintă variabila de tip <strong>va_list</strong> prin intermediul căreia vom accesa lista de parametri a funcţiei.</div>
+</li>
+<li class="level2"><div class="li"> <strong>last_argument</strong> reprezintă numele ultimei variabile fixate din lista de parametri a funcţiei (în exemplul următor, aceasta este şi prima variabilă, numită <strong>first</strong>).</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  Accesarea variabilelor din lista de parametri se realizează cu macro-definiţia <strong>va_arg(arg_list, type)</strong>, unde</div>
+<ul>
+<li class="level2"><div class="li"> <strong>arg_list</strong> are aceeaşi semnificaţie ca mai sus.</div>
+</li>
+<li class="level2"><div class="li"> <strong>type</strong> este un nume de tip şi reprezintă tipul variabilei care va fi citită. La fiecare apel se avansează în listă. În cazul în care se doreşte întoarcerea în listă, aceasta trebuie reiniţializată, iar elementul dorit este accesat prin apeluri succesive de <strong>va_arg()</strong></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  Eliberarea memoriei folosite de lista de parametri se realizează prin intermediul macro-definiţiei <strong>va_end(arg_list)</strong>, unde <strong>arg_list</strong> are aceeaşi semnificaţie ca mai sus.</div>
+</li>
+</ul>
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Exemplu8
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Exemplu8
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+Fie o functie care afiseaza un număr variabil de numere naturale primite ca parametru. Lista este terminată cu un număr negativ.
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt; // printf</span>
+<span class="co2">#include &lt;stdarg.h&gt; // va_list, va_arg,</span>
+                    <span class="co1">// va_start,va_end</span>
+&nbsp;
+<span class="co1">// semnatuna functie</span>
+<span class="co1">//  - functia nu intoarce nimic(void)</span>
+<span class="co1">//  - are un numar variabil de parametri (...)</span>
+<span class="co1">//  - primul parametru este fixat (int first)</span>
+<span class="kw4">void</span> list_ints<span class="br0">&#40;</span><span class="kw4">int</span> first<span class="sy0">,</span> ...<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    list_ints<span class="br0">&#40;</span><span class="sy0">-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// nimic de afisat</span>
+    list_ints<span class="br0">&#40;</span><span class="nu0">128</span><span class="sy0">,</span> <span class="nu0">512</span><span class="sy0">,</span> <span class="nu0">768</span><span class="sy0">,</span> <span class="nu0">4096</span><span class="sy0">,</span> <span class="sy0">-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// afiseaza  pana la -1</span>
+    list_ints<span class="br0">&#40;</span><span class="st0">'a'</span><span class="sy0">,</span> <span class="st0">'b'</span><span class="sy0">,</span> <span class="nu12">0xa</span><span class="sy0">,</span> <span class="nu12">0xb</span><span class="sy0">,</span> <span class="sy0">-</span><span class="nu0">2</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// afiseaza pana la -2; apel corect deoarece castul la int este valid</span>
+    list_ints<span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">,</span> <span class="sy0">-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// afiseaza pana la -1</span>
+    list_ints<span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">3</span><span class="sy0">,</span> <span class="sy0">-</span><span class="nu0">1</span><span class="sy0">,</span> <span class="nu0">1</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// afiseaza pana la -1</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">void</span> list_ints<span class="br0">&#40;</span><span class="kw4">int</span> first<span class="sy0">,</span> ...<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// tratam cazul special cand nu avem</span>
+    <span class="co1">// nici un numar (in afara de delimitator)</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>first <span class="sy0">&lt;</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;No numbers present (besides terminator)<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">return</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="co1">// lista de parametri</span>
+    va_list args<span class="sy0">;</span>
+&nbsp;
+    <span class="coMULTI">/* initializam lista de parametri */</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/va_start.html"><span class="kw3">va_start</span></a><span class="br0">&#40;</span>args<span class="sy0">,</span> first<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// parcurgem lista de parametri pana ce</span>
+    <span class="co1">// intalnim un numar negativ</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;These are the numbers (excluding terminator): &quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw4">int</span> current <span class="sy0">=</span> first<span class="sy0">;</span>
+    <span class="kw1">do</span> <span class="br0">&#123;</span>
+        <span class="co1">// afiseaza numarul curent</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d &quot;</span><span class="sy0">,</span> current<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+        <span class="co1">// obtine urmatorul numar intreg din lista</span>
+        current <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/va_arg.html"><span class="kw3">va_arg</span></a><span class="br0">&#40;</span>args<span class="sy0">,</span> <span class="kw4">int</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span> <span class="kw1">while</span> <span class="br0">&#40;</span>current <span class="sy0">&gt;=</span> <span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="coMULTI">/* curatam lista de parametrii */</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/va_end.html"><span class="kw3">va_end</span></a><span class="br0">&#40;</span>args<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Observati comportamentul acestei functii pentru diversi parametri.
+</p>
+<pre class="code bash"><span class="kw2">gcc</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> test.c  <span class="re5">-o</span> <span class="kw3">test</span>
+.<span class="sy0">/</span><span class="kw3">test</span> 
+&nbsp;
+No numbers present <span class="br0">&#40;</span>besides terminator<span class="br0">&#41;</span>
+These are the numbers <span class="br0">&#40;</span>excluding terminator<span class="br0">&#41;</span>: <span class="nu0">128</span> <span class="nu0">512</span> <span class="nu0">768</span> <span class="nu0">4096</span> 
+These are the numbers <span class="br0">&#40;</span>excluding terminator<span class="br0">&#41;</span>: <span class="nu0">97</span> <span class="nu0">98</span> <span class="nu0">10</span> <span class="nu0">11</span> 
+These are the numbers <span class="br0">&#40;</span>excluding terminator<span class="br0">&#41;</span>: <span class="nu0">1</span> 
+These are the numbers <span class="br0">&#40;</span>excluding terminator<span class="br0">&#41;</span>: <span class="nu0">1</span> <span class="nu0">2</span> <span class="nu0">3</span></pre>
+</div></div><div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Exemplu 9 (studiu de caz)
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Exemplu 9 (studiu de caz)
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+In exemplul anterior am considerat toate argumentele primite erau intregi. In general, acestea pot avea tipuri diferite. 
+</p>
+
+<p>
+Realizați o <strong>funcție cu număr variabil de parametri</strong>, numită de exemplu <strong>show()</strong> care să permită afisarea cu format a unui număr de variabile date ca parametri, acestia putand avea <strong>tipuri diferite</strong>. 
+</p>
+
+<p>
+Prototipul va arăta în modul următor: 
+</p>
+<pre class="code c"><span class="kw4">int</span> show<span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy0">*</span>format<span class="sy0">,</span> …<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+<ul>
+<li class="level1"><div class="li"> Pentru fiecare specificator de format, se va afisa variabila  în variabila curentă un număr de octeți corespunzător tipului dat de specificator (vezi mai jos).</div>
+</li>
+<li class="level1"><div class="li"> Specificatorii de format suportați sunt următorii:</div>
+<ul>
+<li class="level2"><div class="li"> %c - dată de tip char</div>
+</li>
+<li class="level2"><div class="li"> %d - dată de tip integer</div>
+</li>
+<li class="level2"><div class="li"> %f - dată de tip float</div>
+</li>
+<li class="level2"><div class="li"> %s - dată de tip char * (se va afisa un string)</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> Pentru simplitate se va considera că după &#039;%&#039; urmează mereu unul din cei 3 specificatori.</div>
+</li>
+<li class="level1"><div class="li"> Functia va returna numarul de argumente procesate din lista.</div>
+</li>
+<li class="level1"><div class="li"> Afișați la stdout datele citite. In implementare aveti voie sa folositi functiile printf/fprintf.</div>
+</li>
+</ul>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt; // printf</span>
+<span class="co2">#include &lt;string.h&gt; // strlen</span>
+<span class="co2">#include &lt;stdarg.h&gt; // va_list, va_arg,</span>
+                    <span class="co1">// va_start,va_end</span>
+&nbsp;
+<span class="kw4">int</span> show<span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>format<span class="sy0">,</span> ...<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">char</span> name<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy0">=</span> <span class="st0">&quot;Gigel&quot;</span><span class="sy0">;</span>
+    <span class="kw4">int</span> age <span class="sy0">=</span> <span class="nu0">15</span><span class="sy0">;</span>
+    <span class="kw4">float</span> weight <span class="sy0">=</span> <span class="nu16">91.5</span><span class="sy0">;</span>
+    <span class="kw4">int</span> argc<span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// afisare @ Gigel</span>
+    argc <span class="sy0">=</span> show<span class="br0">&#40;</span><span class="st0">&quot;%s are %d ani si %f de kg.<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> name<span class="sy0">,</span> age<span class="sy0">,</span> weight<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// afisare numar de argumente folosite</span>
+    show<span class="br0">&#40;</span><span class="st0">&quot;arguments used: %d/3<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> argc<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// afisare double</span>
+    <span class="kw4">double</span> x <span class="sy0">=</span> <span class="nu16">5.0</span><span class="sy0">;</span>
+    show<span class="br0">&#40;</span><span class="st0">&quot;%f wtf?<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> x<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+<span class="kw4">int</span> show<span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>format<span class="sy0">,</span> ...<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// n = lungime format, i iterator</span>
+    <span class="co1">// proccesed = argumente procesate</span>
+    <span class="kw4">int</span> n<span class="sy0">,</span> i<span class="sy0">,</span> proccesed<span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// initializari</span>
+    n <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strlen.html"><span class="kw3">strlen</span></a><span class="br0">&#40;</span>format<span class="br0">&#41;</span><span class="sy0">;</span>
+    proccesed <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+    va_list args<span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/va_start.html"><span class="kw3">va_start</span></a><span class="br0">&#40;</span>args<span class="sy0">,</span> format<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="co1">// parcurge fiecare caracter din format</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span>i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> <span class="sy0">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="co1">// c e caracterul curent</span>
+        <span class="kw4">char</span> c <span class="sy0">=</span> format<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy0">;</span>
+&nbsp;
+        <span class="co1">// verifica sa nu inceapa o interpolare</span>
+        <span class="co1">// de stringuri</span>
+        <span class="kw1">if</span> <span class="br0">&#40;</span>c <span class="sy0">!=</span> <span class="st0">'%'</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <span class="co1">// afisez exact ce primesc</span>
+            <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%c&quot;</span><span class="sy0">,</span> c<span class="br0">&#41;</span><span class="sy0">;</span>
+            <span class="kw1">continue</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+&nbsp;
+        <span class="co1">// c == '%', deci am gasit o interpolare</span>
+        <span class="co1">// decid ce caz am gasit</span>
+        <span class="sy0">++</span>proccesed<span class="sy0">;</span>
+        c <span class="sy0">=</span> format<span class="br0">&#91;</span> <span class="sy0">++</span>i <span class="br0">&#93;</span><span class="sy0">;</span>
+        <span class="kw1">switch</span><span class="br0">&#40;</span>c<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <span class="co1">// am gasit &quot;%d&quot;</span>
+            <span class="co1">// urmatorul parametru este un int</span>
+            <span class="kw1">case</span> <span class="st0">'d'</span><span class="sy0">:</span> <span class="br0">&#123;</span>
+                <span class="kw4">int</span> d <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/va_arg.html"><span class="kw3">va_arg</span></a><span class="br0">&#40;</span>args<span class="sy0">,</span> <span class="kw4">int</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d&quot;</span><span class="sy0">,</span> d<span class="br0">&#41;</span><span class="sy0">;</span>
+                <span class="kw2">break</span><span class="sy0">;</span>
+            <span class="br0">&#125;</span>
+&nbsp;
+            <span class="co1">// am gasit &quot;%f&quot;</span>
+            <span class="co1">// urmatorul parametru este un double</span>
+            <span class="kw1">case</span> <span class="st0">'f'</span><span class="sy0">:</span> <span class="br0">&#123;</span>
+                <span class="kw4">double</span> f <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/va_arg.html"><span class="kw3">va_arg</span></a><span class="br0">&#40;</span>args<span class="sy0">,</span> <span class="kw4">double</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%f&quot;</span><span class="sy0">,</span> f<span class="br0">&#41;</span><span class="sy0">;</span>
+                <span class="kw2">break</span><span class="sy0">;</span>
+            <span class="br0">&#125;</span>
+&nbsp;
+            <span class="co1">// am gasit &quot;%s&quot;</span>
+            <span class="co1">// urmatorul parametru este un char*</span>
+            <span class="kw1">case</span> <span class="st0">'s'</span><span class="sy0">:</span> <span class="br0">&#123;</span>
+                <span class="kw4">char</span> <span class="sy0">*</span>s <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/va_arg.html"><span class="kw3">va_arg</span></a><span class="br0">&#40;</span>args<span class="sy0">,</span> <span class="kw4">char</span><span class="sy0">*</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%s&quot;</span><span class="sy0">,</span> s<span class="br0">&#41;</span><span class="sy0">;</span>
+                <span class="kw2">break</span><span class="sy0">;</span>
+            <span class="br0">&#125;</span>
+&nbsp;
+            <span class="kw1">default</span><span class="sy0">:</span>
+                <a href="http://www.opengroup.org/onlinepubs/009695399/functions/fprintf.html"><span class="kw3">fprintf</span></a><span class="br0">&#40;</span>stderr<span class="sy0">,</span> <span class="st0">&quot;Asta nu trebuia sa se intample!<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                <span class="kw2">break</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/va_end.html"><span class="kw3">va_end</span></a><span class="br0">&#40;</span>args<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">return</span> proccesed<span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Rulare:
+</p>
+<pre class="code c">gcc <span class="sy0">-</span>Wall <span class="sy0">-</span>Wextra test.<span class="me1">c</span>  <span class="sy0">-</span>o test
+.<span class="sy0">/</span>test 
+&nbsp;
+Gigel are <span class="nu0">15</span> ani si <span class="nu16">91.500000</span> de kg.
+<span class="me1">arguments</span> used<span class="sy0">:</span> <span class="nu0">3</span><span class="sy0">/</span><span class="nu0">3</span>
+<span class="nu16">5.000000</span> wtf<span class="sy0">?</span></pre>
+
+<p>
+Incercati acasa sa inlocuiti functiile printf/fprintf cu alte primitive (de exemplu puts/putc).
+</p>
+
+<p>
+<p><div class="notewarning">
+</p>
+<ul>
+<li class="level1"><div class="li"> Codul a compilat, desi nu am implementat separat float si double. La pasarea parametrilor, unele tipuri de date sunt promovotate: float la double, char/short la int (<a href="http://stackoverflow.com/questions/11270588/variadic-function-va-arg-doesnt-work-with-float" class="urlextern" title="http://stackoverflow.com/questions/11270588/variadic-function-va-arg-doesnt-work-with-float"  rel="nofollow"> stackoverflow </a>). </div>
+</li>
+</ul>
+
+<p>
+
+</div></p>
+</p>
+</div></div>
+</div>
+
+<h4 id="optiuni_de_compilare">Opțiuni de compilare</h4>
+<div class="level4">
+
+</div>
+
+<h5 id="compilatorul_gcc">Compilatorul GCC</h5>
+<div class="level5">
+
+<p>
+În cadrul laboratorului și pentru testarea temelor de casă se va folosi compilatorul GCC. GCC este unul dintre primele pachete software dezvoltate în cadrul Proiectului GNU (<code>GNU&#039;s Not Unix</code>) de către Free Software Foundation. Deși GCC se traducea iniţial prin <code>GNU C Compiler</code>, acesta a devenit între timp un compilator multifrontend, multi-backend, având suport pentru o serie largă de limbaje, ca C, C++, Objective-C, Ada, Java, etc, astfel că denumirea curentă a devenit <code>GNU Compiler Collection</code>. În cadrul cursului de <a href="http://ocw.cs.pub.ro/programare" class="urlextern" title="http://ocw.cs.pub.ro/programare"  rel="nofollow">Programare</a> ne vom referi totuşi numai la partea de C din suita de compilatoare.
+</p>
+
+<p>
+Compilatorul GCC rulează pe o gamă largă de echipamente hardware (procesoare din familia: <code>i386, alpha, vax, m68k, sparc, HPPA, arm, MIPS, PowerPC,</code> etc.) și de sisteme de operare (<code>GNU/Linux, DOS, Windows 9x/NT/2000, Solaris, Tru64, VMS, Ultrix, Aix </code>), fiind la ora actuală cel mai folosit compilator.
+</p>
+
+<p>
+Compilatorul GCC se apelează din linia de comandă, folosind diferite opțiuni, în funcție de rezultatul care se dorește (specificarea de căi suplimentare de căutare a bibliotecilor/fișierelor antet, link-area unor biblioteci specifice, opțiuni de optimizare, controlul stagiilor de compilare, al avertisementelor, etc.). 
+</p>
+
+</div>
+
+<h5 id="utilizare_gcc">Utilizare GCC</h5>
+<div class="level5">
+
+<p>
+Vom folosi pentru exemplificare un program simplu care tipărește la ieșirea standard un șir de caractere.
+</p>
+<dl class="code">
+<dt><a href="/courses/_export/code/programare/laboratoare/lab11?codeblock=67" title="Download Snippet" class="mediafile mf_c">hello.c</a></dt>
+<dd><pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Hello from your first program!<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+</dd></dl>
+
+<p>
+Pentru compilarea programului se va lansa comanda (în linia de comandă):
+</p>
+<pre class="code bash"> <span class="kw2">gcc</span> hello.c</pre>
+
+<p>
+presupunând că fișierul sursă se numește <code>hello.c</code>.
+</p>
+
+<p>
+Pe un sistem de operare <code>Linux</code>, compilarea default va genera un executabil cu numele <code>a.out</code>. Pentru rularea acestuia, trebuie executată comanda:
+</p>
+<pre class="code bash"> .<span class="sy0">/</span>a.out</pre>
+
+<p>
+Pentru un control mai fin al comportării compilatorului, sunt prezentate în tabelul următor cele mai folosite opţiuni (pentru lista completă studiaţi pagina de manual pentru GCC - <code>man gcc</code>):
+</p>
+<div class="table sectionedit4"><table class="inline">
+	<tr class="row0">
+		<th class="col0"> Opțiune </th><th class="col1"> Efect </th>
+	</tr>
+	<tr class="row1">
+		<td class="col0"><strong>-o</strong> nume_fișier</td><td class="col1">Numele fișierului de ieşire va fi nume_fişier. În cazul în care această opțiune nu este setată, se va folosi numele implicit (pentru fișiere executabile: a.out - pentru Linux).</td>
+	</tr>
+	<tr class="row2">
+		<td class="col0"><strong>-I</strong> cale_către_fișiere_antet</td><td class="col1">Caută fișiere antet și în calea specificată.</td>
+	</tr>
+	<tr class="row3">
+		<td class="col0"><strong>-L</strong> cale_către_biblioteci</td><td class="col1">Caută fișiere bibliotecă și în calea specificată.</td>
+	</tr>
+	<tr class="row4">
+		<td class="col0"><strong>-l</strong> nume_bibliotecă</td><td class="col1">Link-editează biblioteca <code>nume_bibliotecă</code>. <strong>Atenție!!!</strong> <code>nume_bibliotecă</code> nu este întotdeauna același cu numele fișierului antet prin care se include această bibliotecă. Spre exemplu, pentru includerea bibliotecii de funcții matematice, fișierul antet este math.h, iar biblioteca este <code>m</code>.</td>
+	</tr>
+	<tr class="row5">
+		<td class="col0"><strong>-W</strong> tip_warning</td><td class="col1">Afișează tipurile de avertismente specificate (Pentru mai multe detalii <code>man gcc</code> sau <code>gcc –help</code>). Cel mai folosit tip este <code>all</code>. Este indicat ca la compilarea cu <code>-Wall</code> să nu apară nici un fel de avertismente.</td>
+	</tr>
+	<tr class="row6">
+		<td class="col0"><strong>-c</strong></td><td class="col1">Compilează și asamblează, dar nu link-editează. Generează fișiere obiect, cu extensia <code>.o</code>.</td>
+	</tr>
+	<tr class="row7">
+		<td class="col0"><strong>-S</strong></td><td class="col1">Se oprește după faza de compilare, fară să asambleze. Rezultă cod assembler în fișiere cu extensia <code>.s</code>.</td>
+	</tr>
+</table></div>
+<!-- EDIT4 TABLE [36307-37525] -->
+<p>
+= Exemplu =
+</p>
+<pre class="code bash"><span class="kw2">gcc</span> <span class="re5">-o</span> tema1 tema1.c <span class="re5">-lm</span> <span class="re5">-Wall</span></pre>
+
+<p>
+Comanda de mai sus are ca efect compilarea și link-editarea fişierului <code>tema1.c</code>, cu includerea bibliotecii matematice, afişând toate avertismentele. Fişierul de ieşire se va numi <code>tema1</code>.
+</p>
+
+<p>
+<strong>Atenție!!!</strong> Dacă folosiți opțiunea <strong>-o</strong>, nu adăugați imediat după fișierele sursă. Acest lucru ar avea ca efect suprascrierea acestora și pierderea întregului conținut.
+</p>
+
+</div>
+
+<h5 id="utilitarul_make">Utilitarul Make</h5>
+<div class="level5">
+
+<p>
+<p><div class="noteclassic">
+Instrucțiuni de instalare gcc - <a href="https://ocw.cs.pub.ro/courses/programare/vmchecker_conf#instalare_gccmake" class="urlextern" title="https://ocw.cs.pub.ro/courses/programare/vmchecker_conf#instalare_gccmake"  rel="nofollow"> Instalare gcc/make </a>
+
+</div></p>
+</p>
+
+<p>
+Utilitarul <code>make</code> determină automat care sunt părțile unui proiect care trebuie recompilate ca urmare a operării unor modificări și declanşează comenzile necesare pentru recompilarea lor. Pentru a putea utiliza <code>make</code>, este necesar un fișier de tip <code>makefile</code> (numit de obicei <code>Makefile</code> sau <code>makefile</code>) care descrie relațiile de dependenţă între diferitele fișiere din care se compune programul şi care specifică regulile de actualizare pentru fiecare fişier în parte.
+</p>
+
+<p>
+În mod normal, într-un program, fişierul executabil este actualizat (recompilat) pe baza fișierelor-obiect, care la rândul lor sunt obținute prin compilarea fișierelor sursă. Totuși, acest utilitar poate fi folosit pentru orice proiect care conţine dependenţe şi cu orice compilator/utilitar care poate rula în linia de comandă. Odată creat fișierul <code>makefile</code>, de fiecare dată când apare vreo modificare în fișierele sursă, este suficient să rulăm utilitarul <code>make</code> pentru ca toate recompilările necesare să fie efectuate. Programul <code>make</code> utilizează fișierul Makefile ca bază de date şi pe baza timpilor ultimei modificări a fișierelor din Makefile decide care sunt fișierele care trebuie actualizate. Pentru fiecare din aceste fișiere, sunt executate comenzile precizate in Makefile. În continuare prezentăm un exemplu simplu.
+</p>
+<pre class="code bash"><span class="co0"># Declaratiile de variabile</span>
+CC = <span class="kw2">gcc</span>
+CFLAGS = <span class="re5">-Wall</span> <span class="re5">-lm</span>
+SRC = radical.c
+EXE = radical
+&nbsp;
+<span class="co0"># Regula de compilare</span>
+all:
+	$<span class="br0">&#40;</span>CC<span class="br0">&#41;</span> <span class="re5">-o</span> $<span class="br0">&#40;</span>EXE<span class="br0">&#41;</span> $<span class="br0">&#40;</span>SRC<span class="br0">&#41;</span> $<span class="br0">&#40;</span>CFLAGS<span class="br0">&#41;</span>
+&nbsp;
+<span class="co0"># Regulile de &quot;curatenie&quot; (se folosesc pentru stergerea fisierelor intermediare si/sau rezultate)</span>
+.PHONY : clean
+clean :
+	<span class="kw2">rm</span> <span class="re5">-f</span> $<span class="br0">&#40;</span>EXE<span class="br0">&#41;</span> <span class="sy0">*</span>~</pre>
+
+<p>
+<strong>Atenție!!!</strong> Este obligatorie folosirea tab-urilor (nu spații!).
+Mai multe informații puteți găsiti pe <a href="http://www.gnu.org/software/make" class="urlextern" title="http://www.gnu.org/software/make"  rel="nofollow">pagina proiectului</a>.
+</p>
+
+</div>
+<!-- EDIT3 SECTION "Noţiuni teoretice" [1362-40154] -->
+<h3 class="sectionedit5" id="exercitii">Exerciții</h3>
+<div class="level3">
+
+<p>
+Exercițiile pentru laborator se găsesc pe <a href="https://acs-pclp.github.io/laboratoare/11" class="urlextern" title="https://acs-pclp.github.io/laboratoare/11"  rel="nofollow"> PCLP Laborator11: Parametrii liniei de comandă. Preprocesorul. Funcții cu număr variabil de parametri. Opțiuni de compilare</a>.
+</p>
+
+</div>
+<!-- EDIT5 SECTION "Exerciții" [40155-40398] -->
+<h3 class="sectionedit6" id="referinte">Referinţe</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <a href="https://en.cppreference.com/w/c/variadic.html" class="urlextern" title="https://en.cppreference.com/w/c/variadic.html"  rel="nofollow">https://en.cppreference.com/w/c/variadic.html</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="https://en.cppreference.com/w/c/preprocessor.html" class="urlextern" title="https://en.cppreference.com/w/c/preprocessor.html"  rel="nofollow">https://en.cppreference.com/w/c/preprocessor.html</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT6 SECTION "Referinţe" [40399-] --></div>
+</body>
+</html>

@@ -1,0 +1,579 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:tutoriale:read_docs</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-11-04T15:38:29+0200"/>
+<meta name="keywords" content="programare,tutoriale,read_docs"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare:tutoriale"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/tutoriale/read_docs"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/tutoriale/read_docs"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:tutoriale';var JSINFO = {"id":"programare:tutoriale:read_docs","namespace":"programare:tutoriale","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level1"><div class="li"><a href="#read_documentation">Read documentation</a></div>
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#cuprins">Cuprins</a></div></li>
+<li class="level2"><div class="li"><a href="#scopul_tutorialului">Scopul tutorialului</a></div></li>
+<li class="level2"><div class="li"><a href="#ce_reprezinta_documentatia_unui_limbaj">Ce reprezintă documentația unui limbaj</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#ce_este_o_biblioteca_dar_un_framework_dar_un_api">Ce este o bibliotecă? Dar un framework? Dar un API?</a></div></li>
+<li class="level3"><div class="li"><a href="#exemple_de_documentatii">Exemple de documentații</a></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><a href="#cum_integram_o_functionalitate_in_codul_nostru">Cum integrăm o funcționalitate în codul nostru?</a></div></li>
+<li class="level2"><div class="li"><a href="#comparatie_intre_o_documentatie_si_platformele_de_tip_forum">Comparație între o documentație și platformele de tip forum</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#avantaje">Avantaje</a></div></li>
+<li class="level3"><div class="li"><a href="#dezavantaje">Dezavantaje</a></div></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h1 class="sectionedit1" id="read_documentation">Read documentation</h1>
+<div class="level1">
+
+<p>
+<a href="/courses/_detail/pa/new_pa/partners/bitdefender_masterbrand_logo_positive.png?id=programare%3Atutoriale%3Aread_docs" class="media" title="pa:new_pa:partners:bitdefender_masterbrand_logo_positive.png"><img src="/courses/_media/pa/new_pa/partners/bitdefender_masterbrand_logo_positive.png?w=190&amp;tok=01f884" class="medialeft" alt="" width="190" /></a>
+Bitdefender este un lider recunoscut în domeniul securității IT, care oferă soluții superioare de prevenție, detecție și răspuns la incidente de securitate cibernetică. Milioane de sisteme folosite de oameni, companii și instituții guvernamentale sunt protejate de soluțiile companiei, ceea ce face Bitdefender unul dintre cei mai de încredere experți în combaterea amenințărilor informatice, în protejarea intimității și datelor, a identității digitale și în consolidarea rezilienței la atacuri. Compania a inovat constant în domenii precum antimalware, Internetul Lucrurilor, analiză comportamentală și inteligență artificială, iar tehnologiile Bitdefender sunt licențiate către peste 180 dintre cele mai cunoscute branduri de securitate din lume.
+</p>
+
+<p>
+<strong>Resposabili</strong>:
+</p>
+<ul>
+<li class="level1"><div class="li"> Cristi Olaru</div>
+</li>
+<li class="level1"><div class="li"> Cristi Pătrașcu</div>
+</li>
+<li class="level1"><div class="li"> Cristi Popa</div>
+</li>
+<li class="level1"><div class="li"> Darius Neațu</div>
+</li>
+<li class="level1"><div class="li"> Liza Babu</div>
+</li>
+<li class="level1"><div class="li"> Radu Nichita</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT1 SECTION "Read documentation" [1-1016] -->
+<h2 class="sectionedit2" id="cuprins">Cuprins</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a href="#scopul_tutorialului" title="programare:tutoriale:read_docs ↵" class="wikilink1">Scopul tutorialului</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#ce_reprezinta_documentatia_unui_limbaj" title="programare:tutoriale:read_docs ↵" class="wikilink1">Ce reprezintă documentația unui limbaj</a></div>
+<ul>
+<li class="level2"><div class="li"> <a href="#ce_este_o_biblioteca_dar_un_framework_dar_un_api" title="programare:tutoriale:read_docs ↵" class="wikilink1">Ce este o bibliotecă? Dar un framework? Dar un API?</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#exemple_de_documentatii" title="programare:tutoriale:read_docs ↵" class="wikilink1">Exemple de documentații</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <a href="#cum_integram_o_functionalitate_in_codul_nostru" title="programare:tutoriale:read_docs ↵" class="wikilink1">Cum integrăm o funcționalitate in codul nostru?</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#comparatie_intre_o_documentatie_si_platformele_de_tip_forum" title="programare:tutoriale:read_docs ↵" class="wikilink1">Comparație între o documentație și platformele de tip forum</a></div>
+<ul>
+<li class="level2"><div class="li"> <a href="#avantaje" title="programare:tutoriale:read_docs ↵" class="wikilink1">Avantaje</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#dezavantaje" title="programare:tutoriale:read_docs ↵" class="wikilink1">Dezavantaje</a></div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+<!-- EDIT2 SECTION "Cuprins" [1017-1657] -->
+<h2 class="sectionedit3" id="scopul_tutorialului">Scopul tutorialului</h2>
+<div class="level2">
+
+<p>
+Limbajele de programare ne permit să-i transmitem unui calculator instrucțiuni pe care acesta să le înțeleagă și să le execute. Deși fiecare limbaj de programare are particularitățile lui, ele au în comun multe concepte similare, care, odată înțelese într-o manieră generică, pot fi aplicate în aproape orice limbaj de programare.
+</p>
+
+<p>
+Exemple de astfel de concepte includ:
+</p>
+<ul>
+<li class="level1"><div class="li"> variabile și structuri de control (de exemplu, <code>if</code>, <code>while</code>, <code>for</code>, <code>return</code>);</div>
+</li>
+<li class="level1"><div class="li"> structuri de date (de exemplu, vectori, liste, dicționare, arbori);</div>
+</li>
+<li class="level1"><div class="li"> algoritmi (de exemplu, sortare, găsirea unui element cu o anumită proprietate, dar și alți algoritmi mai avansați);</div>
+</li>
+<li class="level1"><div class="li"> interacțiunea cu sistemul de fișiere (de exemplu, deschiderea/închiderea de fișiere, citiri, scrieri, etc.);</div>
+</li>
+<li class="level1"><div class="li"> interacțiunea cu alte componente alte sistemului de operare (de exemplu, placă de rețea, alte procese, dispozitive I/O).</div>
+</li>
+</ul>
+
+<p>
+Pentru a înțelege cum se aplică astfel de concepte într-un limbaj de programare, trebuie să învățăm să căutăm și să aplicăm corect noțiunile prezentate în documentația acelui limbaj.
+</p>
+
+</div>
+<!-- EDIT3 SECTION "Scopul tutorialului" [1658-2835] -->
+<h2 class="sectionedit4" id="ce_reprezinta_documentatia_unui_limbaj">Ce reprezintă documentația unui limbaj</h2>
+<div class="level2">
+
+<p>
+În programare, documentația este o colecție de texte, imagini, videoclipuri care au ca scop descrierea funcționalității unui software.
+</p>
+
+<p>
+În particular, documentația unui limbaj de programare descrie funcționalitățile oferite de acel limbaj, sub forma unor reguli de sintaxă, dar și a unor biblioteci (standard sau non-stardard), framework-uri etc.
+</p>
+
+<p>
+Documentațiile pot fi scrise atât de dezvoltatorii limbajelor, cât și de alte organizații, de aceea de multe ori găsim mai multe surse din care ne putem informa corect.
+</p>
+
+</div>
+<!-- EDIT4 SECTION "Ce reprezintă documentația unui limbaj" [2836-3426] -->
+<h3 class="sectionedit5" id="ce_este_o_biblioteca_dar_un_framework_dar_un_api">Ce este o bibliotecă? Dar un framework? Dar un API?</h3>
+<div class="level3">
+
+<p>
+Notă: Acești termeni au multiple semnificații dependente de limbajul de programare, context etc. Nu vom da definiții exacte, ci vom oferi explicații sumare ca să vă faceți o idee despre diferența dintre aceste noțiuni.
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>bibliotecă</strong> (EN: <strong>library</strong>): este o colecție de cod reutilizabil, ce implementează diferite funcționalități și care poate fi folosit de multiple aplicații.</div>
+</li>
+<li class="level1"><div class="li"> <strong>framework</strong>: este un software folosit ca schelet de bază pentru dezvoltarea aplicațiilor sau a diverselor funcționalități. Un framework expune, în general, doar acele bucăți de cod (funcții, clase) de care este nevoie pentru a îl folosi. Restul funcționalității este, în general, ținută intern de framework.</div>
+</li>
+<li class="level1"><div class="li"> <strong><abbr title="Application Programming Interface">API</abbr></strong> (<a href="https://ro.wikipedia.org/wiki/Application_Programming_Interface" class="urlextern" title="https://ro.wikipedia.org/wiki/Application_Programming_Interface"  rel="nofollow">Application programming interface</a>): Este interfața expusă de o bibliotecă/un framework/o aplicație. Un <abbr title="Application Programming Interface">API</abbr> nu este cod propriu-zis, ci este interfața prin care putem folosi un cod (de exemplu, interfața unei biblioteci în C ar putea fi reprezentată de semnăturile funcțiilor conținute, strânse într-un header - aceasta explică ce funcții există în bibliotecă, ce valoare returnează, ce parametri primesc, ce face funcția).</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT5 SECTION "Ce este o bibliotecă? Dar un framework? Dar un API?" [3427-4748] -->
+<h3 class="sectionedit6" id="exemple_de_documentatii">Exemple de documentații</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <strong>C</strong>: Există multiple standarde de C, fiecare având diferite particularități. Limbajul C este dependent atât de standardul folosit, cât și de sistemul de operare pe care rulează. Printre documentațiile pentru diferite standarde C se numără:</div>
+<ul>
+<li class="level2"><div class="li"> Linux man pages - inclusă in distribuții Linux, oferă detalii despre multe funcționalități expuse de C pentru <strong>Linux</strong>.</div>
+<ul>
+<li class="level3"><div class="li"> Pentru <code>C</code>, avem 2 moduri să verificăm documentația / să căutăm în ea:</div>
+<ul>
+<li class="level4"><div class="li"> <code>Google it!</code>: de exemplu, dacă căutăm pe Google <code>man scanf</code> sau <code>man stdio</code> / <code>man stdio.h</code> între primele (2-3) rezultate vom găsi linkuri de <a href="https://man7.org/linux/man-pages/index.html" class="urlextern" title="https://man7.org/linux/man-pages/index.html"  rel="nofollow">man7.org</a> sau <a href="https://linux.die.net/man/" class="urlextern" title="https://linux.die.net/man/"  rel="nofollow">linux.die.net/man</a> care ne duc către documentația pentru funcția <code>scanf</code> / biblioteca <code>stdio</code>.</div>
+</li>
+<li class="level4"><div class="li"> <code>terminal</code>: de exemplu, dacă nu avem acces la internet sau la un browser, putem rula în terminal <code>man scanf</code> sau <code>man stdio</code> / <code>man stdio.h</code> pentru a deschide în terminal documentația pentru funcția <code>scanf</code> / biblioteca <code>stdio</code>.</div>
+</li>
+</ul>
+</li>
+<li class="level3"><div class="li"> Observație: cele 2 metode se aplică și comenzilor Linux - de exemplu, încercați să cautați cu <code>man ls</code> sau <code>man grep</code>.</div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"> <a href="https://docs.microsoft.com/en-us/cpp/c-language/?view=msvc-170" class="urlextern" title="https://docs.microsoft.com/en-us/cpp/c-language/?view=msvc-170"  rel="nofollow">Windows</a> - documentație oficială Microsoft pentru <strong>Windows</strong>;</div>
+</li>
+<li class="level2"><div class="li"> <a href="http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf" class="urlextern" title="http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1256.pdf"  rel="nofollow">ANSI C</a> - o variantă free de documentație pentru ANSI C. Există și variantă non-free.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>C++</strong>: La fel ca la C, nu există o documentație oficială pentru tot limbajul. Exemple de documentații:</div>
+<ul>
+<li class="level2"><div class="li"> <a href="https://en.cppreference.com/" class="urlextern" title="https://en.cppreference.com/"  rel="nofollow">C++ Reference</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="https://isocpp.org/std/the-standard" class="urlextern" title="https://isocpp.org/std/the-standard"  rel="nofollow">ISO cpp</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>Java</strong>: <a href="https://docs.oracle.com/en/java/" class="urlextern" title="https://docs.oracle.com/en/java/"  rel="nofollow">Oracle</a></div>
+</li>
+<li class="level1"><div class="li"> <strong>Python</strong>: <a href="https://docs.python.org/3/" class="urlextern" title="https://docs.python.org/3/"  rel="nofollow">Python 3</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT6 SECTION "Exemple de documentații" [4749-6704] -->
+<h2 class="sectionedit7" id="cum_integram_o_functionalitate_in_codul_nostru">Cum integrăm o funcționalitate în codul nostru?</h2>
+<div class="level2">
+
+<p>
+Vom parcurge niște pași orientativi și vom exemplifica fiecare pas pe o problemă dată.
+</p>
+
+<p>
+Problemă propusă: Avem o listă de studenți, iar pentru fiecare student știm numele și grupa. Se cere o listă sortată a studenților după următoarele criterii: lexicografic după grupă, iar în caz de egalitate sortăm lexicografic după nume. Limbajul care trebuie folosit este limbajul C.
+</p>
+<ul><li><p>
+<p>
+Pasul 1: Identificăm problema de rezolvat
+</p>
+</p><ul><li><p>
+<p>
+În acest pas este important să formulăm problema cât mai generic
+</p>
+</p></li><li><p>
+<p>
+În această problemă, un mod natural de rezolvare ar fi să stocăm studenții într-un vector de structuri. Problema de rezolvat este, în mod generic, sortarea unui vector.
+</p>
+</p></li></ul></li><li><p>
+<p>
+Pasul 2: Căutăm în documentație ce ne oferă limbajul pentru a rezolva problema dată
+</p>
+</p><ul><li><p>
+<p>
+Vom folosi paginile <code>man</code>. Observăm, la o căutare pe internet sau în documentație, că există funcția qsort documentată în <a href="https://man7.org/linux/man-pages/man3/qsort.3p.html" class="urlextern" title="https://man7.org/linux/man-pages/man3/qsort.3p.html"  rel="nofollow">man7</a> și <a href="https://linux.die.net/man/3/qsort" class="urlextern" title="https://linux.die.net/man/3/qsort"  rel="nofollow">linux.die</a>. Consultăm amândouă sursele dacă este cazul (de exemplu, prima are explicații mai bune, dar doar a doua are exemplu de utilizare).
+</p>
+</p></li><li><p>
+<p>
+Să citim descrierea acestei funcții:
+</p>
+</p></li></ul><pre class="code bash">    The qsort<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw1">function</span> sorts an array with _nmemb_ elements of <span class="kw2">size</span> _size_. The _base_ argument points to the start of the array. The contents of the array are sorted <span class="kw1">in</span> ascending order according to a comparison <span class="kw1">function</span> pointed to by _compar_, <span class="kw2">which</span> is called with two arguments that point to the objects being compared.</pre>
+<ul><li>
+<p>
+Semnătura funcției este:
+</p>
+</li></ul><pre class="code cpp"><span class="kw4">void</span> <span class="kw3">qsort</span><span class="br0">&#40;</span><span class="kw4">void</span> <span class="sy2">*</span>base, <span class="kw4">size_t</span> nmemb, <span class="kw4">size_t</span> size,
+       <span class="kw4">int</span> <span class="br0">&#40;</span><span class="sy2">*</span>compar<span class="br0">&#41;</span><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">void</span> <span class="sy2">*</span>, <span class="kw4">const</span> <span class="kw4">void</span> <span class="sy2">*</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span></pre>
+<ul><li>
+<p>
+Prin urmare, această funcție va primi un vector a cărui adresă de start este în variabila <em>base</em>, va primi numărul de elemente (<em>nmemb</em>) și dimensiunea unui element (<em>size</em>), precum și o funcție comparator (<em>compare</em>).
+</p>
+</li></ul></li><li><p>
+<p>
+Pasul 3: Testăm această funcționalitate pe un exemplu simplu
+</p>
+</p><ul><li><p>
+<p>
+Anumite documentații oferă deja exemple pentru funcționalitățile oferite, așa cum se întâmplă și pentru <code>man qsort</code>
+</p>
+</p></li><li><p>
+<p>
+Aceste exemple pot fi uneori rulate direct pe platforma lor. Este util să faceți asta și să schimbați datele pentru a vedea exact cum se comportă acea funcționalitate.
+</p>
+</p></li><li><p>
+<p>
+În acest caz, exemplul de pe <a href="https://linux.die.net/man/3/qsort" class="urlextern" title="https://linux.die.net/man/3/qsort"  rel="nofollow">linux.die.net/man/3/qsort</a> nu poate fi rulat pe platformă, așa că vom face un program în care vom rula exemplul oferit de documentație. Facem acest lucru pentru a ne asigurăm că funcția face ce ne dorim și pentru a înțelege exact cum să o folosim pentru problema noastră. Luăm exact codul de pe acea pagină, care sortează string-uri primite de la linia de comandă:
+</p>
+</p></li></ul><pre class="code cpp"><span class="co1">// example.c: code sample from https://linux.die.net/man/3/qsort</span>
+&nbsp;
+<span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt;</span>
+&nbsp;
+<span class="kw4">static</span> <span class="kw4">int</span> cmpstringp<span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">void</span> <span class="sy2">*</span>p1, <span class="kw4">const</span> <span class="kw4">void</span> <span class="sy2">*</span>p2<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="coMULTI">/* The actual arguments to this function are &quot;pointers to
+    pointers to char&quot;, but strcmp(3) arguments are &quot;pointers
+    to char&quot;, hence the following cast plus dereference */</span>
+&nbsp;
+<span class="kw1">return</span> <span class="kw3">strcmp</span><span class="br0">&#40;</span><span class="sy2">*</span> <span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy2">*</span> <span class="kw4">const</span> <span class="sy2">*</span><span class="br0">&#41;</span> p1, <span class="sy2">*</span> <span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy2">*</span> <span class="kw4">const</span> <span class="sy2">*</span><span class="br0">&#41;</span> p2<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">int</span> argc, <span class="kw4">char</span> <span class="sy2">*</span>argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> j<span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>argc <span class="sy1">&lt;</span> <span class="nu0">2</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw3">fprintf</span><span class="br0">&#40;</span><span class="kw2">stderr</span>, <span class="st0">&quot;Usage: %s &lt;string&gt;...<span class="es1">\n</span>&quot;</span>, argv<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+        <span class="kw3">exit</span><span class="br0">&#40;</span><span class="kw2">EXIT_FAILURE</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw3">qsort</span><span class="br0">&#40;</span><span class="sy3">&amp;</span>argv<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span>, argc <span class="sy2">-</span> <span class="nu0">1</span>, <span class="kw3">sizeof</span><span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy2">*</span><span class="br0">&#41;</span>, cmpstringp<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">for</span> <span class="br0">&#40;</span>j <span class="sy1">=</span> <span class="nu0">1</span><span class="sy4">;</span> j <span class="sy1">&lt;</span> argc<span class="sy4">;</span> j<span class="sy2">++</span><span class="br0">&#41;</span>
+        <span class="kw3">puts</span><span class="br0">&#40;</span>argv<span class="br0">&#91;</span>j<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+<ul><li>
+<p>
+Compilăm și rulăm codul:
+</p>
+</li></ul><pre class="code bash">$ <span class="kw2">gcc</span> <span class="re5">-Wall</span> example.c <span class="re5">-o</span> example
+$ .<span class="sy0">/</span>example mama are mere
+are
+mama
+mere</pre>
+<ul><li>
+<p>
+Observăm că a sortat cele 3 string-uri primite ca argumente în linia de comandă, exact cum ne așteptam. Trecem la pasul următor.
+</p>
+</li></ul></li><li><p>
+<p>
+Pasul 4: Integrăm în proiectul nostru
+</p>
+</p><ul><li>
+<p>
+În acest pas vom scrie mai întâi o funcție comparator:
+</p>
+</li></ul><pre class="code cpp"><span class="kw4">static</span> <span class="kw4">int</span> cmp_students<span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">void</span><span class="sy2">*</span> first_ptr, <span class="kw4">const</span> <span class="kw4">void</span><span class="sy2">*</span> second_ptr<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    student_t<span class="sy2">*</span>  first <span class="sy1">=</span> <span class="br0">&#40;</span>student_t <span class="sy2">*</span><span class="br0">&#41;</span> first_ptr<span class="sy4">;</span>
+    student_t<span class="sy2">*</span> second <span class="sy1">=</span> <span class="br0">&#40;</span>student_t <span class="sy2">*</span><span class="br0">&#41;</span> second_ptr<span class="sy4">;</span>
+    <span class="kw4">int</span> cmp_groups <span class="sy1">=</span> <span class="kw3">strcmp</span><span class="br0">&#40;</span>first<span class="sy2">-</span><span class="sy1">&gt;</span>group, second<span class="sy2">-</span><span class="sy1">&gt;</span>group<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>cmp_groups <span class="sy3">!</span><span class="sy1">=</span> <span class="nu0">0</span><span class="br0">&#41;</span>
+        <span class="kw1">return</span> cmp_groups<span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="kw3">strcmp</span><span class="br0">&#40;</span>first<span class="sy2">-</span><span class="sy1">&gt;</span>name, second<span class="sy2">-</span><span class="sy1">&gt;</span>name<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+<ul><li>
+<p>
+Acum vom scrie codul complet și il vom testa:
+</p>
+</li></ul><pre class="code cpp"><span class="co1">// sort_students.c</span>
+&nbsp;
+<span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt;</span>
+&nbsp;
+<span class="kw4">typedef</span> <span class="kw4">struct</span> <span class="br0">&#123;</span>
+    <span class="kw4">char</span> <span class="sy2">*</span>group<span class="sy4">;</span>
+    <span class="kw4">char</span> <span class="sy2">*</span>name<span class="sy4">;</span>
+<span class="br0">&#125;</span> student_t<span class="sy4">;</span>
+&nbsp;
+<span class="kw4">static</span> <span class="kw4">int</span> cmp_students<span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">void</span><span class="sy2">*</span> first_ptr, <span class="kw4">const</span> <span class="kw4">void</span><span class="sy2">*</span> second_ptr<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    student_t<span class="sy2">*</span>  first <span class="sy1">=</span> <span class="br0">&#40;</span>student_t <span class="sy2">*</span><span class="br0">&#41;</span> first_ptr<span class="sy4">;</span>
+    student_t<span class="sy2">*</span> second <span class="sy1">=</span> <span class="br0">&#40;</span>student_t <span class="sy2">*</span><span class="br0">&#41;</span> second_ptr<span class="sy4">;</span>
+    <span class="kw4">int</span> cmp_groups <span class="sy1">=</span> <span class="kw3">strcmp</span><span class="br0">&#40;</span>first<span class="sy2">-</span><span class="sy1">&gt;</span>group, second<span class="sy2">-</span><span class="sy1">&gt;</span>group<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>cmp_groups <span class="sy3">!</span><span class="sy1">=</span> <span class="nu0">0</span><span class="br0">&#41;</span>
+        <span class="kw1">return</span> cmp_groups<span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="kw3">strcmp</span><span class="br0">&#40;</span>first<span class="sy2">-</span><span class="sy1">&gt;</span>name, second<span class="sy2">-</span><span class="sy1">&gt;</span>name<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    student_t students<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span>
+        <span class="br0">&#123;</span> <span class="st0">&quot;312CA&quot;</span>, <span class="st0">&quot;Popescu Ion&quot;</span> <span class="br0">&#125;</span>,
+        <span class="br0">&#123;</span> <span class="st0">&quot;311CA&quot;</span>, <span class="st0">&quot;Dumitrescu Mihai&quot;</span> <span class="br0">&#125;</span>,
+        <span class="br0">&#123;</span> <span class="st0">&quot;315CA&quot;</span>, <span class="st0">&quot;Almasan Maria&quot;</span> <span class="br0">&#125;</span>,
+        <span class="br0">&#123;</span> <span class="st0">&quot;313CA&quot;</span>, <span class="st0">&quot;Grigorescu Alex&quot;</span> <span class="br0">&#125;</span>,
+        <span class="br0">&#123;</span> <span class="st0">&quot;311CA&quot;</span>, <span class="st0">&quot;Barbu Gigel&quot;</span> <span class="br0">&#125;</span>,
+        <span class="br0">&#123;</span> <span class="st0">&quot;312CA&quot;</span>, <span class="st0">&quot;Vadim Tudor&quot;</span> <span class="br0">&#125;</span>,
+        <span class="br0">&#123;</span> <span class="st0">&quot;312CA&quot;</span>, <span class="st0">&quot;Florescu Teodora&quot;</span> <span class="br0">&#125;</span>,
+        <span class="br0">&#123;</span> <span class="st0">&quot;314CA&quot;</span>, <span class="st0">&quot;Fodor Maria&quot;</span> <span class="br0">&#125;</span>,
+        <span class="br0">&#123;</span> <span class="st0">&quot;314CA&quot;</span>, <span class="st0">&quot;Alexandrescu Matei&quot;</span> <span class="br0">&#125;</span>,
+        <span class="br0">&#123;</span> <span class="st0">&quot;313CA&quot;</span>, <span class="st0">&quot;Radu Ioana&quot;</span> <span class="br0">&#125;</span>,
+        <span class="br0">&#123;</span> <span class="st0">&quot;311CA&quot;</span>, <span class="st0">&quot;Mugurel Alexandra&quot;</span> <span class="br0">&#125;</span>,
+        <span class="br0">&#123;</span> <span class="st0">&quot;315CA&quot;</span>, <span class="st0">&quot;Ungureanu Andreea&quot;</span> <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> no_students <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>students<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>students<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw3">qsort</span><span class="br0">&#40;</span>students, no_students, <span class="kw3">sizeof</span><span class="br0">&#40;</span>students<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span>, cmp_students<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> no_students<span class="sy4">;</span> i<span class="sy2">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;%s, %s<span class="es1">\n</span>&quot;</span>, students<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">group</span>, students<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">name</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+<ul><li><p>
+<p>
+Foarte important: Nu uitați să testați să vedeți dacă problema voastră este rezolvată corect!
+</p>
+</p></li><li><p>
+<p>
+Compilăm și rulăm codul:
+</p>
+</p></li></ul><pre class="code bash">$ <span class="kw2">gcc</span>  <span class="re5">-Wall</span> <span class="re5">-Wextra</span> sort_students.c <span class="re5">-o</span> sort_students
+$ .<span class="sy0">/</span>sort_students
+311CA, Barbu Gigel
+311CA, Dumitrescu Mihai
+311CA, Mugurel Alexandra
+312CA, Florescu Teodora
+312CA, Popescu Ion
+312CA, Vadim Tudor
+313CA, Grigorescu Alex
+313CA, Radu Ioana
+314CA, Alexandrescu Matei
+314CA, Fodor Maria
+315CA, Almasan Maria
+315CA, Ungureanu Andreea</pre>
+</li></ul>
+</div>
+<!-- EDIT7 SECTION "Cum integrăm o funcționalitate în codul nostru?" [6705-14269] -->
+<h2 class="sectionedit8" id="comparatie_intre_o_documentatie_si_platformele_de_tip_forum">Comparație între o documentație și platformele de tip forum</h2>
+<div class="level2">
+
+<p>
+Prin platforme de tip forum ne referim la: <a href="https://stackoverflow.com/" class="urlextern" title="https://stackoverflow.com/"  rel="nofollow">Stackoverflow</a>, <a href="https://www.quora.com/" class="urlextern" title="https://www.quora.com/"  rel="nofollow">Quora</a>, <a href="https://askubuntu.com/" class="urlextern" title="https://askubuntu.com/"  rel="nofollow">Ask Ubuntu</a>, și alele.
+</p>
+
+</div>
+<!-- EDIT8 SECTION "Comparație între o documentație și platformele de tip forum" [14270-14520] -->
+<h3 class="sectionedit9" id="avantaje">Avantaje</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> Răspund în general la probleme specifice pe care un programator le poate întâmpina și care nu sunt direct adresate în documentații, legate de cum poate fi folosit limbajul pentru a obține o funcționalitate dorită, nu despre limbajul în sine. (în special probleme de debugging);</div>
+</li>
+<li class="level1"><div class="li"> Oricine poate posta întrebări;</div>
+</li>
+<li class="level1"><div class="li"> Răspunsurile sunt votate și ordonate descrescător în funcție de voturi.</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT9 SECTION "Avantaje" [14521-14953] -->
+<h3 class="sectionedit10" id="dezavantaje">Dezavantaje</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <strong>Nu întotdeauna răspunsurile oferite sunt corecte!!!</strong> Mare atenție, chiar dacă răspunsurile sunt votate de alții, nu sunt întotdeauna corecte, așa că ele trebuie și verificate. Testați orice cod luat de pe aceste platforme!</div>
+</li>
+<li class="level1"><div class="li"> Nu întotdeauna găsiți întrebarea pe care o doriți. Scopul unei astfel de platforme este să vă lămurească cu probleme / exemple specifice, atunci când documentația oficială nu este de ajuns.</div>
+</li>
+</ul>
+
+<p>
+În continuare vă vom oferi un exemplu de postare de pe Stackoverflow în care primul răspuns este unul greșit, deși este votat de mulți utilizatori: <a href="https://stackoverflow.com/questions/2022335/whats-the-point-of-malloc0" class="urlextern" title="https://stackoverflow.com/questions/2022335/whats-the-point-of-malloc0"  rel="nofollow">link</a>.
+</p>
+
+<p>
+În primul răspuns, este specificat că următoarele linii de cod sunt aproximativ același lucru din punct de vedere practic:
+</p>
+<pre class="code cpp"><span class="co1">// varianta 1</span>
+artist <span class="sy1">=</span> <span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy2">*</span><span class="br0">&#41;</span> <span class="kw3">malloc</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+<span class="co1">// varianta 2</span>
+artist <span class="sy1">=</span> <span class="kw2">NULL</span><span class="sy4">;</span></pre>
+
+<p>
+Cu toate acestea, dacă rulați următorul cod pe diverse platforme:
+</p>
+<pre class="code cpp"><span class="kw4">int</span> <span class="sy2">*</span>i <span class="sy1">=</span> <span class="kw3">malloc</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="sy2">*</span>i <span class="sy1">=</span> <span class="nu0">100</span><span class="sy4">;</span>
+<span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;%d<span class="es1">\n</span>&quot;</span>, <span class="sy2">*</span>i<span class="br0">&#41;</span><span class="sy4">;</span></pre>
+
+<p>
+… surprinzător poate, dar pe anumite platforme veți obține rezultatul 100.
+</p>
+
+<p>
+În schimb, dacă scrieți:
+</p>
+<pre class="code cpp"><span class="kw4">int</span> <span class="sy2">*</span>i <span class="sy1">=</span> <span class="kw2">NULL</span><span class="sy4">;</span>
+<span class="sy2">*</span>i <span class="sy1">=</span> <span class="nu0">100</span><span class="sy4">;</span>
+<span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;%d<span class="es1">\n</span>&quot;</span>, <span class="sy2">*</span>i<span class="br0">&#41;</span><span class="sy4">;</span></pre>
+
+<p>
+cel mai probabil veți primi <a href="https://en.wikipedia.org/wiki/Segmentation_fault" class="urlextern" title="https://en.wikipedia.org/wiki/Segmentation_fault"  rel="nofollow">Segmentation fault</a>.
+</p>
+
+<p>
+Așadar, practic vorbind, cele 2 coduri se comportă diferit. Deși primul cod pare că merge în anumite cazuri, în realitate el va ascunde un acces invalid la memorie pentru că se încearcă scrierea la o adresă de memorie nealocată. Să rulam cu valgrind acest program:
+</p>
+<pre class="code cpp"><span class="co1">// bad_example.c</span>
+<span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> <span class="sy2">*</span>i <span class="sy1">=</span> <span class="kw3">malloc</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="sy2">*</span>i <span class="sy1">=</span> <span class="nu0">100</span><span class="sy4">;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;%d&quot;</span>, <span class="sy2">*</span>i<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+<pre class="code bash"><span class="kw2">valgrind</span> <span class="re5">--leak-check</span>=full .<span class="sy0">/</span>bad_example
+==<span class="nu0">51943</span>== Memcheck, a memory error detector
+==<span class="nu0">51943</span>== Copyright <span class="br0">&#40;</span>C<span class="br0">&#41;</span> <span class="nu0">2002</span>-<span class="nu0">2017</span>, and GNU GPL<span class="st_h">'d, by Julian Seward et al.
+==51943== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==51943== Command: ./bad_example
+==51943==
+==51943== Invalid write of size 4
+==51943==    at 0x109187: main (in /path/to/bad_example)
+==51943==  Address 0x4a5a040 is 0 bytes after a block of size 0 alloc'</span>d
+==<span class="nu0">51943</span>==    at 0x483B7F3: malloc <span class="br0">&#40;</span><span class="kw1">in</span> <span class="sy0">/</span>usr<span class="sy0">/</span>lib<span class="sy0">/</span>x86_64-linux-gnu<span class="sy0">/</span>valgrind<span class="sy0">/</span>vgpreload_memcheck-amd64-linux.so<span class="br0">&#41;</span>
+==<span class="nu0">51943</span>==    by 0x10917E: main <span class="br0">&#40;</span><span class="kw1">in</span> <span class="sy0">/</span>path<span class="sy0">/</span>to<span class="sy0">/</span>bad_example<span class="br0">&#41;</span>
+==<span class="nu0">51943</span>==
+==<span class="nu0">51943</span>== Invalid <span class="kw2">read</span> of <span class="kw2">size</span> <span class="nu0">4</span>
+==<span class="nu0">51943</span>==    at 0x109191: main <span class="br0">&#40;</span><span class="kw1">in</span> <span class="sy0">/</span>path<span class="sy0">/</span>to<span class="sy0">/</span>bad_example<span class="br0">&#41;</span>
+==<span class="nu0">51943</span>==  Address 0x4a5a040 is <span class="nu0">0</span> bytes after a block of <span class="kw2">size</span> <span class="nu0">0</span> alloc<span class="st_h">'d
+==51943==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==51943==    by 0x10917E: main (in /path/to/bad_example)
+==51943==
+100==51943==
+==51943== HEAP SUMMARY:
+==51943==     in use at exit: 0 bytes in 1 blocks
+==51943==   total heap usage: 2 allocs, 1 frees, 1,024 bytes allocated
+==51943==
+==51943== 0 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==51943==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==51943==    by 0x10917E: main (in /path/to/bad_example)
+==51943==
+==51943== LEAK SUMMARY:
+==51943==    definitely lost: 0 bytes in 1 blocks
+==51943==    indirectly lost: 0 bytes in 0 blocks
+==51943==      possibly lost: 0 bytes in 0 blocks
+==51943==    still reachable: 0 bytes in 0 blocks
+==51943==         suppressed: 0 bytes in 0 blocks
+==51943==
+==51943== For lists of detected and suppressed errors, rerun with: -s
+==51943== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)</span></pre>
+
+<p>
+Observăm, așa cum ne-am aștepta, că avem un leak de memorie. Mai mult, accesăm locații de memorie pe care nu ar trebui, odată la atribuire, odată la afișare.
+</p>
+
+<details>
+
+<p>
+<summary>De ce uneori se afișează 100?</summary>
+</p>
+
+<p>
+Răspunsul pe scurt este că malloc, în anumite situații, în spate alocă extra spațiu față de cât îi spunem noi. Dar acel spațiu nu este un spațiu pe care noi să-l putem folosi (nu ne garantează nimeni nici faptul că este alocat acel extra spațiu), iar accesul lui va conduce la comportament nedefinit, deoarece acolo pot fi stocate alte date. În anumite cazuri, se alocă acel spațiu extra unde se va stoca valoarea 100, iar mai apoi se va citi valoarea și se va afișa. Acesta este și motivul pentru care, în aparență, programul pare că merge. Mai multe detalii veți afla la cursul de SO.
+</p>
+
+</details>
+
+<p>
+Din nou, acest acces la memorie este incorect, nu faceți așa ceva deoarece aveți comportament nedefinit. Pentru a evita aceste situații vă recomandăm să utilizați tool-uri de memorie, cum ar fi <a href="https://valgrind.org/" class="urlextern" title="https://valgrind.org/"  rel="nofollow">valgrind</a>.
+</p>
+
+<p>
+Vă invităm să citiți toată conversația <a href="https://stackoverflow.com/questions/2022335/whats-the-point-of-malloc0" class="urlextern" title="https://stackoverflow.com/questions/2022335/whats-the-point-of-malloc0"  rel="nofollow">What’s the point of malloc(0)?</a>, oferă niște puncte de vedere interesante despre acest subiect.
+</p>
+
+<p>
+<strong>Concluzie</strong>: mare atenție când folosiți aceste platforme. Recomandarea noastră este să căutați în mai multe locuri răspunsuri și să testați orice cod folosiți din surse externe înainte de a-l integra în aplicațiile voastre.
+</p>
+
+</div>
+<!-- EDIT10 SECTION "Dezavantaje" [14954-] --></div>
+</body>
+</html>

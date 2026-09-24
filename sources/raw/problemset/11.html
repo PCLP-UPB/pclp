@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>PCLP Laborator11 - Problemset (extra) | PCLP - CA, CB, CD</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="PCLP Laborator11 - Problemset (extra)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="PCLP Laborator11: Problemset (extra)" />
+<meta property="og:description" content="PCLP Laborator11: Problemset (extra)" />
+<link rel="canonical" href="https://acs-pclp.github.io/problemset/11" />
+<meta property="og:url" content="https://acs-pclp.github.io/problemset/11" />
+<meta property="og:site_name" content="PCLP - CA, CB, CD" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-01-12T00:01:20+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="PCLP Laborator11 - Problemset (extra)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-01-12T00:01:20+00:00","datePublished":"2026-01-12T00:01:20+00:00","description":"PCLP Laborator11: Problemset (extra)","headline":"PCLP Laborator11 - Problemset (extra)","mainEntityOfPage":{"@type":"WebPage","@id":"https://acs-pclp.github.io/problemset/11"},"url":"https://acs-pclp.github.io/problemset/11"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://acs-pclp.github.io/feed.xml" title="PCLP - CA, CB, CD" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">PCLP - CA, CB, CD</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <h1 id="pclp-laborator11-problemset-extra">PCLP Laborator11: Problemset (extra)</h1>
+<p>Probleme extra propuse pentru <a href="https://acs-pclp.github.io/laboratoare/11">PCLP Laborator11</a>.</p>
+<h2 id="evaluare-polinom-cu-coeficieni-i-grade">1. Evaluare polinom cu coeficienți și grade</h2>
+<p>Se primește prin linia de comandă un polinom sub forma unei liste de perechi <code>(coeficient grad)</code> și, ca date de intrare, valoarea <code>x</code>. Programul trebuie să:</p>
+<ol>
+<li>Determine gradul maxim al polinomului automat, pe baza gradelor date.</li>
+<li>Completeze coeficienții lipsă cu 0 pentru toate gradele de la 0 la gradul maxim.</li>
+<li>Calculeze valoarea polinomului pentru <code>x</code>.</li>
+<li>Calculeze valoarea primei derivate pentru același <code>x</code>.</li>
+<li>Afișeze polinomul complet, valoarea și derivata.</li>
+</ol>
+<h3 id="exemplu">Exemplu</h3>
+<pre><code class="language-C">// Input:
+./poly 1 3 -3 1 4 0 2
+2
+</code></pre><pre><code class="language-C">// Output:
+Polinom complet: 1*x^3 + 0*x^2 - 3*x + 4
+P(2) = 6
+P'(2) = 9
+</code></pre>
+<h3 id="explicaie">Explicație</h3>
+<p>În exemplul dat, programul primește în linia de comandă perechile (coeficient grad) și valoarea lui x.
+Astfel, <code>1 3</code> indică coeficientul 1 pentru x³, <code>-3 1</code> coeficientul -3 pentru x¹, iar <code>4 0</code> coeficientul 4 pentru x⁰. Gradul 2 lipsește, deci coeficientul pentru x² este completat automat cu 0.
+Polinomul complet devine 1·x³ + 0·x² - 3·x + 4. Programul calculează valoarea polinomului pentru x = 2, obținând P(2) = 6, și apoi prima derivată a polinomului, obținând P'(2) = 9.</p>
+<br>
+<h2 id="matrice-ptratic">2. Matrice pătratică</h2>
+<p>Programul <code>matrix</code> primește prin linia de comandă elementele unei matrice. Porgramul va trebui să:</p>
+<ol>
+<li>Afișeze matricea.</li>
+<li>Calculeze suma fiecărei linii și a fiecărei coloane.</li>
+<li>Calculeze suma elementelor de pe diagonala principală și diagonala secundară.</li>
+<li>Înlocuiască toate valorile de pe diagonala principală cu zero și afișeze noua matrice.</li>
+</ol>
+<p><code>Tip</code> Scrieți funcții separate pentru: afișare, calcul sume, zero pe diagonală.</p>
+<h3 id="exemplu-1">Exemplu</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#Input:</span>
+./matrix 1 2 3 2 4 5 3 5 6
+</code></pre></div></div>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#Output:</span>
+
+1 2 3
+2 4 5
+3 5 6
+
+Suma linii: 6 11 14
+Suma coloane: 6 11 14
+Suma diagonala principala: 11
+Suma diagonala secundara: 10
+
+Diagonala principală zero:
+0 2 3
+2 0 5
+3 5 0
+</code></pre></div></div>
+<h2 id="harta-gigantic">3. Harta gigantică</h2>
+<p>Ești un explorator care a descoperit o peșteră uriașă, plină de comori. Harta peșterii este stocată într-un fișier binar și fiecare cameră conține un anumit număr de monede. Trebuie să faci un raport detaliat pentru cercetători despre distribuția comorilor și descoperirile tale.
+Harta este foarte mare și nu poate fi încarcată în întregime în memorie. Va trebui să utilizați părți ale fișierului binar.</p>
+<h3 id="cerine">Cerințe</h3>
+<p>Programul primește <strong>două argumente în linia de comandă</strong>:</p>
+<ol>
+<li>Fișierul binar care conține harta comorilor.</li>
+<li>Fișierul text unde se vor scrie rezultatele.</li>
+</ol>
+<p>Programul trebuie să genereze un raport complet, incluzând:</p>
+<ul>
+<li>Harta comorilor.</li>
+<li>Suma monedelor pe fiecare rând și pe fiecare coloană.</li>
+<li>Media cantităților din întreaga matrice.</li>
+<li>Camera cu cele mai multe monede și coordonatele ei.</li>
+<li>Identificarea camerelor cu cantitatea sub media generală.</li>
+<li>Modificarea valorilor minime de pe fiecare coloană cu <code>-1</code> pentru a fi ocolite (nu sunt profitabile) și afișarea hărții modificate.</li>
+</ul>
+<p><code>Hint</code> <i>fseek()</i></p>
+<body>
+    <p><b>Testați problema utilizând fișierul:</b></p>
+    <a href="./assets/11/harta_gigant.bin" download="harta_gigant.bin">
+        harta_gigant.bin
+    </a>
+</body>
+</html>
+<h3 id="exemplu-2">Exemplu</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Input</span>
+./explorer harta_gigant.bin raport.txt
+</code></pre></div></div>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># harta_gigant.bin</span>
+hexdump <span class="nt">-v</span> <span class="nt">-e</span> <span class="s1">'5/4 "%d " "\n"'</span> harta_gigant.bin
+10 5 7 2 3
+4 12 6 1 5
+3 8 9 4 2
+6 2 5 10 7
+1 4 3 6 8
+</code></pre></div></div>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Output (raport.txt)</span>
+
+Harta comorilor:
+10 5 7 2 3
+4 12 6 1 5
+3 8 9 4 2
+6 2 5 10 7
+1 4 3 6 8
+
+Suma rânduri: 27 28 26 30 22
+Suma coloane: 24 31 30 23 25
+Media cantităților: 6.72
+Camera cu cele mai multe monede: 12 la <span class="o">(</span>1,1<span class="o">)</span>
+
+Camere sub media generală: <span class="o">(</span>0,3<span class="o">)</span> <span class="o">(</span>0,4<span class="o">)</span> <span class="o">(</span>1,3<span class="o">)</span> <span class="o">(</span>1,4<span class="o">)</span> <span class="o">(</span>2,4<span class="o">)</span> <span class="o">(</span>3,1<span class="o">)</span> <span class="o">(</span>4,0<span class="o">)</span> <span class="o">(</span>4,2<span class="o">)</span>
+
+Matrice după modificarea valorilor minime:
+10 5  7  2 3
+4  12 6 <span class="nt">-1</span> 5
+3  8  9  4 <span class="nt">-1</span>
+6 <span class="nt">-1</span>  5 10 7
+<span class="nt">-1</span> 4 <span class="nt">-1</span>  6 8
+
+</code></pre></div></div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">PCLP - CA, CB, CD</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">PCLP - CA, CB, CD</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>https://acs-pclp.github.io/</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

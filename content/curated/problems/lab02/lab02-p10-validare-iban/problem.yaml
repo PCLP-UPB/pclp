@@ -1,0 +1,75 @@
+id: lab02-p10-validare-iban
+lab: lab02
+number: 10
+title: "Validarea unui IBAN"
+difficulty: 5
+estimated_minutes: 60
+concepts: [getchar, char, operatorul %, overflow, while, switch]
+statement: |
+  Asociația Studenților vrea să verifice conturile IBAN introduse de voluntari, înainte
+  de a trimite bursele. Un cont IBAN are forma: două litere (codul țării), două cifre
+  (cifrele de control), apoi încă un număr de litere mari și cifre. Verificarea standard
+  se face astfel:
+
+  1. se mută primele 4 caractere la sfârșitul șirului
+     (`RO49AAAA1B31007593840000` → `AAAA1B31007593840000RO49`);
+  2. fiecare literă se înlocuiește cu două cifre: `A = 10`, `B = 11`, …, `Z = 35`
+     (cifrele rămân neschimbate);
+  3. se obține un număr foarte mare (zeci de cifre); IBAN-ul trece verificarea dacă
+     restul împărțirii acestui număr la 97 este **1**.
+
+  Pentru fiecare linie citită, programul afișează verdictul, verificând în această ordine:
+
+  - dacă lungimea liniei nu este între 15 și 34 de caractere: `INVALID lungime`;
+  - altfel, dacă linia conține un caracter care nu este literă mare sau cifră, dacă unul
+    dintre primele două caractere nu este literă mare sau dacă unul dintre caracterele 3
+    și 4 nu este cifră: `INVALID format`;
+  - altfel, dacă restul de la pasul 3 nu este 1: `INVALID control`;
+  - altfel: `VALID`.
+
+  **Nu folosi vectori sau șiruri de caractere**: citește fiecare linie caracter cu caracter.
+
+  **Date de intrare**
+
+  Pe prima linie, numărul natural `n`. Pe fiecare dintre următoarele `n` linii se află
+  câte un IBAN de verificat (o secvență de caractere afișabile, fără spații), urmată de
+  caracterul de linie nouă.
+
+  **Date de ieșire**
+
+  `n` linii, câte una pentru fiecare IBAN, conținând verdictul.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1000`
+  - fiecare linie are între 1 și 100 de caractere
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  6
+  RO38PCLP29326ML64LG2TJF8
+  DE71096792908100339075
+  RO38PCLP29426ML64LG2TJF8
+  RO12ABCD
+  ro38PCLP29326ML64LG2TJF8
+  RO38PCLP29-26ML64LG2TJF8
+  ```
+
+  Ieșire:
+  ```
+  VALID
+  VALID
+  INVALID control
+  INVALID lungime
+  INVALID format
+  INVALID format
+  ```
+hints:
+  - "Numărul de la pasul 3 are prea multe cifre pentru orice tip întreg. Ai nevoie însă doar de restul la 97: dacă știi restul lui X, poți afla restul lui X · 10 + d fără să-l cunoști pe X."
+  - "Parcurge caracterele cu getchar până la '\\n'. Reține primele 4 caractere în 4 variabile separate; pentru celelalte, actualizează imediat restul: cifra d → r = (r · 10 + d) % 97, litera → valoare v între 10 și 35 → r = (r · 100 + v) % 97. La final, aplică aceeași regulă pentru cele 4 caractere reținute."
+  - "Pe parcursul citirii ține și lungimea și un indicator format_ok, pe care îl pui pe 0 la orice abatere. Verdictul se decide abia la sfârșitul liniei, în ordinea: lungime, format, control. Atenție la '\\n' rămas după citirea lui n cu scanf."
+pitfalls:
+  - "O literă înseamnă două cifre, deci restul se înmulțește cu 100, nu cu 10."
+  - "Caracterul de linie nouă rămas după scanf(\"%d\", &n) nu este un IBAN gol."

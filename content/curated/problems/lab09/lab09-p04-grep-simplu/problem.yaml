@@ -1,0 +1,61 @@
+id: lab09-p04-grep-simplu
+lab: lab09
+number: 4
+title: "grep simplificat pentru un fișier jurnal"
+difficulty: 2
+estimated_minutes: 25
+concepts: [fișier text, fgets, strstr, verificarea deschiderii fișierului, sfârșit de linie]
+statement: |
+  Scrie un program asemănător utilitarului `grep -n`: primește un șir de căutat (model) și numele
+  unui fișier text și afișează toate liniile din fișier care conțin modelul, precedate de numărul liniei.
+
+  **Date de intrare**
+
+  Pe stdin:
+  - prima linie: modelul (poate conține spații; se ia toată linia, fără `'\n'`);
+  - a doua linie: numele fișierului.
+
+  **Date de ieșire**
+
+  Pentru fiecare linie din fișier care conține modelul (căutare exactă, sensibilă la majuscule),
+  se afișează `N: <linia>` (N = numărul liniei, numerotarea începe de la 1, linia fără `'\n'`).
+  La final se afișează `Total: K linii`, unde K e numărul de linii afișate.
+
+  Dacă fișierul nu poate fi deschis, se afișează doar `Eroare: nu pot deschide fisierul <nume>`.
+
+  **Restricții**
+
+  - modelul are între 1 și 255 de caractere;
+  - fiecare linie din fișier are cel mult 255 de caractere; ultima linie poate să nu se termine cu `'\n'`.
+
+  **Exemplu**
+
+  Fișierul `acces.log`:
+  ```
+  GET /index.html 200
+  POST /login 302
+  GET /imagini/logo.png 404
+  GET /index.html 304
+  DELETE /cont 403
+  ```
+
+  Intrare (stdin):
+  ```
+  index
+  acces.log
+  ```
+
+  Ieșire (stdout):
+  ```
+  1: GET /index.html 200
+  4: GET /index.html 304
+  Total: 2 linii
+  ```
+hints:
+  - "Citește fișierul linie cu linie și, pentru fiecare linie, verifică dacă modelul apare în ea. Numărul liniei îl ții într-un contor."
+  - "fgets citește o linie întreagă (inclusiv '\\n'), iar strstr(linie, model) întoarce NULL dacă modelul nu apare. Elimină '\\n' atât din model, cât și din linie."
+  - "Pseudocod: citește modelul și numele cu fgets și taie '\\n'; deschide fișierul (NULL -> mesaj); cât timp fgets(linie, ...) != NULL: nr++; taie '\\n'; dacă strstr(linie, model) atunci afișează și găsite++; închide; afișează totalul."
+pitfalls:
+  - "scanf(\"%s\") se oprește la primul spațiu, deci un model ca „GET /i” ar fi citit greșit."
+  - "Dacă nu elimini '\\n' din model, nu se va potrivi pe ultima linie a unui fișier care nu se termină cu '\\n' (și nici numele fișierului nu va fi găsit)."
+  - "Bufferul pentru linie trebuie să aibă loc și pentru '\\n' și '\\0' (cel puțin 257 de octeți)."

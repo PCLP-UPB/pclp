@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>PCLP Laborator09 - Operaţii cu fişiere. Aplicaţii folosind fişiere | PCLP - CA, CB, CD</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="PCLP Laborator09 - Operaţii cu fişiere. Aplicaţii folosind fişiere" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="PCLP Laborator09: Operaţii cu fişiere. Aplicaţii folosind fişiere" />
+<meta property="og:description" content="PCLP Laborator09: Operaţii cu fişiere. Aplicaţii folosind fişiere" />
+<link rel="canonical" href="https://acs-pclp.github.io/laboratoare/09" />
+<meta property="og:url" content="https://acs-pclp.github.io/laboratoare/09" />
+<meta property="og:site_name" content="PCLP - CA, CB, CD" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-01-12T00:01:20+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="PCLP Laborator09 - Operaţii cu fişiere. Aplicaţii folosind fişiere" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-01-12T00:01:20+00:00","datePublished":"2026-01-12T00:01:20+00:00","description":"PCLP Laborator09: Operaţii cu fişiere. Aplicaţii folosind fişiere","headline":"PCLP Laborator09 - Operaţii cu fişiere. Aplicaţii folosind fişiere","mainEntityOfPage":{"@type":"WebPage","@id":"https://acs-pclp.github.io/laboratoare/09"},"url":"https://acs-pclp.github.io/laboratoare/09"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://acs-pclp.github.io/feed.xml" title="PCLP - CA, CB, CD" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">PCLP - CA, CB, CD</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <h1 id="pclp-laborator09-operaii-cu-fiiere-aplicaii-folosind-fiiere">PCLP Laborator09: Operaţii cu fişiere. Aplicaţii folosind fişiere</h1>
+<h2 id="obiective">Obiective</h2>
+<p>În acest laborator vom studia:</p>
+<ul>
+<li>tipuri de fișiere: binare și text</li>
+<li>operații cu fiecare tip de fișier: deschidere/închidere, citire/scriere, poziționare</li>
+<li>aplicații: probleme de bază cu tablouri și structuri (vom aprofunda în laboratorul următor)</li>
+</ul>
+<p><strong>ATENȚIE!</strong> Toate sarcinile se vor realiza folosind o abordare modularizată (cu funcții). Discutați cu asistentul alegerile voastre, dacă nu sunteți siguri care ar trebui să fie semnăturile funcțiilor.</p>
+<p><strong>TOATE</strong> exercițiile vor fi verificate și cu <strong>valgrind</strong>.</p>
+<h2 id="materiale-utile">Materiale utile:</h2>
+<ul>
+<li><a href="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab09">[OCW/Suport Teoretic pentru Laborator] Operaţii cu fişiere. Aplicaţii folosind fişiere</a></li>
+</ul>
+<p>Pentru o aprofundare mai bună a conceptelor prezentate în laborator, vă recomandăm să parcurgeți materialele din următoarele arhive:</p>
+<ul>
+<li><strong><a href="/_resources/demo/demo_files.zip">demo_files.zip</a></strong></li>
+</ul>
+<h2 id="exerciii">Exerciții</h2>
+<ol>
+<li>[<strong>intro-to-files</strong>] Scrieți un program care:</li>
+</ol>
+<ul>
+<li>
+<p>să scrie într-un fișier <strong>numele</strong> (maxim 30 de caractere) și <strong>vârsta</strong> unui student (datele sunt citite de la tastatură)</p>
+</li>
+<li>
+<p>să închidă fișierul creat</p>
+</li>
+<li>
+<p>să îl deschidă pentru citire</p>
+</li>
+<li>
+<p>să închidă fișierul</p>
+<p>a. Fișierele folosite sunt <strong>text</strong>.</p>
+<p><strong>Observație:</strong> Pentru un fișier text putem folosi utilitare uzuale (ex. <strong>cat</strong>) pentru a verifica conținutului.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Exemplu</span> <span class="n">de</span> <span class="n">rulare</span><span class="o">:</span>
+
+<span class="n">Input</span> <span class="p">(</span><span class="n">stdin</span><span class="p">)</span><span class="o">:</span>
+<span class="n">gigel</span> <span class="mi">69</span>
+
+<span class="n">Output</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">gen</span><span class="p">.</span><span class="n">txt</span><span class="p">)</span><span class="o">:</span>
+<span class="n">gigel</span> <span class="mi">69</span>
+
+<span class="n">Output</span> <span class="p">(</span><span class="n">stdout</span> <span class="o">-</span> <span class="n">dupa</span> <span class="n">redeschiderea</span> <span class="n">fisierului</span><span class="p">)</span><span class="o">:</span>
+<span class="n">saved_name</span> <span class="o">=</span> <span class="s">"gigel"</span>
+<span class="n">saved_age</span> <span class="o">=</span> <span class="mi">69</span>
+</code></pre></div></div>
+<p>b. Fișierele folosite sunt binare.</p>
+<p><strong>Observație:</strong> Pentru analiza fișierelor binare, vom folosi utilitarele <strong>hexdump</strong> sau <strong>xxd</strong>.</p>
+<p><strong>Reprezentare aleasă:</strong> datele se vor scrie în continuare (fără delimitatori)</p>
+<ul>
+<li>un int se va scrie ca o înșiruire de <code>sizeof(int)</code> bytes</li>
+<li>un string se va reprezenta prin 2 componente
+<ul>
+<li>lungime (int) (inclusiv <code>\0</code>)</li>
+<li>șir de octeți (inclusiv <code>\0</code>)</li>
+</ul>
+</li>
+</ul>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Exemplu</span> <span class="n">de</span> <span class="n">rulare</span><span class="o">:</span>
+
+<span class="n">Input</span> <span class="p">(</span><span class="n">stdin</span><span class="p">)</span><span class="o">:</span>
+<span class="n">gigel</span> <span class="mi">69</span>
+
+<span class="n">Output</span> <span class="p">(</span><span class="n">hexdump</span> <span class="o">-</span><span class="n">C</span> <span class="mi">1</span><span class="o">-</span><span class="n">gen</span><span class="p">.</span><span class="n">bin</span><span class="p">)</span><span class="o">:</span>
+<span class="mo">00000000</span>  <span class="mo">06</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mi">67</span> <span class="mi">69</span> <span class="mi">67</span> <span class="mi">65</span>  <span class="mi">6</span><span class="n">c</span> <span class="mo">00</span> <span class="mi">45</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span>        <span class="o">|</span><span class="p">....</span><span class="n">gigel</span><span class="p">.</span><span class="n">E</span><span class="p">...</span><span class="o">|</span>
+<span class="mo">0000000</span><span class="n">e</span>
+
+<span class="n">Output</span> <span class="p">(</span><span class="n">stdout</span> <span class="o">-</span> <span class="n">dupa</span> <span class="n">redeschiderea</span> <span class="n">fisierului</span><span class="p">)</span><span class="o">:</span>
+<span class="n">saved_name</span> <span class="o">=</span> <span class="s">"gigel"</span>
+<span class="n">saved_age</span>  <span class="o">=</span> <span class="mi">69</span>
+</code></pre></div></div>
+<p>Observăm că în dreapta hexdump oferă și o reprezentare textuală pentru bytes.</p>
+  <details>
+  <summary>Explicație exemplu</summary>
+<p>Presupunem că <code>sizeof(int) == 4</code> și ca sistemul folosește convenția <code>Little-Endian</code>
+În fișier vom scrie</p>
+<ul>
+<li>Nume:
+<ul>
+<li>Lungime: 6 = <code>0x00.00.00.06</code> =&gt; <code>06 00 00 00</code> (în <code>little-endian</code>)</li>
+<li>Șirul: {'g', 'i', 'g', 'e', 'l', '\0'}  =&gt; <code>67 69 67 65 6c 00</code> (Conform tabelei ASCII)</li>
+<li>Vârsta: 69 = 0x00.00.00.45 =&gt; 45 00 00 00</li>
+</ul>
+</li>
+</ul>
+  </details>
+</li>
+</ul>
+<ol start="2">
+<li>
+<p>[<strong>random-output</strong>] Se citeasc <code>n</code> și un șir de <code>n</code> numere de la tastatură. Să se creeze un fișier în care să se salveze doar cele <code>n</code> elemente (fără dimensiunea șirului).</p>
+<p>a. Fișierul generat este text:</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Exemplu</span> <span class="n">de</span> <span class="n">rulare</span><span class="o">:</span>
+<span class="n">Input</span> <span class="p">(</span><span class="n">stdin</span><span class="p">)</span><span class="o">:</span>
+<span class="mi">5</span>
+<span class="mi">10</span> <span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">257</span>
+
+<span class="n">Output</span> <span class="p">(</span><span class="mi">2</span><span class="o">-</span><span class="n">gen</span><span class="p">.</span><span class="n">txt</span><span class="p">)</span><span class="o">:</span>
+<span class="mi">10</span> <span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">257</span>
+</code></pre></div></div>
+<p>b. Fișierul generat este binar:</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Exemplu</span> <span class="n">de</span> <span class="n">rulare</span><span class="o">:</span>
+<span class="n">Input</span> <span class="p">(</span><span class="n">stdin</span><span class="p">)</span><span class="o">:</span>
+<span class="mi">5</span>
+<span class="mi">10</span> <span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">257</span>
+
+<span class="n">Output</span><span class="p">(</span><span class="n">hexdump</span> <span class="o">-</span><span class="n">C</span> <span class="mi">2</span><span class="o">-</span><span class="n">gen</span><span class="p">.</span><span class="n">bin</span><span class="p">)</span><span class="o">:</span>
+<span class="mo">00000000</span>  <span class="mi">0</span><span class="n">a</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">01</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span>  <span class="n">ff</span> <span class="n">ff</span> <span class="n">ff</span> <span class="n">ff</span> <span class="mo">02</span> <span class="mo">00</span> <span class="mo">00</span> <span class="mo">00</span>  <span class="o">|</span><span class="p">................</span><span class="o">|</span>
+<span class="mo">00000010</span>  <span class="mo">01</span> <span class="mo">01</span> <span class="mo">00</span> <span class="mo">00</span>                                       <span class="o">|</span><span class="p">....</span><span class="o">|</span>
+<span class="mo">00000014</span>
+</code></pre></div></div>
+ <details>
+ <summary>Explicație</summary>
+<ul>
+<li>10 = <code>0x00.00.00.0a</code> =&gt; <code>0a 00 00 00</code></li>
+<li>1 = <code>0x00.00.00.01</code> =&gt; <code>01 00 00 00</code></li>
+<li>-1 = <code>0xff.ff.ff.ff</code> =&gt; <code>ff ff ff ff</code></li>
+<li>2 = <code>0x00.00.00.02</code> =&gt; <code>02 00 00 00</code></li>
+<li>257 = <code>0x00.00.01.01</code> =&gt; <code>01 01 00 00</code></li>
+</ul>
+</li>
+</ol>
+  </details>
+<ol start="3">
+<li>[<strong>random-input</strong>] Se dă un fișier cu un număr nedeterminat de numere (de tip int). Se cere să se scrie un program care:</li>
+</ol>
+<ul>
+<li>
+<p>să citească toate numerele din fișier pentru a determina câte elemente sunt în fișier</p>
+</li>
+<li>
+<p>să repoziționeze cursorul la începutul fișierului pentru a putea citi din nou elementele și a le salva într-un vector alocat dinamic</p>
+</li>
+<li>
+<p>să afișeze lungimea și șirul stocate în memorie</p>
+<p>Se vor folosi pentru testare fișierele generate la exercițiul 2:</p>
+<p>a. Fișierul folosit este de tip text.</p>
+<p>b. Fișierul folosit este de tip binar.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Exemplu</span> <span class="n">de</span> <span class="n">rulare</span><span class="o">:</span>
+<span class="n">Input</span> <span class="p">(</span><span class="mi">2</span><span class="o">-</span><span class="n">gen</span><span class="p">.</span><span class="n">txt</span><span class="o">/</span><span class="n">bin</span><span class="p">)</span><span class="o">:</span>
+<span class="mi">10</span> <span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">257</span>
+
+<span class="n">Output</span> <span class="p">(</span><span class="n">stdout</span><span class="p">)</span><span class="o">:</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="mi">10</span> <span class="mi">1</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">257</span>
+</code></pre></div></div>
+</li>
+</ul>
+<ol start="4">
+<li>
+<p>[<strong>BONUS</strong>] [<strong>sizeof-file</strong>] Să se scrie o funcție care primește ca parametru numele unui fișier și returnează dimensiunea în bytes a acestuia. Să se realizeze un program pentru testare (numele fișierului e citit de la tastatură).</p>
+<p><strong>Observație:</strong> Putem folosi utilitarul ls (cu flagul -l) pentru a verifica dimensiunea fișierelor din directorul corect.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">$</span> <span class="n">ls</span> <span class="o">-</span><span class="n">al</span>
+<span class="n">total</span> <span class="mi">120</span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span> <span class="mi">5</span> <span class="n">darius</span> <span class="n">darius</span>  <span class="mi">4096</span> <span class="n">Nov</span> <span class="mi">19</span> <span class="mo">00</span><span class="o">:</span><span class="mi">48</span> <span class="p">.</span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span> <span class="mi">8</span> <span class="n">darius</span> <span class="n">darius</span>  <span class="mi">4096</span> <span class="n">Nov</span> <span class="mi">18</span> <span class="mi">20</span><span class="o">:</span><span class="mi">55</span> <span class="p">..</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">darius</span> <span class="n">darius</span>  <span class="mi">1246</span> <span class="n">Nov</span> <span class="mi">19</span> <span class="mo">00</span><span class="o">:</span><span class="mi">08</span> <span class="mi">1</span><span class="o">-</span><span class="n">bin</span><span class="p">.</span><span class="n">c</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">darius</span> <span class="n">darius</span>    <span class="mi">12</span> <span class="n">Nov</span> <span class="mi">19</span> <span class="mo">00</span><span class="o">:</span><span class="mi">22</span> <span class="mi">1</span><span class="o">-</span><span class="n">gen</span><span class="p">.</span><span class="n">bin</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">darius</span> <span class="n">darius</span>    <span class="mi">13</span> <span class="n">Nov</span> <span class="mi">18</span> <span class="mi">23</span><span class="o">:</span><span class="mi">37</span> <span class="mi">1</span><span class="o">-</span><span class="n">gen</span><span class="p">.</span><span class="n">txt</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">darius</span> <span class="n">darius</span>   <span class="mi">755</span> <span class="n">Nov</span> <span class="mi">19</span> <span class="mo">00</span><span class="o">:</span><span class="mi">08</span> <span class="mi">1</span><span class="o">-</span><span class="n">text</span><span class="p">.</span><span class="n">c</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">darius</span> <span class="n">darius</span>   <span class="mi">517</span> <span class="n">Nov</span> <span class="mi">19</span> <span class="mo">00</span><span class="o">:</span><span class="mi">22</span> <span class="mi">2</span><span class="o">-</span><span class="n">bin</span><span class="p">.</span><span class="n">c</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">darius</span> <span class="n">darius</span>    <span class="mi">20</span> <span class="n">Nov</span> <span class="mi">19</span> <span class="mo">00</span><span class="o">:</span><span class="mi">28</span> <span class="mi">2</span><span class="o">-</span><span class="n">gen</span><span class="p">.</span><span class="n">bin</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">darius</span> <span class="n">darius</span>    <span class="mi">12</span> <span class="n">Nov</span> <span class="mi">19</span> <span class="mo">00</span><span class="o">:</span><span class="mi">22</span> <span class="mi">2</span><span class="o">-</span><span class="n">gen</span><span class="p">.</span><span class="n">txt</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">darius</span> <span class="n">darius</span>   <span class="mi">507</span> <span class="n">Nov</span> <span class="mi">19</span> <span class="mo">00</span><span class="o">:</span><span class="mi">31</span> <span class="mi">2</span><span class="o">-</span><span class="n">text</span><span class="p">.</span><span class="n">c</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">darius</span> <span class="n">darius</span>   <span class="mi">788</span> <span class="n">Nov</span> <span class="mi">19</span> <span class="mo">00</span><span class="o">:</span><span class="mi">42</span> <span class="mi">3</span><span class="o">-</span><span class="n">bin</span><span class="p">.</span><span class="n">c</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">darius</span> <span class="n">darius</span>   <span class="mi">822</span> <span class="n">Nov</span> <span class="mi">19</span> <span class="mo">00</span><span class="o">:</span><span class="mi">35</span> <span class="mi">3</span><span class="o">-</span><span class="n">text</span><span class="p">.</span><span class="n">c</span>
+<span class="o">-</span><span class="n">rw</span><span class="o">-</span><span class="n">r</span><span class="o">--</span><span class="n">r</span><span class="o">--</span> <span class="mi">1</span> <span class="n">darius</span> <span class="n">darius</span>   <span class="mi">484</span> <span class="n">Nov</span> <span class="mi">19</span> <span class="mo">00</span><span class="o">:</span><span class="mi">48</span> <span class="mi">4</span><span class="o">-</span><span class="n">sizeof_file</span><span class="p">.</span><span class="n">c</span>
+<span class="o">-</span><span class="n">rwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span> <span class="mi">1</span> <span class="n">darius</span> <span class="n">darius</span> <span class="mi">16888</span> <span class="n">Nov</span> <span class="mi">19</span> <span class="mo">00</span><span class="o">:</span><span class="mi">48</span> <span class="n">a</span><span class="p">.</span><span class="n">out</span>
+<span class="o">-</span><span class="n">rwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span> <span class="mi">1</span> <span class="n">darius</span> <span class="n">darius</span> <span class="mi">16888</span> <span class="n">Nov</span> <span class="mi">19</span> <span class="mo">00</span><span class="o">:</span><span class="mi">48</span> <span class="n">sizeof_file</span>
+
+<span class="cp"># Compilare program
+</span><span class="err">$</span> <span class="n">gcc</span> <span class="mi">4</span><span class="o">-</span><span class="n">sizeof_file</span><span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="n">sizeof_file</span>
+
+<span class="cp"># Determinare dimensiune pentru a.out
+</span><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">sizeof_file</span>
+<span class="n">a</span><span class="p">.</span><span class="n">out</span>
+<span class="n">a</span><span class="p">.</span><span class="n">out</span> <span class="n">has</span> <span class="mi">16888</span> <span class="n">bytes</span>
+
+<span class="cp"># Determinare dimensiune pentru sizeof_file
+</span><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">sizeof_file</span>
+<span class="n">sizeof_file</span>
+<span class="n">sizeof_file</span> <span class="n">has</span> <span class="mi">16888</span> <span class="n">bytes</span>
+
+<span class="cp"># Determinare dimensiune pentru 3-bin.c
+</span><span class="err">$</span> <span class="p">.</span><span class="o">/</span><span class="n">sizeof_file</span>
+<span class="mi">3</span><span class="o">-</span><span class="n">bin</span><span class="p">.</span><span class="n">c</span>
+<span class="mi">3</span><span class="o">-</span><span class="n">bin</span><span class="p">.</span><span class="n">c</span> <span class="n">has</span> <span class="mi">788</span> <span class="n">bytes</span>
+</code></pre></div></div>
+</li>
+</ol>
+<h2 id="problemset-extra">Problemset (extra)</h2>
+<p>Vă propunem să lucrați acasă probleme din <a href="https://acs-pclp.github.io/problemset/09">PCLP Laborator09: Problemset (extra)</a>.</p>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">PCLP - CA, CB, CD</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">PCLP - CA, CB, CD</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>https://acs-pclp.github.io/</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

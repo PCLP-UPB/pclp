@@ -1,0 +1,6 @@
+# code-server — publicat de compose DOAR pe 127.0.0.1, deci fără parolă.
+bind-addr: 0.0.0.0:8080
+auth: none
+cert: false
+disable-telemetry: true
+disable-update-check: true

@@ -1,0 +1,681 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:laboratoare:lab07</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-11-18T11:49:43+0200"/>
+<meta name="keywords" content="programare,laboratoare,lab07"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare:laboratoare"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/laboratoare/lab07"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab07"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:laboratoare';var JSINFO = {"id":"programare:laboratoare:lab07","namespace":"programare:laboratoare","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#pclp_laborator07prelucrarea_sirurilor_de_caractere_functii_aplicatii">PCLP Laborator07: Prelucrarea şirurilor de caractere. Funcţii. Aplicaţii</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#obiective">Obiective</a></div></li>
+<li class="level3"><div class="li"><a href="#notiuni_teoretice">Noţiuni teoretice</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#siruri_de_caractere">Şiruri de caractere</a></div></li>
+<li class="level4"><div class="li"><a href="#functii_din_stringh">Funcţii din &lt;string.h&gt;</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#exercitii">Exerciții</a></div></li>
+<li class="level3"><div class="li"><a href="#referinte">Referinţe</a></div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h2 class="sectionedit1" id="pclp_laborator07prelucrarea_sirurilor_de_caractere_functii_aplicatii">PCLP Laborator07: Prelucrarea şirurilor de caractere. Funcţii. Aplicaţii</h2>
+<div class="level2">
+
+<p>
+<strong>Resposabili</strong>:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="mailto:&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;" class="mail" title="&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;">Dorinel Filip (2016-2020)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x74;&#x65;&#x6f;&#x64;&#x6f;&#x72;&#x2e;&#x6d;&#x61;&#x74;&#x65;&#x69;&#x2e;&#x62;&#x69;&#x72;&#x6c;&#x65;&#x61;&#x6e;&#x75;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x74;&#x65;&#x6f;&#x64;&#x6f;&#x72;&#x2e;&#x6d;&#x61;&#x74;&#x65;&#x69;&#x2e;&#x62;&#x69;&#x72;&#x6c;&#x65;&#x61;&#x6e;&#x75;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Bîrleanu Teodor Matei (2025 - prezent)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x6e;&#x65;&#x61;&#x74;&#x75;&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x6e;&#x65;&#x61;&#x74;&#x75;&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Darius Neațu (2019-2020)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x65;&#x6d;&#x69;&#x6c;&#x2e;&#x72;&#x61;&#x63;&#x65;&#x63;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x65;&#x6d;&#x69;&#x6c;&#x2e;&#x72;&#x61;&#x63;&#x65;&#x63;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Emil Racec (2012)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x61;&#x6c;&#x69;&#x6e;&#x61;&#x2e;&#x67;&#x2e;&#x73;&#x69;&#x6d;&#x69;&#x6f;&#x6e;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x61;&#x6c;&#x69;&#x6e;&#x61;&#x2e;&#x67;&#x2e;&#x73;&#x69;&#x6d;&#x69;&#x6f;&#x6e;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Alina Simion (2008)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x73;&#x74;&#x65;&#x66;&#x61;&#x6e;&#x2e;&#x62;&#x75;&#x63;&#x75;&#x72;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x73;&#x74;&#x65;&#x66;&#x61;&#x6e;&#x2e;&#x62;&#x75;&#x63;&#x75;&#x72;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Ştefan Bucur (2006)</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT1 SECTION "PCLP Laborator07: Prelucrarea şirurilor de caractere. Funcţii. Aplicaţii" [1-460] -->
+<h3 class="sectionedit2" id="obiective">Obiective</h3>
+<div class="level3">
+
+<p>
+În urma parcurgerii acestui laborator studentul va fi capabil:
+</p>
+<ul>
+<li class="level1"><div class="li"> să declare şi să folosească şiruri de caractere</div>
+</li>
+<li class="level1"><div class="li"> să folosească funcţiile de manipulare a şirurilor de caractere din libraria string.h</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT2 SECTION "Obiective" [461-697] -->
+<h3 class="sectionedit3" id="notiuni_teoretice">Noţiuni teoretice</h3>
+<div class="level3">
+
+</div>
+
+<h4 id="siruri_de_caractere">Şiruri de caractere</h4>
+<div class="level4">
+
+<p>
+Un <strong>caracter</strong> se declară în C de forma: <code>char a=&#039;a&#039;</code>; Pentru inițializarea lui, se observă că am pus un caracter între apostrofuri.
+</p>
+
+<p>
+Un <strong>şir de caractere</strong> presupune practic un vector de caractere, terminat prin caracterul <code>\0</code>. 
+</p>
+
+<p>
+Compilatorul folosește în mod implicit această reprezentare, astfel încât cea mai simplă declarație este <code>char c[]=“cuvant”</code>; Observăm aici folosirea ghilimelelor în locul apostrofurilor. Această instrucțiune va aloca un spațiu de <code>7</code> octeți pe care va reprezenta șirul de caractere &#039;cuvant&#039; (care are <code>6</code> caractere). 
+</p>
+
+<p>
+Dacă dorim să alocăm un spațiu de memorie mai mare (pentru a putea folosi variabila pentru a stoca șiruri de caractere mai lungi), putem folosi o declarație de tipul <code>char c[10] = “cuvant”;</code>. Astfel am alocat spațiu suficient pentru un șir de <code>9</code> caractere.
+</p>
+
+<p>
+<p><div class="noteimportant">
+Deși o inițializare de tipul <code>char c[6] = “cuvant”</code>, în care spațiul alocat este egal cu numărul de caractere, nu va determina compilatorul să genereze un warning/o eroare, acest lucru poate avea rezultate neașteptate dacă în memorie - la finalul șirului - nu se află (întâmplător) valoarea 0 binar. 
+
+</div></p>
+</p>
+
+<p>
+Cum s-a prezentat anterior, o variabilă vector conţine adresa de început a vectorului(adresa primei componente a vectorului), şi de aceea este echivalentă cu un pointer la tipul elementelor din vector. Deci declaraţiile de mai jos vor declara fiecare cate un şir de caractere:
+</p>
+<pre class="code c"><span class="kw4">char</span> a<span class="br0">&#91;</span><span class="nu0">5</span><span class="br0">&#93;</span><span class="sy0">;</span>
+<span class="kw4">char</span> <span class="sy0">*</span>b<span class="sy0">=</span><span class="st0">&quot;unsir&quot;</span><span class="sy0">;</span>
+<span class="kw4">char</span> <span class="sy0">*</span>c<span class="sy0">;</span></pre>
+
+<p>
+Diferenţa majoră dintre între ele este însa că primele două declaraţii vor aloca 5 pozitii în memorie, pe când ultima nu va aloca nici o zona de memorie, necesitând sa fie ulterior alocată, folosind funcţiile de alocare dinamică (<code>malloc(), calloc(), realloc()</code>), prezentate în laboratorul anterior.
+</p>
+
+<p>
+Între prima și a 2-a declarație, diferența este mai subtilă și constă în faptul că declarația <code>char *b=“unsir”</code> va determina compilatorul să plaseze șirul respectiv într-o zonă de memorie asupra căreia nu avem drepturi de scriere, deci orice încercare de a modifica acel șir - pe Linux - va genera, cel mai probabil, o eroare de tipul <code>segmentation fault</code>.
+</p>
+
+<p>
+Un mic exemplu de citire a unui şir, caracter cu caracter pana la întâlnirea caracterului <code>-</code>:
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt;</span>
+&nbsp;
+<span class="co2">#define N 30</span>
+&nbsp;
+<span class="kw4">int</span> main <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+   <span class="kw4">char</span> str<span class="br0">&#91;</span>N<span class="br0">&#93;</span><span class="sy0">,</span> c<span class="sy0">;</span>
+   <span class="kw4">int</span> n <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+&nbsp;
+   <span class="kw1">do</span> <span class="br0">&#123;</span>
+     <a href="http://www.opengroup.org/onlinepubs/009695399/functions/scanf.html"><span class="kw3">scanf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%c&quot;</span><span class="sy0">,</span> <span class="sy0">&amp;</span>c<span class="br0">&#41;</span><span class="sy0">;</span>
+     <span class="kw1">if</span> <span class="br0">&#40;</span>c <span class="sy0">==</span> <span class="st0">'-'</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+       <span class="kw2">break</span><span class="sy0">;</span>
+     <span class="br0">&#125;</span>
+     str<span class="br0">&#91;</span>n<span class="sy0">++</span><span class="br0">&#93;</span> <span class="sy0">=</span> c<span class="sy0">;</span>
+   <span class="br0">&#125;</span> <span class="kw1">while</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+   str<span class="br0">&#91;</span>n<span class="br0">&#93;</span> <span class="sy0">=</span> <span class="st0">'<span class="es5">\0</span>'</span><span class="sy0">;</span> <span class="co1">// setam terminatorul de șir</span>
+   <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%s&quot;</span><span class="sy0">,</span> str<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+   <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+  Pentru citirea si afisarea unui şir de caractere se poate folosi flagul &#039;<strong>s</strong>&#039; la citirea cu <code>scanf</code> sau afişarea cu <code>printf</code>. De asemenea biblioteca <code>stdio.h</code> defineşte funcţiile <code>gets()</code> şi <code>puts()</code> pentru lucrul cu şiruri de caractere.
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>gets(zona)</code> -– citeşte de la terminalul standard un şir de caractere terminat cu linie noua (enter).</div>
+<ul>
+<li class="level3"><div class="li"> Funcţia are ca parametru adresa zonei de memorie în care se introduc caracterele citite.</div>
+</li>
+<li class="level3"><div class="li"> Funcţia returneaza adresa de început a zonei de memorie.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code>puts(zona)</code> – afişeaza la terminalul standard şirul de caractere din zona data ca parametru, până la caracterul terminator de şir (\0), în locul căruia va afișa caracterul sfârșit de linie.</div>
+<ul>
+<li class="level3"><div class="li"> Funcţia are ca parametru adresa zonei de memorie de unde începe afişarea caracterelor.</div>
+</li>
+<li class="level3"><div class="li"> Funcţia returneaza codul ultimului caracter (diferit de \0) din şirul de caractere afişat şi -1 dacă a aparut o eroare.</div>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+<p><div class="noteimportant">
+Funcţia <code>gets()</code> va citi de la tastatura câte caractere sunt introduse, chiar daca şirul declarat are o lungime mai mică. Presupunem un şir declarat: <code>char a[]=”unsir”</code> , care va avea deci 5 caractere. Citind un şir de lungime mai mare ca 5 de la tastatura, în şirul a, la afişare vom vedea ca s-a reţinut tot sirul (nu doar primele 5 caractere)! . Nimic deosebit până acum. Dar dacă luăm în considerare că citirea caracterelor auxiliare se face în continuare în zona de memorie, ne punem problema ce se va suprascrie?!
+Raspunsul este: nu se ştie… poate nimic important pentru programul nostru, poate ceva ce il va bloca sau duce la obţinerea de date eronate.
+
+</div></p>
+</p>
+
+<p>
+Pentru a evita aceasta se recomandă utilizarea <code>fgets()</code>.
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>fgets(zona, lung_zona, stdin)</code> -– citeşte de la <code>stdin</code> un şir de caractere terminat printr-o linie nouă dacă lungimea lui este mai mică decat <code>lung_zona</code> sau primele <code>lung_zona - 1</code> caractere în caz contrar. Parametrii sunt: zona de memorie, lungimea maxima admisă a şirului, şi terminalul standard de intrare. În cazul în care şirul dorit are lungime mai mică decât cea maximă, înaintea terminatorului de şir (\0), în zona de memorie va fi reţinut şi enter-ul dat(\n).</div>
+</li>
+</ul>
+
+</div>
+
+<h4 id="functii_din_stringh">Funcţii din &lt;string.h&gt;</h4>
+<div class="level4">
+
+<p>
+Pentru manipularea şirurilor de caractere în limbajul C se folosesc funcţii declarate în fişierul &lt;string.h&gt;. Vom încerca să le detaliem putin pe cele mai des folosite:
+</p>
+
+</div>
+
+<h5 id="strlen">strlen()</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">size_t</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strlen.html"><span class="kw3">strlen</span></a><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>str<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Returneaza lungimea unui şir dat ca parametru. (numarul de caractere până la întalnirea terminatorului de şir: \0)
+</p>
+
+<p>
+<strong>Exemplu:</strong>
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt;</span>
+&nbsp;
+<span class="co2">#define N 256</span>
+&nbsp;
+<span class="kw4">int</span> main <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw4">char</span> text<span class="br0">&#91;</span>N<span class="br0">&#93;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Introduceti un text: &quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/gets.html"><span class="kw3">gets</span></a><span class="br0">&#40;</span>text<span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Textul are %u caractere.<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strlen.html"><span class="kw3">strlen</span></a><span class="br0">&#40;</span>text<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+<strong>Iesire:</strong>
+</p>
+<pre class="code">Introduceti un text: just testing
+Textul are 12 caractere.</pre>
+
+</div>
+
+<h5 id="memset">memset()</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">void</span><span class="sy0">*</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/memset.html"><span class="kw3">memset</span></a><span class="br0">&#40;</span><span class="kw4">void</span> <span class="sy0">*</span>ptr<span class="sy0">,</span> <span class="kw4">int</span> val<span class="sy0">,</span> <span class="kw4">size_t</span> num<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+În zona de memorie dată de pointerul ptr, sunt setate primii num octeți la valoarea dată de val. Pentru șiruri de caractere - în care fiecare element ocupă 1 octet - aceasta are ca rezultat înlocuirea primelor &#039;num&#039; valori cu cea dată ca argument. 
+</p>
+
+<p>
+Funcţia returnează şirul ptr.
+</p>
+
+<p>
+<strong>Exemplu:</strong>
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span> main <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw4">char</span> str<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy0">=</span> <span class="st0">&quot;nu prea vreau vacanta!&quot;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/memset.html"><span class="kw3">memset</span></a><span class="br0">&#40;</span>str<span class="sy0">,</span> <span class="st0">'-'</span><span class="sy0">,</span> <span class="nu0">7</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/puts.html"><span class="kw3">puts</span></a><span class="br0">&#40;</span>str<span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+<strong>Iesire:</strong>
+</p>
+<pre class="code">------- vreau vacanta!</pre>
+
+<p>
+<p><div class="noteimportant">
+Ca programatori, veți întâlni adesea situații în care <code>memset</code> este folosit pentru inițializarea de vectori de diverse tipuri.
+</p>
+
+<p>
+Atunci când scrieți sau evaluați cod care face acest lucru trebuie să aveți în vedere că memset face scrierea valorii primite pe fiecare <strong>octet</strong> (fără a ține cont de dimensiunea reperezentării tipului de date). Următorul cod arată cum putem folosi memset pentru a inițializa un vector de int la 0 folosind memset, respectiv care ar fi rezultatul dacă am încerca să inițializăm vectorul cu o altă valoare:
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt;</span>
+&nbsp;
+<span class="co2">#define SIZE 2</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> a<span class="br0">&#91;</span>SIZE<span class="br0">&#93;</span><span class="sy0">,</span> b<span class="br0">&#91;</span>SIZE<span class="br0">&#93;</span><span class="sy0">,</span> i<span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/memset.html"><span class="kw3">memset</span></a><span class="br0">&#40;</span>a<span class="sy0">,</span> <span class="nu0">0</span><span class="sy0">,</span> SIZE <span class="sy0">*</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/memset.html"><span class="kw3">memset</span></a><span class="br0">&#40;</span>b<span class="sy0">,</span> <span class="nu0">5</span><span class="sy0">,</span> SIZE <span class="sy0">*</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">for</span><span class="br0">&#40;</span>i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> SIZE<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d &quot;</span><span class="sy0">,</span> a<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">for</span><span class="br0">&#40;</span>i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> SIZE<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d &quot;</span><span class="sy0">,</span> b<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Rezultatul este…
+</p>
+<pre class="code">0 0 
+84215045 84215045</pre>
+
+<p>
+rezultatul neașteptat de pe a 2-a linie provenind din faptul că fiecare octet al int-urilor a fost setat la 5, și nu valoarea întregii structuri.
+</p>
+
+<p>
+Este de menționat faptul că utilizarea <code>memset</code> în astfel de situații <strong>nu</strong> este recomandată.
+</p>
+
+<p>
+
+</div></p>
+</p>
+
+</div>
+
+<h5 id="memmove">memmove()</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">void</span><span class="sy0">*</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/memmove.html"><span class="kw3">memmove</span></a><span class="br0">&#40;</span><span class="kw4">void</span> <span class="sy0">*</span>destination<span class="sy0">,</span> <span class="kw4">const</span> <span class="kw4">void</span> <span class="sy0">*</span>source<span class="sy0">,</span> <span class="kw4">size_t</span> num<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Copiază un număr de num caractere de la sursă, la zona de memorie indicată de destinaţie. Copierea are loc ca şi cum ar exista un buffer intermediar, deci sursa si destinatia se pot suprapune. Funcţia nu verifică terminatorul de şir la sursă, copiază mereu num bytes, deci pentru a evita depăsirea trebuie ca dimensiunea sursei sa fie mai mare ca num. Funcţia returnează destinaţia.
+</p>
+
+<p>
+<strong>Exemplu:</strong>
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span> main <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw4">char</span> str<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy0">=</span> <span class="st0">&quot;memmove can be very useful......&quot;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/memmove.html"><span class="kw3">memmove</span></a><span class="br0">&#40;</span>str <span class="sy0">+</span> <span class="nu0">20</span><span class="sy0">,</span> str <span class="sy0">+</span> <span class="nu0">15</span><span class="sy0">,</span> <span class="nu0">11</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/puts.html"><span class="kw3">puts</span></a><span class="br0">&#40;</span>str<span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+<strong>Iesire:</strong>
+</p>
+<pre class="code">memmove can be very very useful.</pre>
+
+</div>
+
+<h5 id="memcpy">memcpy()</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">void</span><span class="sy0">*</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/memcpy.html"><span class="kw3">memcpy</span></a><span class="br0">&#40;</span><span class="kw4">void</span> <span class="sy0">*</span>destination<span class="sy0">,</span> <span class="kw4">const</span> <span class="kw4">void</span> <span class="sy0">*</span>source<span class="sy0">,</span> <span class="kw4">size_t</span> num<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Copiază un număr de num caractere din şirul sursă in şirul destinaţie. Funcţia returnează şirul destinaţie.
+</p>
+
+<p>
+<strong>Exemplu:</strong>
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt;</span>
+&nbsp;
+<span class="co2">#define N 40</span>
+&nbsp;
+<span class="kw4">int</span> main <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw4">char</span> str1<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy0">=</span> <span class="st0">&quot;Exemplu&quot;</span><span class="sy0">;</span>
+  <span class="kw4">char</span> str2<span class="br0">&#91;</span>N<span class="br0">&#93;</span><span class="sy0">;</span>
+  <span class="kw4">char</span> str3<span class="br0">&#91;</span>N<span class="br0">&#93;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/memcpy.html"><span class="kw3">memcpy</span></a><span class="br0">&#40;</span>str2<span class="sy0">,</span> str1<span class="sy0">,</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strlen.html"><span class="kw3">strlen</span></a><span class="br0">&#40;</span>str1<span class="br0">&#41;</span> <span class="sy0">+</span> <span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// + 1 este necesar pentru a copia și terminatorul de șir</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/memcpy.html"><span class="kw3">memcpy</span></a><span class="br0">&#40;</span>str3<span class="sy0">,</span> <span class="st0">&quot;un sir&quot;</span><span class="sy0">,</span> <span class="nu0">7</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;str1: %s<span class="es1">\n</span>str2: %s<span class="es1">\n</span>str3: %s<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> str1<span class="sy0">,</span> str2<span class="sy0">,</span> str3<span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+<strong>Iesire:</strong>
+</p>
+<pre class="code">str1: Exemplu
+str2: Exemplu
+str3: un sir</pre>
+
+</div>
+
+<h5 id="strcpy">strcpy()</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">char</span><span class="sy0">*</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strcpy.html"><span class="kw3">strcpy</span></a><span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy0">*</span>destination<span class="sy0">,</span> <span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>source<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Copiază şirul sursă in şirul destinaţie. Şirul destinaţie va fi suprascris. Funcţia asigură plasarea terminatorului de şir în şirul destinaţie după copiere. Funcţia returneaza şirul destinaţie.
+</p>
+
+</div>
+
+<h5 id="strncpy">strncpy()</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">char</span><span class="sy0">*</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strncpy.html"><span class="kw3">strncpy</span></a><span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy0">*</span>destination<span class="sy0">,</span> <span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>source<span class="sy0">,</span> <span class="kw4">size_t</span> num<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Asemeni cu <code>strcpy()</code>, dar in loc de a fi copiată toata sursa sunt copiate doar primele <em>num</em> caractere.
+</p>
+
+<p>
+<strong>Exemplu:</strong>
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt;</span>
+&nbsp;
+<span class="co2">#define N 40</span>
+&nbsp;
+<span class="kw4">int</span> main <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw4">char</span> str1<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy0">=</span> <span class="st0">&quot;Exemplu&quot;</span><span class="sy0">;</span>
+  <span class="kw4">char</span> str2<span class="br0">&#91;</span>N<span class="br0">&#93;</span><span class="sy0">;</span>
+  <span class="kw4">char</span> str3<span class="br0">&#91;</span>N<span class="br0">&#93;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strcpy.html"><span class="kw3">strcpy</span></a><span class="br0">&#40;</span>str2<span class="sy0">,</span> str1<span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strncpy.html"><span class="kw3">strncpy</span></a><span class="br0">&#40;</span>str3<span class="sy0">,</span> <span class="st0">&quot;un sir&quot;</span><span class="sy0">,</span> <span class="nu0">2</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  str3<span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span> <span class="sy0">=</span> <span class="st0">'<span class="es5">\0</span>'</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;str1: %s<span class="es1">\n</span>str2: %s<span class="es1">\n</span>str3: %s<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> str1<span class="sy0">,</span> str2<span class="sy0">,</span> str3<span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+<strong>Iesire:</strong>
+</p>
+<pre class="code">str1: Exemplu
+str2: Exemplu
+str3: un</pre>
+
+</div>
+
+<h5 id="strcat">strcat()</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">char</span><span class="sy0">*</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strcat.html"><span class="kw3">strcat</span></a><span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy0">*</span>destination<span class="sy0">,</span> <span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>source<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Concatenenaza şirul sursă la şirul destinaţie. Funcţia returnează şirul destinaţie.
+</p>
+
+<p>
+<p><div class="noteclassic">
+Șirul destinație trebuie să aibă suficientă memorie alocată pentru a a acomoda șirul rezultat.
+
+</div></p>
+</p>
+
+</div>
+
+<h5 id="strncat">strncat()</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">char</span><span class="sy0">*</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strncat.html"><span class="kw3">strncat</span></a><span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy0">*</span>destination<span class="sy0">,</span> <span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>source<span class="sy0">,</span> <span class="kw4">size_t</span> num<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Asemeni cu <code>strcat()</code>, dar în loc de a fi concatenată toată sursa sunt concatenate <strong>cel mult</strong> primele <em>num</em> caractere din șirul sursa (aceasta putând fii și mai scurt).
+</p>
+
+<p>
+<strong>Exemplu:</strong>
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt;</span>
+&nbsp;
+<span class="co2">#define N 80</span>
+&nbsp;
+<span class="kw4">int</span> main <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw4">char</span> str<span class="br0">&#91;</span>N<span class="br0">&#93;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strcpy.html"><span class="kw3">strcpy</span></a><span class="br0">&#40;</span>str<span class="sy0">,</span> <span class="st0">&quot;ana &quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strcat.html"><span class="kw3">strcat</span></a><span class="br0">&#40;</span>str<span class="sy0">,</span> <span class="st0">&quot;are &quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strcat.html"><span class="kw3">strcat</span></a><span class="br0">&#40;</span>str<span class="sy0">,</span> <span class="st0">&quot;mere &quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/puts.html"><span class="kw3">puts</span></a><span class="br0">&#40;</span>str<span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strncat.html"><span class="kw3">strncat</span></a><span class="br0">&#40;</span>str<span class="sy0">,</span> <span class="st0">&quot;si pere si prune&quot;</span><span class="sy0">,</span> <span class="nu0">7</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/puts.html"><span class="kw3">puts</span></a><span class="br0">&#40;</span>str<span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+<strong>Iesire:</strong>
+</p>
+<pre class="code">ana are mere
+ana are mere si pere</pre>
+
+</div>
+
+<h5 id="strcmp">strcmp()</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">int</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strcmp.html"><span class="kw3">strcmp</span></a><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>str1<span class="sy0">,</span> <span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>str2<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Compară şirul <em>str1</em> cu şirul <em>str2</em>, verificându-le caracter cu caracter. Valoarea returnată este 0 daca cele şiruri sunt identice, mai mare ca 0 daca str1 este “mai mare”(alfabetic) şi mai mic ca 0 altfel.
+</p>
+
+<p>
+<strong>Exemplu:</strong>
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt;</span>
+&nbsp;
+<span class="co2">#define N 80</span>
+&nbsp;
+<span class="kw4">int</span> main <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw4">char</span> cuv<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy0">=</span> <span class="st0">&quot;rosu&quot;</span><span class="sy0">;</span>
+  <span class="kw4">char</span> cuv_citit<span class="br0">&#91;</span>N<span class="br0">&#93;</span><span class="sy0">;</span>
+  <span class="kw1">do</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a> <span class="br0">&#40;</span><span class="st0">&quot;Ghiceste culoarea...&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/gets.html"><span class="kw3">gets</span></a><span class="br0">&#40;</span>cuv_citit<span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span> <span class="kw1">while</span> <span class="br0">&#40;</span><a href="http://www.opengroup.org/onlinepubs/009695399/functions/strcmp.html"><span class="kw3">strcmp</span></a><span class="br0">&#40;</span>cuv<span class="sy0">,</span>cuv_citit<span class="br0">&#41;</span> <span class="sy0">!=</span> <span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/puts.html"><span class="kw3">puts</span></a><span class="br0">&#40;</span><span class="st0">&quot;OK&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+În situația în care șirurile au lungimi diferite, ultima comparație se face între \0 și caracterul de pe aceași poziție din șirul mai lung, 
+</p>
+
+</div>
+
+<h5 id="strchr">strchr()</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">char</span><span class="sy0">*</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strchr.html"><span class="kw3">strchr</span></a><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>str<span class="sy0">,</span> <span class="kw4">int</span> character<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Caută caracterul <em>character</em> în şirul <em>str</em> şi returnează un pointer la <em>prima</em> sa apariţie sau <code>NULL</code> dacă acesta nu a fost găsit..
+</p>
+
+</div>
+
+<h5 id="strrchr">strrchr()</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">char</span><span class="sy0">*</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strrchr.html"><span class="kw3">strrchr</span></a><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>str<span class="sy0">,</span> <span class="kw4">int</span> character<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Caută caracterul <em>character</em> în şirul <em>str</em> şi returnează un pointer la <em>ultima</em> sa apariţie sau <code>NULL</code> dacă acesta nu există în șir.
+</p>
+
+</div>
+
+<h5 id="strstr">strstr()</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">char</span><span class="sy0">*</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strstr.html"><span class="kw3">strstr</span></a><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>str1<span class="sy0">,</span> <span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>str2<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Caută şirul <em>str2</em> în şirul <em>str1</em> şi <em>returnează un pointer la prima sa apariţie</em>, sau <em><code>NULL</code></em> dacă nu a fost găsit.
+</p>
+
+</div>
+
+<h5 id="strdup">strdup()</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">char</span><span class="sy0">*</span> strdup<span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>str<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Realizează un duplicat al şirului <em>str</em>, pe care îl şi returnează. Spațiul de memorie necesar copiei este alocată dinamic, fiind responsabilitatea noastră să o dealocăm (așa cum am s-a prezentat laboratorul anterior).
+</p>
+
+<p>
+<strong>Exemplu:</strong>
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt;</span>
+&nbsp;
+<span class="co2">#define N 80</span>
+&nbsp;
+<span class="kw4">int</span> main <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw4">char</span> str<span class="br0">&#91;</span>N<span class="br0">&#93;</span> <span class="sy0">=</span> <span class="st0">&quot;salut&quot;</span><span class="sy0">,</span> <span class="sy0">*</span>d<span class="sy0">;</span>
+&nbsp;
+  d <span class="sy0">=</span> strdup<span class="br0">&#40;</span>str<span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="kw1">if</span><span class="br0">&#40;</span>d <span class="sy0">==</span> NULL<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+      <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Eroare!<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+      <span class="kw1">return</span> <span class="sy0">-</span><span class="nu0">1</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span>
+&nbsp;
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/puts.html"><span class="kw3">puts</span></a><span class="br0">&#40;</span>d<span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/free.html"><span class="kw3">free</span></a><span class="br0">&#40;</span>d<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+<p><div class="noteclassic">
+<code>strdup(..)</code> va aloca întotdeuna <code>strlen() + 1</code> octeți pentru destinație, indiferent de dimensiunea memoriei alocate pentru sursă.
+
+</div></p>
+</p>
+
+</div>
+
+<h5 id="strtok">strtok()</h5>
+<div class="level5">
+<pre class="code c"><span class="kw4">char</span><span class="sy0">*</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strtok.html"><span class="kw3">strtok</span></a><span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy0">*</span>str<span class="sy0">,</span> <span class="kw4">const</span> <span class="kw4">char</span> <span class="sy0">*</span>delimitators<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+<p>
+Funcţia are rolul de a împarţi şirul <em>str</em> în tokens(subşiruri separate de orice caracter aflat în lista de delimitatori), prin apelarea ei succesivă.
+</p>
+
+<p>
+La primul apel, parametrul <em>str</em> trebuie sa fie un şir de caractere, ce urmează a fi împartit. Apelurile urmatoare, vor avea în loc de <em>str</em>, <code>NULL</code> conţinuând împarţirea aceluiaşi şir.
+</p>
+
+<p>
+Funcţia va returna la fiecare apel un token(un subsir), ignorând caracterele cu rol de separator aflate în şirul de delimitatori. O dată terminat şirul, funcţia va returna <code>NULL</code>.
+</p>
+
+<p>
+<p><div class="noteimportant">
+Implementarea curentă din <code>&lt;string.h&gt;</code> nu permite folosirea <code>strtok()</code> în paralel pe mai mult de un şir.
+
+</div></p>
+</p>
+
+<p>
+<strong>Exemplu:</strong>
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span> main <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw4">char</span> str<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy0">=</span> <span class="st0">&quot;- Uite, asta e un sir.&quot;</span><span class="sy0">;</span>
+  <span class="kw4">char</span> <span class="sy0">*</span>p<span class="sy0">;</span>  
+  p <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strtok.html"><span class="kw3">strtok</span></a><span class="br0">&#40;</span>str<span class="sy0">,</span> <span class="st0">&quot; ,.-&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="coMULTI">/* separa sirul in &quot;tokeni&quot; si afiseaza-i pe linii separate. */</span>
+  <span class="kw1">while</span> <span class="br0">&#40;</span>p <span class="sy0">!=</span> NULL<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%s<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> p<span class="br0">&#41;</span><span class="sy0">;</span>
+    p <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/strtok.html"><span class="kw3">strtok</span></a><span class="br0">&#40;</span>NULL<span class="sy0">,</span> <span class="st0">&quot; ,.-&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <span class="br0">&#125;</span>
+&nbsp;
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+<strong>Iesire:</strong>
+</p>
+<pre class="code">Uite
+asta
+e
+un
+sir</pre>
+
+</div>
+<!-- EDIT3 SECTION "Noţiuni teoretice" [698-14767] -->
+<h3 class="sectionedit4" id="exercitii">Exerciții</h3>
+<div class="level3">
+
+<p>
+Exercițiile pentru laborator se găsesc pe <a href="https://acs-pclp.github.io/laboratoare/07" class="urlextern" title="https://acs-pclp.github.io/laboratoare/07"  rel="nofollow"> PCLP Laborator07: Prelucrarea şirurilor de caractere. Funcţii. Aplicaţii</a>.
+</p>
+
+</div>
+<!-- EDIT4 SECTION "Exerciții" [14768-14959] -->
+<h3 class="sectionedit5" id="referinte">Referinţe</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <a href="http://en.wikipedia.org/wiki/String_(computer_science)" class="urlextern" title="http://en.wikipedia.org/wiki/String_(computer_science)"  rel="nofollow">Wikipedia - String(Computer science)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="http://en.wikipedia.org/wiki/String.h" class="urlextern" title="http://en.wikipedia.org/wiki/String.h"  rel="nofollow">Wikipedia - C string handling</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT5 SECTION "Referinţe" [14960-] --></div>
+</body>
+</html>

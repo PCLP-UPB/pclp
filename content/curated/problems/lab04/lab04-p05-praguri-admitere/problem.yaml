@@ -1,0 +1,87 @@
+id: lab04-p05-praguri-admitere
+lab: lab04
+number: 5
+title: "Praguri de admitere"
+difficulty: 3
+estimated_minutes: 35
+concepts: [căutare binară, vector sortat, funcție cu parametru vector, complexitate]
+statement: |
+  Comisia de admitere are lista punctajelor tuturor candidaților, **sortată crescător**.
+  Înainte de a stabili ultima medie de intrare, comisia pune multe întrebări de forma:
+  „Câți candidați ar fi admiși dacă pragul ar fi `x` puncte?” — adică, câți candidați au
+  punctajul **cel puțin** `x`?
+
+  Pentru că listele pot fi foarte lungi și întrebările foarte multe, răspunsul la o
+  întrebare trebuie găsit prin **căutare binară**, nu prin parcurgerea întregii liste.
+
+  **Date de intrare**
+
+  - prima linie: numărul `n` de candidați;
+  - a doua linie: `n` numere naturale, punctajele, în ordine crescătoare (pot exista
+    punctaje egale);
+  - a treia linie: numărul `q` de întrebări;
+  - a patra linie: `q` numere naturale, pragurile `x`.
+
+  **Date de ieșire**
+
+  `q` linii, pe fiecare numărul de candidați cu punctajul cel puțin egal cu pragul
+  respectiv.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100 000`, `1 ≤ q ≤ 100 000`
+  - `0 ≤ punctaj, x ≤ 1 000 000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  8
+  120 340 340 340 560 700 700 980
+  5
+  340 341 0 1000 980
+  ```
+
+  Ieșire:
+  ```
+  7
+  4
+  8
+  0
+  1
+  ```
+starter: |
+  #include <stdio.h>
+
+  #define NMAX 100000
+
+  /* prima poziție p cu v[p] >= x, sau n dacă nu există */
+  int prima_pozitie_cel_putin(int n, int v[], int x)
+  {
+  	/* TODO: căutare binară */
+  }
+
+  int main(void)
+  {
+  	static int punctaje[NMAX];
+  	int n, q, i, x;
+
+  	scanf("%d", &n);
+  	for (i = 0; i < n; i++)
+  		scanf("%d", &punctaje[i]);
+
+  	scanf("%d", &q);
+  	for (i = 0; i < q; i++) {
+  		scanf("%d", &x);
+  		/* TODO */
+  	}
+
+  	return 0;
+  }
+hints:
+  - "Într-o listă sortată, candidații admiși formează un bloc la final. Dacă afli poziția primului candidat cu punctaj ≥ x, răspunsul se calculează imediat din ea."
+  - "Căutarea binară clasică se oprește la primul element egal pe care îl întâlnește, dar cu punctaje duplicate acela nu e neapărat primul. Când v[mij] ≥ x, reține mij ca posibil răspuns și continuă căutarea în stânga."
+  - "Pseudocod: st = 0, dr = n − 1, rez = n; cât timp st ≤ dr: mij = st + (dr − st) / 2; dacă v[mij] ≥ x atunci rez = mij, dr = mij − 1, altfel st = mij + 1. Răspunsul: n − rez."
+pitfalls:
+  - "Dacă x este mai mare decât toate punctajele, răspunsul este 0; dacă e mai mic sau egal cu toate, este n."
+  - "Parcurgerea liniară pentru fiecare întrebare înseamnă până la 10^10 operații."

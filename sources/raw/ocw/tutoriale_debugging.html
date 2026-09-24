@@ -1,0 +1,1416 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:tutoriale:debugging</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-11-04T15:38:16+0200"/>
+<meta name="keywords" content="programare,tutoriale,debugging"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare:tutoriale"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/tutoriale/debugging"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/tutoriale/debugging"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:tutoriale';var JSINFO = {"id":"programare:tutoriale:debugging","namespace":"programare:tutoriale","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level1"><div class="li"><a href="#debugging">Debugging</a></div>
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#cuprins">Cuprins</a></div></li>
+<li class="level2"><div class="li"><a href="#de_ce_debugging">De ce debugging?</a></div></li>
+<li class="level2"><div class="li"><a href="#debugging_in_practica">Debugging în practică</a></div></li>
+<li class="level2"><div class="li"><a href="#logging">Logging</a></div></li>
+<li class="level2"><div class="li"><a href="#tooluri_de_debugging">Tooluri de debugging</a></div></li>
+<li class="level2"><div class="li"><a href="#gdb">GDB</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#debugging_in_linia_de_comanda">Debugging în linia de comandă</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#instalare">Instalare</a></div></li>
+<li class="level4"><div class="li"><a href="#comenzi_uzuale">Comenzi uzuale</a></div></li>
+<li class="level4"><div class="li"><a href="#exemplu">Exemplu</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#debugging_in_ide">Debugging în IDE</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#instalare1">Instalare</a></div></li>
+<li class="level4"><div class="li"><a href="#exemplu1">Exemplu</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#concluzie">Concluzie</a></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><a href="#valgrind">Valgrind</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#instalare2">Instalare</a></div></li>
+<li class="level3"><div class="li"><a href="#exempu_-_get_multiplication_table">Exempu - get_multiplication_table</a></div></li>
+<li class="level3"><div class="li"><a href="#concluzie1">Concluzie</a></div></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h1 class="sectionedit1" id="debugging">Debugging</h1>
+<div class="level1">
+
+<p>
+<a href="/courses/_detail/pa/new_pa/partners/bitdefender_masterbrand_logo_positive.png?id=programare%3Atutoriale%3Adebugging" class="media" title="pa:new_pa:partners:bitdefender_masterbrand_logo_positive.png"><img src="/courses/_media/pa/new_pa/partners/bitdefender_masterbrand_logo_positive.png?w=190&amp;tok=01f884" class="medialeft" alt="" width="190" /></a>
+Bitdefender este un lider recunoscut în domeniul securității IT, care oferă soluții superioare de prevenție, detecție și răspuns la incidente de securitate cibernetică. Milioane de sisteme folosite de oameni, companii și instituții guvernamentale sunt protejate de soluțiile companiei, ceea ce face Bitdefender unul dintre cei mai de încredere experți în combaterea amenințărilor informatice, în protejarea intimității și datelor, a identității digitale și în consolidarea rezilienței la atacuri. Compania a inovat constant în domenii precum antimalware, Internetul Lucrurilor, analiză comportamentală și inteligență artificială, iar tehnologiile Bitdefender sunt licențiate către peste 180 dintre cele mai cunoscute branduri de securitate din lume.
+</p>
+
+<p>
+<strong>Resposabili</strong>:
+</p>
+<ul>
+<li class="level1"><div class="li"> Cristi Olaru</div>
+</li>
+<li class="level1"><div class="li"> Cristi Pătrașcu</div>
+</li>
+<li class="level1"><div class="li"> Cristi Popa</div>
+</li>
+<li class="level1"><div class="li"> Darius Neațu</div>
+</li>
+<li class="level1"><div class="li"> Liza Babu</div>
+</li>
+<li class="level1"><div class="li"> Radu Nichita</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT1 SECTION "Debugging" [1-1008] -->
+<h2 class="sectionedit2" id="cuprins">Cuprins</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a href="#de_ce_debugging" title="programare:tutoriale:debugging ↵" class="wikilink1">De ce debugging?</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#debugging_in_practica" title="programare:tutoriale:debugging ↵" class="wikilink1">Debugging în practică</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#logging" title="programare:tutoriale:debugging ↵" class="wikilink1">Logging</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#tooluri_de_debugging" title="programare:tutoriale:debugging ↵" class="wikilink1">Tooluri de debugging</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#gdb" title="programare:tutoriale:debugging ↵" class="wikilink1">GDB</a></div>
+<ul>
+<li class="level2"><div class="li"> <a href="#debugging_in_linia_de_comanda" title="programare:tutoriale:debugging ↵" class="wikilink1">Debugging în linia de comandă</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#instalare" title="programare:tutoriale:debugging ↵" class="wikilink1">Instalare</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#comenzi_uzuale" title="programare:tutoriale:debugging ↵" class="wikilink1">Comenzi uzuale</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#exemplu" title="programare:tutoriale:debugging ↵" class="wikilink1">Exemplu</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#debugging_in_ide" title="programare:tutoriale:debugging ↵" class="wikilink1">Debugging în IDE</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#instalare" title="programare:tutoriale:debugging ↵" class="wikilink1">Instalare</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#exemplu" title="programare:tutoriale:debugging ↵" class="wikilink1">Exemplu</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#concluzie" title="programare:tutoriale:debugging ↵" class="wikilink1">Concluzie</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <a href="#valgrind" title="programare:tutoriale:debugging ↵" class="wikilink1">Valgrind</a></div>
+<ul>
+<li class="level2"><div class="li"> <a href="#instalare" title="programare:tutoriale:debugging ↵" class="wikilink1">Instalare</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#exempu_-_get_multiplication_table" title="programare:tutoriale:debugging ↵" class="wikilink1">Exempu - get_multiplication_table</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#concluzie" title="programare:tutoriale:debugging ↵" class="wikilink1">Concluzie</a></div>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+Notă: Metodele prezentate în acest tutorial nu se exclud una pe cealaltă, ci se folosesc împreună, în funcție de situație.
+</p>
+
+</div>
+<!-- EDIT2 SECTION "Cuprins" [1009-1829] -->
+<h2 class="sectionedit3" id="de_ce_debugging">De ce debugging?</h2>
+<div class="level2">
+
+<p>
+De foarte multe ori, codul pe care îl scriem nu funcționează de la început așa cum ne dorim, deoarce conține cel puțin un <a href="https://en.wikipedia.org/wiki/Software_bug" class="urlextern" title="https://en.wikipedia.org/wiki/Software_bug"  rel="nofollow">bug</a>. Un bug poate să fie:
+</p>
+<ul>
+<li class="level1"><div class="li"> un comportament care nu este cel dorit (e.g. nu se obține rezultatul dorit / corect)</div>
+</li>
+<li class="level1"><div class="li"> când programul nu se termină (e.g. ciclează)</div>
+</li>
+<li class="level1"><div class="li"> când primim o eroare fatală neașteptată (e.g. <code>Segmentation fault</code>).</div>
+</li>
+</ul>
+
+<p>
+Primul pas este să răspundem la întrebarea “De ce nu merge?” (să găsim bug-ul), lucru care de cele mai multe ori este mai dificil decât rezolvarea propriu-zisă a problemei.
+</p>
+
+<p>
+O posibilă modalitate de a descoperi bugurile programului nostru este pur și simplu să ne uităm pe cod. Dacă problema este destul de evidentă, putem avea “noroc” să observăm repede bug-ul.
+</p>
+
+<p>
+<code>Debuggingul</code> este procesul prin care găsim și rezolvăm bugurile dintr-un program, skill foarte important pentru orice inginer software. Acesta constă în înțelegerea codului, formularea unor ipoteze (e.g. “Ar putea fi o problemă în funcția <code>foo()</code> ), folosirea mesajelor de log (e.g. <code>printf</code> ), a unor tooluri de debug (e.g. <code>gdb</code> ), etc.
+</p>
+
+</div>
+<!-- EDIT3 SECTION "De ce debugging?" [1830-3051] -->
+<h2 class="sectionedit4" id="debugging_in_practica">Debugging în practică</h2>
+<div class="level2">
+
+<p>
+<code>Debuggingul</code> este necesar în aproape orice aplicație din Computer Science și în aproape orice context, în diverse forme.
+</p>
+
+<p>
+În contextul în care o aplicație ajunge să fie folosită de un număr mare de utilizatori, este foarte posibil să apară și probleme care nu au fost întâmpinate în procesul de dezvoltare și testare. De asemenea, dacă singura informație disponibilă este “Ceva nu a mers cum trebuie la un utilizator”, este foarte greu să se rezolve un bug deoarece nu există context; nu știm în ce condiții s-a reprodus bugul.
+</p>
+
+<p>
+Din acest motiv, în industrie, aplicațiile produc și salvează mesaje de logging. Acestea conțin diverse informații despre starea aplicației, (e.g. funcția <code>x</code> s-a încheiat cu succes, operația <code>y</code> a eșuat din cauza erorii <code>z</code> ) care sunt foarte utile pentru a depista și rezolva problemele care au dus la eroare.
+</p>
+
+<p>
+De asemenea, în practică se folosesc foarte mult toolurile de debugging (e.g. <code>gdb</code> ), ce permit verificarea anumitor aspecte ale execuției unui program (e.g. pas cu pas ce instrucțiune se execută, ce zone de memorie se accesează, dacă se fac alocări etc).
+</p>
+
+</div>
+<!-- EDIT4 SECTION "Debugging în practică" [3052-4269] -->
+<h2 class="sectionedit5" id="logging">Logging</h2>
+<div class="level2">
+
+<p>
+Primul tool întâlnit de voi este <code>printf</code>. Adăugarea de mesage de logging în programarele voastre vă poate ajuta foarte multe în procesul de debugging.
+</p>
+
+<p>
+În industrie logurile pot ajuta la reproducerea fidelă a contextului în care a apărut problema semnalată.
+</p>
+
+<p>
+Consultați tutorialul de logging de pe ocw pentru mai multe detalii.
+</p>
+
+</div>
+<!-- EDIT5 SECTION "Logging" [4270-4638] -->
+<h2 class="sectionedit6" id="tooluri_de_debugging">Tooluri de debugging</h2>
+<div class="level2">
+
+<p>
+După cum a fost menționat anterior, există tooluri de debugging care ne permit să analizăm un program în timp ce rulează, eventual alternându-i flowul de execuție astfel încât să se descopere lucruri noi sau să se (in)valideze ipoteze despre bug.
+</p>
+
+</div>
+<!-- EDIT6 SECTION "Tooluri de debugging" [4639-4933] -->
+<h2 class="sectionedit7" id="gdb">GDB</h2>
+<div class="level2">
+
+<p>
+Un <code>debugger</code> este un <code>program</code> care permite rularea instrucțiune cu instrucțiune a unui <code>alt program</code> , inspectarea variabilelor și a zonelor de memorie și chiar modificarea acestora în timp real pentru a repara buguri. Acestă abordare se numește <code>analiză dinamică</code> , deoarece un program o dată pornit își schimbă starea internă (e.g. variabilele se modifică în timp).
+</p>
+
+<p>
+Cel mai popular debugger este GDB (<a href="https://www.gnu.org/software/gdb/" class="urlextern" title="https://www.gnu.org/software/gdb/"  rel="nofollow">The GNU Project Debugger</a>). Acesta oferă suport pentru programe scrise în diferite limbaje (e.g. C, C++, D, Rust, Assembly, Go).
+</p>
+
+<p>
+Vom prezenta în continuare folosirea acestui tool atât din linia de comandă, dar și din IDE.
+</p>
+
+</div>
+<!-- EDIT7 SECTION "GDB" [4934-5663] -->
+<h3 class="sectionedit8" id="debugging_in_linia_de_comanda">Debugging în linia de comandă</h3>
+<div class="level3">
+
+</div>
+
+<h4 id="instalare">Instalare</h4>
+<div class="level4">
+<ul>
+<li class="level1"><div class="li"> Linux - exemplu Ubuntu</div>
+</li>
+</ul>
+<pre class="code bash"><span class="co4">$ </span><span class="kw2">sudo</span> <span class="kw2">apt-get install</span> <span class="kw2">gdb</span></pre>
+<ul>
+<li class="level1"><div class="li"> MAC <abbr title="Operating System">OS</abbr></div>
+</li>
+</ul>
+<pre class="code bash"><span class="co4">$ </span>brew <span class="kw2">install</span> <span class="kw2">gdb</span></pre>
+
+</div>
+
+<h4 id="comenzi_uzuale">Comenzi uzuale</h4>
+<div class="level4">
+<ul>
+<li class="level1"><div class="li"> <code>r[un]</code> - pornește execuția unui program</div>
+</li>
+<li class="level1"><div class="li"> <code>start</code> - pornește execuția unui program și se oprește imediat după intrarea în main</div>
+</li>
+<li class="level1"><div class="li"> <code>s[tep]</code> - trece la următoarea instrucțiune (dacă este un apel de funcție, intră în funcție)</div>
+</li>
+<li class="level1"><div class="li"> <code>n[ext]</code> - trece la următoarea instrucțiune, dar daca este un apel de funcție, execută tot ce este în acea funcție și trece la următoarea instrucțiune din funcția curentă</div>
+</li>
+<li class="level1"><div class="li"> <code>b[reak]</code> - setează un breakpoint (un loc în program unde daca se ajunge, execuția programului se oprește - se așteaptă comenzi de la user în consola gdb)</div>
+</li>
+<li class="level1"><div class="li"> <code>c[ontinue]</code> - continuă execuția programului până la următorul breakpoint sau până la sfârșit</div>
+</li>
+<li class="level1"><div class="li"> <code>p[rint]</code> - afișează conținutul unor variabilele</div>
+</li>
+</ul>
+
+<p>
+Notă: Notația <code>r[un]</code> reprezintă faptul că ce este în paranteze drepte este opțional. Astfel, comenzile <code>run</code> și <code>r</code> sunt echivalente.
+</p>
+
+</div>
+
+<h4 id="exemplu">Exemplu</h4>
+<div class="level4">
+
+<p>
+Fie următorul cod C <code>buggy.c</code> care calculează suma și numărul elementelor pare dintr-un vector:
+</p>
+<pre class="code c"><span class="co1">// buggy.c</span>
+&nbsp;
+<span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span><span class="sy0">*</span> sum_even<span class="br0">&#40;</span><span class="kw4">int</span> n<span class="sy0">,</span> <span class="kw4">int</span> <span class="sy0">*</span>v<span class="sy0">,</span> <span class="kw4">int</span> <span class="sy0">*</span>cnt<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> s <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">*</span>v <span class="sy0">%</span> <span class="nu0">2</span> <span class="sy0">==</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            s <span class="sy0">+=</span> <span class="sy0">*</span>v<span class="sy0">;</span>
+            <span class="sy0">*</span>cnt<span class="sy0">++;</span>
+        <span class="br0">&#125;</span>
+        v <span class="sy0">+=</span> <span class="nu0">4</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="sy0">&amp;</span>s<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> v<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy0">=</span> <span class="br0">&#123;</span><span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">5</span><span class="sy0">,</span> <span class="nu0">4</span><span class="sy0">,</span> <span class="nu0">6</span><span class="sy0">,</span> <span class="nu0">1</span><span class="br0">&#125;</span><span class="sy0">;</span>
+    <span class="kw4">int</span> n <span class="sy0">=</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span>v<span class="br0">&#41;</span> <span class="sy0">/</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span>v<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw4">int</span> cnt <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+    <span class="kw4">int</span><span class="sy0">*</span> s <span class="sy0">=</span> sum_even<span class="br0">&#40;</span>n<span class="sy0">,</span> v<span class="sy0">,</span> <span class="sy0">&amp;</span>cnt<span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Suma: %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> <span class="sy0">*</span>s<span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Numar numere pare: %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> cnt<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Compilăm și rulăm codul:
+</p>
+<pre class="code bash">$ <span class="kw2">gcc</span> buggy.c <span class="re5">-o</span> buggy
+$ .<span class="sy0">/</span>buggy
+Segmentation fault <span class="br0">&#40;</span>core dumped<span class="br0">&#41;</span></pre>
+
+<p>
+Vedem că obținem o eroare de tipul <code>Segmentation fault</code>. Avem nevoie să vedem de unde provine ea, așa că pornim procesul de debugging. Ca să putem folosi programul <code>gdb</code> pentru debugging, avem nevoie să recompilăm programul cu flagul <code>-g</code>:
+</p>
+
+<details>
+
+<p>
+<summary>Explicație flag <code>-g</code> </summary> <code>gdb</code> folosește o <code>tabelă de simboluri</code> , care este o asociere dintre instrucțiunile din binar (programul compilat) și codul sursă. Acest lucru este necesar pentru ca noi să putem înțelege codul sursă.
+</p>
+
+<p>
+By default, această tabelă nu este stocată în executabil (deoarece ar ocupa spațiu extra, iar în unele cazuri nu ne putem permite acest lucru). Pentru a genera și stoca această tabelă de simboluri, se folosește flagul <code>-g</code> la compilare.
+</p>
+
+</details>
+<pre class="code bash"><span class="co4">$ </span><span class="kw2">gcc</span> <span class="re5">-g</span> buggy.c <span class="re5">-o</span> buggy</pre>
+
+<p>
+Interacțiunea cu <code>gdb</code> se face din <code>consola gdb</code> . Pentru a o deschide cu scopul de a face debug pentru <code>./buggy</code>, rulăm comanda:
+</p>
+<pre class="code bash"><span class="co4">$ </span><span class="kw2">gdb</span> .<span class="sy0">/</span>buggy</pre>
+
+<p>
+Avem de-a face cu un Segmentation fault. O posibilă primă abordare este să stabilim la ce instrucțiune se produce. Folosim <code>r</code> pentru a rula programul. Execuția programului se va opri la linia la care se produce <code>Segmentation fault</code>.
+</p>
+<pre class="code bash">Reading symbols from .<span class="sy0">/</span>buggy...
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> run
+&nbsp;
+Program received signal SIGSEGV, Segmentation fault.
+0x000055555555524d <span class="kw1">in</span> main <span class="br0">&#40;</span><span class="br0">&#41;</span> at buggy.c:<span class="nu0">26</span>
+<span class="nu0">26</span>      <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;Suma: %d<span class="es1">\n</span>&quot;</span>, <span class="sy0">*</span>s<span class="br0">&#41;</span>;</pre>
+
+<details>
+
+<p>
+<summary> Alternativa </summary> Folosim comanda <code>start</code> pentru a rula programul până se întră în <code>main</code> .
+</p>
+<pre class="code bash"><span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> start
+&nbsp;
+Temporary breakpoint <span class="nu0">1</span>, main <span class="br0">&#40;</span><span class="br0">&#41;</span> at buggy.c:<span class="nu0">21</span>
+<span class="nu0">21</span>  <span class="br0">&#123;</span></pre>
+
+<p>
+Acum rulăm pas cu pas (comanda n[ext]) până obținem Segmentation fault.
+</p>
+
+<p>
+Note: după ce rulăm o comanda, putem să apasăm doar Enter pentru a executa ultima comandă rulată.
+</p>
+<pre class="code bash"><span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> n
+<span class="nu0">22</span>      int v<span class="br0">&#91;</span><span class="br0">&#93;</span> = <span class="br0">&#123;</span><span class="nu0">2</span>, <span class="nu0">5</span>, <span class="nu0">4</span>, <span class="nu0">6</span>, <span class="nu0">1</span><span class="br0">&#125;</span>;
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> 
+<span class="nu0">23</span>      int n = sizeof<span class="br0">&#40;</span>v<span class="br0">&#41;</span> <span class="sy0">/</span> sizeof<span class="br0">&#40;</span>v<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> 
+<span class="nu0">24</span>      int cnt = <span class="nu0">0</span>;
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> 
+<span class="nu0">25</span>      int<span class="sy0">*</span> s = sum_even<span class="br0">&#40;</span>n, v, <span class="sy0">&amp;</span>cnt<span class="br0">&#41;</span>;
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> 
+<span class="nu0">26</span>      <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;Suma: %d<span class="es1">\n</span>&quot;</span>, <span class="sy0">*</span>s<span class="br0">&#41;</span>;
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> 
+&nbsp;
+Program received signal SIGSEGV, Segmentation fault.
+0x000055555555525b <span class="kw1">in</span> main <span class="br0">&#40;</span><span class="br0">&#41;</span> at buggy.c:<span class="nu0">26</span>
+<span class="nu0">26</span>      <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;Suma: %d<span class="es1">\n</span>&quot;</span>, <span class="sy0">*</span>s<span class="br0">&#41;</span>;</pre>
+
+</details>
+
+<p>
+Am descoperit că eroarea se produce la linia 26, atunci când printăm <code>*s</code> . În acest moment, variabila <code>s</code> este de interes. În acest punct, încă putem printa variabilele din program în consola gdb.
+</p>
+<pre class="code bash"><span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> p s
+<span class="re4">$1</span> = <span class="br0">&#40;</span>int <span class="sy0">*</span><span class="br0">&#41;</span> 0x0</pre>
+
+<p>
+<code>s</code> este NULL pointer (reamintim că in C, NULL este un pointer de tip void la adresa 0). Un prim indiciu ne este oferit chiar la compilare printr-un warning despre variabila <code>s</code> din funcția <code>sum_even</code> .
+</p>
+<pre class="code bash">buggy.c: In <span class="kw1">function</span> ‘sum_even’:
+buggy.c:<span class="nu0">17</span>:<span class="nu0">12</span>: warning: <span class="kw1">function</span> returns address of <span class="kw3">local</span> variable <span class="br0">&#91;</span>-Wreturn-local-addr<span class="br0">&#93;</span>
+   <span class="nu0">17</span> <span class="sy0">|</span>     <span class="kw3">return</span> <span class="sy0">&amp;</span>s;</pre>
+
+<p>
+Pentru a ieși din <code>gdb</code> , putem rula comanda <code>quit</code> / <code>q</code> sau apăsa Ctrl + D. Vom rula din nou <code>gdb</code> . De data aceasta, vom merge direct la linia 17, unde este `return &amp;s”. Vom face acest lucru setând un breakpoint la această linie.
+</p>
+<pre class="code bash">  <span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> b <span class="nu0">17</span>
+  Breakpoint <span class="nu0">1</span> at 0x11d7: <span class="kw2">file</span> buggy.c, line <span class="nu0">17</span>.
+&nbsp;
+  <span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> run
+  Breakpoint <span class="nu0">1</span>, sum_even <span class="br0">&#40;</span><span class="re2">v</span>=0x7fffffffdcf0, <span class="re2">cnt</span>=0x7fffffffdca4<span class="br0">&#41;</span> at buggy.c:<span class="nu0">17</span>
+  <span class="nu0">17</span>        <span class="kw3">return</span> <span class="sy0">&amp;</span>s;</pre>
+
+<p>
+Acum să printăm valoarea returnată, adică <code>&amp;s</code> .
+</p>
+<pre class="code bash"><span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> p <span class="sy0">&amp;</span>s
+<span class="re4">$2</span> = <span class="br0">&#40;</span>int <span class="sy0">*</span><span class="br0">&#41;</span> 0x7fffffffdc70</pre>
+
+<p>
+Aici adresa lui <code>s</code> este în regulă. De ce când este returnată adresa este validă, iar în main este <code>0x0</code> ? Cum putem rezolva problema?
+</p>
+
+<details>
+
+<p>
+<summary> Spoiler </summary>
+</p>
+
+<p>
+<code>s</code> este o variabilă locală în funcția <code>sum_even</code> , alocată pe stivă. În momentul în care se iese din funcție, <code>s</code> este scoasă de pe stivă si <code>&amp;s</code> nu mai este o adresă validă. Acest lucru duce la comportament nedefinit (<code>undefined behaviour</code>). În rularea anterioară, a fost întors <code>NULL pointer</code> și de aici a rezultat <code>Segmentation fault</code>
+</p>
+
+</details>
+<details>
+
+<p>
+<summary> Cod </summary>
+</p>
+<pre class="code c"><span class="co1">// buggy_fix1.c</span>
+&nbsp;
+<span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span> sum_even<span class="br0">&#40;</span><span class="kw4">int</span> n<span class="sy0">,</span> <span class="kw4">int</span> <span class="sy0">*</span>v<span class="sy0">,</span> <span class="kw4">int</span> <span class="sy0">*</span>cnt<span class="br0">&#41;</span> 
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> s <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">*</span>v <span class="sy0">%</span> <span class="nu0">2</span> <span class="sy0">==</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            s <span class="sy0">+=</span> <span class="sy0">*</span>v<span class="sy0">;</span>
+            <span class="sy0">*</span>cnt<span class="sy0">++;</span>
+        <span class="br0">&#125;</span>
+        v <span class="sy0">+=</span> <span class="nu0">4</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">return</span> s<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> v<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy0">=</span> <span class="br0">&#123;</span><span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">5</span><span class="sy0">,</span> <span class="nu0">4</span><span class="sy0">,</span> <span class="nu0">6</span><span class="sy0">,</span> <span class="nu0">1</span><span class="br0">&#125;</span><span class="sy0">;</span>
+    <span class="kw4">int</span> n <span class="sy0">=</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span>v<span class="br0">&#41;</span> <span class="sy0">/</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span>v<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw4">int</span> cnt <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+    <span class="kw4">int</span> s <span class="sy0">=</span> sum_even<span class="br0">&#40;</span>n<span class="sy0">,</span> v<span class="sy0">,</span> <span class="sy0">&amp;</span>cnt<span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Suma: %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> s<span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Numar numere pare: %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> cnt<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+</details>
+
+<p>
+Să compilăm și rulăm noul cod:
+</p>
+<pre class="code bash">$ <span class="kw2">gcc</span> <span class="re5">-g</span> buggy_fix1.c <span class="re5">-o</span> buggy
+$ .<span class="sy0">/</span>buggy
+Suma: <span class="nu0">453961250</span>
+Numar numere pare: <span class="nu0">0</span></pre>
+
+<p>
+De această dată am obținut niște rezultate, însă nu pe cele corecte.
+</p>
+
+<p>
+Rulam din nou <code>gdb</code> . Bănuim că problema este în funcția <code>sum_even</code> . Pentru a nu merge pas cu pas până în această funcție, vom pune un <code>breakpoint</code> la linia <code>11</code>, aceea fiind linia unde se modifică <code>s</code> .
+</p>
+
+<p>
+Notă: Când folosim breakpoint la linie, execuția se oprește chiar înainte de linia respectivă (linia care ne este afișată încă nu este executată).
+</p>
+<pre class="code bash">b <span class="sy0">`</span><span class="nu0">11</span><span class="sy0">`</span>
+Breakpoint <span class="nu0">1</span> at 0x1196: <span class="kw2">file</span> buggy.c, line <span class="nu0">11</span>.
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> run
+&nbsp;
+Breakpoint <span class="nu0">1</span>, sum_even <span class="br0">&#40;</span><span class="re2">v</span>=0x7fffffffdca0, <span class="re2">cnt</span>=0x7fffffffdc98<span class="br0">&#41;</span> at buggy.c:<span class="nu0">11</span>
+<span class="nu0">11</span>              s += <span class="sy0">*</span>v;
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> p s
+<span class="re4">$1</span> = <span class="nu0">0</span>     <span class="co0"># initial s este 0; este în regulă (încă nu s-a efectuat adunarea).</span>
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> c
+Continuing.
+&nbsp;
+Breakpoint <span class="nu0">1</span>, sum_even <span class="br0">&#40;</span><span class="re2">v</span>=0x7fffffffdcc0, <span class="re2">cnt</span>=0x7fffffffdc9c<span class="br0">&#41;</span> at buggy.c:<span class="nu0">11</span>
+<span class="nu0">11</span>              s += <span class="sy0">*</span>v;
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> p s
+<span class="re4">$2</span> = <span class="nu0">2</span>     <span class="co0"># primul număr din v este 2, este par, deci a fost adunat. Este OK.</span>
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> c
+Continuing.
+&nbsp;
+Breakpoint <span class="nu0">1</span>, sum_even <span class="br0">&#40;</span><span class="re2">v</span>=0x7fffffffdcd0, <span class="re2">cnt</span>=0x7fffffffdca0<span class="br0">&#41;</span> at buggy.c:<span class="nu0">11</span>
+<span class="nu0">11</span>              s += <span class="sy0">*</span>v;
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> p s
+<span class="re4">$3</span> = <span class="nu0">2</span>    <span class="co0"># următorul numar din v este 4; este tot par, ar fi trebuit adăugat la sumă. Ceva nu este OK.</span></pre>
+
+<p>
+Am descoperit “cam pe unde” este problema. Acum că am restrâns zona de căutare, vom rula instrucțiune cu instrucțiune pentru a găsi cauza. Momentan nu mai avem nevoie de breakpoint-ul de la linia 13.
+</p>
+
+<p>
+De fiecare dată când punem un breakpoint nou, acestuia i se asociază un număr. Pentru a vedea toate breakpoint-urile existente, putem folosi comanda <code>info b</code>.
+</p>
+<pre class="code bash"><span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> info b
+Num     Type           Disp Enb Address            What
+<span class="nu0">1</span>       breakpoint     keep y   0x0000555555555196 <span class="kw1">in</span> sum_even at buggy.c:<span class="nu0">11</span>
+    breakpoint already hit <span class="nu0">3</span> <span class="kw3">times</span></pre>
+
+<p>
+În acest moment avem un singur breakpoint, cel de la linia 11. Pentru exemplificare, o să mai adăugăm un breakpoint.
+</p>
+<pre class="code bash"><span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> b <span class="nu0">12</span>
+Breakpoint <span class="nu0">2</span> at 0x55555555519f: <span class="kw2">file</span> buggy.c, line <span class="nu0">12</span>.
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> info b
+Num     Type           Disp Enb Address            What
+<span class="nu0">1</span>       breakpoint     keep y   0x0000555555555196 <span class="kw1">in</span> sum_even at buggy.c:<span class="nu0">11</span>
+    breakpoint already hit <span class="nu0">3</span> <span class="kw3">times</span>
+<span class="nu0">2</span>       breakpoint     keep y   0x000055555555519f <span class="kw1">in</span> sum_even at buggy.c:<span class="nu0">12</span></pre>
+
+<p>
+Acum apare și acesta în lista de breakpoint-uri, cu numărul 2. Pentru a șterge un breakpoint, folosim comanda <code>d &lt;numar breakpoint&gt;</code> . Să ștergem breakpoint-ul cu numărul 2 și să adăugăm din nou un breakpoint la linia 14.
+</p>
+<pre class="code bash"><span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> d <span class="nu0">2</span>
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> info b
+Num     Type           Disp Enb Address            What
+<span class="nu0">1</span>       breakpoint     keep y   0x0000555555555196 <span class="kw1">in</span> sum_even at buggy.c:<span class="nu0">11</span>
+    breakpoint already hit <span class="nu0">3</span> <span class="kw3">times</span>
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> b <span class="nu0">12</span>
+Breakpoint <span class="nu0">3</span> at 0x55555555519f: <span class="kw2">file</span> buggy.c, line <span class="nu0">12</span>.
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> info b
+Num     Type           Disp Enb Address            What
+<span class="nu0">1</span>       breakpoint     keep y   0x0000555555555196 <span class="kw1">in</span> sum_even at buggy.c:<span class="nu0">11</span>
+    breakpoint already hit <span class="nu0">3</span> <span class="kw3">times</span>
+<span class="nu0">3</span>       breakpoint     keep y   0x000055555555519f <span class="kw1">in</span> sum_even at buggy.c:<span class="nu0">12</span></pre>
+
+<p>
+Se poate observa că noul breakpoint are acum numărul 3, deși nu există un breakpoint cu numărul 2. Pentru a șterge toate breakpoint-urile, folosim comanda <code>d</code> .
+</p>
+<pre class="code bash"><span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> d
+Delete all breakpoints? <span class="br0">&#40;</span>y or n<span class="br0">&#41;</span> y
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> info b
+No breakpoints or watchpoints.</pre>
+
+<p>
+Anterior am descoperit că este o problemă după ce se adună primul element din vector. Vom rula instrucțiune cu instrucțiune codul din funcția <code>sum_even</code> . Să punem un breakpoint la începutul funcției. Putem fie să punem la linia 8 ( <code>b 8</code> ), fie sa folosim numele funcției (comanda <code>b sum_even</code> ).
+</p>
+<pre class="code bash"><span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> b sum_even
+Breakpoint <span class="nu0">4</span> at 0x555555555179: <span class="kw2">file</span> buggy.c, line <span class="nu0">8</span>
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> run 
+The program being debugged has been started already.
+Start it from the beginning? <span class="br0">&#40;</span>y or n<span class="br0">&#41;</span> y
+&nbsp;
+Breakpoint <span class="nu0">4</span>, sum_even <span class="br0">&#40;</span><span class="re2">v</span>=0x7fffffffdca0, <span class="re2">cnt</span>=0x7fffffffdc98<span class="br0">&#41;</span> at buggy.c:<span class="nu0">8</span>
+<span class="nu0">8</span>       int s = <span class="nu0">0</span>;</pre>
+
+<p>
+Să trecem pas cu pas prin cod și să afișăm <code>s</code> și <code>v</code> .
+</p>
+
+<details>
+
+<p>
+<summary> Spoiler </summary>
+</p>
+<pre class="code bash"><span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> b sum_even
+Breakpoint <span class="nu0">1</span> at 0x117c: <span class="kw2">file</span> buggy.c, line <span class="nu0">8</span>.
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> r
+&nbsp;
+Breakpoint <span class="nu0">1</span>, sum_even <span class="br0">&#40;</span><span class="re2">n</span>=<span class="nu0">5</span>, <span class="re2">v</span>=0x7fffffffdcb0, <span class="re2">cnt</span>=0x7fffffffdca4<span class="br0">&#41;</span>
+    at buggy.c:<span class="nu0">8</span>
+<span class="nu0">8</span>       int s = <span class="nu0">0</span>;
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> n
+<span class="nu0">9</span>       <span class="kw1">for</span> <span class="br0">&#40;</span>int i = <span class="nu0">0</span>; i <span class="sy0">&lt;</span> n; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> 
+<span class="nu0">10</span>          <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">*</span>v <span class="sy0">%</span> <span class="nu0">2</span> == <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> 
+<span class="nu0">11</span>              s += <span class="sy0">*</span>v;
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> 
+<span class="nu0">12</span>              <span class="sy0">*</span>cnt++;
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> p s
+<span class="re4">$1</span> = <span class="nu0">2</span>
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> p v
+<span class="re4">$2</span> = <span class="br0">&#40;</span>int <span class="sy0">*</span><span class="br0">&#41;</span> 0x7fffffffdcb0
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> n
+<span class="nu0">14</span>          v += <span class="nu0">4</span>;
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> 
+<span class="nu0">9</span>       <span class="kw1">for</span> <span class="br0">&#40;</span>int i = <span class="nu0">0</span>; i <span class="sy0">&lt;</span> n; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> 
+<span class="nu0">10</span>          <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">*</span>v <span class="sy0">%</span> <span class="nu0">2</span> == <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> 
+<span class="nu0">14</span>          v += <span class="nu0">4</span>;
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> p v
+<span class="re4">$3</span> = <span class="br0">&#40;</span>int <span class="sy0">*</span><span class="br0">&#41;</span> 0x7fffffffdcc0
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> p <span class="sy0">*</span>v
+<span class="re4">$4</span> = <span class="nu0">1</span>
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> p s
+<span class="re4">$5</span> = <span class="nu0">2</span></pre>
+
+</details>
+
+<p>
+Ce observați?
+</p>
+
+<details>
+
+<p>
+<summary> Spoiler </summary> La a doua iterație, după operația <code>v += 4</code> , în loc să ajungem la v[1], ajungem la v[5]. v în loc să crească cu 4, a crescut cu 16 (0x7fffffffdcb0 - 0x7fffffffdca0). Este greșit <code>v += 4</code> . Operațiile pe pointeri funcționează în concordanță cu tipul pointerului. Dacă incrementăm un <code>int*</code> , valoarea acestuia va creste automat cu 4, pentru a pointa către următorul <code>int</code> . În schimb dacă incrementăm un <code>char*</code> , valoarea acestuia va crește cu 1.
+</p>
+
+<p>
+Reminder: <code>p + x</code> , crește adresa indicată de pointerul p cu <code>x * sizeof(T)</code> , unde <code>T</code> este tipul valorilor către care pointează <code>p</code> .
+</p>
+
+<p>
+Astfel, corect ar fi <code>v++</code> în loc de <code>v += 4</code> .
+</p>
+
+</details>
+
+<p>
+Să compilăm și rulăm din nou codul după ce corectăm această greșeală.
+</p>
+
+<p>
+De data aceasta am obținut suma corectă (<code>12</code>), însă numărul de numere pare este în continuare greșit. În codul nostru, un pointer către variabila <code>cnt</code> este pasat funcției <code>sum_even</code> și astfel valoarea acesteia modificată în <code>sum_even</code> va fi persistentă și în <code>main</code> (side effect).
+</p>
+
+<p>
+Singurul loc în care <code>cnt</code> este modificat este la linia <code>12</code>. Să punem un <code>breakpoint</code> acolo să vedem ce se întâmplă.
+</p>
+<pre class="code bash">Reading symbols from .<span class="sy0">/</span>buggy...
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> b <span class="nu0">12</span>
+Breakpoint <span class="nu0">1</span> at 0x11a2: <span class="kw2">file</span> buggy.c, line <span class="nu0">12</span>.
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> run
+&nbsp;
+Breakpoint <span class="nu0">1</span>, sum_even <span class="br0">&#40;</span><span class="re2">n</span>=<span class="nu0">5</span>, <span class="re2">v</span>=0x7fffffffdcb0, <span class="re2">cnt</span>=0x7fffffffdca4<span class="br0">&#41;</span>
+    at buggy.c:<span class="nu0">12</span>
+<span class="nu0">12</span>              <span class="sy0">*</span>cnt++;
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> p cnt
+<span class="re4">$1</span> = <span class="br0">&#40;</span>int <span class="sy0">*</span><span class="br0">&#41;</span> 0x7fffffffdca4
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> p <span class="sy0">*</span>cnt
+<span class="re4">$2</span> = <span class="nu0">0</span>
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> n
+<span class="nu0">14</span>          v++;
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> p cnt
+<span class="re4">$3</span> = <span class="br0">&#40;</span>int <span class="sy0">*</span><span class="br0">&#41;</span> 0x7fffffffdca8
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> p <span class="sy0">*</span>cnt
+<span class="re4">$4</span> = <span class="nu0">5</span></pre>
+
+<p>
+Ce observați? Ce se întâmplă atunci când se execută instrucțiunea <code>*cnt++</code> ?
+</p>
+
+<details>
+
+<p>
+<summary> Spoiler </summary> <code>cnt</code> nu este 1, cât ar trebui să fie. De asemenea, adresa către care pointează <code>cnt</code> s-a modificat (a crescut cu 4). <code>++</code> se aplică lui <code>cnt</code> , nu lui <code>*cnt</code> . <code>++</code> este post-increment, deci instrucțiunea face următoarele:
+</p>
+<ul>
+<li class="level1"><div class="li"> se aplică operatorul de derefențiere pe cnt (*cnt) și se obține primul element din vector (<code>2</code>).</div>
+</li>
+<li class="level1"><div class="li"> rezultatul este stocat in memorie</div>
+</li>
+<li class="level1"><div class="li"> <code>cnt</code> este incrementat</div>
+</li>
+<li class="level1"><div class="li"> rezultatul stocat in memorie este aruncat, deoarece nu se face nimic cu el</div>
+</li>
+</ul>
+
+<p>
+Este echivalent cu (ca rezultat, nu ca secventa de operații):
+</p>
+<pre class="code c"><span class="sy0">*</span>cnt<span class="sy0">;</span>
+cnt <span class="sy0">=</span> cnt <span class="sy0">+</span> <span class="nu0">1</span><span class="sy0">;</span></pre>
+
+<p>
+Comportamentul dorit este să încrementăm valoarea de la adresa cnt. De aceea, corect este <code>(*cnt)++</code>.
+</p>
+
+<p>
+De ce dupa prima incrementare, <code>*cnt</code> este 5? Este în acest caz <code>5</code> o valoare întâmplătoare?
+</p>
+
+<details>
+
+<p>
+<summary> Spoiler </summary> <code>5</code> este fix valoarea lui <code>n</code>. Deoarece <code>n</code> și <code>cnt</code> sunt variabile locale, ele vor fi alocate pe stivă. Ele sunt declarate consecutiv, de aceea vor avea adrese consecutive pe stivă. Atunci când <code>cnt</code> este incrementat în funcția <code>sum_even</code> (<code>cnt</code> este pointer aici<code>), va pointa fix către adresa lui</code>n<code>din</code>main`.
+</p>
+
+<p>
+Putem verifica acest lucru folosind gdb.
+</p>
+<pre class="code bash"><span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> b <span class="nu0">25</span>
+Breakpoint <span class="nu0">1</span> at 0x1210: <span class="kw2">file</span> buggy.c, line <span class="nu0">25</span>.
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> r
+&nbsp;
+Breakpoint <span class="nu0">1</span>, main <span class="br0">&#40;</span><span class="br0">&#41;</span> at buggy.c:<span class="nu0">25</span>
+<span class="nu0">25</span>      int s = sum_even<span class="br0">&#40;</span>n, v, <span class="sy0">&amp;</span>cnt<span class="br0">&#41;</span>;
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> p <span class="sy0">&amp;</span>n
+<span class="re4">$1</span> = <span class="br0">&#40;</span>int <span class="sy0">*</span><span class="br0">&#41;</span> 0x7fffffffdca8  <span class="co0"># fix cnt obținut în rularea anterioară</span>
+<span class="br0">&#40;</span><span class="kw2">gdb</span><span class="br0">&#41;</span> p <span class="sy0">&amp;</span>cnt
+<span class="re4">$2</span> = <span class="br0">&#40;</span>int <span class="sy0">*</span><span class="br0">&#41;</span> 0x7fffffffdca4</pre>
+
+</details>
+</details>
+
+<p>
+După ce corectăm și acest bug, compilăm și rulăm, ar trebui să obținem output-ul corect, și anume suma <code>12</code> și numărul de numere pare <code>3</code>.
+</p>
+
+</div>
+<!-- EDIT8 SECTION "Debugging în linia de comandă" [5664-21100] -->
+<h3 class="sectionedit9" id="debugging_in_ide">Debugging în IDE</h3>
+<div class="level3">
+
+</div>
+
+<h4 id="instalare1">Instalare</h4>
+<div class="level4">
+
+<p>
+În acest tutorial vom exemplifica cum folosim un debugger integrat în IDE. Vom folosi mediului de debugging din editorul <a href="https://code.visualstudio.com/" class="urlextern" title="https://code.visualstudio.com/"  rel="nofollow">Visual Studio Code</a> care poate fi descărcat de pe <a href="https://code.visualstudio.com/download" class="urlextern" title="https://code.visualstudio.com/download"  rel="nofollow">https://code.visualstudio.com/download</a>.
+</p>
+
+<p>
+Pentru a configura VS Code urmăm câțiva pași:
+</p>
+<ul>
+<li class="level1"><div class="li"> Instalăm <code>C/C++ for Visual Studio Code</code> plugin pentru VSCode</div>
+<ul>
+<li class="level2"><div class="li"> <code>CTRL + SHIFT + P</code>: deschiere prompt comenzi VS Code</div>
+</li>
+<li class="level2"><div class="li"> Căutăm și accesăm meniul <code>Extensions: Install Extension</code></div>
+</li>
+<li class="level2"><div class="li"> Căutăm după <code>C/C++</code></div>
+</li>
+<li class="level2"><div class="li"> Alegem extensia <code>C/C++ for Visual Studio Code</code> de la Microsoft</div>
+</li>
+<li class="level2"><div class="li"> Selectăm extensia și apăsăm <code>Install</code></div>
+</li>
+<li class="level2"><div class="li"> Închidem fereastra cu extensia.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> Ne asigurăm că avem tot proiectul (directorul principal) deschis în VS Code.</div>
+<ul>
+<li class="level2"><div class="li"> Presupunem exitența fișierului sursă <code>buggy.c</code>.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> Se configurează proiectul pentru debugging.</div>
+<ul>
+<li class="level2"><div class="li"> Se deschide o sursă C.</div>
+</li>
+<li class="level2"><div class="li"> Se selectează din partea stângă meniul <code>Run and Debug</code> (sau <code>CTRL + SHIFT + D</code>).</div>
+</li>
+<li class="level2"><div class="li"> Se apasă pe <code>Create a lauch.json file</code> pentru a se porni un nou config.</div>
+<ul>
+<li class="level3"><div class="li"> Se selectează <code>C++ (GDB / LLDB)</code>.</div>
+</li>
+<li class="level3"><div class="li"> Se selectează <code>gcc - Build and debug active file</code> (versiunea default de <code>gcc</code> de pe sistem)</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> Codul este automat compilat și rulat.</div>
+</li>
+<li class="level1"><div class="li"> În cazul codului <code>buggy.c</code>, se obține eroare de tipul <code>Segmentation fault</code> la derefențierea lui <code>s</code> din <code>main()</code>.</div>
+</li>
+</ul>
+
+<p>
+<a href="/courses/lib/exe/fetch.php?hash=04d540&amp;media=https%3A%2F%2Focw.cs.pub.ro%2Fcourses%2F_media%2Fprogramare%2Ftutoriale%2Fdebugging%2Fide%2Fconfiguration.gif" class="media" title="https://ocw.cs.pub.ro/courses/_media/programare/tutoriale/debugging/ide/configuration.gif"><img src="/courses/lib/exe/fetch.php?hash=04d540&amp;w=900&amp;tok=8ec0c2&amp;media=https%3A%2F%2Focw.cs.pub.ro%2Fcourses%2F_media%2Fprogramare%2Ftutoriale%2Fdebugging%2Fide%2Fconfiguration.gif" class="media" title=" IDE configuration" alt=" IDE configuration" width="900" /></a>
+</p>
+
+</div>
+
+<h4 id="exemplu1">Exemplu</h4>
+<div class="level4">
+
+<p>
+Putem rula un program în modul debugging folosind <code>Run -&gt; Start Debugging</code> sau <code>F5</code>.
+</p>
+
+<p>
+După pornirea acestui mod, obersăm că prin selectarea meniului <code>Run and Debug</code> din partea stângă (sau <code>CTRL + SHIFT + D</code>) avem mai multe ferestre afișate:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>VARIABLES</code>: fereastră unde putem observa valoarea tuturor variabilelor vizibile/folosite de program într-un moment dat al execuției.</div>
+</li>
+<li class="level1"><div class="li"> <code>WATCH</code>: fereastră unde putem vizualiza cum o expresie se modifică (e.g. <code>cnt</code>, <code>2 * cnt</code>).</div>
+</li>
+<li class="level1"><div class="li"> <code>CALLSTACK</code>: ferastră unde putem vedea succesiunea de apeluri de funcții (e.g. <code>g()</code> a fost apelată din <code>f()</code> , care a fost apelată din <code>main()</code>).</div>
+</li>
+</ul>
+
+<p>
+<a href="/courses/lib/exe/fetch.php?hash=ae7574&amp;media=https%3A%2F%2Focw.cs.pub.ro%2Fcourses%2F_media%2Fprogramare%2Ftutoriale%2Fdebugging%2Fide%2Fide-01.gif" class="media" title="https://ocw.cs.pub.ro/courses/_media/programare/tutoriale/debugging/ide/ide-01.gif"><img src="/courses/lib/exe/fetch.php?hash=ae7574&amp;w=900&amp;tok=d63547&amp;media=https%3A%2F%2Focw.cs.pub.ro%2Fcourses%2F_media%2Fprogramare%2Ftutoriale%2Fdebugging%2Fide%2Fide-01.gif" class="media" title=" IDE - 01" alt=" IDE - 01" width="900" /></a>
+</p>
+
+<p>
+În meniul din partea de jos observăm:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>TERMINAL</code>: terminalul în care rulează excutabilul, citește de la STDIN și afișează la STDOUT.</div>
+</li>
+<li class="level1"><div class="li"> <code>DEBUG CONSOLE</code>: fereastră unde se poate observa ce comanda gdb se rulează în spate.</div>
+</li>
+</ul>
+
+<p>
+<a href="/courses/lib/exe/fetch.php?hash=c1d282&amp;media=https%3A%2F%2Focw.cs.pub.ro%2Fcourses%2F_media%2Fprogramare%2Ftutoriale%2Fdebugging%2Fide%2Fide-02.gif" class="media" title="https://ocw.cs.pub.ro/courses/_media/programare/tutoriale/debugging/ide/ide-02.gif"><img src="/courses/lib/exe/fetch.php?hash=c1d282&amp;w=900&amp;tok=486c83&amp;media=https%3A%2F%2Focw.cs.pub.ro%2Fcourses%2F_media%2Fprogramare%2Ftutoriale%2Fdebugging%2Fide%2Fide-02.gif" class="media" title=" IDE - 02" alt=" IDE - 02" width="900" /></a>
+</p>
+
+<p>
+Pentru a pune un breakpoint, se selectează cu mouse-ul linia dorită. Meniul din partea superioară prezintă acțiuni:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>Continue</code> ⇔ gdb: <code>continue</code></div>
+</li>
+<li class="level1"><div class="li"> <code>Step Over</code> ⇔ gdb: <code>next</code></div>
+</li>
+<li class="level1"><div class="li"> <code>Step Into</code> ⇔ gdb: <code>step</code></div>
+</li>
+<li class="level1"><div class="li"> <code>Step Out</code> - opusul lui <code>step</code> (revenirea dintr-o funcție)</div>
+</li>
+<li class="level1"><div class="li"> <code>Restart</code> ⇔ gdb: <code>run</code></div>
+</li>
+<li class="level1"><div class="li"> <code>Stop</code> - oprește rularea în modul debugging</div>
+</li>
+</ul>
+
+<p>
+<a href="/courses/lib/exe/fetch.php?hash=c49208&amp;media=https%3A%2F%2Focw.cs.pub.ro%2Fcourses%2F_media%2Fprogramare%2Ftutoriale%2Fdebugging%2Fide%2Fide-03.gif" class="media" title="https://ocw.cs.pub.ro/courses/_media/programare/tutoriale/debugging/ide/ide-03.gif"><img src="/courses/lib/exe/fetch.php?hash=c49208&amp;w=900&amp;tok=e15adc&amp;media=https%3A%2F%2Focw.cs.pub.ro%2Fcourses%2F_media%2Fprogramare%2Ftutoriale%2Fdebugging%2Fide%2Fide-03.gif" class="media" title=" IDE - 03" alt=" IDE - 03" width="900" /></a>
+</p>
+
+</div>
+<!-- EDIT9 SECTION "Debugging în IDE" [21101-24464] -->
+<h3 class="sectionedit10" id="concluzie">Concluzie</h3>
+<div class="level3">
+
+<p>
+Am prezentat noțiunile de bază despre cum putem să folosim <code>gdb</code>, atât din linia de comandă, cât și din IDE, pentru a găsi bug-urile din cod în mod eficient, aplicate pe exemplul <code>buggy.c</code>.
+</p>
+
+</div>
+<!-- EDIT10 SECTION "Concluzie" [24465-24697] -->
+<h2 class="sectionedit11" id="valgrind">Valgrind</h2>
+<div class="level2">
+
+<p>
+Un aspect important din cadrul dezvoltării aplicațiilor software îl reprezintă <code>managementul memoriei</code>, întrucât lucrul incorect cu aceasta (bugurile de memorie) poate duce la numeroase probleme: memory leaks, open files, invalid memory accesses.
+</p>
+
+<p>
+— <a href="https://en.wikipedia.org/wiki/Memory_leak" class="urlextern" title="https://en.wikipedia.org/wiki/Memory_leak"  rel="nofollow">Memory leaks / memleaks</a> (leakuri de memorie) sunt acele <code>zone de memorie alocate</code> (e.g. cu <code>mallloc</code>) și pentru care aveam <code>inițial un pointer către adresa de început</code> (e.g. valoarea returnată de <code>malloc</code> a fost validată și stocată într-o variabilă de tip pointer), dar pentru care <code>ulterior am pierdut toate referințele</code> (e.g. nu mai avem acei pointeri - poate erau variabile locale într-o funcție și nu au fost salvați în main) și pe care <code>nu le mai putem elibera</code> (e.g. nu avem ce să pasăm către free).
+</p>
+
+<p>
+Aceste blocuri de memorie rămân blocate / neutilizabile până când programul se oprește, moment în care sistemul de operare eliberează toate resursele alocate pentru acel program.
+</p>
+
+<p>
+De ce credeți totuși că este un bug grav să ai memory leaks într-un program chiar dacă facem sistemul de operare curat la final?
+</p>
+
+<details>
+
+<p>
+<summary>Spoiler</summary>
+</p>
+
+<p>
+Leak-urile de memorie reprezintă buguri provocate de probleme de logică (a.k.a. dezvoltatorul a uitat să elibereze o resursă alocată etc).
+</p>
+
+<p>
+Dacă după alocarea resursei și pierderea referințelor (deci momentul în care apare leakul de memorie în cod), programul oricum urmează să se termine, atunci memoria se va elibera cu noroc imediat. Dacă programul se modifică pe viitor, norocul se poate schimba.
+</p>
+
+<p>
+Cele mai multe aplicații din prezent sunt livrate sub formă de serviciu sau folosesc în spate alte servicii / servere. Putem să ne imaginăm că un astfel de serviciu, precum YouTube, Facebook, Netflix, poate avea în spate procese care ideal rulează luni / ani întregi fără întrerupere. În cazul acesta, sistemul de operare nu poate ajuta pentru bugurile de tip memory leaks apărute în C. Rularea repetată a bucăților de cod dintr-un astfel de proces conduce la alocarea continua de memorie fără a se elibera vreodată. Dacă se ajunge spre capacitatea maximă de RAM a sistemului pe care se rulează, aplicația poate să crape / să fie oprită forțat de un sistem de monitorizare, rezultatul putând fi indisponibilitatea temporară a acelei aplicații, care poate implica costuri financiare enorme.
+</p>
+
+</details>
+
+<p>
+Analog putem detecta situații în care alte resurse nu sunt eliberate (în principiu au legătură directă sau indirectă tot cu memoria):
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>open files</code>: pentru orice fișier deschis (e.g. cu <code>fopen</code>) biblioteca C alocă resurse în spate (e.g. o structură de tipul <code>FILE</code>, care probabil este alocată cu <code>malloc</code>) trebuie să fie și închis atunci când nu îl mai folosim (e.g. cu <code>fclose</code>); operația de închidere dealocă resurse create la deschiderea fișierului (e.g. folosind <code>free</code>); prin urmare observăm corespondența directă <code>(fopen, fclose)</code> ↔ <code>(malloc, free)</code>.</div>
+</li>
+</ul>
+
+<p>
+Un tool foarte folosit pentru identificarea bugurilor legate de lucrul cu memoria este [valgrind<code>](https://valgrind.org/) (valgrind este de fapt o colecție de tooluri, însă în acest tutorial vom vorbi despre toolul default,</code>memcheck`). Cu ajutorul său putem identifica probleme precum accesarea unei zone de memorie nealocată sau eliberată de pe heap, leak-uri de memorie, fișiere neînchise etc.
+</p>
+
+</div>
+<!-- EDIT11 SECTION "Valgrind" [24698-28308] -->
+<h3 class="sectionedit12" id="instalare2">Instalare</h3>
+<div class="level3">
+<pre class="code bash"><span class="co4">$ </span><span class="kw2">sudo</span> <span class="kw2">apt-get install</span> <span class="kw2">valgrind</span></pre>
+
+<p>
+Să considerăm următorul cod C:
+</p>
+<pre class="code c"><span class="co1">// perfect_squares.c</span>
+&nbsp;
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+<span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span><span class="sy0">*</span> get_perfect_squares<span class="br0">&#40;</span><span class="kw4">int</span> n<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span><span class="sy0">*</span> perfect_squares <span class="sy0">=</span> <span class="br0">&#40;</span><span class="kw4">int</span><span class="sy0">*</span><span class="br0">&#41;</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/malloc.html"><span class="kw3">malloc</span></a><span class="br0">&#40;</span>n<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span>perfect_squares<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/perror.html"><span class="kw3">perror</span></a><span class="br0">&#40;</span><span class="st0">&quot;malloc&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/exit.html"><span class="kw3">exit</span></a><span class="br0">&#40;</span>EXIT_FAILURE<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        perfect_squares<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy0">=</span> i <span class="sy0">*</span> i<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw1">return</span> perfect_squares<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> n<span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/scanf.html"><span class="kw3">scanf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d&quot;</span><span class="sy0">,</span> <span class="sy0">&amp;</span>n<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw4">int</span><span class="sy0">*</span> squares <span class="sy0">=</span> get_perfect_squares<span class="br0">&#40;</span>n<span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Perfect squares:<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d &quot;</span><span class="sy0">,</span> squares<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Explicație <code>perror</code>(<a href="https://man7.org/linux/man-pages/man3/sys_nerr.3.html" class="urlextern" title="https://man7.org/linux/man-pages/man3/sys_nerr.3.html"  rel="nofollow">https://man7.org/linux/man-pages/man3/sys_nerr.3.html</a>):
+</p>
+
+<details>
+
+<p>
+<summary> Spoiler </summary> Atunci când o funcție din <code>libc</code> sau un apel de sistem produce o eroare, acestă eroare are un cod asociat (<code>cod de eroare</code>), care este salvat într-o variabilă numită <code>errno</code> (<a href="https://man7.org/linux/man-pages/man3/errno.3.html" class="urlextern" title="https://man7.org/linux/man-pages/man3/errno.3.html"  rel="nofollow">https://man7.org/linux/man-pages/man3/errno.3.html</a>). Cu ajutorul funcției <code>perror</code> putem afișa la <code>stderr</code> textul asociat ultimei erori.
+</p>
+
+<p>
+În exemplul de mai sus, în caz că s-a produs o eroare la <code>malloc</code> (<code>if (!perfect_squares)</code>), <code>perror(&quot;malloc&quot;);</code> va afișa la <code>stderr</code> mesajul primit ca parametru (<code>malloc</code>), urmat de motivul erorii.
+</p>
+
+</details>
+
+<p>
+Explicație <code>exit</code>(<a href="https://man7.org/linux/man-pages/man3/exit.3.html" class="urlextern" title="https://man7.org/linux/man-pages/man3/exit.3.html"  rel="nofollow">https://man7.org/linux/man-pages/man3/exit.3.html</a>):
+</p>
+
+<details>
+
+<p>
+<summary> Spoiler </summary> Aceasta funcție închide imediat procesul care a apelat-o. Toate fișierele deschise de catre proces sunt închise și memoria alocată este eliberată. Această funcție se folosește în general atunci se produce o eroare în urma căreia nu mai vrem să continuăm execuția programului.
+</p>
+
+<p>
+Alternativ, funcția ar putea întoarce <code>NULL</code>, dar nu înainte de a elibera memoria alocată până în acel punct.
+</p>
+
+</details>
+
+<p>
+La fel ca în cazul <code>gdb</code> , și acum vom compila folosind flag-ul <code>-g</code> .
+</p>
+<pre class="code bash"><span class="co4">$ </span><span class="kw2">gcc</span> <span class="re5">-g</span> perfect_squares.c <span class="re5">-o</span> perfect_squares</pre>
+
+<p>
+Programul afișează primele <code>n</code> pătrate perfecte (<code>n</code> citit de la <code>stdin</code>). Să rulăm pentru <code>n = 4</code>.
+</p>
+<pre class="code bash">$ .<span class="sy0">/</span>perfect_squares
+<span class="nu0">4</span>
+Perfect squares:
+<span class="nu0">0</span> <span class="nu0">1</span> <span class="nu0">4</span> <span class="nu0">9</span></pre>
+
+<p>
+Observăm că rezultatul obținut este corect. Însă acest lucru nu înseamnă neapărat că totul este asa cum ar trebui să fie.
+</p>
+
+<p>
+Să rulăm cu <code>valgrind</code>. Mai jos outputul a fost împărțit pe secțiuni pentru a fi mai clar.
+</p>
+
+<p>
+Notă: Când rulăm cu <code>valgrind</code>, programul tot se va executa. De aceea, tot îl va citi de la <code>stdin</code> pe <code>n</code> și va afișa la <code>stdout</code> pătratele perfecte.
+</p>
+
+<p>
+Informații despre <code>valgrind</code>:
+</p>
+<pre class="code">$ valgrind ./perfect_squares
+==446151== Memcheck, a memory error detector
+==446151== Copyright (C) 2002-2017, and GNU GPL&#039;d, by Julian Seward et al.
+==446151== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==446151== Command: ./perfect_squares
+==446151== 
+4</pre>
+
+<p>
+Erorile de memorie găsite:
+</p>
+<pre class="code">==446151== Invalid write of size 4
+==446151==    at 0x109289: get_perfect_squares (perfect_squares.c:15)
+==446151==    by 0x1092D9: main (perfect_squares.c:24)
+==446151==  Address 0x4a55484 is 0 bytes after a block of size 4 alloc&#039;d
+==446151==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==446151==    by 0x109244: get_perfect_squares (perfect_squares.c:8)
+==446151==    by 0x1092D9: main (perfect_squares.c:24)
+==446151== 
+Perfect squares:
+==446151== Invalid read of size 4
+==446151==    at 0x109307: main (perfect_squares.c:27)
+==446151==  Address 0x4a55484 is 0 bytes after a block of size 4 alloc&#039;d
+==446151==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==446151==    by 0x109244: get_perfect_squares (perfect_squares.c:8)
+==446151==    by 0x1092D9: main (perfect_squares.c:24)
+==446151== 
+0 1 4 9 </pre>
+
+<p>
+Sumar al memoriei alocate pe heap:
+</p>
+<pre class="code">==446151== HEAP SUMMARY:
+==446151==     in use at exit: 4 bytes in 1 blocks
+==446151==   total heap usage: 3 allocs, 2 frees, 2,052 bytes allocated</pre>
+
+<p>
+Sumar al leak-urilor de memorie:
+</p>
+<pre class="code">==446151== LEAK SUMMARY:
+==446151==    definitely lost: 4 bytes in 1 blocks
+==446151==    indirectly lost: 0 bytes in 0 blocks
+==446151==      possibly lost: 0 bytes in 0 blocks
+==446151==    still reachable: 0 bytes in 0 blocks
+==446151==         suppressed: 0 bytes in 0 blocks
+==446151== Rerun with --leak-check=full to see details of leaked memor</pre>
+
+<p>
+Sumar al erorilor:
+</p>
+<pre class="code">==592084== For lists of detected and suppressed errors, rerun with: -s
+==592084== ERROR SUMMARY: 6 errors from 2 contexts (suppressed: 0 from 0)</pre>
+
+<p>
+Putem observa ca avem erori. Avem un <code>invalid write</code> la linia 15 (<code>at 0x109289: get_perfect_squares (perfect_squares.c:15)</code>), care înseamnă că scriem într-o zonă de memorie invalidă / nealocată. De asemenea, avem și un <code>invalid read</code> la linia 27 (<code>at 0x109307: main (perfect_squares.c:27)</code> ), care înseamnă că încercăm să citim dintr-o zonă de memorie invalidă / nealocată. La acele linii accesăm vectorul <code>perfect_squares</code>.
+</p>
+
+<p>
+<code>Invalid write of size 4</code> reprezintă faptul că încercăm să scriem 4 bytes (un <code>int</code> ). Mesajul <code>Address 0x4a55484 is 0 bytes after a block of size 4 alloc&#039;d</code> ne spune faptul că la adresa unde încercăm să scriem avem 0 bytes alocați și că noi am alocat 4 bytes.
+</p>
+
+<p>
+Rulați programul și pentru alte valori ale lui n (e.g. 3, 8, 100). Pentru valori mai mare ale lui <code>n</code> primim <code>Aborted (core dumped)</code>.
+</p>
+
+<p>
+Care este problema?
+</p>
+
+<details>
+
+<p>
+<summary> Spoiler </summary> Am alocat doar 4 octeți. Din pagina de <a href="https://man7.org/linux/man-pages/man3/free.3.html" class="urlextern" title="https://man7.org/linux/man-pages/man3/free.3.html"  rel="nofollow">man malloc</a> putem vedea că parametrul <code>size</code> pe care îl primește este numărul de octeți. Astfel, alocarea ar trebui să fie <code>int* perfect_squares = (int*) malloc(n * sizeof(int))</code>. Alternativ, putem folosi sizeof(*perfect_squares) în loc de sizeof(int). În caz că vrem sa schimbăm din int în altceva (e.g. long long), nu trebuie să schimbăm în două locuri.
+</p>
+
+</details>
+
+<p>
+Rulăm din nou codul modificat și observăm că erorile au fost rezolvate. Însă în secțiunea <code>LEAK SUMMARY</code> observăm că avem leak-uri de memorie. Mai exact, 16 bytes pierduți (<code>definitely lost: 16 bytes in 1 blocks</code>), pentru <code>n = 4</code>.
+</p>
+
+<p>
+Ne este sugerată o opțiune foarte utilă atunci când rulăm valgrind și anume <code>--leak-check=full</code> ( <code>Rerun with --leak-check=full to see details of leaked memory</code> ). După cum spune și numele, folosind această opțiune, vom primi un raport mai detaliat al leak-urilor de memorie. Să facem acest lucru.
+</p>
+<pre class="code bash"><span class="co4">$ </span><span class="kw2">valgrind</span> <span class="re5">--leak-check</span>=full .<span class="sy0">/</span>perfect_squares</pre>
+
+<p>
+Acum raportul conține și locurile unde se produc leak-urile de memorie.
+</p>
+<pre class="code">==449199== 16 bytes in 1 blocks are definitely lost in loss record 1 of 1
+==449199==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==449199==    by 0x109248: get_perfect_squares (perfect_squares.c:8)
+==449199==    by 0x1092DD: main (perfect_squares.c:24)</pre>
+
+<p>
+Observăm că avem o alocare de memorie ce nu are un <code>free</code> asociat. Această alocare este la linia 8. Este nevoie să eliberăm memoria folosită pentru vectorul <code>perfect_squares</code> .
+</p>
+
+<details>
+
+<p>
+<summary> Cod corectat </summary>
+</p>
+<pre class="code c"><span class="co1">// perfect_squares.c</span>
+&nbsp;
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+<span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span><span class="sy0">*</span> get_perfect_squares<span class="br0">&#40;</span><span class="kw4">int</span> n<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span><span class="sy0">*</span> perfect_squares <span class="sy0">=</span> <span class="br0">&#40;</span><span class="kw4">int</span><span class="sy0">*</span><span class="br0">&#41;</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/malloc.html"><span class="kw3">malloc</span></a><span class="br0">&#40;</span>n <span class="sy0">*</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span>perfect_squares<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/perror.html"><span class="kw3">perror</span></a><span class="br0">&#40;</span><span class="st0">&quot;malloc&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/exit.html"><span class="kw3">exit</span></a><span class="br0">&#40;</span>EXIT_FAILURE<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        perfect_squares<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy0">=</span> i <span class="sy0">*</span> i<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw1">return</span> perfect_squares<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> n<span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/scanf.html"><span class="kw3">scanf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d&quot;</span><span class="sy0">,</span> <span class="sy0">&amp;</span>n<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw4">int</span><span class="sy0">*</span> squares <span class="sy0">=</span> get_perfect_squares<span class="br0">&#40;</span>n<span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;Perfect squares:<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d &quot;</span><span class="sy0">,</span> squares<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/free.html"><span class="kw3">free</span></a><span class="br0">&#40;</span>squares<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+</details>
+
+<p>
+</br>
+</p>
+
+<p>
+Putem observa că nu există nicio eroare (<code>ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)</code>) și nu este posibil niciun leak de memorie (<code>ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)</code>). Acesta este stadiul în care trebuia să ajungă programul.
+</p>
+<pre class="code">==449324== Memcheck, a memory error detector
+==449324== Copyright (C) 2002-2017, and GNU GPL&#039;d, by Julian Seward et al.
+==449324== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==449324== Command: ./perfect_squares
+==449324== 
+10
+Perfect squares:
+0 1 4 9 16 25 36 49 64 81 
+==449324== 
+==449324== HEAP SUMMARY:
+==449324==     in use at exit: 0 bytes in 0 blocks
+==449324==   total heap usage: 3 allocs, 3 frees, 2,088 bytes allocated
+==449324== 
+==449324== All heap blocks were freed -- no leaks are possible
+==449324== 
+==449324== For lists of detected and suppressed errors, rerun with: -s
+==449324== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)</pre>
+
+<p>
+Notă: Deși în cod avem un singur <code>malloc</code>, observăm că <code>valgrind</code> raportează faptul că avem 3 alocări de memorie pe heap. De unde provin celelalte două?
+</p>
+
+<details>
+
+<p>
+<summary>Spoiler</summary> Anumite funcții din biblioteca C pot aloca și ele memorie, însă în general nu este nevoie să ne preocupăm de acest lucru, deoarece aceasta este și eliberată tot de către biblioteca C.
+</p>
+
+<p>
+În cazul acesta, cel mai probabil atât <code>scanf</code>, cât și <code>printf</code> au alocat câte un buffer intern pentru <code>stdin</code> și respectiv <code>stdout</code>. Însă nu putem fi siguri că acest lucru este mereu valabil, întrucât implementările funcțiilor din biblioteca C pot să difere.
+</p>
+
+</details>
+
+<p>
+<br/>
+</p>
+
+</div>
+<!-- EDIT12 SECTION "Instalare" [28309-38518] -->
+<h3 class="sectionedit13" id="exempu_-_get_multiplication_table">Exempu - get_multiplication_table</h3>
+<div class="level3">
+
+<p>
+Să mai considerăm încă un exemplu. Avem o funcție care alocă dinamic o matrice în care stocăm tabla înmulțirii. Spre deosebire de exemplul precedent, în acest cod, se apelează <code>free(multiplication_table)</code>
+</p>
+<pre class="code c"><span class="co1">// multiplication_table.c</span>
+&nbsp;
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+<span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span><span class="sy0">**</span> get_multiplication_table<span class="br0">&#40;</span><span class="kw4">int</span> n<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span><span class="sy0">**</span> multiplication_table <span class="sy0">=</span> <span class="br0">&#40;</span><span class="kw4">int</span><span class="sy0">**</span><span class="br0">&#41;</span><a href="http://www.opengroup.org/onlinepubs/009695399/functions/malloc.html"><span class="kw3">malloc</span></a><span class="br0">&#40;</span>n <span class="sy0">*</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="sy0">*</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span>multiplication_table<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/perror.html"><span class="kw3">perror</span></a><span class="br0">&#40;</span><span class="st0">&quot;malloc&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/exit.html"><span class="kw3">exit</span></a><span class="br0">&#40;</span>EXIT_FAILURE<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        multiplication_table<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy0">=</span> <span class="br0">&#40;</span><span class="kw4">int</span><span class="sy0">*</span><span class="br0">&#41;</span><a href="http://www.opengroup.org/onlinepubs/009695399/functions/malloc.html"><span class="kw3">malloc</span></a><span class="br0">&#40;</span>n <span class="sy0">*</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span>multiplication_table<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <a href="http://www.opengroup.org/onlinepubs/009695399/functions/perror.html"><span class="kw3">perror</span></a><span class="br0">&#40;</span><span class="st0">&quot;malloc&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+            <a href="http://www.opengroup.org/onlinepubs/009695399/functions/exit.html"><span class="kw3">exit</span></a><span class="br0">&#40;</span>EXIT_FAILURE<span class="br0">&#41;</span><span class="sy0">;</span> 
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw1">for</span><span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">for</span><span class="br0">&#40;</span><span class="kw4">int</span> j <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> j <span class="sy0">&lt;</span> n<span class="sy0">;</span> j<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            multiplication_table<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#91;</span>j<span class="br0">&#93;</span> <span class="sy0">=</span> i <span class="sy0">*</span> j<span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw1">return</span> multiplication_table<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> n<span class="sy0">,</span> i<span class="sy0">,</span> j<span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/scanf.html"><span class="kw3">scanf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d&quot;</span><span class="sy0">,</span> <span class="sy0">&amp;</span>n<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw4">int</span><span class="sy0">**</span> multiplication_table <span class="sy0">=</span> get_multiplication_table<span class="br0">&#40;</span>n<span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/scanf.html"><span class="kw3">scanf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d%d&quot;</span><span class="sy0">,</span> <span class="sy0">&amp;</span>i<span class="sy0">,</span> <span class="sy0">&amp;</span>j<span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d * %d = %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> i<span class="sy0">,</span> j<span class="sy0">,</span> multiplication_table<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#91;</span>j<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/free.html"><span class="kw3">free</span></a><span class="br0">&#40;</span>multiplication_table<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Să compilăm și rulăm următorul cod, ce calculeaza și reține în memorie tabla înmulțirii pentru numerele de la <code>0</code> la <code>n-1</code>. Programul citește de la <code>stdin</code> un numărul <code>n</code> și două numere <code>i</code> și <code>j</code> pentru care va afișa <code>i * j</code>. Rezultatul printat pe ecran este cel așteptat. Acum să rulăm și valgrind.
+</p>
+<pre class="code">$ valgrind --leak-check=full ./multiplication_table 
+==503995== Memcheck, a memory error detector
+==503995== Copyright (C) 2002-2017, and GNU GPL&#039;d, by Julian Seward et al.
+==503995== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==503995== Command: ./multiplication_table
+==503995== 
+10
+7 8
+7 * 8 = 56
+==503995==
+==503995== HEAP SUMMARY:
+==503995==     in use at exit: 400 bytes in 10 blocks
+==503995==   total heap usage: 13 allocs, 3 frees, 2,528 bytes allocated
+==503995== 
+==503995== 400 bytes in 10 blocks are definitely lost in loss record 1 of 1
+==503995==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+==503995==    by 0x10927A: get_multiplication_table (multiplication_table.c:14)
+==503995==    by 0x10935A: main (multiplication_table.c:32)
+==503995== 
+==503995== LEAK SUMMARY:
+==503995==    definitely lost: 400 bytes in 10 blocks
+==503995==    indirectly lost: 0 bytes in 0 blocks
+==503995==      possibly lost: 0 bytes in 0 blocks
+==503995==    still reachable: 0 bytes in 0 blocks
+==503995==         suppressed: 0 bytes in 0 blocks
+==503995== 
+==503995== For lists of detected and suppressed errors, rerun with: -s
+==503995== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0
+</pre>
+
+<p>
+Avem leak-uri de memorie. De ce se întâmplă acest lucru? Hint: Avem 10 blocuri de memorie care nu au fost eliberate (<code>400 bytes in 10 blocks are definitely lost</code>).
+</p>
+
+<details>
+
+<p>
+<summary> Spoiler </summary>
+</p>
+
+<p>
+Putem observa că memoria care nu a fost eliberată a fost alocată la linia 16.
+</p>
+
+<p>
+Matricea noastră alocată dinamic este un pointer la un vector de pointeri. Astfel, prima dată este alocat vectorul de dimensiune <code>n</code> (linia 8), apoi alocăm <code>n</code> vectori de dimensiune <code>n</code>.
+</p>
+
+<p>
+La linia 36 (<code>free(multiplication_table);</code>)), dezalocăm vectorul de pointeri, pierzând astfel referințele către cei n vectori (care nu sunt și nici nu ar mai putea fi eliberati). De aceea trebuie ca mai întâi să dezalocam toti cei n vectori alocați la linia 16 și abia mai apoi vectorul exterior.
+</p>
+<pre class="code c"><span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/free.html"><span class="kw3">free</span></a><span class="br0">&#40;</span>multiplication_table<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<a href="http://www.opengroup.org/onlinepubs/009695399/functions/free.html"><span class="kw3">free</span></a><span class="br0">&#40;</span>multiplication_table<span class="br0">&#41;</span><span class="sy0">;</span></pre>
+
+</details>
+
+<p>
+Alternativă cod fără funcția <code>exit</code>:
+</p>
+
+<details>
+
+<p>
+<summary> Spoiler </summary>
+</p>
+<pre class="code c"><span class="co1">// multiplication_table.c</span>
+&nbsp;
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+<span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span><span class="sy0">**</span> get_multiplication_table<span class="br0">&#40;</span><span class="kw4">int</span> n<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span><span class="sy0">**</span> multiplication_table <span class="sy0">=</span> <span class="br0">&#40;</span><span class="kw4">int</span><span class="sy0">**</span><span class="br0">&#41;</span><a href="http://www.opengroup.org/onlinepubs/009695399/functions/malloc.html"><span class="kw3">malloc</span></a><span class="br0">&#40;</span>n <span class="sy0">*</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="sy0">*</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span>multiplication_table<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/perror.html"><span class="kw3">perror</span></a><span class="br0">&#40;</span><span class="st0">&quot;malloc&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="kw1">return</span> NULL<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        multiplication_table<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy0">=</span> <span class="br0">&#40;</span><span class="kw4">int</span><span class="sy0">*</span><span class="br0">&#41;</span><a href="http://www.opengroup.org/onlinepubs/009695399/functions/malloc.html"><span class="kw3">malloc</span></a><span class="br0">&#40;</span>n <span class="sy0">*</span> <span class="kw4">sizeof</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span>multiplication_table<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <span class="co1">// eliberare memorie alocată până în acest punct.</span>
+            <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> j <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> j <span class="sy0">&lt;</span> i<span class="sy0">;</span> j<span class="sy0">++</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+                <a href="http://www.opengroup.org/onlinepubs/009695399/functions/free.html"><span class="kw3">free</span></a><span class="br0">&#40;</span>multiplication_table<span class="br0">&#91;</span>j<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+            <span class="br0">&#125;</span>
+            <a href="http://www.opengroup.org/onlinepubs/009695399/functions/free.html"><span class="kw3">free</span></a><span class="br0">&#40;</span>multiplication_table<span class="br0">&#41;</span><span class="sy0">;</span>
+            <a href="http://www.opengroup.org/onlinepubs/009695399/functions/perror.html"><span class="kw3">perror</span></a><span class="br0">&#40;</span><span class="st0">&quot;malloc&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+            <a href="http://www.opengroup.org/onlinepubs/009695399/functions/exit.html"><span class="kw3">exit</span></a><span class="br0">&#40;</span>EXIT_FAILURE<span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw1">for</span><span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">for</span><span class="br0">&#40;</span><span class="kw4">int</span> j <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> j <span class="sy0">&lt;</span> n<span class="sy0">;</span> j<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            multiplication_table<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#91;</span>j<span class="br0">&#93;</span> <span class="sy0">=</span> i <span class="sy0">*</span> j<span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw1">return</span> multiplication_table<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> n<span class="sy0">,</span> i<span class="sy0">,</span> j<span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/scanf.html"><span class="kw3">scanf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d&quot;</span><span class="sy0">,</span> <span class="sy0">&amp;</span>n<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw4">int</span><span class="sy0">**</span> multiplication_table <span class="sy0">=</span> get_multiplication_table<span class="br0">&#40;</span>n<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span>multiplication_table<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span> EXIT_FAILURE<span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/scanf.html"><span class="kw3">scanf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d%d&quot;</span><span class="sy0">,</span> <span class="sy0">&amp;</span>i<span class="sy0">,</span> <span class="sy0">&amp;</span>j<span class="br0">&#41;</span><span class="sy0">;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;%d * %d = %d<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> i<span class="sy0">,</span> j<span class="sy0">,</span> multiplication_table<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#91;</span>j<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <a href="http://www.opengroup.org/onlinepubs/009695399/functions/free.html"><span class="kw3">free</span></a><span class="br0">&#40;</span>multiplication_table<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/free.html"><span class="kw3">free</span></a><span class="br0">&#40;</span>multiplication_table<span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+</details>
+
+</div>
+<!-- EDIT13 SECTION "Exempu - get_multiplication_table" [38519-43801] -->
+<h3 class="sectionedit14" id="concluzie1">Concluzie</h3>
+<div class="level3">
+
+<p>
+Am prezentat noțiunile de bază despre cum putem să folosim <code>valgrind</code> pentru a găsi bugurile din cod în mod eficient, aplicate pe câteva exemple.
+</p>
+
+<p>
+De obicei rulăm valgrind cu toate flagurile pe care le considerăm utile, pentru a găsi toate problemele deodată: <code>valgrind  --leak-check=full --show-leak-kinds=all --show-reachable=no --exit-code=1 ./executabil</code> (<code>--show-reachable=no</code> surprimă posibile warninguri provocate de biblioteci din sistem; în caz că programul are leakuri, procesul părinte - valgrind - iese cu codul specificat).
+</p>
+
+</div>
+<!-- EDIT14 SECTION "Concluzie" [43802-] --></div>
+</body>
+</html>

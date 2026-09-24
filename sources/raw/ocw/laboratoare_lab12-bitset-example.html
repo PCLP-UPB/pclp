@@ -1,0 +1,265 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:laboratoare:lab12-bitset-example</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-12-14T02:32:58+0200"/>
+<meta name="keywords" content="programare,laboratoare,lab12-bitset-example"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare:laboratoare"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/laboratoare/lab12-bitset-example"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab12-bitset-example"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:laboratoare';var JSINFO = {"id":"programare:laboratoare:lab12-bitset-example","namespace":"programare:laboratoare","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#codificare">Codificare</a></div></li>
+<li class="level4"><div class="li"><a href="#insert_-_exemplu_1">Insert - exemplu 1</a></div></li>
+<li class="level4"><div class="li"><a href="#insert_-_exemplu_2">Insert - exemplu 2</a></div></li>
+<li class="level4"><div class="li"><a href="#verificare_-_exemplu_1">Verificare - exemplu 1</a></div></li>
+<li class="level4"><div class="li"><a href="#delete_-_exemplu_1">Delete - exemplu 1</a></div></li>
+<li class="level4"><div class="li"><a href="#verificare_-_exemplu_11">Verificare - exemplu 1</a></div></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h4 id="codificare">Codificare</h4>
+<div class="level4">
+
+<p>
+Presupunem că avem vectorul <strong> unsigned char s[3]; </strong>. s[0], s[1], s[2] fiecare reprezintă câte o variabilă pe 8 biți pe care initial ii setam pe 0.
+</p>
+<div class="table sectionedit1"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">  </th><th class="col1 leftalign">     </th><th class="col2 leftalign">     </th><th class="col3 leftalign">     </th><th class="col4 centeralign">   s[0]  </th><th class="col5 leftalign">     </th><th class="col6 leftalign">     </th><th class="col7 leftalign">     </th><th class="col8 leftalign">     </th><th class="col9 leftalign">  </th><td class="col10 leftalign">   </td><th class="col11 leftalign">     </th><th class="col12 leftalign">     </th><th class="col13 leftalign">     </th><th class="col14 leftalign"> s[1]    </th><th class="col15 leftalign">     </th><th class="col16 leftalign">     </th><th class="col17 leftalign">     </th><th class="col18 leftalign">     </th><th class="col19 leftalign">   </th><td class="col20 leftalign">  </td><th class="col21 leftalign">     </th><th class="col22 leftalign">     </th><th class="col23 leftalign">     </th><th class="col24 leftalign"> s[2]    </th><th class="col25 leftalign">     </th><th class="col26 leftalign">     </th><th class="col27 leftalign">     </th><th class="col28 leftalign">     </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0"> </th><th class="col1">$b_7$</th><th class="col2">$b_ 6$</th><th class="col3">$b_5$</th><th class="col4">$b_4$</th><th class="col5">$b_3$</th><th class="col6">$b_2$</th><th class="col7">$b_1$</th><th class="col8">$b_0$</th><th class="col9 leftalign">  </th><td class="col10 leftalign">   </td><th class="col11"> $b_7$</th><th class="col12">$b_6$</th><th class="col13">$b_5$</th><th class="col14">$b_4$</th><th class="col15">$b_3$</th><th class="col16">$b_2$</th><th class="col17">$b_1$</th><th class="col18">$b_0$</th><th class="col19 leftalign">  </th><td class="col20 leftalign">   </td><th class="col21"> $b_7$</th><th class="col22">$b_6$</th><th class="col23">$b_5$</th><th class="col24">$b_4$</th><th class="col25">$b_3$</th><th class="col26">$b_2$</th><th class="col27">$b_1$</th><th class="col28">$b_0$</th>
+	</tr>
+	<tr class="row2">
+		<th class="col0"> biti din S </th><th class="col1 leftalign">0    </th><th class="col2 leftalign">0    </th><th class="col3 leftalign">0    </th><th class="col4 leftalign">0    </th><th class="col5 leftalign">0    </th><th class="col6 leftalign">0    </th><th class="col7 leftalign">0    </th><th class="col8 leftalign">0    </th><th class="col9 leftalign">  </th><td class="col10 leftalign">  </td><th class="col11 leftalign">0    </th><th class="col12 leftalign">0    </th><th class="col13 leftalign">0    </th><th class="col14 leftalign">0    </th><th class="col15 leftalign">0    </th><th class="col16 leftalign">0    </th><th class="col17 leftalign">0    </th><th class="col18 leftalign">0    </th><th class="col19 leftalign">    </th><td class="col20 leftalign">   </td><th class="col21 leftalign"> 0    </th><th class="col22 leftalign">0    </th><th class="col23 leftalign">0    </th><th class="col24 leftalign">0    </th><th class="col25 leftalign">0    </th><th class="col26 leftalign">0    </th><th class="col27 leftalign">0    </th><th class="col28 leftalign">0    </th>
+	</tr>
+</table></div>
+<!-- EDIT1 TABLE [175-689] -->
+<p>
+În plus facem următoarea asociere:
+</p>
+<div class="table sectionedit2"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">  </th><th class="col1 leftalign">     </th><th class="col2 leftalign">     </th><th class="col3 leftalign">     </th><th class="col4 centeralign">   s[0]  </th><th class="col5 leftalign">     </th><th class="col6 leftalign">     </th><th class="col7 leftalign">     </th><th class="col8 leftalign">     </th><th class="col9 leftalign">  </th><td class="col10 leftalign">   </td><th class="col11 leftalign">     </th><th class="col12 leftalign">     </th><th class="col13 leftalign">     </th><th class="col14 leftalign"> s[1]    </th><th class="col15 leftalign">     </th><th class="col16 leftalign">     </th><th class="col17 leftalign">     </th><th class="col18 leftalign">     </th><th class="col19 leftalign">   </th><td class="col20 leftalign">  </td><th class="col21 leftalign">     </th><th class="col22 leftalign">     </th><th class="col23 leftalign">     </th><th class="col24 leftalign"> s[2]    </th><th class="col25 leftalign">     </th><th class="col26 leftalign">     </th><th class="col27 leftalign">     </th><th class="col28 leftalign">     </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0"> </th><th class="col1">$b_7$</th><th class="col2">$b_ 6$</th><th class="col3">$b_5$</th><th class="col4">$b_4$</th><th class="col5">$b_3$</th><th class="col6">$b_2$</th><th class="col7">$b_1$</th><th class="col8">$b_0$</th><th class="col9 leftalign">  </th><td class="col10 leftalign">   </td><th class="col11"> $b_7$</th><th class="col12">$b_6$</th><th class="col13">$b_5$</th><th class="col14">$b_4$</th><th class="col15">$b_3$</th><th class="col16">$b_2$</th><th class="col17">$b_1$</th><th class="col18">$b_0$</th><th class="col19 leftalign">  </th><td class="col20 leftalign">   </td><th class="col21"> $b_7$</th><th class="col22">$b_6$</th><th class="col23">$b_5$</th><th class="col24">$b_4$</th><th class="col25">$b_3$</th><th class="col26">$b_2$</th><th class="col27">$b_1$</th><th class="col28">$b_0$</th>
+	</tr>
+	<tr class="row2">
+		<th class="col0"> biti din S </th><th class="col1 leftalign">0    </th><th class="col2 leftalign">0    </th><th class="col3 leftalign">0    </th><th class="col4 leftalign">0    </th><th class="col5 leftalign">0    </th><th class="col6 leftalign">0    </th><th class="col7 leftalign">0    </th><th class="col8 leftalign">0    </th><th class="col9 leftalign">  </th><td class="col10 leftalign">  </td><th class="col11 leftalign">0    </th><th class="col12 leftalign">0    </th><th class="col13 leftalign">0    </th><th class="col14 leftalign">0    </th><th class="col15 leftalign">0    </th><th class="col16 leftalign">0    </th><th class="col17 leftalign">0    </th><th class="col18 leftalign">0    </th><th class="col19 leftalign">    </th><td class="col20 leftalign">   </td><th class="col21 leftalign"> 0    </th><th class="col22 leftalign">0    </th><th class="col23 leftalign">0    </th><th class="col24 leftalign">0    </th><th class="col25 leftalign">0    </th><th class="col26 leftalign">0    </th><th class="col27 leftalign">0    </th><th class="col28 leftalign">0    </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0"> numere asociate</th><th class="col1">7</th><th class="col2">6</th><th class="col3">5</th><th class="col4">4</th><th class="col5">3</th><th class="col6">2</th><th class="col7">1</th><th class="col8">0</th><th class="col9"> </th><td class="col10"> </td><th class="col11">15</th><th class="col12">14</th><th class="col13">13</th><th class="col14">12</th><th class="col15">11</th><th class="col16">10</th><th class="col17">9</th><th class="col18">8</th><th class="col19"> </th><td class="col20"> </td><th class="col21">23</th><th class="col22">22</th><th class="col23">21</th><th class="col24">20</th><th class="col25">19</th><th class="col26">18</th><th class="col27">17</th><th class="col28">16</th>
+	</tr>
+</table></div>
+<!-- EDIT2 TABLE [729-1333] -->
+<p>
+Explicație:
+</p>
+<ul>
+<li class="level1"><div class="li"> numerele <strong>0, 8, 16</strong> au fost asociate cu bitul <strong>0</strong> ($b_0$) in bytes diferiti. Pentru că toate dau restul impartirii la 8 egal cu <strong>0</strong>;</div>
+</li>
+<li class="level1"><div class="li"> numerele <strong>1, 9, 17</strong> au fost asociate cu bit-ul <strong>1</strong> ($b_1$). Pentru că toate dau restul impartirii la 8 egal cu <strong>1</strong>;</div>
+</li>
+<li class="level1"><div class="li"> numerele <strong>2, 10, 18</strong> au fost asociate cu bit-ul <strong>2</strong> ($b_2$). Pentru că toate dau restul impartirii la 8 egal cu <strong>2</strong>;</div>
+</li>
+<li class="level1"><div class="li"> numerele <strong>3, 11, 19</strong> au fost asociate cu bit-ul <strong>3</strong> ($b_3$). Pentru că toate dau restul impartirii la 8 egal cu <strong>3</strong>;</div>
+<ul>
+<li class="level2"><div class="li"> …</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> numărul <strong>i</strong> a fost asociat cu bitul <strong> (i % 8) </strong> in byte-ul <strong>(i / 8)</strong>!</div>
+</li>
+</ul>
+
+<p>
+Observație! <strong>card_set(s) == 0</strong> (0 elemente in s) și <strong>is_empty_set(s) == 1</strong> (este <strong>adevărat</strong> că s e gol).
+</p>
+
+</div>
+
+<h4 id="insert_-_exemplu_1">Insert - exemplu 1</h4>
+<div class="level4">
+
+<p>
+Să presupunem că pe mulțimea s de mai sus (inițial goală) se execută operația următoarea:
+</p>
+<pre class="code cpp">insert_in_set<span class="br0">&#40;</span>s, <span class="nu0">8</span><span class="br0">&#41;</span><span class="sy4">;</span></pre>
+
+<p>
+Noua mulțime s este <strong>s = {8}</strong> și arată astfel:
+</p>
+<div class="table sectionedit3"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">  </th><th class="col1 leftalign">     </th><th class="col2 leftalign">     </th><th class="col3 leftalign">     </th><th class="col4 centeralign">   s[0]  </th><th class="col5 leftalign">     </th><th class="col6 leftalign">     </th><th class="col7 leftalign">     </th><th class="col8 leftalign">     </th><th class="col9 leftalign">  </th><td class="col10 leftalign">   </td><th class="col11 leftalign">     </th><th class="col12 leftalign">     </th><th class="col13 leftalign">     </th><th class="col14 leftalign"> s[1]    </th><th class="col15 leftalign">     </th><th class="col16 leftalign">     </th><th class="col17 leftalign">     </th><th class="col18 leftalign">     </th><th class="col19 leftalign">   </th><td class="col20 leftalign">  </td><th class="col21 leftalign">     </th><th class="col22 leftalign">     </th><th class="col23 leftalign">     </th><th class="col24 leftalign"> s[2]    </th><th class="col25 leftalign">     </th><th class="col26 leftalign">     </th><th class="col27 leftalign">     </th><th class="col28 leftalign">     </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0"> </th><th class="col1">$b_7$</th><th class="col2">$b_ 6$</th><th class="col3">$b_5$</th><th class="col4">$b_4$</th><th class="col5">$b_3$</th><th class="col6">$b_2$</th><th class="col7">$b_1$</th><th class="col8">$b_0$</th><th class="col9 leftalign">  </th><td class="col10 leftalign">   </td><th class="col11"> $b_7$</th><th class="col12">$b_6$</th><th class="col13">$b_5$</th><th class="col14">$b_4$</th><th class="col15">$b_3$</th><th class="col16">$b_2$</th><th class="col17">$b_1$</th><th class="col18">$b_0$</th><th class="col19 leftalign">  </th><td class="col20 leftalign">   </td><th class="col21"> $b_7$</th><th class="col22">$b_6$</th><th class="col23">$b_5$</th><th class="col24">$b_4$</th><th class="col25">$b_3$</th><th class="col26">$b_2$</th><th class="col27">$b_1$</th><th class="col28">$b_0$</th>
+	</tr>
+	<tr class="row2">
+		<th class="col0"> biti din S </th><th class="col1 leftalign">0    </th><th class="col2 leftalign">0    </th><th class="col3 leftalign">0    </th><th class="col4 leftalign">0    </th><th class="col5 leftalign">0    </th><th class="col6 leftalign">0    </th><th class="col7 leftalign">0    </th><th class="col8 leftalign">0    </th><th class="col9 leftalign">  </th><td class="col10 leftalign">  </td><th class="col11 leftalign">0    </th><th class="col12 leftalign">0    </th><th class="col13 leftalign">0    </th><th class="col14 leftalign">0    </th><th class="col15 leftalign">0    </th><th class="col16 leftalign">0    </th><th class="col17 leftalign">0    </th><th class="col18 leftalign">1    </th><th class="col19 leftalign">    </th><td class="col20 leftalign">   </td><th class="col21 leftalign"> 0    </th><th class="col22 leftalign">0    </th><th class="col23 leftalign">0    </th><th class="col24 leftalign">0    </th><th class="col25 leftalign">0    </th><th class="col26 leftalign">0    </th><th class="col27 leftalign">0    </th><th class="col28 leftalign">0    </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0"> numere asociate</th><th class="col1">7</th><th class="col2">6</th><th class="col3">5</th><th class="col4">4</th><th class="col5">3</th><th class="col6">2</th><th class="col7">1</th><th class="col8">0</th><th class="col9"> </th><td class="col10"> </td><th class="col11">15</th><th class="col12">14</th><th class="col13">13</th><th class="col14">12</th><th class="col15">11</th><th class="col16">10</th><th class="col17">9</th><th class="col18">8</th><th class="col19"> </th><td class="col20"> </td><th class="col21">23</th><th class="col22">22</th><th class="col23">21</th><th class="col24">20</th><th class="col25">19</th><th class="col26">18</th><th class="col27">17</th><th class="col28">16</th>
+	</tr>
+</table></div>
+<!-- EDIT3 TABLE [2301-2905] -->
+<p>
+Explicație: numărul <strong>8</strong> a fost asociat cu bitul 0 (<strong> 8 % 8 </strong>) in byte-ul 1 (<strong>8 / 8</strong>). Acest bit a fost facut 1.
+</p>
+
+<p>
+Observație! <strong>card_set(s) == 1</strong> (1 element in s) și <strong>is_empty_set(s) == 0</strong> (este <strong>false</strong> că s e gol).
+</p>
+
+</div>
+
+<h4 id="insert_-_exemplu_2">Insert - exemplu 2</h4>
+<div class="level4">
+
+<p>
+Să presupunem că pe mulțimea s curentă se execută operația următoarea:
+</p>
+<pre class="code cpp">insert_in_set<span class="br0">&#40;</span>s, <span class="nu0">19</span><span class="br0">&#41;</span><span class="sy4">;</span></pre>
+
+<p>
+Noua mulțime s este <strong>s = {8, 19}</strong> și arată astfel:
+</p>
+<div class="table sectionedit4"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">  </th><th class="col1 leftalign">     </th><th class="col2 leftalign">     </th><th class="col3 leftalign">     </th><th class="col4 centeralign">   s[0]  </th><th class="col5 leftalign">     </th><th class="col6 leftalign">     </th><th class="col7 leftalign">     </th><th class="col8 leftalign">     </th><th class="col9 leftalign">  </th><td class="col10 leftalign">   </td><th class="col11 leftalign">     </th><th class="col12 leftalign">     </th><th class="col13 leftalign">     </th><th class="col14 leftalign"> s[1]    </th><th class="col15 leftalign">     </th><th class="col16 leftalign">     </th><th class="col17 leftalign">     </th><th class="col18 leftalign">     </th><th class="col19 leftalign">   </th><td class="col20 leftalign">  </td><th class="col21 leftalign">     </th><th class="col22 leftalign">     </th><th class="col23 leftalign">     </th><th class="col24 leftalign"> s[2]    </th><th class="col25 leftalign">     </th><th class="col26 leftalign">     </th><th class="col27 leftalign">     </th><th class="col28 leftalign">     </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0"> </th><th class="col1">$b_7$</th><th class="col2">$b_ 6$</th><th class="col3">$b_5$</th><th class="col4">$b_4$</th><th class="col5">$b_3$</th><th class="col6">$b_2$</th><th class="col7">$b_1$</th><th class="col8">$b_0$</th><th class="col9 leftalign">  </th><td class="col10 leftalign">   </td><th class="col11"> $b_7$</th><th class="col12">$b_6$</th><th class="col13">$b_5$</th><th class="col14">$b_4$</th><th class="col15">$b_3$</th><th class="col16">$b_2$</th><th class="col17">$b_1$</th><th class="col18">$b_0$</th><th class="col19 leftalign">  </th><td class="col20 leftalign">   </td><th class="col21"> $b_7$</th><th class="col22">$b_6$</th><th class="col23">$b_5$</th><th class="col24">$b_4$</th><th class="col25">$b_3$</th><th class="col26">$b_2$</th><th class="col27">$b_1$</th><th class="col28">$b_0$</th>
+	</tr>
+	<tr class="row2">
+		<th class="col0"> biti din S </th><th class="col1 leftalign">0    </th><th class="col2 leftalign">0    </th><th class="col3 leftalign">0    </th><th class="col4 leftalign">0    </th><th class="col5 leftalign">0    </th><th class="col6 leftalign">0    </th><th class="col7 leftalign">0    </th><th class="col8 leftalign">0    </th><th class="col9 leftalign">  </th><td class="col10 leftalign">  </td><th class="col11 leftalign">0    </th><th class="col12 leftalign">0    </th><th class="col13 leftalign">0    </th><th class="col14 leftalign">0    </th><th class="col15 leftalign">0    </th><th class="col16 leftalign">0    </th><th class="col17 leftalign">0    </th><th class="col18 leftalign">1    </th><th class="col19 leftalign">    </th><td class="col20 leftalign">   </td><th class="col21 leftalign"> 0    </th><th class="col22 leftalign">0    </th><th class="col23 leftalign">0    </th><th class="col24 leftalign">0    </th><th class="col25 leftalign">1    </th><th class="col26 leftalign">0    </th><th class="col27 leftalign">0    </th><th class="col28 leftalign">0    </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0"> numere asociate</th><th class="col1">7</th><th class="col2">6</th><th class="col3">5</th><th class="col4">4</th><th class="col5">3</th><th class="col6">2</th><th class="col7">1</th><th class="col8">0</th><th class="col9"> </th><td class="col10"> </td><th class="col11">15</th><th class="col12">14</th><th class="col13">13</th><th class="col14">12</th><th class="col15">11</th><th class="col16">10</th><th class="col17">9</th><th class="col18">8</th><th class="col19"> </th><td class="col20"> </td><th class="col21">23</th><th class="col22">22</th><th class="col23">21</th><th class="col24">20</th><th class="col25">19</th><th class="col26">18</th><th class="col27">17</th><th class="col28">16</th>
+	</tr>
+</table></div>
+<!-- EDIT4 TABLE [3343-3947] -->
+<p>
+Explicație: numărul <strong>19</strong> a fost asociat cu bitul 3 (<strong> 19 % 8 </strong>) in byte-ul 2 (<strong>19 / 8</strong>). Acest bit a fost facut 1.
+</p>
+
+<p>
+Observație! <strong>card_set(s) == 2</strong> (2 elemente in s) și <strong>is_empty_set(s) == 0</strong> (este <strong>false</strong> că s e gol).
+</p>
+
+</div>
+
+<h4 id="verificare_-_exemplu_1">Verificare - exemplu 1</h4>
+<div class="level4">
+
+<p>
+Să presupunem că pe mulțimea s curentă se execută următoarele 2 operații:
+</p>
+<pre class="code cpp"><span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;%d&quot;</span>, is_in_set<span class="br0">&#40;</span>s, <span class="nu0">3</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>    <span class="co1">// afișează 0</span>
+<span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;%d&quot;</span>, is_in_set<span class="br0">&#40;</span>s, <span class="nu0">19</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>   <span class="co1">// afișează 1</span></pre>
+<ul>
+<li class="level1"><div class="li"> <strong> is_in_set(s, 3)</strong> returnează 0 pentru că 3 <strong>NU</strong> face parte din s (bitul $b_3$ din byteul s[0] este egal cu 0)</div>
+</li>
+<li class="level1"><div class="li"> <strong> is_in_set(s, 19)</strong> returnează 1 pentru că 19 face parte din s (bitul $b_3$ din byteul s[2] este egal cu 0)</div>
+</li>
+</ul>
+
+</div>
+
+<h4 id="delete_-_exemplu_1">Delete - exemplu 1</h4>
+<div class="level4">
+
+<p>
+Să presupunem că pe mulțimea s curentă se execută operația următoarea:
+</p>
+<pre class="code cpp">delete_from_set<span class="br0">&#40;</span>s, <span class="nu0">19</span><span class="br0">&#41;</span><span class="sy4">;</span></pre>
+
+<p>
+Noua mulțime s este <strong>s = {8}</strong> și arată astfel:
+</p>
+<div class="table sectionedit5"><table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">  </th><th class="col1 leftalign">     </th><th class="col2 leftalign">     </th><th class="col3 leftalign">     </th><th class="col4 centeralign">   s[0]  </th><th class="col5 leftalign">     </th><th class="col6 leftalign">     </th><th class="col7 leftalign">     </th><th class="col8 leftalign">     </th><th class="col9 leftalign">  </th><td class="col10 leftalign">   </td><th class="col11 leftalign">     </th><th class="col12 leftalign">     </th><th class="col13 leftalign">     </th><th class="col14 leftalign"> s[1]    </th><th class="col15 leftalign">     </th><th class="col16 leftalign">     </th><th class="col17 leftalign">     </th><th class="col18 leftalign">     </th><th class="col19 leftalign">   </th><td class="col20 leftalign">  </td><th class="col21 leftalign">     </th><th class="col22 leftalign">     </th><th class="col23 leftalign">     </th><th class="col24 leftalign"> s[2]    </th><th class="col25 leftalign">     </th><th class="col26 leftalign">     </th><th class="col27 leftalign">     </th><th class="col28 leftalign">     </th>
+	</tr>
+	<tr class="row1">
+		<th class="col0"> </th><th class="col1">$b_7$</th><th class="col2">$b_ 6$</th><th class="col3">$b_5$</th><th class="col4">$b_4$</th><th class="col5">$b_3$</th><th class="col6">$b_2$</th><th class="col7">$b_1$</th><th class="col8">$b_0$</th><th class="col9 leftalign">  </th><td class="col10 leftalign">   </td><th class="col11"> $b_7$</th><th class="col12">$b_6$</th><th class="col13">$b_5$</th><th class="col14">$b_4$</th><th class="col15">$b_3$</th><th class="col16">$b_2$</th><th class="col17">$b_1$</th><th class="col18">$b_0$</th><th class="col19 leftalign">  </th><td class="col20 leftalign">   </td><th class="col21"> $b_7$</th><th class="col22">$b_6$</th><th class="col23">$b_5$</th><th class="col24">$b_4$</th><th class="col25">$b_3$</th><th class="col26">$b_2$</th><th class="col27">$b_1$</th><th class="col28">$b_0$</th>
+	</tr>
+	<tr class="row2">
+		<th class="col0"> biti din S </th><th class="col1 leftalign">0    </th><th class="col2 leftalign">0    </th><th class="col3 leftalign">0    </th><th class="col4 leftalign">0    </th><th class="col5 leftalign">0    </th><th class="col6 leftalign">0    </th><th class="col7 leftalign">0    </th><th class="col8 leftalign">0    </th><th class="col9 leftalign">  </th><td class="col10 leftalign">  </td><th class="col11 leftalign">0    </th><th class="col12 leftalign">0    </th><th class="col13 leftalign">0    </th><th class="col14 leftalign">0    </th><th class="col15 leftalign">0    </th><th class="col16 leftalign">0    </th><th class="col17 leftalign">0    </th><th class="col18 leftalign">1    </th><th class="col19 leftalign">    </th><td class="col20 leftalign">   </td><th class="col21 leftalign"> 0    </th><th class="col22 leftalign">0    </th><th class="col23 leftalign">0    </th><th class="col24 leftalign">0    </th><th class="col25 leftalign">0    </th><th class="col26 leftalign">0    </th><th class="col27 leftalign">0    </th><th class="col28 leftalign">0    </th>
+	</tr>
+	<tr class="row3">
+		<th class="col0"> numere asociate</th><th class="col1">7</th><th class="col2">6</th><th class="col3">5</th><th class="col4">4</th><th class="col5">3</th><th class="col6">2</th><th class="col7">1</th><th class="col8">0</th><th class="col9"> </th><td class="col10"> </td><th class="col11">15</th><th class="col12">14</th><th class="col13">13</th><th class="col14">12</th><th class="col15">11</th><th class="col16">10</th><th class="col17">9</th><th class="col18">8</th><th class="col19"> </th><td class="col20"> </td><th class="col21">23</th><th class="col22">22</th><th class="col23">21</th><th class="col24">20</th><th class="col25">19</th><th class="col26">18</th><th class="col27">17</th><th class="col28">16</th>
+	</tr>
+</table></div>
+<!-- EDIT5 TABLE [4857-5461] -->
+<p>
+Explicație: numărul <strong>19</strong> a fost asociat cu bitul 3 (<strong> 19 % 8 </strong>) in byte-ul 2 (<strong>19 / 8</strong>). Acest bit a fost facut 0.
+</p>
+
+<p>
+Observație! <strong>card_set(s) == 1</strong> (1 element in s) și <strong>is_empty_set(s) == 0</strong> (este <strong>false</strong> că s e gol).
+</p>
+
+</div>
+
+<h4 id="verificare_-_exemplu_11">Verificare - exemplu 1</h4>
+<div class="level4">
+
+<p>
+Să presupunem că pe mulțimea s curentă se execută următoarele 2 operații:
+</p>
+<pre class="code cpp"><span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;%d&quot;</span>, is_in_set<span class="br0">&#40;</span>s, <span class="nu0">19</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>   <span class="co1">// afișează 0</span></pre>
+<ul>
+<li class="level1"><div class="li"> <strong> is_in_set(s, 19)</strong> returnează 0 pentru că 19 <strong>NU </strong> mai face parte din S (bitul $b_3$ din byteul s[2] este egal cu 0)</div>
+</li>
+</ul>
+
+</div>
+</div>
+</body>
+</html>

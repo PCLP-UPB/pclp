@@ -1,0 +1,8 @@
+08:00:00 INFO server pornit
+08:00:05 INFO conexiune noua 10.0.0.7
+08:03:10 WARN memorie 85%
+08:03:11 ERROR baza de date indisponibila
+08:15:00 INFO reconectare reusita
+8:16:00 INFO ora gresita
+08:20:30 DEBUG nivel necunoscut
+08:21:00 WARN raspuns lent

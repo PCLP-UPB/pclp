@@ -1,0 +1,71 @@
+id: lab05-p08-sortare-criterii
+lab: lab05
+number: 8
+title: "Sortare după criteriul ales"
+difficulty: 4
+estimated_minutes: 45
+concepts: [pointer la funcție, numele funcției ca pointer, aritmetică cu pointeri, funcție]
+statement: |
+  O aplicație de analiză a scorurilor permite utilizatorului să vadă aceeași listă de `n` numere întregi ordonată după diverse criterii. Criteriile au coduri:
+
+  | cod | criteriu |
+  |---|---|
+  | 1 | crescător |
+  | 2 | descrescător |
+  | 3 | după suma cifrelor valorii absolute, crescător; la egalitate, după valoare crescător |
+  | 4 | numerele pare înaintea celor impare; în fiecare grup, crescător |
+  | 5 | după valoarea absolută, crescător; la egalitate (ex. `-4` și `4`), negativul primul |
+
+  Pentru fiecare cod cerut, afișați lista **inițială** ordonată după criteriul respectiv.
+
+  Implementați o singură funcție de sortare, care primește criteriul ca pointer la funcție:
+
+  ```c
+  void sorteaza(int *v, int n, int (*cmp)(int, int));
+  ```
+
+  unde `cmp(a, b)` returnează o valoare negativă dacă `a` trebuie pus înaintea lui `b`, pozitivă dacă `a` trebuie pus după `b`, și 0 dacă sunt echivalente. Scrieți câte o funcție de comparare pentru fiecare criteriu și alegeți-o după cod folosind un **vector de pointeri la funcții** (fără `switch`/`if` pe cod).
+
+  **Date de intrare**
+
+  Pe prima linie `n`, pe a doua linie `n` întregi. Pe a treia linie `q`, apoi `q` linii cu câte un cod de criteriu.
+
+  **Date de ieșire**
+
+  Pentru fiecare cod `c`, o linie: `c:` urmat de cele `n` numere ordonate, fiecare precedat de un spațiu.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1000`, `1 ≤ q ≤ 10`, `1 ≤ c ≤ 5`
+  - numerele sunt întregi din `[-10^6, 10^6]`; suma cifrelor lui 0 este 0; 0 este par
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  6
+  42 -7 15 7 100 -42
+  5
+  1
+  2
+  3
+  4
+  5
+  ```
+
+  Ieșire:
+  ```
+  1: -42 -7 7 15 42 100
+  2: 100 42 15 7 -7 -42
+  3: 100 -42 15 42 -7 7
+  4: -42 42 100 -7 7 15
+  5: -7 7 15 -42 42 100
+  ```
+hints:
+  - "Numele unei funcții, scris fără paranteze, este adresa ei. Poți ține adresele celor cinci funcții de comparare într-un vector și poți alege una după cod."
+  - "Scrie sortarea (de exemplu prin inserție) o singură dată, folosind doar `cmp(x, y) > 0` pentru a decide dacă două elemente sunt în ordinea greșită. Criteriile compuse compară întâi cheia principală și, doar la egalitate, valorile."
+  - "Declarație: `int (*criterii[5])(int, int) = { f1, f2, f3, f4, f5 };`. Pentru fiecare cod: copiază vectorul original, apelează sorteaza(copie, n, criterii[c - 1]), afișează copia."
+pitfalls:
+  - "`x % 2 == 1` nu detectează numerele impare negative: în C, `-7 % 2 == -1`."
+  - "Fără paranteze în jurul lui `*cmp`, `int *cmp(int, int)` declară o funcție care returnează pointer, nu un pointer la funcție."
+  - "Dacă sortezi vectorul original în loc de o copie, criteriile următoare pornesc de la o ordine modificată (rezultatul final e același doar dacă criteriul e complet determinat — nu te baza pe asta)."

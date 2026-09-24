@@ -1,0 +1,923 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:tutoriale:unittests</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-11-04T15:39:02+0200"/>
+<meta name="keywords" content="programare,tutoriale,unittests"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare:tutoriale"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/tutoriale/unittests"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/tutoriale/unittests"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:tutoriale';var JSINFO = {"id":"programare:tutoriale:unittests","namespace":"programare:tutoriale","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level1"><div class="li"><a href="#cum_scriem_teste_unitare">Cum scriem teste unitare?</a></div>
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#cuprins">Cuprins</a></div></li>
+<li class="level2"><div class="li"><a href="#obiective">Obiective</a></div></li>
+<li class="level2"><div class="li"><a href="#suport_tutorial">Suport tutorial</a></div></li>
+<li class="level2"><div class="li"><a href="#de_ce_avem_nevoie_de_teste_unitare">De ce avem nevoie de teste unitare?</a></div></li>
+<li class="level2"><div class="li"><a href="#ce_este_un_test_unitar">Ce este un test unitar?</a></div></li>
+<li class="level2"><div class="li"><a href="#folosirea_frameworkului_google_test">Folosirea frameworkului Google Test</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#folosirea_unui_test_unitar">Folosirea unui test unitar</a></div></li>
+<li class="level3"><div class="li"><a href="#formatul_unui_test_unitar">Formatul unui test unitar</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#macro-uri_folosite_in_scrierea_testelor">Macro-uri folosite în scrierea testelor</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#principii_de_scriere">Principii de scriere</a></div></li>
+<li class="level3"><div class="li"><a href="#scrierea_unui_test_unitar">Scrierea unui test unitar</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#vector_cu_elemente_pozitive_si_distincte">Vector cu elemente pozitive și distincte</a></div></li>
+<li class="level4"><div class="li"><a href="#vector_cu_elemente_pozitive_duplicate">Vector cu elemente pozitive, duplicate</a></div></li>
+<li class="level4"><div class="li"><a href="#vector_cu_toate_elementele_egale_intre_ele">Vector cu toate elementele egale între ele</a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"><a href="#exercitii">Exerciții</a></div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h1 class="sectionedit1" id="cum_scriem_teste_unitare">Cum scriem teste unitare?</h1>
+<div class="level1">
+
+<p>
+<a href="/courses/_detail/pa/new_pa/partners/bitdefender_masterbrand_logo_positive.png?id=programare%3Atutoriale%3Aunittests" class="media" title="pa:new_pa:partners:bitdefender_masterbrand_logo_positive.png"><img src="/courses/_media/pa/new_pa/partners/bitdefender_masterbrand_logo_positive.png?w=190&amp;tok=01f884" class="medialeft" alt="" width="190" /></a>
+Bitdefender este un lider recunoscut în domeniul securității IT, care oferă soluții superioare de prevenție, detecție și răspuns la incidente de securitate cibernetică. Milioane de sisteme folosite de oameni, companii și instituții guvernamentale sunt protejate de soluțiile companiei, ceea ce face Bitdefender unul dintre cei mai de încredere experți în combaterea amenințărilor informatice, în protejarea intimității și datelor, a identității digitale și în consolidarea rezilienței la atacuri. Compania a inovat constant în domenii precum antimalware, Internetul Lucrurilor, analiză comportamentală și inteligență artificială, iar tehnologiile Bitdefender sunt licențiate către peste 180 dintre cele mai cunoscute branduri de securitate din lume.
+</p>
+
+<p>
+<strong>Resposabili</strong>:
+</p>
+<ul>
+<li class="level1"><div class="li"> Cristi Olaru</div>
+</li>
+<li class="level1"><div class="li"> Cristi Pătrașcu</div>
+</li>
+<li class="level1"><div class="li"> Cristi Popa</div>
+</li>
+<li class="level1"><div class="li"> Darius Neațu</div>
+</li>
+<li class="level1"><div class="li"> Liza Babu</div>
+</li>
+<li class="level1"><div class="li"> Radu Nichita</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT1 SECTION "Cum scriem teste unitare?" [1-1025] -->
+<h2 class="sectionedit2" id="cuprins">Cuprins</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a href="#obiective" title="programare:tutoriale:unittests ↵" class="wikilink1">Obiective</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#suport_tutorial" title="programare:tutoriale:unittests ↵" class="wikilink1">Suport tutorial</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#de_ce_avem_nevoie_de_teste_unitare" title="programare:tutoriale:unittests ↵" class="wikilink1">De ce avem nevoie de teste unitare?</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#ce_este_un_test_unitar" title="programare:tutoriale:unittests ↵" class="wikilink1">Ce este un test unitar?</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#folosirea_frameworkului_google_test" title="programare:tutoriale:unittests ↵" class="wikilink1">Folosirea frameworkului Google Test</a></div>
+<ul>
+<li class="level2"><div class="li"> <a href="#folosirea_unui_test_unitar" title="programare:tutoriale:unittests ↵" class="wikilink1">Folosirea unui test unitar</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#formatul_unui_test_unitar" title="programare:tutoriale:unittests ↵" class="wikilink1">Formatul unui test unitar</a></div>
+<ul>
+<li class="level3"><div class="li"> <a href="#macro-uri_folosite_in_scrierea_testelor" title="programare:tutoriale:unittests ↵" class="wikilink1">Macro-uri folosite în scrierea testelor</a></div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"> <a href="#principii_de_scriere" title="programare:tutoriale:unittests ↵" class="wikilink1">Principii de scriere</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#scrierea_unui_test_unitar" title="programare:tutoriale:unittests ↵" class="wikilink1">Scrierea unui test unitar</a></div>
+<ul>
+<li class="level3"><div class="li"> <a href="#vector_cu_elemente_pozitive_si_distincte" title="programare:tutoriale:unittests ↵" class="wikilink1">Vector cu elemente pozitive și distincte</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="#vector_cu_elemente_pozitive_duplicate" title="programare:tutoriale:unittests ↵" class="wikilink1">Vector cu elemente pozitive, duplicate</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="#vector_cu_toate_elementele_egale_intre_ele" title="programare:tutoriale:unittests ↵" class="wikilink1">Vector cu toate elementele egale între ele</a></div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <a href="#exercitii" title="programare:tutoriale:unittests ↵" class="wikilink1">Exerciții</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT2 SECTION "Cuprins" [1026-1992] -->
+<h2 class="sectionedit3" id="obiective">Obiective</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> De ce facem acest tutorial?</div>
+<ul>
+<li class="level2"><div class="li"> este important să testăm codul pe care îl scriem</div>
+</li>
+<li class="level2"><div class="li"> orice modificare nouă a codului nu trebuie să afecteze funcționalitatea veche a codului, prevenim asta prin teste unitare</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> Care este aplicabilitatea practică?</div>
+<ul>
+<li class="level2"><div class="li"> sunt automate, odată ce sunt scrise, sunt ușor de rulat și putem vedea ușor problemele din cod</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> Ce vom învăța prin parcurgerea acestui material?</div>
+<ul>
+<li class="level2"><div class="li"> ce este, cum se folosește, și cum se scrie un test unitar corect (respectând principiile de scriere)</div>
+</li>
+<li class="level2"><div class="li"> de ce avem nevoie de teste unitare în cadrul unui proiect</div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+<!-- EDIT3 SECTION "Obiective" [1993-2614] -->
+<h2 class="sectionedit4" id="suport_tutorial">Suport tutorial</h2>
+<div class="level2">
+
+<p>
+În acest tutorial vom folosi și scrie teste unitare (eng. unit tests) pentru un set de funcții care conțin algoritmi matematici. Pentru unii algoritmi, testele unitare sunt deja scrise, iar pentru alții vor exista exerciții pentru exersarea skillurilor dobândite în urma parcurgerii acestor tutoriale.
+</p>
+
+<p>
+Înainte să începem acest tutorial, descărcăm arhiva cu resurse:
+</p>
+<pre class="code bash">$ <span class="kw3">cd</span> ~
+$ <span class="kw2">wget</span> https:<span class="sy0">//</span>ocw.cs.pub.ro<span class="sy0">/</span>courses<span class="sy0">/</span>_media<span class="sy0">/</span>programare<span class="sy0">/</span>tutoriale<span class="sy0">/</span>unittests<span class="sy0">/</span>algorithms.zip
+$ <span class="kw2">unzip</span> algorithms.zip
+$ <span class="kw2">tree</span> support<span class="sy0">/</span>
+support<span class="sy0">/</span>
+├── algorithms.c
+├── algorithms.h
+├── algorithms_test.c
+├── macros_test.c
+└── Makefile
+&nbsp;
+<span class="nu0">0</span> directories, <span class="nu0">5</span> files</pre>
+
+</div>
+<!-- EDIT4 SECTION "Suport tutorial" [2615-3330] -->
+<h2 class="sectionedit5" id="de_ce_avem_nevoie_de_teste_unitare">De ce avem nevoie de teste unitare?</h2>
+<div class="level2">
+
+<p>
+Atunci când lucrăm la un proiect, personal sau din industrie, îi acordăm atenție mai mult timp. Adică, nu dezvoltăm tot proiectul în aceeași zi, ci mai degrabă ne setăm un deadline până când vrem să fie gata și ne organizăm în funcție de data aleasă. Astfel, spargem proiectul în mai multe bucăți, numite și feature-uri, pe care le dezvoltăm pe rând, dar care pot fi dependente de părțile la care am lucrat înainte.
+</p>
+
+<p>
+În acest tutorial, vom scrie teste unitare pentru funcții matematice (<a href="https://en.wikipedia.org/wiki/Greatest_common_divisor" class="urlextern" title="https://en.wikipedia.org/wiki/Greatest_common_divisor"  rel="nofollow">GCD</a>, <a href="https://en.wikipedia.org/wiki/Least_common_multiple" class="urlextern" title="https://en.wikipedia.org/wiki/Least_common_multiple"  rel="nofollow">LCM</a>, etc.), care pot fi, sau nu, dependente între ele. Pe acest exemplu, algoritmul LCM depinde de gcd, astfel dacă GCD este problematic (a.k.a. <em>are buguri</em>), vom avea buguri și în LCM. Astfel, vrem să ne asigurăm că, înainte să trecem la LCM, GCD este implementat corect.
+</p>
+
+<p>
+Avem 2 moduri prin care putem să testăm codul nostru:
+</p>
+<ul>
+<li class="level1"><div class="li"> manual, apelând funcția noastră de mai multe ori, cu parametri diferiți de la apel la apel</div>
+<ul>
+<li class="level2"><div class="li"> avantaje:</div>
+<ul>
+<li class="level3"><div class="li"> rapid, testare pe moment</div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"> dezavantaje:</div>
+<ul>
+<li class="level3"><div class="li"> nu este o metodă persistentă, dacă nu salvăm comenzile și rezultatele așteptate pentru teste, a doua zi va trebui să refacem testele</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> scriind teste unitare pentru fiecare funcționalitate în parte</div>
+<ul>
+<li class="level2"><div class="li"> avantaje:</div>
+<ul>
+<li class="level3"><div class="li"> testele rămân scrise undeva, pot fi rulate din nou când e nevoie (e.g. când vrem să revalidăm funcționalitatea în urma unei noi modificări)</div>
+</li>
+<li class="level3"><div class="li"> automate</div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"> dezavantaje:</div>
+<ul>
+<li class="level3"><div class="li"> timpul de dezvoltare mai mare (un feature nu se poate considera terminat din punct de vedere implementare până nu s-au scris toate testele)</div>
+</li>
+<li class="level3"><div class="li"> testele (de orice fel) reprezintă cod scris de programator și acesta <strong>trebuie</strong> să respecte aceleași standarde ca și codul de feature-uri (e.g. coding style, review, etc)</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+<!-- EDIT5 SECTION "De ce avem nevoie de teste unitare?" [3331-5287] -->
+<h2 class="sectionedit6" id="ce_este_un_test_unitar">Ce este un test unitar?</h2>
+<div class="level2">
+
+<p>
+Atunci când testăm o funcție pe care am scris-o, trebuie să ne gândim cu ce date de intrare (parametrii, fișiere de input, etc.) să o apelăm astfel încât să validăm funcționalitatea ei. De cele mai multe ori, există mai multe cazuri de testare. Spre exemplu, când testăm algoritmul gcd, avem următoarele cazuri:
+</p>
+<ul>
+<li class="level1"><div class="li"> ambele numere sunt pozitive:</div>
+<ul>
+<li class="level2"><div class="li"> în care numerele sunt prime între ele</div>
+</li>
+<li class="level2"><div class="li"> numerele nu sunt prime între ele, iar cel mai mare divizor comun este mai mic decât ambele numere</div>
+</li>
+<li class="level2"><div class="li"> numerele nu sunt prime între ele, iar numărul mai mic este chiar cel mai mare divizor comun</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> cel puțin un număr este negativ, caz în care algoritmul nu se poate aplica, iar funcția noastră GCD trebuie să trateze această situație</div>
+</li>
+</ul>
+
+<p>
+Pentru toate cazurile prezentare mai sus, vom scrie un test unitar. Un <strong>test unitar</strong> este o funcție care apelează funcția noastră (e.g. GCD) cu date de intrare specifice (parametrii, fișiere, etc.). Dacă avem mai multe cazuri de test, vom scrie mai multe teste unitare, câte unul pentru fiecare caz de test.
+</p>
+
+<p>
+Funcția GCD este scrisă în C, declarată în <code>~/support/algorithms.h</code> și definită în <code>~/support/algorithms.c</code> și are următoarea semnătură:
+</p>
+<pre class="code cpp"><span class="kw4">int</span> gcd<span class="br0">&#40;</span><span class="kw4">int</span> first_number, <span class="kw4">int</span> second_number<span class="br0">&#41;</span><span class="sy4">;</span></pre>
+
+<p>
+Mai jos este un exemplu de cum arată un test unitar scris pentru funcția <code>gcd</code>:
+</p>
+<pre class="code cpp">TEST <span class="br0">&#40;</span>gcd, common_case<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    EXPECT_EQ<span class="br0">&#40;</span><span class="nu0">9</span>, gcd<span class="br0">&#40;</span><span class="nu0">81</span>, <span class="nu0">153</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Detaliem formatul unui test unitar, cum îl compilăm și cum îl rulăm în următoarele secțiuni.
+</p>
+
+</div>
+<!-- EDIT6 SECTION "Ce este un test unitar?" [5288-6903] -->
+<h2 class="sectionedit7" id="folosirea_frameworkului_google_test">Folosirea frameworkului Google Test</h2>
+<div class="level2">
+
+<p>
+Pentru scrierea testelor unitare putem să scriem un cod sursă C din care să apelăm funcțiile pe care vrem să le testăm sau putem să folosim un framework dedicat pentru scrierea testelor unitare. Avantajul framework-ului este faptul că ne pune la dispoziție metode prin care putem să scriem testele rapid, concentrându-ne astfel pe ce teste scriem, și nu pe cum să le scriem.
+</p>
+
+<p>
+În acest tutorial am ales să folosim <a href="https://github.com/google/googletest" class="urlextern" title="https://github.com/google/googletest"  rel="nofollow">Google Test</a>, care este un framework dezvoltat pentru scrierea testelor unitare pentru programe C++, însă poate fi folosit pentru programele scrise în C.
+</p>
+<blockquote><div class="no">
+ De reținut este faptul că Google Test nu este singurul framework disponibil pentru a scrie teste unitare, noi îl folosim în tutorial ca tool pentru a ne îndeplini scopul de a scrie teste unitare. Principiile pe care le prezentăm în acest tutorial sunt aceleași pentru orice framework pe care îl alegem.</div></blockquote>
+
+<p>
+Înainte să trecem mai departe, trebuie să instalăm frameworkul la noi pe calculator. Pe Ubuntu rulăm comanda:
+</p>
+<pre class="code bash">$ <span class="kw2">sudo</span> apt <span class="re5">-y</span> <span class="kw2">install</span> libgtest-dev
+<span class="br0">&#91;</span>...<span class="br0">&#93;</span></pre>
+
+<p>
+În continuare ne vom acomoda cu formatul testelor unitare și ulterior vom adăuga noi teste pe măsură ce vom avea nevoie de ele.
+</p>
+
+</div>
+<!-- EDIT7 SECTION "Folosirea frameworkului Google Test" [6904-8205] -->
+<h3 class="sectionedit8" id="folosirea_unui_test_unitar">Folosirea unui test unitar</h3>
+<div class="level3">
+
+<p>
+În această secțiune vom vedea cum rulăm un test unitar deja existent, fără să înțelegem care este formatul lui.
+</p>
+
+<p>
+Ne mutăm în directorul <code>~/support</code> unde găsim următoarele fișiere:
+</p>
+<pre class="code bash">$ <span class="kw3">cd</span> ~<span class="sy0">/</span>support
+$ <span class="kw2">ls</span>
+total <span class="nu0">16</span>
+<span class="re5">-rw-rw-r--</span> <span class="nu0">1</span> username username <span class="nu0">478</span> dec <span class="nu0">14</span> <span class="nu0">15</span>:07 algorithms.c
+<span class="re5">-rw-rw-r--</span> <span class="nu0">1</span> username username <span class="nu0">316</span> dec <span class="nu0">12</span> <span class="nu0">21</span>:<span class="nu0">29</span> algorithms.h
+<span class="re5">-rw-rw-r--</span> <span class="nu0">1</span> username username <span class="nu0">118</span> dec <span class="nu0">14</span> <span class="nu0">15</span>:<span class="nu0">28</span> algorithms_test.c
+<span class="re5">-rw-rw-r--</span> <span class="nu0">1</span> username username <span class="nu0">381</span> dec <span class="nu0">14</span> <span class="nu0">15</span>:<span class="nu0">41</span> Makefile</pre>
+
+<p>
+În fișierele <code>algorithms.h</code> și <code>algorithms.c</code> avem declarările și definițiile funcțiilor matematice pe care vrem să le testăm în acest tutorial.
+</p>
+<pre class="code cpp">$ cat algorithms.<span class="me1">h</span>
+<span class="co2">#ifndef __ALGORITHMS_H__</span>
+<span class="co2">#define __ALGORITHMS_H__</span>
+&nbsp;
+<span class="kw4">int</span> gcd<span class="br0">&#40;</span><span class="kw4">int</span> first_number, <span class="kw4">int</span> second_number<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="kw4">int</span> lcm<span class="br0">&#40;</span><span class="kw4">int</span> first_number, <span class="kw4">int</span> second_number<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="kw4">int</span> binary_search<span class="br0">&#40;</span><span class="kw4">int</span> <span class="sy2">*</span>array, <span class="kw4">int</span> array_size, <span class="kw4">int</span> to_find<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="kw4">void</span> bubble_sort<span class="br0">&#40;</span><span class="kw4">int</span> <span class="sy2">*</span>array<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="kw4">char</span> <span class="sy2">*</span>caesar_cipher<span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy2">*</span>original<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="kw4">int</span> is_prime<span class="br0">&#40;</span><span class="kw4">int</span> number<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="kw4">int</span> factorial<span class="br0">&#40;</span><span class="kw4">int</span> number<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+<span class="co2">#endif</span></pre>
+
+<p>
+Pentru funcția <code>gcd</code> avem teste unitare definite în fișierul <code>algorithms_test.c</code>:
+</p>
+<pre class="code cpp">$ cat algorithms_test.<span class="me1">c</span>
+<span class="co2">#include &lt;gtest/gtest.h&gt;</span>
+&nbsp;
+<span class="co2">#include &quot;algorithms.h&quot;</span>
+&nbsp;
+TEST<span class="br0">&#40;</span>gcd, common_case<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    EXPECT_EQ<span class="br0">&#40;</span><span class="nu0">9</span>, gcd<span class="br0">&#40;</span><span class="nu0">81</span>, <span class="nu0">153</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+TEST<span class="br0">&#40;</span>gcd, common_one<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    EXPECT_EQ<span class="br0">&#40;</span><span class="nu0">1</span>, gcd<span class="br0">&#40;</span><span class="nu0">1</span>, <span class="nu0">2346</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+TEST<span class="br0">&#40;</span>gcd, common_same_numbers<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    EXPECT_EQ<span class="br0">&#40;</span><span class="nu0">55</span>, gcd<span class="br0">&#40;</span><span class="nu0">55</span>, <span class="nu0">55</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Momentan vom compila testele deja existente și le vom rula ca să ne acomodăm cu folosirea lor:
+</p>
+<pre class="code bash">$ <span class="kw2">make</span> algorithms_test
+<span class="kw2">g++</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> <span class="re5">-c</span> <span class="re5">-o</span> algorithms.o algorithms.c
+<span class="kw2">g++</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> <span class="re5">-c</span> <span class="re5">-o</span> algorithms_test.o algorithms_test.c
+<span class="kw2">g++</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> <span class="re5">-o</span> algorithms_test algorithms.o algorithms_test.o <span class="re5">-lgtest</span> -lgtest_main <span class="re5">-lpthread</span>
+&nbsp;
+$ <span class="kw2">make</span> run_algorithms_test 
+.<span class="sy0">/</span>algorithms_test
+<span class="re5">-Running</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> from <span class="sy0">/</span>build<span class="sy0">/</span>googletest-j5yxiC<span class="sy0">/</span>googletest-1.10.0<span class="sy0">/</span>googletest<span class="sy0">/</span>src<span class="sy0">/</span>gtest_main.cc
+-<span class="br0">&#91;</span>==========<span class="br0">&#93;</span> Running <span class="nu0">3</span> tests from <span class="nu0">1</span> <span class="kw3">test</span> suite.
+-<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> Global <span class="kw3">test</span> environment set-up.
+-<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> <span class="nu0">3</span> tests from gcd
+-<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> gcd.common_case
+-<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> gcd.common_case <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+-<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> gcd.common_one
+-<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> gcd.common_one <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+-<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> gcd.common_same_numbers
+-<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> gcd.common_same_numbers <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+-<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> <span class="nu0">3</span> tests from gcd <span class="br0">&#40;</span><span class="nu0">0</span> ms total<span class="br0">&#41;</span>
+-
+-<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> Global <span class="kw3">test</span> environment tear-down
+-<span class="br0">&#91;</span>==========<span class="br0">&#93;</span> <span class="nu0">3</span> tests from <span class="nu0">1</span> <span class="kw3">test</span> suite ran. <span class="br0">&#40;</span><span class="nu0">0</span> ms total<span class="br0">&#41;</span>
+-<span class="br0">&#91;</span>  PASSED  <span class="br0">&#93;</span> <span class="nu0">3</span> tests.</pre>
+
+<p>
+Outputul de mai sus arată că toate cele 3 teste au trecut cu succes.
+</p>
+
+</div>
+<!-- EDIT8 SECTION "Folosirea unui test unitar" [8206-10733] -->
+<h3 class="sectionedit9" id="formatul_unui_test_unitar">Formatul unui test unitar</h3>
+<div class="level3">
+
+<p>
+În această secțiune vedem care este formatul unui test unitar și ce MACRO-uri sunt puse la dispoziție de Google Test pentru a ne ușura munca.
+</p>
+
+<p>
+Luăm ca exemplu testul <code>gcd.common_case</code> care verifică dacă funcția <code>gcd()</code> apelată cu parametri <code>81</code> și <code>153</code> întoarce valoarea <code>9</code> (pentru că cel mai mare divizor comun dintre <code>81</code> și <code>153</code> este <code>9</code>.. duh?!). Testul arată în felul următor:
+</p>
+<pre class="code cpp">$ cat algorithms_test.<span class="me1">c</span>
+<span class="co2">#include &lt;gtest/gtest.h&gt;</span>
+&nbsp;
+<span class="co2">#include &quot;algorithms.h&quot;</span>
+&nbsp;
+TEST <span class="br0">&#40;</span>gcd, common_case<span class="br0">&#41;</span> <span class="br0">&#123;</span> 
+    EXPECT_EQ<span class="br0">&#40;</span><span class="nu0">9</span>, gcd<span class="br0">&#40;</span><span class="nu0">81</span>, <span class="nu0">153</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="br0">&#91;</span>...<span class="br0">&#93;</span></pre>
+
+<p>
+Lucrurile pe care le observăm referitoare la acest test, și pe care trebuie să le urmăm atunci când vom scrie pe viitor noi fișiere de test, sunt următoarele:
+</p>
+<ul>
+<li class="level1"><div class="li"> includem headerul <code>algorithms.h</code> pentru a putea apela funcția <code>greatest_common_divisor</code> de aici</div>
+</li>
+<li class="level1"><div class="li"> includem headerul <code>gtest/gtest.h</code> pe prima linie a fișierului de test pentru a putea folosi MACRO-urile <code>TEST</code> și <code>EXPECT_EQ</code>.</div>
+</li>
+<li class="level1"><div class="li"> MACRO-ul <code>TEST</code> ne permite să scriem un test unitar. Cei 2 parametrii ai săi sunt:</div>
+<ul>
+<li class="level2"><div class="li"> <code>gcd</code>, care referă suita de teste din care vrem să facă parte testul nostru. Spre exemplu, aici am numit sugestiv suita de teste GCD pentru că testul verifică funcționalitatea lui <code>gcd</code>.</div>
+</li>
+<li class="level2"><div class="li"> <code>common_case</code>, numele testului care face parte din suita <code>gcd</code>.</div>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+În cadrul MACRO-ului <code>TEST</code>, apelăm funcția pe care vrem să o testăm. În acest caz, testăm funcția <code>gcd</code> cu parametri <code>81</code> și <code>153</code>. Verificăm dacă valoarea întoarsă de funcția <code>gcd</code> întoarce valoarea pe care ne așteptăm să o întoarcă (<code>9</code> în acest exemplu) folosind MACRO-ul <code>EXPECT_EQ</code>. Într-o implementare naivă, <code>EXPECT_EQ</code> este echivalent cu:
+</p>
+<pre class="code cpp"><span class="kw1">if</span> <span class="br0">&#40;</span><span class="nu0">9</span> <span class="sy1">==</span> gcd<span class="br0">&#40;</span><span class="nu0">8</span>, <span class="nu0">153</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;SUCCESS<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span> <span class="kw1">else</span> <span class="br0">&#123;</span>
+  <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;FAILED<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+</div>
+
+<h4 id="macro-uri_folosite_in_scrierea_testelor">Macro-uri folosite în scrierea testelor</h4>
+<div class="level4">
+
+<p>
+Documentația completă pentru Google Test se află <a href="https://google.github.io/googletest/" class="urlextern" title="https://google.github.io/googletest/"  rel="nofollow">aici</a>, iar toate macro-urile pe care le putem folosi în scrierea testelor se află <a href="https://google.github.io/googletest/reference/assertions.html" class="urlextern" title="https://google.github.io/googletest/reference/assertions.html"  rel="nofollow">aici</a>.
+</p>
+
+<p>
+În exemplul de mai jos, am folosit <code>EXPECT_EQ / ASSERT_EQ</code>, însă principiile de funcționare sunt aceleași pentru toate MACRO-urile puse la dispoziție de Google Test.
+</p>
+
+<p>
+Înainte să trecem prin exemplele de mai jos, compilăm exemplul cu MACRO-uri rulând comanda <code>make macros</code>:
+</p>
+<pre class="code bash">$ <span class="kw2">make</span> macros_test
+<span class="kw2">g++</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> <span class="re5">-c</span> <span class="re5">-o</span> macros_test.o macros_test.c
+<span class="kw2">g++</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> <span class="re5">-o</span> macros_test macros_test.o <span class="re5">-lgtest</span> -lgtest_main <span class="re5">-lpthread</span></pre>
+
+<p>
+Majoritatea MACRO-urilor au două forme, pe care le prezentăm în fișierul <code>macros_test.c</code> unde comparăm 2 numere:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>EXPECT_EQ</code>, care dacă eșuează, nu oprește testul, dar îl declară ca <code>FAILED</code>:<pre class="code cpp">TEST <span class="br0">&#40;</span>macro, expect_eq_example<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  EXPECT_EQ<span class="br0">&#40;</span><span class="nu0">8</span>, <span class="nu0">9</span><span class="br0">&#41;</span><span class="sy4">;</span>
+  <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;==== Program continues here, but still FAILED ====<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> <code>ASSERT_EQ</code>, care dacă eșuează, oprește rularea testului și îl declară ca <code>FAILED</code>:<pre class="code cpp">TEST <span class="br0">&#40;</span>macro, assert_eq_example<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  ASSERT_EQ<span class="br0">&#40;</span><span class="nu0">8</span>, <span class="nu0">9</span><span class="br0">&#41;</span><span class="sy4">;</span>
+  <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;==== Program never reaches this line ====<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+</li>
+</ul>
+
+<p>
+Rulăm comanda <code>make run_macros_test</code> ca să rulăm testul <code>macros_test</code>:
+</p>
+<pre class="code bash">$ <span class="kw2">make</span> run_macros_test 
+.<span class="sy0">/</span>macros_test
+Running main<span class="br0">&#40;</span><span class="br0">&#41;</span> from <span class="sy0">/</span>build<span class="sy0">/</span>googletest-j5yxiC<span class="sy0">/</span>googletest-1.10.0<span class="sy0">/</span>googletest<span class="sy0">/</span>src<span class="sy0">/</span>gtest_main.cc
+<span class="br0">&#91;</span>==========<span class="br0">&#93;</span> Running <span class="nu0">2</span> tests from <span class="nu0">1</span> <span class="kw3">test</span> suite.
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> Global <span class="kw3">test</span> environment set-up.
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> <span class="nu0">2</span> tests from macro
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> macro.expect_eq_example
+macros_test.c:<span class="nu0">4</span>: Failure
+Expected equality of these values:
+  <span class="nu0">8</span>
+  <span class="nu0">9</span>
+==== Program continues here, but still FAILED ====
+<span class="br0">&#91;</span>  FAILED  <span class="br0">&#93;</span> macro.expect_eq_example <span class="br0">&#40;</span><span class="nu0">1</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> macro.assert_eq_example
+macros_test.c:<span class="nu0">9</span>: Failure
+Expected equality of these values:
+  <span class="nu0">8</span>
+  <span class="nu0">9</span>
+<span class="br0">&#91;</span>  FAILED  <span class="br0">&#93;</span> macro.assert_eq_example <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> <span class="nu0">2</span> tests from macro <span class="br0">&#40;</span><span class="nu0">1</span> ms total<span class="br0">&#41;</span>
+&nbsp;
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> Global <span class="kw3">test</span> environment tear-down
+<span class="br0">&#91;</span>==========<span class="br0">&#93;</span> <span class="nu0">2</span> tests from <span class="nu0">1</span> <span class="kw3">test</span> suite ran. <span class="br0">&#40;</span><span class="nu0">1</span> ms total<span class="br0">&#41;</span>
+<span class="br0">&#91;</span>  PASSED  <span class="br0">&#93;</span> <span class="nu0">0</span> tests.
+<span class="br0">&#91;</span>  FAILED  <span class="br0">&#93;</span> <span class="nu0">2</span> tests, listed below:
+<span class="br0">&#91;</span>  FAILED  <span class="br0">&#93;</span> macro.expect_eq_example
+<span class="br0">&#91;</span>  FAILED  <span class="br0">&#93;</span> macro.assert_eq_example
+&nbsp;
+ <span class="nu0">2</span> FAILED TESTS
+make: <span class="sy0">***</span> <span class="br0">&#91;</span>Makefile:<span class="nu0">25</span>: run_macros_test<span class="br0">&#93;</span> Error <span class="nu0">1</span></pre>
+
+<p>
+Ambele teste au eșuat, însă linia <code>==== Program continues here, but still FAILED ====</code> a fost afișată, deși <code>EXPECT_EQ</code> a eșuat:
+</p>
+<pre class="code bash"><span class="br0">&#91;</span>  FAILED  <span class="br0">&#93;</span> <span class="nu0">2</span> tests, listed below:
+<span class="br0">&#91;</span>  FAILED  <span class="br0">&#93;</span> macro.expect_eq_example
+<span class="br0">&#91;</span>  FAILED  <span class="br0">&#93;</span> macro.assert_eq_example</pre>
+
+<p>
+Pentru a compara cele 2 variante de macro-uri (<code>ASSERT_*</code> vs <code>EXPECT_*</code>) și pentru a folosi versiunea potrivităne gândim la gravitatea situației de eroare:
+</p>
+<ul>
+<li class="level1"><div class="li"> dacă eșuarea înseamnă o eroare fatală a programului, atunci preferăm să folosim <code>ASSERT_*</code></div>
+</li>
+<li class="level1"><div class="li"> dacă nu, folosim <code>EXPECT_*</code></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT9 SECTION "Formatul unui test unitar" [10734-15750] -->
+<h3 class="sectionedit10" id="principii_de_scriere">Principii de scriere</h3>
+<div class="level3">
+
+<p>
+Până în acest moment, am descris cum arată un test unitar și cum verificăm dacă acesta a <em>trecut</em> sau nu. Mai departe, vedem care sunt principiile de care trebuie să ținem cont atunci când scriem teste unitare.
+</p>
+
+<p>
+Atunci când scriem o serie de teste, trebuie sa ne asigurăm că modul în care le scriem respectă următoarele:
+</p>
+<ul>
+<li class="level1"><div class="li"> repetabile: să putem să rulăm ori de câte ori testele, obținând de fiecare dată <em>același</em> rezultat</div>
+</li>
+<li class="level1"><div class="li"> conclusiv: la finalul unui test trebuie să putem să tragem concluzia dacă funcția pe care o testăm funcționează corect pe această rulare particulară</div>
+</li>
+<li class="level1"><div class="li"> izolate: ele nu depind de alte teste scrise anterior; cu alte cuvinte, dacă am rula într-o ordine aleatoare testele, nu ar trebui să fie afectat rezultatul testelor (e.g. orice resurse alocate/modificate într-un test <em>trebuie</em> să fie eliberate/restaurate la final de test)</div>
+</li>
+<li class="level1"><div class="li"> rapide: nu facem operații care nu sunt necesare în testele noastre</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT10 SECTION "Principii de scriere" [15751-16755] -->
+<h3 class="sectionedit11" id="scrierea_unui_test_unitar">Scrierea unui test unitar</h3>
+<div class="level3">
+
+<p>
+În fișierul <code>algorithms_test.c</code> găsim teste scrise pentru funcția <code>gcd</code>. Urmând modelul lor, în această secțiune vom scrie teste unitare pentru funcția <code>binary_search</code>.
+</p>
+
+<p>
+Înainte să ne apucăm de scris teste unitare, ne gândim care sunt cazurile pe care vrem să le testăm. Luăm în considerare toate cazurile de test: comune / frecvente, extreme / puțin probabile, cu date de intrare valide / invalide.
+</p>
+
+<p>
+În cazul lui <code>binary_search</code>, ne gândim să diversificăm vectorul dat la intrare astfel încât să verificăm că funcția obține rezultatul corect în orice situație:
+</p>
+<ul>
+<li class="level1"><div class="li"> un vector doar cu elemente pozitive, distincte</div>
+<ul>
+<li class="level2"><div class="li"> numărul căutat se află în vector</div>
+</li>
+<li class="level2"><div class="li"> numărul căutat nu se află în vector</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> un vector cu elemente duplicate</div>
+<ul>
+<li class="level2"><div class="li"> numărul căutat se află în vector</div>
+</li>
+<li class="level2"><div class="li"> numărul căutat nu se află în vector</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> un vector cu toate elementele egale între ele</div>
+<ul>
+<li class="level2"><div class="li"> numărul căutat se află în vector</div>
+</li>
+<li class="level2"><div class="li"> numărul căutat nu se află în vector</div>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+În continuare vom scrie 6 teste unitare, câte unul pentru fiecare caz menționat mai sus. Aceste 6 cazuri nu sunt singurele posibile, iar dacă în urma rulării testelor, vedem că toate cele 6 cazuri trec, nu înseamnă că putem să tragem concluzia că algoritmul funcționează corect. Pot rămâne cazuri netestate în continuare. Este datoria noastră ca, atunci când scriem teste unitare, să ne gândim la cât mai multe situații posibile.
+</p>
+
+</div>
+
+<h4 id="vector_cu_elemente_pozitive_si_distincte">Vector cu elemente pozitive și distincte</h4>
+<div class="level4">
+
+<p>
+Funcția <code>binary_search</code> are următoarea semnătură:
+</p>
+<pre class="code cpp"><span class="kw4">int</span> binary_search<span class="br0">&#40;</span><span class="kw4">int</span> <span class="sy2">*</span>array, <span class="kw4">int</span> size, <span class="kw4">int</span> to_find<span class="br0">&#41;</span><span class="sy4">;</span></pre>
+
+<p>
+În fișierul <code>algorithms_test.c</code> scriem 2 teste unitare pentru cazul în care elementele vectorului sunt pozitive, sortate și distincte: cazul în care elementul căutat se află în vector și cazul în care nu se află în vector.
+</p>
+
+<p>
+Alegem pentru aceste 2 teste un vector sortat de 6 elemente distincte <code>{2, 5, 7, 100, 101, 112}</code>. Scriem 2 funcții de test noi care fac parte din suita <code>binary_search</code> și au numele <code>common_case_number_found</code>, respectiv <code>common_case_number_not_found</code> în care declarăm vectorul pentru test:
+</p>
+<pre class="code cpp">TEST<span class="br0">&#40;</span>binary_search, common_case_number_found<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">int</span> array<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu0">2</span>, <span class="nu0">5</span>, <span class="nu0">7</span>, <span class="nu0">100</span>, <span class="nu0">101</span>, <span class="nu0">112</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> size <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+TEST<span class="br0">&#40;</span>binary_search, common_case_number_not_found<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">int</span> array<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu0">2</span>, <span class="nu0">5</span>, <span class="nu0">7</span>, <span class="nu0">100</span>, <span class="nu0">101</span>, <span class="nu0">112</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> size <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Acum alegem un număr pe care să-l căutăm în vector. Pentru primul test (<code>binary_search.common_case_number_found</code>), trebuie să căutăm un număr care se află în vector. Alegem <code>7</code>, însă putea fi oricare element care se află în vector. Apelăm funcția <code>binary_search</code> cu parametri de mai jos și știm că pe aceste date de intrare, funcția trebuie să întoarcă valoarea <code>2</code>, adică indexul din vector la care se află numărul <code>7</code>:
+</p>
+<pre class="code cpp">TEST<span class="br0">&#40;</span>binary_search, common_case_number_found<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">int</span> array<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu0">2</span>, <span class="nu0">5</span>, <span class="nu0">7</span>, <span class="nu0">100</span>, <span class="nu0">101</span>, <span class="nu0">112</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> size <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    EXPECT_EQ<span class="br0">&#40;</span><span class="nu0">2</span>, binary_search<span class="br0">&#40;</span>array, <span class="nu0">6</span>, <span class="nu0">7</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Pentru al doilea caz, trebuie să căutăm un număr care nu se află în vector. Alegem <code>8</code>, însă putea fi oricare element care nu se află în vector. Apelăm funcția <code>binary_search</code> cu parametri de mai jos și știm că pe aceste date de intrare, funcția trebuie să întoarcă valoarea <code>-1</code>, care indică faptul că numărul căutat nu se află în vector:
+</p>
+<pre class="code cpp">TEST<span class="br0">&#40;</span>binary_search, common_case_number_not_found<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">int</span> array<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu0">2</span>, <span class="nu0">5</span>, <span class="nu0">7</span>, <span class="nu0">100</span>, <span class="nu0">101</span>, <span class="nu0">112</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> size <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    EXPECT_EQ<span class="br0">&#40;</span><span class="sy2">-</span><span class="nu0">1</span>, binary_search<span class="br0">&#40;</span>array, <span class="nu0">6</span>, <span class="nu0">8</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Compilăm testele pe care le-am scris și le rulăm să vedem dacă implementarea funcționează corect pe cazurile de test alese:
+</p>
+<pre class="code bash">$ <span class="kw2">make</span> algorithms_test
+<span class="kw2">g++</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> <span class="re5">-c</span> <span class="re5">-o</span> algorithms_test.o algorithms_test.c
+<span class="kw2">g++</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> <span class="re5">-o</span> algorithms_test algorithms.o algorithms_test.o <span class="re5">-lgtest</span> -lgtest_main <span class="re5">-lpthread</span>
+&nbsp;
+$ <span class="kw2">make</span> run_algorithms_test 
+.<span class="sy0">/</span>algorithms_test
+Running main<span class="br0">&#40;</span><span class="br0">&#41;</span> from <span class="sy0">/</span>build<span class="sy0">/</span>googletest-j5yxiC<span class="sy0">/</span>googletest-1.10.0<span class="sy0">/</span>googletest<span class="sy0">/</span>src<span class="sy0">/</span>gtest_main.cc
+<span class="br0">&#91;</span>==========<span class="br0">&#93;</span> Running <span class="nu0">5</span> tests from <span class="nu0">2</span> <span class="kw3">test</span> suites.
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> Global <span class="kw3">test</span> environment set-up.
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> <span class="nu0">3</span> tests from gcd
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> gcd.common_case
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> gcd.common_case <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> gcd.common_one
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> gcd.common_one <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> gcd.common_same_numbers
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> gcd.common_same_numbers <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> <span class="nu0">3</span> tests from gcd <span class="br0">&#40;</span><span class="nu0">0</span> ms total<span class="br0">&#41;</span>
+&nbsp;
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> <span class="nu0">2</span> tests from binary_search
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> binary_search.common_case_number_found
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> binary_search.common_case_number_found <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> binary_search.common_case_number_not_found
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> binary_search.common_case_number_not_found <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> <span class="nu0">2</span> tests from binary_search <span class="br0">&#40;</span><span class="nu0">0</span> ms total<span class="br0">&#41;</span>
+&nbsp;
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> Global <span class="kw3">test</span> environment tear-down
+<span class="br0">&#91;</span>==========<span class="br0">&#93;</span> <span class="nu0">5</span> tests from <span class="nu0">2</span> <span class="kw3">test</span> suites ran. <span class="br0">&#40;</span><span class="nu0">0</span> ms total<span class="br0">&#41;</span>
+<span class="br0">&#91;</span>  PASSED  <span class="br0">&#93;</span> <span class="nu0">5</span> tests.</pre>
+
+<p>
+Ambele teste noi au trecut cu succes. Trecem mai departe cu un alt set de teste.
+</p>
+<blockquote><div class="no">
+ În cazul în care testele ar fi eșuat, trebuia să verificăm implementarea <code>binary_search</code>, să rezolvăm bugurile astfel încât testele să fie rulate cu succes.<br/>
+ <br/>
+ Dacă testele unitare ar fi eșuat, eram siguri că problema vine din funcția <code>binary_search</code> deoarece știm sigur că <code>7</code> se află la indexul <code>2</code> din vector, respectiv <code>8</code> nu se află în vectorul dat.<br/>
+ <br/>
+ Nu trebuie să uităm însă că există posibilitatea ca testul pe care l-am scris sa fie greșit. Trebuie să verificăm toate implementările astfel încât să vedem de unde vine problema.</div></blockquote>
+
+</div>
+
+<h4 id="vector_cu_elemente_pozitive_duplicate">Vector cu elemente pozitive, duplicate</h4>
+<div class="level4">
+
+<p>
+Similar cu exemplul anterior, scriem 2 noi funcții de test în care declarăm un vector de numere întregi pozitive, sortat și cu duplicate, spre exemplu <code>{2, 5, 7, 7, 101, 112}</code>.
+</p>
+
+<p>
+Ele fac parte tot din suita <code>binary_search</code> și au numele <code>duplicates_number_found</code>, respectiv <code>duplicates_number_not_found</code>:
+</p>
+<pre class="code cpp">TEST<span class="br0">&#40;</span>binary_search, duplicates_number_found<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">int</span> array<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu0">2</span>, <span class="nu0">5</span>, <span class="nu0">7</span>, <span class="nu0">7</span>, <span class="nu0">101</span>, <span class="nu0">112</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> size <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+TEST<span class="br0">&#40;</span>binary_search, duplicates_number_not_found<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">int</span> array<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu0">2</span>, <span class="nu0">5</span>, <span class="nu0">7</span>, <span class="nu0">7</span>, <span class="nu0">101</span>, <span class="nu0">112</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> size <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Acum alegem un număr pe care să-l căutăm în vector. Pentru prima funcție, trebuie să căutăm un număr care se află în vector. Alegem <code>7</code>, însă putea fi oricare element care se află în vector. Apelăm funcția <code>binary_search</code> cu parametri de mai jos și știm că pe aceste date de intrare, funcția trebuie să întoarcă una din valorile <code>2</code> sau <code>3</code>, adică indecșii din vector la care se află numărul <code>7</code>:
+</p>
+<pre class="code cpp">TEST<span class="br0">&#40;</span>binary_search, duplicates_number_found<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">int</span> array<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu0">2</span>, <span class="nu0">5</span>, <span class="nu0">7</span>, <span class="nu0">7</span>, <span class="nu0">101</span>, <span class="nu0">112</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> size <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> index <span class="sy1">=</span> binary_search<span class="br0">&#40;</span>array, size, <span class="nu0">7</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    EXPECT_GE<span class="br0">&#40;</span><span class="nu0">2</span>, index<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// 2 &lt;= index</span>
+    EXPECT_LE<span class="br0">&#40;</span>index, <span class="nu0">3</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// index &lt;= 3</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Pentru al doilea caz, trebuie să căutăm un număr care nu se află în vector. Alegem <code>2021</code>, însă putea fi oricare element care nu se află în vector. Apelăm funcția <code>binary_search</code> cu parametri de mai jos și știm că pe aceste date de intrare, funcția trebuie să întoarcă valoarea <code>-1</code>, care indică faptul că numărul căutat nu se află în vector:
+</p>
+<pre class="code cpp">TEST<span class="br0">&#40;</span>binary_search, duplicates_number_not_found<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">int</span> array<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu0">2</span>, <span class="nu0">5</span>, <span class="nu0">7</span>, <span class="nu0">7</span>, <span class="nu0">101</span>, <span class="nu0">112</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> size <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    EXPECT_EQ<span class="br0">&#40;</span><span class="sy2">-</span><span class="nu0">1</span>, binary_search<span class="br0">&#40;</span>array, size, <span class="nu0">2021</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>  
+<span class="br0">&#125;</span></pre>
+
+<p>
+Compilăm testele pe care le-am scris și le rulăm să vedem dacă implementarea funcționează corect pe cazurile de test alese:
+</p>
+<pre class="code bash">$ <span class="kw2">make</span> algorithms_test
+<span class="kw2">g++</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> <span class="re5">-c</span> <span class="re5">-o</span> algorithms_test.o algorithms_test.c
+<span class="kw2">g++</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> <span class="re5">-o</span> algorithms_test algorithms.o algorithms_test.o <span class="re5">-lgtest</span> -lgtest_main <span class="re5">-lpthread</span>
+&nbsp;
+$ <span class="kw2">make</span> run_algorithms_test 
+.<span class="sy0">/</span>algorithms_test
+Running main<span class="br0">&#40;</span><span class="br0">&#41;</span> from <span class="sy0">/</span>build<span class="sy0">/</span>googletest-j5yxiC<span class="sy0">/</span>googletest-1.10.0<span class="sy0">/</span>googletest<span class="sy0">/</span>src<span class="sy0">/</span>gtest_main.cc
+<span class="br0">&#91;</span>==========<span class="br0">&#93;</span> Running <span class="nu0">7</span> tests from <span class="nu0">2</span> <span class="kw3">test</span> suites.
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> Global <span class="kw3">test</span> environment set-up.
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> <span class="nu0">3</span> tests from gcd
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> gcd.common_case
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> gcd.common_case <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> gcd.common_one
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> gcd.common_one <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> gcd.common_same_numbers
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> gcd.common_same_numbers <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> <span class="nu0">3</span> tests from gcd <span class="br0">&#40;</span><span class="nu0">0</span> ms total<span class="br0">&#41;</span>
+&nbsp;
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> <span class="nu0">4</span> tests from binary_search
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> binary_search.common_case_number_found
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> binary_search.common_case_number_found <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> binary_search.common_case_number_not_found
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> binary_search.common_case_number_not_found <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> binary_search.duplicates_number_found
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> binary_search.duplicates_number_found <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> binary_search.duplicates_number_not_found
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> binary_search.duplicates_number_not_found <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> <span class="nu0">4</span> tests from binary_search <span class="br0">&#40;</span><span class="nu0">0</span> ms total<span class="br0">&#41;</span>
+&nbsp;
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> Global <span class="kw3">test</span> environment tear-down
+<span class="br0">&#91;</span>==========<span class="br0">&#93;</span> <span class="nu0">7</span> tests from <span class="nu0">2</span> <span class="kw3">test</span> suites ran. <span class="br0">&#40;</span><span class="nu0">1</span> ms total<span class="br0">&#41;</span>
+<span class="br0">&#91;</span>  PASSED  <span class="br0">&#93;</span> <span class="nu0">7</span> tests.</pre>
+
+<p>
+Ambele teste noi au trecut cu succes, trecem mai departe cu un alt set de teste.
+</p>
+
+</div>
+
+<h4 id="vector_cu_toate_elementele_egale_intre_ele">Vector cu toate elementele egale între ele</h4>
+<div class="level4">
+
+<p>
+Ultimul caz pe care am ales să îl verificăm folosește un vector care conține elemente pozitive și egale între ele.
+</p>
+
+<p>
+criem 2 noi funcții de test în care declarăm un vector cu toate elementele egale, spre exemplu <code>{5, 5, 5, 5, 5}</code>.
+</p>
+
+<p>
+Ele fac parte tot din suita <code>binary_search</code> și au numele <code>equal_number_found</code>, respectiv <code>equal_number_not_found</code>:
+</p>
+<pre class="code cpp">TEST<span class="br0">&#40;</span>binary_search, duplicates_number_found<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">int</span> array<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu0">5</span>, <span class="nu0">5</span>, <span class="nu0">5</span>, <span class="nu0">5</span>, <span class="nu0">5</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> size <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+TEST<span class="br0">&#40;</span>binary_search, duplicates_number_not_found<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">int</span> array<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu0">5</span>, <span class="nu0">5</span>, <span class="nu0">5</span>, <span class="nu0">5</span>, <span class="nu0">5</span><span class="br0">&#125;</span>`<span class="sy4">;</span> 
+    <span class="kw4">int</span> size <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Acum alegem un număr pe care să-l căutăm în vector. Pentru prima funcție, trebuie să căutăm un număr care se află în vector. Alegem <code>7</code>, însă putea fi oricare element care se află în vector. Apelăm funcția <code>binary_search</code> cu parametri de mai jos și știm că pe aceste date de intrare, funcția trebuie să întoarcă o valoare cuprinsă între <code>0</code> și <code>5</code>, adică indexii din vector la care se află numărul <code>7</code>:
+</p>
+<pre class="code cpp">TEST<span class="br0">&#40;</span>binary_search, equal_number_found<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">int</span> array<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu0">5</span>, <span class="nu0">5</span>, <span class="nu0">5</span>, <span class="nu0">5</span>, <span class="nu0">5</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> size <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> index <span class="sy1">=</span>  binary_search<span class="br0">&#40;</span>array, size, <span class="nu0">5</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    EXPECT_GE<span class="br0">&#40;</span>index, <span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// index &gt;= 0</span>
+    EXPECT_LE<span class="br0">&#40;</span>index, <span class="nu0">5</span><span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// index &lt;= 5</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Pentru al doilea caz, trebuie să căutăm un număr care nu se află în vector. Alegem <code>8</code>, însă putea fi oricare element care nu se află în vector. Apelăm funcția <code>binary_search</code> cu parametri de mai jos și știm că pe aceste date de intrare, funcția trebuie să întoarcă valoarea <code>-1</code>, care indică faptul că numărul căutat nu se află în vector:
+</p>
+<pre class="code cpp">TEST<span class="br0">&#40;</span>binary_search, equal_number_not_found<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw4">int</span> array<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu0">5</span>, <span class="nu0">5</span>, <span class="nu0">5</span>, <span class="nu0">5</span>, <span class="nu0">5</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> size <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>array<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    EXPECT_EQ<span class="br0">&#40;</span><span class="sy2">-</span><span class="nu0">1</span>, binary_search<span class="br0">&#40;</span>array, size, <span class="nu0">8</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Compilăm testele pe care le-am scris și le rulăm să vedem dacă implementarea funcționează corect pe cazurile de test alese:
+</p>
+<pre class="code bash">$ <span class="kw2">make</span> algorithms_test
+<span class="kw2">g++</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> <span class="re5">-c</span> <span class="re5">-o</span> algorithms_test.o algorithms_test.c
+<span class="kw2">g++</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> <span class="re5">-o</span> algorithms_test algorithms.o algorithms_test.o <span class="re5">-lgtest</span> -lgtest_main <span class="re5">-lpthread</span>
+&nbsp;
+$ <span class="kw2">make</span> run_algorithms_test 
+.<span class="sy0">/</span>algorithms_test
+Running main<span class="br0">&#40;</span><span class="br0">&#41;</span> from <span class="sy0">/</span>build<span class="sy0">/</span>googletest-j5yxiC<span class="sy0">/</span>googletest-1.10.0<span class="sy0">/</span>googletest<span class="sy0">/</span>src<span class="sy0">/</span>gtest_main.cc
+<span class="br0">&#91;</span>==========<span class="br0">&#93;</span> Running <span class="nu0">9</span> tests from <span class="nu0">2</span> <span class="kw3">test</span> suites.
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> Global <span class="kw3">test</span> environment set-up.
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> <span class="nu0">3</span> tests from gcd
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> gcd.common_case
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> gcd.common_case <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> gcd.common_one
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> gcd.common_one <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> gcd.common_same_numbers
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> gcd.common_same_numbers <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> <span class="nu0">3</span> tests from gcd <span class="br0">&#40;</span><span class="nu0">0</span> ms total<span class="br0">&#41;</span>
+&nbsp;
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> <span class="nu0">6</span> tests from binary_search
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> binary_search.common_case_number_found
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> binary_search.common_case_number_found <span class="br0">&#40;</span><span class="nu0">1</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> binary_search.common_case_number_not_found
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> binary_search.common_case_number_not_found <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> binary_search.duplicates_number_found
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> binary_search.duplicates_number_found <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> binary_search.duplicates_number_not_found
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> binary_search.duplicates_number_not_found <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> binary_search.equal_number_found
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> binary_search.equal_number_found <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span> RUN      <span class="br0">&#93;</span> binary_search.equal_number_not_found
+<span class="br0">&#91;</span>       OK <span class="br0">&#93;</span> binary_search.equal_number_not_found <span class="br0">&#40;</span><span class="nu0">0</span> ms<span class="br0">&#41;</span>
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> <span class="nu0">6</span> tests from binary_search <span class="br0">&#40;</span><span class="nu0">1</span> ms total<span class="br0">&#41;</span>
+&nbsp;
+<span class="br0">&#91;</span>----------<span class="br0">&#93;</span> Global <span class="kw3">test</span> environment tear-down
+<span class="br0">&#91;</span>==========<span class="br0">&#93;</span> <span class="nu0">9</span> tests from <span class="nu0">2</span> <span class="kw3">test</span> suites ran. <span class="br0">&#40;</span><span class="nu0">1</span> ms total<span class="br0">&#41;</span>
+<span class="br0">&#91;</span>  PASSED  <span class="br0">&#93;</span> <span class="nu0">9</span> tests.</pre>
+
+<p>
+Toate testele au trecut cu succes, însă acest lucru nu denotă faptul că funcția dă rezultatul corect pentru orice input. La ce alte cazuri de teste vă gândiți?
+</p>
+
+</div>
+<!-- EDIT11 SECTION "Scrierea unui test unitar" [16756-30195] -->
+<h2 class="sectionedit12" id="exercitii">Exerciții</h2>
+<div class="level2">
+
+<p>
+În continuare au rămăs funcții netestate în <code>algorithms.c</code>:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>lcm</code></div>
+</li>
+<li class="level1"><div class="li"> <code>bubble_sort</code></div>
+</li>
+<li class="level1"><div class="li"> <code>caesar_cipher</code></div>
+</li>
+<li class="level1"><div class="li"> <code>is_prime</code></div>
+</li>
+<li class="level1"><div class="li"> <code>factorial</code></div>
+</li>
+</ul>
+
+<p>
+Gândiți-vă la cât mai multe cazuri de test pentru fiecare funcție în parte. Creați o nouă suită pentru fiecare funcție, și în cadrul suitei adăugați toate cazurile de test la care v-ați gândit. Puteți lua în considerare, dar nu vă limitați la, următoarele:
+</p>
+<ul>
+<li class="level1"><div class="li"> cazuri obișnuite de test</div>
+</li>
+<li class="level1"><div class="li"> cazuri limită (numere foarte mari, numere foarte mici)</div>
+</li>
+<li class="level1"><div class="li"> împărțiri la 0 (dacă e cazul)</div>
+</li>
+</ul>
+
+<p>
+Funcțiile conțin buguri ascunse care pot fi descoperite prin scrierea de teste unitare. Atunci când descoperiți o problemă, incercati sa o reparati astfel încât funcția de test să ruleze cu succes. PS: tutorialul de debugging poate fi util.
+</p>
+
+</div>
+<!-- EDIT12 SECTION "Exerciții" [30196-] --></div>
+</body>
+</html>

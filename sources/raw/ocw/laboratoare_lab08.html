@@ -1,0 +1,394 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:laboratoare:lab08</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-11-19T20:25:14+0200"/>
+<meta name="keywords" content="programare,laboratoare,lab08"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare:laboratoare"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/laboratoare/lab08"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/laboratoare/lab08"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:laboratoare';var JSINFO = {"id":"programare:laboratoare:lab08","namespace":"programare:laboratoare","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#pclp_laborator08tipuri_de_date_definite_de_utilizatorstructuri_uniuni_enumuri">PCLP Laborator08: Tipuri de date definite de utilizator: structuri, uniuni, enumuri</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#obiective">Obiective</a></div></li>
+<li class="level3"><div class="li"><a href="#notiuni_teoretice">Noţiuni teoretice</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#structuri">Structuri</a></div></li>
+<li class="level4"><div class="li"><a href="#diferenta_dintre_copierea_structurilor_si_copierea_pointerilor">Diferenţa dintre copierea structurilor şi copierea pointerilor</a></div></li>
+<li class="level4"><div class="li"><a href="#uniuni">Uniuni</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#exercitii">Exerciții</a></div></li>
+<li class="level3"><div class="li"><a href="#referinte">Referinţe</a></div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h2 class="sectionedit1" id="pclp_laborator08tipuri_de_date_definite_de_utilizatorstructuri_uniuni_enumuri">PCLP Laborator08: Tipuri de date definite de utilizator: structuri, uniuni, enumuri</h2>
+<div class="level2">
+
+<p>
+<strong>Resposabili:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="mailto:&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;" class="mail" title="&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x63;&#x74;&#x69;&#x2e;&#x70;&#x75;&#x62;&#x2e;&#x72;&#x6f;">Dorinel Filip (2016-2020)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x6e;&#x65;&#x61;&#x74;&#x75;&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x6e;&#x65;&#x61;&#x74;&#x75;&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Darius Neațu (2019-2020)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x74;&#x65;&#x6f;&#x64;&#x6f;&#x72;&#x2e;&#x6d;&#x61;&#x74;&#x65;&#x69;&#x2e;&#x62;&#x69;&#x72;&#x6c;&#x65;&#x61;&#x6e;&#x75;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x74;&#x65;&#x6f;&#x64;&#x6f;&#x72;&#x2e;&#x6d;&#x61;&#x74;&#x65;&#x69;&#x2e;&#x62;&#x69;&#x72;&#x6c;&#x65;&#x61;&#x6e;&#x75;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Bîrleanu Teodor Matei (2025 - prezent)</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x6d;&#x69;&#x68;&#x61;&#x65;&#x6c;&#x61;&#x2e;&#x76;&#x61;&#x73;&#x69;&#x6c;&#x65;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x6d;&#x69;&#x68;&#x61;&#x65;&#x6c;&#x61;&#x2e;&#x76;&#x61;&#x73;&#x69;&#x6c;&#x65;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Mihaela Vasile</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT1 SECTION "PCLP Laborator08: Tipuri de date definite de utilizator: structuri, uniuni, enumuri" [1-364] -->
+<h3 class="sectionedit2" id="obiective">Obiective</h3>
+<div class="level3">
+
+<p>
+În urma parcurgerii acestui laborator studentul va fi capabil să:
+</p>
+<ul>
+<li class="level1"><div class="li"> organizeze datele din rezolvarea unei probleme complexe în structuri şi uniuni;</div>
+</li>
+<li class="level1"><div class="li"> optimizeze scrierea funcţiilor prin minimizarea numărului de parametri şi prin utilizarea structurilor ca parametri returnaţi de funcţie;</div>
+</li>
+<li class="level1"><div class="li"> distingă diferenţa dintre o structură şi o uniune;</div>
+</li>
+<li class="level1"><div class="li"> evite utilizarea greşită a structurilor.</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT2 SECTION "Obiective" [365-793] -->
+<h3 class="sectionedit3" id="notiuni_teoretice">Noţiuni teoretice</h3>
+<div class="level3">
+
+</div>
+
+<h4 id="structuri">Structuri</h4>
+<div class="level4">
+
+<p>
+Structurile sunt tipuri de date în care putem grupa mai multe variabile eventual de tipuri diferite (spre deosebire de vectori, care conţin numai date de acelasi tip). O structură se poate defini astfel:
+</p>
+<pre class="code c"><span class="kw4">struct</span> nume_structura <span class="br0">&#123;</span>
+  declaratii_de_variabile
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+<p>
+Definiția unei structuri poate fi urmată imediat de declararea de variabile de acel tip, forma cea mai generală fiind:
+</p>
+<pre class="code c"><span class="kw4">struct</span> <span class="br0">&#91;</span>structure tag<span class="br0">&#93;</span> <span class="br0">&#123;</span>
+&nbsp;
+   member definition<span class="sy0">;</span>
+   member definition<span class="sy0">;</span>
+   ...
+   <span class="me1">member</span> definition<span class="sy0">;</span>
+<span class="br0">&#125;</span> <span class="br0">&#91;</span>one or more structure variables<span class="br0">&#93;</span><span class="sy0">;</span> </pre>
+
+<p>
+Unde între <code>[]</code> se află câmpurile opționale.
+</p>
+
+<p>
+Exemple:
+</p>
+<pre class="code c"><span class="kw4">struct</span> student <span class="br0">&#123;</span>
+  <span class="kw4">char</span> nume<span class="br0">&#91;</span><span class="nu0">40</span><span class="br0">&#93;</span><span class="sy0">;</span>
+  <span class="kw4">int</span> an<span class="sy0">;</span>
+  <span class="kw4">float</span> medie<span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+<p>
+Variabilele declarate in interiorul structurii se numesc “campurile” structurii:
+</p>
+<ul>
+<li class="level1"><div class="li">nume;</div>
+</li>
+<li class="level1"><div class="li">an;</div>
+</li>
+<li class="level1"><div class="li">medie.</div>
+</li>
+</ul>
+<pre class="code c"><span class="kw4">struct</span> complex <span class="br0">&#123;</span> <span class="coMULTI">/* pentru memorarea unui număr complex cu dublă precizie */</span>
+  <span class="kw4">double</span> re<span class="sy0">;</span>
+  <span class="kw4">double</span> im<span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span></pre>
+
+<p>
+Declararea şi iniţializarea unor variabile de tip structură se poate face astfel:
+</p>
+<pre class="code c"><span class="kw4">struct</span> student s1 <span class="sy0">=</span> <span class="br0">&#123;</span><span class="st0">&quot;Popescu Ionel&quot;</span><span class="sy0">,</span> <span class="nu0">3</span><span class="sy0">,</span> <span class="nu16">9.25</span><span class="br0">&#125;</span><span class="sy0">;</span>
+<span class="kw4">struct</span> complex c1<span class="sy0">,</span> c2<span class="sy0">;</span>
+<span class="kw4">struct</span> complex v<span class="br0">&#91;</span><span class="nu0">10</span><span class="br0">&#93;</span><span class="sy0">;</span></pre>
+
+<p>
+Pentru simplificarea declaraţiilor, putem asocia unei structuri un nume de tip de date:
+</p>
+<pre class="code c"><span class="kw4">typedef</span> <span class="kw4">struct</span> student Student<span class="sy0">;</span>
+...
+<span class="me1">Student</span> s1<span class="sy0">,</span> s2<span class="sy0">,</span> s3<span class="sy0">;</span></pre>
+
+<p>
+Redenumirea de tip de mai sus poate fi inclusă și în definirea structurii, caz în care putem folosi - din prima - atât <code>struct Student</code> cât și tipul de date rezultat din typedef:
+</p>
+<pre class="code c"><span class="kw4">typedef</span> <span class="kw4">struct</span> student <span class="br0">&#123;</span>
+  <span class="kw4">char</span> nume<span class="br0">&#91;</span><span class="nu0">40</span><span class="br0">&#93;</span><span class="sy0">;</span>
+  <span class="kw4">int</span> an<span class="sy0">;</span>
+  <span class="kw4">float</span> medie<span class="sy0">;</span>
+<span class="br0">&#125;</span> Student<span class="sy0">;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+   <span class="coMULTI">/* Ambele declaratii de mai jos sunt valide */</span>
+   <span class="kw4">struct</span> student s1<span class="sy0">;</span>
+   Student s2<span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Accesul la membrii unei structuri se face prin operatorul ”.”:
+</p>
+<pre class="code c">s1.<span class="me1">an</span> <span class="sy0">=</span> <span class="nu0">3</span><span class="sy0">;</span></pre>
+
+<p>
+În cazul pointerilor la structuri, accesul la membri se poate face astfel:
+</p>
+<pre class="code c">Student <span class="sy0">*</span>stud <span class="sy0">=</span> <span class="br0">&#40;</span>Student <span class="sy0">*</span><span class="br0">&#41;</span><a href="http://www.opengroup.org/onlinepubs/009695399/functions/malloc.html"><span class="kw3">malloc</span></a><span class="br0">&#40;</span><span class="kw4">sizeof</span><span class="br0">&#40;</span>Student<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#40;</span><span class="sy0">*</span>stud<span class="br0">&#41;</span>.<span class="me1">medie</span> <span class="sy0">=</span> <span class="nu16">9.31</span><span class="sy0">;</span>
+<span class="coMULTI">/* altă modalitate mai simplă şi mai des folosită: */</span>
+stud<span class="sy0">-&gt;</span>medie <span class="sy0">=</span> <span class="nu16">9.31</span><span class="sy0">;</span></pre>
+
+<p>
+Atribuirile de structuri se pot face astfel:
+</p>
+<pre class="code c"><span class="kw4">struct</span> complex n1<span class="sy0">,</span> n2<span class="sy0">;</span>
+...
+<span class="me1">n2</span> <span class="sy0">=</span> n1<span class="sy0">;</span></pre>
+
+<p>
+Prin această atribuire se realizează o copiere bit cu bit a elementelor lui n1 în n2.
+</p>
+
+<p>
+Alt exemplu de utilizare: După cum se vede mai jos trebuie facută diferenta când definim un tip şi cand declaram o variabila de tip struct sau typedef struct.
+</p>
+<pre class="code c"><span class="kw4">typedef</span> <span class="kw4">struct</span> <span class="br0">&#123;</span>
+  <span class="kw4">int</span> data<span class="sy0">;</span>
+  <span class="kw4">int</span> text<span class="sy0">;</span>
+<span class="br0">&#125;</span> S1<span class="sy0">;</span> <span class="co1">// este un typedef pentru S1, functional in C si C++</span>
+&nbsp;
+<span class="kw4">struct</span> S2 <span class="br0">&#123;</span>
+  <span class="kw4">int</span> data<span class="sy0">;</span>
+  <span class="kw4">int</span> text<span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span> <span class="co1">// este un typedef pentru struct S2</span>
+&nbsp;
+&nbsp;
+<span class="kw4">struct</span> <span class="br0">&#123;</span>
+  <span class="kw4">int</span> data<span class="sy0">;</span>
+  <span class="kw4">int</span> text<span class="sy0">;</span>
+<span class="br0">&#125;</span> S3<span class="sy0">;</span>
+<span class="co1">// este o declaratie a lui S3, variabila de tip struct nu defineste un tip</span>
+<span class="co1">// spune compilatorului sa aloce memorie pentru variablia S3</span>
+&nbsp;
+<span class="kw4">typedef</span> <span class="kw4">struct</span> S4 <span class="br0">&#123;</span>
+  <span class="kw4">int</span> data<span class="sy0">;</span>
+  <span class="kw4">int</span> text<span class="sy0">;</span>
+<span class="br0">&#125;</span> S4<span class="sy0">;</span> <span class="co1">// este un typedef atât pentru struct S4, cât și pentru S4</span>
+&nbsp;
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+  <span class="co1">// ce se intampla la declarare variabile de tip S1,S2,S3</span>
+  S1 mine1<span class="sy0">;</span> <span class="co1">// este un typedef si va merge</span>
+  <span class="kw4">struct</span> S2 mine2<span class="sy0">;</span> <span class="co1">// este un typedef si va merge</span>
+  S2 mine22<span class="sy0">;</span> <span class="co1">// S2 NU este un typedef si NU va merge</span>
+  S3 mine3<span class="sy0">;</span> <span class="co1">// nu va merge pt ca S3 nu este un typedef.</span>
+  <span class="kw4">struct</span> S4 mine4<span class="sy0">;</span> <span class="co1">// este un typedef și va merge</span>
+  S4 mine4<span class="sy0">;</span> <span class="co1">// este un typedef și va merge</span>
+&nbsp;
+  <span class="co1">// ce se intampla la utilizarea ca variabile a S1,S2,S3</span>
+  S1.<span class="me1">data</span> <span class="sy0">=</span> <span class="nu0">5</span><span class="sy0">;</span> <span class="co1">// da eroare deoarece S1 este numai un typedef.</span>
+  <span class="kw4">struct</span> S2.<span class="me1">data</span> <span class="sy0">=</span> <span class="nu0">5</span><span class="sy0">;</span> <span class="co1">// da eroare deoarece S2 este numai un typedef.</span>
+  S3.<span class="me1">data</span> <span class="sy0">=</span> <span class="nu0">5</span><span class="sy0">;</span> <span class="co1">// merge doarece S3 e o variabila</span>
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+<p><div class="noteclassic">Dacă declaraţi pointeri la structuri, nu uitaţi să alocaţi memorie pentru aceştia înainte de a accesa câmpurile structurii. Nu uitaţi să alocaţi şi câmpurile structurii, care sunt pointeri, înainte de utilizare, dacă este cazul. De asemenea fiţi atenţi şi la modul de accesare al câmpurilor.
+
+</div></p>
+</p>
+
+</div>
+
+<h4 id="diferenta_dintre_copierea_structurilor_si_copierea_pointerilor">Diferenţa dintre copierea structurilor şi copierea pointerilor</h4>
+<div class="level4">
+
+<p>
+Pentru exemplificarea diferenţei dintre copierea structurilor şi copierea pointerilor să considerăm urmatorul exemplu:
+</p>
+<pre class="code c"><span class="kw4">struct</span> exemplu <span class="br0">&#123;</span>
+  <span class="kw4">int</span> n<span class="sy0">;</span>
+  <span class="kw4">char</span> <span class="sy0">*</span>s<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="kw4">struct</span> exemplu s1<span class="sy0">,</span> s2<span class="sy0">;</span>
+<span class="kw4">char</span> <span class="sy0">*</span>litere <span class="sy0">=</span> <span class="st0">&quot;abcdef&quot;</span><span class="sy0">;</span>
+s1.<span class="me1">n</span> <span class="sy0">=</span> <span class="nu0">5</span><span class="sy0">;</span>
+s1.<span class="me1">s</span> <span class="sy0">=</span> strdup<span class="br0">&#40;</span>litere<span class="br0">&#41;</span><span class="sy0">;</span>
+s2 <span class="sy0">=</span> s1<span class="sy0">;</span>
+s2.<span class="me1">s</span><span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span><span class="sy0">=</span><span class="st0">'x'</span><span class="sy0">;</span></pre>
+
+<p>
+După atribuirea s2 = s1;, s2.s va avea o valoare identică cu s1.s. Deoarece s este un pointer (o adresă de memorie), s2.s va indica aceeaşi adresa de memorie ca şi s1.s. Deci, după modificarea celui de-al doilea caracter din s2.s, atat s2.s cât si s1.s vor fi axcdef. De obicei acest efect nu este dorit şi nu se recomandă atribuirea de structuri atunci cand acestea contin pointeri.
+</p>
+
+<p>
+Totuşi, putem atribui ulterior lui s2.s o altă valoare (o altă adresă), iar ca urmare a acestei operaţii, stringurile vor fi distincte din nou.
+</p>
+
+<p>
+Un alt caz (diferit de cel expus anterior) este cel al atribuirii aceleiaşi structuri către două variabile pointer diferite:
+</p>
+<pre class="code c"><span class="kw4">struct</span> exemplu <span class="br0">&#123;</span>
+  <span class="kw4">int</span> n<span class="sy0">;</span>
+  <span class="kw4">char</span> <span class="sy0">*</span> s<span class="sy0">;</span>
+<span class="br0">&#125;</span>
+<span class="kw4">struct</span> exemplu s1<span class="sy0">;</span>
+<span class="kw4">struct</span> exemplu <span class="sy0">*</span>p1<span class="sy0">;</span>
+<span class="kw4">struct</span> exemplu <span class="sy0">*</span>p2<span class="sy0">;</span>
+p1 <span class="sy0">=</span> <span class="sy0">&amp;</span>s1<span class="sy0">;</span>
+p2 <span class="sy0">=</span> <span class="sy0">&amp;</span>s1<span class="sy0">;</span></pre>
+
+<p>
+În acest caz observăm că din nou p1→s şi p2→s indică către acelaşi şir de caractere, dar aici adresa către şirul de caractere apare memorată o singura dată; spre deosebire de cazul anterior, dacă modificăm adresa din p2→s, ea se va modifica automat şi în p1→s.
+</p>
+
+</div>
+
+<h4 id="uniuni">Uniuni</h4>
+<div class="level4">
+
+<p>
+Uniunile sunt asemănătoare structurilor, dar lor li se rezervă o zonă de memorie ce poate conţine, la momente de timp diferite, variabile de tipuri diferite. Sunt utilizate pentru a economisi memoria (se refoloseşte aceeaşi zonă de memorie pentru a stoca mai multe variabile).
+</p>
+
+<p>
+Uniunile se pot declara astfel:
+</p>
+<pre class="code c"><span class="kw4">union</span> numere <span class="br0">&#123;</span>
+  <span class="kw4">int</span> i<span class="sy0">;</span>
+  <span class="kw4">float</span> f<span class="sy0">;</span>
+  <span class="kw4">double</span> v<span class="sy0">;</span>
+<span class="br0">&#125;</span><span class="sy0">;</span>              <span class="coMULTI">/* se poate utiliza si typedef... */</span>
+&nbsp;
+<span class="kw4">union</span> numere u1<span class="sy0">,</span> u2<span class="sy0">;</span></pre>
+
+<p>
+Când scriem ceva într-o uniune (de exemplu când facem o atribuire de genul u1.f = 7.4), ceea ce citim apoi trebuie să fie de acelaşi tip, altfel vom obţine rezultate eronate (adică trebuie să utilizam u1.f, nu u1.v sau u1.i). Programatorul trebuie să ţină evidenţa tipului variabilei care este memorată în uniune în momentul curent pentru a evita astfel de greşeli. Operaţiile care se pot face cu structuri se pot face şi cu uniuni; o structura poate conţine uniuni şi o uniune poate conţine structuri.
+</p>
+
+<p>
+Exemplu:
+</p>
+<pre class="code c"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+&nbsp;
+<span class="kw4">typedef</span> <span class="kw4">union</span> <span class="br0">&#123;</span>
+  <span class="kw4">int</span> Wind_Chill<span class="sy0">;</span>
+  <span class="kw4">char</span> Heat_Index<span class="sy0">;</span>
+<span class="br0">&#125;</span> Condition<span class="sy0">;</span>
+&nbsp;
+<span class="kw4">typedef</span> <span class="kw4">struct</span> <span class="br0">&#123;</span>
+  <span class="kw4">float</span> temp<span class="sy0">;</span>
+  Condition feels_like<span class="sy0">;</span>
+<span class="br0">&#125;</span> Temperature<span class="sy0">;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+&nbsp;
+  Temperature <span class="sy0">*</span>tmp<span class="sy0">;</span>
+  tmp <span class="sy0">=</span> <span class="br0">&#40;</span>Temperature <span class="sy0">*</span><span class="br0">&#41;</span><a href="http://www.opengroup.org/onlinepubs/009695399/functions/malloc.html"><span class="kw3">malloc</span></a><span class="br0">&#40;</span><span class="kw4">sizeof</span><span class="br0">&#40;</span>Temperature<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;<span class="es1">\n</span>Address of Temperature = %u&quot;</span><span class="sy0">,</span> tmp<span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;<span class="es1">\n</span>Address of temp = %u, feels_like = %u&quot;</span><span class="sy0">,</span> 
+                 <span class="sy0">&amp;</span><span class="br0">&#40;</span><span class="sy0">*</span>tmp<span class="br0">&#41;</span>.<span class="me1">temp</span><span class="sy0">,&amp;</span><span class="br0">&#40;</span><span class="sy0">*</span>tmp<span class="br0">&#41;</span>.<span class="me1">feels_like</span><span class="br0">&#41;</span><span class="sy0">;</span>
+  <a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;<span class="es1">\n</span>Wind_Chill = %u, Heat_Index= %u<span class="es1">\n</span>&quot;</span><span class="sy0">,</span> 
+                 <span class="sy0">&amp;</span><span class="br0">&#40;</span><span class="br0">&#40;</span><span class="sy0">*</span>tmp<span class="br0">&#41;</span>.<span class="me1">feels_like</span><span class="br0">&#41;</span>.<span class="me1">Wind_Chill</span><span class="sy0">,</span>
+                 <span class="sy0">&amp;</span><span class="br0">&#40;</span><span class="br0">&#40;</span><span class="sy0">*</span>tmp<span class="br0">&#41;</span>.<span class="me1">feels_like</span><span class="br0">&#41;</span>.<span class="me1">Heat_Index</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+  <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+La rulare va afişa:
+</p>
+<pre class="code c">Address of Temperature <span class="sy0">=</span> <span class="nu0">165496</span>
+Address of temp <span class="sy0">=</span> <span class="nu0">165496</span><span class="sy0">,</span> feels_like <span class="sy0">=</span> <span class="nu0">165500</span>
+Wind_Chill <span class="sy0">=</span> <span class="nu0">165500</span><span class="sy0">,</span> Heat_Index<span class="sy0">=</span> <span class="nu0">165500</span></pre>
+
+</div>
+<!-- EDIT3 SECTION "Noţiuni teoretice" [794-7864] -->
+<h3 class="sectionedit4" id="exercitii">Exerciții</h3>
+<div class="level3">
+
+<p>
+Exercițiile pentru laborator se găsesc pe <a href="https://acs-pclp.github.io/laboratoare/08" class="urlextern" title="https://acs-pclp.github.io/laboratoare/08"  rel="nofollow"> PCLP Laborator08: Tipuri de date definite de utilizator: structuri, uniuni, enumuri</a>.
+</p>
+
+</div>
+<!-- EDIT4 SECTION "Exerciții" [7865-8063] -->
+<h3 class="sectionedit5" id="referinte">Referinţe</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> <a href="http://crasseux.com/books/ctutorial//Data-structures.html#Data%20structures" class="urlextern" title="http://crasseux.com/books/ctutorial//Data-structures.html#Data%20structures"  rel="nofollow">The GNU Programming Tools - Data structure</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="http://publications.gbdirect.co.uk/c_book/chapter6/unions.html" class="urlextern" title="http://publications.gbdirect.co.uk/c_book/chapter6/unions.html"  rel="nofollow">The C Book - Unions</a></div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT5 SECTION "Referinţe" [8064-] --></div>
+</body>
+</html>

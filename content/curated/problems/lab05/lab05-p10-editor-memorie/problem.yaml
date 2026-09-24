@@ -1,0 +1,78 @@
+id: lab05-p10-editor-memorie
+lab: lab05
+number: 10
+title: "Editorul de memorie"
+difficulty: 5
+estimated_minutes: 75
+concepts: [aritmetică cu pointeri, zone de memorie suprapuse, interschimbare prin pointeri, indirectare, memmove]
+statement: |
+  Scrieți un mic „editor de memorie” care lucrează pe un buffer de `n` întregi (pozițiile sunt numerotate de la 1). Editorul primește `q` comenzi:
+
+  | comandă | efect |
+  |---|---|
+  | `C a b len` | copiază blocul de `len` elemente care începe la poziția `a` peste blocul care începe la `b`; blocurile **se pot suprapune**, iar rezultatul trebuie să fie ca și cum sursa ar fi fost mai întâi copiată într-un buffer temporar |
+  | `R a len` | inversează ordinea elementelor din blocul `[a, a+len-1]` |
+  | `T a len k` | rotește blocul `[a, a+len-1]` cu `k` poziții spre dreapta (ultimele `k` elemente ajung la începutul blocului) |
+  | `X a b len` | interschimbă blocurile de lungime `len` care încep la `a` și la `b`; blocurile trebuie să fie disjuncte |
+  | `S a len` | afișează suma elementelor din blocul `[a, a+len-1]` |
+  | `P` | afișează tot bufferul, elementele separate prin spațiu |
+
+  Dacă o comandă se referă la un bloc care nu este în întregime în buffer (sau, pentru `X`, dacă blocurile se suprapun), comanda este ignorată și se afișează `EROARE`.
+
+  Implementați cel puțin funcțiile de mai jos, care primesc **adrese** (calculate cu aritmetică cu pointeri, de exemplu `buf + a - 1`), nu indici:
+
+  ```c
+  void muta_bloc(int *dst, const int *src, int len);   /* ca memmove, dar pe int */
+  void inverseaza(int *st, int len);
+  void roteste_dreapta(int *st, int len, int k);
+  void schimba_blocuri(int *a, int *b, int len);
+  long long suma(const int *st, int len);
+  ```
+
+  Nu folosiți un buffer temporar pentru `C` și nici pentru `T`: direcția copierii se decide comparând pointerii.
+
+  **Date de intrare**
+
+  Pe prima linie `n`, pe a doua cele `n` elemente. Pe a treia linie `q`, apoi `q` linii, fiecare cu o comandă.
+
+  **Date de ieșire**
+
+  Pentru comenzile `S` și `P`, rezultatul lor pe câte o linie; pentru comenzile invalide, `EROARE`.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100000`, `1 ≤ q ≤ 1000`
+  - elementele sunt întregi din `[-10^9, 10^9]`
+  - `a`, `b` sunt întregi din `[-10^6, 10^6]`, `1 ≤ len ≤ 100000`, `0 ≤ k ≤ 10^9`
+  - comanda `P` apare de cel mult 5 ori
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  8
+  1 2 3 4 5 6 7 8
+  7
+  C 1 3 4
+  P
+  R 2 5
+  S 1 3
+  X 1 7 2
+  T 3 4 1
+  P
+  ```
+
+  Ieșire:
+  ```
+  1 2 1 2 3 4 7 8
+  8
+  7 8 2 3 2 1 1 4
+  ```
+hints:
+  - "Toate comenzile se reduc la operații pe zone de memorie descrise prin (adresă de început, lungime). Calculează adresa o singură dată, `buf + a - 1`, după ce ai verificat că blocul e valid: `a ≥ 1` și `a + len - 1 ≤ n`."
+  - "La copierea cu suprapunere, gândește-te ce se întâmplă cu `1 2 3 4 5` când copiezi blocul de la poziția 1 peste cel de la poziția 2: dacă copiezi de la stânga la dreapta, suprascrii elemente înainte să le citești. Direcția sigură depinde de relația dintre `dst` și `src`. Pentru rotire, amintește-ți trucul cu trei inversări."
+  - "Pseudocod muta_bloc: dacă dst < src: pentru i de la 0 la len-1: *(dst+i) = *(src+i); altfel: pentru i de la len-1 la 0: la fel. Rotire la dreapta cu k: k = k mod len; inversează tot blocul, apoi primele k, apoi ultimele len-k. X e valid doar dacă a + len ≤ b sau b + len ≤ a."
+pitfalls:
+  - "Suma poate depăși `int` (10^5 · 10^9) — folosește `long long` și `%lld`."
+  - "Verifică validitatea fără să formezi pointeri în afara bufferului: chiar și calculul `buf - 5` e comportament nedefinit."
+  - "Un vector de 100000 de `int` declarat local în `main` ocupă ~400 KB pe stivă; declară-l global sau `static`."

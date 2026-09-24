@@ -1,0 +1,123 @@
+# Unitățile de conținut (capitolele cititorului) și sursele lor.
+# Fiecare laborator combină suportul teoretic de pe OCW cu enunțul de laborator
+# și problemset-ul de pe acs-pclp.github.io.
+# `week` = săptămâna implicită din semestru; calendarul real e în course.yaml.
+
+labs:
+  - id: lab01
+    title: "Introducere. Unelte de programare. Configurare"
+    short: "Unelte"
+    icon: "🛠️"
+    theory: [ocw/laboratoare_suport_teoretic_introducere-unelte-de-programare-configurare.html]
+    lab: labs/01.html
+  - id: lab02
+    title: "Tipuri de date. Operatori. Instrucțiunile limbajului C"
+    short: "Tipuri și operatori"
+    icon: "🔢"
+    theory: [ocw/laboratoare_lab02.html]
+    lab: labs/02.html
+    problemset: problemset/02.html
+  - id: lab03
+    title: "Funcții. Recursivitate. Clase de stocare"
+    short: "Funcții"
+    icon: "🔁"
+    theory: [ocw/laboratoare_lab03.html]
+    lab: labs/03.html
+    problemset: problemset/03.html
+  - id: lab04
+    title: "Tablouri. Particularizare - vectori și matrice"
+    short: "Tablouri"
+    icon: "▦"
+    theory: [ocw/laboratoare_lab04.html]
+    lab: labs/04.html
+    problemset: problemset/04.html
+  - id: lab05
+    title: "Pointeri. Abordarea lucrului cu tablouri folosind pointeri"
+    short: "Pointeri"
+    icon: "👉"
+    theory: [ocw/laboratoare_lab05.html]
+    lab: labs/05.html
+    problemset: problemset/05.html
+  - id: lab06
+    title: "Alocarea dinamică a memoriei. Aplicații folosind tablouri"
+    short: "Alocare dinamică"
+    icon: "🧱"
+    theory: [ocw/laboratoare_lab06.html]
+    lab: labs/06.html
+    problemset: problemset/06.html
+  - id: lab07
+    title: "Prelucrarea șirurilor de caractere. Funcții. Aplicații"
+    short: "Șiruri de caractere"
+    icon: "🔤"
+    theory: [ocw/laboratoare_lab07.html]
+    lab: labs/07.html
+    problemset: problemset/07.html
+  - id: lab08
+    title: "Tipuri de date definite de utilizator: structuri, uniuni, enumerări"
+    short: "Structuri"
+    icon: "🧩"
+    theory: [ocw/laboratoare_lab08.html]
+    lab: labs/08.html
+    problemset: problemset/08.html
+  - id: lab09
+    title: "Operații cu fișiere. Aplicații folosind fișiere"
+    short: "Fișiere"
+    icon: "📄"
+    theory: [ocw/laboratoare_lab09.html]
+    lab: labs/09.html
+    problemset: problemset/09.html
+  - id: lab10
+    title: "Operații avansate cu tablouri, alocare dinamică, șiruri"
+    short: "Recapitulare aplicată"
+    icon: "🧪"
+    theory: [ocw/laboratoare_lab10.html]
+    lab: labs/10.html
+    problemset: problemset/10.html
+  - id: lab11
+    title: "Parametrii liniei de comandă. Preprocesorul. Funcții variadice"
+    short: "Linia de comandă"
+    icon: "⌨️"
+    theory: [ocw/laboratoare_lab11.html]
+    lab: labs/11.html
+    problemset: problemset/11.html
+  - id: lab12
+    title: "Optimizarea programelor cu operații pe biți"
+    short: "Operații pe biți"
+    icon: "⚙️"
+    theory: [ocw/laboratoare_lab12.html, ocw/laboratoare_lab12-bitset-example.html]
+    lab: labs/12.html
+    problemset: problemset/12.html
+
+guides:
+  - id: coding-style
+    title: "Coding style"
+    icon: "✍️"
+    source: ocw/coding-style.html
+  - id: good-practices
+    title: "Bune practici"
+    icon: "✅"
+    source: ocw/tutoriale_good_practices.html
+  - id: debugging
+    title: "Debugging (GDB, Valgrind)"
+    icon: "🐞"
+    source: ocw/tutoriale_debugging.html
+  - id: read-docs
+    title: "Citirea documentației"
+    icon: "📚"
+    source: ocw/tutoriale_read_docs.html
+  - id: code-understanding
+    title: "Înțelegerea codului"
+    icon: "🔍"
+    source: ocw/tutoriale_code_understanding.html
+  - id: logging
+    title: "Logging"
+    icon: "🪵"
+    source: ocw/tutoriale_logging.html
+  - id: unit-tests
+    title: "Teste unitare"
+    icon: "🧪"
+    source: ocw/tutoriale_unittests.html
+  - id: vm-setup
+    title: "Setup Linux / VM"
+    icon: "🐧"
+    source: ocw/vm-setup.html

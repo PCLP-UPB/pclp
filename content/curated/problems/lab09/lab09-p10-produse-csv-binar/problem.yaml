@@ -1,0 +1,91 @@
+id: lab09-p10-produse-csv-binar
+lab: lab09
+number: 10
+title: "De la CSV la o bază de date binară de produse"
+difficulty: 5
+estimated_minutes: 75
+concepts: [fișier text, fișier binar, înregistrare, fgets, fread, fwrite, fseek, ftell, mod de actualizare, structură, memset, strchr]
+statement: |
+  Un magazin ține lista de produse în fișierul text `produse.csv`. Scrie un program care îl convertește
+  într-un fișier binar cu înregistrări de lungime fixă, `produse.bin`, și apoi răspunde la comenzi
+  lucrând **direct pe fișierul binar**.
+
+  **Formatul CSV**: prima linie este antetul `cod,nume,pret,stoc` (se ignoră). Fiecare linie următoare are
+  exact 4 câmpuri separate prin virgulă: `cod` (întreg > 0, doar cifre), `nume` (1–19 caractere, fără virgule),
+  `pret` în lei, cu **exact două zecimale** (`12.50`, `0.05`), `stoc` (întreg ≥ 0, doar cifre).
+  Liniile pot fi terminate cu `\n` sau `\r\n`. Liniile goale se ignoră fără mesaj. O linie care nu respectă
+  formatul sau care repetă un cod deja acceptat se ignoră cu mesajul `Linia N ignorata`
+  (N = numărul liniei în fișier, antetul fiind linia 1).
+
+  **Formatul binar** (32 de octeți per produs, `sizeof(int) == 4`, little-endian, fără antet):
+
+  | octeți | câmp |
+  |---|---|
+  | 0–3 | `cod` (int) |
+  | 4–23 | `nume` (char[20], terminat cu `'\0'`, restul octeților 0) |
+  | 24–27 | `pret` în bani (int; `12.50` → 1250) |
+  | 28–31 | `stoc` (int) |
+
+  După conversie se închide `produse.bin`, se redeschide în modul `"r+b"` și se afișează
+  `Scrise N produse (X octeti)` (X = dimensiunea fișierului obținută cu `ftell`).
+
+  **Comenzi** (de la stdin, până la sfârșitul intrării):
+
+  - `cauta C` → `C nume pret stoc` (prețul cu 2 zecimale, ex. `1.99`) sau `Cod inexistent: C`;
+  - `vinde C Q` → dacă stocul e ≥ Q, scade stocul **în fișier** și afișează `Vandut Q x <nume>, stoc ramas S`;
+    altfel `Stoc insuficient pentru <nume> (S)`; cod necunoscut → `Cod inexistent: C`;
+  - `raport` → toate produsele, în ordinea din fișier, în formatul de la `cauta`, apoi
+    `Valoare totala: V` (suma pret × stoc, în lei, cu 2 zecimale);
+  - orice alt cuvânt → `Comanda invalida: <cuvant>`.
+
+  Dacă `produse.csv` nu poate fi deschis: `Eroare: nu pot deschide produse.csv`.
+
+  **Restricții**
+
+  - cel mult 10^4 produse și 10^4 comenzi; liniile CSV au cel mult 200 de caractere;
+  - calculele de bani se fac în întregi (bani), nu în `float`.
+
+  **Exemplu**
+
+  Fișierul `produse.csv`:
+  ```
+  cod,nume,pret,stoc
+  101,Caiet A4,4.50,120
+  102,Pix albastru,1.99,300
+  103,Rigla,x.00,10
+  104,Marker,6.25,15
+  ```
+
+  Intrare (stdin):
+  ```
+  cauta 102
+  vinde 104 5
+  vinde 104 20
+  cauta 999
+  raport
+  ```
+
+  Ieșire (stdout):
+  ```
+  Linia 4 ignorata
+  Scrise 3 produse (96 octeti)
+  102 Pix albastru 1.99 300
+  Vandut 5 x Marker, stoc ramas 10
+  Stoc insuficient pentru Marker (10)
+  Cod inexistent: 999
+  101 Caiet A4 4.50 120
+  102 Pix albastru 1.99 300
+  104 Marker 6.25 10
+  Valoare totala: 1199.50
+  ```
+
+  Linia 4 este ignorată deoarece prețul `x.00` nu este valid.
+hints:
+  - "Împarte problema în două etape independente: conversia (text → binar, cu validare) și procesorul de comenzi (care nu mai știe nimic de CSV și lucrează doar cu fseek/fread/fwrite pe înregistrări de 32 de octeți)."
+  - "Pentru parsare, înlocuiește virgulele cu '\\0' și reține pointeri spre începutul fiecărui câmp (strtok nu e bun: sare peste câmpurile goale, deci „2,,1.00,1” ar părea să aibă 3 câmpuri). Prețul: caută '.', verifică că după el sunt exact 2 cifre și calculează lei * 100 + bani."
+  - "Structura are câmpurile int cod; char nume[20]; int pret; int stoc (32 de octeți). Pune memset(nume, 0, 20) înainte de strcpy. Pentru vinde: parcurge fișierul cu fread până găsești codul, reținând indicele idx; modifică stocul și scrie la loc cu fseek(f, idx * 32, SEEK_SET) + fwrite."
+pitfalls:
+  - "Folosirea float pentru prețuri introduce erori de rotunjire (1.99 nu se reprezintă exact) — lucrează în bani."
+  - "Octeții neinițializați din nume ajung în fișier și îl fac nereproductibil; inițializează structura cu zero."
+  - "Liniile terminate cu \\r\\n lasă un '\\r' la final dacă tai doar '\\n', iar stocul „120\\r” nu mai este valid."
+  - "Pe un fișier deschis cu \"r+b\", trecerea de la fread la fwrite fără fseek este comportament nedefinit."

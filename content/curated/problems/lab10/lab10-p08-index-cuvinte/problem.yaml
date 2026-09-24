@@ -1,0 +1,64 @@
+id: lab10-p08-index-cuvinte
+lab: lab10
+number: 8
+title: "Indexul de cuvinte al unui text"
+difficulty: 4
+estimated_minutes: 60
+concepts: [vector extensibil, vector de vectori, realloc, câmp pointer alocat dinamic, structură, fgetc, tolower, pointer la funcție]
+statement: |
+  La finalul unei cărți se găsește de obicei un **index**: lista alfabetică a cuvintelor, fiecare cu
+  paginile pe care apare. Construiește un astfel de index pentru fișierul `text.txt`, folosind liniile
+  în loc de pagini.
+
+  Un cuvânt este o secvență maximală de litere (`a–z`, `A–Z`), transformată în litere mici. Liniile se
+  numerotează de la 1 (o linie se încheie la `'\n'`). De la tastatură se citește `L`: în index intră
+  doar cuvintele cu **cel puțin `L` litere**.
+
+  **Date de ieșire**
+
+  Prima linie: `K cuvinte in index`. Apoi, pentru fiecare cuvânt, în ordine alfabetică (`strcmp`):
+  `cuvant: l1 l2 ...` — liniile pe care apare, în ordine crescătoare, **fără repetiții**.
+
+  Dacă fișierul lipsește: `Eroare: nu pot deschide text.txt`.
+
+  **Restricții**
+
+  - 1 ≤ L ≤ 100; textul are cel mult 10^6 caractere; cuvintele au cel mult 40 de litere;
+  - numărul de cuvinte distincte și numărul de linii pentru fiecare cuvânt nu sunt cunoscute dinainte:
+    se folosesc vectori extinși dinamic (inclusiv câte un vector de linii pentru fiecare cuvânt).
+
+  **Exemplu**
+
+  Fișierul `text.txt`:
+  ```
+  Ana are mere si pere.
+  Mere rosii, mere verzi.
+
+  Pere? Ana nu are pere!
+  ```
+
+  Intrare (stdin):
+  ```
+  3
+  ```
+
+  Ieșire (stdout):
+  ```
+  6 cuvinte in index
+  ana: 1 4
+  are: 1 4
+  mere: 1 2
+  pere: 1 4
+  rosii: 2
+  verzi: 2
+  ```
+
+  Cu `L = 3`, cuvântul `si` și `nu` nu intră în index; `mere` apare de două ori pe linia 2, dar linia se afișează o singură dată.
+hints:
+  - "Fiecare intrare din index are propriul vector dinamic de numere de linie: structura {char *cuvant; int *linii; int n, cap;}. Indexul însuși este un vector dinamic de astfel de structuri."
+  - "Citește cu fgetc: literele se adaugă la cuvântul curent, orice altceva îl încheie; un '\\n' incrementează numărul liniei DUPĂ ce ai încheiat cuvântul curent. Liniile sosesc în ordine crescătoare, deci pentru a evita duplicatele ajunge să compari cu ultima linie adăugată."
+  - "La final: qsort după cuvânt, afișare, apoi eliberare în ordinea inversă alocării: pentru fiecare intrare free(linii) și free(cuvant), apoi free(index)."
+pitfalls:
+  - "Incrementarea liniei înainte de a înregistra cuvântul care se termină exact la '\\n' îl atribuie liniei greșite."
+  - "Ultimul cuvânt din fișier poate să nu fie urmat de separator."
+  - "La realloc pe vectorul de intrări, pointerii spre elemente păstrați anterior devin invalizi."

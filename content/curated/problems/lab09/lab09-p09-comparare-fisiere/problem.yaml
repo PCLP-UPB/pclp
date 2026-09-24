@@ -1,0 +1,78 @@
+id: lab09-p09-comparare-fisiere
+lab: lab09
+number: 9
+title: "Compararea a două fișiere (diff + cmp)"
+difficulty: 4
+estimated_minutes: 45
+concepts: [fișier text, fgets, fgetc, fseek, EOF, verificarea deschiderii fișierului, strcmp, sfârșit de linie]
+statement: |
+  Scrie un program care compară două fișiere text în două moduri: linie cu linie
+  (asemănător lui `diff`) și octet cu octet (asemănător lui `cmp`).
+
+  **Date de intrare**
+
+  Pe stdin, două linii: numele primului fișier (A) și numele celui de-al doilea (B).
+
+  **Date de ieșire**
+
+  1. Dacă A nu poate fi deschis: `Eroare: nu pot deschide fisierul <A>`; altfel, dacă B nu poate fi deschis:
+     `Eroare: nu pot deschide fisierul <B>`. În aceste cazuri nu se mai afișează nimic altceva.
+  2. Comparația pe linii: liniile se compară pe poziții (linia 1 din A cu linia 1 din B etc.),
+     ignorând `'\n'`-ul de la final. Pentru fiecare poziție `N` la care liniile diferă
+     (sau una dintre ele lipsește, fiindcă fișierul respectiv are mai puține linii) se afișează:
+     ```
+     Linia N:
+     < <linia din A sau (lipsa)>
+     > <linia din B sau (lipsa)>
+     ```
+  3. Comparația pe octeți: dacă fișierele sunt identice octet cu octet, se afișează
+     `Fisierele sunt identice`. Altfel se afișează `Linii diferite: D` (numărul de blocuri de la pasul 2,
+     posibil 0) și `Primul octet diferit: P`, unde P este poziția (de la 0) a primului octet diferit;
+     dacă un fișier este prefix al celuilalt, P este lungimea celui mai scurt.
+
+  **Restricții**
+
+  - fiecare linie are cel mult 1000 de caractere; fișierele pot fi goale.
+
+  **Exemplu**
+
+  Fișierul `v1.txt`:
+  ```
+  int main(void)
+  {
+      int x = 1;
+      return x;
+  }
+  ```
+
+  Fișierul `v2.txt`:
+  ```
+  int main(void)
+  {
+      int x = 2;
+      return x;
+  }
+  ```
+
+  Intrare (stdin):
+  ```
+  v1.txt
+  v2.txt
+  ```
+
+  Ieșire (stdout):
+  ```
+  Linia 3:
+  <     int x = 1;
+  >     int x = 2;
+  Linii diferite: 1
+  Primul octet diferit: 29
+  ```
+hints:
+  - "Ai nevoie de două treceri prin aceleași fișiere: una pe linii și una pe octeți. Între ele, revino la începutul fiecărui fișier (rewind sau fseek la 0)."
+  - "Pentru pasul pe linii, citește în paralel câte o linie din fiecare fișier cu fgets; bucla se oprește doar când AMBELE fișiere s-au terminat. Un fișier terminat produce „(lipsa)”."
+  - "Pentru pasul pe octeți: pos = 0; repetă { ca = fgetc(a); cb = fgetc(b); dacă ca != cb întoarce pos; dacă ca == EOF întoarce -1 (identice); pos++ }. Observă că EOF diferit de un octet valid tratează automat cazul prefixului."
+pitfalls:
+  - "Dacă al doilea fișier nu se poate deschide, primul trebuie totuși închis înainte de ieșire."
+  - "Fișierele \"abc\" și \"abc\\n\" au aceleași linii, dar nu sunt identice — de aceea rezultatul final se decide pe octeți."
+  - "Oprirea buclei pe linii la primul fișier terminat pierde liniile rămase din celălalt."

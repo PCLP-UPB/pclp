@@ -1,0 +1,63 @@
+#!/bin/bash
+# pclp-watch — face snapshot-uri git automate în ~/work.
+#  * după ~DEBOUNCE secunde fără modificări (inotify),
+#  * și periodic la PERIODIC secunde (dacă există modificări; ex. fișiere editate de pe host,
+#    unde inotify nu funcționează prin bind mount pe Docker Desktop).
+set -u
+W="${PCLP_WORK:-/home/student/work}"
+DEBOUNCE="${PCLP_DEBOUNCE:-20}"
+PERIODIC="${PCLP_PERIODIC:-600}"
+
+log() { echo "[pclp-watch $(date '+%F %T')] $*"; }
+
+snap() {
+    local out
+    if out=$(pclp snap --auto 2>&1); then
+        [ -n "$out" ] && log "$out"
+    else
+        log "snap a eșuat: $out"
+    fi
+}
+
+while [ ! -d "$W/.git" ]; do log "aștept ~/work/.git"; sleep 5; done
+
+dirty=0
+last_change=0
+last_snap=$(date +%s)
+last_ai_check=$last_snap
+log "pornit (debounce=${DEBOUNCE}s, periodic=${PERIODIC}s)"
+
+# Evenimente relevante; excludem .git, starea locală, predările și fișierele temporare ale editoarelor.
+exec {INO}< <(inotifywait -m -r -q \
+    -e close_write -e create -e delete -e moved_to -e moved_from \
+    --format '%w%f' \
+    --exclude '(/\.git(/|$)|/\.pclp/state(/|$)|/predari(/|$)|\.swp$|~$|/\.#)' \
+    "$W")
+INO_PID=$!
+trap 'kill $INO_PID 2>/dev/null; exit 0' TERM INT
+
+while true; do
+    if IFS= read -r -t 5 -u "$INO" path; then
+        dirty=1
+        last_change=$(date +%s)
+    else
+        rc=$?
+        if [ "$rc" -le 128 ]; then
+            log "inotifywait s-a oprit (rc=$rc); ies ca să fiu repornit"
+            exit 1
+        fi
+    fi
+    now=$(date +%s)
+    if [ "$dirty" = 1 ] && [ $((now - last_change)) -ge "$DEBOUNCE" ]; then
+        dirty=0
+        snap
+        last_snap=$now
+    elif [ $((now - last_snap)) -ge "$PERIODIC" ]; then
+        snap
+        last_snap=$now
+    elif [ $((now - last_ai_check)) -ge 60 ]; then
+        # sesiunile AI stau în .pclp/state (neurmărit de inotify) -> verificare la 60 s
+        last_ai_check=$now
+        if pclp ai-changed 2>/dev/null; then snap; last_snap=$now; fi
+    fi
+done

@@ -1,0 +1,526 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:vm-setup</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-10-18T16:38:30+0300"/>
+<meta name="keywords" content="programare,vm-setup"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/vm-setup"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/vm-setup"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare';var JSINFO = {"id":"programare:vm-setup","namespace":"programare","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#setup_linuxvm">Setup Linux/VM</a></div></li>
+<li class="level3"><div class="li"><a href="#tutoriale">Tutoriale</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#instalare_utilitare_compilare">Instalare utilitare compilare</a></div></li>
+<li class="level4"><div class="li"><a href="#instalare_editoare_de_cod">Instalare editoare de cod</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#vm_local">VM local</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#vm_ssh_scp">VM ssh &amp; scp</a></div></li>
+<li class="level4"><div class="li"><a href="#copiere_fisiere_host-vm">Copiere fisiere Host-VM</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#vm_vmchecker">VM vmchecker</a></div></li>
+<li class="level3"><div class="li"><a href="#windows_subsystem_for_linux_setup">Windows Subsystem for Linux Setup</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#instalare_wsl2">Instalare WSL2</a></div></li>
+<li class="level4"><div class="li"><a href="#visual_studio_code_setup">Visual Studio Code setup</a></div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h3 class="sectionedit1" id="setup_linuxvm">Setup Linux/VM</h3>
+<div class="level3">
+
+<p>
+<strong>Responsabili:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="mailto:&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x2e;&#x6e;&#x65;&#x61;&#x74;&#x75;&#x40;&#x75;&#x70;&#x62;&#x2e;&#x72;&#x6f;" class="mail" title="&#x64;&#x61;&#x72;&#x69;&#x75;&#x73;&#x2e;&#x6e;&#x65;&#x61;&#x74;&#x75;&#x40;&#x75;&#x70;&#x62;&#x2e;&#x72;&#x6f;">Darius Neațu  </a> (2018 - prezent)</div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x75;&#x70;&#x62;&#x2e;&#x72;&#x6f;" class="mail" title="&#x69;&#x6f;&#x6e;&#x5f;&#x64;&#x6f;&#x72;&#x69;&#x6e;&#x65;&#x6c;&#x2e;&#x66;&#x69;&#x6c;&#x69;&#x70;&#x40;&#x75;&#x70;&#x62;&#x2e;&#x72;&#x6f;">Dorinel Filip</a> (2018 - prezent)</div>
+</li>
+<li class="level1"><div class="li"> <a href="mailto:&#x72;&#x61;&#x64;&#x75;&#x74;&#x61;&#x2e;&#x61;&#x6c;&#x65;&#x78;&#x61;&#x6e;&#x64;&#x72;&#x75;&#x30;&#x36;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" class="mail" title="&#x72;&#x61;&#x64;&#x75;&#x74;&#x61;&#x2e;&#x61;&#x6c;&#x65;&#x78;&#x61;&#x6e;&#x64;&#x72;&#x75;&#x30;&#x36;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">Alexandru Raduta</a> (2025 - prezent)</div>
+</li>
+</ul>
+
+<p>
+<p><div class="noteclassic">
+În cadrul activităților de la PCLP, veți avea nevoie de un setup cu Linux (care poate fi același de la alte materii). Puteți opta pentru una din următoarele variante:
+</p>
+
+<p>
+1. Linux clean install: instalare directă pe host. Puteți folosi dual-boot pentru a avea, de exemplu, Ubuntu + Windows. Dacă doriți să faceți Linux clean install, recomandăm participarea la Linux Install Fest, unde diverși voluntari vă vor ajuta să instalați o distribuție de Linux pe laptopul vostru! Verificați canalul administrativ de pe Teams.
+</p>
+
+<p>
+2. VM cu Linux care rulează pe Windows/MAC, folosind un soft de virtualizare. Mai multe detalii în primul laborator.
+</p>
+
+<p>
+3. <a href="https://learn.microsoft.com/en-us/windows/wsl/install" class="urlextern" title="https://learn.microsoft.com/en-us/windows/wsl/install"  rel="nofollow"> How to install Linux on Windows with WSL</a>) sau <a href="https://www.cygwin.com" class="urlextern" title="https://www.cygwin.com"  rel="nofollow"> Cygwin</a> pentru Windows.
+</p>
+
+<p>
+
+</div></p>
+</p>
+
+<p>
+<p><div class="notewarning">
+Cine are deja Linux clean install (direct pe host), nu are nevoie de mașină virtuală.
+</p>
+
+<p>
+Consultați secțiunea de tutoriale de pe această pagină pentru a vedea de ce utilitare aveți nevoie să instalați pe distribuția voastră de Linux pentru a putea lucra la PCLP (laboratoare, teme, etc).
+</p>
+
+<p>
+Recomandarea este să folosiți 1, întrucât este util la mai multe materii.
+
+</div></p>
+</p>
+
+</div>
+<!-- EDIT1 SECTION "Setup Linux/VM" [1-1482] -->
+<h3 class="sectionedit2" id="tutoriale">Tutoriale</h3>
+<div class="level3">
+
+</div>
+
+<h4 id="instalare_utilitare_compilare">Instalare utilitare compilare</h4>
+<div class="level4">
+
+<p>
+Exemplu instalare versiunea default/recentă gcc și make pe Ubuntu 24:
+</p>
+<dl class="code">
+<dt><a href="/courses/_export/code/programare/vm-setup?codeblock=0" title="Download Snippet" class="mediafile mf_">gcc (latest)</a></dt>
+<dd><pre class="code bash">$ <span class="kw2">sudo</span> <span class="kw2">apt-get update</span>
+$ <span class="kw2">sudo</span> <span class="kw2">apt-get install</span> <span class="kw2">gcc</span> <span class="kw2">make</span>
+$ <span class="kw2">gcc</span> <span class="re5">-v</span>
+<span class="kw2">gcc</span> version 13.3.0 <span class="br0">&#40;</span>Ubuntu 13.3.0-6ubuntu2~<span class="nu0">24.04</span><span class="br0">&#41;</span>
+$ <span class="kw2">make</span> <span class="re5">-v</span>
+GNU Make <span class="nu0">4.3</span></pre>
+</dd></dl>
+
+</div>
+
+<h4 id="instalare_editoare_de_cod">Instalare editoare de cod</h4>
+<div class="level4">
+
+</div>
+
+<h5 id="visual_studio_code">Visual Studio Code</h5>
+<div class="level5">
+
+<p>
+Exemplu instalare <a href="https://code.visualstudio.com/docs/setup/linux" class="urlextern" title="https://code.visualstudio.com/docs/setup/linux"  rel="nofollow">Visual Studio Code</a> pentru Ubuntu:
+</p>
+<ul>
+<li class="level1"><div class="li"> Descărcare de pe <a href="https://code.visualstudio.com/download" class="urlextern" title="https://code.visualstudio.com/download"  rel="nofollow">https://code.visualstudio.com/download</a>. Pentru Ubuntu selectăm fișierul ”.deb”. Descărcarea pornește automat.</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> Numele fișierului poate să difere la voi. Exemplu de nume de fișier “code_1.93.1-1726079302_amd64.deb”.</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> Instalare din terminal:</div>
+</li>
+</ul>
+<dl class="code">
+<dt><a href="/courses/_export/code/programare/vm-setup?codeblock=1" title="Download Snippet" class="mediafile mf_">vscode</a></dt>
+<dd><pre class="code bash">$ <span class="kw2">sudo</span> <span class="kw2">apt-get update</span>
+$ <span class="kw2">sudo</span> <span class="kw2">dpkg</span> <span class="re5">-i</span> code_1.104.3-<span class="nu0">1759409451</span>_amd64.deb</pre>
+</dd></dl>
+
+<p>
+Puteți căuta și deschide aplicația “Visual Studio Code” din interfața grafică sau rula comanda “code” in terminal.
+</p>
+
+</div>
+
+<h5 id="sublime_text">Sublime Text</h5>
+<div class="level5">
+
+<p>
+Exemplu instalare <a href="https://www.sublimetext.com/" class="urlextern" title="https://www.sublimetext.com/"  rel="nofollow">Sublime Text</a> pentru Ubuntu <a href="https://www.sublimetext.com/docs/linux_repositories.html" class="urlextern" title="https://www.sublimetext.com/docs/linux_repositories.html"  rel="nofollow">aici</a>.
+</p>
+<pre class="code bash">$ <span class="kw2">wget</span> <span class="re5">-qO</span> - https:<span class="sy0">//</span>download.sublimetext.com<span class="sy0">/</span>sublimehq-pub.gpg <span class="sy0">|</span> gpg <span class="re5">--dearmor</span> <span class="sy0">|</span> <span class="kw2">sudo</span> <span class="kw2">tee</span> <span class="sy0">/</span>etc<span class="sy0">/</span>apt<span class="sy0">/</span>trusted.gpg.d<span class="sy0">/</span>sublimehq-archive.gpg <span class="sy0">&gt;</span> <span class="sy0">/</span>dev<span class="sy0">/</span>null
+$ <span class="kw3">echo</span> <span class="st0">&quot;deb https://download.sublimetext.com/ apt/stable/&quot;</span> <span class="sy0">|</span> <span class="kw2">sudo</span> <span class="kw2">tee</span> <span class="sy0">/</span>etc<span class="sy0">/</span>apt<span class="sy0">/</span>sources.list.d<span class="sy0">/</span>sublime-text.list
+$ <span class="kw2">sudo</span> <span class="kw2">apt-get update</span>
+$ <span class="kw2">sudo</span> <span class="kw2">apt-get install</span> sublime-text</pre>
+
+<p>
+Puteți căuta și deschide aplicația “Sublime Text” din interfața grafică sau rula comanda “subl” in terminal.
+</p>
+
+</div>
+<!-- EDIT2 SECTION "Tutoriale" [1483-3071] -->
+<h3 class="sectionedit3" id="vm_local">VM local</h3>
+<div class="level3">
+
+<p>
+<p><div class="notewarning">
+Cine are deja Linux clean install (direct pe host) nu are nevoie de mașină virtuală.
+
+</div></p>
+</p>
+
+<p>
+Pentru a vă ajuta să lucrați într-un mediu corespunzător și necesar acasă, echipa vă pune la dispoziție o mașină virtuală.
+</p>
+
+<p>
+<p><div class="noteclassic">
+Link download x86_64:
+<a href="https://dfilip.xyz/vmpclp" class="urlextern" title="https://dfilip.xyz/vmpclp"  rel="nofollow">https://dfilip.xyz/vmpclp</a>
+</p>
+
+<p>
+Link download ARM:
+<a href="https://ctipub-my.sharepoint.com/:u:/g/personal/dorinel_filip_upb_ro/EaRM0N-iOuRNjiAkfw2WxQQBZ1ZaZbBe6x3lLsGB8njaEg?e=bvsB3h" class="urlextern" title="https://ctipub-my.sharepoint.com/:u:/g/personal/dorinel_filip_upb_ro/EaRM0N-iOuRNjiAkfw2WxQQBZ1ZaZbBe6x3lLsGB8njaEg?e=bvsB3h"  rel="nofollow">ARM/Apple Silicon</a>
+</p>
+
+<p>
+ATENȚIE! Această mașină virtuală este configurată să aibă disponibilă următoarele resurse: 2 CPU cores, 4GB RAM, 20GB HDD. Aceste setări se pot schimba, însă recomandăm să lăsați setupul făcut de noi.
+
+</div></p>
+</p>
+
+<p>
+Pentru importarea, pornirea și folosirea acestei mașini virtuale puteți folosi VMWare Workstation sau VirtualBox.
+</p>
+
+<p>
+<p><div class="noteclassic">
+</p>
+
+<p>
+Pe site sunt disponibile mai multe versiuni. Recomandăm utilizarea <strong><a href="https://www.vmware.com/products/workstation-player/workstation-player-evaluation.html" class="urlextern" title="https://www.vmware.com/products/workstation-player/workstation-player-evaluation.html"  rel="nofollow">VMware Workstation Player</a></strong> pe <strong>Windows/Linux</strong>, respectiv <strong><a href="https://www.vmware.com/products/fusion/fusion-evaluation.html" class="urlextern" title="https://www.vmware.com/products/fusion/fusion-evaluation.html"  rel="nofollow">WMware Fusion Player</a></strong> pe <strong>MacOS</strong>.
+</p>
+
+<p>
+Ambele software-uri sunt gratuite pentru uz non-comercial, însă pentru VMWare Fushion va trebui să vă creați cont pe site-ul VMware pentru a primi o licență personală.
+</p>
+
+<p>
+
+</div></p>
+</p>
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Tutorial: Import VM pe ARM în VMWare Fusion
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Tutorial: Import VM pe ARM în VMWare Fusion
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+<p><div class="noteimportant">
+</p>
+<ol>
+<li class="level1"><div class="li"> Descărcați mașina virtuală și dezarhivați fișierele sale în directorul dedicat mașinilor virtuale (subdirectorul trebuie să aibă extensia .vmwarevm):<pre class="code bash">$ <span class="kw2">mkdir</span> <span class="re5">-p</span> ~<span class="sy0">/</span>Virtual\ Machines.localized<span class="sy0">/</span>vmpclp.vmwarevm
+$ <span class="kw2">tar</span> xzvf ARHIVA <span class="re5">-C</span> ~<span class="sy0">/</span>Virtual\ Machines.localized<span class="sy0">/</span>vmpclp.vmwarevm</pre>
+</div>
+</li>
+<li class="level1"><div class="li"> Din VMWare Fusion, folosiți funcția Scan pentru a o detecta, iar apoi mașina ar trebui să apară și să funcționeze.</div>
+</li>
+</ol>
+
+<p>
+
+</div></p>
+</p>
+</div></div><div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Eroare: This Host Supports Intel VT-x but Intel VT-x is Disabled
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Eroare: This Host Supports Intel VT-x but Intel VT-x is Disabled
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+<p><div class="noteimportant">La rularea mașinii virtuale locale este posibil să întâlniți eroarea de mai jos:
+</p>
+
+<p>
+<a href="/courses/_media/programare/vtx.png" class="media" title="programare:vtx.png"><img src="/courses/_media/programare/vtx.png?w=200&amp;tok=4aaed3" class="media" alt="" width="200" /></a>
+</p>
+
+<p>
+În acest caz, este necesară activarea <strong>Intel VT-X</strong> din setările <strong>BIOS/UEFI Firmware</strong> ale calculatorului.
+</p>
+
+<p>
+Pașii necesari sunt descriși în <a href="https://youtu.be/MOuTxfzCvMY" class="urlextern" title="https://youtu.be/MOuTxfzCvMY"  rel="nofollow">acest turorial video</a>.
+</p>
+
+<p>
+Tutorialul surprinde varianta în care sistemul de operare este instalat folosind <strong>UEFI</strong>. Dacă opțiunea <strong><em>UEFI Firmware Settings</em></strong> nu apare în cazul vostru, înseamnă că sistemul de operare nu a fost instalat cu UEFI. În cele mai multe cazuri, pentru a accesa <strong>BIOS</strong> trebuie să apăsați una din tastele <strong>ESC</strong>, <strong>F2</strong> sau <strong>F10</strong> <em class="u">înainte</em> de pornirea sistemului de operare.  
+</p>
+
+<p>
+Dacă nu vă descurcați, <strong>nu ezitați</strong> să cereți ajutorul asistentului. <strong>Suntem aici să vă ajutăm! :)</strong>
+
+</div></p>
+</p>
+</div></div>
+</div>
+
+<h4 id="vm_ssh_scp">VM ssh &amp; scp</h4>
+<div class="level4">
+
+<p>
+Dacă doriți să folosiți editorul de text de pe mașina host va trebui să vă configurați o conexiune SSH. Pentru aceasta trebuie să creați un adaptor nou în mașina virtuală ca să poată comunica între ele cele două mașini. Adaptorul trebuie configurat astfel:
+</p>
+
+<p>
+<a href="/courses/_media/programare/configuratie_vm.png" class="media" title="programare:configuratie_vm.png"><img src="/courses/_media/programare/configuratie_vm.png?w=600&amp;tok=c7d9e8" class="media" alt="" width="600" /></a>
+</p>
+
+<p>
+Ca să vă conectați din Powershell în VM folosiți comanda:
+</p>
+<dl class="code">
+<dt><a href="/courses/_export/code/programare/vm-setup?codeblock=4" title="Download Snippet" class="mediafile mf_">conexiune ssh</a></dt>
+<dd><pre class="code powershell"><span class="sy0">&gt;</span> ssh student<span class="sy0">@</span>pclp<span class="sy0">-</span>vm</pre>
+</dd></dl>
+
+<p>
+Dacă nu merge, găsiți ip-ul mașinii virtuale cu comanda:
+</p>
+<dl class="code">
+<dt><a href="/courses/_export/code/programare/vm-setup?codeblock=5" title="Download Snippet" class="mediafile mf_">comanda ip</a></dt>
+<dd><pre class="code bash"><span class="co4">$ </span><span class="kw2">ifconfig</span></pre>
+</dd></dl>
+
+<p>
+Iar după ce aveți adresa ip locală, rulați în powershell:
+</p>
+<dl class="code">
+<dt><a href="/courses/_export/code/programare/vm-setup?codeblock=6" title="Download Snippet" class="mediafile mf_">conexiune ssh</a></dt>
+<dd><pre class="code powershell"><span class="sy0">&gt;</span> ssh student<span class="sy0">@</span>adresă_ip</pre>
+</dd></dl>
+
+<p>
+Pentru a putea copia fișiere de pe mașina host pe mașina virtuală folosim SCP:
+</p>
+<dl class="code">
+<dt><a href="/courses/_export/code/programare/vm-setup?codeblock=7" title="Download Snippet" class="mediafile mf_">Windows cmd</a></dt>
+<dd><pre class="code powershell"><span class="sy0">&gt;</span> scp cale_fișier student<span class="sy0">@</span>adresa_ip_vm:cale_destinatie_vm</pre>
+</dd></dl>
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Eroare: student@ip: Permission denied (publickey)
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Eroare: student@ip: Permission denied (publickey)
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody">
+<p>
+<p><div class="noteimportant">
+Trebuie să vă puneți cheia publică de SSH a mașinii host in lista de chei acceptate de mașina virtuală folosind următoarele comenzi:
+</p>
+
+<p>
+În Windows PowerShell (În cazul în care nu aveți deja cheie SSH):
+</p>
+<dl class="code">
+<dt><a href="/courses/_export/code/programare/vm-setup?codeblock=8" title="Download Snippet" class="mediafile mf_">windows cmd</a></dt>
+<dd><pre class="code powershell"><span class="sy0">&gt;</span> whoami
+nume_mașina\nume_utilizator
+<span class="sy0">&gt;</span> ssh<span class="sy0">-</span>keygen <span class="sy0">-</span>t ed25519 <span class="sy0">-</span>C <span class="st0">&quot;nume_utilizator/nume_mașina&quot;</span>
+...
+Your public key has been saved <span class="kw3">in</span> C:\Users\nume_utilizator<span class="sy0">/</span>.ssh<span class="sy0">/</span>id_ed25519.pub
+...
+<span class="sy0">&gt;</span> <span class="kw1">Start-Service</span> ssh<span class="sy0">-</span>agent
+<span class="sy0">&gt;</span> ssh<span class="sy0">-</span>add <span class="re0">$env</span>:USERPROFILE\.ssh\id_ed25519</pre>
+</dd></dl>
+
+<p>
+Copiați conținutul fișierului id_ed25519.pub, iar apoi în terminalul mașinii virtuale:
+</p>
+<dl class="code">
+<dt><a href="/courses/_export/code/programare/vm-setup?codeblock=9" title="Download Snippet" class="mediafile mf_">VM terminal</a></dt>
+<dd><pre class="code bash">$ <span class="kw2">mkdir</span> ~<span class="sy0">/</span>.ssh
+$ <span class="kw2">nano</span> .ssh<span class="sy0">/</span>authorized_keys</pre>
+</dd></dl>
+
+<p>
+În fișierul deschis in terminal lipiți conținutul, salvați și ieșiți.
+
+</div></p>
+</p>
+</div></div>
+</div>
+
+<h4 id="copiere_fisiere_host-vm">Copiere fisiere Host-VM</h4>
+<div class="level4">
+
+<p>
+Pentru a ușura transferul de fișiere între host și mașina virtuală, vom crea un folder comun. Din setările mașinii virtuale, ștergem dacă este deja unul făcut când și facem un nou folder comun astfel:
+</p>
+
+<p>
+<a href="/courses/_media/programare/folder_comun.png" class="media" title="programare:folder_comun.png"><img src="/courses/_media/programare/folder_comun.png?w=600&amp;tok=bdf3fb" class="media" alt="" width="600" /></a>
+</p>
+
+<p>
+La Folder Path puneți calea folderului de pe Windows.
+</p>
+
+<p>
+Când deschidem după mașina, trebuie să ne dăm permisiuni pentru a accesa folderul, astfel:
+</p>
+<dl class="code">
+<dt><a href="/courses/_export/code/programare/vm-setup?codeblock=10" title="Download Snippet" class="mediafile mf_">adăugare permisiuni</a></dt>
+<dd><pre class="code bash">$ <span class="kw2">sudo</span> usermod <span class="re5">-aG</span> vboxsf <span class="re1">$USER</span>
+$ <span class="kw2">sudo</span> reboot</pre>
+</dd></dl>
+
+<p>
+Acum folderul trebuie să apară în mașina virtuală, sub numele sf_folder_comun.
+</p>
+
+</div>
+<!-- EDIT3 SECTION "VM local" [3072-8384] -->
+<h3 class="sectionedit4" id="vm_vmchecker">VM vmchecker</h3>
+<div class="level3">
+
+<p>
+<p><div class="noteclassic">
+Această secțiune este relevantă doar pentru teme.
+
+</div></p>
+</p>
+
+<p>
+vmchecker este configurat sa nu afiseze anumite informatii, din motive de securitate. Cu toate acestea, va afiseaza <strong>versiunile exacte de compilatoare</strong> pentru a le instala <strong>local</strong>. Astfel voi puteti sa aveti acelasi enviroment si sa primiti aceleasi erori.
+</p>
+
+<p>
+Este o situatie normala ca de la o versiune veche de compilator (ex. gcc-4)  la o versiune noua (ex. gcc-7), erorile sa difere (ex. un warning a devenit eroare sau un alt comportament s-a schimbat).
+</p>
+
+<p>
+Daca feedbackul local difera de cel remote (din punct de vedere al compilarii), asigurati-va ca ati <strong>instalat</strong> versiunea corespunzatoare de compilator si ca e setata <strong>default</strong>, adica urmatoarele comenzi afiseaza aceleasi versiuni ca pe vmchecker.
+</p>
+<div class="hiddenGlobal  hiddenActive"><div class="hiddenElements"></div><div class="hiddenHead  hiddenSinceBeginning"><div class="hiddenOnHidden">
+<p>
+Exemplu instalare gcc-7
+</p>
+</div><div class="hiddenOnVisible">
+<p>
+Exemplu instalare gcc-7
+</p>
+</div></div> <!-- .hiddenHead --><div class="hiddenBody"><dl class="code">
+<dt><a href="/courses/_export/code/programare/vm-setup?codeblock=11" title="Download Snippet" class="mediafile mf_">gcc-7</a></dt>
+<dd><pre class="code bash">$ <span class="kw2">sudo</span> add-apt-repository ppa:jonathonf<span class="sy0">/</span>gcc-<span class="nu0">7.3</span>
+$ <span class="kw2">sudo</span> <span class="kw2">apt-get update</span>
+$ <span class="kw2">apt-cache search</span> gcc-<span class="nu0">7</span>
+$ <span class="kw2">sudo</span> <span class="kw2">apt-get install</span> gcc-<span class="nu0">7</span>
+$ <span class="kw2">sudo</span> update-alternatives <span class="re5">--install</span> <span class="sy0">/</span>usr<span class="sy0">/</span>bin<span class="sy0">/</span><span class="kw2">gcc</span> <span class="kw2">gcc</span> <span class="sy0">/</span>usr<span class="sy0">/</span>bin<span class="sy0">/</span>gcc-<span class="nu0">7</span> <span class="nu0">20</span>
+$ <span class="kw2">gcc</span> <span class="re5">-v</span>
+<span class="kw2">gcc</span> version 7.3.0 <span class="br0">&#40;</span>Ubuntu 7.3.0-1ubuntu1~<span class="nu0">16.04</span><span class="br0">&#41;</span></pre>
+</dd></dl>
+</div></div>
+</div>
+<!-- EDIT4 SECTION "VM vmchecker" [8385-9521] -->
+<h3 class="sectionedit5" id="windows_subsystem_for_linux_setup">Windows Subsystem for Linux Setup</h3>
+<div class="level3">
+
+</div>
+
+<h4 id="instalare_wsl2">Instalare WSL2</h4>
+<div class="level4">
+<ol>
+<li class="level1"><div class="li"> Căutam PowerShell în search bar, și deschideți ca și administrator.</div>
+</li>
+<li class="level1"><div class="li"> Activați WSL folosind urmatoarea comandă:<pre class="code powershell"><span class="sy0">&gt;</span> dism.exe <span class="sy0">/</span>online <span class="sy0">/</span>enable<span class="sy0">-</span>feature <span class="sy0">/</span>featurename:Microsoft<span class="sy0">-</span>Windows<span class="sy0">-</span>Subsystem<span class="sy0">-</span>Linux <span class="sy0">/</span>all <span class="sy0">/</span>norestart</pre>
+</div>
+</li>
+<li class="level1"><div class="li"> Activați opțiunea de mașină virtuală folosind următoarea comandă:<pre class="code powershell"><span class="sy0">&gt;</span> dism.exe <span class="sy0">/</span>online <span class="sy0">/</span>enable<span class="sy0">-</span>feature <span class="sy0">/</span>featurename:VirtualMachinePlatform <span class="sy0">/</span>all <span class="sy0">/</span>norestart</pre>
+</div>
+</li>
+<li class="level1"><div class="li"> Dați restart la calculator.</div>
+</li>
+<li class="level1"><div class="li"> Deschideți din nou ca și administrator Powershell și rulăm următoarele comenzi:<pre class="code powershell"><span class="sy0">&gt;</span> wsl <span class="sy0">--</span>install</pre>
+</div>
+</li>
+<li class="level1"><div class="li"> După instalare o să vă pună să vă faceți un utilizator pentru WSL</div>
+</li>
+<li class="level1"><div class="li"> Pentru a finaliza instalarea, rulați următoarele comenzi, în ordine:<pre class="code bash">$ <span class="kw2">sudo</span> apt update
+$ <span class="kw2">sudo</span> apt <span class="kw2">install</span> <span class="kw2">gcc</span>
+$ <span class="kw2">sudo</span> apt <span class="kw2">install</span> <span class="kw2">make</span></pre>
+</div>
+</li>
+</ol>
+
+</div>
+
+<h4 id="visual_studio_code_setup">Visual Studio Code setup</h4>
+<div class="level4">
+<ol>
+<li class="level1"><div class="li"> Instalați VSCode pentru Windows: <a href="https://code.visualstudio.com/download" class="urlextern" title="https://code.visualstudio.com/download"  rel="nofollow">https://code.visualstudio.com/download</a>.</div>
+</li>
+<li class="level1"><div class="li"> Din VSCode, la meniul de extensii, instalați extensia WSL.</div>
+</li>
+<li class="level1"><div class="li"> După ce se instalează, o să apară in colțul din stânga jos o iconiță: <a href="/courses/_detail/programare/iconita_remote_conection.png?id=programare%3Avm-setup" class="media" title="programare:iconita_remote_conection.png"><img src="/courses/_media/programare/iconita_remote_conection.png" class="media" alt="" /></a></div>
+</li>
+<li class="level1"><div class="li"> Apăsați pe ea, și alegeți opțiunea de “Connect to WSL”.</div>
+</li>
+</ol>
+
+</div>
+<!-- EDIT5 SECTION "Windows Subsystem for Linux Setup" [9522-] --></div>
+</body>
+</html>

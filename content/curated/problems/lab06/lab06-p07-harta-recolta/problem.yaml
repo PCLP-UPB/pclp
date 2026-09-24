@@ -1,0 +1,63 @@
+id: lab06-p07-harta-recolta
+lab: lab06
+number: 7
+title: "Harta recoltei"
+difficulty: 3
+estimated_minutes: 45
+concepts: [matrice stocată contiguu, matrice alocată dinamic, calloc, vector de pointeri, overflow la calculul dimensiunii]
+statement: |
+  O fermă este împărțită în `n × m` parcele; pentru fiecare parcelă se cunoaște producția (în kg). Fermierul pune multe întrebări de forma „cât s-a recoltat în total în zona dreptunghiulară cu colțurile `(l1, c1)` și `(l2, c2)`?” și are nevoie de răspunsuri rapide.
+
+  Construiți o matrice de **sume parțiale** `s`, unde `s[i][j]` este suma producțiilor din dreptunghiul cu colțurile `(1, 1)` și `(i, j)`, astfel încât fiecare întrebare să primească răspuns în timp constant.
+
+  Matricea se alocă dinamic și **contiguu**: toate valorile într-un singur bloc de memorie, plus un vector de pointeri către începutul fiecărei linii din bloc (ca să puteți scrie în continuare `s[i][j]`). Implementați și folosiți:
+
+  ```c
+  long long **aloca_matrice(int n, int m);      /* elemente initializate cu 0; exact 2 alocari */
+  void elibereaza_matrice(long long **a);       /* exact 2 apeluri free */
+  ```
+
+  **Date de intrare**
+
+  Pe prima linie `n m`, apoi `n` linii cu câte `m` întregi (producțiile). Urmează `q`, apoi `q` linii cu câte patru întregi `l1 c1 l2 c2`.
+
+  **Date de ieșire**
+
+  Pentru fiecare întrebare, suma cerută pe o linie separată.
+
+  **Restricții**
+
+  - `1 ≤ n, m ≤ 1000`, `1 ≤ q ≤ 100000`
+  - `0 ≤` producție `≤ 10^6`
+  - `1 ≤ l1 ≤ l2 ≤ n`, `1 ≤ c1 ≤ c2 ≤ m`
+  - o soluție care recalculează suma element cu element la fiecare întrebare este considerată ineficientă
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3 4
+  5 1 0 2
+  3 8 4 1
+  0 2 6 7
+  4
+  1 1 3 4
+  2 2 3 3
+  1 4 3 4
+  3 1 3 1
+  ```
+
+  Ieșire:
+  ```
+  39
+  20
+  10
+  0
+  ```
+hints:
+  - "Alocarea contiguă: un bloc cu `n * m` elemente și un vector de `n` pointeri; pointerul liniei `i` este adresa blocului plus `i * m`. Blocul e chiar `a[0]`, deci îl poți elibera prin el."
+  - "Dacă aloci matricea cu o linie și o coloană în plus (indicele 0 plin cu zerouri), formulele pentru sume parțiale nu mai au cazuri speciale. `s[i][j] = x + s[i-1][j] + s[i][j-1] - s[i-1][j-1]`."
+  - "Suma dreptunghiului (l1,c1)-(l2,c2) = s[l2][c2] - s[l1-1][c2] - s[l2][c1-1] + s[l1-1][c1-1]. Toate sumele trebuie ținute în `long long`: pot ajunge la 10^12."
+pitfalls:
+  - "Într-o matrice contiguă, `a[1]`, `a[2]`, ... nu sunt adrese returnate de `malloc` — nu apela `free` pe ele."
+  - "Suma totală poate depăși `int`; folosește `long long` și `%lld`."

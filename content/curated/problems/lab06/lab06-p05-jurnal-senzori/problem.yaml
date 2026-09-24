@@ -1,0 +1,66 @@
+id: lab06-p05-jurnal-senzori
+lab: lab06
+number: 5
+title: "Jurnalul senzorilor"
+difficulty: 3
+estimated_minutes: 40
+concepts: [realloc, calloc, vector de pointeri, matrice cu linii de lungimi diferite, realocare prin pointer auxiliar, eliberarea unei matrice]
+statement: |
+  O seră are `S` senzori de temperatură, numerotați de la 1 la `S`. Un jurnal central primește citiri de forma `senzor valoare`, în ordinea în care sosesc; jurnalul se încheie cu linia `0 0`. Citirile de la senzori inexistenți (id în afara intervalului `[1, S]`) sunt ignorate și numărate.
+
+  Nu se știe dinainte câte citiri va avea fiecare senzor (unii pot avea foarte multe, alții niciuna), deci fiecare senzor are **propriul vector alocat dinamic**, care crește cu `realloc` (dublând capacitatea) pe măsură ce sosesc citirile lui. Folosiți un vector de pointeri `int **citiri` (câte un vector pentru fiecare senzor) și doi vectori `nr` și `cap` alocați dinamic. Implementați și folosiți:
+
+  ```c
+  int adauga_citire(int **citiri, int *nr, int *cap, int s, int x);   /* 1 = succes, 0 = eroare */
+  ```
+
+  La final, pentru fiecare senzor, afișați citirile lui **sortate crescător** și mediana (elementul de pe poziția `(k-1)/2` din vectorul sortat, numerotat de la 0, unde `k` e numărul de citiri).
+
+  **Date de intrare**
+
+  Pe prima linie `S`. Urmează linii cu câte două întregi `senzor valoare`, până la linia `0 0` (inclusiv).
+
+  **Date de ieșire**
+
+  Pentru fiecare senzor `i`, de la 1 la `S`, o linie:
+
+  - `Senzor <i> (<k>): <citirile sortate, fiecare precedata de spatiu> | mediana=<m>`, sau
+  - `Senzor <i>: fara citiri`
+
+  Apoi o linie `Ignorate: <numar>`.
+
+  **Restricții**
+
+  - `1 ≤ S ≤ 1000`; numărul total de citiri este cel mult `100000`
+  - valorile sunt întregi din `[-10^6, 10^6]`; id-urile senzorilor sunt întregi din `[-1000, 2000]`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3
+  1 22
+  3 -4
+  1 19
+  1 25
+  5 100
+  3 -2
+  1 21
+  0 0
+  ```
+
+  Ieșire:
+  ```
+  Senzor 1 (4): 19 21 22 25 | mediana=21
+  Senzor 2: fara citiri
+  Senzor 3 (2): -4 -2 | mediana=-4
+  Ignorate: 1
+  ```
+hints:
+  - "Gândește-te la date ca la o matrice cu `S` rânduri de lungimi diferite, în care rândurile cresc independent. Pentru fiecare rând ai nevoie de pointerul la date, de numărul de elemente folosite și de capacitate."
+  - "Alocă vectorul de pointeri cu `calloc`, astfel încât toți pointerii să fie `NULL` și toate contoarele 0; `realloc(NULL, dim)` se comportă ca `malloc`, deci prima adăugare nu e un caz special."
+  - "Pseudocod adauga_citire: dacă nr[s] == cap[s]: cap[s] = (cap[s] == 0 ? 2 : 2*cap[s]); tmp = realloc(citiri[s], cap[s] * sizeof(int)); dacă tmp == NULL returnează 0; citiri[s] = tmp. Apoi citiri[s][nr[s]++] = x. La final: sortezi fiecare rând, afișezi, eliberezi fiecare rând și apoi cei trei vectori."
+pitfalls:
+  - "Un vector de pointeri alocat cu `malloc` conține adrese „gunoi”; `realloc` pe un astfel de pointer e comportament nedefinit. Inițializează-i cu `NULL` (sau folosește `calloc`)."
+  - "Verifică id-ul senzorului înainte să-l folosești ca indice."
+  - "Eliberează fiecare rând, apoi vectorul de pointeri și vectorii `nr`, `cap`."

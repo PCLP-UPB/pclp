@@ -1,0 +1,70 @@
+id: lab05-p09-robot-colector
+lab: lab05
+number: 9
+title: "Robotul colector"
+difficulty: 4
+estimated_minutes: 45
+concepts: [pointer la pointer, aritmetică cu pointeri, parametru de tip pointer, echivalența dintre vector și pointer]
+statement: |
+  Un teren dreptunghiular cu `n` linii și `m` coloane are în fiecare celulă un număr de monede. Terenul este memorat **liniar**, linie după linie, într-un vector de `n·m` întregi (celula de pe linia `i`, coloana `j`, numerotate de la 0, se află la indicele `i·m + j`).
+
+  Un robot pornește din celula `(r, c)` (numerotare de la 1) și execută `k` comenzi: `N` (sus), `S` (jos), `E` (dreapta), `V` (stânga). Dacă o comandă l-ar scoate în afara terenului, robotul rămâne pe loc și se contorizează o **blocare**. Robotul colectează toate monedele din fiecare celulă în care se află (inclusiv cea de start); o celulă colectată rămâne cu 0 monede.
+
+  Poziția robotului se memorează ca **pointer** în vectorul terenului (`int *robot`). Implementați și folosiți funcțiile:
+
+  ```c
+  int colecteaza(int *celula);      /* returneaza monedele din celula si o goleste */
+  int muta(int *teren, int n, int m, int **poz, char dir);
+  ```
+
+  `muta` modifică pointerul robotului prin parametrul `poz` și returnează 1 dacă mutarea s-a făcut, 0 dacă a fost blocată.
+
+  **Date de intrare**
+
+  Pe prima linie `n m`. Urmează `n` linii cu câte `m` întregi. Apoi o linie cu `r c`, o linie cu `k` și o linie cu `k` litere din `{N, S, E, V}`, separate prin spații.
+
+  **Date de ieșire**
+
+  ```
+  monede: <total colectat>
+  blocari: <numar de blocari>
+  pozitie: <linie> <coloana>
+  ```
+
+  urmate de terenul final (`n` linii cu câte `m` numere separate prin spațiu). Poziția finală se afișează numerotată de la 1.
+
+  **Restricții**
+
+  - `1 ≤ n, m ≤ 50`, `0 ≤ k ≤ 10000`
+  - `0 ≤` monede într-o celulă `≤ 1000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3 4
+  1 0 2 5
+  0 3 0 1
+  4 0 0 2
+  2 2
+  7
+  N E E S S V N
+  ```
+
+  Ieșire:
+  ```
+  monede: 13
+  blocari: 0
+  pozitie: 2 3
+  1 0 0 0
+  0 0 0 0
+  4 0 0 0
+  ```
+hints:
+  - "Dacă robotul e un pointer în vectorul liniar, o mutare în sus sau în jos înseamnă să-l deplasezi cu `m` elemente, iar stânga/dreapta cu un element. Ca o funcție să schimbe pointerul din `main`, primește adresa lui: `int **`."
+  - "Înainte de a muta, află linia și coloana curentă din diferența `*poz - teren`: linia este câtul împărțirii la `m`, coloana restul. Cu ele verifici dacă mutarea iese din teren."
+  - "Pseudocod muta: indice = *poz - teren; lin = indice / m; col = indice % m; pentru 'E': dacă col == m-1 returnează 0, altfel incrementează pointerul de la adresa poz ((*poz)++) și returnează 1; analog pentru celelalte. În main: robot = teren + (r-1)*m + (c-1)."
+pitfalls:
+  - "Fără verificarea coloanei, o mutare `E` de pe ultima coloană duce robotul pe prima coloană a liniei următoare — adresa e validă, dar rezultatul greșit."
+  - "`*poz++` incrementează `poz` (adresa variabilei din `main`), nu pointerul robotului. Scrie `(*poz)++` sau `*poz += 1`."
+  - "Citește direcțiile cu `scanf(\" %c\", &dir)` — spațiul din format sare peste spații și newline."

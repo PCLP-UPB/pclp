@@ -1,0 +1,49 @@
+id: lab02-p09-palindroame-duble
+lab: lab02
+number: 9
+title: "Palindroame duble"
+difficulty: 4
+estimated_minutes: 40
+concepts: [while, for, continue, baze de numerație, buclă imbricată]
+statement: |
+  Un număr este **palindrom** într-o bază dacă scrierea lui în acea bază se citește la
+  fel de la stânga la dreapta și de la dreapta la stânga. De exemplu, 585 este
+  palindrom în baza 10, iar în baza 2 se scrie `1001001001`, deci este palindrom și acolo.
+
+  Scrie un program care afișează toate numerele din intervalul `[a, b]` care sunt
+  palindroame **atât** în baza 10, **cât și** în baza `k`.
+
+  **Date de intrare**
+
+  Pe o linie, trei numere naturale `a b k`.
+
+  **Date de ieșire**
+
+  Dacă există cel puțin un astfel de număr, prima linie conține toate numerele găsite, în
+  ordine crescătoare, separate prin câte un spațiu. Ultima linie are forma `Total: T`,
+  unde `T` este numărul lor. Dacă nu există niciun număr, se afișează doar linia `Total: 0`.
+
+  **Restricții**
+
+  - `1 ≤ a ≤ b ≤ 1 000 000`
+  - `2 ≤ k ≤ 16`
+  - nu este nevoie de vectori
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  1 2000 3
+  ```
+
+  Ieșire:
+  ```
+  1 2 4 8 121 151 212 242 484 656 757
+  Total: 11
+  ```
+hints:
+  - "Nu ai nevoie să scrii numărul în baza k ca text: poți construi direct «oglinditul» lui în baza k și să-l compari cu numărul inițial."
+  - "Oglinditul în baza 10 se construiește luând ultima cifră (x % 10) și adăugând-o la dreapta rezultatului (rezultat · 10 + cifră). Exact același algoritm funcționează în orice bază k."
+  - "Pentru fiecare n din [a, b]: dacă oglindit(n, 10) ≠ n, treci la următorul (continue); dacă oglindit(n, k) ≠ n, treci la următorul; altfel îl afișezi și crești contorul. Pune spațiu doar înaintea numerelor care nu sunt primele."
+pitfalls:
+  - "Nu transforma numărul în «baza k scrisă cu cifre zecimale» (de ex. 5 → 101): pentru k > 10 nu funcționează, iar valorile depășesc int."

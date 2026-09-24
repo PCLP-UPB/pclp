@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}{{ p.title }}{% endblock %}
+{% block content %}
+<div class="kicker"><a href="/saptamana/{{ week }}/">Săptămâna {{ week }}</a> · {{ u.icon }} {{ u.short }} · {% if p.source == "curat" %}problema {{ p.number }} din {{ siblings|length }}{% elif p.source == "laborator" %}exercițiu de laborator{% else %}problemset (extra){% endif %}</div>
+<div class="termhead">
+  <h1>{{ p.title }}</h1>
+  <div style="display:flex;gap:6px;align-items:center">
+    {% if p.difficulty %}<span class="diff" title="dificultate">{% for i in "12345" %}{% if forloop.counter <= p.difficulty %}●{% else %}○{% endif %}{% endfor %}</span>{% endif %}
+    {% if p.minutes %}<span class="badge">~{{ p.minutes }} min</span>{% endif %}
+    <span class="badge {% if state.status == 'rezolvat' %}ok{% elif state.status == 'lucru' %}work{% endif %}" id="pstatus">{{ state.get_status_display|default:"neînceput" }}</span>
+  </div>
+</div>
+
+<div class="grid" style="grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:start">
+  <div>
+    <div class="card statement text explainable" data-unit="{{ p.unit }}">
+      {% if p.source == "curat" %}{{ statement }}{% else %}{% for b in blocks %}{{ b.html }}{% endfor %}
+        <p class="small muted">Enunț original din <a href="/carte/{{ p.unit }}/#b{{ p.first_block }}">laboratorul {{ u.number }}</a>. Pentru exercițiile originale nu există teste automate.</p>{% endif %}
+    </div>
+
+    {% if p.source == "curat" %}
+    <div class="card" style="margin-top:16px" id="lucru">
+      <h2>Lucrează</h2>
+      {% if dir_exists %}
+        <p>Folderul problemei: <code>{{ dir }}</code></p>
+        <p style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn primary" href="{{ code_url }}" target="pclp-code">Deschide în VS Code ↗</a>
+        <button class="btn" id="runtests" data-url="/problema/{{ p.id }}/teste/" type="button">▶ Rulează testele</button></p>
+        <p class="small muted">Sau în terminal: <code>cd {{ dir }} &amp;&amp; pclp test</code> · cu valgrind: <code>pclp test --valgrind</code></p>
+      {% else %}
+        <form method="post" action="/problema/{{ p.id }}/incepe/" style="display:flex;gap:8px;flex-wrap:wrap">{% csrf_token %}
+          <button class="btn primary" name="open" value="1">Începe problema și deschide VS Code</button>
+          <button class="btn">Doar creează folderul</button>
+        </form>
+        <p class="small muted">Se creează <code>{{ dir }}</code> cu <code>main.c</code>{% if p.starter %} (schelet){% endif %}, <code>README.md</code> (enunțul) și configurația de compilare/debug.</p>
+      {% endif %}
+      <div class="testres" id="testres">{% if state.last_tests.total %}<p class="small muted">Ultima rulare: {{ state.last_tests.passed }}/{{ state.last_tests.total }} teste.</p>{% endif %}</div>
+    </div>
+
+    <div class="card" style="margin-top:16px" id="indicii">
+      <h2>Indicii</h2>
+      <p class="small muted">Încearcă mai întâi singur. Indiciile apar pe rând, de la general la specific.</p>
+      {% for h in hints_shown %}<div class="hint"><div class="kicker">Indiciul {{ forloop.counter }}</div>{{ h }}</div>{% endfor %}
+      {% if hints_left %}
+        <form method="post" action="/problema/{{ p.id }}/indiciu/">{% csrf_token %}<button class="btn">💡 Arată indiciul {{ hints_shown|length|add:1 }} din {{ p.hints|length }}</button></form>
+      {% elif p.pitfalls %}
+        <div class="hint"><div class="kicker">Greșeli frecvente</div><ul>{% for x in p.pitfalls %}<li>{{ x }}</li>{% endfor %}</ul></div>
+      {% endif %}
+    </div>
+
+    <div class="card" style="margin-top:16px" id="tutore">
+      <h2>Tutore AI</h2>
+      {% if ai_ok %}
+        <p class="small muted">Tutorele cunoaște enunțul și te ghidează cu întrebări; nu îți dă soluția. Conversația se salvează în arhiva săptămânii (<code>.pclp/ai/portal.jsonl</code>).</p>
+        <div class="chat">{% for m in tutor %}<div class="bubble {{ m.role }}">{{ m.content }}</div>{% empty %}<p class="muted small">Întreabă ceva despre problemă, despre o eroare sau despre o noțiune.</p>{% endfor %}</div>
+        <form method="post" action="/problema/{{ p.id }}/tutore/" style="margin-top:10px">{% csrf_token %}
+          <textarea name="message" rows="3" placeholder="Ex.: Nu înțeleg de ce primesc segmentation fault când citesc vectorul…"></textarea>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;gap:8px;flex-wrap:wrap">
+            <label class="small"><input type="checkbox" name="with_code" {% if dir_exists %}checked{% else %}disabled{% endif %}> include codul meu curent</label>
+            <span><button class="btn ghost small" name="reset" value="1">Conversație nouă</button> <button class="btn primary">Trimite</button></span>
+          </div>
+        </form>
+      {% else %}
+        <p>Poți vorbi cu un tutor AI direct aici, folosind cheia ta (Claude, Gemini, OpenAI, Mistral sau un model local). <a href="/setari/">Configurează AI-ul →</a></p>
+        <p class="small muted">Sau folosește AI-ul din VS Code (extensia Continue) ori din terminal, sau copiază unul dintre prompturile de mai jos.</p>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+
+  <div>
+    {% if concepts %}
+    <div class="card">
+      <h3>Concepte folosite</h3>
+      <ul class="tlist">{% for c in concepts %}<li><a class="tl l{{ c.level }}" href="/termen/{{ c.id }}/" data-t="{{ c.id }}">{{ c.label }}</a></li>{% endfor %}</ul>
+    </div>
+    {% endif %}
+    <div class="card" style="margin-top:16px">
+      <h3>Prompturi pentru AI-ul tău</h3>
+      <p class="small muted">Copiază-le în orice AI. Dacă e un AI din afara containerului, <a href="#extern">salvează promptul</a> ca să intre în arhivă.</p>
+      {% for pr in prompts %}
+      <details class="promptcard"><summary><b>{{ pr.title }}</b> <span class="muted small">— {{ pr.when }}</span></summary>
+        <div class="body"><pre id="pp{{ forloop.counter }}">{{ pr.prompt }}</pre><button class="btn small" data-copy="pp{{ forloop.counter }}" type="button">⧉ Copiază</button></div>
+      </details>
+      {% endfor %}
+    </div>
+    <details class="card" style="margin-top:16px" id="extern">
+      <summary><b>Am folosit un AI din afara containerului</b></summary>
+      <form method="post" action="/prompturi/extern/">{% csrf_token %}
+        <input type="hidden" name="problem" value="{{ p.id }}"><input type="hidden" name="next" value="/problema/{{ p.id }}/">
+        <label class="f">Unealta</label><select name="tool"><option>ChatGPT</option><option>Claude.ai</option><option>Gemini</option><option>Copilot</option><option>DeepSeek</option><option>altul</option></select>
+        <label class="f">Promptul</label><textarea name="prompt" rows="3" required></textarea>
+        <label class="f">Răspunsul (sau un rezumat)</label><textarea name="answer" rows="3"></textarea>
+        <label class="f">Ce ai învățat / ce ai făcut cu el</label><textarea name="notes" rows="2"></textarea>
+        <label class="f">Link la conversație (opțional)</label><input type="url" name="link">
+        <p><button class="btn primary">Salvează în arhivă</button></p>
+      </form>
+    </details>
+    {% if siblings %}
+    <div class="card" style="margin-top:16px"><h3>Alte probleme</h3>
+      <ul class="plist small">{% for s in siblings %}<li><span class="pnum">{{ s.number }}</span><span>{% if s.id == p.id %}<b>{{ s.title }}</b>{% else %}<a href="/problema/{{ s.id }}/">{{ s.title }}</a>{% endif %}</span><span></span></li>{% endfor %}</ul>
+    </div>
+    {% endif %}
+    {% if p.source == "curat" %}
+    <form class="card" style="margin-top:16px" method="post" action="/problema/{{ p.id }}/stare/">{% csrf_token %}
+      <label class="f" style="margin-top:0">Starea problemei</label>
+      <div style="display:flex;gap:6px"><select name="status"><option value="nou">neînceput</option><option value="lucru" {% if state.status == 'lucru' %}selected{% endif %}>în lucru</option><option value="rezolvat" {% if state.status == 'rezolvat' %}selected{% endif %}>rezolvat</option></select><button class="btn">Salvează</button></div>
+    </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+id: lab04-p02-peste-medie
+lab: lab04
+number: 2
+title: "Cine e peste medie?"
+difficulty: 1
+estimated_minutes: 15
+concepts: [vector, parcurgere, medie aritmetică, conversie de tip]
+statement: |
+  După lucrarea de la PCLP, asistentul vrea să știe ce studenți au luat o notă **strict
+  mai mare** decât media grupei. Studenții sunt numerotați de la 1 la `n`, în ordinea din
+  catalog.
+
+  **Date de intrare**
+
+  Pe prima linie, numărul `n` de studenți. Pe a doua linie, `n` note întregi, în ordinea
+  din catalog.
+
+  **Date de ieșire**
+
+  Trei linii:
+
+  - `Media: X.XX` — media aritmetică a notelor, cu exact două zecimale;
+  - `Peste medie: K` — numărul de studenți cu nota strict mai mare decât media;
+  - numerele de ordine ale acestor studenți, în ordine crescătoare, separate prin câte
+    un spațiu; dacă nu există niciunul, linia conține doar caracterul `-`.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 500`
+  - `1 ≤ nota ≤ 10`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  6
+  7 9 4 10 6 8
+  ```
+
+  Ieșire:
+  ```
+  Media: 7.33
+  Peste medie: 3
+  2 4 6 
+  ```
+hints:
+  - "Media se cunoaște abia după ce ai citit toate notele, dar apoi ai nevoie din nou de fiecare notă. De aceea le păstrezi într-un vector."
+  - "Prima parcurgere (la citire) calculează suma; a doua compară fiecare notă cu media. Media trebuie să fie un număr real."
+  - "Numărul de ordine al studentului de la indicele i este i + 1. Numără întâi câți sunt peste medie, ca să știi dacă afișezi lista sau «-»."
+pitfalls:
+  - "Cu împărțire întreagă, media notelor 9 și 10 ar ieși 9.00 în loc de 9.50."
+  - "O notă egală cu media nu este peste medie."

@@ -1,0 +1,166 @@
+lab05:
+  - title: "Desenează-mi memoria"
+    when: "după ce ai citit despre operatorii & și * și ai rulat primele exemple"
+    concepts: [pointer, operatorul de referențiere, operatorul de dereferențiere, adresă de memorie]
+    prompt: |
+      Sunt student în anul I și învăț pointeri în C. Explică-mi, pas cu pas, ce se întâmplă în memorie la fiecare linie din codul de mai jos.
+      După fiecare linie desenează o diagramă ASCII cu „cutii” pentru variabile (nume, adresă inventată, valoare) și săgeți de la pointeri la ce indică.
+      Nu-mi rescrie codul și nu-mi da alte soluții; vreau doar să înțeleg ce face.
+
+      «lipește aici codul tău»
+  - title: "Verifică-mi raționamentul despre ce afișează codul"
+    when: "după secțiunea despre aritmetica cu pointeri și echivalența vector–pointer"
+    concepts: [aritmetică cu pointeri, echivalența dintre vector și pointer, indirectare, sizeof pentru vector și pointer]
+    prompt: |
+      Mai jos e un fragment de cod C cu pointeri și ce cred eu că afișează, cu raționamentul meu.
+      Nu-mi spune direct răspunsul corect. Spune-mi doar la ce pas greșesc (dacă greșesc) și pune-mi o întrebare ajutătoare ca să găsesc singur eroarea.
+      Presupune un sistem pe 64 de biți, cu sizeof(int) == 4.
+
+      Cod:
+      «lipește aici codul»
+
+      Ce cred că afișează și de ce:
+      «scrie aici raționamentul tău»
+  - title: "Ascultă-mă din pointeri"
+    when: "înainte de laborator sau de testul practic"
+    concepts: [pointer, aritmetică cu pointeri, parametru de tip pointer, pointer la void, "NULL", dangling pointer]
+    prompt: |
+      Pune-mi 8 întrebări, pe rând (așteaptă răspunsul meu după fiecare), despre pointeri în C, la nivel de anul I:
+      declararea pointerilor, & și *, aritmetica cu pointeri, legătura vector–pointer, transmiterea parametrilor prin pointer, void * și NULL, returnarea adresei unei variabile locale.
+      Include cel puțin 3 întrebări de tipul „ce afișează acest fragment scurt de cod?”. După fiecare răspuns, spune-mi dacă e corect și explică scurt de ce, fără să treci la următoarea până nu răspund.
+  - title: "De ce primesc segmentation fault?"
+    when: "când programul tău cu pointeri se oprește cu segmentation fault"
+    concepts: [pointer neinițializat, "NULL", dangling pointer, segmentation fault]
+    prompt: |
+      Programul meu C se oprește cu „Segmentation fault”. Nu vreau să-mi corectezi codul.
+      Explică-mi ce înseamnă această eroare în termeni de memorie și care sunt cauzele tipice cu pointeri (pointer neinițializat, NULL, adresa unei variabile locale ieșite din scop).
+      Apoi pune-mi 3–4 întrebări despre codul meu care să mă ajute să găsesc singur linia cu problema și spune-mi cum pot folosi gdb ca să verific.
+
+      «lipește aici codul tău și mesajul de eroare»
+  - title: "Decodifică o declarație complicată"
+    when: "după studiul de caz despre pointeri la funcții și expresii complexe"
+    concepts: [pointer la funcție, expresii complexe cu pointeri, numele funcției ca pointer]
+    prompt: |
+      Învăț regula „din interior spre exterior” pentru citirea declarațiilor complexe din C.
+      Dă-mi 5 declarații de dificultate crescătoare (cu pointeri, vectori și pointeri la funcții), una câte una. Eu încerc să le traduc în cuvinte, iar tu îmi spui dacă am dreptate și, dacă nu, la ce operator am greșit ordinea.
+      La final arată-mi cum se declară și se folosește un parametru de tip pointer la funcție, cu un exemplu diferit de listf din laborator.
+
+lab06:
+  - title: "Desenează stiva și heap-ul"
+    when: "după ce ai citit despre malloc, calloc, realloc și free"
+    concepts: [alocare dinamică, heap, stivă, malloc, free]
+    prompt: |
+      Explică-mi, pentru codul de mai jos, ce se află pe stivă și ce se află în heap după fiecare apel de funcție de alocare sau free.
+      Desenează diagrame ASCII cu două zone („STIVĂ” și „HEAP”) și săgeți de la pointeri spre blocurile alocate. Marchează blocurile eliberate și orice pointer care rămâne să indice spre memorie eliberată.
+      Nu-mi rescrie codul.
+
+      «lipește aici codul tău»
+  - title: "Explică-mi raportul valgrind"
+    when: "când valgrind raportează memory leak sau invalid read/write"
+    concepts: [memory leak, valgrind, free, dangling pointer, eliberarea memoriei alocate dinamic]
+    prompt: |
+      Am rulat valgrind pe programul meu și am primit raportul de mai jos. Nu-mi corecta codul.
+      Explică-mi pe rând fiecare tip de mesaj (de ex. „definitely lost”, „Invalid read of size 4”, „Invalid free”), ce înseamnă în termeni de memorie și cum citesc stiva de apeluri afișată ca să găsesc linia din codul meu care a alocat blocul.
+      Apoi întreabă-mă unde cred eu că ar trebui eliberată memoria și spune-mi dacă raționamentul meu e corect.
+
+      «lipește aici ieșirea valgrind»
+  - title: "Ce se întâmplă dacă realloc eșuează?"
+    when: "după exemplul cu vectorul extensibil"
+    concepts: [realloc, realocare prin pointer auxiliar, verificarea rezultatului alocării, vector extensibil, dublarea capacității]
+    prompt: |
+      Explică-mi de ce în C nu e bine să scriu v = realloc(v, n * sizeof(int)); și ce se pierde dacă realloc întoarce NULL.
+      Apoi compară, cu un calcul simplu, creșterea capacității cu câte 1 element față de dublarea capacității: câte apeluri realloc și câte copieri de elemente am în fiecare caz pentru 1000 de elemente?
+      Termină cu 3 întrebări de verificare pentru mine.
+  - title: "Teste-capcană pentru matricea mea dinamică"
+    when: "după ce ai scris funcțiile de alocare/citire/eliberare pentru matrice"
+    concepts: [matrice alocată dinamic, eliberarea unei matrice, matrice cu linii de lungimi diferite, pointer la pointer]
+    prompt: |
+      Am scris funcții pentru alocarea, citirea, afișarea și eliberarea unei matrice alocate dinamic (vector de pointeri la linii).
+      Nu-mi scrie codul. Propune-mi o listă de date de test și situații-limită (dimensiuni 0 sau 1, linii de lungimi diferite, alocare eșuată, n foarte mare) și spune-mi ce ar trebui să verific la fiecare, inclusiv cu valgrind.
+      Semnăturile funcțiilor mele sunt:
+      «lipește aici semnăturile»
+  - title: "Recapitulare: alocare dinamică"
+    when: "înainte de testul practic"
+    concepts: [malloc, calloc, realloc, free, alocare dinamică, memory leak, dimensiune în octeți la alocare]
+    prompt: |
+      Pune-mi pe rând 8 întrebări scurte despre alocarea dinamică în C (malloc, calloc, realloc, free, NULL, memory leak, dimensiunea în octeți, stivă vs. heap).
+      Cel puțin 3 să fie fragmente de cod cu o greșeală ascunsă pe care trebuie s-o găsesc. Așteaptă răspunsul meu după fiecare întrebare și explică-mi apoi răspunsul corect.
+  - title: "Revizuiește-mi codul după stilul cursului"
+    when: "după ce ai terminat un exercițiu cu alocare dinamică"
+    concepts: [verificarea rezultatului alocării, eliberarea memoriei alocate dinamic, formatarea declarațiilor de pointeri, coding style]
+    prompt: |
+      Revizuiește codul meu C doar din punctul de vedere al practicilor recomandate la curs: verificarea rezultatului funcțiilor de alocare, eliberarea memoriei, formatarea declarațiilor de pointeri (int *a, nu int* a), nume sugestive, funcții scurte.
+      Nu-mi da codul corectat; enumeră problemele cu numărul liniei și explică de ce contează fiecare.
+
+      «lipește aici codul tău»
+
+lab07:
+  - title: "Unde e terminatorul?"
+    when: "după ce ai citit despre șiruri de caractere și '\\0'"
+    concepts: [șir de caractere, terminator de șir, spațiu pentru terminator, șir literal]
+    prompt: |
+      Desenează în ASCII, octet cu octet, cum arată în memorie următoarele declarații: char a[] = "cuvant"; char b[10] = "cuvant"; char *c = "cuvant";
+      Marchează unde se află '\0' și ce zone pot fi modificate. Apoi dă-mi 4 fragmente scurte de cod cu șiruri și întreabă-mă, pe rând, care au comportament greșit și de ce. Nu trece mai departe până nu răspund.
+  - title: "Explică-mi o pagină de manual"
+    when: "înainte să folosești o funcție din string.h pe care nu o cunoști bine"
+    concepts: [strncpy, strcpy, string.h, terminator de șir]
+    prompt: |
+      Explică-mi pe înțelesul unui student din anul I secțiunile DESCRIPTION și RETURN VALUE din `man 3 strncpy` (sau: «numele funcției»).
+      Insistă pe cazurile în care '\0' NU este pus în destinație și pe ce trebuie să fac eu în acel caz. Dă-mi un mic exercițiu de tip „ce conține destinația după apel?” și verifică-mi răspunsul.
+  - title: "Intrări-capcană pentru funcția mea pe șiruri"
+    when: "după ce ai implementat o funcție de prelucrare a șirurilor (palindrom, numărare cuvinte etc.)"
+    concepts: [șir de caractere, fgets, strtok, buffer overflow]
+    prompt: |
+      Am scris funcția de mai jos care prelucrează un șir de caractere. Nu o corecta.
+      Dă-mi o listă de 8–10 intrări de test „capcană” (șir vid, doar spații, '\n' rămas de la fgets, litere mari/mici, semne de punctuație la început/sfârșit, șir de lungime maximă) și, pentru fiecare, rezultatul așteptat. Eu o rulez și îți spun ce am obținut.
+
+      «lipește aici funcția și enunțul»
+  - title: "gets, fgets și depășirea bufferului"
+    when: "după secțiunea despre citirea șirurilor"
+    concepts: [gets, fgets, buffer overflow, puts]
+    prompt: |
+      Explică-mi de ce gets este periculoasă și ce este un buffer overflow, cu un desen ASCII al memoriei înainte și după citirea unui text prea lung.
+      Apoi explică exact ce pune fgets(s, 10, stdin) în s pentru intrările „abc” și „abcdefghijklm” (octet cu octet, inclusiv '\n' și '\0'). Termină cu 2 întrebări de verificare.
+  - title: "Ascultă-mă din string.h"
+    when: "înainte de testul practic"
+    concepts: [strlen, strcpy, strcat, strcmp, strchr, strstr, strtok, strdup, memset]
+    prompt: |
+      Pune-mi 8 întrebări, pe rând, despre funcțiile din string.h (strlen, strcpy/strncpy, strcat, strcmp, strchr, strstr, strtok, strdup, memset, memcpy vs. memmove).
+      Accent pe: valori returnate, când se pune '\0', cine eliberează memoria, ce modifică strtok în șirul inițial, de ce memset(v, 5, ...) nu pune 5 într-un vector de int.
+      Așteaptă răspunsul meu după fiecare întrebare și corectează-mă cu o explicație scurtă.
+
+lab08:
+  - title: "Structura în memorie"
+    when: "după ce ai citit despre structuri și operatorii . și ->"
+    concepts: [structură, câmp, pointer la structură, operatorul săgeată, operatorul de acces la membru]
+    prompt: |
+      Pentru codul de mai jos, desenează în ASCII structurile din memorie (câmpurile, cu adrese inventate) și săgețile pentru câmpurile pointer și pentru pointerii la structuri.
+      Explică-mi pentru fiecare acces dacă trebuie folosit . sau -> și de ce. Nu rescrie codul.
+
+      «lipește aici codul tău»
+  - title: "Copiere superficială vs. profundă"
+    when: "după secțiunea despre diferența dintre copierea structurilor și a pointerilor"
+    concepts: [atribuirea structurilor, copiere superficială, copiere profundă, câmp pointer alocat dinamic]
+    prompt: |
+      Explică-mi cu diagrame ASCII ce se întâmplă în memorie la s2 = s1; când structura are un câmp char *nume alocat dinamic, și ce se întâmplă apoi dacă modific s2.nume[0] sau dacă apelez free pe ambele.
+      Apoi cere-mi să descriu în cuvinte (fără cod) pașii unei funcții de copiere profundă și spune-mi ce am omis.
+  - title: "Structură sau uniune?"
+    when: "după secțiunea despre uniuni"
+    concepts: [uniune, structură, citirea greșită a unei uniuni, structuri imbricate, enumerare]
+    prompt: |
+      Explică-mi diferența dintre struct și union în C, cu un desen ASCII al memoriei pentru fiecare (aceiași membri: int, float, double).
+      Apoi dă-mi 4 scenarii scurte și întreabă-mă dacă aș folosi o structură, o uniune sau o combinație (de ex. o structură cu un câmp enum care spune ce membru al uniunii e valid). Explică-mi după fiecare răspuns.
+  - title: "Verifică-mi eliberarea memoriei pentru structuri"
+    when: "când valgrind raportează pierderi în programul cu studenți"
+    concepts: [memory leak, valgrind, câmp pointer alocat dinamic, vector de structuri, free]
+    prompt: |
+      Mai jos e ieșirea valgrind pentru programul meu cu un vector de structuri care au câmpuri alocate dinamic. Nu-mi corecta codul.
+      Explică-mi ce blocuri au rămas neeliberate și în ce ordine ar trebui, în principiu, eliberate câmpurile, elementele și vectorul. Pune-mi întrebări care să mă ducă la linia greșită.
+
+      «lipește aici ieșirea valgrind și funcția ta de eliberare»
+  - title: "Ascultă-mă din tipuri definite de utilizator"
+    when: "înainte de testul practic"
+    concepts: [structură, typedef, eticheta structurii, uniune, enumerare, pointer la structură]
+    prompt: |
+      Pune-mi pe rând 7 întrebări despre struct, typedef, union și enum în C, inclusiv fragmente de cod de tipul „compilează sau nu? de ce?” (de ex. S2 x; fără typedef, S1.data = 5 pe un nume de tip).
+      Așteaptă răspunsul meu după fiecare și explică-mi pe scurt răspunsul corect.

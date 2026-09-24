@@ -1,0 +1,60 @@
+id: lab05-p07-raft-compactare
+lab: lab05
+number: 7
+title: "Curățenie pe raft"
+difficulty: 3
+estimated_minutes: 35
+concepts: [aritmetică cu pointeri, pointer returnat de funcție, indirectare, echivalența dintre vector și pointer]
+statement: |
+  Pe un raft sunt așezate în linie `n` cutii, fiecare cu o greutate. Un robot primește comenzi de forma `a b prag`: din porțiunea de raft dintre pozițiile `a` și `b` (inclusiv, numerotare de la 1) scoate toate cutiile cu greutatea **strict mai mică** decât `prag`. Cutiile rămase își păstrează ordinea, iar golurile se închid: toate cutiile de după porțiune se deplasează spre stânga. După fiecare comandă afișați conținutul raftului.
+
+  Implementați și folosiți funcțiile:
+
+  ```c
+  int *elimina_usoare(int *st, int *sf, int prag);
+  int *muta_stanga(int *dest, const int *src, const int *src_sf);
+  ```
+
+  - `elimina_usoare` lucrează pe zona `[st, sf)` (de la `st` inclusiv până la `sf` exclusiv), păstrează la începutul zonei elementele `>= prag` și returnează adresa de după ultimul element păstrat;
+  - `muta_stanga` copiază elementele din `[src, src_sf)` începând de la `dest` și returnează adresa de după ultimul element copiat.
+
+  Noul număr de cutii se obține în `main` ca diferență de pointeri. Fiecare comandă trebuie rezolvată printr-o singură trecere prin raft (fără ștergeri repetate cu deplasare).
+
+  **Date de intrare**
+
+  Pe prima linie `n`, pe a doua linie cele `n` greutăți. Pe a treia linie `q`, apoi `q` linii cu câte trei întregi `a b prag`.
+
+  **Date de ieșire**
+
+  După fiecare comandă, o linie de forma `<numar_cutii>:` urmată de greutățile rămase, fiecare precedată de un spațiu.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1000`, `1 ≤ q ≤ 100`, greutățile și pragurile sunt întregi din `[0, 10^6]`
+  - fiecare comandă este validă: `1 ≤ a ≤ b ≤` numărul curent de cutii (deci după ce raftul se golește nu mai urmează comenzi)
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  8
+  5 12 3 8 20 1 7 15
+  3
+  2 6 8
+  1 3 6
+  4 5 100
+  ```
+
+  Ieșire:
+  ```
+  6: 5 12 8 20 7 15
+  5: 12 8 20 7 15
+  3: 12 8 20
+  ```
+hints:
+  - "Un interval `[st, sf)` descris prin doi pointeri e foarte comod: numărul de elemente e `sf - st`, iar un „sfârșit nou” se poate returna ca pointer."
+  - "Pentru eliminare folosește doi pointeri în aceeași zonă: unul care citește fiecare element și unul care scrie doar elementele păstrate. Cel de scriere nu îl depășește niciodată pe cel de citire, deci nu strici date necitite."
+  - "Pașii unei comenzi: nou_sf = elimina_usoare(raft + a - 1, raft + b, prag); sf = muta_stanga(nou_sf, raft + b, raft + n); n = sf - raft; afișează."
+pitfalls:
+  - "Poziția `a` (numerotată de la 1) corespunde adresei `raft + a - 1`, iar sfârșitul exclusiv al segmentului este `raft + b`."
+  - "Nu uita să muți și cutiile de după segment; altfel pe raft rămân „copii” vechi."

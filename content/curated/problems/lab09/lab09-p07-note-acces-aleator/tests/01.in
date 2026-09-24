@@ -1,0 +1,6 @@
+nr
+get 2
+set 2 8
+get 2
+get 4
+max

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Întrebări{% endblock %}
+{% block content %}
+<h1>Testează-te</h1>
+<p class="muted">Întrebări generate din conceptele și relațiile laboratoarelor. Fiecare răspuns are o explicație și trimitere la termen. Rezultatele rămân doar la tine (nu intră în arhivă).</p>
+<form class="card" method="post" style="max-width:820px">{% csrf_token %}
+  <label class="f">Capitole</label>
+  <div class="checks">{% for u in units %}<label><input type="checkbox" name="units" value="{{ u.id }}" {% if u.id == default_unit %}checked{% endif %}> {{ u.icon }} {% if u.kind == "lab" %}Lab {{ u.number }} · {{ u.short }}{% else %}{{ u.title }}{% endif %}</label>{% endfor %}</div>
+  <div class="formrow">
+    <div><label class="f">Nivel maxim</label><select name="level"><option value="1">1 · bază</option><option value="2" selected>2 · aprofundare</option><option value="3">3 · detaliu</option></select></div>
+    <div><label class="f">Număr de întrebări</label><input type="number" name="n" value="10" min="3" max="30"></div>
+    <div><label class="f">Sursă</label><select name="source"><option value="offline">offline (din date curate)</option><option value="llm" {% if not ai_ok %}disabled{% endif %}>generate de AI{% if not ai_ok %} — configurează în Setări{% endif %}</option></select></div>
+  </div>
+  <label class="f">Tipuri (pentru offline)</label>
+  <div class="checks">{% for k, v in types.items %}<label><input type="checkbox" name="types" value="{{ k }}" checked> {{ v }}</label>{% endfor %}</div>
+  <label class="small"><input type="checkbox" name="fresh"> întrebări AI noi (ignoră cache-ul)</label>
+  <p style="margin-top:12px"><button class="btn primary">Începe</button></p>
+</form>
+{% if history %}
+<h2>Seturi anterioare</h2>
+<table class="t small"><tr><th>Data</th><th>Capitole</th><th>Scor</th><th></th></tr>
+{% for h in history %}<tr><td>{{ h.created|date:"j M, H:i" }}</td><td>{{ h.config.units|join:", " }}</td><td>{{ h.score }} / {{ h.total }}{% if not h.finished %} <span class="muted">(neterminat)</span>{% endif %}</td><td><a href="/intrebari/{{ h.id }}/">deschide</a></td></tr>{% endfor %}
+</table>
+{% endif %}
+{% endblock %}

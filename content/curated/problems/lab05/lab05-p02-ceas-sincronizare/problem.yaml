@@ -1,0 +1,79 @@
+id: lab05-p02-ceas-sincronizare
+lab: lab05
+number: 2
+title: "Sincronizarea ceasului"
+difficulty: 1
+estimated_minutes: 20
+concepts: [pointer, parametru de tip pointer, operatorul de referențiere, operatorul de dereferențiere, funcție]
+statement: |
+  Un ceas digital afișează ora în format `HH:MM:SS`. Serverul de timp îi trimite, pe rând, `q` corecții: fiecare corecție este un număr întreg de secunde (pozitiv = ceasul trebuie dat înainte, negativ = înapoi). După fiecare corecție afișați ora indicată de ceas. Ceasul este circular: după `23:59:59` urmează `00:00:00`, iar înainte de `00:00:00` este `23:59:59`.
+
+  Implementați și folosiți funcția:
+
+  ```c
+  void ajusteaza(int *h, int *m, int *s, int delta);
+  ```
+
+  care modifică ora, minutul și secunda direct, prin pointeri.
+
+  **Date de intrare**
+
+  Pe prima linie: ora inițială, ca trei numere `h m s`. Pe a doua linie: `q`, numărul de corecții. Urmează `q` linii, fiecare cu un întreg `delta`.
+
+  **Date de ieșire**
+
+  `q` linii; linia `i` conține ora după aplicarea primelor `i` corecții, în format `HH:MM:SS` (fiecare componentă pe exact două cifre).
+
+  **Restricții**
+
+  - `0 ≤ h ≤ 23`, `0 ≤ m, s ≤ 59`
+  - `1 ≤ q ≤ 1000`
+  - `-10^9 ≤ delta ≤ 10^9`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  23 58 30
+  4
+  45
+  60
+  -120
+  86400
+  ```
+
+  Ieșire:
+  ```
+  23:59:15
+  00:00:15
+  23:58:15
+  23:58:15
+  ```
+starter: |
+  #include <stdio.h>
+
+  void ajusteaza(int *h, int *m, int *s, int delta)
+  {
+      /* TODO */
+  }
+
+  int main(void)
+  {
+      int h, m, s, q, i, delta;
+
+      scanf("%d %d %d", &h, &m, &s);
+      scanf("%d", &q);
+      for (i = 0; i < q; i++) {
+          scanf("%d", &delta);
+          /* TODO: apel ajusteaza + afisare cu %02d */
+      }
+
+      return 0;
+  }
+hints:
+  - "Funcția trebuie să modifice trei variabile din `main`, deci primește adresele lor. În interiorul ei lucrezi cu `*h`, `*m`, `*s`."
+  - "E mai simplu să transformi ora în „secunde de la miezul nopții” (un singur număr între 0 și 86399), să aduni corecția modulo 86400 și apoi să refaci ora, minutul și secunda."
+  - "Pseudocod: total = h*3600 + m*60 + s; total = (total + delta % 86400) % 86400; dacă total < 0 atunci total += 86400; h = total / 3600; m = (total % 3600) / 60; s = total % 60."
+pitfalls:
+  - "În C, restul împărțirii unui număr negativ este negativ (`-1 % 86400 == -1`) — corectează-l adunând 86400."
+  - "O buclă care adaugă câte o secundă sau câte o zi este mult prea lentă pentru `delta = 10^9`."

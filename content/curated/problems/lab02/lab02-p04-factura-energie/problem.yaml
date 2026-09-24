@@ -1,0 +1,69 @@
+id: lab02-p04-factura-energie
+lab: lab02
+number: 4
+title: "Factura la energie din cămin"
+difficulty: 2
+estimated_minutes: 25
+concepts: [if-else, tip de date, împărțire întreagă, operatorul %, "#define"]
+statement: |
+  Administrația căminului facturează energia electrică pe tranșe de consum:
+
+  - primii 100 kWh costă 68 de bani/kWh;
+  - următorii 200 kWh (de la al 101-lea până la al 300-lea) costă 80 de bani/kWh;
+  - tot ce depășește 300 kWh costă 130 de bani/kWh.
+
+  La costul energiei se adaugă un abonament fix de 12,50 lei. Peste suma obținută
+  (subtotal) se aplică TVA de 19%, **rotunjit la ban**: dacă 19% din subtotal nu este un
+  număr întreg de bani, se rotunjește la cel mai apropiat ban, iar o jumătate de ban se
+  rotunjește în sus.
+
+  Scrie un program care citește consumul lunar și afișează factura.
+
+  **Date de intrare**
+
+  Un număr natural `C`, consumul în kWh.
+
+  **Date de ieșire**
+
+  Șase linii:
+
+  ```
+  Transa 1: K1 kWh = X1 lei
+  Transa 2: K2 kWh = X2 lei
+  Transa 3: K3 kWh = X3 lei
+  Abonament: 12.50 lei
+  TVA: T lei
+  Total: S lei
+  ```
+
+  unde `K1`, `K2`, `K3` sunt kWh facturați în fiecare tranșă (0 dacă tranșa nu este
+  atinsă), `X1`, `X2`, `X3` costurile lor, `T` TVA-ul, iar `S` subtotalul plus TVA-ul.
+  Toate sumele se afișează în lei, cu exact două zecimale, separate prin punct.
+
+  **Restricții**
+
+  - `0 ≤ C ≤ 100 000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  350
+  ```
+
+  Ieșire:
+  ```
+  Transa 1: 100 kWh = 68.00 lei
+  Transa 2: 200 kWh = 160.00 lei
+  Transa 3: 50 kWh = 65.00 lei
+  Abonament: 12.50 lei
+  TVA: 58.05 lei
+  Total: 363.55 lei
+  ```
+hints:
+  - "Împarte consumul în trei bucăți, câte una pentru fiecare tranșă, cu un if / else if / else după valoarea lui C."
+  - "Numerele reale pot introduce erori mici de rotunjire. Dacă lucrezi în bani (întregi), toate calculele sunt exacte; lei = bani / 100, iar banii rămași = bani % 100, afișați pe două cifre."
+  - "Rotunjirea la cel mai apropiat întreg a lui x / 100, cu jumătățile în sus, pentru x ≥ 0: (x + 50) / 100 în aritmetică întreagă. Aplic-o pentru subtotal · 19."
+pitfalls:
+  - "La exact 100 sau 300 kWh, tranșa următoare are 0 kWh."
+  - "TVA-ul se aplică și abonamentului, nu doar energiei."

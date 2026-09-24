@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Acasă{% endblock %}
+{% block content %}
+{% if not student.name %}
+<form class="card" method="post" style="margin-bottom:18px;border-color:var(--accent)">{% csrf_token %}
+  <h2 style="margin-top:0">Bun venit! Cine ești?</h2>
+  <p class="small">Datele apar în arhivele săptămânale pe care le încarci pe Moodle, ca profesorul să știe ale cui sunt. Poți rula oricând și <code>pclp init</code> în terminal.</p>
+  <div class="formrow">
+    <div><label class="f">Nume și prenume</label><input type="text" name="name" required></div>
+    <div><label class="f">E-mail (cel de pe Moodle)</label><input type="text" name="email" required></div>
+    <div><label class="f">Grupa</label><input type="text" name="group" placeholder="311CA"></div>
+  </div>
+  <p style="margin-top:12px"><button class="btn primary">Salvează</button></p>
+</form>
+{% endif %}
+{% include "invatare/_week.html" %}
+<div class="grid g2" style="margin-top:22px">
+  {% if term_day %}
+  <div class="card">
+    <div class="kicker">Termenul zilei</div>
+    <h2 style="margin:.2em 0"><a class="tl l1" href="/termen/{{ term_day.id }}/">{{ term_day.label }}</a></h2>
+    <p>{{ term_day.definition }}</p>
+  </div>
+  {% endif %}
+  <div class="card">
+    <div class="kicker">În portal</div>
+    <p style="margin:.4em 0">{{ stats.concepts }} concepte · {{ stats.problems }} probleme cu teste · {{ stats.man }} pagini de manual</p>
+    <p class="small"><a href="/exploreaza/">Explorează laboratoarele</a> · <a href="/graf/">Graful prerechizitelor</a> · <a href="/intrebari/">Testează-te</a> · <a href="/man/">Manualul C</a></p>
+  </div>
+</div>
+{% endblock %}

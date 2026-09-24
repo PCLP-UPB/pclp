@@ -1,0 +1,74 @@
+id: lab06-p09-retea-prieteni
+lab: lab06
+number: 9
+title: "Rețeaua de prieteni"
+difficulty: 4
+estimated_minutes: 60
+concepts: [matrice cu linii de lungimi diferite, vector de pointeri, calloc, malloc, eliberarea unei matrice, memory leak]
+statement: |
+  O rețea socială are `n` utilizatori (numerotați de la 1 la `n`) și `m` prietenii (fiecare prietenie leagă doi utilizatori diferiți și apare o singură dată). Pentru fiecare utilizator memorați lista prietenilor într-un vector alocat dinamic de **exact** dimensiunea necesară (numărul lui de prieteni); utilizatorii fără prieteni nu primesc memorie. O matrice `n × n` nu este acceptată (pentru `n = 10^4` ar ocupa sute de MB).
+
+  Implementați și folosiți:
+
+  ```c
+  int **construieste_liste(int n, int m, const int *a, const int *b, int *grad);
+  void elibereaza_liste(int **prieteni, int n);
+  ```
+
+  unde `a[i]`, `b[i]` sunt capetele prieteniei `i`, iar `grad[u]` va conține numărul de prieteni ai lui `u`. Fiecare listă trebuie să fie sortată crescător.
+
+  Interogări:
+
+  - `L x` — afișează `L x (<k>):` urmat de prietenii lui `x`, crescător, fiecare precedat de un spațiu;
+  - `C x y` — afișează `C x y: <numărul de prieteni comuni>`;
+  - `S x` — sugestii de prietenie: candidații sunt utilizatorii care nu sunt `x` și nu sunt deja prieteni cu `x`, dar au cel puțin un prieten comun cu el. Afișați `S x:` urmat de cel mult 3 candidați, în ordinea descrescătoare a numărului de prieteni comuni (la egalitate, id-ul mai mic primul), fiecare în forma ` id(comuni)`. Dacă nu există candidați, afișați `S x: -`.
+
+  **Date de intrare**
+
+  Pe prima linie `n m`, apoi `m` linii cu câte o pereche `a b`. Urmează `q`, apoi `q` linii cu interogări.
+
+  **Date de ieșire**
+
+  Câte o linie pentru fiecare interogare.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 10000`, `0 ≤ m ≤ 100000`, `1 ≤ q ≤ 1000`
+  - în interogări, `1 ≤ x, y ≤ n` (pentru `C`, `x` și `y` pot fi egali)
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  6 7
+  1 2
+  1 3
+  2 3
+  2 4
+  3 4
+  4 5
+  3 6
+  5
+  L 3
+  C 1 4
+  S 1
+  S 5
+  L 6
+  ```
+
+  Ieșire:
+  ```
+  L 3 (4): 1 2 4 6
+  C 1 4: 2
+  S 1: 4(2) 6(1)
+  S 5: 2(1) 3(1)
+  L 6 (1): 3
+  ```
+hints:
+  - "Nu știi lungimea fiecărei liste până nu citești toate prieteniile. Păstrează perechile într-un vector, numără mai întâi gradele, apoi alocă fiecare listă cu dimensiunea exactă și abia apoi umple-le."
+  - "Ai nevoie de un contor separat pentru fiecare listă („câte am pus până acum”). Cu listele sortate, prietenii comuni se numără ca la interclasare, cu doi indici."
+  - "Sugestii: scor = calloc(n+1); pentru fiecare prieten f al lui x, pentru fiecare prieten g al lui f: scor[g]++. Pune scor[x] = 0 și scor[prieten direct] = 0. Apoi, de 3 ori: cauți indicele cu scor maxim (primul, la egalitate), îl afișezi și îi pui scorul 0. Nu uita free(scor)."
+pitfalls:
+  - "O funcție apelată de multe ori care alocă memorie (vectorul de scoruri) trebuie să o și elibereze — altfel leak-ul crește cu fiecare interogare."
+  - "`malloc(0)` poate returna `NULL` sau un pointer unic; pentru utilizatorii fără prieteni e mai clar să lași pointerul `NULL`."
+  - "Vectorul de pointeri se alocă cu `sizeof(int *)`, listele cu `sizeof(int)`."

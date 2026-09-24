@@ -1,0 +1,52 @@
+id: lab02-p02-calificative
+lab: lab02
+number: 2
+title: "Din notă în calificativ"
+difficulty: 1
+estimated_minutes: 15
+concepts: [switch, case, break, default]
+statement: |
+  Pentru un raport către liceele partenere, notele întregi de la 1 la 10 trebuie
+  transformate în calificative:
+
+  | Nota | Calificativ |
+  |---|---|
+  | 1, 2, 3, 4 | `Insuficient` |
+  | 5 | `Suficient` |
+  | 6, 7 | `Bine` |
+  | 8, 9 | `Foarte bine` |
+  | 10 | `Excelent` |
+
+  Orice altă valoare produce mesajul `Nota invalida`.
+
+  Rezolvă problema folosind instrucțiunea `switch`.
+
+  **Date de intrare**
+
+  Un număr întreg `nota`.
+
+  **Date de ieșire**
+
+  O singură linie, cu calificativul corespunzător sau cu mesajul `Nota invalida`.
+
+  **Restricții**
+
+  - `-1000 ≤ nota ≤ 1000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  7
+  ```
+
+  Ieșire:
+  ```
+  Bine
+  ```
+hints:
+  - "switch compară o valoare întreagă cu o listă de constante; fiecare constantă are propria etichetă case."
+  - "Mai multe etichete case scrise una după alta, fără instrucțiuni între ele, execută același bloc."
+  - "Nu uita break la finalul fiecărui grup, altfel execuția continuă în cazul următor. Pentru valorile care nu se potrivesc cu niciun case, folosește default."
+pitfalls:
+  - "Fără break, nota 5 ar afișa și «Bine», și «Foarte bine», și așa mai departe."

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Audit conținut{% endblock %}
+{% block content %}
+<h1>Audit al bazei de conținut</h1>
+<p class="muted">Construită la {{ built }}. Observațiile vin din <code>build_database.py</code> (spec §11): evidențe care nu conțin termenul, relații cu capete necunoscute, pagini de manual lipsă, aliasuri scurte cu multe potriviri.</p>
+{% for kind, rows in groups %}
+<details class="rdet" {% if forloop.first %}open{% endif %}><summary>{{ kind }} ({{ rows|length }})</summary>
+<table class="t small"><tr><th>Referință</th><th>Mesaj</th></tr>
+{% for r in rows %}<tr><td>{% if r.ref|slice:":2" == "c-" %}<a href="/termen/{{ r.ref }}/">{{ r.ref }}</a>{% else %}{{ r.ref }}{% endif %}</td><td>{{ r.message }}</td></tr>{% endfor %}
+</table></details>
+{% empty %}<p>Nicio observație.</p>
+{% endfor %}
+{% endblock %}

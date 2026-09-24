@@ -1,0 +1,38 @@
+# Stilul de cod PCLP (derivat din https://ocw.cs.pub.ro/courses/programare/coding-style):
+#  - stil Linux Kernel "cu mici ajustări" (checker-ul cursului este bazat pe cel din kernel);
+#  - indentare cu un tab de lățime 4 la fiecare nivel de acolade;
+#  - maxim 80 de caractere pe linie;
+#  - acolada funcției pe linie nouă; la if/for/while/else pe aceeași linie;  "} else {";
+#  - spațiu după cuvinte cheie (if, for, while), NU între numele funcției și "(";
+#  - spațiu în jurul operatorilor binari și după virgulă; fără spațiu înainte de ';'.
+# Dacă preferați spații în loc de tab-uri: UseTab: Never.
+BasedOnStyle: LLVM
+Language: Cpp
+IndentWidth: 4
+TabWidth: 4
+UseTab: ForIndentation
+ContinuationIndentWidth: 8
+ColumnLimit: 80
+BreakBeforeBraces: Linux
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+IndentCaseLabels: false
+SpaceBeforeParens: ControlStatements
+SpaceAfterCStyleCast: false
+PointerAlignment: Right
+DerivePointerAlignment: false
+AlignAfterOpenBracket: Align
+AlignConsecutiveMacros: false
+AlignTrailingComments: true
+SpacesBeforeTrailingComments: 1
+MaxEmptyLinesToKeep: 1
+KeepEmptyLinesAtTheStartOfBlocks: false
+InsertBraces: true
+SortIncludes: Never
+IncludeBlocks: Preserve
+BinPackParameters: true
+BreakBeforeBinaryOperators: None
+ReflowComments: false

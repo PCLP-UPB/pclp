@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>PCLP Laborator07 - Prelucrarea şirurilor de caractere. Funcţii. Aplicaţii | PCLP - CA, CB, CD</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="PCLP Laborator07 - Prelucrarea şirurilor de caractere. Funcţii. Aplicaţii" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="PCLP Laborator07: Prelucrarea şirurilor de caractere. Funcţii. Aplicaţii" />
+<meta property="og:description" content="PCLP Laborator07: Prelucrarea şirurilor de caractere. Funcţii. Aplicaţii" />
+<link rel="canonical" href="https://acs-pclp.github.io/laboratoare/07" />
+<meta property="og:url" content="https://acs-pclp.github.io/laboratoare/07" />
+<meta property="og:site_name" content="PCLP - CA, CB, CD" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-01-12T00:01:20+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="PCLP Laborator07 - Prelucrarea şirurilor de caractere. Funcţii. Aplicaţii" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-01-12T00:01:20+00:00","datePublished":"2026-01-12T00:01:20+00:00","description":"PCLP Laborator07: Prelucrarea şirurilor de caractere. Funcţii. Aplicaţii","headline":"PCLP Laborator07 - Prelucrarea şirurilor de caractere. Funcţii. Aplicaţii","mainEntityOfPage":{"@type":"WebPage","@id":"https://acs-pclp.github.io/laboratoare/07"},"url":"https://acs-pclp.github.io/laboratoare/07"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://acs-pclp.github.io/feed.xml" title="PCLP - CA, CB, CD" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">PCLP - CA, CB, CD</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <h1 id="pclp-laborator07-prelucrarea-irurilor-de-caractere-funcii-aplicaii">PCLP Laborator07: Prelucrarea şirurilor de caractere. Funcţii. Aplicaţii</h1>
+<h2 id="obiective">Obiective</h2>
+<p>În acest laborator vom studia:</p>
+<ul>
+<li>să declarăm și să alocăm (static/dinamic) șiruri de caractere</li>
+<li>să lucrăm cu funcțiile din  <strong>&lt;string.h&gt;</strong></li>
+</ul>
+<p>Elemente cheie:</p>
+<ul>
+<li>Ce e un string? (sir de caractere)
+<ul>
+<li><strong>NULL-terminated string</strong> sau <strong>cstring</strong></li>
+</ul>
+</li>
+<li>Cum se declară / citește / afișează?</li>
+<li>Cum îl parcurgem?
+<ul>
+<li>Ex. Determinarea lungimii fără a folosi funcția <code>strlen</code>.</li>
+</ul>
+</li>
+<li>Comparare</li>
+<li>Lungime (a.k.a. <code>strlen</code>)</li>
+<li>Copiere. Alocare și copiere</li>
+<li>Spargere în tokens</li>
+</ul>
+<p>De asemenea, vom exersa lucrul cu pointeri și alocare dinamică pentru a realiza programe care manipulează în mod eficient șiruri de caractere.</p>
+<blockquote>
+<p>De fiecare dată când uitați sa eliberați memoria, un ponei moare. Aveți grijă de ei!</p>
+</blockquote>
+<h2 id="materiale-utile">Materiale utile</h2>
+<ul>
+<li><a href="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab07">[OCW/Suport Teoretic pentru Laborator] Prelucrarea şirurilor de caractere. Funcţii. Aplicaţii</a></li>
+</ul>
+<ul>
+<li>Documentație:
+<ul>
+<li><a href="https://cplusplus.com/reference/cstring/">cplusplus.com/cstring</a></li>
+<li><a href="https://cplusplus.com/reference/cctype/">cplusplus.com/cctype</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="exerciii">Exerciții</h2>
+<ol>
+<li>
+<p>a.  Să se determine dacă un <strong>string</strong> este <strong>palindrom</strong>. Un string este un palindrom dacă citit de la primul caracter până la ultimul are aceeași succesiune ca citită de la ultimul până la primul. Se citește un string de la tastatură. Să afișeze <strong>PALINDROME</strong> / <strong>NOT PALINDROME</strong>.</p>
+<p>Trebuie să scrieți o funcție <strong>is_palindrome</strong>. La acest exercitiu este irelevant cum e alocat stringul.</p>
+<p>b.  Modificați funcția astfel încât să nu conteze dacă sunt litere mici sau mari (<a href="https://cplusplus.com/reference/cctype">hint</a>).</p>
+<p>c.  Actualizați funcția astfel încât stringul citit și dat funcției să poată să conțină o propoziție (cuvinte + spații). (ex. <strong>“ele fac cafele”</strong> sau <strong>“gigel e legig”</strong> - facem <strong>abstracție</strong> de spații).
+<strong>Hint</strong>: Cu scanf <strong>%s</strong> ne oprim la whitespace. Putem folosi <strong>fgets</strong>:</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="n">NMAX</span><span class="p">];</span>
+<span class="n">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">NMAX</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span> <span class="c1">// citeste in s un sir de caractere, de la tastatura</span>
+                       <span class="c1">// (cu tot cu whitespace). Se vor citi maxim NMAX-1</span>
+                       <span class="c1">// caractere, si nu exista riscul sa depasim bufferul.</span>
+
+<span class="n">is_palindrome</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>      <span class="c1">// returneaza 0 sau 1</span>
+</code></pre></div></div>
+</li>
+<li>
+<p>Să se citească un vector <strong>v</strong> de <strong>n</strong> cuvinte (alocat dinamic). Să se implementeze funcția <strong>sort_strings</strong>:</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// sortează vector-ul de stringuri astfel;</span>
+<span class="c1">// - crescator dupa lungimea acestora</span>
+<span class="c1">// - in caz de egalitate, se va aplica criteriul lexicografic.</span>
+<span class="c1">// n = nr de stringuri</span>
+<span class="c1">// v = vector de stringuri</span>
+<span class="kt">void</span> <span class="nf">sort_strings</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">v</span><span class="p">);</span>
+</code></pre></div></div>
+</li>
+<li>
+<p>a. Folosind funcția <strong>strtok</strong>, citiţi un şir de caractere şi afişaţi pe ecran cuvintele sale constituente. Un cuvânt este orice succesiune de caractere printabile delimitate de <strong>whitespace</strong> și <strong>semne de punctuație</strong> (spațiu, tab, newline, punct, punct și virgulă, virgulă, semnul întrebării / exclamării).</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// exemplu de string citit cu fgets</span>
+<span class="s">"Who is number #5 in this top, according to Gigel?"</span>
+<span class="c1">// cuvintele extrase</span>
+<span class="s">"Who"</span><span class="p">,</span> <span class="s">"is"</span><span class="p">,</span> <span class="s">"number"</span><span class="p">,</span> <span class="s">"#5"</span><span class="p">,</span> <span class="s">"in"</span><span class="p">,</span> <span class="s">"this"</span><span class="p">,</span> <span class="s">"top"</span><span class="p">,</span> <span class="s">"according"</span><span class="p">,</span> <span class="s">"to"</span><span class="p">,</span> <span class="s">"Gigel"</span>
+</code></pre></div></div>
+<p>b. Numărați cuvintele adevărate! (conțin <strong>doar</strong> litere).</p>
+<p>Pentru exemplu de mai sus se va afisa <strong>“#words = 9”</strong> (numărul de tokeni găsiți de <strong>strtok</strong> este 10, dar #5 nu este cuvânt).<a href="http://www.cplusplus.com/reference/cctype/">Hint</a></p>
+</li>
+<li>
+<p>Se dă o propoziție într-un șir de caractere s. Se mai dă în plus un string <strong>word</strong> care reprezintă un cuvânt. Să se determine numarul de apariții a lui <strong>word</strong> în acea propozitie.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">s</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"Gigel is Gigel all the time except when isn't Gigel, but he is still a gigel..."</span><span class="p">;</span>
+<span class="kt">char</span> <span class="n">word</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"Gigel"</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="n">count_occurences</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">word</span><span class="p">);</span> <span class="c1">// cnt va fi 3, pt ca Gigel apare de 3 ori in s</span>
+</code></pre></div></div>
+</li>
+<li>
+<p><strong>[BONUS]</strong>
+a. Se dau un caracter <strong>c</strong> și un string <strong>s</strong>. Afișați pe ecran toate pozițiile din <strong>s</strong> unde apare <strong>c</strong>.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">s</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"xlm_xlt_xgm_xmm_xxt"</span><span class="p">;</span>
+<span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="sc">'x'</span><span class="p">;</span>
+<span class="n">print_all_char_occurrences</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span> <span class="c1">// 0 4 8 12 16 17</span>
+</code></pre></div></div>
+<p>b. Se dau un string <strong>word</strong> și un string <strong>s</strong>. Afișați pe ecran toate pozițiile din <strong>s</strong> unde apare <strong>word</strong>.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">char</span> <span class="n">s</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"xlm_xlt_xgm_xlm_xxt"</span><span class="p">;</span>
+<span class="kt">char</span> <span class="n">word</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"xlm"</span><span class="p">;</span>
+<span class="n">print_all_str_occurrences</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span> <span class="c1">// 0 12</span>
+</code></pre></div></div>
+</li>
+<li>
+<p><strong>[BONUS]</strong> Se dă <strong>n</strong> de la tastatură. Citiţi <strong>n</strong> studenți dați prin <strong>nume</strong>, <strong>prenume</strong> şi <strong>vârsta</strong>. Nu se cunoașțe altceva despre date, deci prin urmare orice <strong>tablou</strong> va fi alocat <strong>dinamic</strong>. Afişaţi pe ecran, în funcţie de opţiunea selectată, lista citită de la tastatură, ordonată în funcţie de opțiunea <strong>opt</strong>:</p>
+<ul>
+<li>dacă <strong>opt == 1</strong>, se va sorta <strong>crescător</strong> după <strong>nume</strong></li>
+<li>dacă <strong>opt == 2</strong>, se va sorta <strong>crescător</strong> după <strong>prenume</strong></li>
+<li>dacă <strong>opt == 0</strong>, se va sorta <strong>descrescător</strong> după <strong>vârstă</strong>; în caz de egalitate dupa vârstă, se va sorta <strong>lexicografic</strong> după <strong>nume</strong>; în caz de egalitate după nume, se va sorta <strong>invers lexicografic</strong> după <strong>prenume</strong>.</li>
+</ul>
+</li>
+</ol>
+<h2 id="problemset-extra">Problemset (extra)</h2>
+<p>Vă propunem să lucrați acasă probleme din <a href="https://acs-pclp.github.io/problemset/07">PCLP Laborator07: Problemset (extra)</a>.</p>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">PCLP - CA, CB, CD</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">PCLP - CA, CB, CD</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>https://acs-pclp.github.io/</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

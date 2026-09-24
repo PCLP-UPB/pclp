@@ -1,0 +1,8 @@
+3
+nume=ana maria POPESCU
+curs=PCLP
+nota=10
+Buna, {{ nume | cap }}!
+Ai obtinut {{nota}} la {{curs|lower}} ({{curs|len}} litere).
+{{prenume}} {{nota|dublu}} {{nume|upper|rev}}
+Acolada {{ neinchisa

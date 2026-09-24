@@ -1,0 +1,61 @@
+id: lab10-p04-clasament-csv
+lab: lab10
+number: 4
+title: "Clasamentul unei serii din catalog CSV"
+difficulty: 3
+estimated_minutes: 45
+concepts: [vector de structuri, vector extensibil, realloc, fgets, sscanf, strcmp, pointer la funcție, fișier text]
+statement: |
+  Fișierul `catalog.csv` conține câte un student pe linie, în formatul `nume,grupa,n1,n2,n3`
+  (fără antet). Numele (1–30 caractere) poate conține spații, grupa are 1–10 caractere, iar
+  `n1`, `n2`, `n3` sunt note întregi între 1 și 10.
+
+  Liniile goale se ignoră. O linie care nu are exact 5 câmpuri, are un câmp de nume/grupă gol sau prea lung,
+  ori o notă care nu este un întreg între 1 și 10, se raportează cu `Linia N invalida`
+  (numerotarea liniilor începe de la 1) și se ignoră.
+
+  Afișează:
+
+  1. `Clasament:` urmat de studenții ordonați **descrescător după medie**, iar la medii egale
+     **alfabetic după nume**, în forma `k. nume (grupa) medie`;
+  2. `Grupe:` urmat de câte o linie pentru fiecare grupă, în ordine alfabetică:
+     `grupa: medie (k studenti)`, unde media grupei este media tuturor notelor studenților ei.
+
+  Toate mediile se afișează cu 2 zecimale. Dacă nu există niciun student valid se afișează doar
+  `Niciun student` (după eventualele mesaje de linie invalidă). Dacă fișierul lipsește:
+  `Eroare: nu pot deschide catalog.csv`.
+
+  **Restricții**
+
+  - numărul de studenți nu este cunoscut dinainte (cel mult 10^5); liniile au cel mult 100 de caractere;
+  - liniile se pot termina cu `\n` sau `\r\n`.
+
+  **Exemplu**
+
+  Fișierul `catalog.csv`:
+  ```
+  Popescu Ion,311CA,9,8,10
+  Ionescu Maria,312CA,10,10,9
+  Georgescu Ana,311CA,7,8,6
+  Avram Dan,312CA,9,9,9
+  ```
+
+  Ieșire (stdout):
+  ```
+  Clasament:
+  1. Ionescu Maria (312CA) 9.67
+  2. Avram Dan (312CA) 9.00
+  3. Popescu Ion (311CA) 9.00
+  4. Georgescu Ana (311CA) 7.00
+  Grupe:
+  311CA: 8.00 (2 studenti)
+  312CA: 9.33 (2 studenti)
+  ```
+hints:
+  - "Citește fiecare linie cu fgets, taie terminatorul și împarte-o manual după virgule; pentru note, verifică că fiecare câmp este un număr complet (sscanf cu un caracter de control după număr)."
+  - "Păstrează în structură suma notelor (întreg), nu media: compararea sumelor e exactă, pe când compararea mediilor float poate da surprize. Sortează cu qsort și un comparator pe două criterii."
+  - "Pentru grupe: un al doilea vector de structuri {grupa, suma, count}; pentru fiecare student caută grupa (sau adaug-o), adună suma și crește count; sortează după nume și afișează suma / (3 · count)."
+pitfalls:
+  - "strtok sare peste câmpurile goale („Florin,,5,5,5” ar părea valid)."
+  - "atoi(\"x\") întoarce 0 fără nicio eroare — validează explicit fiecare notă."
+  - "Nu uita '\\r' de la finalul liniilor Windows: „1\\r” nu trece validarea dacă nu îl tai."

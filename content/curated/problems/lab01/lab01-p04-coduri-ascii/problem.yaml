@@ -1,0 +1,54 @@
+id: lab01-p04-coduri-ascii
+lab: lab01
+number: 4
+title: "Coduri ASCII"
+difficulty: 2
+estimated_minutes: 15
+concepts: [getchar, char, "%c", "%X", cod ASCII]
+statement: |
+  În memorie, fiecare caracter este reținut ca un număr: codul său ASCII. Scrie un
+  program care citește un caracter și afișează informații despre el: caracterul,
+  codul în baza 10, codul în baza 16 și caracterul care urmează după el în tabelul ASCII.
+
+  **Date de intrare**
+
+  Un singur caracter, pe prima linie (nu este spațiu).
+
+  **Date de ieșire**
+
+  Patru linii:
+
+  ```
+  Caracter: c
+  Cod zecimal: D
+  Cod hexazecimal: 0xHH
+  Urmatorul caracter: u
+  ```
+
+  unde `D` este codul ASCII în baza 10, `HH` este același cod în baza 16, scris cu
+  exact două cifre și cu litere mari (`A`–`F`), iar `u` este caracterul cu codul `D + 1`.
+
+  **Restricții**
+
+  - codul ASCII al caracterului citit este între 33 (`!`) și 125 (`}`)
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  A
+  ```
+
+  Ieșire:
+  ```
+  Caracter: A
+  Cod zecimal: 65
+  Cod hexazecimal: 0x41
+  Urmatorul caracter: B
+  ```
+hints:
+  - "O variabilă char reține un număr; printf decide cum îl arată, în funcție de specificator."
+  - "Pentru același caracter poți folosi %c (caracterul), %d (codul zecimal) și %X (codul în hexazecimal cu litere mari)."
+  - "Pentru două cifre completate cu zero folosește lățimea 2 cu zero în față (ca la ceas). Caracterul următor este c + 1, afișat tot cu %c."
+pitfalls:
+  - "%x afișează literele hexazecimale mici; aici se cer litere mari."

@@ -1,0 +1,63 @@
+id: lab01-p05-maraton-gaming
+lab: lab01
+number: 5
+title: "Maratonul de gaming"
+difficulty: 2
+estimated_minutes: 20
+concepts: [operator aritmetic, împărțire întreagă, operatorul %, printf, lățime de afișare]
+statement: |
+  Liga de e-sport a facultății a organizat un maraton de gaming pentru caritate.
+  Contorul de pe stream a măsurat durata totală în secunde, dar organizatorii vor s-o
+  anunțe într-un format mai prietenos.
+
+  Scrie un program care citește durata în secunde și o afișează descompusă în zile,
+  ore, minute și secunde, apoi în format de cronometru `HH:MM:SS`, unde `HH` reprezintă
+  numărul **total** de ore (fără a le grupa în zile).
+
+  **Date de intrare**
+
+  Un număr natural `T`, durata în secunde.
+
+  **Date de ieșire**
+
+  Cinci linii:
+
+  ```
+  Zile: Z
+  Ore: H
+  Minute: M
+  Secunde: S
+  Cronometru: HH:MM:SS
+  ```
+
+  unde `0 ≤ H ≤ 23`, `0 ≤ M, S ≤ 59`. Pe ultima linie, orele totale, minutele și
+  secundele se afișează fiecare pe **cel puțin** două cifre, completate cu `0` în față
+  dacă e nevoie (de exemplu `05`); dacă orele totale au mai mult de două cifre, se
+  afișează toate.
+
+  **Restricții**
+
+  - `0 ≤ T ≤ 2 000 000 000`
+  - problema se rezolvă fără instrucțiuni `if`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  100000
+  ```
+
+  Ieșire:
+  ```
+  Zile: 1
+  Ore: 3
+  Minute: 46
+  Secunde: 40
+  Cronometru: 27:46:40
+  ```
+hints:
+  - "Un minut are 60 de secunde, o oră 3600, o zi 86400. Câtul și restul împărțirii întregi fac toată treaba."
+  - "Restul împărțirii la 60 dă secundele rămase; câtul dă numărul total de minute, din care poți extrage la fel minutele rămase și orele totale."
+  - "Pseudocod: secunde = T % 60; minute = (T / 60) % 60; ore_totale = T / 3600; ore = ore_totale % 24; zile = ore_totale / 24. Pentru cronometru folosește lățimea 2 completată cu zerouri."
+pitfalls:
+  - "Pe linia de cronometru se afișează orele totale, nu cele rămase după gruparea în zile."

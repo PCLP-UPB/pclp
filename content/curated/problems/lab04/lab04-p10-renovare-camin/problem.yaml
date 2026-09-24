@@ -1,0 +1,71 @@
+id: lab04-p10-renovare-camin
+lab: lab04
+number: 10
+title: "Renovarea căminului"
+difficulty: 5
+estimated_minutes: 60
+concepts: [matrice, recursivitate, umplere recursivă, sortare prin selecție, vector de frecvență]
+statement: |
+  Planul unui etaj din cămin este o hartă cu `n` linii și `m` coloane, în care `#`
+  înseamnă perete și `.` înseamnă spațiu liber. O **cameră** este o zonă maximală de
+  celule libere legate între ele prin laturi comune (sus, jos, stânga, dreapta). Liniile și
+  coloanele se numerotează de la 1.
+
+  Administrația vrea să dărâme **exact un** perete (o singură celulă `#`, care devine
+  liberă) pentru a obține o sală de lectură cât mai mare. Scrie un program care afișează:
+
+  - numărul de camere de pe hartă;
+  - mărimile camerelor (numărul de celule), în ordine descrescătoare;
+  - peretele care, dărâmat, produce cea mai mare cameră posibilă, și mărimea acesteia.
+    La egalitate se alege peretele cu linia cea mai mică, iar apoi cu coloana cea mai mică.
+
+  **Date de intrare**
+
+  Pe prima linie, două numere naturale `n m`. Urmează `n` linii cu câte `m` caractere
+  `#` sau `.` (fără spații).
+
+  **Date de ieșire**
+
+  Trei linii:
+
+  ```
+  Camere: C
+  Marimi: s1 s2 ... sC
+  Perete: L K -> S
+  ```
+
+  Pe a doua linie, fiecare mărime este precedată de un spațiu; dacă nu există nicio
+  cameră, linia este `Marimi: -`. Pe a treia linie, `L` și `K` sunt linia și coloana
+  peretelui ales, iar `S` mărimea camerei obținute după dărâmare; dacă harta nu are
+  niciun perete, linia este `Perete: -`.
+
+  **Restricții**
+
+  - `1 ≤ n, m ≤ 100`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  5 8
+  ..#.....
+  ..#.##..
+  ###.#...
+  ....#.##
+  .#..#...
+  ```
+
+  Ieșire:
+  ```
+  Camere: 2
+  Marimi: 23 4
+  Perete: 1 3 -> 28
+  ```
+hints:
+  - "Pentru a găsi o cameră, pornești dintr-o celulă liberă și «umpli» tot ce se poate atinge din ea. Asta se scrie natural recursiv: marchezi celula și te apelezi pentru cei 4 vecini; te oprești la margine, la perete sau la o celulă deja marcată."
+  - "Dă fiecărei camere un număr (etichetă) și păstrează-l într-o matrice de aceeași mărime cu harta; într-un vector reține mărimea fiecărei camere. Umplerea poate întoarce direct numărul de celule marcate."
+  - "Pentru un perete, camera obținută are 1 + suma mărimilor camerelor vecine, dar fiecare cameră vecină se numără o singură dată: compară etichetele celor (cel mult) 4 vecini între ele. Parcurgând pereții pe linii și coloane și schimbând răspunsul doar la o valoare strict mai mare, obții automat departajarea cerută."
+pitfalls:
+  - "O cameră poate atinge același perete din două sau mai multe părți; nu o număra de mai multe ori."
+  - "Fără marcarea celulelor vizitate, umplerea recursivă nu se oprește niciodată."
+  - "Un perete fără vecini liberi dă totuși o cameră de mărime 1."

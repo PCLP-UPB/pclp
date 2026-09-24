@@ -1,0 +1,65 @@
+id: lab03-p05-prime-gemene
+lab: lab03
+number: 5
+title: "Numere prime gemene"
+difficulty: 2
+estimated_minutes: 25
+concepts: [funcție, număr prim, return, operator logic]
+statement: |
+  Două numere prime se numesc **gemene** dacă diferența dintre ele este 2, de exemplu
+  (11, 13) sau (17, 19). Scrie funcția `int este_prim(int n)`, care întoarce 1 dacă `n`
+  este prim și 0 altfel, și folosește-o pentru a afișa toate perechile de numere prime
+  gemene `(p, p + 2)` cu **ambele** numere în intervalul `[a, b]`.
+
+  Funcția trebuie să fie eficientă: nu testa divizori mai mari decât `√n`.
+
+  **Date de intrare**
+
+  Pe o linie, două numere naturale `a b`.
+
+  **Date de ieșire**
+
+  Câte o linie `(p, q)` pentru fiecare pereche găsită, în ordine crescătoare, apoi linia
+  `Perechi: N`, unde `N` este numărul de perechi.
+
+  **Restricții**
+
+  - `1 ≤ a ≤ b ≤ 100 000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  1 50
+  ```
+
+  Ieșire:
+  ```
+  (3, 5)
+  (5, 7)
+  (11, 13)
+  (17, 19)
+  (29, 31)
+  (41, 43)
+  Perechi: 6
+  ```
+starter: |
+  #include <stdio.h>
+
+  int este_prim(int n)
+  {
+  	/* TODO: 0 și 1 nu sunt prime; testează divizori cât timp d * d <= n */
+  }
+
+  int main(void)
+  {
+  	/* TODO */
+  	return 0;
+  }
+hints:
+  - "Un divizor d > √n al lui n are pereche divizorul n / d < √n, deci ajunge să cauți până la √n. Ai grijă la cazurile mici: 0, 1, 2."
+  - "În main, parcurge toate valorile p pentru care p și p + 2 sunt în interval și verifică ambele cu funcția ta."
+  - "Condiția de oprire a buclei de divizori poate fi scrisă fără sqrt: d * d <= n. După ce ai tratat numerele pare, e suficient să încerci divizori impari."
+pitfalls:
+  - "1 nu este număr prim."
+  - "Perechea trebuie să fie complet în interval: pentru [3, 4], (3, 5) nu se numără."

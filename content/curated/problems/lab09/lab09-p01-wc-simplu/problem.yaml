@@ -1,0 +1,71 @@
+id: lab09-p01-wc-simplu
+lab: lab09
+number: 1
+title: "wc în miniatură: statistici pentru un fișier text"
+difficulty: 1
+estimated_minutes: 20
+concepts: [fișier text, fopen, fclose, fgetc, EOF, verificarea deschiderii fișierului, sfârșit de linie]
+statement: |
+  Scrie un program care se comportă ca o variantă simplificată a utilitarului `wc`:
+  citește de la tastatură numele unui fișier text, îl parcurge **caracter cu caracter** și afișează:
+
+  - numărul de linii = numărul de caractere `'\n'` din fișier (ca la `wc -l`);
+  - numărul de cuvinte = numărul de secvențe maximale de caractere care nu sunt spații albe
+    (spațiu, tab, `'\n'`, `'\r'` etc. — vezi `isspace`);
+  - numărul total de caractere (octeți) din fișier;
+  - lungimea celei mai lungi linii, fără `'\n'` (ultima linie contează chiar dacă nu se termină cu `'\n'`).
+
+  **Date de intrare**
+
+  Pe stdin, o singură linie: numele fișierului (fără spații, cel mult 255 de caractere).
+  Fișierul se află în directorul curent.
+
+  **Date de ieșire**
+
+  Patru linii, exact în forma:
+  ```
+  linii: L
+  cuvinte: W
+  caractere: C
+  linia maxima: M
+  ```
+  Dacă fișierul nu poate fi deschis, se afișează doar mesajul
+  `Eroare: nu pot deschide fisierul <nume>` (tot pe stdout).
+
+  **Restricții**
+
+  - fișierul are cel mult 10^6 caractere; poate fi gol;
+  - fișierul trebuie închis înainte de terminarea programului.
+
+  **Exemplu**
+
+  Fișierul `poem.txt`:
+  ```
+  Ana are mere
+  si pere  galbene
+
+  sfarsit
+  ```
+
+  Intrare (stdin):
+  ```
+  poem.txt
+  ```
+
+  Ieșire (stdout):
+  ```
+  linii: 4
+  cuvinte: 7
+  caractere: 39
+  linia maxima: 16
+  ```
+
+  Linia goală (a treia) nu conține cuvinte, dar se numără ca linie; cea mai lungă linie este `si pere  galbene` (16 caractere).
+hints:
+  - "Nu ai nevoie să ții fișierul în memorie: fiecare statistică se poate actualiza pe măsură ce citești câte un caracter."
+  - "Pentru cuvinte, ține minte o variabilă „sunt în interiorul unui cuvânt”. Un cuvânt nou începe exact când treci de la un spațiu alb la un caracter care nu e spațiu alb."
+  - "Pseudocod: cât timp (c = fgetc(f)) != EOF: caractere++; dacă c == '\\n' atunci linii++, actualizează maximul cu lungimea curentă și resetează-o, altfel lungime++; actualizează starea de cuvânt. După buclă, compară încă o dată lungimea curentă cu maximul (ultima linie fără '\\n')."
+pitfalls:
+  - "Variabila în care citești cu fgetc trebuie să fie int, nu char: altfel EOF (-1) nu se poate distinge corect de un octet valid."
+  - "Numele fișierului citit cu fgets păstrează '\\n' la final; dacă nu îl elimini, fopen va căuta un fișier cu alt nume."
+  - "Nu uita să verifici rezultatul lui fopen (NULL) înainte de a citi și să apelezi fclose la final."

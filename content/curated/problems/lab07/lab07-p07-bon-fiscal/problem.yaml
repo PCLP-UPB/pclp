@@ -1,0 +1,71 @@
+id: lab07-p07-bon-fiscal
+lab: lab07
+number: 7
+title: "Bonul fiscal"
+difficulty: 3
+estimated_minutes: 50
+concepts: [strtok, token, strchr, șir de caractere, specificator de format, isdigit]
+statement: |
+  O casă de marcat primește articolele sub forma unor linii `nume;cantitate;pret`, dar datele vin dintr-un sistem vechi și pot fi greșite. Scrieți programul care tipărește bonul.
+
+  **Împărțirea în câmpuri** se face cu `strtok`, cu delimitatorii `;` și `\n` — atenție, `strtok` tratează mai mulți delimitatori consecutivi ca pe unul singur, deci câmpurile goale nu se numără. Din fiecare câmp se elimină spațiile de la început și de la sfârșit. O linie este **validă** dacă:
+
+  - are exact 3 câmpuri;
+  - numele nu este vid;
+  - cantitatea este un număr natural între 1 și 1000, scris doar cu cifre;
+  - prețul are forma `L`, `L.z` sau `L.zz`, unde `L` este un șir nevid de cifre cu valoarea cel mult 100000, iar `z` sunt cifre (`12.5` înseamnă 12 lei și 50 de bani).
+
+  Pentru fiecare linie validă tipăriți articolul, iar pentru fiecare linie invalidă (inclusiv liniile goale) mesajul `Linia <nr> ignorata` (liniile se numerotează de la 1). Calculele se fac **în bani** (numere întregi), nu cu numere reale.
+
+  **Date de intrare**
+
+  Linii de forma de mai sus, până la sfârșitul fișierului (posibil niciuna).
+
+  **Date de ieșire**
+
+  Pentru o linie validă:
+
+  ```
+  printf("%-20s %4ld x %9s = %10s\n", nume, cantitate, pret, valoare);
+  ```
+
+  unde `pret` și `valoare = cantitate · pret` sunt scrise ca șiruri `lei.bb` (bani pe exact două cifre, de exemplu `4.50`, `0.07`, `32.00`). La final:
+
+  ```
+  ARTICOLE: <numarul de linii valide>
+  TOTAL: <suma valorilor, in formatul lei.bb>
+  ```
+
+  **Restricții**
+
+  - cel mult 1000 de linii, fiecare de cel mult 200 de caractere; numele au cel mult 20 de caractere
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  Paine alba;2;4.5
+  Lapte 1.5%;1;7.99
+  Mere;three;3.20
+    Cafea  ; 1 ; 32
+  Ciocolata;;5.00
+  ```
+
+  Ieșire:
+  ```
+  Paine alba              2 x      4.50 =       9.00
+  Lapte 1.5%              1 x      7.99 =       7.99
+  Linia 3 ignorata
+  Cafea                   1 x     32.00 =      32.00
+  Linia 5 ignorata
+  ARTICOLE: 3
+  TOTAL: 48.99
+  ```
+hints:
+  - "Împarte linia cu `strtok(linie, \";\\n\")` într-o buclă și pune pointerii la câmpuri într-un mic vector; dacă nu obții exact 3, linia e invalidă."
+  - "Pentru `trim`: avansează un pointer peste spațiile de la început; apoi pornește de la final spre stânga peste spații și pune `'\\0'` după ultimul caracter util. Pentru preț: `strchr(s, '.')` găsește punctul; înlocuiește-l cu `'\\0'` și ai două șiruri separate — partea întreagă și zecimalele."
+  - "Transformă fiecare număr cifră cu cifră, verificând `isdigit` și limita. bani = lei * 100 + zecimale (dacă e o singură zecimală, înmulțește-o cu 10). Pentru afișare scrii câtul s / 100, un punct și restul s % 100 completat la două cifre (specificatorul `%02lld`), de exemplu cu `sprintf` într-un buffer."
+pitfalls:
+  - "`atoi(\"three\")` și `atoi(\"1a\")` nu semnalează eroare — validează cifrele manual."
+  - "Cu `float`, `4.05` nu e reprezentat exact; o sumă de prețuri poate ieși cu un ban mai puțin. Lucrează în bani, cu întregi."
+  - "Totalul poate depăși `int` — folosește `long long`."

@@ -1,0 +1,87 @@
+id: lab03-p10-hanoi-instantaneu
+lab: lab03
+number: 10
+title: "Turnurile din Hanoi, instantaneu"
+difficulty: 5
+estimated_minutes: 60
+concepts: [recursivitate, funcție, deplasare pe biți, long long, void]
+statement: |
+  Pe trei tije, `A`, `B` și `C`, se află `n` discuri de mărimi diferite, numerotate de la
+  1 (cel mai mic) la `n` (cel mai mare). Inițial, toate discurile sunt pe tija `A`,
+  ordonate (cel mai mare jos). Ele trebuie mutate pe tija `C`, câte unul pe rând, fără a
+  pune vreodată un disc mai mare peste unul mai mic.
+
+  Se folosește **soluția recursivă clasică**, cu `2^n − 1` mutări: pentru a muta un turn
+  de `m` discuri de pe tija sursă pe tija destinație, se mută întâi turnul format din
+  primele `m − 1` discuri pe tija auxiliară, apoi discul `m` pe destinație, apoi turnul de
+  `m − 1` discuri de pe tija auxiliară pe destinație (un turn de 0 discuri nu necesită
+  nicio mutare).
+
+  Un robot execută această soluție. Știind că robotul a efectuat deja primele `k`
+  mutări, afișează configurația tijelor și următoarea mutare pe care o va face. Cum `k`
+  poate fi uriaș (până la `2^60 − 1`), mutările nu pot fi simulate una câte una.
+
+  **Date de intrare**
+
+  Pe o linie, două numere naturale `n k`.
+
+  **Date de ieșire**
+
+  Patru linii. Primele trei descriu tijele `A`, `B`, `C`, în această ordine, sub forma
+  `X: d1 d2 ...`, cu discurile de pe tija `X` listate de jos în sus (deci în ordine
+  descrescătoare), fiecare precedat de un spațiu; o tijă goală se afișează `X: -`.
+  A patra linie este `Urmatoarea mutare: discul d de pe X pe Y` sau, dacă toate mutările
+  s-au încheiat (`k = 2^n − 1`), `Gata`.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 60`
+  - `0 ≤ k ≤ 2^n − 1`
+  - nu folosi vectori
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4 6
+  ```
+
+  Ieșire:
+  ```
+  A: 4 1
+  B: 3 2
+  C: -
+  Urmatoarea mutare: discul 1 de pe A pe B
+  ```
+starter: |
+  #include <stdio.h>
+
+  /* tija pe care se află discul d după primele k mutări ale turnului de n discuri,
+   * mutat de pe sursa pe destinatie, prin aux */
+  char tija_discului(int n, long long k, int d, char sursa, char aux, char destinatie)
+  {
+  	/* TODO */
+  }
+
+  /* afișează mutarea cu numărul k + 1 */
+  void urmatoarea_mutare(int n, long long k, char sursa, char aux, char destinatie)
+  {
+  	/* TODO */
+  }
+
+  int main(void)
+  {
+  	int n;
+  	long long k;
+
+  	scanf("%d%lld", &n, &k);
+  	/* TODO: pentru fiecare tijă, discurile de la n la 1 aflate pe ea */
+  	return 0;
+  }
+hints:
+  - "Soluția are trei etape: 2^(n−1) − 1 mutări pentru turnul mic, o mutare pentru discul n, apoi alte 2^(n−1) − 1 mutări. Comparând k cu 2^(n−1) afli în ce etapă a ajuns robotul și unde este discul n."
+  - "Dacă k < 2^(n−1), discul n e încă pe sursă, iar robotul lucrează la subproblema «n − 1 discuri de pe sursă pe aux» (rolurile tijelor se schimbă!). Altfel, discul n e pe destinație, iar robotul a făcut 2^(n−1) mutări și lucrează la «n − 1 discuri de pe aux pe destinație», cu k − 2^(n−1) mutări deja făcute acolo."
+  - "Funcția tija_discului coboară astfel până ajunge la n = d. Pentru următoarea mutare: dacă k = 2^(n−1) − 1, urmează chiar mutarea discului n de pe sursă pe destinație; altfel coborî în etapa corespunzătoare. Pentru puteri mari folosește 1LL << (n − 1)."
+pitfalls:
+  - "1 << 40 este calculat în int și produce overflow; ai nevoie de 1LL."
+  - "În apelurile recursive, tijele își schimbă rolurile; verifică pe hârtie pentru n = 2."

@@ -1,0 +1,3 @@
+
+# ---- PCLP (adăugat la /etc/bash.bashrc; rulează doar în shell-uri interactive) ----
+[ -r /opt/pclp/shell/pclp-bash.sh ] && . /opt/pclp/shell/pclp-bash.sh

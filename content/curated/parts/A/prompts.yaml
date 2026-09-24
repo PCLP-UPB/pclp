@@ -1,0 +1,209 @@
+lab01:
+  - title: "Compilare vs. interpretare, pe înțelesul meu"
+    when: "după ce ai citit introducerea despre programe și limbaje"
+    concepts: [compilare, compilator]
+    prompt: |
+      Sunt student în anul I și învăț C. Explică-mi diferența dintre compilare și interpretare folosind o analogie din viața de zi cu zi (de exemplu traducerea unei cărți vs. un translator simultan). Apoi pune-mi 3 întrebări scurte ca să verifici dacă am înțeles și așteaptă răspunsurile mele înainte să-mi spui dacă sunt corecte.
+  - title: "Ce face fiecare pas din comanda gcc"
+    when: "după ce ai compilat primul program din terminal"
+    concepts: [gcc, -o, -Wall, -lm, link-editare, fișier executabil]
+    prompt: |
+      Am rulat comanda: «lipește aici comanda gcc pe care ai folosit-o». Explică-mi pe rând rolul fiecărei opțiuni și ce fișiere rezultă (fișier obiect, executabil). Nu-mi da alte comenzi „mai bune” până nu-ți explic eu, cu cuvintele mele, ce cred că face fiecare opțiune; apoi corectează-mă acolo unde greșesc.
+  - title: "Explică-mi un avertisment, fără să-mi repari codul"
+    when: "când gcc -Wall afișează un warning sau o eroare pe care nu o înțelegi"
+    concepts: [avertisment, eroare de compilare, -Wall]
+    prompt: |
+      Compilatorul gcc mi-a afișat mesajul de mai jos. Explică-mi în română ce înseamnă mesajul, ce linie indică și ce regulă a limbajului C am încălcat. NU îmi rescrie codul și nu-mi da soluția; dă-mi cel mult un indiciu, ca să găsesc singur greșeala.
+      Mesajul: «lipește aici mesajul complet de la gcc»
+      Codul: «lipește aici fragmentul de cod relevant»
+  - title: "Quiz despre printf și scanf"
+    when: "după ce ai citit despre interacțiunea program-utilizator"
+    concepts: [printf, scanf, specificator de format, operatorul adresă]
+    prompt: |
+      Fă-mi un quiz de 6 întrebări despre printf și scanf în C: specificatori de format (%d, %f, %c, %lf), precizia (%.2f), lățimea câmpului și de ce scanf are nevoie de &. Pune câte o întrebare pe rând, așteaptă răspunsul meu, apoi explică de ce e corect sau greșit. La final spune-mi la ce subiect ar trebui să mai lucrez.
+  - title: "Citește cu mine pagina de manual"
+    when: "când vrei să afli singur ce face o funcție sau o comandă (man scanf, man gcc)"
+    concepts: [pagină de manual, scanf, gcc]
+    prompt: |
+      Mă uit în pagina de manual obținută cu «man scanf» (sau altă comandă). Explică-mi cum e organizată o pagină man (SYNOPSIS, DESCRIPTION, RETURN VALUE etc.) și ce înseamnă secțiunea de mai jos, propoziție cu propoziție. Apoi întreabă-mă ce cred eu că returnează funcția în cazul unei citiri eșuate.
+      Secțiunea: «lipește aici fragmentul din man»
+  - title: "Makefile explicat linie cu linie"
+    when: "după ce ai scris primul Makefile"
+    concepts: [make, Makefile]
+    prompt: |
+      Iată Makefile-ul meu: «lipește aici Makefile-ul». Explică-mi linie cu linie ce face, ce se întâmplă când rulez `make` și `make clean`, și cum decide make ce trebuie recompilat. Dacă observi o greșeală (de exemplu spații în loc de tab), spune-mi doar pe ce linie e problema, fără să-mi rescrii fișierul.
+
+lab02:
+  - title: "Precedența operatorilor: prezice rezultatul"
+    when: "după ce ai citit tabelul de operatori"
+    concepts: [precedența operatorilor, asociativitate, operator logic, operatorul de incrementare]
+    prompt: |
+      Generează 5 expresii C scurte, din ce în ce mai înșelătoare, care testează precedența și asociativitatea operatorilor (inclusiv &&, ||, ==, ++, %, ?:). Pentru fiecare, cere-mi să prezic valoarea și să explic ordinea evaluării. Nu-mi da răspunsul până nu răspund eu; apoi arată-mi pas cu pas cum se evaluează.
+  - title: "De ce if (a = 2) compilează?"
+    when: "după ce ai citit despre greșelile frecvente cu = și =="
+    concepts: [confuzia între = și ==, operatorul de atribuire, operatorul de egalitate, -Wall]
+    prompt: |
+      Explică-mi de ce `if (a = 2)` este cod C valid, ce valoare are condiția și ce avertisment dă gcc -Wall pentru el. Apoi dă-mi 4 fragmente de cod și cere-mi să identific în care dintre ele e o greșeală de acest tip. Corectează-mi raționamentul, nu doar răspunsul.
+  - title: "Overflow și alegerea tipului de date"
+    when: "când alegi tipul variabilelor pentru un exercițiu (ex. factorial)"
+    concepts: [overflow, int, unsigned, long, tip de date, sizeof]
+    prompt: |
+      Pentru programul meu care «descrie pe scurt ce calculează programul», am ales tipurile: «lipește declarațiile de variabile». Nu-mi scrie programul. Întreabă-mă care sunt valorile maxime pe care le pot atinge variabilele și ajută-mă să-mi dau seama singur dacă poate apărea overflow și ce tip ar fi potrivit. Explică-mi cum pot verifica cu sizeof dimensiunile pe sistemul meu.
+  - title: "Teste înșelătoare pentru bucla mea"
+    when: "după ce ai scris o soluție cu for/while și vrei să o verifici"
+    concepts: [for, while, do-while, break, continue, buclă infinită]
+    prompt: |
+      Am scris un program care «descrie cerința». Nu te uita după greșeli în locul meu și nu-mi da cod. Propune-mi 6–8 date de intrare de test care ar putea să-mi „prindă” greșelile (cazuri limită: 0, 1, numere negative, valori foarte mari, bucla care nu se execută deloc sau se execută la infinit) și explică pentru fiecare ce verifică.
+  - title: "switch cu și fără break"
+    when: "după ce ai citit despre instrucțiunea switch"
+    concepts: [switch, break, fall-through]
+    prompt: |
+      Explică-mi cu o analogie ce se întâmplă într-un switch când lipsește break (fall-through). Apoi scrie un switch scurt fără unele break-uri și cere-mi să spun ce afișează pentru 3 valori diferite. Verifică-mi răspunsurile și explică-mi pas cu pas unde am greșit.
+  - title: "rand, srand și seed"
+    when: "după ce ai citit studiul de caz despre numere aleatoare"
+    concepts: [rand, srand]
+    prompt: |
+      Explică-mi de ce numerele generate de rand() se numesc pseudo-aleatoare, ce rol are seed-ul și de ce se folosește srand(time(NULL)). Întreabă-mă apoi ce se întâmplă dacă apelez srand în interiorul unei bucle sau dacă nu îl apelez deloc, și corectează-mi raționamentul.
+
+lab03:
+  - title: "Urmărește stiva de apeluri recursive"
+    when: "după ce ai citit despre funcții recursive"
+    concepts: [recursivitate, condiție de oprire, stack overflow]
+    prompt: |
+      Folosește o analogie (de exemplu păpușile rusești sau un teanc de farfurii) ca să-mi explici cum se execută o funcție recursivă și ce se salvează pe stivă la fiecare apel. Apoi dă-mi o funcție recursivă scurtă și cere-mi să desenez în text apelurile pentru un input mic. Verifică-mi desenul, fără să-mi dai direct rezultatul.
+  - title: "Verifică-mi condiția de oprire"
+    when: "după ce ai scris o funcție recursivă la laborator"
+    concepts: [recursivitate, condiție de oprire, abordare iterativă]
+    prompt: |
+      Iată funcția mea recursivă: «lipește aici funcția». Nu o rescrie. Pune-mi întrebări care să mă ajute să verific singur dacă condiția de oprire acoperă toate cazurile (inclusiv 0, 1, numere negative) și dacă fiecare apel se apropie de condiția de oprire. La final, întreabă-mă cum aș scrie varianta iterativă și ce avantaje are fiecare.
+  - title: "Transmiterea prin valoare, explicată"
+    when: "după ce ai citit despre transmiterea parametrilor"
+    concepts: [apel prin valoare]
+    prompt: |
+      Explică-mi ce înseamnă că în C parametrii se transmit prin valoare, folosind o analogie (de exemplu o fotocopie a unui document). Apoi arată-mi o funcție care încearcă să modifice un parametru și cere-mi să prezic ce afișează main după apel. Nu-mi explica pointerii încă, doar de ce modificarea se pierde.
+  - title: "Declarație, definiție și fișiere antet"
+    when: "când împarți programul în mai multe fișiere .c și .h"
+    concepts: [declarația funcției, definiția funcției, fișier antet, link-editare, static, extern]
+    prompt: |
+      Am împărțit programul meu în fișierele: «listează fișierele și ce conține fiecare». Explică-mi ce vede compilatorul la fiecare fișier .c, ce face link-editorul și ce s-ar schimba dacă o funcție ar fi declarată static. Dacă primesc eroarea «lipește aici eroarea, dacă există», explică-mi ce etapă (compilare sau link-editare) o produce, fără să-mi rescrii codul.
+  - title: "Quiz: void, return și main"
+    when: "înainte de testul practic, ca recapitulare"
+    concepts: [void, return, main, tip returnat]
+    prompt: |
+      Fă-mi un quiz de 6 întrebări despre funcții în C: diferența dintre f() și f(void), ce face return în main, ce cod de ieșire întoarce un program corect, ce se întâmplă cu o funcție non-void fără return. O întrebare pe rând; după fiecare răspuns explică-mi pe scurt.
+
+lab04:
+  - title: "Vânătoarea de indici greșiți"
+    when: "după ce ai citit despre erorile comune cu tablouri"
+    concepts: [depășirea limitelor tabloului, indice, index cross-talk, verificarea indicilor]
+    prompt: |
+      Scrie-mi 4 fragmente scurte de cod C cu tablouri, dintre care unele au greșeli de indici (depășirea limitelor, i în loc de j în bucle imbricate, <= în loc de <). Cere-mi să le găsesc și să explic ce s-ar putea întâmpla la rulare. Nu-mi da răspunsurile până nu încerc.
+  - title: "Execută căutarea binară pe hârtie"
+    when: "după ce ai citit despre căutarea binară"
+    concepts: [căutare binară, calcularea mijlocului intervalului, overflow, căutare secvențială]
+    prompt: |
+      Dă-mi un vector sortat de 9 elemente și o valoare de căutat. Cere-mi să scriu valorile low, high și middle la fiecare pas al căutării binare. Verifică fiecare pas pe care îl scriu. Apoi întreabă-mă de ce se preferă low + (high - low) / 2 în loc de (low + high) / 2 și de ce căutarea binară cere un vector sortat.
+  - title: "Compară bubble sort cu sortarea prin selecție"
+    when: "după ce ai implementat o sortare"
+    concepts: [bubble sort, sortare prin selecție, interschimbare]
+    prompt: |
+      Explică-mi intuitiv diferența dintre bubble sort și sortarea prin selecție, cu o analogie (de exemplu aranjarea cărților de joc în mână). Apoi dă-mi un vector de 5 numere și cere-mi să scriu starea vectorului după fiecare trecere, pentru ambele metode. Corectează-mă pas cu pas și întreabă-mă câte interschimbări face fiecare.
+  - title: "Cum arată un tablou în memorie"
+    when: "după ce ai citit despre reprezentarea în memorie"
+    concepts: [reprezentarea tablourilor în memorie, operatorul de indexare, sizeof, tablou ca parametru, matrice]
+    prompt: |
+      Explică-mi cum este memorată o matrice int a[3][4] în memorie și cum calculează compilatorul adresa lui a[i][j]. Apoi întreabă-mă de ce la un parametru de tip matrice trebuie precizată a doua dimensiune și de ce 3[a] este echivalent cu a[3]. Verifică-mi explicațiile.
+  - title: "Teste pentru funcțiile mele cu vectori"
+    when: "după ce ai scris funcțiile de citire, sumă, minim, căutare"
+    concepts: [vector, căutare secvențială, inițializarea tabloului, element neinițializat]
+    prompt: |
+      Am scris funcții pentru vectori (sumă, minim, poziția maximului, căutare). Nu-mi scrie codul. Propune-mi un set de teste (inclusiv vector cu un singur element, toate elementele egale, maximul pe prima și pe ultima poziție, element inexistent) și spune-mi ce rezultat ar trebui să obțin la fiecare, ca să-mi verific singur implementarea.
+
+coding-style:
+  - title: "Code review după coding style-ul cursului"
+    when: "înainte să predai o temă sau după ce termini un exercițiu"
+    concepts: [coding style, indentare, spațiere, nume sugestive]
+    prompt: |
+      Fă un code review strict pe stilul codului de mai jos, după convenția PCLP (bazată pe Linux Kernel coding style): indentare cu 4 spații, spațiu în jurul operatorilor binari, acolade și la o singură instrucțiune, linii de maximum 80 de caractere, funcții scurte, nume sugestive cu litere mici și underscore. Listează problemele cu numărul liniei și regula încălcată. NU comenta corectitudinea algoritmului și nu rescrie codul.
+      «lipește aici codul tău»
+  - title: "Alege nume mai bune"
+    when: "când variabilele tale se numesc a, b, x, f"
+    concepts: [nume sugestive, comentariu]
+    prompt: |
+      Iată declarațiile și semnăturile funcțiilor din programul meu: «lipește aici». Pentru fiecare nume, întreabă-mă mai întâi ce reprezintă, apoi ajută-mă să găsesc un nume sugestiv conform convenției (litere mici, cifre, underscore). Spune-mi și unde un comentariu ar ajuta mai mult decât un nume lung.
+  - title: "De ce contează stilul?"
+    when: "la începutul semestrului, când citești ghidul de coding style"
+    concepts: [coding style, checker de coding style, variabilă globală, goto]
+    prompt: |
+      Explică-mi cu 2–3 exemple concrete de ce variabilele globale și goto fac codul greu de întreținut, și de ce o echipă are nevoie de o convenție comună de stil. Apoi pune-mi 3 întrebări de verificare.
+  - title: "Găsește abaterile de stil"
+    when: "ca exercițiu, înainte să rulezi checkerul cs.sh"
+    concepts: [spațiere, indentare]
+    prompt: |
+      Scrie-mi o funcție C de 15–20 de linii care conține intenționat 6 abateri de la coding style-ul PCLP (spațiere, indentare, acolade, nume). Nu-mi spune unde sunt; eu le caut, iar tu îmi confirmi sau îmi dai indicii.
+
+good-practices:
+  - title: "Cum îmi împart programul în funcții și fișiere"
+    when: "când main-ul tău a depășit câteva zeci de linii"
+    concepts: [modularizare, organizarea surselor, fișier antet]
+    prompt: |
+      Programul meu face următoarele: «descrie pe scurt ce face programul». Nu-mi scrie codul. Ajută-mă prin întrebări să identific ce părți logice are (citire, procesare, afișare), ce funcții ar trebui să existe, ce ar merge într-un fișier .h și ce într-un .c. Verifică propunerea mea și explică-mi ce ar fi de îmbunătățit.
+  - title: "Programare defensivă: ce poate merge prost?"
+    when: "după ce ai citit despre programarea defensivă"
+    concepts: [programare defensivă]
+    prompt: |
+      Iată o funcție scrisă de mine: «lipește aici funcția». Nu o rescrie. Enumeră situațiile neprevăzute în care ar putea eșua (date invalide, valori de retur neverificate, indici în afara limitelor) și întreabă-mă cum aș trata fiecare situație. Discută cu mine avantajele întoarcerii unui cod de eroare.
+  - title: "Când folosesc const la parametri?"
+    when: "când scrii funcții care primesc date pe care nu trebuie să le modifice"
+    concepts: [const, parametru, eroare de compilare]
+    prompt: |
+      Explică-mi ce face const la un parametru de funcție și ce eroare apare dacă încerc totuși să-l modific. Apoi arată-mi 3 semnături de funcții și cere-mi să decid unde ar trebui pus const și de ce.
+  - title: "Cod generic, pe înțeles"
+    when: "după ce ai citit secțiunea despre genericitate (poate fi recitită după laboratorul de pointeri)"
+    concepts: [modularizare, funcție]
+    prompt: |
+      Explică-mi cu o analogie ce înseamnă cod generic și de ce o funcție de sortare generică are nevoie de o funcție de comparare dată ca parametru. Nu intra încă în detalii despre void*; întreabă-mă la final ce ar trebui să știe funcția de sortare despre elementele pe care le sortează.
+
+read-docs:
+  - title: "Învață să citești o pagină man"
+    when: "prima dată când deschizi man pentru o funcție C"
+    concepts: [pagină de manual, terminal]
+    prompt: |
+      Ajută-mă să citesc pagina de manual pentru funcția «numele funcției, ex. qsort». Nu-mi rezuma toată pagina: întreabă-mă mai întâi ce cred eu că fac parametrii din SYNOPSIS, apoi confirmă sau corectează. Explică-mi și ce înseamnă numărul din paranteză, de exemplu qsort(3) vs. printf(1).
+  - title: "Verifică un răspuns găsit pe forum"
+    when: "când ai găsit o soluție pe Stack Overflow și nu ești sigur că e corectă"
+    concepts: [testarea codului din surse externe, comportament nedefinit]
+    prompt: |
+      Am găsit pe un forum următoarea afirmație/următorul cod: «lipește aici». Nu-mi spune direct dacă e corect. Ajută-mă să construiesc un mic program de test și o listă de verificări (documentația oficială, avertismente gcc -Wall, eventual valgrind) prin care să-mi dau seama singur dacă e corect sau dacă ascunde comportament nedefinit.
+  - title: "Bibliotecă, framework, API"
+    when: "după ce ai citit definițiile din ghid"
+    concepts: [bibliotecă, fișier antet]
+    prompt: |
+      Explică-mi diferența dintre bibliotecă, framework și API cu o analogie (de exemplu o bucătărie, rețete și un meniu). Apoi dă-mi 4 exemple concrete din C sau din alte limbaje și cere-mi să le clasific. Corectează-mi clasificarea.
+  - title: "Testez o funcție din documentație pe un exemplu mic"
+    when: "înainte să folosești o funcție de bibliotecă nouă în temă"
+    concepts: [testarea codului din surse externe, pagină de manual, bibliotecă]
+    prompt: |
+      Vreau să folosesc funcția «numele funcției» din biblioteca standard C. Nu-mi scrie soluția problemei mele. Ajută-mă să scriu un program minimal de test pentru funcție: întreabă-mă ce date de intrare aș alege, ce rezultat aștept și ce cazuri limită ar trebui încercate. Verifică apoi ce propun eu.
+
+vm-setup:
+  - title: "Depanează-mi instalarea, pas cu pas"
+    when: "când gcc sau make nu merg în Linux/WSL/mașina virtuală"
+    concepts: [gcc, make, mașină virtuală]
+    prompt: |
+      Lucrez pe «Ubuntu nativ / WSL / mașina virtuală PCLP» și am primit eroarea: «lipește aici comanda și mesajul complet». Explică-mi ce înseamnă mesajul și ce comenzi de diagnostic să rulez (de ex. gcc -v, make -v, which gcc), una câte una. Explică-mi ce face fiecare comandă înainte să o rulez; nu-mi da comenzi cu sudo fără să-mi explici efectul lor.
+  - title: "Terminal Linux pentru începători"
+    when: "în prima săptămână, când te obișnuiești cu terminalul"
+    concepts: [terminal, pagină de manual]
+    prompt: |
+      Sunt începător în terminalul Linux. Dă-mi 5 mici exerciții progresive (navigare prin directoare, creare de fișiere, compilarea unui hello.c, rularea cu ./a.out, căutarea în man). Pentru fiecare, lasă-mă să încerc eu comanda și explică-mi apoi ce a făcut, fără să-mi dai răspunsul dinainte.
+  - title: "ssh și scp explicate"
+    when: "când vrei să lucrezi în editorul de pe host și să rulezi în VM"
+    concepts: [mașină virtuală]
+    prompt: |
+      Explică-mi cu o analogie ce fac ssh și scp și cum se leagă de cheile publice/private. Apoi întreabă-mă ce comandă aș folosi ca să copiez fișierul hello.c pe mașina virtuală și să-l compilez acolo, și corectează-mi comenzile. Nu-mi cere și nu-mi afișa niciodată parole sau chei private.
+  - title: "De ce versiunea gcc contează"
+    when: "când local compilează, dar pe vmchecker apar erori"
+    concepts: [gcc, avertisment]
+    prompt: |
+      Explică-mi de ce același cod poate compila fără probleme cu o versiune de gcc și poate da avertismente sau erori cu alta. Ajută-mă să compar versiunea mea locală (output gcc -v: «lipește aici») cu cea de pe vmchecker: «lipește aici». Nu-mi modifica codul; spune-mi doar ce să verific.

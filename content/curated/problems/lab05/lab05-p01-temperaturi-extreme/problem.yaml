@@ -1,0 +1,85 @@
+id: lab05-p01-temperaturi-extreme
+lab: lab05
+number: 1
+title: "Temperaturi extreme"
+difficulty: 1
+estimated_minutes: 15
+concepts: [pointer, parametru de tip pointer, operatorul de referențiere, operatorul de dereferențiere, aritmetică cu pointeri]
+statement: |
+  O stație meteo a înregistrat temperatura maximă din fiecare zi, timp de `n` zile (zilele sunt numerotate de la 1).
+  Afișați cea mai mică și cea mai mare temperatură, ziua în care au apărut **prima dată** și amplitudinea termică (diferența dintre maxim și minim).
+
+  Implementați și folosiți funcția:
+
+  ```c
+  void extreme(const int *v, int n, int *min, int *zi_min, int *max, int *zi_max);
+  ```
+
+  care calculează toate cele patru rezultate într-o singură parcurgere și le transmite prin parametrii de tip pointer. În `main` doar citiți datele, apelați funcția și afișați.
+
+  **Date de intrare**
+
+  Pe prima linie se află `n`. Pe a doua linie se află `n` numere întregi, temperaturile.
+
+  **Date de ieșire**
+
+  Trei linii, exact în forma:
+
+  ```
+  min = <minim> (ziua <zi>)
+  max = <maxim> (ziua <zi>)
+  amplitudine = <maxim - minim>
+  ```
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1000`
+  - `-50 ≤ temperatură ≤ 50`
+  - dacă extremul apare de mai multe ori, se afișează prima zi în care apare.
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  7
+  12 15 9 18 18 7 11
+  ```
+
+  Ieșire:
+  ```
+  min = 7 (ziua 6)
+  max = 18 (ziua 4)
+  amplitudine = 11
+  ```
+starter: |
+  #include <stdio.h>
+
+  #define NMAX 1000
+
+  void extreme(const int *v, int n, int *min, int *zi_min, int *max, int *zi_max)
+  {
+      /* TODO: o singura parcurgere; scrieti rezultatele la adresele primite */
+  }
+
+  int main(void)
+  {
+      int n, i;
+      int temp[NMAX];
+      int min, max, zi_min, zi_max;
+
+      scanf("%d", &n);
+      for (i = 0; i < n; i++) {
+          scanf("%d", &temp[i]);
+      }
+
+      /* TODO: apelati extreme si afisati rezultatele */
+
+      return 0;
+  }
+hints:
+  - "O funcție C întoarce o singură valoare prin `return`. Ca să „întoarcă” patru, primește adresele unor variabile din `main` și scrie la acele adrese cu `*`."
+  - "Inițializează minimul și maximul cu primul element (și ziua 1), apoi compară fiecare element următor. Nu porni de la 0: temperaturile pot fi negative."
+  - "Pseudocod: *min = *max = v[0]; pentru fiecare p de la v+1 la v+n-1: dacă *p < *min atunci *min = *p și *zi_min = (p - v) + 1; analog pentru maxim. Comparațiile stricte păstrează prima apariție."
+pitfalls:
+  - "Apelul `extreme(temp, n, min, ...)` fără `&` trimite valoarea (neinițializată) în loc de adresă — compilatorul dă warning, iar programul se poate opri cu segmentation fault."
+  - "Cu `<=` în loc de `<` se reține ultima apariție a extremului, nu prima."

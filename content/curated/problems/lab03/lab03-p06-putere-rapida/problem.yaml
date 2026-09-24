@@ -1,0 +1,79 @@
+id: lab03-p06-putere-rapida
+lab: lab03
+number: 6
+title: "Puterea rapidă modulo m"
+difficulty: 3
+estimated_minutes: 30
+concepts: [recursivitate, exponențiere rapidă, long long, operatorul %, overflow]
+statement: |
+  Sistemul de acces în sala de laborator generează coduri calculând `a^b mod m` pentru
+  exponenți uriași (până la `10^18`). Evident, nu se pot face `b` înmulțiri: e nevoie de
+  **exponențierea rapidă**, bazată pe observația că
+
+  - `a^0 = 1`,
+  - `a^(2k) = (a^k)²`,
+  - `a^(2k+1) = a · (a^k)²`.
+
+  Scrie funcția recursivă `long long putere_mod(long long baza, long long exp, long long m)`,
+  care întoarce `baza^exp mod m`, și folosește-o pentru a răspunde la `q` întrebări.
+  Prin convenție, `a^0 = 1` pentru orice `a` (inclusiv `0^0 = 1`).
+
+  **Date de intrare**
+
+  Pe prima linie, numărul `q`. Pe fiecare dintre următoarele `q` linii, trei numere
+  naturale `a b m`.
+
+  **Date de ieșire**
+
+  `q` linii, pe fiecare valoarea `a^b mod m`.
+
+  **Restricții**
+
+  - `1 ≤ q ≤ 1000`
+  - `0 ≤ a ≤ 10^18`, `0 ≤ b ≤ 10^18`, `1 ≤ m ≤ 10^9`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4
+  2 10 1000
+  3 0 7
+  7 222 10
+  2 1000000000000000000 1000000007
+  ```
+
+  Ieșire:
+  ```
+  24
+  1
+  9
+  719476260
+  ```
+starter: |
+  #include <stdio.h>
+
+  long long putere_mod(long long baza, long long exp, long long m)
+  {
+  	/* TODO: caz de bază exp == 0; apoi un singur apel recursiv pentru exp / 2 */
+  }
+
+  int main(void)
+  {
+  	int q, i;
+  	long long a, b, m;
+
+  	scanf("%d", &q);
+  	for (i = 0; i < q; i++) {
+  		scanf("%lld%lld%lld", &a, &b, &m);
+  		printf("%lld\n", putere_mod(a, b, m));
+  	}
+
+  	return 0;
+  }
+hints:
+  - "Restul unui produs se poate calcula din resturile factorilor: (x · y) mod m = ((x mod m) · (y mod m)) mod m. Așa, niciun rezultat intermediar nu trece de m²."
+  - "Recursia: calculează o singură dată r = putere_mod(baza, exp / 2, m), apoi r · r mod m; dacă exp e impar, mai înmulțește cu baza mod m."
+  - "Verifică tipurile: m ≤ 10^9, deci două valori < m au produsul < 10^18, care încape în long long. Baza însă poate fi 10^18: redu-o modulo m înainte de a o înmulți. Cazul de bază întoarce 1 % m (atenție la m = 1)."
+pitfalls:
+  - "Două apeluri recursive putere_mod(baza, exp / 2, m) în aceeași expresie fac algoritmul la fel de lent ca înmulțirile repetate."

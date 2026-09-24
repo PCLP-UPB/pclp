@@ -1,0 +1,65 @@
+id: lab07-p09-aliniere-text
+lab: lab07
+number: 9
+title: "Așezarea textului în pagină"
+difficulty: 4
+estimated_minutes: 75
+concepts: [strtok, vector de pointeri la șiruri, strlen, strcpy, realloc, fgets]
+statement: |
+  Scrieți modulul de așezare în pagină al unui editor de text. Textul este format din **paragrafe**, separate prin una sau mai multe linii care nu conțin niciun cuvânt (goale sau doar cu spații/tab-uri). Un cuvânt este o secvență maximală de caractere diferite de spațiu, tab și linie nouă.
+
+  Fiecare paragraf se împarte în rânduri de lățime `W` astfel: cuvintele se pun în ordine, cu câte un spațiu între ele, iar un cuvânt se adaugă pe rândul curent dacă rândul rămâne de cel mult `W` caractere; altfel începe un rând nou. Un cuvânt mai lung decât `W` stă singur pe rândul lui.
+
+  Rândurile se aliniază după modul dat:
+
+  - `S` — la stânga: spațiile rămase se pun la dreapta rândului;
+  - `D` — la dreapta: spațiile rămase se pun la stânga;
+  - `C` — centrat: dacă rămân `r` spații, `r / 2` (împărțire întreagă) se pun la stânga, restul la dreapta;
+  - `J` — justificat: spațiile dintre cuvinte se măresc astfel încât rândul să aibă exact `W` caractere; spațiile se distribuie cât mai egal, iar golurile din stânga primesc câte un spațiu în plus când împărțirea nu e exactă. Ultimul rând al paragrafului și rândurile cu un singur cuvânt se aliniază la stânga.
+
+  Fiecare rând se afișează între două caractere `|`, completat cu spații până la lățimea `W` (un rând cu un cuvânt mai lung decât `W` nu se completează). Paragrafele se separă, în ieșire, printr-o singură linie goală.
+
+  Cuvintele paragrafului curent se memorează într-un vector de pointeri alocat dinamic, fiecare cuvânt fiind copiat în memorie alocată exact cât îi trebuie; memoria se eliberează după afișarea fiecărui paragraf.
+
+  **Date de intrare**
+
+  Pe prima linie `W` și modul (o literă). Urmează textul, până la sfârșitul fișierului.
+
+  **Date de ieșire**
+
+  Paragrafele formatate, ca mai sus. Dacă textul nu are niciun cuvânt, nu se afișează nimic.
+
+  **Restricții**
+
+  - `1 ≤ W ≤ 200`
+  - textul are cel mult 2000 de linii, fiecare de cel mult 1000 de caractere ASCII afișabile, spații sau tab-uri
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  20 J
+  Limbajul C a fost creat
+  de Dennis Ritchie la Bell Labs.
+
+  Pointerii sunt   puternici.
+  ```
+
+  Ieșire:
+  ```
+  |Limbajul  C  a  fost|
+  |creat    de   Dennis|
+  |Ritchie    la   Bell|
+  |Labs.               |
+
+  |Pointerii       sunt|
+  |puternici.          |
+  ```
+hints:
+  - "Împarte problema în trei: citirea paragrafelor (colectezi cuvinte până la o linie fără cuvinte sau EOF), împărțirea în rânduri (greedy) și afișarea unui rând aliniat. Pentru un rând îți trebuie doar: primul cuvânt, câte cuvinte are și câte litere au în total."
+  - "`strtok` returnează pointeri în interiorul bufferului citit cu `fgets`, iar bufferul e suprascris la linia următoare — de aceea fiecare cuvânt trebuie copiat (malloc cu strlen + 1, apoi strcpy) înainte de a citi mai departe."
+  - "Pentru J: spațiile totale sunt W - litere, iar golurile sunt nr - 1; fiecare gol primește (W - litere) / (nr - 1), iar primele (W - litere) % (nr - 1) goluri primesc încă unul. Un cuvânt `c` încape pe rând dacă litere + (numărul de cuvinte deja puse) + strlen(c) ≤ W."
+pitfalls:
+  - "Pointerii întorși de `strtok` nu mai sunt valizi după următorul `fgets` în același buffer — copiază cuvintele."
+  - "O linie care conține doar spații sau tab-uri separă și ea paragrafele."
+  - "Eliberează cuvintele fiecărui paragraf, nu doar vectorul de pointeri."

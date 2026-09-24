@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Întrebări{% endblock %}
+{% block content %}
+<div class="termhead"><h1>Întrebări</h1><div><span class="badge l1">{{ qz.score }} corecte</span> <span class="badge">{{ answered }} / {{ qz.total }} răspunse</span> <a class="btn small" href="/intrebari/">Set nou</a></div></div>
+{% for it in items %}
+<div class="card q" id="q{{ it.i }}">
+  <div class="kicker">Întrebarea {{ it.i|add:1 }}{% if it.c %} · {{ it.c.kind }}{% endif %}{% if it.q.source == "llm" %} · generată de AI{% endif %}</div>
+  <div class="prompt">{{ it.q.prompt }}</div>
+  <form class="opts" method="post">{% csrf_token %}<input type="hidden" name="index" value="{{ it.i }}"><input type="hidden" name="choice" value="">
+    {% for o in it.q.options %}
+      <button name="c" value="{{ forloop.counter0 }}" {% if it.a %}disabled{% endif %}
+        class="{% if it.a %}{% if forloop.counter0 == it.q.answer %}right{% elif forloop.counter0 == it.a.chosen %}wrong{% endif %}{% endif %}">{{ o }}</button>
+    {% endfor %}
+  </form>
+  {% if it.a %}<div class="expl">{% if it.a.correct %}✔ Corect.{% else %}✘ Greșit.{% endif %} {{ it.q.explanation }}{% if it.c %} · <a href="/termen/{{ it.c.id }}/">{{ it.c.label }} →</a>{% endif %}</div>{% endif %}
+</div>
+{% endfor %}
+{% if qz.finished %}<div class="card"><h2>Scor final: {{ qz.score }} / {{ qz.total }}</h2><p>Conceptele greșite apar în <a href="/progres/">Progres → de reluat</a>.</p></div>{% endif %}
+{% endblock %}

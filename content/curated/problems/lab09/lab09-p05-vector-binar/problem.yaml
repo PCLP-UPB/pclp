@@ -1,0 +1,64 @@
+id: lab09-p05-vector-binar
+lab: lab09
+number: 5
+title: "Vector salvat într-un fișier binar"
+difficulty: 2
+estimated_minutes: 30
+concepts: [fișier binar, mod de deschidere, fread, fseek, ftell, dimensiunea unui fișier, endianness, vector alocat dinamic, malloc, free]
+statement: |
+  Fișierul binar `date.bin` conține un vector de întregi salvat astfel
+  (presupunem `sizeof(int) == 4` și reprezentare little-endian):
+
+  - primii 4 octeți: numărul de elemente `n` (un `int`);
+  - următorii `4 * n` octeți: cele `n` elemente (`int`), unul după altul.
+
+  Scrie un program care **validează** fișierul, încarcă vectorul într-o zonă alocată dinamic
+  și afișează elementele, suma și media lor.
+
+  **Date de intrare**
+
+  Doar fișierul `date.bin` (nu se citește nimic de la tastatură).
+
+  **Date de ieșire**
+
+  - Dacă fișierul nu poate fi deschis: `Eroare: nu pot deschide date.bin`.
+  - Dacă fișierul are mai puțin de 4 octeți: `Fisier corupt: lipseste antetul`.
+  - Dacă `n < 0` sau dimensiunea fișierului nu este exact `4 + 4 * n` octeți:
+    `Fisier corupt: asteptat E octeti, gasit G` (E = `4 + 4 * n`, sau `-1` dacă `n < 0`;
+    G = dimensiunea reală a fișierului).
+  - Altfel, se afișează `n = N`, apoi:
+    - dacă `n == 0`: linia `vector vid`;
+    - altfel: elementele pe o linie, separate prin câte un spațiu, apoi `suma = S` și
+      `media = M` (media cu 2 zecimale).
+
+  **Restricții**
+
+  - 0 ≤ n ≤ 10^6; suma poate depăși domeniul `int`;
+  - vectorul se citește cu **un singur** apel `fread`; memoria alocată se eliberează.
+
+  **Exemplu**
+
+  Fișierul binar `date.bin` (24 octeți, afișat cu `hexdump -C`):
+  ```
+  00000000  05 00 00 00 0a 00 00 00  01 00 00 00 ff ff ff ff  |................|
+  00000010  02 00 00 00 01 01 00 00                           |........|
+  00000018
+  ```
+
+  Ieșire (stdout):
+  ```
+  n = 5
+  10 1 -1 2 257
+  suma = 269
+  media = 53.80
+  ```
+
+  Octeții `ff ff ff ff` reprezintă numărul -1, iar `01 01 00 00` numărul 257 (little-endian).
+hints:
+  - "Înainte să ai încredere în n citit din fișier, compară dimensiunea reală a fișierului (fseek la final + ftell) cu dimensiunea pe care ar trebui să o aibă."
+  - "Deschide fișierul cu \"rb\". Citește n cu fread(&n, sizeof(int), 1, f), apoi alocă n elemente și citește-le pe toate cu un singur fread(v, sizeof(int), n, f)."
+  - "Pseudocod: size = dimensiune; dacă size < 4 -> corupt; citește n; dacă n < 0 sau 4 + 4n != size -> corupt; dacă n == 0 -> vid; altfel malloc, fread, verifică valoarea întoarsă de fread, afișează, free."
+pitfalls:
+  - "După fseek(f, 0, SEEK_END) trebuie să revii la începutul fișierului înainte de fread."
+  - "Un fișier corupt poate avea în antet un n uriaș sau negativ: fără validare, malloc eșuează sau citești date inexistente."
+  - "Nu deschide fișierul binar cu \"r\" pe Windows — conversia CR-LF strică datele; folosește întotdeauna \"rb\"."

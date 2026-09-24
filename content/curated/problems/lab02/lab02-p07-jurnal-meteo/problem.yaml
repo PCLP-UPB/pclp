@@ -1,0 +1,65 @@
+id: lab02-p07-jurnal-meteo
+lab: lab02
+number: 7
+title: "Jurnalul stației meteo"
+difficulty: 3
+estimated_minutes: 30
+concepts: [for, if-else, conversie de tip, minim și maxim, contor]
+statement: |
+  Stația meteo de pe acoperișul facultății înregistrează temperatura în fiecare zi, la
+  prânz. Scrie un program care citește temperaturile din `n` zile consecutive și
+  afișează un scurt raport. **Nu folosi vectori**: fiecare valoare trebuie prelucrată
+  imediat după ce a fost citită.
+
+  Raportul conține: temperatura minimă, temperatura maximă, media aritmetică, numărul de
+  zile cu temperatură strict negativă și lungimea celei mai lungi perioade de
+  „încălzire” — cel mai mare număr de zile consecutive în care fiecare zi a fost strict
+  mai caldă decât precedenta (o singură zi formează o perioadă de lungime 1).
+
+  **Date de intrare**
+
+  Pe prima linie, numărul natural `n`. Pe a doua linie, `n` numere întregi: temperaturile,
+  în ordinea zilelor.
+
+  **Date de ieșire**
+
+  Cinci linii:
+
+  ```
+  Minim: m
+  Maxim: M
+  Media: X.XX
+  Zile cu inghet: z
+  Cea mai lunga incalzire: L zile
+  ```
+
+  Media se afișează cu exact două zecimale.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100 000`
+  - `-50 ≤ temperatura ≤ 50`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  8
+  3 -2 -3 1 5 12 7 11
+  ```
+
+  Ieșire:
+  ```
+  Minim: -3
+  Maxim: 12
+  Media: 4.25
+  Zile cu inghet: 2
+  Cea mai lunga incalzire: 4 zile
+  ```
+hints:
+  - "Pentru minim, maxim, sumă și numărare îți ajunge câte o variabilă actualizată la fiecare citire. Pentru serii, ai nevoie doar de temperatura din ziua anterioară."
+  - "Inițializează minimul și maximul cu prima temperatură citită, nu cu 0. Pentru medie, convertește suma la double înainte de împărțire."
+  - "Pseudocod pentru serie: dacă nu e prima zi și t > anterior, atunci serie = serie + 1, altfel serie = 1; apoi serie_max = max(serie_max, serie) și anterior = t."
+pitfalls:
+  - "Dacă toate temperaturile sunt pozitive, un minim inițializat cu 0 rămâne greșit 0."
+  - "Două zile cu aceeași temperatură întrerup perioada de încălzire."

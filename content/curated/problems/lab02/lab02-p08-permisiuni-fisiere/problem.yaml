@@ -1,0 +1,67 @@
+id: lab02-p08-permisiuni-fisiere
+lab: lab02
+number: 8
+title: "Permisiunile unui fișier"
+difficulty: 4
+estimated_minutes: 40
+concepts: [operator pe biți, deplasare pe biți, "%o", switch, for]
+statement: |
+  Pe Linux, permisiunile unui fișier sunt 9 biți, grupați câte 3: pentru proprietar,
+  pentru grup și pentru ceilalți. În fiecare grup, bitul cel mai semnificativ înseamnă
+  citire (`r`), cel din mijloc scriere (`w`), iar cel mai puțin semnificativ execuție
+  (`x`). Permisiunile se scriu de obicei în baza 8: de exemplu `754` = `111 101 100` în
+  binar = `rwxr-xr--` (un bit 0 se afișează ca `-`).
+
+  Scrie un program care pornește de la un mod inițial și aplică pe rând `q` operații,
+  afișând permisiunile după fiecare pas. O operație este un caracter urmat de o mască
+  (în baza 8):
+
+  - `+ M` — adaugă permisiunile din mască (biții 1 din `M` devin 1);
+  - `- M` — elimină permisiunile din mască (biții 1 din `M` devin 0);
+  - `^ M` — inversează permisiunile din mască (biții 1 din `M` își schimbă valoarea).
+
+  **Date de intrare**
+
+  - prima linie: modul inițial, în baza 8;
+  - a doua linie: numărul natural `q`;
+  - următoarele `q` linii: câte o operație, de forma `op M`, cu `op` unul dintre
+    caracterele `+`, `-`, `^`, iar `M` în baza 8.
+
+  **Date de ieșire**
+
+  `q + 1` linii: starea inițială, apoi starea după fiecare operație. Fiecare linie
+  conține cele 9 caractere ale permisiunilor (`r`, `w`, `x` sau `-`), un spațiu și modul
+  în baza 8 pe exact 3 cifre, între paranteze rotunde, de exemplu `rwxr-xr-- (754)`.
+
+  **Restricții**
+
+  - `0 ≤ mod, M ≤ 777` (în baza 8)
+  - `0 ≤ q ≤ 1000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  754
+  4
+  + 022
+  - 700
+  ^ 111
+  + 400
+  ```
+
+  Ieșire:
+  ```
+  rwxr-xr-- (754)
+  rwxrwxrw- (776)
+  ---rwxrw- (076)
+  --xrw-rwx (167)
+  r-xrw-rwx (567)
+  ```
+hints:
+  - "scanf și printf știu baza 8 direct, prin specificatorul %o. Pe biți: | setează, & cu complementul (~) șterge, ^ inversează."
+  - "Un bit b este 1 dacă mod & (1 << b) este nenul. Parcurge biții de la 8 la 0; poziția în grup (b % 3) îți spune dacă litera este r, w sau x."
+  - "La citirea operației, pune un spațiu înainte de %c (\" %c\") ca să sari peste caracterul de linie nouă rămas de la citirea anterioară. Pentru afișare: 9 caractere, apoi \" (%03o)\"."
+pitfalls:
+  - "!M este negația logică (0 sau 1), nu complementul pe biți ~M."
+  - "Fără spațiu înainte de %c, scanf citește '\\n' ca operație."

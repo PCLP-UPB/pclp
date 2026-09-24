@@ -1,0 +1,68 @@
+id: lab01-p08-formate-data
+lab: lab01
+number: 8
+title: "Formate de dată și oră"
+difficulty: 4
+estimated_minutes: 30
+concepts: [scanf, format de citire, printf, "%02d", operatorul %]
+statement: |
+  Aplicația de orar a facultății primește data și ora în formatul românesc
+  `zz.ll.aaaa hh:mm`, dar trebuie să le trimită mai departe în alte formate.
+
+  Scrie un program care citește o dată și o oră și afișează:
+
+  1. data și ora în formatul ISO 8601: `aaaa-ll-zzThh:mm:00`;
+  2. data în formatul american: `ll/zz/aaaa`;
+  3. ora în formatul de 12 ore `hh:mm` (fără AM/PM), unde ora este între `01` și `12`:
+     00 devine 12, 13 devine 01, 12 rămâne 12 etc.;
+  4. numărul de minute scurse de la miezul nopții până la ora dată;
+  5. numărul de minute rămase până la miezul nopții următor.
+
+  **Date de intrare**
+
+  O singură linie de forma `zz.ll.aaaa hh:mm` (ziua, luna și anul separate prin punct,
+  apoi un spațiu, apoi ora și minutul separate prin `:`). Numerele pot fi scrise cu
+  sau fără zero în față (de exemplu `4.9.2026 7:05` sau `04.09.2026 07:05`).
+
+  **Date de ieșire**
+
+  Cinci linii:
+
+  ```
+  ISO 8601: aaaa-ll-zzThh:mm:00
+  Format american: ll/zz/aaaa
+  Ora pe 12h: hh:mm
+  Minute de la miezul noptii: M
+  Minute pana la miezul noptii: R
+  ```
+
+  Ziua, luna, ora și minutul se afișează pe exact două cifre, iar anul pe exact patru
+  cifre, completate cu zerouri în față dacă e nevoie.
+
+  **Restricții**
+
+  - data este validă, `1 ≤ aaaa ≤ 9999`
+  - `0 ≤ hh ≤ 23`, `0 ≤ mm ≤ 59`
+  - problema se poate rezolva fără instrucțiuni `if`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  24.09.2026 14:05
+  ```
+
+  Ieșire:
+  ```
+  ISO 8601: 2026-09-24T14:05:00
+  Format american: 09/24/2026
+  Ora pe 12h: 02:05
+  Minute de la miezul noptii: 845
+  Minute pana la miezul noptii: 595
+  ```
+hints:
+  - "Șirul de format al lui scanf poate conține și alte caractere decât specificatori; ele trebuie să apară exact așa în intrare."
+  - "Pentru afișarea pe un număr fix de cifre folosește lățimea completată cu zerouri (2 pentru zi, lună, oră, minut, 4 pentru an). Minutele de la miezul nopții sunt ora · 60 + minut; o zi are 1440 de minute."
+  - "Ora pe 12h fără if: încearcă formula (ora + 11) % 12 + 1 pe câteva valori (0, 1, 12, 13, 23) și verifică de ce funcționează."
+pitfalls:
+  - "ora % 12 dă 0 la miezul nopții și la prânz, dar ceasul arată 12."

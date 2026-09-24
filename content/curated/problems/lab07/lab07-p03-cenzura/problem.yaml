@@ -1,0 +1,56 @@
+id: lab07-p03-cenzura
+lab: lab07
+number: 3
+title: "Filtrul de cenzură"
+difficulty: 2
+estimated_minutes: 30
+concepts: [șir de caractere, fgets, memset, tolower, strlen]
+statement: |
+  Un forum ascunde automat cuvintele nepotrivite: fiecare apariție a unui cuvânt interzis este înlocuită cu atâtea steluțe (`*`) câte litere are. Un **cuvânt** din text este o secvență maximală de litere (`a`–`z`, `A`–`Z`); orice alt caracter (spațiu, cifră, punctuație, cratimă) este separator. Potrivirea se face pe cuvinte întregi și **nu ține cont de majuscule**: dacă `bug` este interzis, se cenzurează `Bug` și `BUG`, dar nu `bugs` sau `debug`. Restul textului rămâne neschimbat.
+
+  Implementați și folosiți funcția:
+
+  ```c
+  int cenzureaza(char *linie, char interzise[][32], int k);
+  ```
+
+  care modifică linia pe loc și returnează numărul de cuvinte cenzurate în ea.
+
+  **Date de intrare**
+
+  Pe prima linie `k`; pe a doua linie cele `k` cuvinte interzise (doar litere), separate prin spații. Urmează textul, pe una sau mai multe linii, până la sfârșitul fișierului.
+
+  **Date de ieșire**
+
+  Textul cenzurat, linie cu linie, urmat de o linie `Cuvinte cenzurate: <total>`.
+
+  **Restricții**
+
+  - `1 ≤ k ≤ 50`; fiecare cuvânt interzis are cel mult 31 de litere
+  - textul are cel mult 1000 de linii, fiecare de cel mult 1000 de caractere
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3
+  prost urat bug
+  Codul asta e PROST scris, plin de bug-uri.
+  Nu e urat, e doar prostesc!
+  Bug bug BUG.
+  ```
+
+  Ieșire:
+  ```
+  Codul asta e ***** scris, plin de ***-uri.
+  Nu e ****, e doar prostesc!
+  *** *** ***.
+  Cuvinte cenzurate: 6
+  ```
+hints:
+  - "Nu căuta cuvintele interzise în text cu `strstr`: ar găsi și bucăți din alte cuvinte (`prost` în `prostesc`). Mai sigur e să extragi pe rând fiecare cuvânt al textului și să-l compari cu lista."
+  - "Cu doi indici găsești începutul și sfârșitul fiecărui cuvânt (secvență de caractere pentru care `isalpha` e adevărat). Două cuvinte sunt egale fără majuscule dacă au aceeași lungime și caracterele trecute prin `tolower` coincid."
+  - "La potrivire, `memset(linie + start, '*', lungime)` suprascrie exact literele cuvântului. Atenție: după `scanf` pentru cuvinte, restul liniei a doua (inclusiv `'\\n'`) trebuie consumat înainte de a citi textul cu `fgets`."
+pitfalls:
+  - "`strtok` modifică linia și pierde separatorii — aici textul trebuie reprodus exact."
+  - "`strcasecmp`/`stricmp` nu fac parte din biblioteca standard C; scrie comparația cu `tolower`."

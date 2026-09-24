@@ -1,0 +1,937 @@
+#!/usr/bin/env python3
+"""pclp-verify — verificarea predărilor PCLP și generarea cronologiei procesului (partea profesorului).
+
+Utilizare:
+  pclp-verify [opțiuni] <arhivă.tar.gz | director | moodle.zip> ... --out raport/
+
+Intrări acceptate:
+  * arhive individuale sapt-NN-*.tar.gz
+  * un director (ex. dezarhivarea „Descarcă toate predările” din Moodle); se caută recursiv arhivele.
+    Codul de verificare se ia din `onlinetext.html` (în același folder sau în folderul
+    `<Nume>_<id>_assignsubmission_onlinetext_` al aceluiași student).
+  * un .zip Moodle (se dezarhivează temporar)
+  * --codes coduri.csv cu coloanele archive,code (numele fișierului arhivei și codul lipit)
+
+Rezultat: <out>/index.html, <out>/summary.csv, <out>/timeline-<student>-sapt-NN.html
+
+Cerințe: Python 3.10+, git în PATH. Doar biblioteca standard.
+"""
+from __future__ import annotations
+
+import argparse
+import csv
+import hashlib
+import html
+import io
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+import tarfile
+import tempfile
+import traceback
+import unicodedata
+import zipfile
+from dataclasses import dataclass, field
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+
+sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+import pclp_logs as L  # noqa: E402
+
+CODE_RE = re.compile(r"PCLP(?:[-\s]?[0-9A-Fa-f]{4}){4}")
+HEX64_RE = re.compile(r"\b[0-9a-fA-F]{64}\b")
+MOODLE_DIR_RE = re.compile(r"^(?P<name>.+?)_(?P<id>\d+)_assignsubmission_(?P<kind>[a-z]+)_?$")
+MAX_TOTAL = 800 * 1024 * 1024
+EMPTY_TREE = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
+SEV_ORDER = {"error": 0, "warn": 1, "info": 2}
+
+
+# ---------------------------------------------------------------------------
+# modele
+# ---------------------------------------------------------------------------
+@dataclass
+class Flag:
+    sev: str   # error | warn | info
+    msg: str
+
+
+@dataclass
+class Sub:
+    archive: Path
+    code: str | None = None
+    code_source: str = ""
+    moodle_name: str = ""
+    moodle_id: str = ""
+    sha256: str = ""
+    flags: list[Flag] = field(default_factory=list)
+    manifest: dict = field(default_factory=dict)
+    tmp: Path | None = None
+    root: Path | None = None
+    repo: Path | None = None
+    head: str = ""
+    week: int = 0
+    stats: dict = field(default_factory=dict)
+    events: list = field(default_factory=list)
+    timeline_name: str = ""
+    fatal: bool = False
+
+    def flag(self, sev, msg):
+        self.flags.append(Flag(sev, msg))
+
+    @property
+    def ok(self):
+        return not any(f.sev == "error" for f in self.flags)
+
+    @property
+    def student_key(self):
+        st = self.manifest.get("student") or {}
+        return (st.get("email") or "").strip().lower() or slug(st.get("name") or self.moodle_name or self.archive.name)
+
+
+def slug(s: str) -> str:
+    s = unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode()
+    return re.sub(r"[^A-Za-z0-9]+", "-", s).strip("-").lower() or "student"
+
+
+def name_tokens(s: str) -> set[str]:
+    return {t for t in slug(s).split("-") if len(t) > 1}
+
+
+def sha256_file(p: Path) -> str:
+    h = hashlib.sha256()
+    with open(p, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def run_git(repo: Path, *args, check=False, text=True) -> subprocess.CompletedProcess:
+    return subprocess.run(["git", "-C", str(repo), "-c", "core.quotepath=false", *args],
+                          capture_output=True, text=text, check=check)
+
+
+# ---------------------------------------------------------------------------
+# descoperirea arhivelor și a codurilor
+# ---------------------------------------------------------------------------
+def html_to_text(s: str) -> str:
+    s = re.sub(r"<[^>]+>", " ", s)
+    return html.unescape(s)
+
+
+def find_code(text: str) -> str | None:
+    m = CODE_RE.search(text)
+    if m:
+        return m.group(0)
+    m = HEX64_RE.search(text)
+    return m.group(0) if m else None
+
+
+def safe_unzip(zp: Path, dest: Path):
+    with zipfile.ZipFile(zp) as z:
+        for info in z.infolist():
+            n = info.filename
+            if n.startswith("/") or ".." in Path(n).parts:
+                continue
+            z.extract(info, dest)
+
+
+def discover(inputs: list[str], codes_csv: str | None, workdir: Path) -> list[Sub]:
+    csv_codes: dict[str, str] = {}
+    if codes_csv:
+        with open(codes_csv, newline="", encoding="utf-8-sig") as f:
+            for row in csv.reader(f):
+                if len(row) >= 2 and row[0].strip().lower() != "archive":
+                    csv_codes[Path(row[0].strip()).name] = row[1].strip()
+    archives: list[Path] = []
+    for inp in inputs:
+        p = Path(inp)
+        if p.is_file() and p.suffix.lower() == ".zip":
+            d = workdir / ("zip-" + slug(p.stem))
+            d.mkdir(parents=True, exist_ok=True)
+            safe_unzip(p, d)
+            p = d
+        if p.is_dir():
+            for dp, dns, fns in os.walk(p):
+                dns.sort()
+                for fn in sorted(fns):
+                    if fn.endswith((".tar.gz", ".tgz")):
+                        archives.append(Path(dp) / fn)
+        elif p.is_file():
+            archives.append(p)
+        else:
+            print(f"pclp-verify: nu găsesc {inp}", file=sys.stderr)
+    subs = []
+    for a in archives:
+        s = Sub(archive=a)
+        m = MOODLE_DIR_RE.match(a.parent.name)
+        if m:
+            s.moodle_name, s.moodle_id = m.group("name"), m.group("id")
+        if a.name in csv_codes:
+            s.code, s.code_source = csv_codes[a.name], "CSV"
+        else:
+            cands = [a.parent / "onlinetext.html"]
+            if m:
+                prefix = f"{m.group('name')}_{m.group('id')}_"
+                cands += sorted(a.parent.parent.glob(prefix + "*onlinetext*/onlinetext.html"))
+                cands += sorted(a.parent.parent.glob(prefix + "*onlinetext*/*.html"))
+            for c in cands:
+                if c.is_file():
+                    code = find_code(html_to_text(c.read_text(encoding="utf-8", errors="replace")))
+                    if code:
+                        s.code, s.code_source = code, "Moodle (onlinetext)"
+                        break
+        subs.append(s)
+    return subs
+
+
+# ---------------------------------------------------------------------------
+# verificarea unei arhive
+# ---------------------------------------------------------------------------
+def check_code(s: Sub):
+    if not s.code:
+        s.flag("warn", "codul de verificare lipsește (nu a fost găsit în textul predării / CSV)")
+        return
+    c = s.code.upper().replace("PCLP", "")
+    c = re.sub(r"[^0-9A-F]", "", c)
+    if len(c) == 64:
+        ok = c == s.sha256.upper()
+    elif len(c) >= 16:
+        ok = s.sha256.upper().startswith(c)
+    else:
+        s.flag("error", f"cod de verificare invalid: {s.code!r}")
+        return
+    if not ok:
+        s.flag("error", f"codul de verificare NU corespunde arhivei (cod {s.code}, arhivă "
+                        f"PCLP-{'-'.join(s.sha256[i:i + 4].upper() for i in range(0, 16, 4))}) — "
+                        "arhiva a fost modificată după generare sau codul e greșit")
+
+
+def extract(s: Sub, workdir: Path):
+    s.tmp = Path(tempfile.mkdtemp(prefix="arh-", dir=workdir))
+    total = 0
+    with tarfile.open(s.archive, "r:*") as tf:
+        roots = set()
+        for mem in tf.getmembers():
+            parts = Path(mem.name).parts
+            if not parts or mem.name.startswith("/") or ".." in parts:
+                s.flag("error", f"membru suspect în arhivă: {mem.name!r}")
+                continue
+            if not (mem.isfile() or mem.isdir()):
+                s.flag("warn", f"membru ignorat (nu e fișier): {mem.name!r}")
+                continue
+            roots.add(parts[0])
+            if mem.isdir():
+                continue
+            total += mem.size
+            if total > MAX_TOTAL:
+                raise ValueError("arhivă prea mare")
+            dst = s.tmp / Path(*parts)
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            f = tf.extractfile(mem)
+            with open(dst, "wb") as out:
+                shutil.copyfileobj(f, out)
+    mans = sorted(s.tmp.glob("manifest.json")) + sorted(s.tmp.glob("*/manifest.json"))
+    s.root = mans[0].parent if mans else s.tmp
+    if len(roots) > 1:
+        s.flag("warn", "arhiva are mai multe intrări la rădăcină: " + ", ".join(sorted(roots)[:5]))
+
+
+def check_manifest(s: Sub):
+    mp = s.root / "manifest.json"
+    if not mp.is_file():
+        s.flag("error", "manifest.json lipsește")
+        s.fatal = True
+        return
+    try:
+        s.manifest = json.loads(mp.read_text(encoding="utf-8"))
+    except ValueError as e:
+        s.flag("error", f"manifest.json invalid: {e}")
+        s.fatal = True
+        return
+    s.week = int(s.manifest.get("week") or 0)
+    s.head = s.manifest.get("head") or ""
+    files = s.manifest.get("files") or {}
+    present = {str(p.relative_to(s.root)).replace(os.sep, "/") for p in s.root.rglob("*") if p.is_file()}
+    present.discard("manifest.json")
+    bad, missing = [], []
+    for rel, h in files.items():
+        p = s.root / rel
+        if not p.is_file():
+            missing.append(rel)
+        elif sha256_file(p) != h:
+            bad.append(rel)
+    extra = sorted(present - set(files))
+    if bad:
+        s.flag("error", "fișiere modificate față de manifest: " + ", ".join(bad[:10]))
+    if missing:
+        s.flag("error", "fișiere lipsă față de manifest: " + ", ".join(missing[:10]))
+    if extra:
+        s.flag("warn", "fișiere în plus, nelistate în manifest: " + ", ".join(extra[:10]))
+    if s.manifest.get("kind") != "pclp-submission":
+        s.flag("warn", "manifest de tip necunoscut")
+    if s.moodle_name:
+        mn = (s.manifest.get("student") or {}).get("name", "")
+        if mn and not (name_tokens(mn) & name_tokens(s.moodle_name)):
+            s.flag("warn", f"numele din arhivă ({mn}) diferă de cel din Moodle ({s.moodle_name})")
+    if s.manifest.get("resubmission"):
+        s.flag("info", f"re-predare #{s.manifest['resubmission']}")
+
+
+def check_bundle(s: Sub):
+    b = s.root / "history.bundle"
+    if not b.is_file():
+        s.flag("error", "history.bundle lipsește")
+        s.fatal = True
+        return
+    s.repo = s.tmp / "repo.git"
+    run_git(s.tmp, "init", "-q", "--bare", str(s.repo))
+    v = run_git(s.repo, "bundle", "verify", str(b))
+    if v.returncode != 0:
+        s.flag("error", "git bundle verify a eșuat: " + (v.stderr or v.stdout).strip()[:300])
+        s.fatal = True
+        return
+    f = run_git(s.repo, "fetch", "-q", str(b), "+refs/*:refs/*")
+    if f.returncode != 0:
+        s.flag("error", "nu pot importa istoricul: " + f.stderr.strip()[:300])
+        s.fatal = True
+        return
+    if not s.head or run_git(s.repo, "cat-file", "-e", f"{s.head}^{{commit}}").returncode != 0:
+        s.flag("error", f"commit-ul HEAD din manifest ({s.head[:12]}) nu există în istoric")
+        s.fatal = True
+        return
+    tag = s.manifest.get("tag") or f"sapt-{s.week:02d}"
+    t = run_git(s.repo, "rev-parse", "-q", "--verify", f"refs/tags/{tag}^{{commit}}")
+    if t.returncode != 0:
+        s.flag("warn", f"tag-ul {tag} lipsește din istoric")
+    elif t.stdout.strip() != s.head:
+        s.flag("error", f"tag-ul {tag} nu indică spre HEAD-ul din manifest")
+    main = run_git(s.repo, "rev-parse", "-q", "--verify", "refs/heads/main").stdout.strip()
+    if main and main != s.head:
+        s.flag("info", "ramura main conține commit-uri după predare (nu afectează verificarea)")
+
+
+def git_commits(s: Sub) -> list[dict]:
+    fmt = "%H%x1f%P%x1f%at%x1f%ct%x1f%an%x1f%ae%x1f%s"
+    r = run_git(s.repo, "log", "--topo-order", "--reverse", f"--format={fmt}", s.head, "--")
+    out = []
+    for line in r.stdout.splitlines():
+        p = line.split("\x1f")
+        if len(p) < 7:
+            continue
+        out.append({"hash": p[0], "parents": p[1].split(), "at": int(p[2]), "ct": int(p[3]),
+                    "an": p[4], "ae": p[5], "subject": p[6]})
+    return out
+
+
+def check_history(s: Sub, commits: list[dict]):
+    created = L.parse_ts(s.manifest.get("created_at"))
+    by_hash = {c["hash"]: c for c in commits}
+    if not commits:
+        s.flag("error", "istoric gol")
+        return
+    if commits[0]["subject"] != "pclp: init":
+        s.flag("warn", f"primul commit nu este „pclp: init” ({commits[0]['subject'][:60]!r})")
+    backwards, amended, future, merges = [], [], [], 0
+    for c in commits:
+        if len(c["parents"]) > 1:
+            merges += 1
+        for ph in c["parents"]:
+            pc = by_hash.get(ph)
+            if pc and c["ct"] < pc["ct"] - 300:
+                backwards.append(c)
+        if abs(c["at"] - c["ct"]) > 120:
+            amended.append(c)
+        if created and c["ct"] > created.timestamp() + 600:
+            future.append(c)
+    if backwards:
+        s.flag("warn", f"{len(backwards)} commit-uri cu dată anterioară părintelui (ceas modificat sau "
+                       f"istorie rescrisă), ex. {backwards[0]['hash'][:10]}")
+    if amended:
+        s.flag("warn", f"{len(amended)} commit-uri cu data autorului ≠ data commit-ului (rebase/amend/"
+                       f"cherry-pick?), ex. {amended[0]['hash'][:10]} „{amended[0]['subject'][:40]}”")
+    if future:
+        s.flag("warn", f"{len(future)} commit-uri datate după momentul predării")
+    if merges:
+        s.flag("info", f"{merges} commit-uri de tip merge")
+    # tag-urile săptămânilor anterioare trebuie să fie strămoși ai HEAD
+    for t in run_git(s.repo, "tag", "-l", "sapt-*").stdout.split():
+        m = re.fullmatch(r"sapt-(\d\d)", t)
+        if not m or int(m.group(1)) >= s.week:
+            continue
+        if run_git(s.repo, "merge-base", "--is-ancestor", f"refs/tags/{t}^{{commit}}", s.head).returncode != 0:
+            s.flag("error", f"predarea anterioară {t} nu este strămoș al acestei predări (istorie rescrisă)")
+    ph = s.manifest.get("prev_head")
+    if ph and run_git(s.repo, "merge-base", "--is-ancestor", ph, s.head).returncode != 0:
+        s.flag("error", "prev_head din manifest nu este strămoș al HEAD")
+    # identitate
+    email = ((s.manifest.get("student") or {}).get("email") or "").lower()
+    others = {c["ae"].lower() for c in commits} - {email, "student@pclp.invalid", ""}
+    if email and others:
+        s.flag("warn", "commit-uri cu alte adrese de email: " + ", ".join(sorted(others)[:5]))
+    # jurnale din arhivă == cele din git
+    for arc, rel in (("logs/terminal.log", ".pclp/terminal.log"), ("logs/tools.log", ".pclp/tools.log"),
+                     ("logs/tests.log", ".pclp/tests.log")):
+        p = s.root / arc
+        if not p.is_file():
+            if arc != "logs/tests.log":
+                s.flag("warn", f"{arc} lipsește")
+            continue
+        g = run_git(s.repo, "show", f"{s.head}:{rel}", text=False)
+        if g.returncode == 0 and g.stdout != p.read_bytes():
+            s.flag("error", f"{arc} diferă de versiunea din istoricul git")
+    # files/ == arborele git sapt-NN/
+    wd = f"sapt-{s.week:02d}"
+    fdir = s.root / "files"
+    if fdir.is_dir():
+        for p in fdir.rglob("*"):
+            if p.is_file():
+                rel = str(p.relative_to(fdir)).replace(os.sep, "/")
+                g = run_git(s.repo, "show", f"{s.head}:{wd}/{rel}", text=False)
+                if g.returncode != 0 or g.stdout != p.read_bytes():
+                    s.flag("error", f"files/{rel} diferă de versiunea din istoricul git")
+                    break
+
+
+def cross_check(subs: list[Sub]):
+    by_student: dict[str, list[Sub]] = {}
+    for s in subs:
+        if s.repo and not s.fatal:
+            by_student.setdefault(s.student_key, []).append(s)
+    for key, lst in by_student.items():
+        lst.sort(key=lambda x: (x.week, x.manifest.get("created_at") or ""))
+        for i, cur in enumerate(lst):
+            for prev in lst[:i]:
+                if prev.week == cur.week:
+                    cur.flag("info", f"există și o predare anterioară pentru aceeași săptămână ({prev.archive.name})")
+                    if run_git(cur.repo, "cat-file", "-e", f"{prev.head}^{{commit}}").returncode != 0 or \
+                            run_git(cur.repo, "merge-base", "--is-ancestor", prev.head, cur.head).returncode != 0:
+                        cur.flag("error", f"predarea anterioară {prev.archive.name} nu e strămoș (istorie rescrisă)")
+                    continue
+                if run_git(cur.repo, "cat-file", "-e", f"{prev.head}^{{commit}}").returncode != 0:
+                    cur.flag("error", f"HEAD-ul predării din săpt. {prev.week} ({prev.head[:10]}) lipsește din "
+                                      "istoric — istoria a fost rescrisă sau repo-ul a fost reinițializat")
+                elif run_git(cur.repo, "merge-base", "--is-ancestor", prev.head, cur.head).returncode != 0:
+                    cur.flag("error", f"predarea din săpt. {prev.week} nu este strămoș al acestei predări")
+                else:
+                    cur.flag("info", f"verificat lanțul cu predarea din săpt. {prev.week}")
+
+
+# ---------------------------------------------------------------------------
+# evenimente pentru cronologie
+# ---------------------------------------------------------------------------
+@dataclass
+class Ev:
+    ts: datetime | None
+    kind: str        # commit | cmd | tool | test | ai | external | portal
+    data: dict
+    approx: bool = False
+
+
+def ai_messages(s: Sub, since: datetime | None) -> list[dict]:
+    """Citește ai/** din arhivă; mesajele fără timestamp primesc momentul commit-ului care le-a adus."""
+    aidir = s.root / "ai"
+    msgs: list[dict] = []
+    if not aidir.is_dir():
+        return msgs
+    cont_index = {}
+    ip = aidir / "continue" / "sessions" / "sessions.json"
+    if ip.is_file():
+        cont_index = L.continue_index(ip.read_text(encoding="utf-8", errors="replace"))
+    for p in sorted(aidir.rglob("*")):
+        if not p.is_file():
+            continue
+        rel = "ai/" + str(p.relative_to(aidir)).replace(os.sep, "/")
+        text = p.read_text(encoding="utf-8", errors="replace")
+        ms = L.parse_ai_file(rel, text)
+        if not ms:
+            continue
+        if any(m["ts"] is None for m in ms):
+            assign_git_times(s, ".pclp/" + rel, ms)
+        if ms and ms[0]["tool"] == "continue":
+            sid = ms[0]["session"]
+            if sid in cont_index:
+                d, title = cont_index[sid]
+                for m in ms:
+                    m.setdefault("title", title)
+        msgs.extend(ms)
+    return msgs
+
+
+def assign_git_times(s: Sub, gitpath: str, ms: list[dict]):
+    r = run_git(s.repo, "log", "--reverse", "--format=%H %ct", s.head, "--", gitpath)
+    prev_n = 0
+    for line in r.stdout.splitlines():
+        h, ct = line.split()
+        blob = run_git(s.repo, "show", f"{h}:{gitpath}")
+        if blob.returncode != 0:
+            continue
+        n = len(L.parse_ai_file(gitpath.replace(".pclp/", "", 1), blob.stdout))
+        t = datetime.fromtimestamp(int(ct), tz=timezone.utc)
+        for m in ms[prev_n:n]:
+            if m["ts"] is None:
+                m["ts"] = t
+                m["approx"] = True
+        prev_n = max(prev_n, n)
+
+
+def build_events(s: Sub, commits: list[dict], all_history: bool) -> tuple[list[Ev], datetime | None]:
+    since = None
+    prev_tag = s.manifest.get("prev_tag")
+    if prev_tag and not all_history:
+        r = run_git(s.repo, "log", "-1", "--format=%ct", f"refs/tags/{prev_tag}^{{commit}}", "--")
+        if r.returncode == 0 and r.stdout.strip():
+            since = datetime.fromtimestamp(int(r.stdout.strip()), tz=timezone.utc)
+    evs: list[Ev] = []
+
+    def keep(ts):
+        return since is None or ts is None or ts > since
+
+    prev_commit_set = set()
+    if since and prev_tag:
+        prev_commit_set = set(run_git(s.repo, "rev-list", f"refs/tags/{prev_tag}^{{commit}}", "--").stdout.split())
+    for c in commits:
+        if c["hash"] in prev_commit_set:
+            continue
+        ts = datetime.fromtimestamp(c["ct"], tz=timezone.utc)
+        parent = c["parents"][0] if c["parents"] else EMPTY_TREE
+        names = run_git(s.repo, "diff", "--name-status", "--no-renames", parent, c["hash"]).stdout.splitlines()
+        changed = [ln.split("\t", 1) for ln in names if "\t" in ln]
+        visible = [x for x in changed if not x[1].startswith(".pclp/")]
+        if not visible and c["subject"].startswith("auto:"):
+            continue  # doar jurnale -> apar ca evenimente proprii
+        diff = run_git(s.repo, "diff", "--no-color", "-U3", parent, c["hash"], "--",
+                       "*.c", "*.h", "*Makefile", "*makefile").stdout
+        evs.append(Ev(ts, "commit", {**c, "changed": visible, "diff": diff}))
+    for c in L.parse_terminal_log(read(s.root / "logs/terminal.log")):
+        if keep(c["ts"]):
+            evs.append(Ev(c["ts"], "cmd", c))
+    for b in L.parse_tools_log(read(s.root / "logs/tools.log")):
+        if keep(b["ts"]):
+            evs.append(Ev(b["ts"], "tool", b))
+    for t in L.parse_tests_log(read(s.root / "logs/tests.log")):
+        if keep(t["ts"]):
+            evs.append(Ev(t["ts"], "test", t))
+    # AI: grupăm prompt + răspunsuri
+    msgs = ai_messages(s, since)
+    by_file: dict[str, list[dict]] = {}
+    for m in msgs:
+        by_file.setdefault(m["file"] + "|" + str(m.get("session")), []).append(m)
+    for key, ms in by_file.items():
+        cur = None
+        for m in ms:
+            if m["role"] == "user":
+                cur = {"prompt": m, "replies": []}
+                if keep(m["ts"]):
+                    kind = "external" if m["tool"] == "external" else ("portal" if m["tool"] == "portal" else "ai")
+                    evs.append(Ev(m["ts"], kind, cur, approx=bool(m.get("approx"))))
+            elif cur is not None:
+                cur["replies"].append(m)
+    return evs, since
+
+
+def read(p: Path) -> str:
+    try:
+        return p.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return ""
+
+
+def sessions_of(evs: list[Ev], gap_min: int) -> list[list[Ev]]:
+    dated = sorted((e for e in evs if e.ts), key=lambda e: e.ts)
+    out: list[list[Ev]] = []
+    for e in dated:
+        if out and (e.ts - out[-1][-1].ts) < timedelta(minutes=gap_min):
+            out[-1].append(e)
+        else:
+            out.append([e])
+    return out
+
+
+def compute_stats(s: Sub, evs: list[Ev], sess: list[list[Ev]]) -> dict:
+    active = sum(((x[-1].ts - x[0].ts) for x in sess), timedelta())
+    tools = [e.data for e in evs if e.kind == "tool"]
+    compiles = [b for b in tools if b["is_compile"]]
+    ai_by_tool: dict[str, int] = {}
+    for e in evs:
+        if e.kind in ("ai", "portal", "external"):
+            t = e.data["prompt"]["tool"]
+            ai_by_tool[t] = ai_by_tool.get(t, 0) + 1
+    problems = set()
+    for e in evs:
+        if e.kind == "commit":
+            for _, path in e.data["changed"]:
+                m = re.match(r"sapt-\d\d/([^/]+)/", path)
+                if m:
+                    problems.add(m.group(1))
+        elif e.kind == "test":
+            problems.add(e.data["problem"])
+    snaps = sum(1 for e in evs if e.kind == "commit")
+    return {
+        "active": active, "sessions": len(sess), "snapshots": snaps,
+        "commits_window": (s.manifest.get("counts") or {}).get("commits_window"),
+        "commands": sum(1 for e in evs if e.kind == "cmd"),
+        "compiles": len(compiles), "failed_compiles": sum(1 for b in compiles if b["exit"] != 0),
+        "valgrind": sum(1 for b in tools if b["tool"] == "valgrind"),
+        "tests": sum(1 for e in evs if e.kind == "test"),
+        "ai": ai_by_tool, "ai_total": sum(ai_by_tool.values()),
+        "problems": sorted(problems),
+    }
+
+
+# ---------------------------------------------------------------------------
+# HTML
+# ---------------------------------------------------------------------------
+CSS = """
+:root{--bg:#fbfbfa;--fg:#1d1f21;--muted:#6b6f76;--card:#fff;--line:#e3e3e0;--accent:#2b59c3;
+--ok:#1a7f37;--okbg:#e6f4ea;--err:#c62828;--errbg:#fdecea;--warn:#9a6700;--warnbg:#fff4d6;
+--ai:#6f42c1;--aibg:#f3eefc;--cmd:#0b6e75;--cmdbg:#e6f5f6;--add:#e6ffec;--del:#ffebe9;--hunk:#ddf4ff;--code:#f4f4f2}
+@media (prefers-color-scheme:dark){:root{--bg:#16181b;--fg:#e4e5e7;--muted:#9aa0a6;--card:#1f2226;--line:#33373c;
+--accent:#8ab4f8;--ok:#7ee2a8;--okbg:#17301f;--err:#ff8a80;--errbg:#3a1d1d;--warn:#f2cc60;--warnbg:#3a3017;
+--ai:#c9a7ff;--aibg:#2a2238;--cmd:#7fd6dc;--cmdbg:#15302f;--add:#12361e;--del:#3d1a1a;--hunk:#162c44;--code:#25282c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);
+font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:24px 16px 80px}
+h1{font-size:1.5rem;margin:0 0 4px}h2{font-size:1.15rem;margin:28px 0 8px}
+.muted{color:var(--muted)}a{color:var(--accent)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.stat b{display:block;font-size:1.35rem}.stat span{color:var(--muted);font-size:.85rem}
+.badge{display:inline-block;padding:1px 8px;border-radius:999px;font-size:.8rem;font-weight:600;white-space:nowrap}
+.b-ok{background:var(--okbg);color:var(--ok)}.b-err{background:var(--errbg);color:var(--err)}
+.b-warn{background:var(--warnbg);color:var(--warn)}.b-info{background:var(--code);color:var(--muted)}
+.flags li{margin:3px 0}
+table{border-collapse:collapse;width:100%;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:.9rem}
+th{background:var(--code);font-weight:600}td.n{text-align:right;font-variant-numeric:tabular-nums}
+.tablewrap{overflow-x:auto}
+.session{margin-top:26px;padding:8px 12px;border-left:4px solid var(--accent);background:var(--card);
+border-radius:6px;font-weight:600}
+.ev{display:grid;grid-template-columns:70px 110px 1fr;gap:10px;padding:6px 4px;border-bottom:1px dashed var(--line)}
+.ev .t{color:var(--muted);font-variant-numeric:tabular-nums;font-size:.85rem;padding-top:2px}
+.kind{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;padding:2px 6px;border-radius:5px;
+height:fit-content;text-align:center}
+.k-commit{background:var(--hunk);color:var(--accent)}.k-cmd{background:var(--cmdbg);color:var(--cmd)}
+.k-tool{background:var(--code);color:var(--fg)}.k-tool.bad{background:var(--errbg);color:var(--err)}
+.k-ai{background:var(--aibg);color:var(--ai)}.k-test{background:var(--okbg);color:var(--ok)}
+.k-test.bad{background:var(--warnbg);color:var(--warn)}
+pre,code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.83rem}
+pre{background:var(--code);padding:8px 10px;border-radius:6px;overflow-x:auto;margin:6px 0;white-space:pre-wrap;
+word-break:break-word}
+code.cmd{background:var(--code);padding:1px 5px;border-radius:4px;word-break:break-all}
+.prompt{border-left:3px solid var(--ai);background:var(--aibg);padding:8px 12px;border-radius:0 6px 6px 0;
+white-space:pre-wrap;word-break:break-word}
+.reply{white-space:pre-wrap;word-break:break-word;font-size:.9rem;border-left:3px solid var(--line);padding:4px 10px;margin:6px 0}
+details>summary{cursor:pointer;color:var(--accent);font-size:.88rem}
+.diff .a{background:var(--add);display:block}.diff .d{background:var(--del);display:block}
+.diff .h{background:var(--hunk);display:block;color:var(--muted)}.diff .f{font-weight:700;display:block}
+.out .e{color:var(--err);font-weight:600}.out .w{color:var(--warn)}
+.files{font-size:.85rem;color:var(--muted)}
+@media (max-width:640px){.ev{grid-template-columns:52px 1fr}.ev .kind{grid-column:2}.ev .body{grid-column:1/3}}
+"""
+
+KIND_LABEL = {"commit": "snapshot", "cmd": "comandă", "tool": "compilare", "test": "teste",
+              "ai": "prompt AI", "portal": "AI portal", "external": "AI extern"}
+TOOL_LABEL = {"continue": "Continue (VS Code)", "gemini": "Gemini CLI", "claude": "Claude Code",
+              "codex": "Codex CLI", "portal": "Portal", "external": "Extern (auto-raportat)"}
+E = html.escape
+
+
+def fmt_td(td: timedelta) -> str:
+    m = int(td.total_seconds() // 60)
+    return f"{m // 60} h {m % 60:02d} min" if m >= 60 else f"{m} min"
+
+
+def page(title: str, body: str) -> str:
+    return (f"<!doctype html><html lang=\"ro\"><head><meta charset=\"utf-8\">"
+            f"<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">"
+            f"<title>{E(title)}</title><style>{CSS}</style></head><body><main>{body}</main></body></html>")
+
+
+def render_diff(diff: str) -> str:
+    out = []
+    for ln in diff.splitlines()[:1500]:
+        cls = ""
+        if ln.startswith(("diff --git", "index ", "new file", "deleted file")):
+            continue
+        if ln.startswith(("+++", "---")):
+            cls = "f"
+        elif ln.startswith("@@"):
+            cls = "h"
+        elif ln.startswith("+"):
+            cls = "a"
+        elif ln.startswith("-"):
+            cls = "d"
+        out.append(f'<span class="{cls}">{E(ln) or " "}</span>' if cls else E(ln) + "\n")
+    return '<pre class="diff">' + "".join(out) + "</pre>"
+
+
+def render_output(text: str) -> str:
+    out = []
+    for ln in text.splitlines():
+        if re.search(r"\berror\b|eroare|ERROR SUMMARY: [1-9]|definitely lost: [1-9]|Invalid (read|write)|"
+                     r"uninitialised|Segmentation fault", ln):
+            out.append(f'<span class="e">{E(ln)}</span>')
+        elif re.search(r"\bwarning\b", ln):
+            out.append(f'<span class="w">{E(ln)}</span>')
+        else:
+            out.append(E(ln))
+    return '<pre class="out">' + "\n".join(out) + "</pre>"
+
+
+def render_event(e: Ev, tz) -> str:
+    t = e.ts.astimezone(tz).strftime("%H:%M:%S") if e.ts else "—"
+    if e.approx:
+        t = "≈" + t[:5]
+    d = e.data
+    k = e.kind
+    cls = f"k-{'ai' if k in ('ai', 'portal', 'external') else k}"
+    label = KIND_LABEL[k]
+    if k == "commit":
+        files = ", ".join(f"{st} {E(p)}" for st, p in d["changed"][:12])
+        if len(d["changed"]) > 12:
+            files += f" … (+{len(d['changed']) - 12})"
+        body = f"<div><b>{E(d['subject'])}</b> <span class=muted><code>{d['hash'][:10]}</code></span></div>"
+        if files:
+            body += f'<div class="files">{files}</div>'
+        if d["diff"].strip():
+            nl = d["diff"].count("\n")
+            body += f"<details><summary>diff .c/.h ({nl} linii)</summary>{render_diff(d['diff'])}</details>"
+    elif k == "cmd":
+        ec = d["exit"]
+        badge = "" if ec in (0, None) else f' <span class="badge b-err">exit {ec}</span>'
+        body = f'<code class="cmd">{E(d["cmd"])}</code>{badge} <span class="muted files">{E(d["cwd"])}</span>'
+    elif k == "tool":
+        bad = d["exit"] != 0 or d.get("has_error")
+        if bad:
+            cls += " bad"
+        label = {"valgrind": "valgrind", "make": "make"}.get(d["tool"], "compilare")
+        stt = (f'<span class="badge b-err">exit {d["exit"]}</span>' if d["exit"] != 0 else
+               '' if bad else '<span class="badge b-ok">OK</span>')
+        if d.get("has_warning") and d["exit"] == 0:
+            stt += ' <span class="badge b-warn">avertismente</span>'
+        if d["tool"] == "valgrind" and d.get("valgrind_errors"):
+            stt += f' <span class="badge b-err">{d["valgrind_errors"]} erori memorie</span>'
+        if d["tool"] == "valgrind" and d.get("valgrind_leak"):
+            stt += f' <span class="badge b-err">leak {d["valgrind_leak"]} B</span>'
+        body = f'<code class="cmd">{E(d["cmd"])}</code> {stt}'
+        if d["output"].strip():
+            n = d["output"].count("\n") + 1
+            op = " open" if bad and n <= 40 else ""
+            body += f"<details{op}><summary>ieșire ({n} linii)</summary>{render_output(d['output'])}</details>"
+    elif k == "test":
+        ok = d["total"] and d["passed"] == d["total"]
+        if not ok:
+            cls += " bad"
+        comp = "" if d["compiled"] else ' <span class="badge b-err">nu compilează</span>'
+        mode = " (valgrind)" if d["mode"] == "valgrind" else ""
+        body = (f'<b>{E(d["problem"])}</b>: <span class="badge {"b-ok" if ok else "b-warn"}">'
+                f'{d["passed"]}/{d["total"]} teste</span>{mode}{comp}')
+    else:
+        p = d["prompt"]
+        tool = TOOL_LABEL.get(p["tool"], p["tool"])
+        extra = ""
+        if p.get("title"):
+            extra += f' — „{E(p["title"])}”'
+        if p.get("context"):
+            extra += f' — {E(str(p["context"]))}'
+        if p.get("tool_name"):
+            extra += f' — unealta: {E(p["tool_name"])}'
+        body = f'<div class="muted files">{E(tool)}{extra}{" · timp aproximativ (din snapshot)" if e.approx else ""}</div>'
+        body += f'<div class="prompt">{E(p["text"][:8000])}</div>'
+        if d["replies"]:
+            rep = "".join(f'<div class="reply">{E(r["text"][:12000])}</div>' for r in d["replies"][:20])
+            body += f"<details><summary>răspuns ({len(d['replies'])} mesaje)</summary>{rep}</details>"
+    return (f'<div class="ev"><div class="t">{t}</div><div class="kind {cls}">{E(label)}</div>'
+            f'<div class="body">{body}</div></div>')
+
+
+def flags_html(s: Sub) -> str:
+    if not s.flags:
+        return '<p><span class="badge b-ok">verificare OK</span> fără observații</p>'
+    items = []
+    for f in sorted(s.flags, key=lambda f: SEV_ORDER[f.sev]):
+        b = {"error": ("b-err", "EROARE"), "warn": ("b-warn", "atenție"), "info": ("b-info", "info")}[f.sev]
+        items.append(f'<li><span class="badge {b[0]}">{b[1]}</span> {E(f.msg)}</li>')
+    head = ('<span class="badge b-ok">integritate OK</span>' if s.ok else
+            '<span class="badge b-err">verificare EȘUATĂ</span>')
+    return f'<p>{head}</p><ul class="flags">{"".join(items)}</ul>'
+
+
+def render_timeline(s: Sub, evs: list[Ev], since, gap: int) -> str:
+    st = s.manifest.get("student") or {}
+    created = L.parse_ts(s.manifest.get("created_at"))
+    tz = created.tzinfo if created else timezone.utc
+    sess = sessions_of(evs, gap)
+    x = s.stats
+    ai = ", ".join(f"{TOOL_LABEL.get(k, k)}: {v}" for k, v in sorted(x["ai"].items())) or "0"
+    body = [f"<h1>{E(st.get('name') or s.moodle_name or '?')} — săptămâna {s.week}</h1>",
+            f"<div class=muted>{E(st.get('email', ''))} · grupa {E(st.get('group', ''))} · "
+            f"predat {E(created.astimezone(tz).strftime('%Y-%m-%d %H:%M') if created else '?')} · "
+            f"arhiva <code>{E(s.archive.name)}</code> · imagine {E(str(s.manifest.get('pclp_version', '?')))}</div>",
+            "<h2>Verificare</h2>", f'<div class="card">{flags_html(s)}'
+            f'<div class="muted files">SHA-256: <code>{s.sha256}</code> · cod: {E(s.code or "—")} '
+            f'({E(s.code_source or "—")})</div></div>',
+            "<h2>Rezumat</h2><div class=\"grid\">"]
+    for val, lab in ((fmt_td(x["active"]), "timp activ estimat"), (x["sessions"], "sesiuni de lucru"),
+                     (x["snapshots"], "snapshot-uri cu cod"), (x["commands"], "comenzi în terminal"),
+                     (x["compiles"], "compilări"), (x["failed_compiles"], "compilări eșuate"),
+                     (x["valgrind"], "rulări valgrind"), (x["tests"], "rulări de teste"),
+                     (x["ai_total"], "prompturi AI")):
+        body.append(f'<div class="card stat"><b>{E(str(val))}</b><span>{E(lab)}</span></div>')
+    body.append("</div>")
+    body.append(f'<p class="muted">Prompturi AI: {E(ai)}. Probleme: {E(", ".join(x["problems"]) or "—")}. '
+                f'Fereastra: {"de la predarea anterioară (" + E(since.astimezone(tz).strftime("%Y-%m-%d %H:%M")) + ")" if since else "tot istoricul"}. '
+                f'Timpul activ = suma intervalelor dintre evenimente consecutive mai mici de {gap} minute.</p>')
+    body.append("<h2>Cronologie</h2>")
+    if not sess:
+        body.append("<p class=muted>Niciun eveniment în fereastra acestei predări.</p>")
+    for i, ss in enumerate(sess, 1):
+        a, b = ss[0].ts.astimezone(tz), ss[-1].ts.astimezone(tz)
+        kinds = {}
+        for e in ss:
+            kinds[KIND_LABEL[e.kind]] = kinds.get(KIND_LABEL[e.kind], 0) + 1
+        summ = ", ".join(f"{v} {k}" for k, v in kinds.items())
+        body.append(f'<div class="session">Sesiunea {i}: {a.strftime("%a %Y-%m-%d")} '
+                    f'{a.strftime("%H:%M")}–{b.strftime("%H:%M")} ({fmt_td(b - a)}) '
+                    f'<span class="muted" style="font-weight:400">· {E(summ)}</span></div>')
+        body.extend(render_event(e, tz) for e in ss)
+    undated = [e for e in evs if not e.ts]
+    if undated:
+        body.append('<div class="session">Fără dată</div>')
+        body.extend(render_event(e, tz) for e in undated)
+    body.append(f'<p class="muted" style="margin-top:40px">Generat de pclp-verify la '
+                f'{datetime.now().strftime("%Y-%m-%d %H:%M")}. <a href="index.html">← înapoi la listă</a></p>')
+    return page(f"{st.get('name', '?')} — săpt. {s.week}", "".join(body))
+
+
+def render_index(subs: list[Sub]) -> str:
+    rows = []
+    for s in sorted(subs, key=lambda s: ((s.manifest.get("student") or {}).get("group", ""),
+                                         (s.manifest.get("student") or {}).get("name", s.moodle_name), s.week)):
+        st = s.manifest.get("student") or {}
+        x = s.stats or {}
+        nerr = sum(1 for f in s.flags if f.sev == "error")
+        nwarn = sum(1 for f in s.flags if f.sev == "warn")
+        ver = ('<span class="badge b-ok">OK</span>' if s.ok else f'<span class="badge b-err">{nerr} erori</span>')
+        if nwarn:
+            ver += f' <span class="badge b-warn">{nwarn} atenționări</span>'
+        name = E(st.get("name") or s.moodle_name or s.archive.name)
+        link = f'<a href="{E(s.timeline_name)}">{name}</a>' if s.timeline_name else name
+        tip = E("; ".join(f.msg for f in s.flags if f.sev != "info"))
+        rows.append(
+            f"<tr><td>{link}<div class='muted files'>{E(st.get('email', ''))}</div></td><td>{E(st.get('group', ''))}</td>"
+            f"<td class=n>{s.week or '?'}</td><td title=\"{tip}\">{ver}</td>"
+            f"<td class=n>{fmt_td(x['active']) if x else '—'}</td><td class=n>{x.get('snapshots', '—')}</td>"
+            f"<td class=n>{x.get('commands', '—')}</td><td class=n>{x.get('compiles', '—')}</td>"
+            f"<td class=n>{x.get('failed_compiles', '—')}</td><td class=n>{x.get('ai_total', '—')}</td>"
+            f"<td class=n>{x.get('tests', '—')}</td><td>{E(', '.join(x.get('problems', [])))}</td></tr>")
+    body = ("<h1>Predări PCLP — raport de verificare</h1>"
+            f"<p class=muted>{len(subs)} arhive · generat {datetime.now().strftime('%Y-%m-%d %H:%M')} · "
+            "treceți cu mouse-ul peste coloana „Verificare” pentru detalii; fișierul summary.csv conține aceleași date.</p>"
+            "<div class=tablewrap><table><thead><tr><th>Student</th><th>Grupa</th><th>Săpt.</th><th>Verificare</th>"
+            "<th>Timp activ</th><th>Snapshot-uri</th><th>Comenzi</th><th>Compilări</th><th>Eșuate</th>"
+            "<th>Prompturi AI</th><th>Teste</th><th>Probleme</th></tr></thead><tbody>"
+            + "".join(rows) + "</tbody></table></div>"
+            "<p class=muted>Limite: codul de verificare dovedește doar că arhiva nu a fost modificată după ce a "
+            "fost generată; nu dovedește autenticitatea istoricului (vezi docs/teacher.md).</p>")
+    return page("Predări PCLP", body)
+
+
+# ---------------------------------------------------------------------------
+def process(s: Sub, workdir: Path, all_history: bool, gap: int):
+    s.sha256 = sha256_file(s.archive)
+    check_code(s)
+    try:
+        extract(s, workdir)
+    except (tarfile.TarError, OSError, EOFError, ValueError) as e:
+        s.flag("error", "arhiva nu poate fi citită: " + " ".join(str(e).split())[:200])
+        s.fatal = True
+        return
+    check_manifest(s)
+    if s.fatal:
+        return
+    check_bundle(s)
+    if s.fatal:
+        return
+    commits = git_commits(s)
+    check_history(s, commits)
+    evs, since = build_events(s, commits, all_history)
+    s.events = evs
+    s._since = since  # type: ignore[attr-defined]
+    s.stats = compute_stats(s, evs, sessions_of(evs, gap))
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(prog="pclp-verify", description="Verifică predările PCLP și generează cronologii.")
+    ap.add_argument("inputs", nargs="+", help="arhive, directoare sau .zip Moodle")
+    ap.add_argument("--out", default="pclp-report", help="directorul raportului (implicit ./pclp-report)")
+    ap.add_argument("--codes", help="CSV cu coloanele archive,code")
+    ap.add_argument("--all-history", action="store_true", help="cronologia include tot istoricul, nu doar săptămâna")
+    ap.add_argument("--gap", type=int, default=15, help="pauza (minute) care separă sesiunile (implicit 15)")
+    ap.add_argument("--keep-temp", action="store_true", help=argparse.SUPPRESS)
+    a = ap.parse_args(argv)
+    if shutil.which("git") is None:
+        sys.exit("pclp-verify: este nevoie de git în PATH")
+    out = Path(a.out)
+    out.mkdir(parents=True, exist_ok=True)
+    workdir = Path(tempfile.mkdtemp(prefix="pclp-verify-"))
+    try:
+        subs = discover(a.inputs, a.codes, workdir)
+        if not subs:
+            sys.exit("pclp-verify: nu am găsit nicio arhivă .tar.gz")
+        for s in subs:
+            try:
+                process(s, workdir, a.all_history, a.gap)
+            except Exception as e:  # noqa: BLE001 — un student nu trebuie să blocheze raportul
+                s.flag("error", f"eroare internă la procesare: {e}")
+                s.fatal = True
+                traceback.print_exc()
+        cross_check(subs)
+        used = set()
+        for s in subs:
+            if s.fatal or not s.stats:
+                continue
+            st = s.manifest.get("student") or {}
+            base = f"timeline-{slug(st.get('name') or s.moodle_name)}-sapt-{s.week:02d}"
+            name, i = base + ".html", 2
+            while name in used:
+                name, i = f"{base}-{i}.html", i + 1
+            used.add(name)
+            s.timeline_name = name
+            (out / name).write_text(render_timeline(s, s.events, s._since, a.gap), encoding="utf-8")
+        (out / "index.html").write_text(render_index(subs), encoding="utf-8")
+        with open(out / "summary.csv", "w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            w.writerow(["student", "email", "grupa", "saptamana", "arhiva", "sha256", "cod", "verificare_ok",
+                        "erori", "atentionari", "timp_activ_min", "sesiuni", "snapshoturi", "comenzi",
+                        "compilari", "compilari_esuate", "valgrind", "rulari_teste", "prompturi_ai",
+                        "prompturi_ai_detaliat", "probleme", "timeline"])
+            for s in subs:
+                st = s.manifest.get("student") or {}
+                x = s.stats or {}
+                w.writerow([st.get("name") or s.moodle_name, st.get("email", ""), st.get("group", ""), s.week,
+                            s.archive.name, s.sha256, s.code or "", "da" if s.ok else "NU",
+                            " | ".join(f.msg for f in s.flags if f.sev == "error"),
+                            " | ".join(f.msg for f in s.flags if f.sev == "warn"),
+                            int(x["active"].total_seconds() // 60) if x else "", x.get("sessions", ""),
+                            x.get("snapshots", ""), x.get("commands", ""), x.get("compiles", ""),
+                            x.get("failed_compiles", ""), x.get("valgrind", ""), x.get("tests", ""),
+                            x.get("ai_total", ""), json.dumps(x.get("ai", {}), ensure_ascii=False),
+                            " ".join(x.get("problems", [])), s.timeline_name])
+        n_ok = sum(1 for s in subs if s.ok)
+        print(f"{len(subs)} arhive procesate: {n_ok} OK, {len(subs) - n_ok} cu erori. Raport: {out / 'index.html'}")
+        for s in subs:
+            mark = "OK " if s.ok else "ERR"
+            print(f"  [{mark}] {s.archive.name}" + "".join(
+                f"\n        - {f.sev}: {f.msg}" for f in s.flags if f.sev != "info"))
+        return 0 if n_ok == len(subs) else 2
+    finally:
+        if not a.keep_temp:
+            shutil.rmtree(workdir, ignore_errors=True)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

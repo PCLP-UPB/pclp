@@ -1,0 +1,72 @@
+id: lab06-p06-playlist
+lab: lab06
+number: 6
+title: "Editor de playlist"
+difficulty: 3
+estimated_minutes: 40
+concepts: [realloc, vector alocat dinamic, realocare prin pointer auxiliar, free, parametru de tip pointer]
+statement: |
+  O aplicație de muzică păstrează playlistul curent ca un vector de coduri de melodii (numere întregi). Ca să nu irosească memorie, vectorul are **tot timpul exact atâtea elemente alocate câte melodii conține** — la fiecare adăugare sau ștergere dimensiunea zonei se ajustează cu `realloc`. Când playlistul devine gol, memoria se eliberează complet (pointerul devine `NULL`).
+
+  Comenzi (pozițiile sunt numerotate de la 1, `n` este numărul curent de melodii):
+
+  - `A x` — adaugă melodia `x` la final;
+  - `I p x` — inserează melodia `x` astfel încât să ajungă pe poziția `p` (`1 ≤ p ≤ n+1`);
+  - `D p` — șterge melodia de pe poziția `p` (`1 ≤ p ≤ n`);
+  - `M p1 p2` — mută melodia de pe poziția `p1` astfel încât, după mutare, să se afle pe poziția `p2` (`1 ≤ p1, p2 ≤ n`); ordinea celorlalte se păstrează;
+  - `P` — afișează playlistul.
+
+  O comandă cu poziții invalide nu modifică nimic și afișează `EROARE`.
+
+  Implementați și folosiți:
+
+  ```c
+  int *insereaza(int *v, int *n, int poz, int x);   /* poz numerotat de la 0 */
+  int *sterge(int *v, int *n, int poz);
+  ```
+
+  Ambele returnează noua adresă a vectorului și actualizează `*n`.
+
+  **Date de intrare**
+
+  Pe prima linie `q`, numărul de comenzi; apoi `q` linii, câte o comandă. Playlistul este inițial gol.
+
+  **Date de ieșire**
+
+  Pentru fiecare `P`, o linie `[<n>]` urmată de codurile melodiilor, fiecare precedat de un spațiu. Pentru fiecare comandă invalidă, `EROARE`.
+
+  **Restricții**
+
+  - `1 ≤ q ≤ 20000`; codurile melodiilor sunt întregi din `[1, 10^6]`
+  - pozițiile din comenzi sunt întregi din `[-10, 30000]`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  9
+  A 10
+  A 20
+  A 30
+  I 1 5
+  P
+  M 1 4
+  D 2
+  I 7 99
+  P
+  ```
+
+  Ieșire:
+  ```
+  [4] 5 10 20 30
+  EROARE
+  [3] 10 30 5
+  ```
+hints:
+  - "Inserarea pe poziția `poz` într-un vector cu dimensiune exactă: mărești zona cu un element (`realloc`), apoi muți elementele de la `poz` încolo cu o poziție la dreapta și pui `x` pe `poz`."
+  - "La deplasarea spre dreapta, începe de la ultimul element (altfel suprascrii valori necitite). La ștergere deplasezi spre stânga și micșorezi zona. Dacă `n` devine 0, folosește `free` și returnează `NULL` în loc de `realloc(v, 0)`."
+  - "`M p1 p2`: reține x = v[p1-1], șterge poziția p1-1, apoi inserează x pe poziția p2-1 în lista rămasă. Verifică: pentru `10 20 30`, `M 1 3` dă `20 30 10`."
+pitfalls:
+  - "`realloc(v, 0)` nu are un comportament garantat (poate returna `NULL` sau un pointer valid) — tratează lista goală explicit."
+  - "Pune rezultatul lui `realloc` într-un pointer auxiliar înainte să-l atribui listei."
+  - "Pentru `I`, poziția `n+1` e validă (adăugare la final); pentru `D` și `M`, nu."

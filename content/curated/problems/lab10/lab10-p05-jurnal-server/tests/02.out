@@ -1,0 +1,9 @@
+08:00:00 INFO server pornit
+08:00:05 INFO conexiune noua 10.0.0.7
+08:03:10 WARN memorie 85%
+08:03:11 ERROR baza de date indisponibila
+08:15:00 INFO reconectare reusita
+08:21:00 WARN raspuns lent
+INFO: 3, WARN: 2, ERROR: 1
+Cea mai lunga pauza: 709 secunde (08:03:11 - 08:15:00)
+Linii invalide: 2

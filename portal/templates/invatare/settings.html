@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Setări AI{% endblock %}
+{% block content %}
+<h1>Setări AI</h1>
+<p>Folosește AI-ul preferat în portal (tutorele din probleme, „✨ Explică”, întrebări generate). Cheia se păstrează doar local, în <code>work/.pclp/state/ai-settings.json</code>, care <b>nu</b> intră în arhiva săptămânală și nu e trimis nicăieri altundeva decât furnizorului ales.</p>
+<form class="card" method="post" style="max-width:720px">{% csrf_token %}
+  <label class="f">Furnizor</label>
+  <select name="provider" id="prov">{% for k, p in providers.items %}<option value="{{ k }}" data-url="{{ p.base_url }}" data-model="{{ p.default_model }}" data-hint="{{ p.key_hint }}" data-models="{{ p.models|join:',' }}" {% if k == s.provider %}selected{% endif %}>{{ p.name }}</option>{% endfor %}</select>
+  <label class="f">Model</label><input type="text" name="model" id="model" value="{{ s.model }}" list="models">
+  <datalist id="models"></datalist>
+  <div id="urlrow"><label class="f">Adresa serverului (compatibil OpenAI)</label><input type="url" name="base_url" id="burl" value="{{ s.base_url }}"></div>
+  <label class="f">Cheia API</label><input type="password" name="api_key" autocomplete="off" placeholder="{% if masked %}{{ masked }} (lasă gol ca să o păstrezi){% else %}lipește cheia{% endif %}">
+  <div class="small muted" id="hint"></div>
+  {% if masked %}<label class="small"><input type="checkbox" name="clear_key"> șterge cheia salvată</label>{% endif %}
+  <p style="margin-top:14px;display:flex;gap:8px"><button class="btn primary">Salvează</button><button class="btn" name="test" value="1">Salvează și testează</button></p>
+</form>
+<div class="card" style="margin-top:16px;max-width:720px">
+  <h3>Alte variante</h3>
+  <ul class="small">
+    <li><b>În VS Code:</b> extensia Continue (bara laterală) — configurează acolo același furnizor sau un model local.</li>
+    <li><b>În terminal:</b> <code>pclp ai-install gemini</code> (Gemini CLI, gratuit cu cont Google), <code>pclp ai-install claude</code> sau <code>pclp ai-install codex</code>.</li>
+    <li><b>Model local, fără cheie:</b> instalează <a class="ext" href="https://ollama.com" target="_blank" rel="noopener">Ollama</a> pe laptop și alege „Ollama” mai sus.</li>
+  </ul>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+(function () {
+  const sel = document.getElementById("prov"), model = document.getElementById("model"), url = document.getElementById("burl");
+  const row = document.getElementById("urlrow"), hint = document.getElementById("hint"), dl = document.getElementById("models");
+  let first = true;
+  function sync() {
+    const o = sel.selectedOptions[0];
+    row.style.display = sel.value === "anthropic" ? "none" : "";
+    hint.textContent = o.dataset.hint || "";
+    dl.innerHTML = (o.dataset.models || "").split(",").filter(Boolean).map(m => `<option value="${m}">`).join("");
+    if (!first) { model.value = o.dataset.model || ""; url.value = o.dataset.url || ""; }
+    first = false;
+  }
+  sel.addEventListener("change", sync); sync();
+})();
+</script>
+{% endblock %}

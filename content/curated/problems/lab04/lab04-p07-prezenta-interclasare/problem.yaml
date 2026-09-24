@@ -1,0 +1,67 @@
+id: lab04-p07-prezenta-interclasare
+lab: lab04
+number: 7
+title: "Prezența la laborator"
+difficulty: 3
+estimated_minutes: 35
+concepts: [interclasare, vector sortat, vector, funcție cu parametru vector]
+statement: |
+  Asistentul are listele cu numerele matricole ale studenților prezenți la două
+  laboratoare consecutive. Fiecare listă este sortată **strict crescător**. Scrie un
+  program care afișează:
+
+  - studenții prezenți la **ambele** laboratoare;
+  - studenții prezenți la **cel puțin unul** dintre laboratoare;
+  - studenții prezenți **doar la primul** laborator.
+
+  Listele pot fi lungi, așa că rezolvarea trebuie să parcurgă fiecare listă **o singură
+  dată** (prin interclasare).
+
+  **Date de intrare**
+
+  - prima linie: `n`, numărul de studenți prezenți la primul laborator;
+  - a doua linie: `n` numere naturale, sortate strict crescător (linia este goală dacă `n = 0`);
+  - a treia linie: `m`, numărul de studenți prezenți la al doilea laborator;
+  - a patra linie: `m` numere naturale, sortate strict crescător (linia este goală dacă `m = 0`).
+
+  **Date de ieșire**
+
+  Trei linii:
+
+  ```
+  Ambele: ...
+  Cel putin una: ...
+  Doar prima: ...
+  ```
+
+  Pe fiecare linie, numerele matricole se afișează în ordine crescătoare, fiecare
+  precedat de un spațiu. Dacă o listă este vidă, după `:` se afișează ` -`.
+
+  **Restricții**
+
+  - `0 ≤ n, m ≤ 100 000`
+  - `1 ≤ număr matricol ≤ 10^9`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  5
+  101 105 110 120 130
+  4
+  100 105 120 140
+  ```
+
+  Ieșire:
+  ```
+  Ambele: 105 120
+  Cel putin una: 100 101 105 110 120 130 140
+  Doar prima: 101 110 130
+  ```
+hints:
+  - "Pentru că ambele liste sunt sortate, poți să le parcurgi în paralel, cu câte un indice pentru fiecare, ca atunci când combini două teancuri de lucrări ordonate."
+  - "La fiecare pas compari a[i] cu b[j]: dacă sunt egale, elementul e în ambele liste și avansezi ambii indici; altfel, cel mai mic dintre ele nu mai poate apărea în cealaltă listă — decide unde îl pui și avansezi doar indicele lui."
+  - "După ce una dintre liste s-a terminat, elementele rămase în cealaltă merg direct în reuniune (iar cele rămase din prima, și în «doar prima»). Scrie o funcție de afișare pe care s-o apelezi de trei ori."
+pitfalls:
+  - "Nu uita elementele rămase la finalul uneia dintre liste după ce bucla principală se oprește."
+  - "Reuniunea poate avea până la n + m elemente."

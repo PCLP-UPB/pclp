@@ -1,0 +1,80 @@
+id: lab03-p03-radacina-digitala
+lab: lab03
+number: 3
+title: "Rădăcina digitală"
+difficulty: 2
+estimated_minutes: 20
+concepts: [recursivitate, condiție de oprire, funcție, long long]
+statement: |
+  **Rădăcina digitală** a unui număr natural se obține adunându-i cifrele, apoi adunând
+  cifrele rezultatului și așa mai departe, până rămâne un număr de o singură cifră.
+  De exemplu: `9875 → 29 → 11 → 2`.
+
+  Scrie două funcții **recursive** (fără instrucțiuni repetitive în ele):
+
+  - `int suma_cifre(long long n)` — suma cifrelor lui `n`;
+  - `int radacina_digitala(long long n)` — rădăcina digitală a lui `n`.
+
+  Apoi, pentru fiecare număr citit, afișează suma cifrelor și rădăcina digitală.
+
+  **Date de intrare**
+
+  Pe prima linie, numărul `t` de valori. Pe a doua linie, `t` numere naturale.
+
+  **Date de ieșire**
+
+  `t` linii, de forma `n: suma S, radacina R`.
+
+  **Restricții**
+
+  - `1 ≤ t ≤ 1000`
+  - `0 ≤ n ≤ 10^18`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4
+  9875 0 7 1000000000000000000
+  ```
+
+  Ieșire:
+  ```
+  9875: suma 29, radacina 2
+  0: suma 0, radacina 0
+  7: suma 7, radacina 7
+  1000000000000000000: suma 1, radacina 1
+  ```
+starter: |
+  #include <stdio.h>
+
+  int suma_cifre(long long n)
+  {
+  	/* TODO: caz de bază + apel recursiv */
+  }
+
+  int radacina_digitala(long long n)
+  {
+  	/* TODO: caz de bază + apel recursiv */
+  }
+
+  int main(void)
+  {
+  	int t, i;
+  	long long n;
+
+  	scanf("%d", &t);
+  	for (i = 0; i < t; i++) {
+  		scanf("%lld", &n);
+  		printf("%lld: suma %d, radacina %d\n", n, suma_cifre(n),
+  		       radacina_digitala(n));
+  	}
+
+  	return 0;
+  }
+hints:
+  - "O funcție recursivă are nevoie de un caz de bază, în care răspunsul se știe direct. Pentru ambele funcții, ce se întâmplă când n are o singură cifră?"
+  - "Suma cifrelor lui n = ultima cifră + suma cifrelor lui n fără ultima cifră."
+  - "Rădăcina digitală a lui n (cu cel puțin două cifre) este rădăcina digitală a sumei cifrelor lui n: radacina(n) = radacina(suma_cifre(n))."
+pitfalls:
+  - "Numerele au până la 19 cifre: folosește long long și %lld."

@@ -1,0 +1,52 @@
+id: lab07-p01-initiale
+lab: lab07
+number: 1
+title: "Inițialele participanților"
+difficulty: 1
+estimated_minutes: 15
+concepts: [șir de caractere, fgets, terminator de șir, toupper, ctype.h]
+statement: |
+  La o conferință, ecusoanele afișează doar inițialele participanților. Pentru fiecare nume complet primit, afișați inițialele: prima literă a fiecărui cuvânt, transformată în majusculă și urmată de un punct, totul lipit. Cuvintele sunt separate prin spații, tab-uri sau cratime (`-`), eventual mai multe consecutive; pot exista separatori și la începutul sau la sfârșitul liniei.
+
+  Implementați și folosiți funcția:
+
+  ```c
+  void initiale(const char *s, char *rez);
+  ```
+
+  care scrie inițialele numelui `s` în șirul `rez` (ca șir de caractere corect terminat).
+
+  **Date de intrare**
+
+  Mai multe linii, până la sfârșitul fișierului; fiecare linie conține un nume (litere ale alfabetului englez și separatori).
+
+  **Date de ieșire**
+
+  Pentru fiecare linie care conține cel puțin un cuvânt, o linie cu inițialele. Liniile fără niciun cuvânt nu produc nimic.
+
+  **Restricții**
+
+  - cel mult 1000 de linii, fiecare de cel mult 200 de caractere
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  Popescu Ion
+  ana-maria ionescu-vlad
+    george   enescu
+  ```
+
+  Ieșire:
+  ```
+  P.I.
+  A.M.I.V.
+  G.E.
+  ```
+hints:
+  - "Numele conțin spații, deci nu le poți citi cu `scanf(\"%s\")`. Folosește `fgets` într-o buclă care se oprește când funcția returnează `NULL`."
+  - "Un cuvânt începe acolo unde un caracter care nu e separator urmează după un separator (sau e la începutul șirului). Ține o variabilă care îți spune dacă ești în interiorul unui cuvânt."
+  - "Pentru fiecare început de cuvânt adaugi în `rez` litera trecută prin `toupper` și apoi `'.'`. La final pune `'\\0'` după ultimul caracter scris."
+pitfalls:
+  - "`fgets` păstrează `'\\n'` de la finalul liniei — tratează-l ca separator."
+  - "Fără `'\\0'` la finalul lui `rez`, `printf(\"%s\")` afișează și ce se află după el în memorie."

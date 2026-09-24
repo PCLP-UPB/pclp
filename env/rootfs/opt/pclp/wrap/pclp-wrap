@@ -1,0 +1,84 @@
+#!/bin/bash
+# pclp-wrap — wrapper pentru gcc, cc, clang, make, valgrind (link-uri simbolice în /opt/pclp/wrap).
+# Rulează binarul real, lasă ieșirea neschimbată în terminal și adaugă în ~/work/.pclp/tools.log:
+#   === <ISO time> | <cwd> | <comanda> | exit <N> ===
+#   <stdout+stderr capturat, max ~200 linii>
+# Nu înregistrează nimic în afara ~/work și nici comenzile pornite de un alt wrapper (ex. cc sub make).
+name=${0##*/}
+real=/usr/bin/$name
+[ -x "$real" ] || { echo "pclp-wrap: $real lipsește" >&2; exit 127; }
+
+W=${PCLP_WORK:-/home/student/work}
+LOG=$W/.pclp/tools.log
+
+# Culori pentru diagnostice când ieșirea finală e un terminal (stderr devine pipe prin tee).
+color=()
+case $name in
+    gcc|cc|clang)
+        if [ -n "${PCLP_WRAP_COLOR:-}" ] || [ -t 2 ]; then
+            case " $* " in *" -fdiagnostics-color"*|*" -fno-diagnostics-color"*) ;; *) color=(-fdiagnostics-color=always) ;; esac
+        fi ;;
+esac
+
+# Fără înregistrare: apel imbricat, în afara ~/work, sau ~/work neinițializat.
+if [ -n "${PCLP_WRAP_ACTIVE:-}" ] || [ ! -d "$W/.pclp" ] || [ "${PCLP_NO_LOG:-}" = 1 ]; then
+    exec "$real" "${color[@]}" "$@"
+fi
+case "$PWD/" in "$W"/*) ;; *) exec "$real" "${color[@]}" "$@" ;; esac
+
+export PCLP_WRAP_ACTIVE=1
+[ -t 2 ] && export PCLP_WRAP_COLOR=1
+
+tmp=$(mktemp "${TMPDIR:-/tmp}/pclp-wrap.XXXXXX") || exec "$real" "${color[@]}" "$@"
+# Ctrl-C: lăsăm copilul să primească semnalul, dar noi supraviețuim ca să scriem jurnalul.
+# (handler, nu ignorare: semnalele ignorate s-ar moșteni în copil)
+trap ':' INT QUIT
+
+# Descriptorii de captură: tee scrie în jurnalul temporar și mai departe în terminal.
+exec 4> >(tee -a "$tmp" >&2); p_err=$!
+case $name in
+    valgrind|make)
+        # stdout rămâne neatins (programul rulat poate fi interactiv); capturăm doar stderr.
+        "$real" "${color[@]}" "$@" 2>&4 4>&-
+        ec=$?
+        exec 4>&-
+        pids=("$p_err")
+        ;;
+    *)
+        # compilatoare: capturăm și stdout și stderr (ordinea relativă e aproximativă)
+        exec 3> >(tee -a "$tmp"); p_out=$!
+        "$real" "${color[@]}" "$@" >&3 2>&4 3>&- 4>&-
+        ec=$?
+        exec 3>&- 4>&-
+        pids=("$p_out" "$p_err")
+        ;;
+esac
+# așteaptă terminarea proceselor tee (max ~2 s)
+for _ in $(seq 200); do
+    alive=0
+    for p in "${pids[@]}"; do kill -0 "$p" 2>/dev/null && alive=1; done
+    [ $alive = 0 ] && break
+    sleep 0.01
+done
+
+{
+    cwd=$PWD
+    case "$cwd" in "$HOME"/*) cwd="~/${cwd#"$HOME"/}" ;; "$HOME") cwd="~" ;; esac
+    ts=$(date +%Y-%m-%dT%H:%M:%S%:z)
+    cmd=$(printf '%q ' "$name" "$@"); cmd=${cmd% }
+    cmd=${cmd//$'\n'/ }
+    total=$(wc -l <"$tmp")
+    {
+        printf '=== %s | %s | %s | exit %d ===\n' "$ts" "$cwd" "$cmd" "$ec"
+        # fără coduri ANSI (culori) în jurnal
+        head -n 200 "$tmp" | sed -e 's/\x1b\[[0-9;]*[mK]//g'
+        if [ "$total" -gt 200 ]; then printf '[... %d linii omise]\n' $((total - 200)); fi
+    } >"$tmp.block"
+    if command -v flock >/dev/null; then
+        flock "$LOG" -c "cat '$tmp.block' >> '$LOG'" 2>/dev/null || cat "$tmp.block" >>"$LOG"
+    else
+        cat "$tmp.block" >>"$LOG"
+    fi
+} 2>/dev/null
+rm -f "$tmp" "$tmp.block"
+exit "$ec"

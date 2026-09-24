@@ -1,0 +1,56 @@
+id: lab02-p01-an-bisect
+lab: lab02
+number: 1
+title: "Anul bisect"
+difficulty: 1
+estimated_minutes: 10
+concepts: [if-else, operator logic, operatorul %, operator relațional]
+statement: |
+  Calendarul academic trebuie să știe câte zile are fiecare an. Un an este **bisect**
+  dacă se împarte exact la 4, dar nu la 100 — cu excepția anilor care se împart la 400,
+  care sunt tot bisecți. De exemplu, 2024 și 2000 sunt bisecți, dar 1900 și 2023 nu.
+
+  Scrie un program care citește un an și afișează dacă este bisect și câte zile are.
+
+  **Date de intrare**
+
+  Un număr natural `an`.
+
+  **Date de ieșire**
+
+  Două linii. Dacă anul este bisect:
+
+  ```
+  Anul an este bisect.
+  Zile: 366
+  ```
+
+  altfel:
+
+  ```
+  Anul an nu este bisect.
+  Zile: 365
+  ```
+
+  **Restricții**
+
+  - `1 ≤ an ≤ 1 000 000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  2024
+  ```
+
+  Ieșire:
+  ```
+  Anul 2024 este bisect.
+  Zile: 366
+  ```
+hints:
+  - "Verificarea divizibilității se face cu restul împărțirii: an % 4 == 0 înseamnă că an se împarte la 4."
+  - "Combină condițiile cu operatorii logici && (și) și || (sau). Care condiție trebuie să fie adevărată pentru anii ca 2000?"
+  - "Condiția completă: (divizibil cu 4 ȘI nedivizibil cu 100) SAU divizibil cu 400. Apoi un if-else afișează cele două variante."
+pitfalls:
+  - "1900 se împarte la 4, dar nu este bisect."

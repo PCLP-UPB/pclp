@@ -1,0 +1,1207 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:tutoriale:logging</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-11-04T15:38:48+0200"/>
+<meta name="keywords" content="programare,tutoriale,logging"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare:tutoriale"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/tutoriale/logging"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/tutoriale/logging"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:tutoriale';var JSINFO = {"id":"programare:tutoriale:logging","namespace":"programare:tutoriale","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level1"><div class="li"><a href="#logging">Logging</a></div>
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#cuprins">Cuprins</a></div></li>
+<li class="level2"><div class="li"><a href="#de_ce_logam">De ce logăm?</a></div></li>
+<li class="level2"><div class="li"><a href="#ce_logam">Ce logăm?</a></div></li>
+<li class="level2"><div class="li"><a href="#unde_logam">Unde logăm?</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#terminal">Terminal</a></div></li>
+<li class="level3"><div class="li"><a href="#persistent_in_fisier">Persistent în fișier</a></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><a href="#cu_ce_logam">Cu ce logăm?</a></div></li>
+<li class="level2"><div class="li"><a href="#syslog">syslog</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#syslog_in_codul_c">syslog în codul C</a></div></li>
+<li class="level3"><div class="li"><a href="#exercitii">Exerciții</a></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><a href="#pclog">pclog</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#de_unde_luam_metadatele_in_c">De unde luăm metadatele în C?</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#exemple_cu_macrourile_predefinite">Exemple cu macrourile predefinite</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#idei_implementare_pclog">Idei implementare pclog</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#pclog_-_functie">pclog() - funcție</a></div></li>
+<li class="level4"><div class="li"><a href="#pclog_-_macro">pclog() - macro</a></div></li>
+<li class="level4"><div class="li"><a href="#pclogh">pclog.h</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#exercitii1">Exerciții</a></div></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h1 class="sectionedit1" id="logging">Logging</h1>
+<div class="level1">
+
+<p>
+<a href="/courses/_detail/pa/new_pa/partners/bitdefender_masterbrand_logo_positive.png?id=programare%3Atutoriale%3Alogging" class="media" title="pa:new_pa:partners:bitdefender_masterbrand_logo_positive.png"><img src="/courses/_media/pa/new_pa/partners/bitdefender_masterbrand_logo_positive.png?w=190&amp;tok=01f884" class="medialeft" alt="" width="190" /></a>
+Bitdefender este un lider recunoscut în domeniul securității IT, care oferă soluții superioare de prevenție, detecție și răspuns la incidente de securitate cibernetică. Milioane de sisteme folosite de oameni, companii și instituții guvernamentale sunt protejate de soluțiile companiei, ceea ce face Bitdefender unul dintre cei mai de încredere experți în combaterea amenințărilor informatice, în protejarea intimității și datelor, a identității digitale și în consolidarea rezilienței la atacuri. Compania a inovat constant în domenii precum antimalware, Internetul Lucrurilor, analiză comportamentală și inteligență artificială, iar tehnologiile Bitdefender sunt licențiate către peste 180 dintre cele mai cunoscute branduri de securitate din lume.
+</p>
+
+<p>
+<strong>Resposabili</strong>:
+</p>
+<ul>
+<li class="level1"><div class="li"> Cristi Olaru</div>
+</li>
+<li class="level1"><div class="li"> Cristi Pătrașcu</div>
+</li>
+<li class="level1"><div class="li"> Cristi Popa</div>
+</li>
+<li class="level1"><div class="li"> Darius Neațu</div>
+</li>
+<li class="level1"><div class="li"> Liza Babu</div>
+</li>
+<li class="level1"><div class="li"> Radu Nichita</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT1 SECTION "Logging" [1-1005] -->
+<h2 class="sectionedit2" id="cuprins">Cuprins</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a href="#de_ce_logam" title="programare:tutoriale:logging ↵" class="wikilink1">De ce logăm?</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#ce_logam" title="programare:tutoriale:logging ↵" class="wikilink1">Ce logăm?</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#unde_logam" title="programare:tutoriale:logging ↵" class="wikilink1">Unde logăm?</a></div>
+<ul>
+<li class="level2"><div class="li"> <a href="#terminal" title="programare:tutoriale:logging ↵" class="wikilink1">Terminal</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#persistent_in_fisier" title="programare:tutoriale:logging ↵" class="wikilink1">Persistent în fișier</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <a href="#cu_ce_logam" title="programare:tutoriale:logging ↵" class="wikilink1">Cu ce logăm?</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#syslog" title="programare:tutoriale:logging ↵" class="wikilink1">syslog</a></div>
+<ul>
+<li class="level2"><div class="li"> <a href="#syslog_in_codul_c" title="programare:tutoriale:logging ↵" class="wikilink1">syslog în codul C</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#exercitii" title="programare:tutoriale:logging ↵" class="wikilink1">Exerciții</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <a href="#pclog" title="programare:tutoriale:logging ↵" class="wikilink1">pclog</a></div>
+<ul>
+<li class="level2"><div class="li"> <a href="#de_unde_luam_metadatele_in_c" title="programare:tutoriale:logging ↵" class="wikilink1">De unde luăm metadatele în C?</a></div>
+<ul>
+<li class="level3"><div class="li"> <a href="#exemple_cu_macrourile_predefinite" title="programare:tutoriale:logging ↵" class="wikilink1">Exemple cu macrourile predefinite</a></div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"> <a href="#idei_implementare_pclog" title="programare:tutoriale:logging ↵" class="wikilink1">Idei implementare pclog</a></div>
+<ul>
+<li class="level3"><div class="li"> <a href="#pclog_-_functie" title="programare:tutoriale:logging ↵" class="wikilink1">pclog() - funcție</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="#pclog_-_macro" title="programare:tutoriale:logging ↵" class="wikilink1">pclog() - macro</a></div>
+</li>
+<li class="level3"><div class="li"> <a href="#pclogh" title="programare:tutoriale:logging ↵" class="wikilink1">pclog.h</a></div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"> <a href="#exercitii" title="programare:tutoriale:logging ↵" class="wikilink1">Exerciții</a></div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+<!-- EDIT2 SECTION "Cuprins" [1006-1740] -->
+<h2 class="sectionedit3" id="de_ce_logam">De ce logăm?</h2>
+<div class="level2">
+
+<p>
+Logurile sunt fișiere în care aplicația pe care o dezvoltăm scrie informații care ulterior ne pot fi de folosi în depanarea unor probleme în aplicație.
+</p>
+
+<p>
+<a href="https://en.wikipedia.org/wiki/Logging_(software)" class="urlextern" title="https://en.wikipedia.org/wiki/Logging_(software)"  rel="nofollow">Loggingul</a> este un aspect foarte important atât în procesul de dezvoltare al unei aplicații, cât și în cel de mentenanță. Atunci când dezvoltăm o aplicație și ajunge în producție, la foarte mulți utilizatori, inevitabil vor exista probleme care erau foarte greu de prevăzut, care apar doar în situații specifice. Logurile ne pot ajuta să reproducem un context în care aplicația noastră nu s-a comportat așa cum ne așteptam.
+</p>
+
+<p>
+Să presupunem că avem o aplicație ce are o sută de mii de utilizatori și avem un sistem care ne informează atunci când s-a produs un crash. Chiar dacă aplicația a fost testată foarte mult, în diverse scenarii, în fiecare zi primim aproximativ 20 de notificări care ne spun faptul că s-a produs un crash la anumite ore. Acest lucru doar ne spune ca avem o problemă (un bug) în aplicație. Ce putem face în această situație? Debugging direct pe dispozitivul clientului nu putem face. Putem încerca să reproducem noi crash-ul, însă avem nevoie de un context în care s-a produs.
+</p>
+
+<p>
+Logurile permit analiza unor evenimente care s-au întâmplat în trecut. Astfel, daca s-a întâmplat ceva neașteptat, putem vedea în ce zonă a codului a apărut problema, care era starea aplicației / sistemului în acel moment precum și ce acțiuni au precedat apariția problemei. Toate acestea formează contextul care a determinat problema, pe care îl putem folosi pentru a identifica bug-ul.
+</p>
+
+</div>
+<!-- EDIT3 SECTION "De ce logăm?" [1741-3434] -->
+<h2 class="sectionedit4" id="ce_logam">Ce logăm?</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> Pași executați cu eroare / succes, în funcție de importanța lor(e.g. alocare de memorie, parsare a inputului, încărcare de biblioteci etc.)</div>
+</li>
+<li class="level1"><div class="li"> Starea aplicației (e.g. mesaje periodice cu informatii despre componentele aplicației)</div>
+</li>
+<li class="level1"><div class="li"> Resurse folosite (e.g. informații periodice despre RAM, CPU, etc.)</div>
+</li>
+<li class="level1"><div class="li"> Perechi inițiere - finalizare acțiune (în special pentru aplicații cu operații asincrone)</div>
+</li>
+<li class="level1"><div class="li"> Orice considerăm util, fără a fi totuși prea mult</div>
+</li>
+</ul>
+
+<p>
+În general, este foarte util ca o linie de log să conțină metadate, pentru a găsi foarte ușor locația de interes. Acestea pot fi:
+</p>
+<ul>
+<li class="level1"><div class="li"> numele fișierului de unde s-a logat</div>
+</li>
+<li class="level1"><div class="li"> numele funcției de unde s-a logat</div>
+</li>
+<li class="level1"><div class="li"> linia unde s-a logat</div>
+</li>
+<li class="level1"><div class="li"> data evenimentului</div>
+</li>
+<li class="level1"><div class="li"> PID-ul procesului</div>
+</li>
+</ul>
+
+<p>
+Pentru exemplificare, alegem un model de logging, dintr-un sistem foarte cunoscut - <a href="https://httpd.apache.org/docs/2.4/logs.html" class="urlextern" title="https://httpd.apache.org/docs/2.4/logs.html"  rel="nofollow">Apache Log Files</a>. O linie de log din acest sistem arată astfel:
+</p>
+<pre class="code bash"><span class="br0">&#91;</span>Fri Sep 09 <span class="nu0">10</span>:<span class="nu0">42</span>:<span class="nu0">29.902022</span> <span class="nu0">2011</span><span class="br0">&#93;</span> <span class="br0">&#91;</span>core:error<span class="br0">&#93;</span> <span class="br0">&#91;</span>pid <span class="nu0">35708</span>:tid <span class="nu0">4328636416</span><span class="br0">&#93;</span> <span class="br0">&#91;</span>client 72.15.99.187<span class="br0">&#93;</span> File does not exist: <span class="sy0">/</span>usr<span class="sy0">/</span>local<span class="sy0">/</span>apache2<span class="sy0">/</span>htdocs<span class="sy0">/</span>favicon.ico</pre>
+
+<p>
+Observăm prezența metadatelor într-un header
+</p>
+<pre class="code bash"><span class="br0">&#91;</span>Fri Sep 09 <span class="nu0">10</span>:<span class="nu0">42</span>:<span class="nu0">29.902022</span> <span class="nu0">2011</span><span class="br0">&#93;</span> <span class="br0">&#91;</span>core:error<span class="br0">&#93;</span> <span class="br0">&#91;</span>pid <span class="nu0">35708</span>:tid <span class="nu0">4328636416</span><span class="br0">&#93;</span> <span class="br0">&#91;</span>client 72.15.99.187<span class="br0">&#93;</span></pre>
+
+<p>
+atașat înaintea mesajului proriu-zis
+</p>
+<pre class="code bash">File does not exist: <span class="sy0">/</span>usr<span class="sy0">/</span>local<span class="sy0">/</span>apache2<span class="sy0">/</span>htdocs<span class="sy0">/</span>favicon.ico</pre>
+
+</div>
+<!-- EDIT4 SECTION "Ce logăm?" [3435-4878] -->
+<h2 class="sectionedit5" id="unde_logam">Unde logăm?</h2>
+<div class="level2">
+
+<p>
+Se poate folosi logarea la terminal împreună cu logarea în fișier.
+</p>
+
+</div>
+<!-- EDIT5 SECTION "Unde logăm?" [4879-4976] -->
+<h3 class="sectionedit6" id="terminal">Terminal</h3>
+<div class="level3">
+
+<p>
+Primul contact pe care îl aveți cu loggingul este prin afișarea informațiilor în terminal:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>STDOUT</code>:</div>
+<ul>
+<li class="level2"><div class="li"> Se va afișa un mesaj de tip rezultat / eveniment în terminal la standard output</div>
+</li>
+<li class="level2"><div class="li"> Implementare C:<pre class="code c"><a href="http://www.opengroup.org/onlinepubs/009695399/functions/printf.html"><span class="kw3">printf</span></a><span class="br0">&#40;</span><span class="st0">&quot;stdout example<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="co1">// sau</span>
+<a href="http://www.opengroup.org/onlinepubs/009695399/functions/fprintf.html"><span class="kw3">fprintf</span></a><span class="br0">&#40;</span>stdout<span class="sy0">,</span> <span class="st0">&quot;stdout example<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</div>
+</li>
+<li class="level2"><div class="li"> Redirectare terminal<pre class="code bash"><span class="co0"># e.g. redirectare STDOUT pentru &quot;executable&quot; în fișierul &quot;log.out&quot;</span>
+$ <span class="sy0">/</span>path<span class="sy0">/</span>to<span class="sy0">/</span>executable <span class="sy0">&gt;</span> log.out</pre>
+</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code>STDERR</code>:</div>
+<ul>
+<li class="level2"><div class="li"> Se va afișa un mesaj de tip eroare / avertisment în terminal la standard error</div>
+</li>
+<li class="level2"><div class="li"> Implementare C:<pre class="code c"><a href="http://www.opengroup.org/onlinepubs/009695399/functions/fprintf.html"><span class="kw3">fprintf</span></a><span class="br0">&#40;</span>stderr<span class="sy0">,</span> <span class="st0">&quot;stderr example<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span>`<span class="sy0">;</span></pre>
+</div>
+</li>
+<li class="level2"><div class="li"> Redirectare terminal<pre class="code bash"><span class="co0"># e.g. redirectare STDERR pentru &quot;executable&quot; în fișierul &quot;log.err&quot;</span>
+$ <span class="sy0">/</span>path<span class="sy0">/</span>to<span class="sy0">/</span>executable <span class="nu0">2</span><span class="sy0">&gt;</span> log.err</pre>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+<!-- EDIT6 SECTION "Terminal" [4977-5792] -->
+<h3 class="sectionedit7" id="persistent_in_fisier">Persistent în fișier</h3>
+<div class="level3">
+
+<p>
+Pe lângă opțiunea anterioară de a redirecta STDOUT / STDERR, putem face ca programul scris de noi să stocheze mesajele de log direct într-un fișier pe disc.
+</p>
+
+</div>
+<!-- EDIT7 SECTION "Persistent în fișier" [5793-5991] -->
+<h2 class="sectionedit8" id="cu_ce_logam">Cu ce logăm?</h2>
+<div class="level2">
+
+<p>
+Pentru a putea realiza cu ușurință partea de logging descrisă mai sus, avem nevoie de o bibliotecă care să ne ofere o implementare pentru funcționalitățile dorite, astfel încât să nu rescriem de fiecare dată logica de logare atunci când începem un proiect nou.
+</p>
+
+<p>
+De cele mai multe ori, bibliotecile de logging expun o interfață standard / cunoscută, astfel că exemplele pe care le vom parcurge în continuare sunt relevante și pentru alte biblioteci de logging scrise în C sau în alte limbaje. Putem face o analogie cu funcția <a href="https://man7.org/linux/man-pages/man3/printf.3.html" class="urlextern" title="https://man7.org/linux/man-pages/man3/printf.3.html"  rel="nofollow">printf</a>, care are un format standard pentru “stringul format”. Acesta a fost folosit drept model în designul altor sisteme de logare din mai multe limbaje de programare.
+</p>
+
+<p>
+În continuare vom parcurge 2 exemple:
+</p>
+<ul>
+<li class="level1"><div class="li"> vom folosi o bibliotecă standard de pe Linux</div>
+</li>
+<li class="level1"><div class="li"> vom încerca să scriem o bibliotecă minimală de logging în C, exercițiu care se poate dovedi util în debuggingul aplicațiilor pe care le veți scrie în semestrele următoare</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT8 SECTION "Cu ce logăm?" [5992-7075] -->
+<h2 class="sectionedit9" id="syslog">syslog</h2>
+<div class="level2">
+
+<p>
+<a href="https://en.wikipedia.org/wiki/Syslog" class="urlextern" title="https://en.wikipedia.org/wiki/Syslog"  rel="nofollow">syslog</a> este un standard de logging adoptat de sistemele UNIX. De asemenea, <code>syslog</code> este și numele folosit pentru implementarea de pe Linux - <a href="https://man7.org/linux/man-pages/man3/syslog.3.html" class="urlextern" title="https://man7.org/linux/man-pages/man3/syslog.3.html"  rel="nofollow">man syslog</a>.
+</p>
+
+<p>
+Sistemul permite logarea din mai multe aplicații simultan și centralizarea mesajelor în același fișier.
+</p>
+
+<p>
+Acest sistem poate fi configurat prin <code>/etc/syslog.conf</code>. În exemplele următoare vom presupune un config default, ceea ce implică salvea logurile în calea <code>/var/log/syslog</code>.
+</p>
+
+<p>
+Afișăm tot conținul directorului <code>/var/log</code>.
+</p>
+<pre class="code bash">$ <span class="kw2">ls</span> <span class="re5">-lh</span> <span class="sy0">/</span>var<span class="sy0">/</span>log<span class="sy0">/</span>
+total 10M
+...
+<span class="re5">-rw-r-----</span>  <span class="nu0">1</span> syslog            adm             <span class="nu0">1</span>,9M dec <span class="nu0">23</span> 03:<span class="nu0">30</span> syslog
+<span class="re5">-rw-r-----</span>  <span class="nu0">1</span> syslog            adm             <span class="nu0">3</span>,8M dec <span class="nu0">19</span> 00:<span class="nu0">24</span> syslog.1
+...</pre>
+
+<p>
+Observăm că există 2 fișiere:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>/var/log/syslog</code>: fișierul curent în care se loghează</div>
+</li>
+<li class="level1"><div class="li"> <code>/var/log/syslog.1</code>: fișier anterior în care s-a logat, iar cand s-a atins limita de 3.8M s-a considerat plin și s-a rotit (proces în care s-a redenumit fișierul prin adaugare de versiune la final). Scopul rotirii fișierelor de log este de a nu avea un singur fișier foarte mare.</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT9 SECTION "syslog" [7076-8316] -->
+<h3 class="sectionedit10" id="syslog_in_codul_c">syslog în codul C</h3>
+<div class="level3">
+
+<p>
+Putem folosi <code>syslog</code> prin funcțiile expuse în biblioteca C - <a href="https://man7.org/linux/man-pages/man3/syslog.3.html" class="urlextern" title="https://man7.org/linux/man-pages/man3/syslog.3.html"  rel="nofollow">man syslog</a>.
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>void openlog(const char *ident, int option, int facility);</code></div>
+<ul>
+<li class="level2"><div class="li"> inițializează biblioteca de logging; deschide fișierul <code>/var/log/syslog</code></div>
+<ul>
+<li class="level3"><div class="li"> <code>ident</code>: logurile sunt asociate cu o aplicație / identitate care va apărea explicit în linia logată</div>
+</li>
+<li class="level3"><div class="li"> <code>option</code> și <code>facility</code> reprezintă opțiuni avansate de configurare, pe care le vom seta pe <code>0</code> (default) în acest tutorial</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code>void syslog(int priority, const char *format, ...);</code></div>
+<ul>
+<li class="level2"><div class="li"> loghează o linie în fișier</div>
+<ul>
+<li class="level3"><div class="li"> logul este asociat cu o anumită categorie / prioritate / nivel de logging (log level)</div>
+<ul>
+<li class="level4"><div class="li"> <code>syslog</code> definește mai multe nivele de logare</div>
+</li>
+<li class="level4"><div class="li"> nivele de logare sunt folosite pentru filtrare de loguri</div>
+</li>
+<li class="level4"><div class="li"> în acest tutorial vom folosi 2 nivele de logare</div>
+<ul>
+<li class="level5"><div class="li"> <code>LOG_ERR</code>: loguri care reprezintă erori (critice) - exemplu: nu s-a putut deschide un fișier / aloca un buffer</div>
+</li>
+<li class="level5"><div class="li"> <code>LOG_DEBUG</code>: loguri care conțin informație utilă pentru debug și care nu sunt asociate cu erori - exemplu: fișierul deschis are n bytes / bufferul alocat se află la adresa X</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="level3"><div class="li"> combinația de argumente <code>const char* format, ...</code> respectă aceeași convenție folosită și de <code>printf</code></div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code>void closelog(void);</code></div>
+<ul>
+<li class="level2"><div class="li"> oprește biblioteca de logging (și închide fișierul deschis)</div>
+</li>
+</ul>
+</li>
+</ul>
+<pre class="code cpp"><span class="co1">// syslog_example.c</span>
+&nbsp;
+<span class="co2">#include &lt;syslog.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">int</span> argc, <span class="kw4">char</span> <span class="sy2">**</span>argv<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="co1">// in cazul executabilelor rulate din terminal, putem presupune ca numele / identitatea este chiar numele executabilului</span>
+    <span class="kw4">const</span> <span class="kw4">char</span><span class="sy2">*</span> identity <span class="sy1">=</span> argv<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="co1">// initializare biblioteca cu identitatea specificata si configurari default (0)</span>
+    openlog<span class="br0">&#40;</span>identity, <span class="nu0">0</span>, <span class="nu0">0</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="co1">// afiseaza o linie cu log level debug</span>
+    syslog<span class="br0">&#40;</span>LOG_DEBUG, <span class="st0">&quot;Hello %s!<span class="es1">\n</span>&quot;</span>, identity<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="co1">// afiseaza o linie cu log level error</span>
+    syslog<span class="br0">&#40;</span>LOG_ERR, <span class="st0">&quot;Ups! Something failed...&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    closelog<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Compilăm și rulăm:
+</p>
+<pre class="code bash">$ <span class="kw2">gcc</span> syslog_example.c <span class="re5">-o</span> syslog_example
+&nbsp;
+$ .<span class="sy0">/</span>syslog_example
+&nbsp;
+$ <span class="kw2">cat</span> <span class="sy0">/</span>var<span class="sy0">/</span>log<span class="sy0">/</span>syslog <span class="sy0">|</span> <span class="kw2">grep</span> syslog_example
+Dec <span class="nu0">23</span> 03:<span class="nu0">42</span>:<span class="nu0">37</span> pc .<span class="sy0">/</span>syslog_example: Hello .<span class="sy0">/</span>syslog_example<span class="sy0">!</span>
+Dec <span class="nu0">23</span> 03:<span class="nu0">42</span>:<span class="nu0">37</span> pc .<span class="sy0">/</span>syslog_example: Ups<span class="sy0">!</span> Something failed...</pre>
+
+<p>
+Observăm prezența celor 2 linii de log din codul nostru. Prima este o linie cu log level <code>debug</code> (<code>LOG_DEBUG</code>), iar cealaltă are log level <code>error</code> (<code>LOG_ERR</code>).
+</p>
+
+<p>
+Comportamentul default din <code>syslog</code> este că nu printează în fișier și prioritatea / log level. Putem să schimbăm acest lucru prin editarea fișierului <code>/etc/rsyslog.conf</code>:
+</p>
+<ul>
+<li class="level1"><div class="li"> comentăm linia cu formatul default</div>
+</li>
+</ul>
+<pre class="code bash"><span class="co4">$ </span><span class="kw2">cat</span> <span class="sy0">/</span>etc<span class="sy0">/</span>rsyslog.conf <span class="sy0">|</span> <span class="kw2">grep</span> <span class="st0">&quot;RSYSLOG_DebugFormat&quot;</span> <span class="re5">-A2</span></pre>
+<ul>
+<li class="level1"><div class="li"> adăugăm propriul format de linie</div>
+</li>
+</ul>
+<pre class="code bash"><span class="re1">$template</span> precise,<span class="st0">&quot;%timegenerated% %syslogpriority-text% %HOSTNAME% %syslogtag% %msg%<span class="es1">\n</span>&quot;</span>
+<span class="re1">$ActionFileDefaultTemplate</span> precise</pre>
+<ul>
+<li class="level1"><div class="li"> sintaxa este descrisă în documentația rsync - secțiunea <a href="https://www.rsyslog.com/doc/master/configuration/properties.html" class="urlextern" title="https://www.rsyslog.com/doc/master/configuration/properties.html"  rel="nofollow">System Properties</a>)</div>
+<ul>
+<li class="level2"><div class="li"> <code>timegenerated</code>: data la care a fost generat eventul</div>
+</li>
+<li class="level2"><div class="li"> <code>syslogpriority-text</code>: log level / prioritea pasată funcției <code>syslog</code> în C</div>
+</li>
+<li class="level2"><div class="li"> <code>HOSTNAME</code>: numele stației pe care se rulează</div>
+</li>
+<li class="level2"><div class="li"> <code>syslogtag</code>: numele entității care loghează (parametrul <code>ident</code> pasat la <code>openlog</code>)</div>
+</li>
+<li class="level2"><div class="li"> <code>msg</code>: mesajul de log propriu-zis</div>
+</li>
+<li class="level2"><div class="li"> <code>&#039;\n&#039;</code>: newline (mereu un apel de <code>syslog</code> loghează o linie completă)</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>Notă</strong>: Observați și rețineți analogia cu modelul <code>printf</code>!</div>
+</li>
+<li class="level1"><div class="li"> restartăm serviciul de logging pentru a folosi noul config</div>
+</li>
+</ul>
+<pre class="code bash"><span class="co4">$ </span><span class="kw2">sudo</span> service rsyslog restart</pre>
+
+<p>
+Dacă rulăm din nou programul nostru obținem:
+</p>
+<pre class="code bash">$ .<span class="sy0">/</span>syslog_example
+$ <span class="kw2">tail</span> <span class="re5">-2</span> <span class="sy0">/</span>var<span class="sy0">/</span>log<span class="sy0">/</span>syslog
+Dec <span class="nu0">23</span> <span class="nu0">15</span>:<span class="nu0">29</span>:<span class="nu0">39</span> debug pc .<span class="sy0">/</span>syslog_example:  Hello .<span class="sy0">/</span>syslog_example<span class="sy0">!</span>
+&nbsp;
+Dec <span class="nu0">23</span> <span class="nu0">15</span>:<span class="nu0">29</span>:<span class="nu0">39</span> err pc .<span class="sy0">/</span>syslog_example:  Ups<span class="sy0">!</span> Something failed...</pre>
+
+<p>
+Observăm că acum se printează și log levelul în fișier! Acest lucru permite filtarea logurilor (dacă este nevoie):
+</p>
+<pre class="code bash">$ <span class="kw2">cat</span> <span class="sy0">/</span>var<span class="sy0">/</span>log<span class="sy0">/</span>syslog <span class="sy0">|</span> <span class="kw2">grep</span> syslog_example
+Dec <span class="nu0">23</span> <span class="nu0">15</span>:<span class="nu0">32</span>:02 debug pc .<span class="sy0">/</span>syslog_example:  Hello .<span class="sy0">/</span>syslog_example<span class="sy0">!</span>
+Dec <span class="nu0">23</span> <span class="nu0">15</span>:<span class="nu0">32</span>:02 err pc .<span class="sy0">/</span>syslog_example:  Ups<span class="sy0">!</span> Something failed...
+&nbsp;
+$ <span class="kw2">cat</span> <span class="sy0">/</span>var<span class="sy0">/</span>log<span class="sy0">/</span>syslog <span class="sy0">|</span> <span class="kw2">grep</span> syslog_example <span class="sy0">|</span> <span class="kw2">grep</span> debug
+Dec <span class="nu0">23</span> <span class="nu0">15</span>:<span class="nu0">32</span>:02 debug pc .<span class="sy0">/</span>syslog_example:  Hello .<span class="sy0">/</span>syslog_example<span class="sy0">!</span>
+&nbsp;
+$ <span class="kw2">cat</span> <span class="sy0">/</span>var<span class="sy0">/</span>log<span class="sy0">/</span>syslog <span class="sy0">|</span> <span class="kw2">grep</span> syslog_example <span class="sy0">|</span> <span class="kw2">grep</span> err
+Dec <span class="nu0">23</span> <span class="nu0">15</span>:<span class="nu0">32</span>:02 err pc .<span class="sy0">/</span>syslog_example:  Ups<span class="sy0">!</span> Something failed...</pre>
+
+<p>
+Acest fitru simplu poate identifica rapid posibile erori în aplicație, dacă acestea au fost logate: ne uităm mai întâi după logurile cu nivel <code>err</code>!
+</p>
+
+</div>
+<!-- EDIT10 SECTION "syslog în codul C" [8317-13199] -->
+<h3 class="sectionedit11" id="exercitii">Exerciții</h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> Filtrare loguri</div>
+<ul>
+<li class="level2"><div class="li"> Există situații, când din motive de limitare de resurse, dorim să păstrăm în producție doar anumite loguri - un exemplu simplificat ar fi să păstrăm doar logurile cu nivel <code>err</code> în programul <code>syslog_example</code> pentru mediul de producție. Deoarece în continuare vrem să avem și liniile cu <code>debug</code>, pentru atunci cînd compilăm și testăm local, <code>syslog</code> permite setarea unui nivel maxim de prioritatea / de logging (în cazul nostru <code>err</code> este nivelul cel mai mic, iar <code>debug</code> este nivelul cel mai mare)Ș</div>
+<ul>
+<li class="level3"><div class="li"> dacă nivelul maxim setat este <code>err</code>, atunci doar liniile de forma <code>syslog(LOG_ERR, ...);</code> vor loga efectiv în fișier</div>
+</li>
+<li class="level3"><div class="li"> dacă nivelul maxim setat este <code>debug</code>, atunci și logurile cu și logurile cu se vor vedea în fișier</div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"> Acest task presupune să modificați <code>syslog_example.c</code> astfel încât să puteți compila în 2 moduri diferite programul: unul care să producă doar loguri de <code>err</code>, iar celălalt să producă ambele tipuri de loguri.</div>
+<ul>
+<li class="level3"><div class="li"> O convenție des întâlnită este definirea simbolului <code>_DEBUG</code>, care poate fi apoi verificat din codul C dacă este definit, folosind directivele de preprocesare <code>#ifdef _DEBUG</code> / <code>#if defined(_DEBUG)</code>. Prezența simbolului înseamnă build de debug (unde putem loga oricât de mult, deoarece doar noi vom folosi acest build). Absența acestuia este asociată cu un build de release / production (în care logăm doar ce este strict necesar, acesta este executabilul care urmează a fi livrat oficial).</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<details>
+
+<p>
+<summary>Hint</summary> <code>man setlogmask</code> &amp;&amp; operații pe biți
+</p>
+
+</details>
+
+</div>
+<!-- EDIT11 SECTION "Exerciții" [13200-14979] -->
+<h2 class="sectionedit12" id="pclog">pclog</h2>
+<div class="level2">
+
+<p>
+În această secțiune vom scrie o bibliotecă minimală de logging, numită <code>pclog</code>.
+</p>
+<ul>
+<li class="level1"><div class="li"> Avem nevoie să obținem în final implementarea unei funcții numite <code>pclog(format, ...)</code>, care se va comporta analog funcțiilor <code>printf</code> (din punct de vedere al formatului) și <code>syslog</code> (adaugă un header cu cât mai multe metadate!).</div>
+</li>
+<li class="level1"><div class="li"> În final vom avea implementarea in <code>pclog.h</code> / <code>pclog.c</code>.</div>
+</li>
+<li class="level1"><div class="li"> Veți putea reutiliza codul scris de voi pentru <code>pclog</code> atunci când faceți debug la teme.</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT12 SECTION "pclog" [14980-15529] -->
+<h3 class="sectionedit13" id="de_unde_luam_metadatele_in_c">De unde luăm metadatele în C?</h3>
+<div class="level3">
+
+<p>
+După cum am văzut în exemplele anterioare, pentru a ști când și unde s-a întâmplat un anumit eveniment, trebuie să avem metadate într-o linie de log.
+</p>
+
+<p>
+În continuare o să analizăm ce astfel de metadate ne expune ușor biblioteca C. Fiecare astfel de informație este accesibilă printr-un macro predefinit din compilator. De exemplu numele funcției, există macroul <code>__FILE__</code> care este înlocuit la preprocesare cu numele fișierului în care este folosit.
+</p>
+
+<p>
+Putem citi mai multe despre aceste macrouri pe pagina <a href="https://gcc.gnu.org/onlinedocs/cpp/Standard-Predefined-Macros.html#Standard-Predefined-Macros" class="urlextern" title="https://gcc.gnu.org/onlinedocs/cpp/Standard-Predefined-Macros.html#Standard-Predefined-Macros"  rel="nofollow">GCC Standard Predefined Macros</a>, unde găsim lista de macrouri standard din C, implementate de orice compilator.
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>__FILE__</code>:</div>
+<ul>
+<li class="level2"><div class="li"> tip asociat: <code>string</code> (a.k.a. <code>const char*</code> → <code>&quot;%s&quot;</code>)</div>
+</li>
+<li class="level2"><div class="li"> semnificație: macro care se înlocuiește cu numele fișierului sursă în care este folosit.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code>__LINE__</code>:</div>
+<ul>
+<li class="level2"><div class="li"> tip asociat: <code>integer</code> (a.k.a. <code>int</code> → <code>&quot;%d&quot;</code>)</div>
+</li>
+<li class="level2"><div class="li"> semnificație: macro care se înlocuiește cu numărul liniei de cod din fișierul sursă în care este folosit.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code>__DATE__</code>:</div>
+<ul>
+<li class="level2"><div class="li"> tip asociat: <code>string</code> (a.k.a. <code>const char*</code> → <code>&quot;%s&quot;</code>)</div>
+</li>
+<li class="level2"><div class="li"> semnificație: macro care se înlocuiește cu data (exemplu <code>&quot;Feb 12 1996&quot;</code>) la care programul s-a compilat.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <code>__TIME__</code>:</div>
+<ul>
+<li class="level2"><div class="li"> tip asociat: <code>string</code> (a.k.a. <code>const char*</code> → <code>&quot;%s&quot;</code>)</div>
+</li>
+<li class="level2"><div class="li"> semnificație: macro care se înlocuiește cu ora (exemplu <code>&quot;23:50:01&quot;</code>) la care programul s-a compilat.</div>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+Tot pe aceeași pagină de documentație vedem un simbol extra, care este o variabilă const (nu un macro) - <code>__FUNCTION__</code> - introdus in C99. Deoarece programatorul doar va afișa această valoare, este irelevant daca este un macro sau o variabilă. Astfel GCC a ales să foloseacă tot un nume cu majuscule, sugerând că toate formează împreună un singur set de metadate.
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>__FUNCTION__</code>:</div>
+<ul>
+<li class="level2"><div class="li"> tip asociat: <code>string</code> (a.k.a. <code>const char*</code> → <code>&quot;%s&quot;</code>)</div>
+</li>
+<li class="level2"><div class="li"> semnificație: macro care se înlocuiește cu numele funcției în care este folosit.</div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+<h4 id="exemple_cu_macrourile_predefinite">Exemple cu macrourile predefinite</h4>
+<div class="level4">
+
+<p>
+Fie următoarele fișiere sursă:
+</p>
+<pre class="code cpp"><span class="co1">// macros_example.c</span>
+&nbsp;
+<span class="co2">#include &quot;foo.h&quot;</span>
+&nbsp;
+<span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="kw4">void</span> bar<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__FILE__ = %s<span class="es1">\n</span>&quot;</span>, __FILE__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __FILE__ -&gt; &quot;macros_example.c&quot;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__FUNCTION__ = %s<span class="es1">\n</span>&quot;</span>, __FUNCTION__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __FUNCTION__ -&gt; &quot;bar&quot;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, __LINE__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __LINE__ -&gt; 11</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, __LINE__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __LINE__ -&gt; 12</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, __LINE__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __LINE__ -&gt; 13</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__DATE__ = %s<span class="es1">\n</span>&quot;</span>, __DATE__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __DATE__ -&gt; data compilare</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__TIME__ = %s<span class="es1">\n</span>&quot;</span>, __TIME__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __TIME__ -&gt; ora compilare</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__FILE__ = %s<span class="es1">\n</span>&quot;</span>, __FILE__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __FILE__ -&gt; &quot;macros_example.c&quot;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__FUNCTION__ = %s<span class="es1">\n</span>&quot;</span>, __FUNCTION__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __FUNCTION__ -&gt; &quot;main&quot;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, __LINE__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __LINE__ -&gt; 22</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, __LINE__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __LINE__ -&gt; 23</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, __LINE__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __LINE__ -&gt; 24</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__DATE__ = %s<span class="es1">\n</span>&quot;</span>, __DATE__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __DATE__ -&gt; data compilare</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__TIME__ = %s<span class="es1">\n</span>&quot;</span>, __TIME__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __TIME__ -&gt; ora compilare</span>
+&nbsp;
+    foo<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    bar<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+<pre class="code cpp"><span class="co2">#pragma once</span>
+&nbsp;
+<span class="kw4">void</span> foo<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span><span class="sy4">;</span></pre>
+<pre class="code cpp"><span class="co1">// foo.c</span>
+&nbsp;
+<span class="co2">#include &quot;foo.h&quot;</span>
+&nbsp;
+<span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="kw4">void</span> foo<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__FILE__ = %s<span class="es1">\n</span>&quot;</span>, __FILE__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __FILE__ -&gt; &quot;foo.c&quot;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__FUNCTION__ = %s<span class="es1">\n</span>&quot;</span>, __FUNCTION__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __FUNCTION__ -&gt; &quot;foo&quot;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, __LINE__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __LINE__ -&gt; 11</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, __LINE__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __LINE__ -&gt; 12</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, __LINE__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __LINE__ -&gt; 13</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__DATE__ = %s<span class="es1">\n</span>&quot;</span>, __DATE__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __DATE__ -&gt; data compilare</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__TIME__ = %s<span class="es1">\n</span>&quot;</span>, __TIME__<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// __TIME__ -&gt; ora compilare</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Compilăm și rulăm programul (format din mai multe fișiere):
+</p>
+<pre class="code bash">$ <span class="kw2">gcc</span> <span class="re5">-Wall</span> <span class="re5">-Wextra</span> <span class="re5">-o</span> macro_example foo.c macros_example.c
+&nbsp;
+$ .<span class="sy0">/</span>macro_example
+<span class="co0"># logurile din main()</span>
+__FILE__ = macros_example.c
+__FUNCTION__ = main
+__LINE__ = <span class="nu0">22</span>
+__LINE__ = <span class="nu0">23</span>
+__LINE__ = <span class="nu0">24</span>
+__DATE__ = Dec <span class="nu0">23</span> <span class="nu0">2021</span>
+__TIME__ = 09:<span class="nu0">11</span>:<span class="nu0">46</span>
+&nbsp;
+<span class="co0"># logurile din foo()</span>
+__FILE__ = foo.c
+__FUNCTION__ = foo
+__LINE__ = <span class="nu0">11</span>
+__LINE__ = <span class="nu0">12</span>
+__LINE__ = <span class="nu0">13</span>
+__DATE__ = Dec <span class="nu0">23</span> <span class="nu0">2021</span>
+__TIME__ = 09:<span class="nu0">11</span>:<span class="nu0">46</span>
+__FILE__ = macros_example.c
+&nbsp;
+<span class="co0"># logurile din bar()</span>
+__FUNCTION__ = bar
+__LINE__ = <span class="nu0">11</span>
+__LINE__ = <span class="nu0">12</span>
+__LINE__ = <span class="nu0">13</span>
+__DATE__ = Dec <span class="nu0">23</span> <span class="nu0">2021</span>
+__TIME__ = 09:<span class="nu0">11</span>:<span class="nu0">46</span></pre>
+
+<p>
+Observăm că fiecare symbol a fost înlocuit cu valoarea precizată în comentariu (așteptată).
+</p>
+
+<p>
+Putem face o verificare în plus (și vedea care simbol este macro și care este variabilă), compilăm și afișăm rezultatul etapei de preprocesare pentru fiecare fișier de interes:
+</p>
+<pre class="code bash">$ <span class="kw2">gcc</span> <span class="re5">-E</span> <span class="re5">-c</span> macros_example.c <span class="sy0">|</span> <span class="kw2">tail</span> <span class="re5">-26</span>
+void bar<span class="br0">&#40;</span>void<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__FILE__ = %s<span class="es1">\n</span>&quot;</span>, <span class="st0">&quot;macros_example.c&quot;</span><span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__FUNCTION__ = %s<span class="es1">\n</span>&quot;</span>, __FUNCTION__<span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, <span class="nu0">11</span><span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, <span class="nu0">12</span><span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, <span class="nu0">13</span><span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__DATE__ = %s<span class="es1">\n</span>&quot;</span>, <span class="st0">&quot;Dec 23 2021&quot;</span><span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__TIME__ = %s<span class="es1">\n</span>&quot;</span>, <span class="st0">&quot;09:25:43&quot;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+int main<span class="br0">&#40;</span>void<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__FILE__ = %s<span class="es1">\n</span>&quot;</span>, <span class="st0">&quot;macros_example.c&quot;</span><span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__FUNCTION__ = %s<span class="es1">\n</span>&quot;</span>, __FUNCTION__<span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, <span class="nu0">22</span><span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, <span class="nu0">23</span><span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, <span class="nu0">24</span><span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__DATE__ = %s<span class="es1">\n</span>&quot;</span>, <span class="st0">&quot;Dec 23 2021&quot;</span><span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__TIME__ = %s<span class="es1">\n</span>&quot;</span>, <span class="st0">&quot;09:25:43&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    foo<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    bar<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw3">return</span> <span class="nu0">0</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+$ <span class="kw2">gcc</span> <span class="re5">-E</span> <span class="re5">-c</span> foo.c <span class="sy0">|</span> <span class="kw2">tail</span> <span class="re5">-10</span>
+void foo<span class="br0">&#40;</span>void<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__FILE__ = %s<span class="es1">\n</span>&quot;</span>, <span class="st0">&quot;foo.c&quot;</span><span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__FUNCTION__ = %s<span class="es1">\n</span>&quot;</span>, __FUNCTION__<span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, <span class="nu0">11</span><span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, <span class="nu0">12</span><span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__LINE__ = %d<span class="es1">\n</span>&quot;</span>, <span class="nu0">13</span><span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__DATE__ = %s<span class="es1">\n</span>&quot;</span>, <span class="st0">&quot;Dec 23 2021&quot;</span><span class="br0">&#41;</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;__TIME__ = %s<span class="es1">\n</span>&quot;</span>, <span class="st0">&quot;09:25:44&quot;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre>
+
+<p>
+Observăm că <code>__FUNCTION__</code> este o variabilă, prin urmare nu este înlocuită la preprocesare. Celelalte sunt macrouri și se înlocuiesc în prima etapă din compilare.
+</p>
+
+</div>
+<!-- EDIT13 SECTION "De unde luăm metadatele în C?" [15530-21652] -->
+<h3 class="sectionedit14" id="idei_implementare_pclog">Idei implementare pclog</h3>
+<div class="level3">
+
+</div>
+
+<h4 id="pclog_-_functie">pclog() - funcție</h4>
+<div class="level4">
+
+<p>
+Prima idee pe care o avem este să implementăm funcția pclog care să primească toți parametri necesari (inclusiv metadate).
+</p>
+
+<p>
+Funția folosește un număr variabil de paramteri (similar cu printf - <code>man printf</code>):
+</p>
+<pre class="code cpp"><span class="kw4">void</span> pclog<span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">char</span><span class="sy2">*</span> date, <span class="kw4">const</span> <span class="kw4">char</span><span class="sy2">*</span> <span class="kw3">time</span>, <span class="kw4">const</span> <span class="kw4">char</span><span class="sy2">*</span> file, <span class="kw4">const</span> <span class="kw4">char</span><span class="sy2">*</span> func, <span class="kw4">int</span> line, <span class="kw4">const</span> <span class="kw4">char</span><span class="sy2">*</span> format, ...<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+  <span class="co1">// ...</span>
+&nbsp;
+  <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;...&quot;</span>, ...<span class="br0">&#41;</span><span class="sy4">;</span> <span class="co1">// se apelează printf, paremetri nu sunt relevanți în acest exemplu</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Exemple de apelare:
+</p>
+<pre class="code cpp"><span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    pclog<span class="br0">&#40;</span>__DATE__, __TIME__, __FILE__, __FUNCTION__, __LINE__, <span class="st0">&quot;Hello, PC!&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="co1">// ...</span>
+&nbsp;
+    pclog<span class="br0">&#40;</span>__DATE__, __TIME__, __FILE__, __FUNCTION__, __LINE__, <span class="st0">&quot;Hello again, PC!&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Observăm că de fiecare dată când o apelăm trebuie să pasăm cei 5 parametri de metadate, ceea ce îngreunează citirea codului. Putem muta <code>__DATE__</code>, <code>__TIME__</code> și să fie puse automat de funcția <code>pclog()</code>, însă pentru celelalte nu putem face asta (exemplu - <code>__FUNCTION__</code> trebuie folosit în <code>main()</code> dacă vrem să se afișele numele funcției main).
+</p>
+
+</div>
+
+<h4 id="pclog_-_macro">pclog() - macro</h4>
+<div class="level4">
+
+<p>
+Ceea ce ne dorim noi să facem este, în esență, să apelăm <code>printf()</code> cu anumiți parametri, printre care știm sigur că 5 sunt aceste macrouri! De asemenea, putem fixa poziția lor (exemplu primele 5 argumente).
+</p>
+
+<p>
+Totuși, să fie nevoie să scriem de fiecare dată aceiași 5 parametri atunci când vrem să folosim un log, este redundant. Putem folosi un macro, care să primească doar ceea ce dorim să printăm propriu-zis într-un log și acest macro să adauge metadatele în plus, apelând <code>printf</code> cu toate datele.
+</p>
+
+<p>
+Dorim să putem să apelăm <code>pclog()</code> astfel:
+</p>
+<pre class="code cpp"><span class="co1">// exemplu apelare</span>
+<span class="kw4">int</span> year <span class="sy1">=</span> <span class="nu0">2021</span><span class="sy4">;</span>
+pclog<span class="br0">&#40;</span><span class="st0">&quot;Hello, PC %d<span class="es1">\n</span>&quot;</span>, y<span class="br0">&#41;</span><span class="sy4">;</span></pre>
+
+<p>
+Definirea macroului este similară cu definiția unei semnături de funcții,
+</p>
+<pre class="code cpp"><span class="co2">#define pclog(format, year) printf(format, year)</span></pre>
+
+<p>
+adică un macro care are 2 parametri. Acest macro se va înlocui cu un apel de <code>printf</code>.
+</p>
+
+<p>
+Compilăm și rulăm un astfel de exemplu:
+</p>
+<pre class="code cpp"><span class="co1">// 01-pclog_macro.c</span>
+&nbsp;
+<span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="co2">#define pclog(format, year) printf(format, year)</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> n <span class="sy1">=</span> <span class="nu0">2021</span><span class="sy4">;</span>
+    pclog<span class="br0">&#40;</span><span class="st0">&quot;Hello, PC %d!<span class="es1">\n</span>&quot;</span>, n<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+<pre class="code bash">$ <span class="kw2">gcc</span> <span class="re5">-E</span> 01-pclog_macro.c <span class="sy0">|</span> <span class="kw2">tail</span> <span class="re5">-6</span>
+int main<span class="br0">&#40;</span>void<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    int n = <span class="nu0">2021</span>;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;Hello, PC %d!<span class="es1">\n</span>&quot;</span>, n<span class="br0">&#41;</span>;
+    <span class="kw3">return</span> <span class="nu0">0</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+$ <span class="kw2">gcc</span> <span class="re5">-o</span> 01-pclog_macro 01-pclog_macro.c
+&nbsp;
+$ .<span class="sy0">/</span>01-pclog_macro
+Hello, PC <span class="nu0">2021</span><span class="sy0">!</span></pre>
+
+<p>
+Următorul pas este să putem pasa oricâți parametri prin pclog către printf, care deja acceptă un număr variabil de parameri:
+</p>
+<pre class="code cpp"><span class="kw3">printf</span><span class="br0">&#40;</span><span class="kw4">const</span> <span class="kw4">char</span> <span class="sy2">*</span>restrict format, ...<span class="br0">&#41;</span><span class="sy4">;</span></pre>
+
+<p>
+Sintaxa <code>...</code> semnifică număr variabil de parametri (vezi <a href="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab13" class="urlextern" title="https://ocw.cs.pub.ro/courses/programare/laboratoare/lab13"  rel="nofollow">laborator 13</a>) și poate fi folosită și pentru macrouri cu număr variabil de parametri - <a href="https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html" class="urlextern" title="https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html"  rel="nofollow">Variadic Macros - C99</a>.
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>...</code>: semnifică în declararea macroului că poate primi un număr variabil de parametri opționali</div>
+</li>
+<li class="level1"><div class="li"> <code>__VA_ARGS__</code>: este un macro care permite manipularea tuturor acestor parametri opționali.</div>
+</li>
+<li class="level1"><div class="li"> <code>##__VA_ARGS__</code>: înseamnă valoarea acelor argumente și reprezintă expresia pe care o vom transmite lui printf, cu semnificația că toți parametri opționali primiți de <code>pclog</code> vor fi pasați către <code>printf</code>.</div>
+</li>
+</ul>
+
+<p>
+Obținem următoare implementare:
+</p>
+<pre class="code cpp"><span class="co1">// 01-pclog_macro.c</span>
+&nbsp;
+<span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="co2">#define pclog(format, ...) printf(format, ##__VA_ARGS__)</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    pclog<span class="br0">&#40;</span><span class="st0">&quot;Hello, PC<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw4">int</span> n <span class="sy1">=</span> <span class="nu0">2021</span><span class="sy4">;</span>
+    pclog<span class="br0">&#40;</span><span class="st0">&quot;Hello, PC %d!<span class="es1">\n</span>&quot;</span>, n<span class="br0">&#41;</span><span class="sy4">;</span>
+    pclog<span class="br0">&#40;</span><span class="st0">&quot;Hello, PC %d! year = %d!<span class="es1">\n</span>&quot;</span>, n, n<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Compilăm și rulăm:
+</p>
+<pre class="code bash">$ <span class="kw2">gcc</span> <span class="re5">-o</span> 01-pclog_macro 01-pclog_macro.c
+&nbsp;
+$ .<span class="sy0">/</span>01-pclog_macro
+Hello, PC
+Hello, PC <span class="nu0">2021</span><span class="sy0">!</span>
+Hello, PC <span class="nu0">2021</span><span class="sy0">!</span> year = <span class="nu0">2021</span><span class="sy0">!</span></pre>
+
+<p>
+Am reușit să implementăm un macro cu număr variabil de parametri! Trebuie să adaugăm parametri în plus la printf. Obținem următoarea implementare (pe care vom analiza și rula mai jos):
+</p>
+<pre class="code cpp"><span class="co1">// 02-pclog_full_macro.c</span>
+&nbsp;
+<span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="co2">#define pclog(format, ...)                                                     \
+    printf(&quot;%s %s [%s][%s():%d] &quot; format &quot;\n&quot;,                                 \
+           __DATE__, __TIME__, __FILE__, __FUNCTION__, __LINE__,               \
+    ##__VA_ARGS__);</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">int</span> argc, <span class="kw4">char</span> <span class="sy2">**</span>argv<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">char</span> <span class="sy2">*</span>identity <span class="sy1">=</span> argv<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="sy4">;</span>
+&nbsp;
+    pclog<span class="br0">&#40;</span><span class="st0">&quot;Hello, %s!&quot;</span>, identity<span class="br0">&#41;</span><span class="sy4">;</span>
+    pclog<span class="br0">&#40;</span><span class="st0">&quot;Bye, %s!&quot;</span>, identity<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Observații:
+</p>
+<ul>
+<li class="level1"><div class="li"> Dorim să avem în continuare un singur apel de <code>printf</code>.</div>
+<ul>
+<li class="level2"><div class="li"> Parametrul <code>format</code> dat în main trebuie modificat, mai exact ne dorim ca, de exemplu pentru afișarea datei cu <code>__DATE__ __TIME__</code> să adăugăm la început <code>&quot;%s %s&quot;</code>. Analog și pentru celelalte.</div>
+</li>
+<li class="level2"><div class="li"> Deoarece format stringul dat de user este un string literal, iar noi dorim să îl extindem cu alt string literal, putem să solicităm compilatorului să le concateneze dacă le folosim alăturat.</div>
+<ul>
+<li class="level3"><div class="li"> Exemplu - pentru codul <code>printf(&quot;%s %s &quot; &quot;&lt;some_format_string&gt;&quot; &quot;\n&quot;);</code> , deși noi specificăm 3 string literals, deoarece sunt consecutivi (între ei avem doar whitespace), compilatorul concateneaza aceste valori, rezultă un singur string format pe care îl pasează lui printf, codul care urmează a se executa fiind echivalent cu <code>printf(&quot;%s %s &lt;format&gt;\n&quot;);</code>.</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> Metadatele reprezentate de cel 5 valori menționate anterior sunt asociate cu headerul <code>&quot;%s %s [%s][%s():%d]</code> care are semnificația <code>date time [file][function():line]</code>.</div>
+</li>
+<li class="level1"><div class="li"> Deoarece mereu dorim să logăm linii (adică un mesaj care mereu se termină cu newline), putem să adaugăm terminatorul de linie (<code>&#039;\n&#039;</code>) tot din macroul <code>pclog</code>.</div>
+</li>
+<li class="level1"><div class="li"> Putem să să scriem definiția macroului pe mai multe linii mai scurte.</div>
+</li>
+</ul>
+
+<p>
+Compilăm și rulăm:
+</p>
+<pre class="code bash"><span class="co0"># putem observa cum au fost înlocuite macrourile la preprocesare</span>
+$ <span class="kw2">gcc</span> <span class="re5">-E</span> 02-pclog_full_macro.c <span class="sy0">|</span> <span class="kw2">tail</span> <span class="re5">-9</span>
+int main<span class="br0">&#40;</span>int argc, char <span class="sy0">**</span>argv<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    char <span class="sy0">*</span>identity = argv<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span>;
+&nbsp;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;%s %s [%s][%s():%d] &quot;</span> <span class="st0">&quot;Hello, %s!&quot;</span> <span class="st0">&quot;<span class="es1">\n</span>&quot;</span>, <span class="st0">&quot;Dec 23 2021&quot;</span>, <span class="st0">&quot;10:12:23&quot;</span>, <span class="st0">&quot;02-pclog_full_macro.c&quot;</span>, __FUNCTION__, <span class="nu0">12</span>, identity<span class="br0">&#41;</span><span class="sy0">;;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;%s %s [%s][%s():%d] &quot;</span> <span class="st0">&quot;Bye, %s!&quot;</span> <span class="st0">&quot;<span class="es1">\n</span>&quot;</span>, <span class="st0">&quot;Dec 23 2021&quot;</span>, <span class="st0">&quot;10:12:23&quot;</span>, <span class="st0">&quot;02-pclog_full_macro.c&quot;</span>, __FUNCTION__, <span class="nu0">13</span>, identity<span class="br0">&#41;</span><span class="sy0">;;</span>
+&nbsp;
+    <span class="kw3">return</span> <span class="nu0">0</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co0"># rulăm să vedem că rezultatul este cel așteptat</span>
+$ <span class="kw2">gcc</span> <span class="re5">-o</span> 02-pclog_full_macro 02-pclog_full_macro.c
+$ .<span class="sy0">/</span>02-pclog_full_macro
+Dec <span class="nu0">23</span> <span class="nu0">2021</span> <span class="nu0">10</span>:<span class="nu0">12</span>:<span class="nu0">29</span> <span class="br0">&#91;</span>02-pclog_full_macro.c<span class="br0">&#93;</span><span class="br0">&#91;</span>main<span class="br0">&#40;</span><span class="br0">&#41;</span>:<span class="nu0">12</span><span class="br0">&#93;</span> Hello, .<span class="sy0">/</span>02-pclog_full_macro<span class="sy0">!</span>
+Dec <span class="nu0">23</span> <span class="nu0">2021</span> <span class="nu0">10</span>:<span class="nu0">12</span>:<span class="nu0">29</span> <span class="br0">&#91;</span>02-pclog_full_macro.c<span class="br0">&#93;</span><span class="br0">&#91;</span>main<span class="br0">&#40;</span><span class="br0">&#41;</span>:<span class="nu0">13</span><span class="br0">&#93;</span> Bye, .<span class="sy0">/</span>02-pclog_full_macro<span class="sy0">!</span></pre>
+
+<p>
+Mai avem de adăugat o mică opțiune codului nostru - posibilitatea de a activa / dezactiva complet logurile (adică să putem păstra în continuare apelurile de <code>pclog()</code> în cod, dar acestea să fie operații fără efect - adică să nu printeze).
+</p>
+
+<p>
+Pentru aceasta putem să folosim în continuare directivele de preprocesare - dacă un anumit simbol este definit la compilare din linia de comandă, atunci <code>pclog()</code> va loga, altfel nu.
+</p>
+
+<p>
+Vom folosi conveția cu simbolul <code>_DEBUG</code> (prezentată în secțiunea <code>syslog - Exerciții</code>).
+</p>
+<pre class="code cpp"><span class="co1">// 03-pclog_toggle.c</span>
+&nbsp;
+<span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="co2">#ifdef _DEBUG</span>
+&nbsp;
+<span class="co1">// logging enabled - use the actual implementation</span>
+<span class="co2">#define pclog(format, ...)                                                     \
+    printf(&quot;%s %s [%s][%s():%d] &quot; format &quot;\n&quot;,                                 \
+           __DATE__, __TIME__, __FILE__, __FUNCTION__, __LINE__,               \
+    ##__VA_ARGS__);</span>
+&nbsp;
+<span class="co2">#else</span>
+&nbsp;
+<span class="co1">// logging disabled - dummy implementation</span>
+<span class="co2">#define pclog(format, ...)</span>
+&nbsp;
+<span class="co2">#endif</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">int</span> argc, <span class="kw4">char</span> <span class="sy2">**</span>argv<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">char</span> <span class="sy2">*</span>identity <span class="sy1">=</span> argv<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="sy4">;</span>
+&nbsp;
+    pclog<span class="br0">&#40;</span><span class="st0">&quot;Hello, %s!&quot;</span>, identity<span class="br0">&#41;</span><span class="sy4">;</span>
+    pclog<span class="br0">&#40;</span><span class="st0">&quot;Bye, %s!&quot;</span>, identity<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Compilăm și rulăm:
+</p>
+<pre class="code bash"><span class="co0"># compilam mai intai fara sa definim _DEBUG</span>
+<span class="co0"># rezultatul astepta este sa nu logheze</span>
+$ <span class="kw2">gcc</span> <span class="re5">-E</span> 03-pclog_toggle.c <span class="sy0">|</span> <span class="kw2">tail</span> <span class="re5">-9</span>
+int main<span class="br0">&#40;</span>int argc, char <span class="sy0">**</span>argv<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    char <span class="sy0">*</span>identity = argv<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span>;
+&nbsp;
+    ;
+    ;
+&nbsp;
+    <span class="kw3">return</span> <span class="nu0">0</span>;
+<span class="br0">&#125;</span>
+$ <span class="kw2">gcc</span> <span class="re5">-o</span> 03-pclog_toggle 03-pclog_toggle.c
+$ .<span class="sy0">/</span>03-pclog_toggle
+&nbsp;
+<span class="co0"># recompilam cu _DEBUG definit</span>
+<span class="co0"># rezultatul așteptat este să logheze</span>
+$ <span class="kw2">gcc</span> -D_DEBUG <span class="re5">-E</span> 03-pclog_toggle.c <span class="sy0">|</span> <span class="kw2">tail</span> <span class="re5">-9</span>
+int main<span class="br0">&#40;</span>int argc, char <span class="sy0">**</span>argv<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    char <span class="sy0">*</span>identity = argv<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span>;
+&nbsp;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;%s %s [%s][%s():%d] &quot;</span> <span class="st0">&quot;Hello, %s!&quot;</span> <span class="st0">&quot;<span class="es1">\n</span>&quot;</span>, <span class="st0">&quot;Dec 23 2021&quot;</span>, <span class="st0">&quot;10:38:10&quot;</span>, <span class="st0">&quot;03-pclog_toggle.c&quot;</span>, __FUNCTION__, <span class="nu0">24</span>, identity<span class="br0">&#41;</span><span class="sy0">;;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;%s %s [%s][%s():%d] &quot;</span> <span class="st0">&quot;Bye, %s!&quot;</span> <span class="st0">&quot;<span class="es1">\n</span>&quot;</span>, <span class="st0">&quot;Dec 23 2021&quot;</span>, <span class="st0">&quot;10:38:10&quot;</span>, <span class="st0">&quot;03-pclog_toggle.c&quot;</span>, __FUNCTION__, <span class="nu0">25</span>, identity<span class="br0">&#41;</span><span class="sy0">;;</span>
+&nbsp;
+    <span class="kw3">return</span> <span class="nu0">0</span>;
+<span class="br0">&#125;</span>
+$ <span class="kw2">gcc</span> -D_DEBUG <span class="re5">-o</span> 03-pclog_toggle 03-pclog_toggle.c
+$ .<span class="sy0">/</span>03-pclog_toggle
+Dec <span class="nu0">23</span> <span class="nu0">2021</span> <span class="nu0">10</span>:<span class="nu0">38</span>:<span class="nu0">21</span> <span class="br0">&#91;</span>03-pclog_toggle.c<span class="br0">&#93;</span><span class="br0">&#91;</span>main<span class="br0">&#40;</span><span class="br0">&#41;</span>:<span class="nu0">24</span><span class="br0">&#93;</span> Hello, .<span class="sy0">/</span>03-pclog_toggle<span class="sy0">!</span>
+Dec <span class="nu0">23</span> <span class="nu0">2021</span> <span class="nu0">10</span>:<span class="nu0">38</span>:<span class="nu0">21</span> <span class="br0">&#91;</span>03-pclog_toggle.c<span class="br0">&#93;</span><span class="br0">&#91;</span>main<span class="br0">&#40;</span><span class="br0">&#41;</span>:<span class="nu0">25</span><span class="br0">&#93;</span> Bye, .<span class="sy0">/</span>03-pclog_toggle<span class="sy0">!</span>
+$</pre>
+
+</div>
+
+<h4 id="pclogh">pclog.h</h4>
+<div class="level4">
+
+<p>
+Implementarea poate fi aranjată puțin:
+</p>
+<ul>
+<li class="level1"><div class="li"> Folosim convenția conform căreia un macro care are mai multe linii va avea definiția cuprinsă într-un block <code>do - while</code>. Putem vedea astfel de exemple pe pagina de coding style a kernelului Linux, secțiunea <a href="https://www.kernel.org/doc/html/latest/process/coding-style.html#macros-enums-and-rtl" class="urlextern" title="https://www.kernel.org/doc/html/latest/process/coding-style.html#macros-enums-and-rtl"  rel="nofollow">Macros, Enums and RTL</a>.</div>
+</li>
+<li class="level1"><div class="li"> Mutăm implementarea în <code>pclog.h</code>.</div>
+</li>
+</ul>
+
+<p>
+De asemenea, putem să facem și macroul <code>fpclog</code>, echivelentul lui <code>pclog</code>, dar care loghează într-un fișier (<code>FILE*</code>) primit ca parametru. Putem urma modelul <code>printf</code> - <code>fprintf</code>, în care un apel de forma <code>printf(format, ...);</code> este echivalent cu <code>fprintf(stdout, format, ...);</code>. Cu alte cuvinte putem avea logica doar în macroul <code>fpclog</code>, deoarece este mai generic, iar <code>pclog</code> îl va apela tot pe acesta.
+</p>
+<pre class="code cpp"><span class="co1">// pclog.h</span>
+&nbsp;
+<span class="co2">#pragma once</span>
+&nbsp;
+<span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="co2">#ifdef _DEBUG</span>
+&nbsp;
+<span class="co1">// logging enabled - use the actual implementation</span>
+<span class="co2">#define fpclog(log, format, ...)                                      \
+    do                                                                \
+    {                                                                 \
+        fprintf(log, &quot;%s %s [%s][%s():%d] &quot; format &quot;\n&quot;,              \
+                __DATE__, __TIME__, __FILE__, __FUNCTION__, __LINE__, \
+                ##__VA_ARGS__);                                       \
+    } while (0)</span>
+&nbsp;
+<span class="co2">#define pclog(format, ...) fpclog(stdout, format, ##__VA_ARGS__)</span>
+&nbsp;
+<span class="co2">#else</span>
+&nbsp;
+<span class="co1">// logging disabled - dummy implementation</span>
+<span class="co2">#define fpclog(log, format, ...)</span>
+<span class="co2">#define pclog(format, ...)</span>
+&nbsp;
+<span class="co2">#endif</span></pre>
+
+<p>
+Exemple utilizare:
+</p>
+<pre class="code cpp"><span class="co1">// myapp.c</span>
+&nbsp;
+<span class="co2">#include &quot;pclog.h&quot;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> n<span class="sy4">;</span>
+    <span class="kw3">scanf</span><span class="br0">&#40;</span><span class="st0">&quot;%d&quot;</span>, <span class="sy3">&amp;</span>n<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    pclog<span class="br0">&#40;</span><span class="st0">&quot;STDOUT log example - n = %d&quot;</span>, n<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw4">FILE</span> <span class="sy2">*</span><span class="kw3">log</span> <span class="sy1">=</span> <span class="kw3">fopen</span><span class="br0">&#40;</span><span class="st0">&quot;myapp.log&quot;</span>, <span class="st0">&quot;w&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span><span class="kw3">log</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw3">fprintf</span><span class="br0">&#40;</span><span class="kw2">stderr</span>, <span class="st0">&quot;Cannot open file<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+        <span class="kw1">return</span> <span class="sy2">-</span><span class="nu0">1</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    fpclog<span class="br0">&#40;</span><span class="kw3">log</span>, <span class="st0">&quot;Example of log line saved into file - n = %d&quot;</span>, n<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw3">fclose</span><span class="br0">&#40;</span><span class="kw3">log</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Compilăm și rulăm:
+</p>
+<pre class="code bash"><span class="co0"># logging dezactivat (nu definim _DEBUG)</span>
+$ <span class="kw2">gcc</span> <span class="re5">-o</span> myapp myapp.c
+$ .<span class="sy0">/</span>myapp
+<span class="nu0">2021</span>
+&nbsp;
+<span class="co0"># logging activat (definim _DEBUG)</span>
+$ <span class="kw2">gcc</span> -D_DEBUG <span class="re5">-o</span> myapp myapp.c
+$ .<span class="sy0">/</span>myapp
+<span class="nu0">2021</span>
+Dec <span class="nu0">23</span> <span class="nu0">2021</span> <span class="nu0">10</span>:<span class="nu0">49</span>:01 <span class="br0">&#91;</span>myapp.c<span class="br0">&#93;</span><span class="br0">&#91;</span>main<span class="br0">&#40;</span><span class="br0">&#41;</span>:<span class="nu0">8</span><span class="br0">&#93;</span> STDOUT log example - n = <span class="nu0">2021</span></pre>
+
+</div>
+<!-- EDIT14 SECTION "Idei implementare pclog" [21653-33015] -->
+<h3 class="sectionedit15" id="exercitii1">Exerciții</h3>
+<div class="level3">
+
+<p>
+Vă propunem să vă jucați puțin cu implementarea oferită, adaugând funcționalițăți.
+</p>
+<ul>
+<li class="level1"><div class="li"> Adăugați <code>pid</code>-ul procesului curent în liniile de log. Exemplu, pentru procesul cu PID-ul <code>31523</code>, linia din exemplu anterior cu <code>myapp</code>, va arăta astfel:</div>
+</li>
+</ul>
+<pre class="code bash">Dec <span class="nu0">23</span> <span class="nu0">2021</span> <span class="nu0">10</span>:<span class="nu0">58</span>:<span class="nu0">46</span> <span class="nu0">31523</span> <span class="br0">&#91;</span>myapp.c<span class="br0">&#93;</span><span class="br0">&#91;</span>main<span class="br0">&#40;</span><span class="br0">&#41;</span>:<span class="nu0">8</span><span class="br0">&#93;</span> STDOUT log example - n = <span class="nu0">2021</span></pre>
+
+<details>
+
+<p>
+<summary>Hint</summary> <code>man getpid</code>
+</p>
+
+</details>
+<ul>
+<li class="level1"><div class="li"> Schimbați formatul datei / orei afișate, astfel încât o linie de log să arate astfel:</div>
+</li>
+</ul>
+<pre class="code bash"><span class="nu0">2021</span>-<span class="nu0">12</span>-<span class="nu0">23</span> <span class="nu0">11</span>:<span class="nu0">31</span>:<span class="nu0">59</span> <span class="nu0">32855</span> <span class="br0">&#91;</span>myapp.c<span class="br0">&#93;</span><span class="br0">&#91;</span>main<span class="br0">&#40;</span><span class="br0">&#41;</span>:<span class="nu0">10</span><span class="br0">&#93;</span> STDOUT log example - n = <span class="nu0">2021</span></pre>
+
+<details>
+
+<p>
+<summary>Hint</summary> <code>man strftime / localtime</code>
+</p>
+
+</details>
+<ul>
+<li class="level1"><div class="li"> Modificați soluția anterioară să printeze și milisecunda (din <code>struct tm</code>).</div>
+</li>
+</ul>
+<pre class="code bash"><span class="nu0">2021</span>-<span class="nu0">12</span>-<span class="nu0">23</span> <span class="nu0">11</span>:<span class="nu0">31</span>:<span class="nu0">59.123</span> <span class="nu0">32855</span> <span class="br0">&#91;</span>myapp.c<span class="br0">&#93;</span><span class="br0">&#91;</span>main<span class="br0">&#40;</span><span class="br0">&#41;</span>:<span class="nu0">10</span><span class="br0">&#93;</span> STDOUT log example - n = <span class="nu0">2021</span></pre>
+
+<details>
+
+<p>
+<summary>Hint</summary> <code>man gettimeofday / localtime</code>
+</p>
+
+</details>
+<ul>
+<li class="level1"><div class="li"> Extindeți <code>pclog</code> pentru a suporta folosirea de log level (pentru simplitate păstrăm în continuare 2 niveluri: <code>err</code> și <code>debug</code>).</div>
+</li>
+</ul>
+
+<details>
+
+<p>
+<summary>Hint</summary> <code>C enum</code> / <code>man syslog</code>
+</p>
+
+</details>
+
+</div>
+<!-- EDIT15 SECTION "Exerciții" [33016-] --></div>
+</body>
+</html>

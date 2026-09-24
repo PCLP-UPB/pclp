@@ -1,0 +1,17 @@
+label	level	kind	unit	evidence	definition	aliases	man
+long long	2	tip de date	lab02		Tip întreg cu semn de cel puțin 64 de biți; se folosește când valorile depășesc domeniul lui int (de exemplu produse sau sume mari). Se citește și se afișează cu %lld.	long long int;%lld	
+împărțire întreagă	1	noțiune	lab02		Când ambii operanzi ai lui / sunt întregi, rezultatul este câtul (partea fracționară se pierde): 17 / 5 dă 3. Restul se obține cu operatorul %.	împărțirea întreagă;câtul împărțirii;împărțire cu rest	
+lățime de afișare	2	noțiune	lab01		Numărul minim de caractere pe care îl ocupă o valoare afișată cu printf, scris între % și litera de conversie (%5d); cu - valoarea se aliniază la stânga (%-5d), cu 0 se completează cu zerouri (%02d).	lățimea câmpului;aliniere la stânga;%02d;%5d	printf(3)
+precizie de afișare	2	noțiune	lab01	lab06#exemple_de_programe	Numărul de zecimale afișate pentru un număr real, scris după punct în specificatorul de format: %.2f afișează două zecimale (cu rotunjire).	precizia;%.2f	printf(3)
+getchar	2	funcție de bibliotecă	lab01	lab01#interactiunea_program-utilizator	Citește un singur caracter de la intrarea standard și îl întoarce ca int; la sfârșitul intrării întoarce EOF.	getchar()	getchar(3)
+putchar	2	funcție de bibliotecă	lab01	lab01#interactiunea_program-utilizator	Afișează un singur caracter la ieșirea standard.	putchar()	putchar(3)
+%c	1	specificator de format	lab02	lab02#switch	Specificatorul de format pentru un caracter (char) la printf și scanf; la scanf, " %c" (cu spațiu înainte) sare peste spațiile albe.		printf(3)
+%x	2	specificator de format	lab02		Specificatorul de format care afișează un întreg fără semn în baza 16, cu litere mici (%x) sau mari (%X).	%X	printf(3)
+%o	3	specificator de format	lab02		Specificatorul de format care afișează un întreg fără semn în baza 8.		printf(3)
+%%	2	specificator de format	lab02		Secvența din șirul de format al lui printf care afișează caracterul % (un % singur ar începe un specificator).		printf(3)
+cod ASCII	1	noțiune	lab01	lab01#interactiunea_program-utilizator,lab02#tipuri_fundamentale_de_date	Codul numeric al unui caracter în tabela ASCII; în C un char este un număr mic, deci 'A' are valoarea 65 și se pot face calcule cu caractere ('a' + 1 este 'b').	ASCII;codul ASCII;tabela ASCII	
+variabilă locală	1	noțiune	lab03	lab05#pointeri_in_functii	Variabilă declarată în interiorul unei funcții (sau al unui bloc); există doar pe durata apelului și nu este vizibilă din alte funcții.	variabile locale	
+apel de funcție	1	noțiune	lab03	lab03#definirea_si_apelul_unei_functii_in_c	Executarea unei funcții prin numele ei urmat de argumente între paranteze; la final, execuția revine în punctul apelului, cu valoarea returnată.	apelul unei funcții;apelul funcției	
+vector de frecvență	2	tehnică	lab04		Vector în care elementul de pe poziția v numără de câte ori a apărut valoarea v; permite numărarea și sortarea valorilor mici într-o singură parcurgere.	vectorul de frecvență;vector de apariții	
+interclasare	2	tehnică	lab04		Combinarea a doi vectori sortați într-un singur vector sortat, avansând în paralel cu câte un indice în fiecare.	interclasarea;merge	
+număr prim	1	noțiune	lab02		Număr natural mai mare decât 1 care are ca divizori doar pe 1 și pe el însuși; se verifică încercând divizorii până la radicalul numărului.	numere prime;primalitate	

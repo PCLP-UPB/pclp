@@ -1,0 +1,837 @@
+
+    
+
+    <!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>programare:tutoriale:good_practices</title>
+<meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<meta name="date" content="2025-11-04T15:37:50+0200"/>
+<meta name="keywords" content="programare,tutoriale,good_practices"/>
+<link rel="search" type="application/opensearchdescription+xml" href="/courses/lib/exe/opensearch.php" title="CS Open CourseWare"/>
+<link rel="start" href="/courses/"/>
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/courses/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/courses/feed.php?mode=list&amp;ns=programare:tutoriale"/>
+<link rel="alternate" type="text/html" title="Plain HTML" href="/courses/_export/xhtml/programare/tutoriale/good_practices"/>
+<link rel="canonical" href="http://ocw.cs.pub.ro/courses/programare/tutoriale/good_practices"/>
+<link rel="stylesheet" type="text/css" href="/courses/lib/exe/css.php?t=arctic&amp;tseed=1778686624"/>
+<script type="text/javascript">/*<![CDATA[*/var NS='programare:tutoriale';var JSINFO = {"id":"programare:tutoriale:good_practices","namespace":"programare:tutoriale","isadmin":0,"isauth":0};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="/courses/lib/exe/js.php?tseed=1778686624"></script>
+<script type="text/x-mathjax-config">/*<![CDATA[*/MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+        displayMath: [ ["$$","$$"], ["\\[","\\]"] ],
+        processEscapes: true
+    }
+});
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+<script type="text/javascript">/*<![CDATA[*/
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+/*!]]>*/</script>
+<script type="text/javascript">/*<![CDATA[*/
+var pageTracker = _gat._getTracker("UA-38383934-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+/*!]]>*/</script>
+</head>
+<body>
+<div class="dokuwiki export">
+<!-- TOC START -->
+<div id="dw__toc">
+<h3 class="toggle">Table of Contents</h3>
+<div>
+
+<ul class="toc">
+<li class="level1"><div class="li"><a href="#good_practices">Good practices</a></div>
+<ul class="toc">
+<li class="level2"><div class="li"><a href="#cuprins">Cuprins</a></div></li>
+<li class="level2"><div class="li"><a href="#de_ce_cod_organizat">De ce cod organizat?</a></div></li>
+<li class="level2"><div class="li"><a href="#organizare_surse">Organizare surse</a></div>
+<ul class="toc">
+<li class="level3"><div class="li"><a href="#exemplu">Exemplu</a></div></li>
+<li class="level3"><div class="li"><a href="#coding-style">Coding-style</a></div></li>
+<li class="level3"><div class="li"><a href="#modularizare_cod">Modularizare cod</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#de_ce">De ce?</a></div></li>
+<li class="level4"><div class="li"><a href="#cum">Cum?</a></div></li>
+</ul>
+</li>
+<li class="level3"><div class="li"><a href="#tips_tricks">Tips &amp; tricks</a></div>
+<ul class="toc">
+<li class="level4"><div class="li"><a href="#programare_defensiva">Programare defensivă</a></div></li>
+<li class="level4"><div class="li"><a href="#genericitate">Genericitate</a></div></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<h1 class="sectionedit1" id="good_practices">Good practices</h1>
+<div class="level1">
+
+<p>
+<a href="/courses/_detail/pa/new_pa/partners/bitdefender_masterbrand_logo_positive.png?id=programare%3Atutoriale%3Agood_practices" class="media" title="pa:new_pa:partners:bitdefender_masterbrand_logo_positive.png"><img src="/courses/_media/pa/new_pa/partners/bitdefender_masterbrand_logo_positive.png?w=190&amp;tok=01f884" class="medialeft" alt="" width="190" /></a>
+Bitdefender este un lider recunoscut în domeniul securității IT, care oferă soluții superioare de prevenție, detecție și răspuns la incidente de securitate cibernetică. Milioane de sisteme folosite de oameni, companii și instituții guvernamentale sunt protejate de soluțiile companiei, ceea ce face Bitdefender unul dintre cei mai de încredere experți în combaterea amenințărilor informatice, în protejarea intimității și datelor, a identității digitale și în consolidarea rezilienței la atacuri. Compania a inovat constant în domenii precum antimalware, Internetul Lucrurilor, analiză comportamentală și inteligență artificială, iar tehnologiile Bitdefender sunt licențiate către peste 180 dintre cele mai cunoscute branduri de securitate din lume.
+</p>
+
+<p>
+<strong>Resposabili</strong>:
+</p>
+<ul>
+<li class="level1"><div class="li"> Cristi Olaru</div>
+</li>
+<li class="level1"><div class="li"> Cristi Pătrașcu</div>
+</li>
+<li class="level1"><div class="li"> Cristi Popa</div>
+</li>
+<li class="level1"><div class="li"> Darius Neațu</div>
+</li>
+<li class="level1"><div class="li"> Liza Babu</div>
+</li>
+<li class="level1"><div class="li"> Radu Nichita</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT1 SECTION "Good practices" [1-1012] -->
+<h2 class="sectionedit2" id="cuprins">Cuprins</h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a href="#de_ce_cod_organizat" title="programare:tutoriale:good_practices ↵" class="wikilink1">De ce cod organizat?</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#organizare_surse" title="programare:tutoriale:good_practices ↵" class="wikilink1">Organizare surse</a></div>
+<ul>
+<li class="level2"><div class="li"> <a href="#exemplu" title="programare:tutoriale:good_practices ↵" class="wikilink1">Exemplu</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <a href="#coding_style" title="programare:tutoriale:good_practices ↵" class="wikilink1">Coding-Style</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="#modularizare_cod" title="programare:tutoriale:good_practices ↵" class="wikilink1">Modularizare cod</a></div>
+<ul>
+<li class="level2"><div class="li"> <a href="#de_ce" title="programare:tutoriale:good_practices ↵" class="wikilink1">De ce?</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#cum" title="programare:tutoriale:good_practices ↵" class="wikilink1">Cum?</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#faq" title="programare:tutoriale:good_practices ↵" class="wikilink1">FAQ</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#cand_fac_functii" title="programare:tutoriale:good_practices ↵" class="wikilink1">Când fac funcții?</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#cum_aleg_numele_de_functii" title="programare:tutoriale:good_practices ↵" class="wikilink1">Cum aleg numele de funcții?</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#cati_parametri_ar_trebui_sa_aiba_o_functie" title="programare:tutoriale:good_practices ↵" class="wikilink1">Câti parametri ar trebui să aibă o funcție?</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#cand_ar_trebui_sa_am_un_parametru_declarat_const_intr-o_functie" title="programare:tutoriale:good_practices ↵" class="wikilink1">Când ar trebui să am un parametru declarat const într-o funcție?</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#cand_este_bine_sa_trimit_variabile_parametri_la_o_functie_si_cand_nu" title="programare:tutoriale:good_practices ↵" class="wikilink1">Când este bine să trimit variabile parametri la o funcție și când nu?</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <a href="#tips_tricks" title="programare:tutoriale:good_practices ↵" class="wikilink1">Tips &amp; tricks</a></div>
+<ul>
+<li class="level2"><div class="li"> <a href="#programare_defensiva" title="programare:tutoriale:good_practices ↵" class="wikilink1">Programare defensivă</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#genericitate" title="programare:tutoriale:good_practices ↵" class="wikilink1">Genericitate</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="#exemplu_de_functie_generica" title="programare:tutoriale:good_practices ↵" class="wikilink1">Exemplu de funcție generică</a></div>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+Materialul prezent își propune să prezinte câteva din modalitățile prin care putem face codul scris să poate fi <code>înțeles</code> și <code>extins</code> de o altă persoană, precum și câteva modalități de a scrie cod <code>modularizat</code>, ce respectă un anumit stil de <code>coding-style</code>.
+</p>
+<hr />
+
+<p>
+Notă: Lista de bune practici din acest document nu este <code>exhaustivă</code>, ci cuprinde doar câteva din cele mai importante aspecte pentru a scrie <code>clean code</code>.
+</p>
+<hr />
+
+</div>
+<!-- EDIT2 SECTION "Cuprins" [1013-2511] -->
+<h2 class="sectionedit3" id="de_ce_cod_organizat">De ce cod organizat?</h2>
+<div class="level2">
+
+<p>
+Majoritatea aplicațiilor din prezent se scriu în echipă, pe o perioadă mai mare de timp. Astfel, un proiect poate avea anumite caracteristici la început (ce sunt bine definite), dar ulterior se mai pot adăugă noi funcționalițăți (numite și <code>features</code>).
+</p>
+
+<p>
+Este important să cunoaștem bune practici de a scrie cod!
+</p>
+
+<details>
+
+<p>
+<summary> Exemplu lipsă organizare </summary>
+</p>
+
+<p>
+Frecvent, se întâmplă să punem fișierele în primul loc disponibil (de obicei, cele care sunt descărcate vor rămâne în directorul <code>Downloads</code> până ajung în <code>Trash</code> / <code>Recycle Bin</code>). Când e nevoie de un anumit fișier, este foarte posibil să nu îl găsim unde ne așteptăm și să fim nevoiți să alocăm mai mult timp cu căutarea. Similar, în codul scris, puteți să căutați ceva timp o anumită bucată de cod sau puteți să nu mai înțelegeți o funcție (cel mai frecvent: <code>main</code> în care e scrisă toată logica programului) care are foarte multe linii.
+</p>
+
+</details>
+<hr />
+
+<p>
+****Experiment****: salvați un cod sursă C scris la prima temă și comparați-l cu un cod scris peste <code>1 - 7</code> semestre. Încercați să înțelegeți rezolvarea problemei fără a citi cerința.
+</p>
+<hr />
+
+<p>
+Aplicații complexe și care sunt foarte mult folosite în prezent, precum <code>Facebook</code>, <code>Twitter</code>, <code>Instagram</code>, nu au fost concepute să aibă toate opțiunile din prezent, ci au fost extinse de-a lungul timpului. Echipele implicate s-au schimbat / modificat, însă <code>codebase-ul</code> a rămas același (există mai multe motive pentru care se reutilizează / extinde codul de la o aplicație existentă, printre care timpul de dezvoltare și usurința mentinerii unei singure instanțe de cod în producție - cu mici variații).
+</p>
+
+</div>
+<!-- EDIT3 SECTION "De ce cod organizat?" [2512-4395] -->
+<h2 class="sectionedit4" id="organizare_surse">Organizare surse</h2>
+<div class="level2">
+
+<p>
+Scrierea codului unei aplicații complexe presupune un <code>codebase</code> mare, cu multe funcții și structuri folosite. Ținerea acestora într-un singur fișier îngreunează citirea și înțelegerea codului pe termen mai lung.
+</p>
+
+<p>
+<code>Soluția</code> este să mutăm componentele care se ocupă de o anumită parte a aplicației în <code>fișiere separate</code>, pentru a putea <code>urmări</code> mai bine funcții / structuri care au un scop similar (de exemplu, funcțiile care fac operații aritmetice pe matrici ar putea fi într-un fișier separat de funcțiile care se ocupă de prelucrarea imaginilor).
+</p>
+
+<p>
+De multe ori, când lucrăm cu o funcție, dorim să cunoaștem <strong>doar</strong> <code>modul de trimitere</code> al parametrilor, nefiind necesară neapărat înțelegerea modului în care a fost scrisă funcția (de exemplu, pentru funcția <code>fseek</code> ne interesează rezultatul - că se mută cursorul în fișier, nu cum se face acest lucru în sistemul de operare).
+</p>
+
+<p>
+Pentru a <code>delimita</code> partea de implementarea funcției de partea de întelegere a modului de apelare, folosim <code>fișiere sursă</code> (cu extensia <code>.c</code>) și <code>fișiere antet</code> (sau header - cu extensia <code>.h</code>). În <code>fișierele header</code> scriem:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>semnăturile funcțiilor</code></div>
+</li>
+<li class="level1"><div class="li"> tipuri noi de date definite de programator (structuri, uniuni, enum-uri)</div>
+</li>
+<li class="level1"><div class="li"> constante / macrouri</div>
+</li>
+</ul>
+
+<p>
+În <code>fișierele sursă</code> scriem:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>implementările funcțiilor</code> din header</div>
+</li>
+<li class="level1"><div class="li"> implementările altor funcții care sunt folosite doar în fișierul curent (și declarate de obicei cu specificatorul <code>static</code>)</div>
+</li>
+<li class="level1"><div class="li"> alte tipuri de date / constante / macrouri care sunt folosite doar în fișierul în care sunt declarate</div>
+</li>
+</ul>
+
+<p>
+Avantajele folosirii unei organizări logice și structurate în mai multe fișiere ne permite:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>dezvoltare mai rapidă</code> - spargerea codului în mai multe părți contribuie la găsirea, înțelegerea și modificarea părții de cod necesare.</div>
+</li>
+<li class="level1"><div class="li"> <code>reutilizarea codului</code> - diferite “module” de cod pot fi separate în grupuri de fișiere sursă care pot fi ușor integrate și în alte programe.</div>
+</li>
+</ul>
+
+</div>
+<!-- EDIT4 SECTION "Organizare surse" [4396-6553] -->
+<h3 class="sectionedit5" id="exemplu">Exemplu</h3>
+<div class="level3">
+
+<p>
+Presupunem că avem 3 funcții care fac operații asupra unui vector:
+</p>
+<ul>
+<li class="level1"><div class="li"> <code>sum_vector</code> → calculează suma elementelor unui vector v cu n elemente.</div>
+</li>
+<li class="level1"><div class="li"> <code>sort_vector</code> → sortează un vector cu n elemente.</div>
+</li>
+<li class="level1"><div class="li"> <code>print_vector</code> → afișează un vector cu n elemente într-un mod <code>custom</code>.</div>
+</li>
+</ul>
+
+<p>
+Dacă toate funcțiile ar fi implementate în același fișier, el ar arăta similar cu cel de mai jos.
+</p>
+<pre class="code cpp"><span class="co1">// main.c</span>
+<span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="co1">// sum of a vector's elements</span>
+<span class="kw4">int</span> sum_vector<span class="br0">&#40;</span><span class="kw4">int</span> n, <span class="kw4">int</span><span class="sy2">*</span> v<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> sum <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> n<span class="sy4">;</span> <span class="sy2">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        sum <span class="sy2">+</span><span class="sy1">=</span> v<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw1">return</span> sum<span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">// sort a vector</span>
+<span class="kw4">void</span> sort_vector<span class="br0">&#40;</span><span class="kw4">int</span> n, <span class="kw4">int</span><span class="sy2">*</span> v<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> n <span class="sy2">-</span> <span class="nu0">1</span><span class="sy4">;</span> <span class="sy2">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> j <span class="sy1">=</span> i <span class="sy2">+</span> <span class="nu0">1</span><span class="sy4">;</span> j <span class="sy1">&lt;</span> n<span class="sy4">;</span> <span class="sy2">++</span>j<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <span class="kw1">if</span> <span class="br0">&#40;</span>v<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy1">&gt;</span> v<span class="br0">&#91;</span>j<span class="br0">&#93;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                <span class="kw4">int</span> aux <span class="sy1">=</span> v<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy4">;</span>
+                v<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy1">=</span> v<span class="br0">&#91;</span>j<span class="br0">&#93;</span><span class="sy4">;</span>
+                v<span class="br0">&#91;</span>j<span class="br0">&#93;</span> <span class="sy1">=</span> aux<span class="sy4">;</span>
+            <span class="br0">&#125;</span>
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">// print a vector</span>
+<span class="co1">// e.g. &quot;[ 10, 20, 30 ]&quot;</span>
+<span class="kw4">void</span> print_vector<span class="br0">&#40;</span><span class="kw4">int</span> n, <span class="kw4">int</span> <span class="sy2">*</span>v<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;[ &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> n<span class="sy4">;</span> <span class="sy2">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;%d &quot;</span>, v<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;]<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> v<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu0">2</span>, <span class="nu0">3</span>, <span class="nu0">5</span>, <span class="nu0">10</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> n <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>v<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>v<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;Sum is %d<span class="es1">\n</span>&quot;</span>, sum_vector<span class="br0">&#40;</span>n, v<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    sort_vector<span class="br0">&#40;</span>n, v<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;Sorted vector is: &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    print_vector<span class="br0">&#40;</span>n, v<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="co1">// other operations with v</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Ne propunem să avem o structură organizată cu fișiere. Pentru asta, o să creăm un fișier <code>vector.h</code> unde vom pune semnăturile funcțiilor și un fișier <code>vector.c</code> unde vom pune implementările efective ale funcțiilor.
+</p>
+<pre class="code cpp"><span class="co1">// vector.h</span>
+<span class="co2">#pragma once</span>
+&nbsp;
+<span class="co1">// sum of a vector's elements</span>
+<span class="kw4">int</span> sum_vector<span class="br0">&#40;</span><span class="kw4">int</span> n, <span class="kw4">int</span><span class="sy2">*</span> v<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+<span class="co1">// sort a vector</span>
+<span class="kw4">void</span> sort_vector<span class="br0">&#40;</span><span class="kw4">int</span> n, <span class="kw4">int</span><span class="sy2">*</span> v<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+<span class="co1">// print a vector</span>
+<span class="kw4">void</span> print_vector<span class="br0">&#40;</span><span class="kw4">int</span> n, <span class="kw4">int</span> <span class="sy2">*</span>v<span class="br0">&#41;</span><span class="sy4">;</span></pre>
+<pre class="code cpp"><span class="co1">// vector.c</span>
+<span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="co2">#include &quot;vector.h&quot;</span>
+&nbsp;
+<span class="kw4">int</span> sum_vector<span class="br0">&#40;</span><span class="kw4">int</span> n, <span class="kw4">int</span><span class="sy2">*</span> v<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> sum <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> n<span class="sy4">;</span> <span class="sy2">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        sum <span class="sy2">+</span><span class="sy1">=</span> v<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw1">return</span> sum<span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">void</span> sort_vector<span class="br0">&#40;</span><span class="kw4">int</span> n, <span class="kw4">int</span><span class="sy2">*</span> v<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> n <span class="sy2">-</span> <span class="nu0">1</span><span class="sy4">;</span> <span class="sy2">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> j <span class="sy1">=</span> i <span class="sy2">+</span> <span class="nu0">1</span><span class="sy4">;</span> j <span class="sy1">&lt;</span> n<span class="sy4">;</span> j<span class="sy2">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <span class="kw1">if</span> <span class="br0">&#40;</span>v<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy1">&gt;</span> v<span class="br0">&#91;</span>j<span class="br0">&#93;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                <span class="kw4">int</span> tmp <span class="sy1">=</span> v<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy4">;</span>
+                v<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy1">=</span> v<span class="br0">&#91;</span>j<span class="br0">&#93;</span><span class="sy4">;</span>
+                v<span class="br0">&#91;</span>j<span class="br0">&#93;</span> <span class="sy1">=</span> tmp<span class="sy4">;</span>
+            <span class="br0">&#125;</span>
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">void</span> print_vector<span class="br0">&#40;</span><span class="kw4">int</span> n, <span class="kw4">int</span> <span class="sy2">*</span>v<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;[ &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> n<span class="sy4">;</span> <span class="sy2">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;%d &quot;</span>, v<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;]<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<details>
+
+<p>
+<summary> pragma once </summary>
+</p>
+
+<p>
+Observație : <code>pragma once</code> este o directivă preprocesor folosită pentru a spefica ca fișierul să fie inclus o singură date. (pentru a evita diferite probleme cu includeri de fișiere recursiv).
+</p>
+
+</details>
+
+<p>
+În fișierul în care se implementează funcțiile, este <strong>obligatoriu</strong> să includem fișierul header pentru care implementăm funcțiile respective - recomandat chiar pe prima linie, deoarece în funcție de ce simboluri se află în acesta restul sursei se poate compila într-un fel sau altul. În acest exemplu, <code>vector.h</code> este inclus cu <code>&quot;&quot;</code> și nu cu <code>&lt;&gt;</code> pentru a specifica că este vorba de un fișier local, nu dintr-o cale standard, cunoscută de compilator. Orice bibliotecă necesară va fi inclusă în fișierele <code>.h</code> și <code>.c</code> (aici s-a inclus <code>stdio</code> în fișierul <code>vector.c</code> pentru a putea apela funcția <code>printf</code>).
+</p>
+
+<p>
+Fișierul <code>main.c</code> va arăta acum astfel:
+</p>
+<pre class="code cpp"><span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="co2">#include &quot;vector.h&quot;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+&nbsp;
+    <span class="kw4">int</span> v<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu0">2</span>, <span class="nu0">3</span>, <span class="nu0">5</span>, <span class="nu0">10</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> n <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>v<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>v<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;Sum is %d<span class="es1">\n</span>&quot;</span>, sum_vector<span class="br0">&#40;</span>n, v<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    sort_vector<span class="br0">&#40;</span>n, v<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;Sorted vector is: &quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    print_vector<span class="br0">&#40;</span>n, v<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="co1">// other operations with v</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Compilarea se realizează prin rularea comenzii <code>gcc</code> împreună cu toate fișierele <code>.c</code> necesare (pentru compilare nu este nevoie să dăm ca parametri și fișierele header):
+</p>
+<pre class="code bash"><span class="kw2">gcc</span> main.c vector.c <span class="re5">-o</span> main
+.<span class="sy0">/</span>main</pre>
+
+</div>
+<!-- EDIT5 SECTION "Exemplu" [6554-10607] -->
+<h3 class="sectionedit6" id="coding-style">Coding-style</h3>
+<div class="level3">
+
+<p>
+Un aspect important pentru a avea o organizare bună este respectarea convenților de coding-style. Recomandăm parcurgerea tutorialul de <a href="https://ocw.cs.pub.ro/courses/programare/coding-style" class="urlextern" title="https://ocw.cs.pub.ro/courses/programare/coding-style"  rel="nofollow">coding-style</a>
+</p>
+
+</div>
+<!-- EDIT6 SECTION "Coding-style" [10608-10841] -->
+<h3 class="sectionedit7" id="modularizare_cod">Modularizare cod</h3>
+<div class="level3">
+
+</div>
+
+<h4 id="de_ce">De ce?</h4>
+<div class="level4">
+
+<p>
+Dacă tot codul pentru o aplicație ar fi scris într-o singură funcție, el ar fi foarte de greu de extins în cazul în care s-ar implementa o funcționalitate nouă. Majoritatea aplicațiilor importante au câteva sute de mii de linii de cod, iar urmărirea modificării unei variabile de-a lungul programului ar presupune o perioadă lungă de timp.
+</p>
+
+</div>
+
+<h4 id="cum">Cum?</h4>
+<div class="level4">
+
+<p>
+Codul va fi împărțit în mai multe părți, astfel încât să existe o distincție a părților. Partea de citire a datelor ar trebui să fie separată de partea de procesare. Similar, partea de scriere a datelor prelucrate va reprezenta o altă bucată de logică.
+</p>
+
+</div>
+
+<h5 id="faq">FAQ</h5>
+<div class="level5">
+
+</div>
+
+<h5 id="cand_fac_functii">Când fac funcții?</h5>
+<div class="level5">
+
+<p>
+Întotdeauna.
+</p>
+
+</div>
+
+<h5 id="cum_aleg_numele_de_functii">Cum aleg numele de funcții?</h5>
+<div class="level5">
+
+<p>
+Numele funcțiilor ar trebui să definească cât mai bine scopul acesteia.
+</p>
+
+</div>
+
+<h5 id="cati_parametri_ar_trebui_sa_aiba_o_functie">Câti parametri ar trebui să aibă o funcție?</h5>
+<div class="level5">
+
+<p>
+Nu este recomadat ca o funcție să conțină un număr foarte mare de parametri (majoritatea funcțiilor au cel mult 6-7 argumente). Dacă există prea mulți parametri, este dificil să se înțeleagă scopul acelei porțiuni de cod.
+</p>
+
+</div>
+
+<h5 id="cand_ar_trebui_sa_am_un_parametru_declarat_const_intr-o_functie">Când ar trebui să am un parametru declarat const într-o funcție?</h5>
+<div class="level5">
+
+<p>
+Este de preferat ca toți parametri care nu sunt modificați într-o funcție să fie marcați ca și <code>const</code>. Astfel, la încercarea eronată de modificare a acestora, se va genera o eroare de compilare.
+</p>
+
+</div>
+
+<h5 id="cand_este_bine_sa_trimit_variabile_parametri_la_o_functie_si_cand_nu">Când este bine să trimit variabile parametri la o funcție și când nu?</h5>
+<div class="level5">
+
+<p>
+Limbajul <code>C</code> folosește transmiterea prin valoare și nu prin referință a parametrilor unei funcții. Astfel, la apelul unei funcții se face o copie <strong>într-o altă zonă de memorie</strong> a argumentelor.
+</p>
+
+<p>
+De aceea, este important să contorizăm câtă memorie va fi copiată pentru fiecare parametru.
+</p>
+
+<p>
+Disclaimer: valorile menționate mai jos se referă la o arhitectură pe 32 de biți.
+</p>
+
+<p>
+De exemplu, pentru a copia un număr întreg, am avea nevoie de 4 bytes (echivalentul <code>sizeof(int)</code>). În schimb, pentru structura:
+</p>
+<pre class="code cpp"><span class="kw4">typedef</span> <span class="kw4">struct</span> <span class="br0">&#123;</span>
+    <span class="kw4">char</span> firstname<span class="br0">&#91;</span><span class="nu0">20</span><span class="br0">&#93;</span><span class="sy4">;</span>
+    <span class="kw4">char</span> lastname<span class="br0">&#91;</span><span class="nu0">10</span><span class="br0">&#93;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span> student_t<span class="sy4">;</span></pre>
+
+<p>
+ar fi necesară copierea a 30 de bytes dacă se dorește pasarea unei structuri <code>student_t</code> ca parametru. O modalitate de a evita copierea, este pasarea unui pointer la această structură. (sizeof(<code>student_t *</code>) = 4).
+</p>
+
+<p>
+Așadar, pentru structurile în limbajul <code>C</code> se recomandă pasarea lor ca pointer.
+</p>
+
+</div>
+<!-- EDIT7 SECTION "Modularizare cod" [10842-13306] -->
+<h3 class="sectionedit8" id="tips_tricks">Tips &amp; tricks</h3>
+<div class="level3">
+
+</div>
+
+<h4 id="programare_defensiva">Programare defensivă</h4>
+<div class="level4">
+<ul>
+<li class="level1"><div class="li"> Programarea defensivă (<a href="https://en.wikipedia.org/wiki/Defensive_programming" class="urlextern" title="https://en.wikipedia.org/wiki/Defensive_programming"  rel="nofollow">Defensive programming</a>) este o modalitate de a anticipa ce poate să nu funcționeze într-o aplicație în circumstanțe neprevăzute. Astfel, se pot lua anumite decizii ce țin de funcționarea în continuare a aplicației pe baza <strong>erorilor</strong> întâlnite.</div>
+</li>
+</ul>
+
+<p>
+<em>Cum se realizează?</em>
+</p>
+<ul>
+<li class="level1"><div class="li"> prin verificarea valorilor de retur pentru fiecare funcție care întoarce un anumit tip de date (de exemplu, pentru funcțiile de alocare <code>malloc</code> / <code>calloc</code> / <code>realloc</code> sau funcțiile de lucru cu fișiere <code>fopen</code> / <code>fprintf</code> etc).</div>
+</li>
+</ul>
+<pre class="code cpp"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> n, <span class="sy2">*</span>v<span class="sy4">;</span>
+    <span class="kw3">scanf</span><span class="br0">&#40;</span><span class="st0">&quot;%d&quot;</span>, <span class="sy3">&amp;</span>n<span class="br0">&#41;</span><span class="sy4">;</span>
+    v <span class="sy1">=</span> <span class="kw3">malloc</span><span class="br0">&#40;</span>n <span class="sy2">*</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="co1">// check if malloc succeded</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span>v<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw3">fprintf</span><span class="br0">&#40;</span><span class="kw2">stderr</span>, <span class="st0">&quot;malloc failed.<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+        <span class="kw1">return</span> <span class="sy2">-</span><span class="nu0">1</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="co1">// do stuff with v</span>
+&nbsp;
+    <span class="kw3">free</span><span class="br0">&#40;</span>v<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<p>
+Dacă pentru codul de mai sus s-ar omite verificarea valorii de retur pentru funcția <code>malloc</code>, atunci pentru un anumit input (de exemplu, <code>n = -1</code> sau <code>n foarte mare</code>, nu se va putea aloca respectiva zonă de memorie), v va fi <code>NULL</code> (pointează către o zona de memorie invalidă), iar orice operație cu elemente din vectorul v va rezulta în terminarea programului cu <a href="https://en.wikipedia.org/wiki/Segmentation_fault" class="urlextern" title="https://en.wikipedia.org/wiki/Segmentation_fault"  rel="nofollow">Segmentation Fault</a>.
+</p>
+<ul>
+<li class="level1"><div class="li"> prin întoarcerea unui tip dintr-o funcție, care să indice dacă funcția s-a terminat cu success sau nu acest tip poate fi:</div>
+<ul>
+<li class="level2"><div class="li"> <code>int</code> - care indică dacă funcția s-a terminat cu success sau nu (de obicei, o funcție care se termină fără erori ar trebui să întoarca 0, altfel un cod aferent problemei întâmpinate).</div>
+</li>
+</ul>
+</li>
+</ul>
+<pre class="code cpp"><span class="co2">#include &lt;stdio.h&gt;</span>
+&nbsp;
+<span class="co2">#define FILENAME &quot;logs.txt&quot;</span>
+<span class="co2">#define FILE_SUCCESS 0</span>
+<span class="co2">#define FILE_NULL_FILENAME 1</span>
+<span class="co2">#define FILE_INNACESIBLE_FILE 2</span>
+&nbsp;
+<span class="kw4">int</span> write_vector_file<span class="br0">&#40;</span><span class="kw4">int</span> n, <span class="kw4">int</span> <span class="sy2">*</span>v, <span class="kw4">char</span><span class="sy2">*</span> file_name<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>file_name <span class="sy1">==</span> <span class="kw2">NULL</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span> FILE_NULL_FILENAME<span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw4">FILE</span> <span class="sy2">*</span>f <span class="sy1">=</span> <span class="kw3">fopen</span><span class="br0">&#40;</span>file_name, <span class="st0">&quot;wt&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span>f<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw3">fprintf</span><span class="br0">&#40;</span><span class="kw2">stderr</span>, <span class="st0">&quot;Cannot open %s<span class="es1">\n</span>&quot;</span>, file_name<span class="br0">&#41;</span><span class="sy4">;</span>
+        <span class="kw1">return</span> FILE_INNACESIBLE_FILE<span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw3">fprintf</span><span class="br0">&#40;</span>f, <span class="st0">&quot;%d<span class="es1">\n</span>&quot;</span>, n<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> n<span class="sy4">;</span> <span class="sy2">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw3">fprintf</span><span class="br0">&#40;</span>f, <span class="st0">&quot;%d &quot;</span>, v<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw3">fprintf</span><span class="br0">&#40;</span>f, <span class="st0">&quot;<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw3">fclose</span><span class="br0">&#40;</span>f<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">return</span> FILE_SUCCESS<span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> v<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu0">1</span>, <span class="nu0">2</span>, <span class="nu0">3</span>, <span class="nu0">4</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> n <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>v<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>v<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    write_vector_file<span class="br0">&#40;</span>n, v, FILENAME<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+<details>
+
+<p>
+<summary> Alternativă pentru codurile de eroare </summary>
+</p>
+<pre class="code cpp">În loc să facem pentru fiecare eroare un nou define, putem pune toate erorile într<span class="sy2">-</span>un <span class="kw2">enum</span> astfel<span class="sy4">:</span>
+<span class="kw2">enum</span> code <span class="br0">&#123;</span>
+FILE_SUCCESS <span class="sy1">=</span> <span class="nu0">0</span>,
+FILE_NULL_FILENAME,
+FILE_INNACESIBLE_FILE
+<span class="br0">&#125;</span><span class="sy4">;</span></pre>
+
+</details>
+<ul>
+<li class="level1"><div class="li"> <code>pointer</code> - care indică spre o anumită adresă dacă funcția s-a terminat corect sau spre <code>NULL</code> dacă au fost erori pe parcursul execuției funcției.</div>
+</li>
+</ul>
+<pre class="code cpp"><span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+&nbsp;
+<span class="kw4">int</span><span class="sy2">**</span> alloc_matrix<span class="br0">&#40;</span><span class="kw4">int</span> n, <span class="kw4">int</span> m<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+&nbsp;
+    <span class="kw4">int</span> <span class="sy2">**</span>mat <span class="sy1">=</span> <span class="kw3">malloc</span><span class="br0">&#40;</span>n <span class="sy2">*</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span><span class="kw4">int</span> <span class="sy2">*</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span>mat<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span> <span class="kw2">NULL</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> n<span class="sy4">;</span> <span class="sy2">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        mat<span class="br0">&#91;</span>i<span class="br0">&#93;</span> <span class="sy1">=</span> <span class="kw3">malloc</span><span class="br0">&#40;</span>m <span class="sy2">*</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+        <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span>mat<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> j <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> j <span class="sy1">&lt;</span> i<span class="sy4">;</span> <span class="sy2">++</span>j<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                <span class="kw3">free</span><span class="br0">&#40;</span>mat<span class="br0">&#91;</span>j<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+            <span class="br0">&#125;</span>
+            <span class="kw3">free</span><span class="br0">&#40;</span>mat<span class="br0">&#41;</span><span class="sy4">;</span>
+            <span class="kw1">return</span> <span class="kw2">NULL</span><span class="sy4">;</span>
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">return</span> mat<span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">void</span> free_matrix<span class="br0">&#40;</span><span class="kw4">int</span> n, <span class="kw4">int</span> m, <span class="kw4">int</span><span class="sy2">**</span> mat<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> n<span class="sy4">;</span> <span class="sy2">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw3">free</span><span class="br0">&#40;</span>mat<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw3">free</span><span class="br0">&#40;</span>mat<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> n, m<span class="sy4">;</span>
+    <span class="kw3">scanf</span><span class="br0">&#40;</span><span class="st0">&quot;%d%d&quot;</span>, <span class="sy3">&amp;</span>n, <span class="sy3">&amp;</span>m<span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw4">int</span> <span class="sy2">**</span>mat <span class="sy1">=</span> alloc_matrix<span class="br0">&#40;</span>n, m<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy3">!</span>mat<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw3">fprintf</span><span class="br0">&#40;</span><span class="kw2">stderr</span>, <span class="st0">&quot;alloc_matrix failed<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+        <span class="kw1">return</span> <span class="sy2">-</span><span class="nu0">1</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="co1">// do stuff with mat</span>
+&nbsp;
+    free_matrix<span class="br0">&#40;</span>n, m, mat<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+</div>
+
+<h4 id="genericitate">Genericitate</h4>
+<div class="level4">
+<ul>
+<li class="level1"><div class="li"> <em>Ce înseamnă?</em></div>
+<ul>
+<li class="level2"><div class="li"> Un cod este <code>generic</code> dacă funcționează pentru mai multe tipuri de date. Un exemplu de funcție generică este <code>memcpy</code> care copiază n bytes de la sursă la destinație (nu contează dacă datele / bytes copiate(i) reprezintă valori de tipul <code>int</code>, <code>float</code>, <code>double</code>, struct etc).</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <em>De ce codul ar trebui să fie cât mai generic?</em></div>
+<ul>
+<li class="level2"><div class="li"> Pentru a evita codul duplicat (de exemplu, la un algoritm de sortare, ne dorim să meargă pentru orice tip de date, nu doar pentru <code>int</code>).</div>
+</li>
+<li class="level2"><div class="li"> Pentru a extinde și adapta ușor funcționalitatea respectivă într-un alt context.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <em>Când scriem cod generic</em>?</div>
+<ul>
+<li class="level2"><div class="li"> Întotdeauna.</div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+<h5 id="exemplu_de_functie_generica">Exemplu de funcție generică</h5>
+<div class="level5">
+
+<p>
+Dorim să realizăm o funcție de sortare care să funcționeze pentru mai multe tipuri de date. Pentru sortarea de numere întregi, comparativ cu sortarea de șiruri de caractere diferă modul de comparare (<code>&gt;</code> vs <code>strcmp</code>) și modul de interschimbare a două elemente. Acestea sunt elementele specifice comparării și în funcția generică ar trebui să fie independente de elementele comparate.
+</p>
+
+<p>
+Avem nevoie așadar de:
+</p>
+<ul>
+<li class="level1"><div class="li"> un mecanism de comparare a două valori de orice tip;</div>
+</li>
+</ul>
+
+<p>
+Pentru a compara două valori de orice tip, este suficient să dăm ca parametru un <code>pointer la o funcție de comparare</code>, ce va fi implementată pentru fiecare tip de comparare (adică dacă se dorește sortarea unui vector de numere întregi, se va face o funcție <code>compare_ints</code>, pentru un vector de șiruri de caractere se va face o funcție <code>compare_strings</code> ș.a.m.d).
+</p>
+<ul>
+<li class="level1"><div class="li"> un mecanism de interschimbare a două valori de orice tip;</div>
+</li>
+</ul>
+
+<p>
+Pentru a interschimba două valori de orice tip, ar trebui să ne gândim ce înseamnă a interschimba un element <code>v[i]</code> cu un alt element <code>v[j]</code>? Cum v este de tipul <code>void*</code>, nu este permis să folosim <code>v[i]</code>,deoarece printr-un pointer <code>void*</code> nu știm ce elemente avem. Însă, cunoaștem dimensiunea unui <code>singur</code> element din vector - <code>elem_size</code>, putem determina adresa de început al celui de-al i-lea element din vector, care va fi la <code>v + i * elem_size</code> . Pentru a interschimba valorile, vom copia cu funcția <code>memcpy</code> un număr de <code>elem_size</code> bytes de la adresa determinată pentru elementul <code>i</code> într-un buffer temporar (similar cu <code>temp = v[i];</code>), apoi copiem de la adresa corespunzătoare lui <code>j</code> la cea a lui <code>i</code> (similar cu <code>v[i] = v[j];</code>, apoi din bufferul temporar la adresa corespunzătoare lui j (similar cu <code>v[j] = tmp;</code>).
+</p>
+
+<p>
+O posibilă implementare a funcției este următoarea:
+</p>
+<pre class="code c"><span class="co1">// generic_sort.c</span>
+&nbsp;
+<span class="kw4">void</span> sort_vector<span class="br0">&#40;</span><span class="kw4">int</span> n<span class="sy0">,</span> <span class="kw4">void</span> <span class="sy0">*</span>v<span class="sy0">,</span> <span class="kw4">int</span> elem_size<span class="sy0">,</span> <span class="kw4">int</span> <span class="br0">&#40;</span><span class="sy0">*</span>compare_function<span class="br0">&#41;</span><span class="br0">&#40;</span><span class="kw4">void</span> <span class="sy0">*,</span> <span class="kw4">void</span> <span class="sy0">*</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+&nbsp;
+    <span class="kw4">char</span> <span class="sy0">*</span>tmp <span class="sy0">=</span> <a href="http://www.opengroup.org/onlinepubs/009695399/functions/malloc.html"><span class="kw3">malloc</span></a><span class="br0">&#40;</span>elem_size<span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span>tmp<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> n <span class="sy0">-</span> <span class="nu0">1</span><span class="sy0">;</span> <span class="sy0">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> j <span class="sy0">=</span> i <span class="sy0">+</span> <span class="nu0">1</span><span class="sy0">;</span> j <span class="sy0">&lt;</span> n<span class="sy0">;</span> j<span class="sy0">++</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <span class="kw4">void</span> <span class="sy0">*</span>vi <span class="sy0">=</span> <span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy0">*</span><span class="br0">&#41;</span>v <span class="sy0">+</span> i <span class="sy0">*</span> elem_size<span class="sy0">;</span> <span class="co1">// address of the i-th element from vector &lt;=&gt; &amp;v[i]</span>
+            <span class="kw4">void</span> <span class="sy0">*</span>vj <span class="sy0">=</span> <span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy0">*</span><span class="br0">&#41;</span>v <span class="sy0">+</span> j <span class="sy0">*</span> elem_size<span class="sy0">;</span> <span class="co1">// address of the j-th element from vector &lt;=&gt; &amp;v[j]</span>
+            <span class="kw1">if</span> <span class="br0">&#40;</span>compare_function<span class="br0">&#40;</span>vi<span class="sy0">,</span> vj<span class="br0">&#41;</span> <span class="sy0">&gt;</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                <a href="http://www.opengroup.org/onlinepubs/009695399/functions/memcpy.html"><span class="kw3">memcpy</span></a><span class="br0">&#40;</span>tmp<span class="sy0">,</span> vj<span class="sy0">,</span> elem_size<span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// tmp = v[j];</span>
+                <a href="http://www.opengroup.org/onlinepubs/009695399/functions/memcpy.html"><span class="kw3">memcpy</span></a><span class="br0">&#40;</span>vj<span class="sy0">,</span> vi<span class="sy0">,</span> elem_size<span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// v[j] = v[i];</span>
+                <a href="http://www.opengroup.org/onlinepubs/009695399/functions/memcpy.html"><span class="kw3">memcpy</span></a><span class="br0">&#40;</span>vi<span class="sy0">,</span> tmp<span class="sy0">,</span> elem_size<span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// v[i] = tmp;</span>
+            <span class="br0">&#125;</span>
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <a href="http://www.opengroup.org/onlinepubs/009695399/functions/free.html"><span class="kw3">free</span></a><span class="br0">&#40;</span>tmp<span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+
+<details>
+
+<p>
+<summary> Spoiler program C care testează funcția de sortare generică </summary>
+</p>
+<pre class="code cpp"><span class="co1">// generic_sort_example.c</span>
+<span class="co2">#include &lt;stdio.h&gt;</span>
+<span class="co2">#include &lt;stdlib.h&gt;</span>
+<span class="co2">#include &lt;string.h&gt;</span>
+&nbsp;
+<span class="kw4">void</span> sort_vector<span class="br0">&#40;</span><span class="kw4">int</span> n, <span class="kw4">void</span> <span class="sy2">*</span>v, <span class="kw4">int</span> elem_size, <span class="kw4">int</span> <span class="br0">&#40;</span><span class="sy2">*</span>compare_function<span class="br0">&#41;</span><span class="br0">&#40;</span><span class="kw4">void</span> <span class="sy2">*</span>, <span class="kw4">void</span> <span class="sy2">*</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+<span class="co1">// this function will only be used for comparing integers.</span>
+<span class="kw4">int</span> compare_ints<span class="br0">&#40;</span><span class="kw4">void</span> <span class="sy2">*</span>ptr_a, <span class="kw4">void</span> <span class="sy2">*</span>ptr_b<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// here we know that ptr_a and ptr_b ar pointer to addreses where we have ints stored</span>
+    <span class="co1">// so it's safe to cast and dereference, in order to get the int value!</span>
+    <span class="kw4">int</span> a <span class="sy1">=</span> <span class="sy2">*</span><span class="br0">&#40;</span><span class="kw4">int</span> <span class="sy2">*</span><span class="br0">&#41;</span> ptr_a<span class="sy4">;</span> <span class="co1">// get first value - a</span>
+    <span class="kw4">int</span> b <span class="sy1">=</span> <span class="sy2">*</span><span class="br0">&#40;</span><span class="kw4">int</span> <span class="sy2">*</span><span class="br0">&#41;</span> ptr_b<span class="sy4">;</span> <span class="co1">// get second value - b</span>
+    <span class="kw1">return</span> a <span class="sy1">&gt;</span> b<span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">// this function will only be used for comparing doubles.</span>
+<span class="kw4">int</span> compare_doubles<span class="br0">&#40;</span><span class="kw4">void</span> <span class="sy2">*</span>ptr_a, <span class="kw4">void</span> <span class="sy2">*</span>ptr_b<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// here we know that ptr_a and ptr_b ar pointer to addreses where we have doubles stored</span>
+    <span class="co1">// so it's safe to cast and dereference, in order to get the double value!</span>
+    <span class="kw4">double</span> a <span class="sy1">=</span> <span class="sy2">*</span><span class="br0">&#40;</span><span class="kw4">double</span> <span class="sy2">*</span><span class="br0">&#41;</span> ptr_a<span class="sy4">;</span> <span class="co1">// get first value - a</span>
+    <span class="kw4">double</span> b <span class="sy1">=</span> <span class="sy2">*</span><span class="br0">&#40;</span><span class="kw4">double</span> <span class="sy2">*</span><span class="br0">&#41;</span> ptr_b<span class="sy4">;</span> <span class="co1">// get second value - b</span>
+    <span class="kw1">return</span> a <span class="sy1">&gt;</span> b<span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">// this function will only be used for comparing strings.</span>
+<span class="kw4">int</span> compare_strings<span class="br0">&#40;</span><span class="kw4">void</span> <span class="sy2">*</span>ptr_a, <span class="kw4">void</span> <span class="sy2">*</span>ptr_b<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// here we know that ptr_a and ptr_b ar pointer to addreses where we have char* stored</span>
+    <span class="co1">// so it's safe to cast and dereference, in order to get the char* value!</span>
+    <span class="kw4">char</span> <span class="sy2">*</span>a <span class="sy1">=</span> <span class="sy2">*</span><span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy2">**</span><span class="br0">&#41;</span> ptr_a<span class="sy4">;</span> <span class="co1">// get first value - a</span>
+    <span class="kw4">char</span> <span class="sy2">*</span>b <span class="sy1">=</span> <span class="sy2">*</span><span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy2">**</span><span class="br0">&#41;</span> ptr_b<span class="sy4">;</span> <span class="co1">// get second value - b</span>
+    <span class="kw1">return</span> <span class="kw3">strcmp</span><span class="br0">&#40;</span>a, b<span class="br0">&#41;</span><span class="sy4">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw4">int</span> main<span class="br0">&#40;</span><span class="kw4">void</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw4">int</span> v<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu0">2</span>, <span class="nu0">10</span>, <span class="sy2">-</span><span class="nu0">3</span>, <span class="nu0">7</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> size_v <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>v<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>v<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    sort_vector<span class="br0">&#40;</span>size_v, v, <span class="kw3">sizeof</span><span class="br0">&#40;</span><span class="kw4">int</span><span class="br0">&#41;</span>, compare_ints<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> size_v<span class="sy4">;</span> <span class="sy2">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;%d &quot;</span>, v<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw4">double</span> w<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="nu16">2.3</span>, <span class="nu16">10.3</span>, <span class="sy2">-</span><span class="nu16">3.04</span>, <span class="nu16">7.02</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> size_w <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>w<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>w<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    sort_vector<span class="br0">&#40;</span>size_w, w, <span class="kw3">sizeof</span><span class="br0">&#40;</span><span class="kw4">double</span><span class="br0">&#41;</span>, compare_doubles<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> size_w<span class="sy4">;</span> <span class="sy2">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;%lf &quot;</span>, w<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw4">char</span> <span class="sy2">*</span>z<span class="br0">&#91;</span><span class="br0">&#93;</span> <span class="sy1">=</span> <span class="br0">&#123;</span><span class="st0">&quot;this&quot;</span>, <span class="st0">&quot;is&quot;</span>, <span class="st0">&quot;an&quot;</span>, <span class="st0">&quot;example&quot;</span><span class="br0">&#125;</span><span class="sy4">;</span>
+    <span class="kw4">int</span> size_z <span class="sy1">=</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>z<span class="br0">&#41;</span> <span class="sy2">/</span> <span class="kw3">sizeof</span><span class="br0">&#40;</span>z<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    sort_vector<span class="br0">&#40;</span>size_z, z, <span class="kw3">sizeof</span><span class="br0">&#40;</span><span class="kw4">char</span> <span class="sy2">*</span><span class="br0">&#41;</span>, compare_strings<span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw4">int</span> i <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span> i <span class="sy1">&lt;</span> size_z<span class="sy4">;</span> <span class="sy2">++</span>i<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;%s &quot;</span>, z<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw3">printf</span><span class="br0">&#40;</span><span class="st0">&quot;<span class="es1">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy4">;</span>
+<span class="br0">&#125;</span></pre>
+
+</details>
+
+</div>
+<!-- EDIT8 SECTION "Tips & tricks" [13307-] --></div>
+</body>
+</html>

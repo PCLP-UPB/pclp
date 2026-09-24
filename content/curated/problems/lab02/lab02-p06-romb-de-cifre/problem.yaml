@@ -1,0 +1,49 @@
+id: lab02-p06-romb-de-cifre
+lab: lab02
+number: 6
+title: "Romb de cifre"
+difficulty: 3
+estimated_minutes: 25
+concepts: [for, buclă imbricată, putchar, operator condițional]
+statement: |
+  Pentru afișul Balului Bobocilor, un student vrea să „deseneze” în consolă un romb
+  din cifre. Pentru un număr `n`, rombul are `2n − 1` linii. Pe linia de lățime `k`
+  se află, în ordine: `n − k` spații, cifrele `1 2 … k` (lipite), apoi cifrele
+  `k−1 … 2 1` (lipite). Lățimea crește de la 1 la `n` pe primele `n` linii, apoi scade
+  înapoi la 1.
+
+  **Date de intrare**
+
+  Un număr natural `n`.
+
+  **Date de ieșire**
+
+  Cele `2n − 1` linii ale rombului, fără spații după ultima cifră.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 9`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4
+  ```
+
+  Ieșire:
+  ```
+     1
+    121
+   12321
+  1234321
+   12321
+    121
+     1
+  ```
+hints:
+  - "Rombul este format din două triunghiuri: unul care crește (liniile 1..n) și unul care scade. Fiecare linie are aceeași structură: spații, cifre crescătoare, cifre descrescătoare."
+  - "Folosește o buclă exterioară pentru linii și, în interiorul ei, trei bucle mici: una pentru spații, una pentru 1..k și una pentru k−1..1."
+  - "Poți parcurge liniile 1..2n−1 cu o singură buclă, calculând lățimea k = linie dacă linie ≤ n, altfel k = 2n − linie. Numărul de spații este n − k."
+pitfalls:
+  - "Linia din mijloc (lățimea n) trebuie să apară o singură dată."

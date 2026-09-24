@@ -1,0 +1,93 @@
+id: lab03-p07-automat-cafea
+lab: lab03
+number: 7
+title: "Automatul de cafea din EC"
+difficulty: 3
+estimated_minutes: 30
+concepts: [static, variabilă locală, funcție, switch, clasă de stocare]
+statement: |
+  Automatul de cafea din holul corpului EC primește trei tipuri de comenzi:
+
+  - `A x` — un tehnician alimentează automatul cu `x` cafele; se afișează `Stoc: S`,
+    unde `S` este stocul după alimentare;
+  - `C x` — un student cere `x` cafele. Dacă stocul este suficient, cafelele se scad din
+    stoc, se emite un bon nou (bonurile se numerotează de la 1) și se afișează
+    `Bon #B: x cafele`. Altfel, comanda este refuzată, nu se emite bon și se afișează
+    `Refuzat: doar S in stoc`;
+  - `R` — raport: se afișează `Raport: S in stoc, B bonuri`, unde `B` este numărul de
+    bonuri emise până atunci.
+
+  La pornire, automatul este gol și nu a emis niciun bon.
+
+  **Cerință de implementare:** starea automatului (stocul și numărul de bonuri) trebuie
+  păstrată în **variabile locale statice** din două funcții, nu în variabile globale și
+  nici în `main`:
+
+  - `int stoc(int delta)` — adaugă `delta` la stoc (poate fi negativ sau 0) și întoarce
+    stocul nou;
+  - `int bonuri(int emite)` — dacă `emite` este nenul, emite un bon nou; întoarce numărul
+    de bonuri emise până acum.
+
+  **Date de intrare**
+
+  Pe prima linie, numărul de comenzi `n`. Pe fiecare dintre următoarele `n` linii, o
+  comandă, în formatul de mai sus.
+
+  **Date de ieșire**
+
+  Câte o linie pentru fiecare comandă, conform descrierii.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 10 000`
+  - `1 ≤ x ≤ 1000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  7
+  C 1
+  A 10
+  C 3
+  C 8
+  C 7
+  R
+  A 5
+  ```
+
+  Ieșire:
+  ```
+  Refuzat: doar 0 in stoc
+  Stoc: 10
+  Bon #1: 3 cafele
+  Refuzat: doar 7 in stoc
+  Bon #2: 7 cafele
+  Raport: 0 in stoc, 2 bonuri
+  Stoc: 5
+  ```
+starter: |
+  #include <stdio.h>
+
+  int stoc(int delta)
+  {
+  	/* TODO: o variabilă locală static */
+  }
+
+  int bonuri(int emite)
+  {
+  	/* TODO: o variabilă locală static */
+  }
+
+  int main(void)
+  {
+  	/* TODO: citește n comenzi; pentru fiecare, un switch după literă */
+  	return 0;
+  }
+hints:
+  - "O variabilă locală declarată static nu dispare la ieșirea din funcție: la următorul apel are valoarea lăsată de apelul anterior. Este inițializată o singură dată (implicit cu 0)."
+  - "Cum afli stocul fără să-l modifici? Apelează stoc cu delta = 0. La fel, bonuri(0) doar raportează."
+  - "Pentru C x: dacă x ≤ stoc(0), apelezi stoc(-x) și afișezi numărul întors de bonuri(1), altfel afișezi refuzul cu stoc(0). Citește litera comenzii cu \" %c\", iar numărul doar pentru A și C."
+pitfalls:
+  - "Fără static, variabila este re-creată la fiecare apel și stocul pare mereu gol."
+  - "O comandă refuzată nu consumă un număr de bon."

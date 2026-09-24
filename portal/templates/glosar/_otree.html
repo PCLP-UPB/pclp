@@ -1,0 +1,1 @@
+<li><a class="tl l{{ n.c.level }}" href="/termen/{{ n.c.id }}/" data-t="{{ n.c.id }}">{{ n.c.label }}</a>{% if n.kids %}<ul>{% for n in n.kids %}{% include "glosar/_otree.html" with n=n %}{% endfor %}</ul>{% endif %}</li>

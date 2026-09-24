@@ -1,0 +1,35 @@
+#!/bin/bash
+# Face persistente (între `docker compose down/up`) directoarele de stare ale uneltelor AI și ale
+# code-server, mutându-le în ~/work/.pclp/state/home/ (ignorat de git — NU intră în predare).
+set -u
+H=/home/student
+S="${PCLP_STATE:-$H/work/.pclp/state}/home"
+mkdir -p "$S"
+
+link_dir() {  # link_dir <cale relativă la $HOME>
+    local rel=$1 src="$H/$1" dst="$S/$1"
+    mkdir -p "$(dirname "$dst")" "$(dirname "$src")"
+    if [ -L "$src" ]; then
+        [ "$(readlink "$src")" = "$dst" ] && { mkdir -p "$dst"; return; }
+        rm -f "$src"
+    elif [ -d "$src" ]; then
+        # există deja în imagine/container: mută conținutul în state (fără suprascriere)
+        mkdir -p "$dst"; cp -an "$src/." "$dst/" 2>/dev/null; rm -rf "$src"
+    fi
+    mkdir -p "$dst"
+    ln -s "$dst" "$src"
+}
+
+link_file() {  # link_file <cale relativă la $HOME>
+    local rel=$1 src="$H/$1" dst="$S/$1"
+    mkdir -p "$(dirname "$dst")"
+    if [ -L "$src" ]; then return; fi
+    if [ -f "$src" ] && [ ! -e "$dst" ]; then mv "$src" "$dst"; fi
+    rm -f "$src"
+    ln -s "$dst" "$src"
+}
+
+for d in .continue .gemini .claude .codex .npm-global; do link_dir "$d"; done
+link_file .claude.json
+chmod 700 "$S" 2>/dev/null || true
+exit 0

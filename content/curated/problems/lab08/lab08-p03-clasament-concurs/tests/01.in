@@ -1,0 +1,12 @@
+3
+Pointerii
+Segfault
+NullTerminators
+7
+12 Segfault A WA
+20 Pointerii A OK
+25 Segfault A OK
+40 NullTerminators B OK
+55 Pointerii B WA
+61 Segfault C OK
+90 Pointerii B OK

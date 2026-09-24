@@ -1,0 +1,72 @@
+id: lab08-p01-teren-poligon
+lab: lab08
+number: 1
+title: "Măsurarea unui teren"
+difficulty: 1
+estimated_minutes: 20
+concepts: [structură, typedef, operatorul de acces la membru, vector de structuri]
+statement: |
+  Un topograf a măsurat colțurile unui teren și le-a notat, în ordine, ca puncte cu coordonate întregi (în metri). Terenul este un poligon simplu (laturile nu se intersectează), cu vârfurile date în ordinea parcurgerii conturului; ultimul vârf se leagă de primul.
+
+  Calculați perimetrul, aria și sensul în care au fost date vârfurile.
+
+  Definiți tipul:
+
+  ```c
+  typedef struct {
+      int x;
+      int y;
+  } Punct;
+  ```
+
+  și implementați funcțiile:
+
+  ```c
+  double distanta(Punct a, Punct b);
+  double perimetru(const Punct *p, int n);
+  long long arie_dubla_cu_semn(const Punct *p, int n);
+  ```
+
+  Aria cu semn se calculează cu formula lui Gauss: `2·A = Σ (x_i · y_{i+1} − x_{i+1} · y_i)`, unde după ultimul vârf urmează primul. Dacă rezultatul e pozitiv, vârfurile sunt în sens trigonometric (invers acelor de ceasornic), altfel în sens orar.
+
+  **Date de intrare**
+
+  Pe prima linie `n`, apoi `n` linii cu câte două întregi `x y`.
+
+  **Date de ieșire**
+
+  ```
+  perimetru: <cu 3 zecimale>
+  arie: <aria, cu exact o zecimala>
+  sens: <trigonometric sau orar>
+  ```
+
+  **Restricții**
+
+  - `3 ≤ n ≤ 1000`, `|x|, |y| ≤ 10000`
+  - aria poligonului este nenulă
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4
+  0 0
+  4 0
+  4 3
+  0 3
+  ```
+
+  Ieșire:
+  ```
+  perimetru: 14.000
+  arie: 12.0
+  sens: trigonometric
+  ```
+hints:
+  - "O structură grupează coordonatele unui punct; un vector de `Punct` ține tot poligonul. Câmpurile se accesează cu `.`: `v[i].x`."
+  - "La perimetru și la arie, vârful de după `i` este `(i + 1) % n` — astfel ultimul se leagă automat de primul."
+  - "Dublul ariei este un număr întreg: calculează-l în `long long`. Aria este jumătate din valoarea absolută, deci se termină mereu în `.0` sau `.5`; sensul se deduce din semn."
+pitfalls:
+  - "Fără latura dintre ultimul și primul vârf, și perimetrul, și aria ies greșite."
+  - "Produsele de coordonate pot depăși `int` când se adună — folosește `long long`."

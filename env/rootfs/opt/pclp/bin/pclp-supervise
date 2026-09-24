@@ -1,0 +1,78 @@
+#!/bin/bash
+# Supervizor minimal: pornește serviciile și le repornește dacă se opresc.
+set -u
+W=/home/student/work
+STATE="${PCLP_STATE:-$W/.pclp/state}"
+LOGDIR="$STATE/logs"
+mkdir -p "$LOGDIR" "$STATE/code-server/Machine"
+touch "$LOGDIR/watch.log" "$LOGDIR/portal.log" "$LOGDIR/code-server.log"
+
+pids=()
+say() { echo "[pclp $(date '+%F %T')] $*"; }
+
+supervise() {  # supervise <nume> <comandă...>
+    local name=$1; shift
+    (
+        child=
+        trap '[ -n "$child" ] && kill "$child" 2>/dev/null; exit 0' TERM INT
+        fails=0
+        while true; do
+            start=$SECONDS
+            say "pornesc $name"
+            "$@" >>"$LOGDIR/$name.log" 2>&1 &
+            child=$!
+            wait "$child"
+            ec=$?
+            say "$name s-a oprit (cod $ec); repornesc"
+            if (( SECONDS - start < 10 )); then fails=$((fails + 1)); else fails=0; fi
+            sleep $(( fails > 5 ? 30 : 2 )) &   # în fundal, ca TERM să fie tratat imediat
+            child=$!
+            wait "$child"
+        done
+    ) &
+    pids+=($!)
+}
+
+run_portal() {
+    export PCLP_WORK=$W PCLP_CONTENT=${PCLP_CONTENT:-/opt/pclp/content/build} PCLP_STATE=$STATE
+    /opt/pclp/venv/bin/python /opt/pclp/portal/manage.py migrate --noinput || return 1
+    exec /opt/pclp/venv/bin/gunicorn --chdir /opt/pclp/portal pclp_site.wsgi \
+        -b 0.0.0.0:8000 -w 2 --access-logfile - --timeout 120
+}
+
+run_code_server() {
+    # Setările cursului = setări "Machine" (rescrise la fiecare pornire); setările studentului
+    # (User/settings.json) sunt persistente în state și au prioritate.
+    cp /opt/pclp/code-server/settings.json "$STATE/code-server/Machine/settings.json"
+    exec code-server \
+        --config /home/student/.config/code-server/config.yaml \
+        --user-data-dir "$STATE/code-server" \
+        --extensions-dir /opt/pclp/extensions \
+        --disable-telemetry --disable-update-check --disable-workspace-trust \
+        --disable-getting-started-override \
+        "$W"
+}
+
+supervise watch /opt/pclp/bin/pclp-watch
+if [ -f /opt/pclp/portal/manage.py ]; then
+    supervise portal run_portal
+else
+    say "portalul lipsește (/opt/pclp/portal/manage.py) — nu îl pornesc"
+fi
+supervise code-server run_code_server
+
+shutdown() {
+    say "oprire…"
+    kill "${pids[@]}" 2>/dev/null
+    # snapshot final, ca să nu se piardă ultimele modificări
+    timeout 20 pclp snap --auto -m "auto: oprire container" >/dev/null 2>&1
+    wait
+    exit 0
+}
+trap shutdown TERM INT
+
+say "PCLP pornit. Portal: http://localhost:8000  VS Code: http://localhost:8080"
+# afișează jurnalele în `docker logs`
+tail -n 0 -F "$LOGDIR"/*.log 2>/dev/null &
+pids+=($!)
+while true; do wait; sleep 1; done

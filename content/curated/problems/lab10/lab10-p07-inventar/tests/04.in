@@ -1,0 +1,5 @@
+add a 1
+add b 2
+del a 1
+del b 2
+list

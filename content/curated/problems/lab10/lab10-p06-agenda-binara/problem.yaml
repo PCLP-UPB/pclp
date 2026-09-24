@@ -1,0 +1,78 @@
+id: lab10-p06-agenda-binara
+lab: lab10
+number: 6
+title: "Agendă binară cu nume de lungime variabilă"
+difficulty: 3
+estimated_minutes: 45
+concepts: [fișier binar, fread, fwrite, câmp pointer alocat dinamic, vector de structuri, strncmp, eliberarea memoriei alocate dinamic, endianness]
+statement: |
+  O agendă este salvată în fișierul binar `agenda.bin` (presupunem `sizeof(int) == 4`, little-endian):
+
+  - un `int` `n` — numărul de persoane;
+  - apoi `n` înregistrări, fiecare formată din: un `int` `len` (lungimea numelui **inclusiv** `'\0'`),
+    `len` octeți cu numele (ultimul fiind `'\0'`) și un `int` `varsta`.
+
+  În memorie, o persoană se reprezintă prin structura `{char *nume; int varsta;}`, cu numele alocat dinamic.
+
+  Scrie un program care:
+
+  1. încarcă agenda într-un vector de structuri și o afișează;
+  2. citește de la tastatură un prefix și afișează persoanele al căror nume începe cu el;
+  3. salvează în `majori.bin`, **în același format**, persoanele cu vârsta ≥ 18 (în ordinea din agendă);
+  4. eliberează memoria, reîncarcă `majori.bin` cu aceeași funcție de încărcare și afișează conținutul și dimensiunea lui.
+
+  **Date de intrare**
+
+  Pe stdin, un cuvânt (prefixul, 1–63 caractere, fără spații). Fișierul `agenda.bin`.
+
+  **Date de ieșire**
+
+  ```
+  Agenda (N persoane):
+  <nume> <varsta>                     (câte una pe linie)
+  Incep cu "<prefix>": <nume1> <nume2> ...     (sau " -" dacă nu există)
+  majori.bin: K persoane, D octeti
+  <nume> <varsta>                     (câte una pe linie)
+  ```
+  - fișier lipsă: `Eroare: nu pot deschide agenda.bin`;
+  - fișier corupt (antet lipsă, `n < 0` sau `n > 100000`, `len < 1` sau `len > 1000`, date trunchiate,
+    nume care nu se termină cu `'\0'`): `Fisier corupt` (și nimic altceva).
+    Octeții aflați după cele `n` înregistrări se ignoră.
+
+  **Exemplu**
+
+  Fișierul binar `agenda.bin` (62 octeți, afișat cu `hexdump -C`):
+  ```
+  00000000  04 00 00 00 06 00 00 00  4d 61 72 69 61 00 15 00  |........Maria...|
+  00000010  00 00 04 00 00 00 49 6f  6e 00 11 00 00 00 06 00  |......Ion.......|
+  00000020  00 00 4d 61 74 65 69 00  12 00 00 00 0a 00 00 00  |..Matei.........|
+  00000030  41 6e 61 20 4d 61 72 69  61 00 1e 00 00 00        |Ana Maria.....|
+  0000003e
+  ```
+
+  Intrare (stdin):
+  ```
+  Ma
+  ```
+
+  Ieșire (stdout):
+  ```
+  Agenda (4 persoane):
+  Maria 21
+  Ion 17
+  Matei 18
+  Ana Maria 30
+  Incep cu "Ma": Maria Matei
+  majori.bin: 3 persoane, 50 octeti
+  Maria 21
+  Matei 18
+  Ana Maria 30
+  ```
+hints:
+  - "Înregistrările au lungimi diferite, deci nu poți sări direct la persoana k: fișierul se citește secvențial, câmp cu câmp (lungime, nume, vârstă)."
+  - "Scrie o funcție care citește o persoană și întoarce 0 la orice fread incomplet sau valoare imposibilă; funcția de încărcare, la eșec, eliberează numele deja alocate. Aceeași funcție servește și pentru verificarea majori.bin."
+  - "La scriere, antetul trebuie să conțină numărul de persoane salvate: numără-le întâi (sau scrie un 0 provizoriu, apoi revino cu fseek la început și suprascrie-l). Pentru fiecare persoană: len = strlen + 1, apoi fwrite pentru len, nume și vârstă."
+pitfalls:
+  - "fwrite(&p, sizeof(p), 1, f) pe o structură cu char * scrie ADRESA numelui, nu textul."
+  - "Un len uriaș dintr-un fișier corupt duce la malloc imens — validează înainte de alocare."
+  - "La eroare în mijlocul încărcării, memoria deja alocată trebuie eliberată (verificat cu valgrind)."
