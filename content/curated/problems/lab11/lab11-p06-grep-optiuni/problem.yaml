@@ -1,0 +1,62 @@
+id: lab11-p06-grep-optiuni
+lab: lab11
+number: 6
+title: "grep cu opțiuni în linia de comandă"
+difficulty: 3
+estimated_minutes: 45
+concepts: [parametrii liniei de comandă, argc, argv, fișier text, fgets, strstr, tolower, structură]
+statement: |
+  Scrie o variantă a utilitarului `grep` care se apelează astfel:
+
+  ```
+  ./grep [-i] [-n] [-v] [-c] model fisier1 [fisier2 ...]
+  ```
+
+  Opțiunile (fiecare ca argument separat, în orice ordine, **doar înaintea modelului**):
+
+  - `-i` — căutarea ignoră diferența dintre litere mari și mici;
+  - `-n` — fiecare linie afișată este precedată de numărul ei în fișier și `:`;
+  - `-v` — se selectează liniile care **nu** conțin modelul;
+  - `-c` — în loc de linii, se afișează doar numărul de linii selectate din fiecare fișier.
+
+  Primul argument care nu începe cu `-` este modelul; toate argumentele de după el sunt nume de fișiere.
+
+  **Date de ieșire**
+
+  - dacă sunt cel puțin două fișiere, fiecare linie afișată (sau fiecare număr, la `-c`) este precedată de
+    `numele_fisierului:`; forma completă este `fisier:nr_linie:linie` (părțile absente se omit);
+  - un fișier care nu poate fi deschis produce `grep: <fisier>: fisier inexistent`, apoi se continuă cu următorul;
+  - o opțiune necunoscută (orice argument care începe cu `-` înaintea modelului, altul decât cele 4):
+    `Optiune necunoscuta: <arg>` și programul se oprește;
+  - dacă lipsesc modelul sau fișierele: `Utilizare: grep [-i] [-n] [-v] [-c] model fisier...`.
+
+  **Restricții**
+
+  - liniile au cel mult 255 de caractere; modelul are cel puțin un caracter.
+
+  **Exemplu**
+
+  Argumente în linia de comandă: `./grep -i -n port server.conf`
+
+  Fișierul `server.conf`:
+  ```
+  # configurare server
+  Port 8080
+  port_admin 9090
+  Host localhost
+  # final
+  ```
+
+  Ieșire (stdout):
+  ```
+  2:Port 8080
+  3:port_admin 9090
+  ```
+hints:
+  - "Separă parsarea argumentelor de căutare: o buclă peste argv care setează câmpurile unei structuri de opțiuni cât timp argumentul începe cu '-', apoi modelul și lista de fișiere."
+  - "O linie este selectată dacă (conține modelul) != (opțiunea -v este activă). Pentru -i scrie propria funcție de căutare care compară caracterele după tolower."
+  - "Funcția grep_file(nume, model, optiuni, cu_prefix) deschide fișierul, numără liniile și potrivirile și afișează fie liniile (cu prefixele cerute), fie la final contorul."
+pitfalls:
+  - "Dacă transformi linia în litere mici pentru -i, nu afișa apoi linia modificată — ieșirea trebuie să conțină linia originală."
+  - "Un fișier lipsă nu trebuie să oprească procesarea celorlalte."
+  - "Prefixul cu numele fișierului depinde de numărul de fișiere primite, nu de numărul de fișiere deschise cu succes."

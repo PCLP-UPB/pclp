@@ -4,7 +4,7 @@ number: 1
 title: "Stocul unui depozit într-un fișier binar"
 difficulty: 1
 estimated_minutes: 25
-concepts: [structură, vector de structuri, vector alocat dinamic, calloc, fwrite, fread, fișier binar, dimensiunea unui fișier, free]
+concepts: [structură, vector de structuri, vector alocat dinamic, calloc, fwrite, fread, fișier binar, dimensiunea unui fișier, free, long long]
 statement: |
   Un depozit ține evidența articolelor într-un fișier binar. Fiecare articol este descris de structura:
 

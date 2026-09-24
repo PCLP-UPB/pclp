@@ -4,7 +4,7 @@ number: 6
 title: "Valul de căldură"
 difficulty: 3
 estimated_minutes: 30
-concepts: [pointer returnat de funcție, NULL, aritmetică cu pointeri, parametru de tip pointer]
+concepts: [pointer returnat de funcție, "NULL", aritmetică cu pointeri, parametru de tip pointer]
 statement: |
   Meteorologii definesc un „val de căldură” pentru un prag `P` ca o succesiune de zile **consecutive** în care temperatura a fost cel puțin `P`. Pentru mai multe praguri, aflați cel mai lung val de căldură din seria de `n` zile (zilele sunt numerotate de la 1). Dacă există mai multe valuri de lungime maximă, se alege cel care începe primul.
 

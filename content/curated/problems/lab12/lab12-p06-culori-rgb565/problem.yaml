@@ -1,0 +1,50 @@
+id: lab12-p06-culori-rgb565
+lab: lab12
+number: 6
+title: "Culori RGB565: împachetare și despachetare"
+difficulty: 3
+estimated_minutes: 35
+concepts: [mască, deplasare la stânga, deplasare la dreapta, ȘI pe biți, SAU pe biți, unsigned, specificator de format]
+statement: |
+  Multe ecrane mici (ceasuri, plăci Arduino) folosesc formatul de culoare **RGB565**: o culoare ocupă 16 biți,
+  `rrrrrggg gggbbbbb` — 5 biți de roșu (biții 15–11), 6 biți de verde (10–5) și 5 biți de albastru (4–0).
+
+  Comenzile citite de la tastatură (până la sfârșitul intrării):
+
+  - `pack R G B` — componente pe 8 biți (0–255); se păstrează cei mai semnificativi 5/6/5 biți ai fiecăreia.
+    Afișează `pack R G B -> 0xHHHH`;
+  - `unpack C` — `C` în hexazecimal; extinde fiecare componentă înapoi la 8 biți **repetând biții de sus în partea
+    de jos** (5 biți `abcde` → `abcdeabc`, 6 biți `abcdef` → `abcdefab`), astfel încât 31 → 255 și 63 → 255.
+    Afișează `unpack 0xHHHH -> R G B`;
+  - `mix C1 C2` — amestecul a două culori: pentru fiecare componentă (pe 5/6 biți) media întreagă
+    `(a + b) / 2`, calculată cu deplasare. Afișează `mix 0xHHHH 0xHHHH -> 0xHHHH`;
+  - `canale C` — valorile brute pe 5/6/5 biți: `canale 0xHHHH -> r=.. g=.. b=..`.
+
+  Culorile se afișează cu `0x` și exact 4 cifre hexa cu litere mari. O componentă > 255 sau o culoare > `0xFFFF`
+  produce `Valoare invalida`; un cuvânt necunoscut produce `Comanda necunoscuta: <cuvant>`.
+
+  **Exemplu**
+
+  Intrare (stdin):
+  ```
+  pack 255 128 0
+  unpack FC00
+  mix F800 001F
+  canale FFE0
+  ```
+
+  Ieșire (stdout):
+  ```
+  pack 255 128 0 -> 0xFC00
+  unpack 0xFC00 -> 255 130 0
+  mix 0xF800 0x001F -> 0x780F
+  canale 0xFFE0 -> r=31 g=63 b=0
+  ```
+hints:
+  - "Scrie trei constante: deplasările (11, 5, 0) și măștile (0x1F, 0x3F, 0x1F). Împachetarea este un OR de valori deplasate; extragerea este deplasare la dreapta urmată de AND cu masca."
+  - "Pentru pack: r5 = R >> 3, g6 = G >> 2, b5 = B >> 3. Pentru extinderea înapoi: R = (r5 << 3) | (r5 >> 2), G = (g6 << 2) | (g6 >> 4)."
+  - "La mix, nu aduna culorile întregi (transportul din albastru ar strica verdele): extrage componentele, fă media fiecăreia și împachetează din nou."
+pitfalls:
+  - "Fără paranteze, (r5 << 11 | g6 << 5) se evaluează corect, dar r5 << 11 + 1 nu — << are prioritate mai mică decât +."
+  - "Extinderea simplă r5 << 3 dă 248 pentru alb, nu 255."
+  - "Citirea cu %d pentru valori hexa — folosește %x."

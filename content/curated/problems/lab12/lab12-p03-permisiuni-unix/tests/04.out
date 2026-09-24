@@ -1,0 +1,7 @@
+Invalid: 789
+Invalid: rwxrwxrw
+Invalid: 644 z+w
+Invalid: 644 u*x
+Invalid: rwx
+Invalid: 644 u+w extra
+Invalid: 12

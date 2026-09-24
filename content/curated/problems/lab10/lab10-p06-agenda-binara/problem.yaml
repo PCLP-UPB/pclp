@@ -4,7 +4,7 @@ number: 6
 title: "Agendă binară cu nume de lungime variabilă"
 difficulty: 3
 estimated_minutes: 45
-concepts: [fișier binar, fread, fwrite, câmp pointer alocat dinamic, vector de structuri, strncmp, eliberarea memoriei alocate dinamic, endianness]
+concepts: [fișier binar, fread, fwrite, câmp pointer alocat dinamic, vector de structuri, strcmp, eliberarea memoriei alocate dinamic, endianness]
 statement: |
   O agendă este salvată în fișierul binar `agenda.bin` (presupunem `sizeof(int) == 4`, little-endian):
 

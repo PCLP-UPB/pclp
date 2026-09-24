@@ -1,0 +1,70 @@
+id: lab12-p10-cod-hamming
+lab: lab12
+number: 10
+title: "Cod Hamming(7,4): corectarea erorilor"
+difficulty: 5
+estimated_minutes: 90
+concepts: [SAU-EXCLUSIV pe biți, mască, testarea unui bit, setarea unui bit, deplasare la stânga, deplasare la dreapta, specificator de format]
+statement: |
+  Codul Hamming(7,4) transmite 4 biți de date în 7 biți, astfel încât **orice eroare de un singur bit** să poată fi
+  găsită și corectată.
+
+  **Codificarea unui nibble** (4 biți `d3 d2 d1 d0`, `d3` fiind cel mai semnificativ). Cuvântul de cod are pozițiile
+  1…7; poziția `p` este bitul `p - 1` al unui octet (bitul 7 al octetului este mereu 0):
+
+  - datele se pun pe pozițiile 3, 5, 6, 7: `d3` pe poziția 3, `d2` pe 5, `d1` pe 6, `d0` pe 7;
+  - pozițiile 1, 2, 4 sunt biți de paritate: bitul de pe poziția `2^j` se alege astfel încât XOR-ul tuturor
+    pozițiilor care au bitul `j` setat în **indicele** lor (inclusiv el însuși) să fie 0.
+    Echivalent: XOR-ul indicilor tuturor pozițiilor care conțin 1 (**sindromul**) este 0.
+
+  **Decodificarea**: se calculează sindromul (XOR-ul indicilor pozițiilor cu bit 1). Dacă este 0, cuvântul e corect;
+  altfel, sindromul este chiar poziția bitului greșit, care se inversează. Datele se citesc apoi de pe pozițiile 3, 5, 6, 7.
+
+  Fiecare caracter (octet) se codifică în **două** cuvinte: întâi nibble-ul superior, apoi cel inferior.
+
+  **Date de intrare**, linie cu linie:
+
+  - `codifica <text>` — textul este tot restul liniei (după primul spațiu), poate conține spații;
+    afișează cuvintele de cod în hexa, 2 cifre cu litere mici, separate prin câte un spațiu;
+  - `decodifica <h1> <h2> ...` — cuvinte de cod în hexa (fiecare cu cel mult o eroare). Afișează:
+    ```
+    text: <textul decodificat>
+    corectii: K i1:p1 i2:p2 ...
+    ```
+    unde `K` este numărul de cuvinte corectate, iar `i:p` înseamnă „cuvântul cu indicele `i` (de la 0) avea eroare
+    pe poziția `p`”, în ordinea cuvintelor. Dacă un cuvânt este > `0x7F`: doar `Cuvant invalid: <hexa>`; dacă numărul
+    de cuvinte este impar: doar `Numar impar de cuvinte`;
+  - linie goală: se ignoră; altceva: `Comanda necunoscuta`.
+
+  **Restricții**
+
+  - liniile au cel mult 1000 de caractere; textele decodificate conțin doar caractere ASCII printabile.
+
+  **Exemplu**
+
+  Intrare (stdin):
+  ```
+  codifica PCLP
+  decodifica 52 00 19 61 19 1e 52 00
+  decodifica 52 04 19 61 19 1e 12 00
+  ```
+
+  Ieșire (stdout):
+  ```
+  52 00 19 61 19 1e 52 00
+  text: PCLP
+  corectii: 0
+  text: PCLP
+  corectii: 2 1:3 6:7
+  ```
+
+  `P` = `0x50`: nibble-ul `0101` devine `0x52`, iar `0000` devine `0x00`. În a doua decodificare, cuvântul 1 are
+  bitul de pe poziția 3 inversat, iar cuvântul 6 bitul de pe poziția 7.
+hints:
+  - "Totul se reduce la două funcții pe un octet: syndrome(cw) = XOR-ul indicilor p (1..7) pentru care (cw >> (p - 1)) & 1 este 1, și operațiile de citire/scriere a bitului de pe o poziție."
+  - "Codificare fără formule separate pentru fiecare paritate: pune întâi bitii de date pe pozițiile 3, 5, 6, 7, calculează sindromul s al acestui cuvânt incomplet și setează pozițiile 2^j pentru fiecare bit j de 1 din s — după asta sindromul devine 0."
+  - "Decodificare: pentru fiecare cuvânt s = syndrome(cw); dacă s != 0 atunci cw ^= 1 << (s - 1) și reții (i, s). Apoi nibble = biții de pe pozițiile 3, 5, 6, 7 (în această ordine, de la cel mai semnificativ), caracter = (nibble_superior << 4) | nibble_inferior. Pentru citirea listei hexa, sscanf cu %x%n îți spune câte caractere a consumat."
+pitfalls:
+  - "Confuzia dintre poziția p (1..7) și indicele bitului în octet (p - 1)."
+  - "Un caracter cu semn (char) mai mare de 127 deplasat la dreapta dă rezultate negative — convertește la unsigned char."
+  - "Paritatea calculată după ce ai pus deja unii biți de paritate în cuvânt (sindromul se calculează pe cuvântul fără ei)."

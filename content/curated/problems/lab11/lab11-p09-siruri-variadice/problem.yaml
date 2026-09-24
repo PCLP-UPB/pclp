@@ -1,0 +1,83 @@
+id: lab11-p09-siruri-variadice
+lab: lab11
+number: 9
+title: "Construirea de șiruri cu funcții variadice"
+difficulty: 4
+estimated_minutes: 50
+concepts: [funcție variadică, va_list, va_start, va_arg, va_end, valoare terminator, alocare dinamică, memcpy, strlen]
+statement: |
+  Implementează două funcții variadice care construiesc șiruri noi, alocate dinamic exact cât este nevoie
+  (apelantul le eliberează cu `free`):
+
+  1. `char *uneste(const char *sep, ...)` — primește o listă de șiruri (`char *`) terminată cu `NULL` și întoarce
+     concatenarea lor, cu `sep` între oricare două șiruri consecutive. Pentru o listă vidă întoarce `""`.
+  2. `char *sablon(const char *tpl, ...)` — `tpl` conține substituții de forma `{0}`, `{1}`, …, `{9}`
+     (exact trei caractere: acoladă, **o** cifră, acoladă). Fiecare `{i}` se înlocuiește cu al `i`-lea argument
+     variabil (`char *`, numerotat de la 0). Numărul de argumente primite este **indicele maxim folosit + 1**
+     (un indice poate apărea de mai multe ori sau poate lipsi); orice alt text, inclusiv `{x}` sau o acoladă
+     singură, se copiază neschimbat.
+
+  Funcția `main` din schelet (nemodificată) citește triplete `prenume nume oras` și afișează rezultatele între paranteze drepte.
+
+  **Date de intrare**
+
+  Triplete de cuvinte (fără spații, cel mult 31 de caractere fiecare), până la sfârșitul intrării.
+
+  **Exemplu**
+
+  Intrare (stdin):
+  ```
+  Ion Popescu Brasov
+  ```
+
+  Ieșire (stdout):
+  ```
+  []
+  [Ion, Popescu, Brasov]
+  [Popescu-Ion]
+  [Brasov]
+  [Popescu Ion locuieste in Brasov. Salut, Ion!]
+  [Brasov/Brasov/Ion {x} {]
+  [fara parametri]
+  ```
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+  #include <stdarg.h>
+
+  // TODO: implementeaza functiile; rezultatul se aloca dinamic
+  char *uneste(const char *sep, ...);   // lista de char * se termina cu NULL
+  char *sablon(const char *tpl, ...);   // {0}..{9} -> argumentele variabile
+
+  // ---- de aici in jos este codul dat in enunt (nu se modifica) ----
+  void show(char *s)
+  {
+      printf("[%s]\n", s != NULL ? s : "(NULL)");
+      free(s);
+  }
+
+  int main(void)
+  {
+      char prenume[32], nume[32], oras[32];
+
+      show(uneste(" | ", (char *)NULL));
+      while (scanf("%31s %31s %31s", prenume, nume, oras) == 3) {
+          show(uneste(", ", prenume, nume, oras, (char *)NULL));
+          show(uneste("", nume, "-", prenume, (char *)NULL));
+          show(uneste("::", oras, (char *)NULL));
+          show(sablon("{1} {0} locuieste in {2}. Salut, {0}!", prenume, nume, oras));
+          show(sablon("{2}/{2}/{0} {x} {", prenume, nume, oras));
+          show(sablon("fara parametri"));
+      }
+      return 0;
+  }
+hints:
+  - "Pentru a aloca exact cât trebuie, ai nevoie de lungimea rezultatului înainte să-l construiești: deci două parcurgeri. O listă va_list se poate parcurge din nou reapelând va_start după va_end."
+  - "La uneste: prima trecere adună lungimile și numără șirurile (lungime totală = suma + (k - 1) · strlen(sep)); a doua copiază cu memcpy. La sablon: întâi scanezi șablonul ca să afli indicele maxim, apoi citești exact atâtea argumente într-un vector local de char *."
+  - "Cu argumentele în vector, poți accesa {2} înainte de {0}: o trecere prin șablon pentru lungime și una pentru construcție, cu aceeași regulă de recunoaștere (p[0] == '{', p[1] cifră, p[2] == '}')."
+pitfalls:
+  - "Terminatorul trebuie transmis ca (char *)NULL: pe unele platforme NULL este 0 (int), iar va_arg(args, char *) ar citi un tip greșit."
+  - "Nu poți „da înapoi” într-o va_list — pentru acces aleator copiază argumentele într-un vector."
+  - "Citirea unui argument inexistent cu va_arg (de ex. pentru {5} când au fost transmise doar 3) este comportament nedefinit."
+  - "Uitarea spațiului pentru '\\0' la malloc."

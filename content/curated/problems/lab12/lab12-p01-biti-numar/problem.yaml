@@ -1,0 +1,61 @@
+id: lab12-p01-biti-numar
+lab: lab12
+number: 1
+title: "Radiografia binară a unui număr"
+difficulty: 1
+estimated_minutes: 20
+concepts: [operator pe biți, deplasare la dreapta, ȘI pe biți, mască, testarea unui bit, unsigned]
+statement: |
+  Pentru fiecare număr natural citit, afișează reprezentarea lui pe 32 de biți și câteva proprietăți
+  determinate **exclusiv cu operații pe biți** (fără `%`, `/` sau `*` pe numărul analizat).
+
+  **Date de intrare**
+
+  Numere naturale (tip `unsigned int`, presupunem 32 de biți), separate prin spații albe, până la sfârșitul intrării.
+
+  **Date de ieșire**
+
+  Pentru fiecare număr `n`, cinci linii:
+  ```
+  n
+    binar: bbbbbbbb bbbbbbbb bbbbbbbb bbbbbbbb
+    biti de 1: K
+    paritate: par|impar
+    putere a lui 2: da|nu
+  ```
+  Biții se afișează de la cel mai semnificativ (bitul 31) la cel mai puțin semnificativ (bitul 0), în grupe de câte 8
+  separate prin câte un spațiu. 0 nu este putere a lui 2.
+
+  **Restricții**
+
+  - 0 ≤ n ≤ 4294967295; cel mult 10^5 numere.
+
+  **Exemplu**
+
+  Intrare (stdin):
+  ```
+  10
+  64
+  ```
+
+  Ieșire (stdout):
+  ```
+  10
+    binar: 00000000 00000000 00000000 00001010
+    biti de 1: 2
+    paritate: par
+    putere a lui 2: nu
+  64
+    binar: 00000000 00000000 00000000 01000000
+    biti de 1: 1
+    paritate: par
+    putere a lui 2: da
+  ```
+hints:
+  - "Bitul i al lui n este (n >> i) & 1. Parcurge i de la 31 la 0 și pune un spațiu după biții 24, 16 și 8."
+  - "Un număr este par dacă bitul 0 este 0 (n & 1). O putere a lui 2 are exact un bit de 1 — gândește-te ce face n - 1 cu biții lui n."
+  - "Truc: n & (n - 1) șterge cel mai din dreapta bit de 1. Numărarea biților: cât timp n != 0 { n &= n - 1; k++ }. Putere a lui 2: n != 0 și (n & (n - 1)) == 0."
+pitfalls:
+  - "Citirea în int (cu semn) pentru valori peste 2147483647 dă rezultate greșite — folosește unsigned și %u."
+  - "1 << 31 pe int este depășire cu semn; pentru măști folosește 1u << i."
+  - "n & 1 == 0 se evaluează ca n & (1 == 0) — pune paranteze: (n & 1) == 0."

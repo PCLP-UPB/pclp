@@ -1,0 +1,66 @@
+id: lab11-p08-sort-optiuni
+lab: lab11
+number: 8
+title: "sort cu chei, ordine numerică și unicitate"
+difficulty: 4
+estimated_minutes: 60
+concepts: [parametrii liniei de comandă, argv, pointer la funcție, vector de pointeri la șiruri, vector extensibil, realloc, strcmp, clasă de stocare]
+statement: |
+  Scrie o clonă a comenzii `sort`:
+
+  ```
+  ./sort [-r] [-n] [-u] [-k K] [fisier]
+  ```
+
+  Programul citește toate liniile (din fișier sau, dacă lipsește, de la stdin), le sortează și le afișează.
+
+  - **cheia** unei linii este toată linia sau, cu `-k K`, al `K`-lea câmp (câmpurile sunt secvențe maximale de
+    caractere care nu sunt spații albe, numerotate de la 1; dacă linia are mai puțin de `K` câmpuri, cheia este vidă);
+  - fără `-n`, cheile se compară octet cu octet (ca `strcmp`; o cheie care este prefix al alteia e mai mică);
+  - cu `-n`, cheile se compară după **valoarea numerică** a numărului întreg de la începutul cheii
+    (conversie cu `strtoll`; o cheie care nu începe cu un număr valorează 0);
+  - la chei egale, liniile se compară întregi, cu `strcmp`;
+  - `-r` inversează rezultatul final al comparației;
+  - `-u` afișează, dintr-un grup de linii consecutive (după sortare) cu **chei egale**, doar prima linie.
+
+  Opțiunile apar înaintea fișierului, fiecare ca argument separat.
+
+  **Erori** (programul se oprește cu codul 1):
+  - opțiune necunoscută: `Optiune necunoscuta: <arg>`;
+  - `K` lipsă sau prea multe argumente: `Utilizare: sort [-r] [-n] [-u] [-k K] [fisier]`;
+  - `K` nu este un întreg între 1 și 1000: `Camp invalid: <K>`;
+  - fișier care nu poate fi deschis: `sort: nu pot deschide <nume>`.
+
+  **Restricții**
+
+  - cel mult 10^5 linii, fiecare de cel mult 1000 de caractere; numerele din chei încap în `long long`.
+
+  **Exemplu**
+
+  Argumente în linia de comandă: `./sort -n -r -k 2 scoruri.txt`
+
+  Fișierul `scoruri.txt`:
+  ```
+  maria 90 311CA
+  ion 75 312CA
+  ana 90 313CA
+  dan 100 311CA
+  bogdan 8 312CA
+  ```
+
+  Ieșire (stdout):
+  ```
+  dan 100 311CA
+  maria 90 311CA
+  ana 90 313CA
+  ion 75 312CA
+  bogdan 8 312CA
+  ```
+hints:
+  - "Păstrează liniile într-un vector de char * alocat dinamic și sortează pointerii cu qsort (nu textul)."
+  - "Funcția de comparare dată lui qsort are o semnătură fixă, deci opțiunile trebuie să fie variabile globale (static) setate în main înainte de sortare. Scrie separat cmp_keys (doar cheile) — o vei refolosi pentru -u."
+  - "Extragerea cheii fără copiere: întoarce un pointer la începutul câmpului K și lungimea lui. Compararea a două chei: memcmp pe lungimea minimă, apoi diferența de lungime. Pentru -n, copiază cheia într-un buffer mic și aplică strtoll."
+pitfalls:
+  - "În comparator primești pointeri la elementele vectorului, adică char ** — nu char *."
+  - "Returnarea diferenței a două valori long long convertite la int poate schimba semnul; compară explicit."
+  - "Fără departajarea finală cu strcmp, ordinea liniilor cu chei egale depinde de implementarea qsort (nu este stabilă)."

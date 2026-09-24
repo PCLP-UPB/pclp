@@ -4,7 +4,7 @@ number: 7
 title: "Acces aleator într-un fișier binar de note"
 difficulty: 3
 estimated_minutes: 40
-concepts: [fișier binar, înregistrare, mod de actualizare, fseek, SEEK_SET, SEEK_END, ftell, fread, fwrite, fflush, structură]
+concepts: [fișier binar, înregistrare, mod de deschidere, fseek, ftell, fread, fwrite, fflush, structură]
 statement: |
   Fișierul binar `note.bin` conține o succesiune de înregistrări de câte 8 octeți
   (presupunem `sizeof(int) == 4`, little-endian, fără antet):

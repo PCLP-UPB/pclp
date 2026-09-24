@@ -1,0 +1,11 @@
+ADD paine 20 3
+ADD lapte 10 7
+ADD cafea 5 30
+SELL paine 4
+SELL lapte 11
+SELL ceai 1
+ADD paine 5 4
+RENAME cafea cafea_boabe
+DEL lapte
+REPORT
+SELL paine 21

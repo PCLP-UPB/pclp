@@ -4,7 +4,7 @@ number: 10
 title: "Raport de vânzări din două fișiere"
 difficulty: 5
 estimated_minutes: 90
-concepts: [vector de structuri, vector extensibil, realloc, pointer la funcție, fgets, sscanf, strcmp, memcpy, fișier text, structură]
+concepts: [vector de structuri, vector extensibil, realloc, pointer la funcție, fgets, strcmp, memcpy, fișier text, structură]
 statement: |
   O cafenea online are două fișiere text:
 

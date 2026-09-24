@@ -1,0 +1,3 @@
+EROARE LUNGIME
+[4] INT 0 | INT 10000 | STR "abcd" | INT -2501
+[5] INT 0 | INT 10000 | STR "abcd" | INT -2501 | STR "qqqqqqqq"

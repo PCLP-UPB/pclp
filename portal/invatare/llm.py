@@ -20,7 +20,7 @@ PROVIDERS = {
     "anthropic": {"name": "Claude (Anthropic)", "base_url": "", "models": ["claude-opus-5", "claude-sonnet-5", "claude-haiku-4-5"],
                   "default_model": "claude-opus-5", "key_hint": "sk-ant-…  (console.anthropic.com)"},
     "gemini": {"name": "Gemini (Google, compatibil OpenAI)", "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
-               "models": ["gemini-2.5-flash", "gemini-2.5-pro"], "default_model": "gemini-2.5-flash",
+               "models": ["gemini-3.6-flash"], "default_model": "gemini-3.6-flash",
                "key_hint": "cheie de la aistudio.google.com (are nivel gratuit)"},
     "openai": {"name": "OpenAI", "base_url": "https://api.openai.com/v1", "models": [], "default_model": "",
                "key_hint": "sk-…  (platform.openai.com)"},
@@ -146,6 +146,11 @@ def _openai_call(s, system, messages, schema=None, max_tokens=4000):
             data = json.loads(r.read())
     except urllib.error.HTTPError as e:
         detail = e.read().decode(errors="replace")[:300]
+        if e.code == 404:
+            names = list_models(s)
+            if names:
+                raise LLMError(f"Modelul „{s['model']}” nu e disponibil pentru cheia ta. Modele disponibile: "
+                               + ", ".join(names[:15]) + ". Alege unul în Setări AI.")
         raise LLMError(f"Eroare de la furnizor ({e.code}): {detail}")
     except (urllib.error.URLError, TimeoutError) as e:
         raise LLMError(f"Nu mă pot conecta la {base}: {e}")
@@ -153,6 +158,19 @@ def _openai_call(s, system, messages, schema=None, max_tokens=4000):
         return (data["choices"][0]["message"]["content"] or "").strip()
     except (KeyError, IndexError, TypeError):
         raise LLMError("Răspuns neașteptat de la furnizor.")
+
+
+def list_models(s: dict) -> list[str]:
+    """Modelele oferite de un server compatibil OpenAI (GET /models), pentru mesaje de eroare utile."""
+    base = (s.get("base_url") or "").rstrip("/")
+    req = urllib.request.Request(base + "/models", headers={"Authorization": f"Bearer {s.get('api_key') or 'none'}"})
+    try:
+        with urllib.request.urlopen(req, timeout=20) as r:
+            data = json.loads(r.read())
+    except (urllib.error.URLError, TimeoutError, ValueError):
+        return []
+    names = [str(m.get("id", "")).removeprefix("models/") for m in data.get("data", []) if isinstance(m, dict)]
+    return sorted(n for n in names if n and not any(x in n for x in ("embedding", "tts", "image", "audio", "aqa")))
 
 
 def call(system: str, messages: list[dict], schema: dict | None = None) -> tuple[str, dict]:

@@ -4,7 +4,7 @@ number: 9
 title: "Compararea a două fișiere (diff + cmp)"
 difficulty: 4
 estimated_minutes: 45
-concepts: [fișier text, fgets, fgetc, fseek, EOF, verificarea deschiderii fișierului, strcmp, sfârșit de linie]
+concepts: [fișier text, fgets, fgetc, fseek, EOF, verificarea deschiderii fișierului, strcmp, sfârșit de linie, caz limită]
 statement: |
   Scrie un program care compară două fișiere text în două moduri: linie cu linie
   (asemănător lui `diff`) și octet cu octet (asemănător lui `cmp`).

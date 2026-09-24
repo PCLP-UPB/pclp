@@ -1,0 +1,47 @@
+id: lab11-p02-calculator
+lab: lab11
+number: 2
+title: "Calculator în linia de comandă"
+difficulty: 2
+estimated_minutes: 25
+concepts: [parametrii liniei de comandă, argc, argv, cod de ieșire, switch, stdlib.h]
+statement: |
+  Scrie un program `calc` care primește în linia de comandă o expresie de forma `a op b` și afișează rezultatul:
+
+  ```
+  ./calc 12 x -5
+  ```
+
+  Operatorii acceptați sunt `+`, `-`, `x` (înmulțire — se folosește `x` deoarece `*` are semnificație specială în shell),
+  `/` (împărțire întreagă, ca în C) și `%` (restul împărțirii, ca în C).
+
+  **Date de ieșire**
+
+  Verificările se fac în ordinea de mai jos; la prima eroare se afișează mesajul și programul se termină
+  cu codul de ieșire 1:
+
+  1. numărul de argumente nu este exact 3 → `Utilizare: calc <a> <op> <b>`;
+  2. `a` nu este un întreg valid (în domeniul `int`, fără alte caractere, nevid) → `Numar invalid: <a>`;
+  3. analog pentru `b` → `Numar invalid: <b>`;
+  4. operatorul nu este unul dintre cei 5 → `Operator necunoscut: <op>`;
+  5. împărțire sau rest cu 0 → `Impartire la zero`.
+
+  Altfel se afișează `a op b = rezultat` și programul se termină cu codul 0. Rezultatul se calculează
+  fără depășire (poate ieși din domeniul `int`).
+
+  **Exemplu**
+
+  Argumente în linia de comandă: `./calc 12 x -5`
+
+  Ieșire (stdout):
+  ```
+  12 x -5 = -60
+  ```
+hints:
+  - "argv conține șiruri de caractere: trebuie să le convertești în numere și să verifici că întregul șir a fost un număr."
+  - "strtol(s, &end, 10) îți spune unde s-a oprit conversia: numărul e valid doar dacă end != s și *end == '\\0'. Verifică și domeniul (errno == ERANGE, INT_MIN..INT_MAX)."
+  - "Pentru calcul folosește long long (de ex. 2147483647 + 1). Operatorul e valid dacă are exact un caracter aflat în \"+-x/%\"; apoi un switch pe acel caracter."
+pitfalls:
+  - "atoi(\"12a\") întoarce 12 fără nicio eroare, iar atoi(\"abc\") întoarce 0 — nu poți detecta intrările invalide."
+  - "Rezultatul calculat în int depășește domeniul pentru 2147483647 + 1 sau -2147483648 x -1."
+  - "Scrierea lui * neîncadrat în ghilimele în shell este înlocuită cu lista de fișiere din director — de aceea se folosește x."

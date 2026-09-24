@@ -10,6 +10,7 @@ help:
 	@echo "make dev              - pornește portalul local pe http://127.0.0.1:8765 (mod autor)"
 	@echo "make image            - construiește imaginea Docker a studenților"
 	@echo "make up / make down   - pornește / oprește containerul local"
+	@echo "make up-test          - container de test (work/test, porturi 18000/18080)"
 	@echo "make check-solutions  - verifică soluțiile de referință pe toate testele"
 	@echo "make export-edits     - scrie editările din portal în fișierele curate"
 
@@ -35,6 +36,12 @@ image:
 
 up:
 	docker compose -f env/compose.yaml up -d
+
+# container de test: spațiu de lucru în work/test, portal pe :18000, VS Code pe :18080
+up-test:
+	mkdir -p work/test
+	PCLP_WORK_DIR=../work/test PCLP_PORT_PORTAL=18000 PCLP_PORT_VSCODE=18080 docker compose -f env/compose.yaml up -d
+	@echo "Portal: http://localhost:18000   VS Code: http://localhost:18080"
 
 down:
 	docker compose -f env/compose.yaml down

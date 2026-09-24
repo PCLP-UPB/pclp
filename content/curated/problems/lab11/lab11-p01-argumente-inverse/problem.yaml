@@ -1,0 +1,47 @@
+id: lab11-p01-argumente-inverse
+lab: lab11
+number: 1
+title: "Argumentele liniei de comandă, invers"
+difficulty: 1
+estimated_minutes: 15
+concepts: [parametrii liniei de comandă, argc, argv, strlen]
+statement: |
+  Scrie un program care primește oricâte argumente în linia de comandă și afișează:
+
+  - `Numar argumente: K` — numărul de argumente primite (fără numele programului);
+  - argumentele în **ordine inversă**, câte unul pe linie, în forma `argv[i] = <argument>`;
+  - `Cel mai lung: <argument> (L caractere)` — argumentul cel mai lung (la egalitate, cel cu indicele cel mai mic).
+
+  Dacă programul este lansat fără argumente, afișează doar `Niciun argument`.
+
+  `argv[0]` (numele programului) **nu** se afișează: depinde de modul în care a fost lansat programul.
+
+  **Date de intrare**
+
+  Doar argumentele din linia de comandă (nu se citește nimic de la tastatură). Un argument poate conține
+  spații (dacă a fost scris între ghilimele în shell) sau poate fi vid.
+
+  **Restricții**
+
+  - cel mult 100 de argumente, fiecare de cel mult 1000 de caractere.
+
+  **Exemplu**
+
+  Argumente în linia de comandă: `./prog e pe 'val!' _2020`
+
+  Ieșire (stdout):
+  ```
+  Numar argumente: 4
+  argv[4] = _2020
+  argv[3] = val!
+  argv[2] = pe
+  argv[1] = e
+  Cel mai lung: _2020 (5 caractere)
+  ```
+hints:
+  - "Semnătura lui main devine int main(int argc, char *argv[]); argc numără și numele programului."
+  - "Argumentele utile sunt argv[1] … argv[argc - 1]; parcurge-le cu un for descrescător."
+  - "Pentru cel mai lung, pornește cu best = 1 și actualizează doar când găsești o lungime strict mai mare (astfel la egalitate rămâne primul)."
+pitfalls:
+  - "Accesarea lui argv[1] fără a verifica argc — programul se oprește cu segmentation fault când nu există argumente."
+  - "strlen întoarce size_t; afișează-l cu %zu (sau convertește la int)."

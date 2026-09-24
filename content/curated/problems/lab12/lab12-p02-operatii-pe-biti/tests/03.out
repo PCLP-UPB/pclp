@@ -1,0 +1,6 @@
+start -> 0 (0x00000000)
+not -> 4294967295 (0xFFFFFFFF)
+shl 31 -> 2147483648 (0x80000000)
+set 32 -> Index invalid
+test -1 -> Index invalid
+shl 32 -> Index invalid

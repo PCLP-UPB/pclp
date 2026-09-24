@@ -1,0 +1,21 @@
+ARRAY_LEN(prime) = 6
+a=-3 b=-3 c=-3
+  SQR(a + 1) = 4
+  SQR(c) % 7 = 2
+  MAX(a, b) * 2 = -6
+  MIN(a - b, c) = -3
+  ABS(a - b) = 0
+  CLAMP(c, a, b) = -3
+  IN_RANGE(c, a, b) = 1
+  !IN_RANGE(c, a, b) = 0
+  10 - MAX(a, c) = 13
+a=0 b=0 c=0
+  SQR(a + 1) = 1
+  SQR(c) % 7 = 0
+  MAX(a, b) * 2 = 0
+  MIN(a - b, c) = 0
+  ABS(a - b) = 0
+  CLAMP(c, a, b) = 0
+  IN_RANGE(c, a, b) = 1
+  !IN_RANGE(c, a, b) = 0
+  10 - MAX(a, c) = 10

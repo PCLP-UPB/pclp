@@ -1,0 +1,15 @@
+1
+  binar: 00000000 00000000 00000000 00000001
+  biti de 1: 1
+  paritate: impar
+  putere a lui 2: da
+2147483648
+  binar: 10000000 00000000 00000000 00000000
+  biti de 1: 1
+  paritate: par
+  putere a lui 2: da
+2147483647
+  binar: 01111111 11111111 11111111 11111111
+  biti de 1: 31
+  paritate: impar
+  putere a lui 2: nu

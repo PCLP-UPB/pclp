@@ -1,0 +1,91 @@
+id: lab11-p03-macrouri-sigure
+lab: lab11
+number: 3
+title: "Macro-uri care nu te trădează"
+difficulty: 2
+estimated_minutes: 25
+concepts: ["#define", macro, parantezarea macro-urilor, substituție textuală, preprocesor, sizeof pentru vector și pointer]
+statement: |
+  Completează programul de mai jos (scheletul) cu definițiile macro-urilor, **fără a modifica funcția `main`**:
+
+  | macro | semnificație |
+  |---|---|
+  | `SQR(x)` | pătratul lui `x` |
+  | `MAX(a, b)`, `MIN(a, b)` | maximul / minimul |
+  | `ABS(x)` | valoarea absolută |
+  | `CLAMP(x, lo, hi)` | `x` limitat la intervalul `[lo, hi]`: `MIN(MAX(x, lo), hi)` |
+  | `IN_RANGE(x, lo, hi)` | 1 dacă `lo ≤ x ≤ hi`, altfel 0 |
+  | `ARRAY_LEN(v)` | numărul de elemente ale unui vector declarat static |
+
+  Funcția `main` apelează macro-urile cu **expresii** ca argumente (`a + 1`, `a - b`) și le folosește în
+  expresii mai mari (`MAX(a, b) * 2`, `10 - MAX(a, c)`, `!IN_RANGE(...)`, `SQR(c) % 7`). Rezultatele sunt corecte
+  doar dacă macro-urile sunt parantezate corect.
+
+  **Date de intrare**
+
+  Triplete de numere întregi `a b c`, până la sfârșitul intrării.
+
+  **Date de ieșire**
+
+  Cele afișate de `main` (vezi scheletul).
+
+  **Restricții**
+
+  - |a|, |b|, |c| ≤ 1000.
+
+  **Exemplu**
+
+  Intrare (stdin):
+  ```
+  3 7 5
+  ```
+
+  Ieșire (stdout):
+  ```
+  ARRAY_LEN(prime) = 6
+  a=3 b=7 c=5
+    SQR(a + 1) = 16
+    SQR(c) % 7 = 4
+    MAX(a, b) * 2 = 14
+    MIN(a - b, c) = -4
+    ABS(a - b) = 4
+    CLAMP(c, a, b) = 5
+    IN_RANGE(c, a, b) = 1
+    !IN_RANGE(c, a, b) = 0
+    10 - MAX(a, c) = 5
+  ```
+starter: |
+  #include <stdio.h>
+
+  // TODO: definește macro-urile SQR, MAX, MIN, ABS, CLAMP, IN_RANGE, ARRAY_LEN
+
+  // ---- de aici in jos este codul dat in enunt (nu se modifica) ----
+  int main(void)
+  {
+      int a, b, c;
+      int prime[] = {2, 3, 5, 7, 11, 13};
+
+      printf("ARRAY_LEN(prime) = %zu\n", ARRAY_LEN(prime));
+      while (scanf("%d %d %d", &a, &b, &c) == 3) {
+          printf("a=%d b=%d c=%d\n", a, b, c);
+          printf("  SQR(a + 1) = %d\n", SQR(a + 1));
+          printf("  SQR(c) %% 7 = %d\n", SQR(c) % 7);
+          printf("  MAX(a, b) * 2 = %d\n", MAX(a, b) * 2);
+          printf("  MIN(a - b, c) = %d\n", MIN(a - b, c));
+          printf("  ABS(a - b) = %d\n", ABS(a - b));
+          printf("  CLAMP(c, a, b) = %d\n", CLAMP(c, a, b));
+          printf("  IN_RANGE(c, a, b) = %d\n", IN_RANGE(c, a, b));
+          printf("  !IN_RANGE(c, a, b) = %d\n", !IN_RANGE(c, a, b));
+          printf("  10 - MAX(a, c) = %d\n", 10 - MAX(a, c));
+      }
+      return 0;
+  }
+hints:
+  - "Preprocesorul face substituție pur textuală: scrie de mână ce devine SQR(a + 1) dacă definiția este x * x. Ce operator se aplică primul?"
+  - "Regula: fiecare apariție a unui parametru în corpul macro-ului stă între paranteze, iar întregul corp stă între paranteze. Verifică apoi 10 - MAX(a, c) și !IN_RANGE(...)."
+  - "Pentru ARRAY_LEN folosește sizeof pe tot vectorul împărțit la sizeof primului element: funcționează doar pentru vectori, nu pentru pointeri (în funcții, un parametru vector este de fapt pointer)."
+pitfalls:
+  - "#define SQR(x) x * x → SQR(a + 1) devine a + 1 * a + 1."
+  - "#define MAX(a, b) (a) > (b) ? (a) : (b) → 10 - MAX(a, c) devine (10 - a) > c ? ... ."
+  - "Un argument cu efect secundar (MAX(i++, j)) este evaluat de două ori — macro-urile nu sunt funcții."
+  - "Nu pune ; la finalul definiției: ar apărea în mijlocul expresiei printf."

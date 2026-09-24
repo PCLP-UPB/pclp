@@ -1,0 +1,10 @@
+canale 0x2B22 -> r=5 g=25 b=2
+pack 4 127 15 -> 0x03E1
+pack 14 116 243 -> 0x0BBE
+unpack 0xEBFF -> 239 125 255
+mix 0xD8DB 0xA1C1 -> 0xB94E
+unpack 0xC811 -> 206 0 140
+pack 172 30 185 -> 0xA8F7
+unpack 0x98AA -> 156 20 82
+pack 248 69 142 -> 0xFA31
+pack 101 117 63 -> 0x63A7

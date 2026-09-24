@@ -4,7 +4,7 @@ number: 10
 title: "De la CSV la o bază de date binară de produse"
 difficulty: 5
 estimated_minutes: 75
-concepts: [fișier text, fișier binar, înregistrare, fgets, fread, fwrite, fseek, ftell, mod de actualizare, structură, memset, strchr]
+concepts: [fișier text, fișier binar, înregistrare, fgets, fread, fwrite, fseek, ftell, mod de deschidere, structură, memset, strchr]
 statement: |
   Un magazin ține lista de produse în fișierul text `produse.csv`. Scrie un program care îl convertește
   într-un fișier binar cu înregistrări de lungime fixă, `produse.bin`, și apoi răspunde la comenzi

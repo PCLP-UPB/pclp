@@ -1,0 +1,5 @@
+Numar argumente: 3
+argv[3] = abcdefghijklmnopqrstu
+argv[2] = x
+argv[1] = un argument cu spatii
+Cel mai lung: un argument cu spatii (21 caractere)

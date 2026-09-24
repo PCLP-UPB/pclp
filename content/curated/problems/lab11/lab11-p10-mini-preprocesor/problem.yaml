@@ -1,0 +1,80 @@
+id: lab11-p10-mini-preprocesor
+lab: lab11
+number: 10
+title: "Un mini-preprocesor C"
+difficulty: 5
+estimated_minutes: 120
+concepts: [preprocesor, directivă de preprocesare, "#define", "#undef", "#ifdef", "#ifndef", "#endif", compilare condiționată, substituție textuală, -D, parametrii liniei de comandă, vector extensibil, stivă]
+statement: |
+  Scrie un program care imită o parte din preprocesorul C:
+
+  ```
+  ./minicpp [-DNUME[=valoare]] ... fisier
+  ```
+
+  **Argumente.** Ultimul argument este fișierul de procesat; toate cele dinaintea lui trebuie să fie de forma
+  `-DNUME` (definește `NUME` cu valoarea `1`) sau `-DNUME=valoare` (valoarea poate fi vidă). `NUME` este un
+  identificator C (literă sau `_`, apoi litere, cifre, `_`). Un argument care nu respectă forma produce
+  `Optiune invalida: <arg>`. Dacă nu există fișier (sau ultimul argument începe cu `-`):
+  `Utilizare: minicpp [-DNUME[=valoare]]... fisier`. Fișier lipsă: `Eroare: nu pot deschide <nume>`.
+
+  **Directive.** O linie este directivă dacă primul caracter diferit de spațiu/tab este `#`; între `#` și
+  cuvântul-cheie și între cuvântul-cheie și nume pot exista spații/tab-uri.
+
+  - `#define NUME valoare` — valoarea este restul liniei, fără spațiile de la început și de la final (poate fi vidă);
+    o redefinire înlocuiește valoarea;
+  - `#undef NUME` — șterge macro-ul (dacă există);
+  - `#ifdef NUME` / `#ifndef NUME` … `[#else]` … `#endif` — compilare condiționată, cu imbricare (cel mult 64 de niveluri).
+    Liniile din ramurile inactive nu se afișează, iar directivele `#define`/`#undef` din ele nu au efect;
+  - orice altă directivă (`#include`, `#pragma` …) dintr-o zonă activă se afișează neschimbată (fără substituții).
+
+  Liniile-directivă cunoscute nu se afișează.
+
+  **Substituție.** În fiecare linie activă care nu este directivă, fiecare identificator (secvență maximală
+  `[A-Za-z_][A-Za-z0-9_]*`) care este numele unui macro definit se înlocuiește cu valoarea lui. Înlocuirea se face
+  **o singură dată** (rezultatul nu mai este scanat). Nu se fac înlocuiri în interiorul literalilor șir `"..."`
+  (în care `\"` nu închide șirul) și nici în continuarea unui număr (`12A` rămâne `12A`).
+
+  **Erori** (se afișează după liniile deja produse, iar procesarea se oprește):
+  - `Eroare linia N: #else fara #ifdef`, `Eroare linia N: #endif fara #ifdef`, `Eroare linia N: #else duplicat`;
+  - `Eroare linia N: lipseste numele` (pentru `#define`/`#undef`/`#ifdef`/`#ifndef` fără nume);
+  - la final, dacă a rămas un bloc deschis: `Eroare: #ifdef deschis la linia N nu este inchis` (N = linia celui mai recent bloc deschis).
+
+  **Restricții**
+
+  - liniile au cel mult 1000 de caractere; numărul de macro-uri nu este limitat (tabelă alocată dinamic).
+
+  **Exemplu**
+
+  Argumente în linia de comandă: `./minicpp prog.c`
+
+  Fișierul `prog.c`:
+  ```
+  #include <stdio.h>
+  #define N 10
+  #define MESAJ "gata"
+  int v[N];
+  #ifdef DEBUG
+  printf("N = %d\n", N);
+  #else
+  puts(MESAJ);
+  #endif
+  int N2 = N * 2;
+  ```
+
+  Ieșire (stdout):
+  ```
+  #include <stdio.h>
+  int v[10];
+  puts("gata");
+  int N2 = 10 * 2;
+  ```
+hints:
+  - "Ai trei piese independente: tabela de macro-uri (vector extensibil de {nume, valoare}), stiva de blocuri condiționale și funcția de substituție pentru o linie. Testează-le separat."
+  - "Pentru fiecare bloc deschis ține minte dacă zona din jurul lui era activă și valoarea condiției. Linia curentă e activă dacă părintele e activ și condiția (sau negația ei, după #else) e adevărată; la #endif revii la starea părintelui."
+  - "Substituția: parcurge linia cu un pointer; la '\"' copiază tot până la ghilimeaua de închidere (sărind peste \\x); la o cifră copiază toată secvența alfanumerică; la începutul unui identificator îi afli lungimea, cauți numele în tabelă și afișezi fie valoarea, fie identificatorul; altfel copiezi caracterul."
+pitfalls:
+  - "strstr pentru a găsi numele macro-ului în linie înlocuiește și bucăți din alți identificatori (A în A_B)."
+  - "#else într-un bloc al cărui părinte este inactiv nu trebuie să activeze codul."
+  - "Directivele #define din ramurile inactive trebuie ignorate, dar #ifdef/#endif din ele trebuie totuși numărate pentru imbricare."
+  - "Memoria pentru nume și valori trebuie eliberată și la #undef, și la redefinire, și la final."

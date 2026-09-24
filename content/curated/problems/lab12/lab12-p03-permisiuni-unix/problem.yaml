@@ -1,0 +1,53 @@
+id: lab12-p03-permisiuni-unix
+lab: lab12
+number: 3
+title: "Permisiuni Unix: octal, simbolic și chmod"
+difficulty: 2
+estimated_minutes: 35
+concepts: [mască, operator pe biți, SAU pe biți, ȘI pe biți, negare pe biți, deplasare la stânga, setarea unui bit, resetarea unui bit]
+statement: |
+  Permisiunile unui fișier Unix sunt 9 biți: `rwx` pentru proprietar (user), grup (group) și ceilalți (others).
+  Ele se scriu fie **octal** (`754`: fiecare cifră octală = 3 biți), fie **simbolic** (`rwxr-xr--`).
+
+  Fiecare linie de intrare are una dintre formele:
+
+  - `P` — o permisiune (octal: exact 3 cifre 0–7; simbolic: exact 9 caractere, pe poziția `k` fiind fie litera
+    `r`/`w`/`x` corespunzătoare, fie `-`);
+  - `P spec` — permisiunea `P` urmată de o modificare în stilul `chmod`: `spec` = una sau mai multe litere dintre
+    `u`, `g`, `o`, `a` (a = toate), apoi un operator `+` (adaugă), `-` (elimină) sau `=` (setează exact), apoi zero
+    sau mai multe litere dintre `r`, `w`, `x`. De exemplu `go-w`, `a+x`, `u=rw`, `o=` (elimină tot pentru others).
+
+  **Date de ieșire**
+
+  Pentru fiecare linie nevidă, permisiunea rezultată în ambele forme: `OOO sss` (ex. `755 rwxr-xr-x`), sau
+  `Invalid: <linia>` dacă linia nu respectă formatul (inclusiv câmpuri în plus). Liniile goale se ignoră.
+
+  **Restricții**
+
+  - cel mult 10^4 linii, fiecare de cel mult 100 de caractere.
+
+  **Exemplu**
+
+  Intrare (stdin):
+  ```
+  754
+  rw-r--r--
+  644 g+w
+  rwx------ go=rx
+  ```
+
+  Ieșire (stdout):
+  ```
+  754 rwxr-xr--
+  644 rw-r--r--
+  664 rw-rw-r--
+  755 rwxr-xr-x
+  ```
+hints:
+  - "Reprezintă permisiunea ca un singur număr pe 9 biți: bitul 8 = r pentru user, …, bitul 0 = x pentru others. Conversiile devin deplasări: fiecare cifră octală adaugă 3 biți (m = (m << 3) | cifra)."
+  - "Pentru forma simbolică, parcurge cele 9 caractere și adaugă câte un bit (m = (m << 1) | (caracter != '-')), verificând litera așteptată pe fiecare poziție (\"rwx\"[i % 3])."
+  - "Pentru spec: construiește masca rwx (r = 4, w = 2, x = 1) și deplaseaz-o la grupul ales (user: << 6, group: << 3, others: << 0). + este OR, - este AND cu negata măștii, = șterge întâi toți cei 3 biți ai grupului (masca 7 deplasată) și apoi face OR."
+pitfalls:
+  - "`=` fără litere (ex. o=) este valid și șterge toate permisiunile grupului."
+  - "Negarea unei măști lasă biți de 1 peste bitul 8 — limitează rezultatul cu & 0777."
+  - "Constanta 0777 în C este octală (511), nu zecimală."

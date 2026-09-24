@@ -1,0 +1,65 @@
+id: lab12-p09-ciur-pe-biti
+lab: lab12
+number: 9
+title: "Ciurul lui Eratostene pe biți"
+difficulty: 4
+estimated_minutes: 60
+concepts: [bitset, optimizare cu operații pe biți, setarea unui bit, testarea unui bit, deplasare la dreapta, mască, calloc, free, număr prim]
+statement: |
+  Construiește ciurul lui Eratostene pentru numerele `1 … N` folosind **un singur bit pe număr impar**
+  (numerele pare, cu excepția lui 2, nu sunt prime, deci nu trebuie memorate): pentru `N = 10^8` asta înseamnă
+  aproximativ 6 MB în loc de 100 MB cu un vector de `char`.
+
+  Apoi răspunde la întrebări.
+
+  **Date de intrare**
+
+  Pe prima linie `N`. Apoi, până la sfârșitul intrării, comenzi:
+
+  - `prim x` → `prim x: da` / `prim x: nu`; dacă `x < 1` sau `x > N`: `prim x: in afara domeniului`;
+  - `interval a b` → `interval a b: K` — câte numere prime sunt în `[a, b]`; dacă nu este adevărat că `1 ≤ a ≤ b ≤ N`:
+    `interval a b: invalid`;
+  - `al k` → `al k-lea: p` — al `k`-lea număr prim (`al 1-lea: 2`), sau `al k-lea: nu exista` dacă `k < 1` sau
+    nu există `k` numere prime ≤ `N`;
+  - altceva: `Comanda necunoscuta: <cuvant>` (cuvântul este urmat de un număr, care se consumă).
+
+  **Date de ieșire**
+
+  Prima linie: `Numere prime pana la N: P`, apoi câte o linie pentru fiecare comandă.
+
+  **Restricții**
+
+  - 2 ≤ N ≤ 10^8; cel mult 1000 de comenzi;
+  - memoria pentru ciur: cel mult N / 16 + O(1) octeți;
+  - o comandă `interval`/`al` trebuie să fie mai rapidă decât verificarea bit cu bit a tuturor numerelor
+    (de exemplu, numărarea biților pe cuvinte de 32 de biți).
+
+  **Exemplu**
+
+  Intrare (stdin):
+  ```
+  100
+  prim 97
+  prim 91
+  interval 10 30
+  al 10
+  al 26
+  ```
+
+  Ieșire (stdout):
+  ```
+  Numere prime pana la 100: 25
+  prim 97: da
+  prim 91: nu
+  interval 10 30: 6
+  al 10-lea: 29
+  al 26-lea: nu exista
+  ```
+hints:
+  - "Bitul i reprezintă numărul impar 2i + 1; numărul impar x are indicele x / 2. Marchează cu 1 numerele compuse (și pe 1), ca un vector alocat cu calloc să înceapă „toate prime”."
+  - "În ciur, pentru fiecare p impar prim cu p·p ≤ N marchează p·p, p·p + 2p, p·p + 4p, … (multiplii pari nu sunt reprezentați). Pentru interogări, numărul de prime ≤ x este 1 (pentru 2) plus numărul de biți 0 printre indicii 0 … (x - 1) / 2."
+  - "Ca să numeri rapid, lucrează pe cuvinte de 32 de biți: biți 0 într-un cuvânt = 32 - popcount(cuvânt), cu popcount prin trucul w &= w - 1. Marchează ca „compuși” biții de după ultimul număr, ca ultimul cuvânt să poată fi numărat întreg. Pentru al k-lea, sari peste cuvinte întregi cât timp numărul de prime din ele este mai mic decât câte mai cauți."
+pitfalls:
+  - "p * p calculat în int depășește domeniul pentru N mare — folosește long."
+  - "Indicele bitului și poziția în cuvânt: cuvântul i / 32, bitul i % 32; masca 1u << (i % 32), nu 1 << ... ."
+  - "Uitarea cazurilor speciale: 1 nu e prim, 2 este singurul prim par."

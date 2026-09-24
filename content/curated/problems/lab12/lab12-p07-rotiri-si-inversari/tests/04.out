@@ -1,0 +1,5 @@
+evenodd 0xAAAAAAAA -> 0x55555555
+evenodd 0x12345678 -> 0x2138A9B4
+Operatie necunoscuta: flip
+clz 0x00000001 -> 31
+ctz 0x80000000 -> 31

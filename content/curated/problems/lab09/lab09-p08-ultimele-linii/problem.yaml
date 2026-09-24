@@ -4,7 +4,7 @@ number: 8
 title: "tail: ultimele linii dintr-un jurnal"
 difficulty: 4
 estimated_minutes: 45
-concepts: [fseek, SEEK_END, SEEK_SET, ftell, fgetc, poziție curentă în fișier, fișier binar, sfârșit de linie]
+concepts: [fseek, ftell, fgetc, poziție curentă în fișier, fișier binar, sfârșit de linie]
 statement: |
   Implementează două moduri ale utilitarului `tail` pentru un fișier text care poate fi foarte mare
   (jurnale de server de mulți GB), deci **nu** trebuie citit în memorie:

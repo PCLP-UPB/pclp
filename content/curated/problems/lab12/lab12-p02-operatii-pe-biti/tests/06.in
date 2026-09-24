@@ -1,0 +1,5 @@
+1
+shl 31
+shr 31
+toggle 0
+test 0

@@ -1,0 +1,103 @@
+id: lab08-p10-stiva-tipizata
+lab: lab08
+number: 10
+title: "Interpretor cu valori tipizate"
+difficulty: 5
+estimated_minutes: 90
+concepts: [uniune, enumerare, structură, copiere profundă, câmp pointer alocat dinamic, realloc, vector extensibil, memory leak]
+statement: |
+  Implementați un mic limbaj bazat pe stivă, în care valorile au tipuri diferite: întregi (`INT`), reali (`REAL`) și șiruri (`STR`). Folosiți o uniune etichetată pentru valori și o structură pentru stivă:
+
+  ```c
+  typedef enum { INT, REAL, STR } TipValoare;
+
+  typedef struct {
+      TipValoare tip;
+      union {
+          long long i;
+          double d;
+          char *s;        /* alocat dinamic; fiecare valoare isi detine sirul */
+      } v;
+  } Valoare;
+
+  typedef struct {
+      Valoare *elem;      /* vector dinamic, crescut cu realloc */
+      int n, cap;
+  } Stiva;
+  ```
+
+  Comenzi (`a` = penultimul element, `b` = vârful stivei):
+
+  | comandă | efect |
+  |---|---|
+  | `PUSH INT n` / `PUSH REAL x` / `PUSH STR cuvant` | pune o valoare pe stivă |
+  | `POP` | elimină vârful |
+  | `DUP` | pune pe stivă o copie a vârfului (independentă de original) |
+  | `SWAP` | interschimbă primele două elemente |
+  | `ADD` | înlocuiește `a` și `b` cu `a + b`: INT+INT → INT; dacă ambele sunt numere și cel puțin unul e REAL → REAL; STR+STR → concatenarea `ab`; altfel eroare de tip |
+  | `MUL` | înlocuiește `a` și `b` cu `a · b`: INT·INT → INT; numere cu cel puțin un REAL → REAL; STR·INT sau INT·STR → șirul repetat de atâtea ori; altfel eroare de tip |
+  | `LEN` | înlocuiește vârful (care trebuie să fie STR) cu lungimea lui (INT) |
+  | `PRINT` | afișează vârful: `INT <n>`, `REAL <x cu 3 zecimale>` sau `STR "<sir>"` |
+  | `STACK` | afișează `[<n>]` urmat de elementele de la bază la vârf, în formatul de la PRINT: primul precedat de un spațiu, următoarele de ` \| ` |
+
+  Erori (la eroare se afișează mesajul și **stiva rămâne neschimbată**):
+
+  - `EROARE STIVA` — nu sunt destule elemente pentru comandă (inclusiv PRINT pe stivă goală);
+  - `EROARE TIP` — combinație de tipuri nepermisă (inclusiv LEN pe o valoare care nu e STR);
+  - `EROARE DEPASIRE` — un rezultat INT ar avea valoarea absolută mai mare de `10^18`;
+  - `EROARE LUNGIME` — un șir rezultat ar avea peste 10000 de caractere sau se cere repetarea de un număr negativ de ori.
+
+  Toată memoria trebuie eliberată corect (fără scurgeri și fără eliberări duble).
+
+  **Date de intrare**
+
+  Comenzi, câte una pe linie, până la sfârșitul fișierului.
+
+  **Date de ieșire**
+
+  Rezultatele comenzilor `PRINT`, `STACK` și mesajele de eroare, câte unul pe linie.
+
+  **Restricții**
+
+  - cel mult 10000 de comenzi
+  - în `PUSH INT`, `|n| ≤ 10^18`; în `PUSH REAL`, `x` are cel mult două zecimale și `|x| ≤ 10^6`; cuvintele au între 1 și 100 de caractere, fără spații
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  PUSH INT 7
+  PUSH REAL 0.5
+  ADD
+  PRINT
+  PUSH STR ab
+  PUSH INT 3
+  MUL
+  DUP
+  LEN
+  STACK
+  ADD
+  SWAP
+  PUSH STR cd
+  ADD
+  STACK
+  POP
+  POP
+  POP
+  ```
+
+  Ieșire:
+  ```
+  REAL 7.500
+  [3] REAL 7.500 | STR "ababab" | INT 6
+  EROARE TIP
+  [3] REAL 7.500 | INT 6 | STR "abababcd"
+  ```
+hints:
+  - "Stabilește regula de „proprietate”: fiecare valoare STR de pe stivă deține propriul șir. Orice operație care scoate o valoare de pe stivă o eliberează; DUP trebuie deci să creeze un șir nou (copie profundă), iar SWAP doar mută structurile."
+  - "Pentru ADD/MUL calculează întâi rezultatul într-o variabilă separată, fără să atingi stiva. Doar dacă totul a reușit eliberezi cei doi operanzi, scazi `n` cu 2 și pui rezultatul. Așa, la eroare stiva rămâne automat neschimbată."
+  - "Depășirea la înmulțire se verifică înainte: dacă x ≠ 0 și |y| > 10^18 / |x|, rezultatul ar fi prea mare. La adunare, cu operanzi de cel mult 10^18 în modul, suma încape în long long și o poți verifica după. Repetarea unui șir de lungime L de k ori are lungimea L·k — verifică limita tot prin împărțire."
+pitfalls:
+  - "Copia superficială la DUP duce la eliberarea de două ori a aceluiași șir."
+  - "Dacă eliberezi operanzii înainte să afli că operația e invalidă, stiva se strică."
+  - "Nu citi `v.d` dintr-o valoare de tip INT — uniunea nu face conversii; transformă explicit `(double)v.i`."

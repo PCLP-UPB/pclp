@@ -1,0 +1,11 @@
+ADD a 1 1
+RENAME a b
+RENAME a c
+ADD c 2 2
+RENAME b c
+DEL a
+DEL b
+DEL c
+REPORT
+ADD a 3 3
+REPORT

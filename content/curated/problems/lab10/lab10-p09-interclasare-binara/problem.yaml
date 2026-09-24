@@ -4,7 +4,7 @@ number: 9
 title: "Interclasarea a două fișiere binare sortate"
 difficulty: 4
 estimated_minutes: 50
-concepts: [fișier binar, înregistrare, fread, fwrite, ftell, fseek, structură, verificarea deschiderii fișierului]
+concepts: [fișier binar, înregistrare, fread, fwrite, ftell, fseek, structură, verificarea deschiderii fișierului, interclasare]
 statement: |
   Fișierele `a.bin` și `b.bin` conțin înregistrări de 8 octeți (`sizeof(int) == 4`, little-endian, fără antet):
 

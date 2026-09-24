@@ -1,0 +1,5 @@
+12 18 30 42
+  suma(2) = 30, suma(4) = 102
+  maxim(1) = 12, maxim(3) = 30
+  media(4) = 25.50
+  cmmdc(a, b) = 6, cmmdc(a, b, c, d) = 6

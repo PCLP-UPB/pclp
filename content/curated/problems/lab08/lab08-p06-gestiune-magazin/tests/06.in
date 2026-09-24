@@ -1,0 +1,8 @@
+ADD z 1 5
+ADD y 1 5
+ADD x 1 5
+ADD w 1 5
+ADD v 1 5
+DEL x
+RENAME v a
+REPORT

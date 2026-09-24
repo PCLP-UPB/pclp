@@ -4,7 +4,7 @@ number: 5
 title: "Compresie pe secvențe"
 difficulty: 3
 estimated_minutes: 45
-concepts: [șir de caractere, strlen, malloc, spațiu pentru terminator, isdigit, sprintf]
+concepts: [șir de caractere, strlen, malloc, spațiu pentru terminator, ctype.h, specificator de format]
 statement: |
   Un protocol de transmisie comprimă textele astfel: fiecare secvență maximală de `L` caractere identice `c` se scrie `c` dacă `L = 1`, respectiv `<L>c` (numărul `L` în baza 10, urmat de caracter) dacă `L ≥ 2`. De exemplu, `aaabccccd` devine `3ab4cd`. Textele originale nu conțin cifre, deci codul se poate decoda fără ambiguitate.
 

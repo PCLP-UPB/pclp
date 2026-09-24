@@ -1,0 +1,25 @@
+210 208 711 82
+  suma(2) = 418, suma(4) = 1211
+  maxim(1) = 210, maxim(3) = 711
+  media(4) = 302.75
+  cmmdc(a, b) = 2, cmmdc(a, b, c, d) = 1
+18 156 406 58
+  suma(2) = 174, suma(4) = 638
+  maxim(1) = 18, maxim(3) = 406
+  media(4) = 159.50
+  cmmdc(a, b) = 6, cmmdc(a, b, c, d) = 2
+252 192 631 84
+  suma(2) = 444, suma(4) = 1159
+  maxim(1) = 252, maxim(3) = 631
+  media(4) = 289.75
+  cmmdc(a, b) = 12, cmmdc(a, b, c, d) = 1
+66 160 16 108
+  suma(2) = 226, suma(4) = 350
+  maxim(1) = 66, maxim(3) = 160
+  media(4) = 87.50
+  cmmdc(a, b) = 2, cmmdc(a, b, c, d) = 2
+204 20 61 6
+  suma(2) = 224, suma(4) = 291
+  maxim(1) = 204, maxim(3) = 204
+  media(4) = 72.75
+  cmmdc(a, b) = 4, cmmdc(a, b, c, d) = 1

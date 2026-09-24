@@ -4,7 +4,7 @@ number: 7
 title: "Bonul fiscal"
 difficulty: 3
 estimated_minutes: 50
-concepts: [strtok, token, strchr, șir de caractere, specificator de format, isdigit]
+concepts: [strtok, token, strchr, șir de caractere, specificator de format, ctype.h]
 statement: |
   O casă de marcat primește articolele sub forma unor linii `nume;cantitate;pret`, dar datele vin dintr-un sistem vechi și pot fi greșite. Scrieți programul care tipărește bonul.
 

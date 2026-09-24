@@ -1,0 +1,20 @@
+255
+  binar: 00000000 00000000 00000000 11111111
+  biti de 1: 8
+  paritate: impar
+  putere a lui 2: nu
+256
+  binar: 00000000 00000000 00000001 00000000
+  biti de 1: 1
+  paritate: par
+  putere a lui 2: da
+65536
+  binar: 00000000 00000001 00000000 00000000
+  biti de 1: 1
+  paritate: par
+  putere a lui 2: da
+3
+  binar: 00000000 00000000 00000000 00000011
+  biti de 1: 2
+  paritate: impar
+  putere a lui 2: nu

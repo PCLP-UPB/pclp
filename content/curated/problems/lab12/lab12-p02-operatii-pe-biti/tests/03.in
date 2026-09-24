@@ -1,0 +1,6 @@
+0
+not
+shl 31
+set 32
+test -1
+shl 32

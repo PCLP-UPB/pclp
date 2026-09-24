@@ -1,0 +1,7 @@
+Numere prime pana la 50: 15
+interval 20 10: invalid
+interval 0 5: invalid
+prim 51: in afara domeniului
+al 0-lea: nu exista
+Comanda necunoscuta: foo
+interval 49 50: 0

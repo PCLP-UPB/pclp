@@ -1,0 +1,87 @@
+id: lab08-p09-foaie-calcul
+lab: lab08
+number: 9
+title: "Foaie de calcul"
+difficulty: 4
+estimated_minutes: 60
+concepts: [uniune, enumerare, structură, copiere profundă, copiere superficială, câmp pointer alocat dinamic, citirea greșită a unei uniuni]
+statement: |
+  Implementați nucleul unei foi de calcul cu 26 de coloane (`A`–`Z`) și 99 de linii (`1`–`99`). O celulă se referă ca `<litera mare><numar>`, de exemplu `B12`; orice altă formă (litere mici, mai multe litere, linia 0 sau peste 99) este invalidă. O celulă poate fi goală sau poate conține un întreg, un număr real sau un text:
+
+  ```c
+  typedef enum { GOL, INTREG, REAL, TEXT } TipCelula;
+
+  typedef struct {
+      TipCelula tip;
+      union {
+          long long i;
+          double r;
+          char *s;        /* alocat dinamic; fiecare celula isi detine propriul text */
+      } val;
+  } Celula;
+  ```
+
+  Comenzi:
+
+  | comandă | efect |
+  |---|---|
+  | `SET X INT v` / `SET X REAL v` / `SET X TEXT cuvant` | pune în celula `X` valoarea dată (înlocuind ce era) |
+  | `CLEAR X` | golește celula |
+  | `COPY X Y` | copiază conținutul lui `X` în `Y`; după copiere, cele două celule sunt independente |
+  | `UPPER X` | transformă în majuscule textul din `X`; dacă `X` nu conține text, afișează `NU E TEXT X` |
+  | `SHOW X` | afișează `X = ` urmat de valoare: întreg (`%lld`), real (`%.3f`), text între ghilimele sau `<gol>` |
+  | `SUM X Y` | pentru dreptunghiul cu colțurile opuse `X` și `Y`: `SUM = <suma> (numerice: <n>, text: <t>)`, unde suma adună întregii și realii; dacă în dreptunghi nu e niciun real, suma se afișează ca întreg, altfel cu `%.3f` |
+
+  Dacă o comandă conține o referință invalidă, se afișează `REFERINTA INVALIDA <ref>` (prima referință invalidă) și comanda se ignoră. Textele se alocă dinamic și trebuie eliberate când nu mai sunt folosite (suprascriere, golire, final).
+
+  **Date de intrare**
+
+  Comenzi, câte una pe linie, până la sfârșitul fișierului.
+
+  **Date de ieșire**
+
+  Mesajele comenzilor, în ordine.
+
+  **Restricții**
+
+  - cel mult 10000 de comenzi
+  - întregii au valoarea absolută cel mult `10^12`; realii au cel mult două zecimale și valoarea absolută cel mult `10^6`; textele au între 1 și 100 de caractere, fără spații
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  SET A1 INT 10
+  SET A2 REAL 2.5
+  SET B1 TEXT pret
+  SET B2 INT -3
+  SUM A1 B2
+  COPY B1 C1
+  UPPER C1
+  SHOW B1
+  SHOW C1
+  CLEAR A2
+  SUM B2 A1
+  SHOW A2
+  SET Z100 INT 1
+  UPPER A1
+  ```
+
+  Ieșire:
+  ```
+  SUM = 9.500 (numerice: 3, text: 1)
+  B1 = "pret"
+  C1 = "PRET"
+  SUM = 7 (numerice: 2, text: 1)
+  A2 = <gol>
+  REFERINTA INVALIDA Z100
+  NU E TEXT A1
+  ```
+hints:
+  - "Câmpul `tip` spune ce membru al uniunii e valid. Orice funcție care citește sau eliberează o celulă face întâi un test pe `tip` — de exemplu, `free(c->val.s)` e corect doar dacă tipul e `TEXT`."
+  - "Scrie o funcție `goleste(Celula *c)` care eliberează textul (dacă există) și pune tipul `GOL`; apeleaz-o înainte de orice suprascriere. Pentru COPY, dacă sursa e text, duplică șirul (copie profundă), nu copia doar pointerul."
+  - "La COPY, pregătește întâi copia (inclusiv textul duplicat) și abia apoi golește destinația — altfel `COPY A1 A1` ar elibera exact textul pe care vrei să-l copiezi. La SUM, ordonează colțurile (min/max pe linii și coloane) înainte de parcurgere."
+pitfalls:
+  - "Cu o copie superficială, două celule arată spre același text: UPPER pe una o schimbă și pe cealaltă, iar la final textul e eliberat de două ori."
+  - "Dacă suprascrii o celulă text fără să eliberezi șirul vechi, apare memory leak."
+  - "Nu citi `val.r` dintr-o celulă în care ai scris `val.i` — uniunea nu convertește valorile."

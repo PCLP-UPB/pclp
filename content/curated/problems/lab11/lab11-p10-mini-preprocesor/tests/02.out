@@ -1,0 +1,4 @@
+#include <stdio.h>
+int v[10];
+printf("N = %d\n", 10);
+int N2 = 10 * 2;

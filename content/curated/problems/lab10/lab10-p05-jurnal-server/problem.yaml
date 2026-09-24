@@ -4,7 +4,7 @@ number: 5
 title: "Filtrarea jurnalului unui server"
 difficulty: 3
 estimated_minutes: 45
-concepts: [enumerare, structură, vector extensibil, câmp pointer alocat dinamic, sscanf, fgets, fișier text, strcmp]
+concepts: [enumerare, structură, vector extensibil, câmp pointer alocat dinamic, fgets, fișier text, strcmp]
 statement: |
   Fișierul `server.log` conține câte un eveniment pe linie, în forma `HH:MM:SS NIVEL mesaj`,
   în ordine cronologică. `NIVEL` este `INFO`, `WARN` sau `ERROR` (în această ordine a gravității),

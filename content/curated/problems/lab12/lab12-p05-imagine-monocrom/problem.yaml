@@ -1,0 +1,94 @@
+id: lab12-p05-imagine-monocrom
+lab: lab12
+number: 5
+title: "Imagine alb-negru împachetată pe biți"
+difficulty: 3
+estimated_minutes: 50
+concepts: [mască, testarea unui bit, setarea unui bit, SAU-EXCLUSIV pe biți, deplasare la stânga, fișier binar, fread, fwrite, endianness, alocare dinamică]
+statement: |
+  O imagine monocromă este salvată compact, câte **un bit pe pixel**, în fișierul binar `imagine.bin`:
+
+  | octeți | conținut |
+  |---|---|
+  | 0–1 | lățimea `W` (întreg fără semn pe 16 biți, little-endian) |
+  | 2–3 | înălțimea `H` (idem) |
+  | 4 … | `H` rânduri a câte `(W + 7) / 8` octeți |
+
+  În fiecare rând, pixelul `x` este bitul `7 - x % 8` al octetului `x / 8` (primul pixel este bitul cel mai
+  semnificativ). Bitul 1 = pixel negru (`#`), 0 = alb (`.`). Biții de completare de la finalul rândului sunt 0.
+
+  Programul încarcă imaginea, afișează `Imagine WxH` și imaginea, apoi execută comenzile de la tastatură:
+
+  - `afiseaza` — desenează imaginea (`#`/`.`, câte un rând pe linie), apoi `Pixeli negri: K din W*H`;
+  - `inverseaza` — negru ↔ alb pentru toți pixelii (biții de completare rămân 0);
+  - `oglinda` — oglindire stânga ↔ dreapta;
+  - `rastoarna` — oglindire sus ↔ jos;
+  - `salveaza` — scrie imaginea curentă în `rezultat.bin` (același format), o recitește și afișează
+    `Salvat rezultat.bin: D octeti, xor = 0xHH` (XOR-ul tuturor octeților fișierului, 2 cifre hexa, litere mari);
+  - altceva: `Comanda necunoscuta: <cuvant>`.
+
+  Erori: `Eroare: nu pot deschide imagine.bin`; `Fisier corupt` dacă `W` sau `H` este 0 sau dimensiunea fișierului
+  nu este exact `4 + H * ((W + 7) / 8)`.
+
+  **Restricții**
+
+  - 1 ≤ W, H ≤ 4096; imaginea se ține în memorie tot împachetată (un bit pe pixel).
+
+  **Exemplu**
+
+  Fișierul binar `imagine.bin` (20 octeți, afișat cu `hexdump -C`):
+  ```
+  00000000  0a 00 08 00 3c 00 42 00  a5 00 81 00 a5 00 99 00  |....<.B.........|
+  00000010  42 00 3c 00                                       |B.<.|
+  00000014
+  ```
+
+  Intrare (stdin):
+  ```
+  oglinda
+  afiseaza
+  inverseaza
+  afiseaza
+  salveaza
+  ```
+
+  Ieșire (stdout):
+  ```
+  Imagine 10x8
+  ..####....
+  .#....#...
+  #.#..#.#..
+  #......#..
+  #.#..#.#..
+  #..##..#..
+  .#....#...
+  ..####....
+  Pixeli negri: 26 din 80
+  ....####..
+  ...#....#.
+  ..#.#..#.#
+  ..#......#
+  ..#.#..#.#
+  ..#..##..#
+  ...#....#.
+  ....####..
+  Pixeli negri: 26 din 80
+  ####....##
+  ###.####.#
+  ##.#.##.#.
+  ##.######.
+  ##.#.##.#.
+  ##.##..##.
+  ###.####.#
+  ####....##
+  Pixeli negri: 54 din 80
+  Salvat rezultat.bin: 20 octeti, xor = 0x04
+  ```
+hints:
+  - "Scrie întâi două funcții: get_pixel(x, y) și set_pixel(x, y, v), care calculează octetul (y * octeti_pe_rand + x / 8) și masca 1 << (7 - x % 8). Restul operațiilor se construiesc peste ele."
+  - "Inversarea se poate face pe octeți întregi (XOR cu 0xFF), dar apoi biții de completare de pe ultimul octet al fiecărui rând trebuie readuși la 0 cu o mască: păstrezi doar primii W % 8 biți (de la stânga)."
+  - "W și H nu se citesc cu fread într-un int (depinde de endianness și de dimensiunea tipului): citește 2 octeți și compune b[0] | (b[1] << 8). Pentru rastoarna interschimbi rânduri întregi (memcpy), pentru oglinda — pixel cu pixel."
+pitfalls:
+  - "Numărarea pixelilor negri pe octeți întregi numără și biții de completare dacă aceștia nu sunt 0 după inversare."
+  - "Pixelul 0 este bitul cel mai SEMNIFICATIV al octetului (bitul 7), nu bitul 0."
+  - "Octeți pe rând = (W + 7) / 8, nu W / 8 (care pierde ultimii pixeli când W nu e multiplu de 8)."

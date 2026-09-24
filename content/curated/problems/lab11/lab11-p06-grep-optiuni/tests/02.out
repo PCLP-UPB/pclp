@@ -1,0 +1,3 @@
+Port 8080
+port_admin 9090
+Host localhost

@@ -1,0 +1,4 @@
+REAL 7.500
+[3] REAL 7.500 | STR "ababab" | INT 6
+EROARE TIP
+[3] REAL 7.500 | INT 6 | STR "abababcd"

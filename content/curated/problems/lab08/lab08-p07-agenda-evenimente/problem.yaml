@@ -1,0 +1,77 @@
+id: lab08-p07-agenda-evenimente
+lab: lab08
+number: 7
+title: "Agenda de evenimente"
+difficulty: 3
+estimated_minutes: 45
+concepts: [structuri imbricate, enumerare, structură, vector de structuri, typedef]
+statement: |
+  O aplicație de tip agendă primește data curentă și o listă de evenimente, fiecare cu o dată și un titlu. Afișați evenimentele valide în ordine cronologică (la aceeași dată, după titlu, în ordinea dată de `strcmp`), fiecare cu ziua săptămânii și distanța în zile față de data curentă.
+
+  Folosiți tipurile:
+
+  ```c
+  typedef enum { LUNI, MARTI, MIERCURI, JOI, VINERI, SAMBATA, DUMINICA } ZiSaptamana;
+  typedef struct { int zi, luna, an; } Data;
+  typedef struct { Data data; char titlu[41]; } Eveniment;
+  ```
+
+  și implementați cel puțin:
+
+  ```c
+  int este_valida(Data d);
+  long zile_de_la_1900(Data d);           /* 0 pentru 01.01.1900 */
+  ZiSaptamana zi_saptamana(Data d);
+  ```
+
+  O dată este validă dacă anul e între 1900 și 2100, luna între 1 și 12, iar ziua există în acea lună. Un an este bisect dacă se divide cu 4 și nu cu 100, sau dacă se divide cu 400. Data de 01.01.1900 a fost într-o zi de **luni**. Numele zilelor se afișează ca `Luni`, `Marti`, `Miercuri`, `Joi`, `Vineri`, `Sambata`, `Duminica`, folosind valoarea enumerării ca indice.
+
+  Evenimentele cu dată invalidă nu intră în agendă; pentru fiecare se afișează, în ordinea citirii și înaintea agendei, `Data invalida: <titlu>`.
+
+  **Date de intrare**
+
+  Pe prima linie data curentă, `zz.ll.aaaa` (validă). Pe a doua linie `n`. Urmează `n` linii `zz.ll.aaaa titlu` (titlul nu conține spații).
+
+  **Date de ieșire**
+
+  Pentru fiecare eveniment valid, o linie:
+
+  ```
+  printf("%02d.%02d.%04d %-8s %s - ", zi, luna, an, nume_zi, titlu);
+  ```
+
+  urmată de `azi`, `peste <d> zile` sau `acum <d> zile` (față de data curentă).
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1000`; titlurile au cel mult 40 de caractere
+  - în datele evenimentelor, ziua, luna și anul sunt întregi cu cel mult 4 cifre (pot fi invalide)
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  01.10.2025
+  5
+  15.10.2025 Colocviu_PCLP
+  01.10.2025 Inceput_semestru
+  29.02.2025 Zi_inexistenta
+  24.12.2025 Ajun
+  20.09.2025 Balul_bobocilor
+  ```
+
+  Ieșire:
+  ```
+  Data invalida: Zi_inexistenta
+  20.09.2025 Sambata  Balul_bobocilor - acum 11 zile
+  01.10.2025 Miercuri Inceput_semestru - azi
+  15.10.2025 Miercuri Colocviu_PCLP - peste 14 zile
+  24.12.2025 Miercuri Ajun - peste 84 zile
+  ```
+hints:
+  - "Transformă orice dată într-un singur număr: câte zile au trecut de la 01.01.1900. Cu el compari date, calculezi diferențe și afli ziua săptămânii (restul împărțirii la 7, pentru că 01.01.1900 a fost luni = 0 în enum)."
+  - "Numărul de zile = suma zilelor anilor compleți de la 1900 + suma zilelor lunilor complete din anul curent + (zi - 1). Ai nevoie de o funcție pentru an bisect și de un vector cu numărul de zile ale fiecărei luni."
+  - "Câmpurile unei structuri imbricate se citesc direct: `scanf(\"%d.%d.%d %40s\", &e.data.zi, &e.data.luna, &e.data.an, e.titlu)`. Sortează vectorul de evenimente prin atribuire de structuri, comparând întâi numărul de zile, apoi titlurile."
+pitfalls:
+  - "1900 și 2100 nu sunt ani bisecți, 2000 este."
+  - "Vectorul cu zilele lunilor e indexat de la 0: luna `l` corespunde elementului `l - 1`."

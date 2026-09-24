@@ -1,0 +1,59 @@
+id: lab12-p07-rotiri-si-inversari
+lab: lab12
+number: 7
+title: "Rotiri, oglindiri și numărări de biți"
+difficulty: 3
+estimated_minutes: 40
+concepts: [deplasare la stânga, deplasare la dreapta, mască, SAU pe biți, ȘI pe biți, MSB, LSB, endianness, unsigned]
+statement: |
+  Implementează operațiile de mai jos pe numere de 32 de biți (`unsigned int`) și răspunde la comenzi.
+  Fiecare linie conține o operație și un număr `n` scris în **hexazecimal** (fără `0x`):
+
+  | operație | rezultat |
+  |---|---|
+  | `rotl n k`, `rotr n k` | rotire circulară la stânga/dreapta cu `k` poziții (`k` ≥ 0, oricât de mare: rotirea cu 32 nu schimbă nimic) |
+  | `rev n` | oglindirea biților (bitul `i` ajunge pe poziția `31 - i`) |
+  | `swapnib n` | în fiecare octet se interschimbă jumătățile de câte 4 biți |
+  | `swapbytes n` | ordinea octeților se inversează (little-endian ↔ big-endian) |
+  | `evenodd n` | fiecare bit de pe poziție pară se interschimbă cu vecinul său de pe poziția impară următoare |
+  | `clz n` | numărul de zerouri de la stânga (de la bitul 31 spre bitul 0) până la primul 1; 32 pentru `n = 0` |
+  | `ctz n` | numărul de zerouri de la dreapta; 32 pentru `n = 0` |
+
+  **Date de ieșire**
+
+  - pentru rotiri: `rotl 0xHHHHHHHH k -> 0xHHHHHHHH`;
+  - pentru celelalte operații cu rezultat numeric pe 32 de biți: `<op> 0xHHHHHHHH -> 0xHHHHHHHH`;
+  - pentru `clz`/`ctz`: `<op> 0xHHHHHHHH -> K`;
+  - operație necunoscută: `Operatie necunoscuta: <op>`.
+
+  Valorile se afișează cu `%08X`.
+
+  **Exemplu**
+
+  Intrare (stdin):
+  ```
+  rotl 80000001 1
+  rev 1
+  swapnib 12345678
+  swapbytes 12345678
+  clz 00F00000
+  ctz 00F00000
+  ```
+
+  Ieșire (stdout):
+  ```
+  rotl 0x80000001 1 -> 0x00000003
+  rev 0x00000001 -> 0x80000000
+  swapnib 0x12345678 -> 0x21436587
+  swapbytes 0x12345678 -> 0x78563412
+  clz 0x00F00000 -> 8
+  ctz 0x00F00000 -> 20
+  ```
+hints:
+  - "Rotirea la stânga cu k = deplasare la stânga cu k OR deplasare la dreapta cu 32 - k. Reduce întâi k modulo 32 și tratează separat k = 0 (deplasarea cu 32 este comportament nedefinit)."
+  - "Pentru swapnib, swapbytes și evenodd lucrează cu măști care selectează toate grupurile deodată: 0x0F0F0F0F / 0xF0F0F0F0, 0x55555555 (biții pari) / 0xAAAAAAAA (biții impari); apoi deplasezi fiecare parte și le combini cu OR."
+  - "rev: construiește rezultatul bit cu bit — r = (r << 1) | (n & 1); n >>= 1, de 32 de ori. clz: o mască pornind de la 1u << 31, deplasată la dreapta până întâlnește un bit de 1."
+pitfalls:
+  - "x >> 32 sau x << 32 pe un tip de 32 de biți este comportament nedefinit (pe x86 dă adesea x, nu 0)."
+  - "Pe int cu semn, deplasarea la dreapta a unui număr negativ poate propaga bitul de semn — lucrează pe unsigned."
+  - "Buclele clz/ctz fără tratarea lui 0 nu se opresc niciodată."

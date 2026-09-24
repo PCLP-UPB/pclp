@@ -1,0 +1,84 @@
+id: lab08-p05-forme-geometrice
+lab: lab08
+number: 5
+title: "Catalogul de forme"
+difficulty: 3
+estimated_minutes: 40
+concepts: [uniune, enumerare, structură, structuri imbricate, pointer la structură, citirea greșită a unei uniuni]
+statement: |
+  O aplicație de desen memorează forme de trei tipuri: cercuri (rază), dreptunghiuri (două laturi) și triunghiuri (trei laturi). Fiecare formă are un nume. Afișați formele valide ordonate după arie și câteva totaluri.
+
+  Folosiți o **uniune etichetată**: o structură care conține tipul formei (un `enum`), numele și o `union` cu dimensiunile, unde doar varianta corespunzătoare tipului e folosită:
+
+  ```c
+  typedef enum { CERC, DREPTUNGHI, TRIUNGHI, NR_TIPURI } TipForma;
+
+  typedef struct {
+      TipForma tip;
+      char nume[21];
+      union {
+          struct { double r; } cerc;
+          struct { double l, L; } drept;
+          struct { double a, b, c; } tri;
+      } dim;
+  } Forma;
+  ```
+
+  Implementați `double arie(const Forma *f)` și `double perimetru(const Forma *f)`. Aria triunghiului se calculează cu formula lui Heron. Un triunghi este valid doar dacă fiecare latură este **strict** mai mică decât suma celorlalte două; formele invalide nu se păstrează, dar se afișează mesajul `Forma invalida: <nume>`, în ordinea citirii, înaintea listei.
+
+  Ordinea: arie descrescătoare; două arii care diferă cu mai puțin de `10^-6` se consideră egale și atunci ordinea e dată de `strcmp` pe nume. Pentru π folosiți `3.14159265358979323846`.
+
+  **Date de intrare**
+
+  Pe prima linie `n`. Urmează `n` linii de forma `cerc <nume> r`, `dreptunghi <nume> l L` sau `triunghi <nume> a b c`.
+
+  **Date de ieșire**
+
+  Mesajele pentru formele invalide, apoi, pentru fiecare formă validă, în ordinea cerută:
+
+  ```
+  <nume> (<tip>): arie=<arie cu 2 zecimale> perimetru=<perimetru cu 2 zecimale>
+  ```
+
+  apoi trei linii, pentru `cerc`, `dreptunghi`, `triunghi` în această ordine:
+
+  ```
+  Total <tip>: <numar> forme, arie <suma ariilor cu 2 zecimale>
+  ```
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1000`; dimensiunile sunt întregi din `[1, 1000]`
+  - numele au cel mult 20 de caractere, fără spații, și sunt distincte
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  5
+  cerc roata 2
+  dreptunghi usa 1 2
+  triunghi acoperis 3 4 5
+  triunghi imposibil 1 2 5
+  dreptunghi masa 3 4
+  ```
+
+  Ieșire:
+  ```
+  Forma invalida: imposibil
+  roata (cerc): arie=12.57 perimetru=12.57
+  masa (dreptunghi): arie=12.00 perimetru=14.00
+  acoperis (triunghi): arie=6.00 perimetru=12.00
+  usa (dreptunghi): arie=2.00 perimetru=6.00
+  Total cerc: 1 forme, arie 12.57
+  Total dreptunghi: 2 forme, arie 14.00
+  Total triunghi: 1 forme, arie 6.00
+  ```
+hints:
+  - "O uniune are loc pentru un singur „set” de dimensiuni la un moment dat; câmpul `tip` îți spune care set e valid. Fiecare funcție face `switch` pe `tip` și citește numai câmpurile potrivite (`f->dim.cerc.r`, `f->dim.tri.a` etc.)."
+  - "Valorile `enum`-ului sunt 0, 1, 2 — le poți folosi ca indici într-un vector cu numele tipurilor și în vectorii de totaluri. `NR_TIPURI` (= 3) e chiar numărul de tipuri."
+  - "Heron: s = (a + b + c) / 2, aria = sqrt(s(s-a)(s-b)(s-c)). Pentru sortare scrie o funcție de comparare: dacă |arie1 - arie2| ≥ 1e-6 decide aria, altfel `strcmp` pe nume."
+pitfalls:
+  - "Dacă scrii în `dim.drept` și citești `dim.cerc.r`, obții valori fără sens — uniunea nu știe ce tip a fost scris ultima dată."
+  - "Nu compara `double`-uri cu `==`: două arii egale matematic pot diferi în ultimele zecimale."
+  - "Triunghiul `1 2 3` este degenerat (aria 0) și e invalid."

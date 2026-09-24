@@ -4,7 +4,7 @@ number: 2
 title: "Frecvența cuvintelor dintr-un text"
 difficulty: 2
 estimated_minutes: 35
-concepts: [vector extensibil, realloc, realocare prin pointer auxiliar, structură, câmp pointer alocat dinamic, strcmp, tolower, eliberarea memoriei alocate dinamic]
+concepts: [vector extensibil, realloc, realocare prin pointer auxiliar, structură, câmp pointer alocat dinamic, strcmp, tolower, eliberarea memoriei alocate dinamic, vector de frecvență]
 statement: |
   Se citește un text de la tastatură, până la sfârșitul intrării. Un **cuvânt** este o secvență
   maximală de litere (`a–z`, `A–Z`); orice alt caracter (cifră, spațiu, semn de punctuație) separă cuvintele.

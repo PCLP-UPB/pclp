@@ -1,0 +1,78 @@
+id: lab11-p04-functii-variadice
+lab: lab11
+number: 4
+title: "Suma, maximul, media și cmmdc variadice"
+difficulty: 2
+estimated_minutes: 30
+concepts: [funcție variadică, stdarg.h, va_list, va_start, va_arg, va_end, parametru fixat, valoare terminator]
+statement: |
+  Implementează următoarele funcții cu număr variabil de parametri (toate argumentele variabile sunt de tip `int`):
+
+  - `int suma(int n, ...)` — suma celor `n` numere care urmează;
+  - `int maxim(int n, ...)` — maximul celor `n ≥ 1` numere care urmează;
+  - `double media(int n, ...)` — media aritmetică a celor `n ≥ 1` numere care urmează;
+  - `int cmmdc(int first, ...)` — cel mai mare divizor comun al unei liste de numere **strict pozitive**,
+    terminate cu valoarea `0` (terminatorul nu face parte din listă).
+
+  Funcția `main` din schelet (care nu se modifică) citește câte 4 numere și apelează funcțiile cu 1, 2, 3 sau 4 argumente.
+
+  **Date de intrare**
+
+  Grupe de câte 4 numere întregi strict pozitive `a b c d`, până la sfârșitul intrării.
+
+  **Date de ieșire**
+
+  Cele afișate de `main`.
+
+  **Restricții**
+
+  - 1 ≤ a, b, c, d ≤ 10^6.
+
+  **Exemplu**
+
+  Intrare (stdin):
+  ```
+  12 18 30 42
+  ```
+
+  Ieșire (stdout):
+  ```
+  12 18 30 42
+    suma(2) = 30, suma(4) = 102
+    maxim(1) = 12, maxim(3) = 30
+    media(4) = 25.50
+    cmmdc(a, b) = 6, cmmdc(a, b, c, d) = 6
+  ```
+starter: |
+  #include <stdio.h>
+  #include <stdarg.h>
+
+  int suma(int n, ...);
+  int maxim(int n, ...);
+  double media(int n, ...);
+  int cmmdc(int first, ...);   // lista se termina cu 0
+
+  // TODO: implementeaza cele patru functii
+
+  // ---- de aici in jos este codul dat in enunt (nu se modifica) ----
+  int main(void)
+  {
+      int a, b, c, d;
+      while (scanf("%d %d %d %d", &a, &b, &c, &d) == 4) {
+          printf("%d %d %d %d\n", a, b, c, d);
+          printf("  suma(2) = %d, suma(4) = %d\n", suma(2, a, b), suma(4, a, b, c, d));
+          printf("  maxim(1) = %d, maxim(3) = %d\n", maxim(1, a), maxim(3, a, b, c));
+          printf("  media(4) = %.2f\n", media(4, a, b, c, d));
+          printf("  cmmdc(a, b) = %d, cmmdc(a, b, c, d) = %d\n",
+                 cmmdc(a, b, 0), cmmdc(a, b, c, d, 0));
+      }
+      return 0;
+  }
+hints:
+  - "O funcție variadică nu știe singură câte argumente a primit: fie i le spui explicit (parametrul n), fie lista se termină cu o valoare specială (0 la cmmdc)."
+  - "Tiparul: va_list args; va_start(args, <ultimul parametru fixat>); apoi va_arg(args, int) de câte ori ai nevoie; la final va_end(args)."
+  - "La cmmdc, primul număr este parametrul fixat first; restul se citesc cu va_arg într-o buclă până la 0, aplicând algoritmul lui Euclid pe rând. La media, adună în long long și împarte la double."
+pitfalls:
+  - "va_start primește numele ULTIMULUI parametru fix, nu primul argument variabil."
+  - "Dacă citești cu va_arg mai multe argumente decât s-au transmis, comportamentul este nedefinit (valori aleatoare)."
+  - "Uitarea lui va_end."

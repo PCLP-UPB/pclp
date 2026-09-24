@@ -1,0 +1,82 @@
+id: lab08-p08-coada-ghiseu
+lab: lab08
+number: 8
+title: "Coada de la ghișeu"
+difficulty: 4
+estimated_minutes: 60
+concepts: [listă înlănțuită, nod, structură, pointer la structură, operatorul săgeată, câmp pointer alocat dinamic, pointer la pointer]
+statement: |
+  La un ghișeu, persoanele stau la coadă; unele au prioritate (vârstnici, gravide). Regulile:
+
+  - o persoană **normală** care sosește se așază la finalul cozii;
+  - o persoană **prioritară** care sosește se așază imediat după ultima persoană prioritară din coadă (deci înaintea tuturor persoanelor normale); dacă nu există prioritari, se așază prima;
+  - oricine poate părăsi coada din orice poziție.
+
+  Implementați coada ca **listă simplu înlănțuită**, cu noduri alocate dinamic, în care numele fiecărei persoane este și el alocat dinamic:
+
+  ```c
+  typedef struct Nod {
+      char *nume;
+      int prioritar;
+      struct Nod *urm;
+  } Nod;
+  ```
+
+  Comenzi:
+
+  | comandă | efect |
+  |---|---|
+  | `ARRIVE nume p` | sosește o persoană (`p = 1` prioritar, `p = 0` normal); dacă numele e deja în coadă, afișează `Deja in coada: nume` |
+  | `SERVE` | servește primul din coadă și afișează `Servit: nume`; dacă coada e goală, afișează `Coada goala` |
+  | `LEAVE nume` | persoana părăsește coada; dacă nu e în coadă, afișează `Nu exista: nume` |
+  | `POS nume` | afișează `nume: <pozitie>` (numerotare de la 1; 0 dacă nu e în coadă) |
+  | `PRINT` | afișează `Coada (<k>):` urmat de nume, fiecare precedat de un spațiu; prioritarii au `*` după nume |
+
+  La final, toată memoria se eliberează.
+
+  **Date de intrare**
+
+  Comenzi, câte una pe linie, până la sfârșitul fișierului.
+
+  **Date de ieșire**
+
+  Mesajele comenzilor, în ordine.
+
+  **Restricții**
+
+  - cel mult 10000 de comenzi; numele au între 1 și 30 de caractere, fără spații
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  ARRIVE Ana 0
+  ARRIVE Bogdan 0
+  ARRIVE Carmen 1
+  ARRIVE Dan 1
+  ARRIVE Ana 1
+  PRINT
+  POS Bogdan
+  LEAVE Bogdan
+  LEAVE Elena
+  SERVE
+  PRINT
+  ```
+
+  Ieșire:
+  ```
+  Deja in coada: Ana
+  Coada (4): Carmen* Dan* Ana Bogdan
+  Bogdan: 4
+  Nu exista: Elena
+  Servit: Carmen
+  Coada (2): Dan* Ana
+  ```
+hints:
+  - "Un nod conține datele unei persoane și adresa următorului nod; ultimul are `urm = NULL`. Coada e dată de adresa primului nod (și, opțional, lungimea) — păstrează-le într-o structură și trimite-o funcțiilor prin pointer."
+  - "Inserarea în interiorul listei: găsești nodul după care inserezi, apoi `nou->urm = p->urm; p->urm = nou;` (în această ordine). Ca să nu tratezi separat inserarea la început, poți parcurge lista cu un pointer la „legătura” curentă (`Nod **`), pornind de la adresa pointerului la primul nod."
+  - "Pseudocod ARRIVE: leg = adresa lui cap; cât timp *leg nu e NULL și (persoana e normală sau (*leg) e prioritar): leg = adresa câmpului urm din *leg; nou->urm = *leg; *leg = nou. Ștergerea e asemănătoare: găsești legătura care indică spre nod și o redirecționezi spre succesor, apoi eliberezi numele și nodul."
+pitfalls:
+  - "După `free(p)`, nu mai ai voie să citești `p->urm` — salvează-l înainte."
+  - "Fiecare nod are două alocări (nodul și numele), deci două `free`."
+  - "Ștergerea primului nod trebuie să actualizeze începutul cozii."

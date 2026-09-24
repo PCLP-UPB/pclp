@@ -1,0 +1,6 @@
+Numar argumente: 4
+argv[4] = *
+argv[3] = --help
+argv[2] = -n
+argv[1] = 
+Cel mai lung: --help (6 caractere)

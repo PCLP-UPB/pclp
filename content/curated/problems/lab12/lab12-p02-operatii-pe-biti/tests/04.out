@@ -1,0 +1,6 @@
+start -> 305419896 (0x12345678)
+and 0xFF00FF00 -> 302011904 (0x12005600)
+or 0xF -> 302011919 (0x1200560F)
+xor 0xFFFFFFFF -> 3992955376 (0xEDFFA9F0)
+test 0 -> 0
+foo -> Comanda necunoscuta

@@ -1,0 +1,51 @@
+id: lab12-p08-numarul-singuratic
+lab: lab12
+number: 8
+title: "Numărul singuratic"
+difficulty: 4
+estimated_minutes: 50
+concepts: [SAU-EXCLUSIV pe biți, testarea unui bit, setarea unui bit, LSB, mască, unsigned, reinterpretarea datelor din memorie]
+statement: |
+  Intrarea conține mai multe cazuri de test, fiecare începând cu tipul său `t`:
+
+  - **`t = 1`**: urmează `n k`, apoi `n` numere întregi (`int`). Fiecare valoare apare de **exact `k` ori**, cu excepția
+    uneia singure, care apare o dată. Afișează această valoare. Numerele trebuie procesate pe măsură ce sunt citite,
+    cu memorie **O(1)** (fără vector, fără sortare).
+  - **`t = 2`**: urmează `n`, apoi `n` numere întregi. Fiecare valoare apare de **exact două ori**, cu excepția a două
+    valori distincte care apar câte o dată. Afișează cele două valori în ordine crescătoare, separate prin spațiu.
+    Aici se poate memora vectorul, dar soluția trebuie să fie liniară, fără sortare.
+  - alt `t`: afișează `Tip invalid` și oprește procesarea.
+
+  **Date de ieșire**
+
+  Câte o linie pentru fiecare caz de test.
+
+  **Restricții**
+
+  - 2 ≤ k ≤ 100; 1 ≤ n ≤ 10^6; numerele sunt în domeniul `int` (pot fi negative).
+
+  **Exemplu**
+
+  Intrare (stdin):
+  ```
+  1
+  7 3
+  5 -2 5 9 -2 5 -2
+  2
+  6
+  1 4 4 1 5 6
+  ```
+
+  Ieșire (stdout):
+  ```
+  9
+  5 6
+  ```
+hints:
+  - "Privește fiecare poziție de bit separat. Dacă o valoare apare de k ori, ea contribuie la numărul de biți de 1 de pe o poziție cu 0 sau cu k."
+  - "Tipul 1: pentru fiecare dintre cele 32 de poziții ține un contor modulo k al biților de 1; la final, pozițiile cu contor nenul sunt exact biții valorii unice. Lucrează pe unsigned ca să tratezi corect numerele negative, apoi convertește rezultatul la int."
+  - "Tipul 2: XOR-ul tuturor valorilor este a ^ b (perechile se anulează) și nu este 0. Alege un bit de 1 din el — de exemplu cel mai din dreapta: x & (~x + 1) — și împarte valorile în două grupe după acel bit; XOR-ul fiecărei grupe dă câte una dintre valori."
+pitfalls:
+  - "Deplasarea la dreapta a unui int negativ poate aduce biți de 1 (implementare-dependentă) — folosește (unsigned int)x."
+  - "XOR-ul tuturor valorilor izolează valoarea unică doar când k este par; pentru k impar (ex. 3) trebuie numărați biții modulo k."
+  - "Vectorul pentru tipul 2 trebuie eliberat după fiecare caz de test."

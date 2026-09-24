@@ -1,0 +1,6 @@
+rotl 80000001 1
+rev 1
+swapnib 12345678
+swapbytes 12345678
+clz 00F00000
+ctz 00F00000

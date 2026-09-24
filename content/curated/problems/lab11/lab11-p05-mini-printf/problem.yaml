@@ -1,0 +1,79 @@
+id: lab11-p05-mini-printf
+lab: lab11
+number: 5
+title: "Propriul printf"
+difficulty: 3
+estimated_minutes: 45
+concepts: [funcție variadică, va_list, va_arg, promovarea argumentelor, specificator de format, unsigned, putchar, "%x", "%c"]
+statement: |
+  Implementează funcția
+
+  ```c
+  int mini_printf(const char *fmt, ...);
+  ```
+
+  care se comportă ca `printf` pentru un set restrâns de specificatori și întoarce **numărul de caractere afișate**.
+  Afișarea se face **doar cu `putchar`** (fără `printf`/`puts`/`fputs`).
+
+  | specificator | argument | afișare |
+  |---|---|---|
+  | `%d` | `int` | zecimal cu semn |
+  | `%u` | `unsigned int` | zecimal fără semn |
+  | `%x` | `unsigned int` | hexazecimal, litere mici, fără prefix |
+  | `%b` | `unsigned int` | binar, fără zerouri la început (`0` pentru 0) |
+  | `%c` | caracter (transmis ca `int`) | caracterul |
+  | `%s` | `char *` | șirul |
+  | `%%` | — | caracterul `%` |
+
+  Orice alt caracter după `%` se afișează neschimbat, împreună cu `%` (de exemplu `%q` → `%q`), fără a consuma argumente.
+
+  Funcția `main` din schelet (nemodificată) citește înregistrări `nume varsta cod` și apelează `mini_printf`.
+
+  **Date de intrare**
+
+  Triplete `nume varsta cod` până la sfârșitul intrării: `nume` fără spații (≤ 63 caractere),
+  `varsta` în domeniul `int`, `cod` în domeniul `unsigned int`.
+
+  **Exemplu**
+
+  Intrare (stdin):
+  ```
+  Ana 19 10
+  ```
+
+  Ieșire (stdout):
+  ```
+  Ana are 19 ani; cod=10 hex=a bin=1010
+  [38 caractere] 100% %q
+  ```
+
+  Prima linie are 38 de caractere, inclusiv `'\n'`-ul afișat prin `%c`.
+starter: |
+  #include <stdio.h>
+  #include <stdarg.h>
+
+  // TODO: implementeaza mini_printf folosind doar putchar pentru afisare
+  int mini_printf(const char *fmt, ...);
+
+  // ---- de aici in jos este codul dat in enunt (nu se modifica) ----
+  int main(void)
+  {
+      char nume[64];
+      int varsta;
+      unsigned int cod;
+
+      while (scanf("%63s %d %u", nume, &varsta, &cod) == 3) {
+          int n = mini_printf("%s are %d ani; cod=%u hex=%x bin=%b%c", nume, varsta,
+                              cod, cod, cod, '\n');
+          mini_printf("[%d caractere] 100%% %q\n", n);
+      }
+      return 0;
+  }
+hints:
+  - "Parcurge formatul caracter cu caracter; tot ce nu e '%' se afișează direct. După '%', caracterul următor decide ce tip citești cu va_arg."
+  - "Scrie o singură funcție care afișează un unsigned în baza 2, 10 sau 16: extrage cifrele cu % bază și / bază într-un buffer (vor ieși în ordine inversă), apoi afișează bufferul de la coadă. %d = semn + aceeași funcție pe modul."
+  - "Pentru %c folosește va_arg(args, int) (char este promovat la int la transmitere). Pentru modulul lui INT_MIN: convertește întâi la unsigned și calculează 0u - u. Fiecare funcție de afișare întoarce câte caractere a scris, iar mini_printf le adună."
+pitfalls:
+  - "va_arg(args, char) este comportament nedefinit — argumentele char/short sunt promovate la int."
+  - "-x pentru x = INT_MIN depășește domeniul int (overflow cu semn)."
+  - "Bucla do-while (nu while) pentru cifre, altfel pentru 0 nu se afișează nimic."

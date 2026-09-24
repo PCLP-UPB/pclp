@@ -1,0 +1,93 @@
+id: lab08-p06-gestiune-magazin
+lab: lab08
+number: 6
+title: "Gestiunea unui magazin"
+difficulty: 3
+estimated_minutes: 50
+concepts: [structură, câmp pointer alocat dinamic, vector de structuri, pointer la structură, realloc, copiere superficială, memory leak]
+statement: |
+  Scrieți programul de gestiune a stocului unui magazin mic. Folosiți:
+
+  ```c
+  typedef struct {
+      char *nume;         /* alocat dinamic, exact cat e nevoie */
+      int cantitate;
+      int pret;           /* pret unitar, in lei */
+  } Produs;
+
+  typedef struct {
+      Produs *v;          /* vector alocat dinamic, crescut cu realloc */
+      int n, cap;
+      long long incasari;
+  } Magazin;
+  ```
+
+  Comenzi (numele sunt cuvinte fără spații):
+
+  | comandă | efect |
+  |---|---|
+  | `ADD nume c p` | dacă produsul există, îi adaugă `c` bucăți și îi setează prețul la `p`; altfel îl creează |
+  | `SELL nume c` | vinde `c` bucăți: scade stocul și adaugă `c·preț` la încasări; dacă produsul nu există, afișează `PRODUS INEXISTENT nume`; dacă stocul e mai mic decât `c`, afișează `STOC INSUFICIENT nume` și nu vinde nimic |
+  | `RENAME vechi nou` | redenumește produsul; dacă `vechi` nu există sau `nou` există deja, afișează `EROARE` |
+  | `DEL nume` | șterge produsul (sau afișează `PRODUS INEXISTENT nume`) |
+  | `REPORT` | afișează stocul, ordonat după nume (ordinea dată de `strcmp`) |
+
+  Formatul raportului:
+
+  ```
+  --- <numar produse> produse ---
+  <nume> <cantitate> x <pret> = <valoare>
+  ...
+  --- valoare stoc: <suma valorilor> ---
+  ```
+
+  La final se afișează `Incasari: <total>`. Toată memoria (numele și vectorul) trebuie eliberată la final, iar la ștergere sau redenumire memoria care nu mai e folosită se eliberează imediat.
+
+  **Date de intrare**
+
+  Comenzi, câte una pe linie, până la sfârșitul fișierului.
+
+  **Date de ieșire**
+
+  Mesajele și rapoartele, în ordinea comenzilor, apoi linia cu încasările.
+
+  **Restricții**
+
+  - cel mult 5000 de comenzi; numele au între 1 și 30 de caractere
+  - `0 ≤ c ≤ 10^6`, `1 ≤ p ≤ 10^6`; cantitatea unui produs nu depășește `10^9`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  ADD paine 20 3
+  ADD lapte 10 7
+  ADD cafea 5 30
+  SELL paine 4
+  SELL lapte 11
+  SELL ceai 1
+  ADD paine 5 4
+  RENAME cafea cafea_boabe
+  DEL lapte
+  REPORT
+  SELL paine 21
+  ```
+
+  Ieșire:
+  ```
+  STOC INSUFICIENT lapte
+  PRODUS INEXISTENT ceai
+  --- 2 produse ---
+  cafea_boabe 5 x 30 = 150
+  paine 21 x 4 = 84
+  --- valoare stoc: 234 ---
+  Incasari: 96
+  ```
+hints:
+  - "Fiecare produs „deține” șirul spre care arată `nume`. Asta înseamnă: îl aloci când creezi produsul (strlen + 1 octeți), îl eliberezi când ștergi produsul sau îl înlocuiești la redenumire."
+  - "Toate funcțiile primesc un `Magazin *`, pentru că modifică vectorul, numărul de produse și încasările: `m->v[i].cantitate`. Pentru ștergere, eliberezi numele elementului `i`, apoi muți structurile următoare cu o poziție la stânga."
+  - "La mutarea sau interschimbarea structurilor se copiază doar pointerul `nume` (copie superficială) — nu e nevoie de alte alocări, dar nici nu ai voie să eliberezi numele unui element după ce l-ai copiat în altă poziție."
+pitfalls:
+  - "`free(m->v)` nu eliberează șirurile spre care arată câmpurile `nume` — trebuie eliberate întâi, unul câte unul."
+  - "La redenumire, noul nume poate fi mai lung decât cel vechi: nu copia peste zona veche, alocă una nouă."
+  - "Valoarea unui produs și încasările pot depăși `int` — folosește `long long`."

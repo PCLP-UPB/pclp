@@ -1,0 +1,79 @@
+id: lab11-p07-head-optiuni
+lab: lab11
+number: 7
+title: "head: primele linii sau primii octeți"
+difficulty: 3
+estimated_minutes: 40
+concepts: [parametrii liniei de comandă, argc, argv, stdin, fgetc, fopen, flux, cod de ieșire]
+statement: |
+  Scrie o clonă simplificată a comenzii `head`:
+
+  ```
+  ./head [-n N | -c N] [fisier1 fisier2 ...]
+  ```
+
+  - `-n N` — afișează primele `N` linii (implicit `N = 10`);
+  - `-c N` — afișează primii `N` octeți;
+  - opțiunile pot apărea de mai multe ori, înaintea fișierelor; **ultima** câștigă;
+  - fără fișiere, se citește de la intrarea standard (**stdin**).
+
+  **Date de ieșire**
+
+  - conținutul cerut, exact cum apare în fișier (inclusiv o ultimă linie fără `'\n'`);
+  - dacă sunt cel puțin două fișiere, înaintea conținutului fiecărui fișier deschis cu succes se afișează
+    `==> nume <==`, iar între două astfel de blocuri o linie goală (înaintea antetului, nu după primul bloc);
+  - fișier care nu poate fi deschis: `head: nu pot deschide <nume>` (se continuă cu următorul);
+  - erori de opțiuni (programul se oprește cu codul 1):
+    - un argument care începe cu `-` (și nu este chiar `-`) înaintea fișierelor, altul decât `-n`/`-c`: `Optiune necunoscuta: <arg>`;
+    - `-n`/`-c` fără valoare: `Lipseste valoarea pentru -n` (respectiv `-c`);
+    - valoarea nu este un număr natural: `Numar invalid: <valoare>`.
+
+  **Restricții**
+
+  - 0 ≤ N ≤ 10^9; fișierele pot fi foarte mari — nu se încarcă în memorie.
+
+  **Exemplu**
+
+  Argumente în linia de comandă: `./head -n 3 a.txt b.txt`
+
+  Fișierul `a.txt`:
+  ```
+  rand 1
+  rand 2
+  rand 3
+  rand 4
+  rand 5
+  rand 6
+  rand 7
+  rand 8
+  rand 9
+  rand 10
+  rand 11
+  rand 12
+  ```
+
+  Fișierul `b.txt`:
+  ```
+  unu
+  doi
+  ```
+
+  Ieșire (stdout):
+  ```
+  ==> a.txt <==
+  rand 1
+  rand 2
+  rand 3
+
+  ==> b.txt <==
+  unu
+  doi
+  ```
+hints:
+  - "Aceeași funcție poate lucra pe un fișier deschis cu fopen sau pe stdin, pentru că stdin este tot un FILE *."
+  - "Funcția head(f, n, pe_octeti) copiază caracter cu caracter și numără fie fiecare caracter, fie doar '\\n'-urile; se oprește când contorul ajunge la n (atenție la n = 0)."
+  - "Parsarea: cât timp argv[i] începe cu '-': verifică dacă e -n sau -c, dacă urmează o valoare, valideaz-o cu strtol + endptr și avansează i cu 2. Apoi: dacă i == argc citește din stdin, altfel parcurge fișierele."
+pitfalls:
+  - "Citirea cu fgets într-un buffer de dimensiune fixă poate tăia liniile lungi și numără greșit liniile."
+  - "Pentru N = 0 nu trebuie afișat nimic (nici măcar primul caracter)."
+  - "Fișierele deschise trebuie închise înainte de a trece la următorul."

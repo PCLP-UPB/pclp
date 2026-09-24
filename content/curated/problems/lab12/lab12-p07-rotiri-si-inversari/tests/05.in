@@ -1,0 +1,12 @@
+ctz 5156891C
+clz CFB05184
+evenodd 5C962250
+swapnib 576336E1
+swapbytes F3C9FBED
+swapbytes 408B97CD
+clz FDA61987
+rotr A1C1C528 22
+evenodd 8C4E23FD
+swapbytes 60DE74DD
+swapbytes 5FD47534
+evenodd 9929DFEB

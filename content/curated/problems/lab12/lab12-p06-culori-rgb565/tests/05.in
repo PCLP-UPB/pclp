@@ -1,0 +1,10 @@
+canale 2b22
+pack 4 127 15
+pack 14 116 243
+unpack ebff
+mix D8DB A1C1
+unpack c811
+pack 172 30 185
+unpack 98aa
+pack 248 69 142
+pack 101 117 63

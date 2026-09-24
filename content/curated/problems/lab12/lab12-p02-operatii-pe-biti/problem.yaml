@@ -1,0 +1,65 @@
+id: lab12-p02-operatii-pe-biti
+lab: lab12
+number: 2
+title: "Consolă de operații pe biți"
+difficulty: 2
+estimated_minutes: 25
+concepts: [setarea unui bit, resetarea unui bit, testarea unui bit, SAU-EXCLUSIV pe biți, negare pe biți, deplasare la stânga, deplasare la dreapta, atribuire compusă pe biți, mască, "%x"]
+statement: |
+  Se citește o valoare inițială `n` (`unsigned int`, 32 de biți) și apoi o serie de comenzi care o modifică.
+  După fiecare comandă se afișează rezultatul.
+
+  **Comenzi**
+
+  | comandă | efect |
+  |---|---|
+  | `set i` | bitul `i` devine 1 |
+  | `clear i` | bitul `i` devine 0 |
+  | `toggle i` | bitul `i` se inversează |
+  | `test i` | afișează valoarea bitului `i` (nu modifică `n`) |
+  | `shl k` / `shr k` | deplasare la stânga / la dreapta cu `k` poziții |
+  | `not` | toți biții se inversează |
+  | `and M` / `or M` / `xor M` | operația cu masca `M`, dată în hexazecimal |
+
+  Pentru `set`, `clear`, `toggle`, `test`, `shl`, `shr`, argumentul trebuie să fie în intervalul `[0, 31]`.
+
+  **Date de ieșire**
+
+  - prima linie: `start -> n (0xHHHHHHHH)`;
+  - după fiecare comandă care modifică valoarea: `<comanda> <arg> -> n (0xHHHHHHHH)` (pentru `not`: `not -> ...`;
+    pentru măști argumentul se afișează ca `0x` + hexa cu litere mari, fără zerouri în față);
+  - `test i -> 0` sau `test i -> 1`;
+  - argument în afara intervalului: `<comanda> <arg> -> Index invalid` (valoarea nu se schimbă);
+  - comandă necunoscută: `<cuvant> -> Comanda necunoscuta`.
+
+  `n` se afișează în zecimal (`%u`) și în hexazecimal pe 8 cifre, cu litere mari (`%08X`).
+
+  **Exemplu**
+
+  Intrare (stdin):
+  ```
+  5
+  set 1
+  test 2
+  clear 0
+  toggle 31
+  shr 4
+  ```
+
+  Ieșire (stdout):
+  ```
+  start -> 5 (0x00000005)
+  set 1 -> 7 (0x00000007)
+  test 2 -> 1
+  clear 0 -> 6 (0x00000006)
+  toggle 31 -> 2147483654 (0x80000006)
+  shr 4 -> 134217728 (0x08000000)
+  ```
+hints:
+  - "Fiecare operație se face cu o mască ce are un singur bit de 1 pe poziția i: 1u << i."
+  - "set: n | mască; clear: n & ~mască; toggle: n ^ mască; test: (n >> i) & 1. Scrie câte o funcție mică pentru fiecare."
+  - "Validează indicele înainte de deplasare: n << 32 (sau cu număr negativ) este comportament nedefinit în C, nu 0."
+pitfalls:
+  - "Folosirea unui int cu semn: ~0 este -1, iar deplasarea la dreapta a unui număr negativ poate aduce biți de 1."
+  - "1 << 31 (int) este depășire cu semn — folosește 1u."
+  - "La clear se neagă masca, nu numărul: n & ~(1u << i), nu ~n & (1u << i)."

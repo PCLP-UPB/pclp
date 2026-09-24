@@ -1,0 +1,6 @@
+rotl DEADBEEF 0
+rotr DEADBEEF 32
+rotr DEADBEEF 36
+clz 0
+ctz 0
+rev FFFFFFFF

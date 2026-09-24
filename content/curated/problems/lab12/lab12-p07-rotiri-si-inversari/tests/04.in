@@ -1,0 +1,5 @@
+evenodd AAAAAAAA
+evenodd 12345678
+flip 5
+clz 1
+ctz 80000000

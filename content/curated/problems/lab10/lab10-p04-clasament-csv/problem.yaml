@@ -4,7 +4,7 @@ number: 4
 title: "Clasamentul unei serii din catalog CSV"
 difficulty: 3
 estimated_minutes: 45
-concepts: [vector de structuri, vector extensibil, realloc, fgets, sscanf, strcmp, pointer la funcție, fișier text]
+concepts: [vector de structuri, vector extensibil, realloc, fgets, strcmp, pointer la funcție, fișier text]
 statement: |
   Fișierul `catalog.csv` conține câte un student pe linie, în formatul `nume,grupa,n1,n2,n3`
   (fără antet). Numele (1–30 caractere) poate conține spații, grupa are 1–10 caractere, iar

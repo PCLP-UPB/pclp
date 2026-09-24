@@ -1,0 +1,7 @@
+Numere prime pana la 10000000: 664579
+al 664579-lea: 9999991
+al 664580-lea: nu exista
+prim 9999991: da
+prim 9999993: nu
+interval 1 10000000: 664579
+interval 9999900 10000000: 9

@@ -1,0 +1,16 @@
+4294967295
+clear 9
+test 25
+shl 8
+shr 8
+shr 1
+not
+not
+toggle 16
+clear 1
+clear 2
+toggle 2
+shl 3
+clear 30
+clear 14
+set 0

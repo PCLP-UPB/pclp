@@ -1,0 +1,71 @@
+id: lab08-p04-rover-directii
+lab: lab08
+number: 4
+title: "Roverul de explorare"
+difficulty: 2
+estimated_minutes: 30
+concepts: [enumerare, structură, typedef, pointer la structură, operatorul săgeată]
+statement: |
+  Un rover pleacă din baza aflată în punctul `(0, 0)`, orientat spre `NORD`. Axa `y` crește spre nord, axa `x` spre est. Roverul primește comenzi:
+
+  - `L` / `R` — se rotește pe loc cu 90° la stânga / la dreapta;
+  - `F n` — merge `n` pași înainte, în direcția în care e orientat;
+  - `B n` — merge `n` pași înapoi (în sens opus orientării), fără să se întoarcă.
+
+  La final afișați poziția, orientarea, distanța totală parcursă (număr de pași), distanța Manhattan maximă (`|x| + |y|`) față de bază atinsă în orice moment și de câte ori roverul a ajuns în bază după plecare (inclusiv în timpul unei deplasări, de exemplu când trece prin bază).
+
+  Folosiți un tip enumerare pentru direcții și o structură pentru starea roverului:
+
+  ```c
+  typedef enum { NORD, EST, SUD, VEST } Directie;
+  ```
+
+  Rotirile trebuie realizate prin calcule cu valorile enumerării (fără `if`/`switch` pe fiecare direcție), iar numele direcției se afișează folosind valoarea enumerării ca indice într-un vector de șiruri. Funcțiile care modifică roverul primesc un pointer la structură.
+
+  **Date de intrare**
+
+  Pe prima linie `q`, apoi `q` comenzi, câte una pe linie.
+
+  **Date de ieșire**
+
+  ```
+  pozitie: (<x>, <y>)
+  directie: <NORD, EST, SUD sau VEST>
+  parcurs: <pasi>
+  departare maxima: <distanta>
+  treceri prin baza: <numar>
+  ```
+
+  **Restricții**
+
+  - `0 ≤ q ≤ 1000`, `1 ≤ n ≤ 1000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  7
+  F 3
+  R
+  F 2
+  R
+  F 3
+  B 1
+  L
+  ```
+
+  Ieșire:
+  ```
+  pozitie: (2, 1)
+  directie: EST
+  parcurs: 9
+  departare maxima: 5
+  treceri prin baza: 0
+  ```
+hints:
+  - "Valorile unui `enum` sunt întregi (0, 1, 2, 3 în ordinea declarării). Dacă direcțiile sunt declarate în sensul acelor de ceasornic, o rotire la dreapta înseamnă +1 modulo 4."
+  - "Păstrează doi vectori constanți cu deplasarea pe x și pe y pentru fiecare direcție, indexați cu direcția. Mersul înapoi folosește aceleași valori, cu semn schimbat."
+  - "Mută roverul câte un pas și, după fiecare pas, actualizează distanța parcursă, departarea maximă și verifică dacă a ajuns în (0, 0). Rotirea la stânga: (dir + 3) % 4 — evită (dir - 1) % 4, care pentru NORD dă -1."
+pitfalls:
+  - "`(dir - 1) % 4` este -1 când `dir` e 0: restul în C păstrează semnul."
+  - "Roverul poate trece prin bază în mijlocul unei comenzi `F`/`B` — verificarea doar la final ratează aceste treceri."

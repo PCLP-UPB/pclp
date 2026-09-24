@@ -1,0 +1,67 @@
+id: lab12-p04-prezenta-bitset
+lab: lab12
+number: 4
+title: "Prezența la laborator cu mulțimi pe biți"
+difficulty: 3
+estimated_minutes: 40
+concepts: [bitset, mască, ȘI pe biți, SAU pe biți, SAU-EXCLUSIV pe biți, negare pe biți, setarea unui bit, testarea unui bit, typedef]
+statement: |
+  Un asistent are `N` studenți, numerotați `0 … N-1`, și notează prezența la `W` laboratoare. Fiecare laborator
+  este o **mulțime** de studenți, reprezentată ca bitset: un vector de `unsigned char` în care studentul `x`
+  corespunde bitului `x % 8` din octetul `x / 8`.
+
+  Folosind **doar operații pe biți între mulțimi** (octet cu octet), determină:
+
+  - câți studenți au fost prezenți la fiecare laborator (cardinalul fiecărei mulțimi);
+  - studenții prezenți la **toate** laboratoarele;
+  - studenții **niciodată** prezenți;
+  - studenții prezenți la **exact un** laborator;
+  - câți studenți au fost prezenți cel puțin o dată.
+
+  **Date de intrare**
+
+  Pe prima linie `N W`. Apoi `W` linii: `k x1 x2 … xk` — numărul de înregistrări și numerele de ordine ale
+  studenților prezenți (un student poate apărea de mai multe ori în aceeași listă; contează o singură dată).
+
+  **Date de ieșire**
+
+  ```
+  Prezenta pe saptamani: c1 c2 ... cW
+  Mereu prezenti: <lista>
+  Niciodata prezenti: <lista>
+  O singura data: <lista>
+  Prezenti cel putin o data: K din N
+  ```
+  Listele sunt crescătoare, cu elementele precedate de câte un spațiu, sau ` -` dacă sunt vide.
+
+  **Restricții**
+
+  - 1 ≤ N ≤ 1024, 1 ≤ W ≤ 1000, 0 ≤ k ≤ 10^4, 0 ≤ xi < N;
+  - se folosesc cel mult câteva mulțimi de câte 128 de octeți (nu matrici N × W).
+
+  **Exemplu**
+
+  Intrare (stdin):
+  ```
+  8 3
+  5 0 1 2 5 7
+  4 1 2 5 6
+  3 2 5 1
+  ```
+
+  Ieșire (stdout):
+  ```
+  Prezenta pe saptamani: 5 4 3
+  Mereu prezenti: 1 2 5
+  Niciodata prezenti: 3 4
+  O singura data: 0 6 7
+  Prezenti cel putin o data: 6 din 8
+  ```
+hints:
+  - "Operațiile pe mulțimi devin operații pe octeți: intersecție = &, reuniune = |, complement = ~. „Mereu prezenți” este intersecția tuturor laboratoarelor (pornește de la mulțimea plină), „niciodată” este complementul reuniunii."
+  - "Pentru „exact o dată” păstrează două mulțimi: once (văzut exact o dată până acum) și twice (văzut de cel puțin două ori). La fiecare laborator L: twice |= once & L, apoi once = (once | L) & ~twice."
+  - "Scrie funcțiile de bază din laborator: insert_in_set, is_in_set, card_set, print_set (doar elementele < N — complementul setează și biții de după N-1)."
+pitfalls:
+  - "Complementul unei mulțimi setează și biții pentru numerele ≥ N: afișarea și numărarea trebuie limitate la [0, N)."
+  - "Rezultatul lui ~ aplicat unui unsigned char este int; convertește înapoi la unsigned char înainte de a-l stoca."
+  - "Ordinea actualizărilor contează la once/twice: twice se calculează cu vechiul once."

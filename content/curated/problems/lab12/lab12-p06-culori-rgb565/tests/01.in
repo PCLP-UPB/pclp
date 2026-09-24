@@ -1,0 +1,4 @@
+pack 255 128 0
+unpack FC00
+mix F800 001F
+canale FFE0

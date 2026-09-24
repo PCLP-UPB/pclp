@@ -1,0 +1,11 @@
+ARRIVE Ana 0
+ARRIVE Bogdan 0
+ARRIVE Carmen 1
+ARRIVE Dan 1
+ARRIVE Ana 1
+PRINT
+POS Bogdan
+LEAVE Bogdan
+LEAVE Elena
+SERVE
+PRINT
