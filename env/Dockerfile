@@ -15,7 +15,10 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 LABEL org.opencontainers.image.title="pclp-env" \
       org.opencontainers.image.description="Mediu de lucru PCLP (C, code-server, portal)" \
-      org.opencontainers.image.version="${PCLP_VERSION}"
+      org.opencontainers.image.version="${PCLP_VERSION}" \
+      devcontainer.metadata="[{\"remoteUser\":\"student\",\"workspaceFolder\":\"/home/student/work\",\"customizations\":{\"vscode\":{\"extensions\":[\"llvm-vs-code-extensions.vscode-clangd\",\"ms-vscode.cpptools\",\"Continue.continue\"]}}}]"
+# devcontainer.metadata: la „Dev Containers: Attach to Running Container” (VS Code instalat pe
+# calculator), VS Code se conectează ca `student`, în ~/work, și propune extensiile pentru C.
 
 # 1) Imaginea Ubuntu este "minimizată": exclude /usr/share/man și înlocuiește `man` cu un stub.
 #    Scoatem excluderile ÎNAINTE de a instala pachete, apoi restaurăm `man` real.

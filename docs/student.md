@@ -100,6 +100,43 @@ Compilare recomandată: `gcc -Wall -Wextra -std=c11 -g main.c -o main`.
 În VS Code: **Ctrl+Shift+B** compilează fișierul curent, **F5** pornește depanatorul (gdb).
 Stilul de cod al cursului este în `~/work/.clang-format` (formatare: *Format Document*).
 
+### Opțional: VS Code instalat pe calculatorul tău (Dev Containers)
+
+Dacă preferi aplicația VS Code de pe calculator în locul celei din browser, o poți conecta la container.
+Fișierele, terminalul, compilatorul și depanatorul rămân **în container**, deci totul funcționează și se
+înregistrează la fel ca în browser.
+
+1. Instalează [Visual Studio Code](https://code.visualstudio.com/) și, în el, extensia **Dev Containers**
+   (de la Microsoft).
+2. Pornește containerul (`docker compose up -d`).
+3. În VS Code: **Ctrl+Shift+P** (macOS: **Cmd+Shift+P**) → **Dev Containers: Attach to Running Container…**
+   → alege **`pclp`**. Se deschide o fereastră nouă, conectată la container.
+4. Verifică în terminalul acelei ferestre (**Terminal → New Terminal**) că ești utilizatorul `student`:
+   promptul arată `student@pclp:~/work$`.
+   - Dacă apare `root@…`, setează utilizatorul o singură dată: **Ctrl/Cmd+Shift+P → Dev Containers: Open Named
+     Container Configuration File**, pune în fișier
+
+     ```json
+     { "remoteUser": "student", "workspaceFolder": "/home/student/work" }
+     ```
+
+     apoi închide fereastra și conectează-te din nou (pasul 3).
+5. **File → Open Folder** → `/home/student/work/sapt-NN/<problema>` (sau tot `/home/student/work`).
+6. Instalează extensiile pentru C **în container** (VS Code le propune; altfel, în panoul Extensions apasă
+   *Install in Container*): **clangd**, **C/C++** (Microsoft) și, dacă folosești AI, **Continue**.
+
+Compilarea (`gcc`, **Ctrl+Shift+B**), depanarea (**F5**), `pclp test` și `pclp submit` merg exact ca în
+browser.
+
+> **AI în VS Code de pe calculator:** extensia **Continue instalată în container** își salvează conversațiile
+> în container, deci ele intră automat în arhivă. **GitHub Copilot** (sau orice asistent care rulează pe
+> calculatorul tău) **nu** se înregistrează automat: salvează prompturile importante cu formularul
+> „Am folosit un AI din afara containerului” din portal.
+
+> **Nu edita fișierele direct din Finder/Explorer** sau cu un editor care nu e conectat la container
+> (de ex. deschizând folderul `work/` de pe calculator): compilarea ar trebui oricum făcută în container,
+> iar modificările ajung în istoric abia la snapshot-ul periodic (o dată la 10 minute), nu imediat.
+
 ## 3. Ce se înregistrează — și ce NU
 
 Totul rămâne **pe calculatorul tău**, în `work/`. Nimic nu este trimis nicăieri automat.
