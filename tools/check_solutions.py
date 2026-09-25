@@ -72,6 +72,8 @@ def main():
     ap = argparse.ArgumentParser(description="Verifică soluțiile de referință pe testele problemelor.")
     ap.add_argument("labs", nargs="*", help="ex. lab05 lab06 (implicit toate)")
     ap.add_argument("--solutions", help="directorul cu soluții (implicit ../pclp-solutions)")
+    ap.add_argument("--ci", action="store_true",
+                    help="doar OK/ERR per problemă, fără mesaje de compilare (logurile CI ale repo-ului public sunt publice)")
     a = ap.parse_args()
     if a.solutions:
         SOLUTIONS = Path(a.solutions)
@@ -89,7 +91,7 @@ def main():
             status = "OK " if total and ok == total and not msg else "ERR"
             if status == "ERR":
                 bad += 1
-            print(f"{status} {pdir.name:45s} {ok}/{total} {msg}")
+            print(f"{status} {pdir.name:45s} {ok}/{total}" + ("" if a.ci else f" {msg}"))
     print(f"\n{count - bad}/{count} probleme în regulă")
     sys.exit(1 if bad else 0)
 

@@ -71,6 +71,6 @@ jobs:
           path: pclp-solutions
       - name: Toate soluțiile trec testele (gcc)
         if: env.HAS_TOKEN == 'true'
-        run: python3 tools/check_solutions.py --solutions pclp-solutions
+        run: python3 tools/check_solutions.py --solutions pclp-solutions --ci   # --ci: fără cod în logurile publice
       - if: env.HAS_TOKEN != 'true'
         run: echo "SOLUTIONS_TOKEN nu e setat — sar peste verificarea soluțiilor."
