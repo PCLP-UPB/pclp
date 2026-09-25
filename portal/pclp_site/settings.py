@@ -19,6 +19,15 @@ PCLP_AUTHOR = os.environ.get("PCLP_AUTHOR", "0") == "1"
 PCLP_VERSION = os.environ.get("PCLP_VERSION", "dev")
 
 PCLP_STATE.mkdir(parents=True, exist_ok=True)
+# Actualizarea automată a conținutului (laboratoare, probleme, teste): manifestul publicat de
+# workflow-ul „content”. Gol = dezactivat (implicit în dezvoltare; imaginea îl setează).
+PCLP_CONTENT_URL = os.environ.get("PCLP_CONTENT_URL", "")
+PCLP_UPDATE_HOURS = float(os.environ.get("PCLP_UPDATE_HOURS", "6"))
+# modulul comun cu `pclp` (tools/pclp_content.py) citește aceleași căi din mediu
+for _k, _v in (("PCLP_CONTENT", PCLP_CONTENT), ("PCLP_WORK", PCLP_WORK), ("PCLP_STATE", PCLP_STATE),
+               ("PCLP_CONTENT_URL", PCLP_CONTENT_URL)):
+    os.environ.setdefault(_k, str(_v))
+PCLP_TOOLS = Path(os.environ.get("PCLP_TOOLS", REPO / "tools"))
 _key_file = PCLP_STATE / "django-secret.txt"
 if not _key_file.exists():
     _key_file.write_text(secrets.token_urlsafe(50))
@@ -34,7 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "glosar",
-    "invatare",
+    "invatare.apps.InvatareConfig",
 ]
 
 MIDDLEWARE = [
@@ -44,6 +53,7 @@ MIDDLEWARE = [
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "glosar.middleware.ContentVersionMiddleware",
 ]
 
 ROOT_URLCONF = "pclp_site.urls"

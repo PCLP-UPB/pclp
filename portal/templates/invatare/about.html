@@ -24,5 +24,10 @@
   <li>Paginile de manual: proiectul Linux man-pages și POSIX Programmer's Manual (pachetele Ubuntu din container).</li>
   <li>Conceptele, relațiile, problemele săptămânale și prompturile: curate pentru acest mediu. Definițiile sunt reformulări verificate față de secțiunea citată.</li>
 </ul>
-<p class="muted small">Baza de conținut: {{ built }}.</p>
+<h2>Versiunea materialelor</h2>
+<p>Versiunea <b>{{ content.version }}</b> ({% if content.source == "imagine" %}inclusă în imagine{% else %}actualizare descărcată{% endif %}), construită la {{ content.built_at|slice:":16"|cut:"T" }} UTC.</p>
+{% if auto_update %}
+<p class="small muted">Portalul verifică singur, periodic, dacă profesorii au publicat materiale noi (laboratoare, probleme, teste) și le descarcă automat. Codul și istoricul tău nu sunt atinse.</p>
+<form method="post" action="/actualizare/">{% csrf_token %}<button class="btn">Verifică acum</button></form>
+{% endif %}
 {% endblock %}

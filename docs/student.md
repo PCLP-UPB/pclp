@@ -60,6 +60,11 @@ Detaliile sunt mai jos.
 | Pornire             | `docker compose up -d`                 |
 | Actualizare imagine | `docker compose pull && docker compose up -d` |
 
+**Materialele se actualizează singure:** când profesorii corectează sau adaugă laboratoare și probleme,
+portalul descarcă automat noua versiune și îți arată un anunț. Codul și istoricul tău nu sunt atinse.
+Poți forța verificarea din pagina *Despre* a portalului („Verifică acum”) sau cu `pclp update` în terminal.
+Comanda `docker compose pull …` e necesară doar rar, când profesorii anunță o versiune nouă a mediului.
+
 Terminalul din VS Code (meniul ☰ → *Terminal* → *New Terminal*) este un terminal Linux, în `~/work`.
 Poți intra în container și dintr-un terminal de pe calculatorul tău:
 

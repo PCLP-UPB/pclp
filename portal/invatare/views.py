@@ -359,7 +359,44 @@ def ai_settings(request):
 
 
 def about(request):
-    return render(request, "invatare/about.html", {"built": C.meta("built_at"), "sources": C.units()})
+    from django.conf import settings
+    return render(request, "invatare/about.html", {"built": C.meta("built_at"), "sources": C.units(),
+                                                   "content": C.pclp_content.active_info(),
+                                                   "auto_update": bool(settings.PCLP_CONTENT_URL)})
+
+
+@require_POST
+def content_update(request):
+    """Verifică acum dacă există materiale noi (în rest, portalul verifică singur periodic)."""
+    from django.conf import settings
+    try:
+        res = C.pclp_content.update(settings.PCLP_CONTENT_URL)
+    except Exception as e:  # noqa: BLE001 — rețea indisponibilă etc.
+        messages.error(request, f"Nu am putut verifica actualizările: {e}")
+        return redirect("about")
+    st = res.get("status")
+    if st == "actualizat":
+        C.ensure_current()
+    elif st == "la-zi":
+        messages.success(request, "Ai deja cea mai nouă versiune a materialelor.")
+    elif st == "imagine-veche":
+        messages.warning(request, "Există materiale noi, dar au nevoie de o versiune mai nouă a mediului. "
+                                  "Rulează pe calculatorul tău, în directorul cu compose.yaml: docker compose pull && docker compose up -d")
+    elif st == "dezactivat":
+        messages.info(request, "Actualizarea automată a materialelor e dezactivată în acest mediu.")
+    else:
+        messages.error(request, f"Actualizarea a eșuat: {res.get('error', st)}")
+    return redirect("about")
+
+
+@require_POST
+def content_notice_ok(request):
+    try:
+        (C.pclp_content.store() / "notice.json").unlink()
+    except OSError:
+        pass
+    nxt = request.POST.get("next") or "/"
+    return redirect(nxt if nxt.startswith("/") else "/")
 
 
 def random_problem(request):  # pragma: no cover - rezervat

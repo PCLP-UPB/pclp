@@ -94,7 +94,7 @@ def reader(request, uid):
 def media(request, name):
     if not re.fullmatch(r"[0-9a-f]{12}\.\w{2,4}", name):
         raise Http404
-    path = settings.PCLP_CONTENT / "media" / name
+    path = C.content_dir() / "media" / name
     if not path.exists():
         raise Http404
     resp = FileResponse(open(path, "rb"), content_type=mimetypes.guess_type(name)[0] or "application/octet-stream")

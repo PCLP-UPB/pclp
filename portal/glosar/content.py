@@ -12,6 +12,7 @@ import sqlite3
 import sys
 import threading
 from functools import lru_cache
+from pathlib import Path
 
 from django.conf import settings
 
@@ -19,8 +20,13 @@ if str(settings.PCLP_PIPELINE) not in sys.path:
     sys.path.insert(0, str(settings.PCLP_PIPELINE))
 from matcher import Matcher, concept_id, fold, slug  # noqa: E402,F401
 
+if str(settings.PCLP_TOOLS) not in sys.path:
+    sys.path.insert(0, str(settings.PCLP_TOOLS))
+import pclp_content  # noqa: E402
+
 _local = threading.local()
 _version = {"n": 0}
+_loaded = {"dir": None}
 
 KIND_ORDER = ["noțiune", "tip de date", "operator", "instrucțiune", "cuvânt cheie", "funcție de bibliotecă",
               "fișier antet", "directivă preprocesor", "specificator de format", "tehnică", "eroare", "bună practică",
@@ -28,14 +34,36 @@ KIND_ORDER = ["noțiune", "tip de date", "operator", "instrucțiune", "cuvânt c
 LEVELS = {1: "bază", 2: "aprofundare", 3: "detaliu"}
 
 
+def content_dir() -> Path:
+    """Directorul conținutului activ (din imagine sau o actualizare descărcată)."""
+    if _loaded["dir"] is None:
+        _loaded["dir"] = pclp_content.active_dir()
+    return _loaded["dir"]
+
+
+def ensure_current():
+    """Apelat la fiecare cerere: dacă între timp s-a activat altă versiune, golim cache-urile."""
+    d = pclp_content.active_dir()
+    if d != _loaded["dir"]:
+        _loaded["dir"] = d
+        reset_caches()
+
+
+def reset_caches():
+    for fn in (units, sections, blocks, weeks):
+        fn.cache_clear()
+    bump()
+
+
 def db() -> sqlite3.Connection:
-    con = getattr(_local, "con", None)
-    if con is None:
-        path = settings.PCLP_CONTENT / "content.sqlite"
+    path = content_dir() / "content.sqlite"
+    cur = getattr(_local, "con", None)
+    if cur is None or cur[0] != path:
         con = sqlite3.connect(f"file:{path}?mode=ro", uri=True, check_same_thread=False)
         con.row_factory = sqlite3.Row
-        _local.con = con
-    return con
+        _local.con = (path, con)
+        return con
+    return cur[1]
 
 
 def q(sql, *args):

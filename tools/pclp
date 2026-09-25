@@ -41,7 +41,8 @@ WORK = Path(os.environ.get("PCLP_WORK", HOME / "work"))
 PDIR = WORK / ".pclp"
 STATE = Path(os.environ.get("PCLP_STATE", PDIR / "state"))
 AIDIR = PDIR / "ai"
-CONTENT = Path(os.environ.get("PCLP_CONTENT", "/opt/pclp/content/build"))
+import pclp_content  # noqa: E402  (versiunea activă a conținutului: imagine sau actualizare descărcată)
+CONTENT = pclp_content.active_dir()
 TEMPLATES = Path(os.environ.get("PCLP_HOME", "/opt/pclp")) / "templates"
 VERSION = os.environ.get("PCLP_VERSION", "dev")
 MAX_FILE = 1024 * 1024          # fișiere de lucru > 1 MB nu intră în git
@@ -866,6 +867,30 @@ Gata. Pornește-l dintr-un terminal, în directorul problemei:  {binname}
 
 
 # ---------------------------------------------------------------------------
+def cmd_update(a):
+    info = pclp_content.active_info()
+    print(f"Materiale active: versiunea {info['version']} ({info['source']}).")
+    if not pclp_content.manifest_url():
+        print("Actualizarea automată e dezactivată (PCLP_CONTENT_URL nu e setat).")
+        return
+    try:
+        res = pclp_content.check() if a.check else pclp_content.update()
+    except Exception as e:  # noqa: BLE001
+        die(f"Nu am putut verifica actualizările: {e}")
+    st = res["status"]
+    if st == "la-zi":
+        print("Ai deja cea mai nouă versiune.")
+    elif st == "nou":
+        print(f"Există versiunea {res['manifest']['version']}. Rulează `pclp update` ca s-o descarci.")
+    elif st == "actualizat":
+        print(f"Am actualizat materialele la versiunea {res['version']}. Portalul o folosește imediat.")
+    elif st == "imagine-veche":
+        print("Materialele noi au nevoie de o versiune mai nouă a mediului. Pe calculatorul tău, în directorul "
+              "cu compose.yaml, rulează:  docker compose pull && docker compose up -d")
+    else:
+        die(f"Actualizarea a eșuat: {res.get('error', st)}")
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(prog="pclp", description="Mediul de lucru PCLP")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -894,6 +919,9 @@ def main(argv=None):
     s = sub.add_parser("ai-install", help="instalează un asistent AI în linie de comandă")
     s.add_argument("tool", choices=sorted(AI_PACKAGES))
     s.set_defaults(fn=cmd_ai_install)
+    s = sub.add_parser("update", help="verifică și descarcă materialele noi ale cursului")
+    s.add_argument("--check", action="store_true", help="doar verifică, fără descărcare")
+    s.set_defaults(fn=cmd_update)
     s = sub.add_parser("ai-changed", help=argparse.SUPPRESS)
     s.set_defaults(fn=cmd_ai_changed)
     a = p.parse_args(argv)

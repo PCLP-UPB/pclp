@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import os
 import datetime as dt
 import json
 import re
@@ -25,6 +26,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from matcher import Matcher, concept_id, fold, slug  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
+# versiunea schemei bazei de conținut; trebuie să coincidă cu tools/pclp_content.py:SCHEMA
+CONTENT_SCHEMA = 1
 CUR = ROOT / "content" / "curated"
 
 KINDS = ["noțiune", "tip de date", "operator", "instrucțiune", "cuvânt cheie", "funcție de bibliotecă",
@@ -442,7 +445,11 @@ def build(out: Path, strict: bool = False) -> int:
                        (uid, p.get("title", ""), p.get("when", ""), (p.get("prompt") or "").strip(), json.dumps(cons), k))
 
     # --- metadate + probleme de calitate
-    db.execute("INSERT INTO meta VALUES ('built_at', ?)", (dt.datetime.now().isoformat(timespec="seconds"),))
+    built_at = dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")
+    version = os.environ.get("PCLP_CONTENT_VERSION") or dt.datetime.now(dt.timezone.utc).strftime("%Y.%m.%d-%H%M")
+    db.execute("INSERT INTO meta VALUES ('built_at', ?)", (built_at,))
+    db.execute("INSERT INTO meta VALUES ('version', ?)", (version,))
+    db.execute("INSERT INTO meta VALUES ('schema', ?)", (str(CONTENT_SCHEMA),))
     db.execute("INSERT INTO meta VALUES ('course', ?)", (json.dumps(course, ensure_ascii=False, default=str),))
     # aliasuri scurte cu multe apariții
     for c in concepts:
@@ -465,6 +472,11 @@ def build(out: Path, strict: bool = False) -> int:
     final = out / "content.sqlite"
     tmp.replace(final)
     (out / "course.json").write_text(json.dumps(course, ensure_ascii=False, indent=1, default=str), encoding="utf-8")
+    (out / "bundle.json").write_text(json.dumps({
+        "schema": CONTENT_SCHEMA, "version": version, "built_at": built_at,
+        "commit": (os.environ.get("GITHUB_SHA") or "")[:7], "units": len(units), "concepts": len(concepts),
+        "problems": n_problems,
+    }, ensure_ascii=False, indent=1), encoding="utf-8")
     # imaginile
     media_src = ROOT / "sources" / "raw" / "media"
     if media_src.exists():

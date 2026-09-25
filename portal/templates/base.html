@@ -27,6 +27,10 @@
   <a class="btn code" href="{{ CODE_URL }}" target="pclp-code" title="Deschide VS Code în browser">VS Code ↗</a>
   <button class="menu" id="menu" aria-label="Meniu" type="button">☰</button>
 </header>
+{% if CONTENT_NOTICE %}<div class="flash"><div class="msg success" style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">
+  <span>📚 Materialele cursului au fost actualizate (versiunea {{ CONTENT_NOTICE.version }}).{% if CONTENT_NOTICE.changes %} {{ CONTENT_NOTICE.changes|join:" · " }}{% endif %}</span>
+  <form method="post" action="/actualizare/ok/">{% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}"><button class="btn small">Am înțeles</button></form>
+</div></div>{% endif %}
 {% if messages %}<div class="flash">{% for m in messages %}<div class="msg {{ m.tags }}">{{ m }}</div>{% endfor %}</div>{% endif %}
 <main class="{% block mainclass %}wrap{% endblock %}">
 {% block content %}{% endblock %}

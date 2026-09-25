@@ -3,13 +3,15 @@
 #   - push pe main  -> :latest și :sha-<commit>
 #   - tag vAAAA.LL.N -> :AAAA.LL.N și :latest
 #   - manual (Actions → image → Run workflow)
+# Modificările de materiale (laboratoare, probleme, teste) nu au nevoie de imagine nouă: vezi content.yml.
 name: image
 
 on:
   push:
     branches: [main]
     tags: ["v*"]
-    paths: ["env/**", "portal/**", "content/**", "tools/**", "sources/**", ".github/workflows/image.yml"]
+    # materialele (content/, sources/) NU reconstruiesc imaginea: ajung la studenți prin workflow-ul „content”
+    paths: ["env/**", "portal/**", "tools/**", "content/pipeline/**", ".github/workflows/image.yml"]
   workflow_dispatch:
 
 permissions:

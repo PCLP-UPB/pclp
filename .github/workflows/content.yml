@@ -1,0 +1,82 @@
+# Publică materialele cursului (laboratoare, concepte, probleme, teste) ca pachet separat de imagine.
+# Containerele studenților verifică periodic
+#   https://github.com/PCLP-UPB/pclp/releases/latest/download/content.json
+# și descarcă singure versiunea nouă — fără `docker compose pull`.
+#
+# Rulează la fiecare push pe main care atinge conținutul, sau manual (Actions → content → Run workflow),
+# cu un mesaj opțional afișat studenților („Am corectat enunțul problemei 5 din lab04”).
+name: content
+
+on:
+  push:
+    branches: [main]
+    paths: ["content/**", "sources/**", ".github/workflows/content.yml"]
+  workflow_dispatch:
+    inputs:
+      changes:
+        description: "Mesaj pentru studenți (opțional), afișat în portal la actualizare"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: content
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pagini de manual (aceleași pachete ca în imagine)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends manpages manpages-dev manpages-posix manpages-posix-dev mandoc
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: portal/requirements.txt
+      - run: pip install -r portal/requirements.txt
+      - name: Versiune
+        id: v
+        run: echo "version=$(date -u +%Y.%m.%d)-${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
+      - name: Build conținut
+        env:
+          PCLP_CONTENT_VERSION: ${{ steps.v.outputs.version }}
+        run: python content/pipeline/build.py --out content/build
+      - name: Verificări minime
+        run: |
+          python - <<'EOF'
+          import json, sqlite3
+          b = json.load(open("content/build/bundle.json"))
+          db = sqlite3.connect("content/build/content.sqlite")
+          man = db.execute("select count(*) from man_pages").fetchone()[0]
+          assert b["units"] >= 12 and b["concepts"] > 100 and b["problems"] > 100, b
+          assert man > 30, f"prea puține pagini de manual: {man}"
+          print(b, "man pages:", man)
+          EOF
+      - name: Împachetare
+        env:
+          CHANGES: ${{ github.event.inputs.changes }}
+        run: python content/pipeline/package.py --build content/build --out dist --changes "$CHANGES"
+      - name: Publicare (GitHub Release)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.v.outputs.version }}
+          CHANGES: ${{ github.event.inputs.changes }}
+        run: |
+          notes="Materialele cursului, versiunea ${VERSION} (commit ${GITHUB_SHA::7}). Descărcate automat de portal."
+          [ -n "$CHANGES" ] && notes="${notes}
+
+          ${CHANGES}"
+          gh release create "content-${VERSION}" dist/content.tar.gz dist/content.json \
+            --target "$GITHUB_SHA" --title "Materiale ${VERSION}" --notes "$notes" --latest
+      - name: Curățenie (păstrăm ultimele 15 versiuni)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release list --limit 200 --json tagName,createdAt -q '.[] | select(.tagName | startswith("content-")) | .tagName' \
+            | tail -n +16 | while read -r tag; do gh release delete "$tag" --yes --cleanup-tag; done

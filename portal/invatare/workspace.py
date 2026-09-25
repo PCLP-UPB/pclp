@@ -166,7 +166,7 @@ def run_tests(p: dict) -> dict:
 
 def _run_tests_fallback(p: dict, d: Path) -> dict:
     """Rulare minimală în afara containerului (dezvoltare)."""
-    tests = settings.PCLP_CONTENT / "problems" / p["id"] / "tests"
+    tests = C.content_dir() / "problems" / p["id"] / "tests"
     res = {"problem": p["id"], "compiled": False, "compile_output": "", "tests": [], "passed": 0, "total": 0}
     with tempfile.TemporaryDirectory() as tmp:
         exe = Path(tmp) / "main"

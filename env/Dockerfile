@@ -102,7 +102,9 @@ ENV PATH=/opt/pclp/wrap:/opt/pclp/bin:/home/student/.npm-global/bin:/usr/local/s
     PCLP_WORK=/home/student/work \
     PCLP_CONTENT=/opt/pclp/content/build \
     PCLP_STATE=/home/student/work/.pclp/state \
-    PCLP_HOME=/opt/pclp
+    PCLP_HOME=/opt/pclp \
+    PCLP_TOOLS=/opt/pclp/tools \
+    PCLP_CONTENT_URL=https://github.com/PCLP-UPB/pclp/releases/latest/download/content.json
 
 WORKDIR /home/student/work
 EXPOSE 8080 8000

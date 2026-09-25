@@ -20,4 +20,6 @@ urlpatterns = [
     path("progres/", views.progress, name="progress"),
     path("setari/", views.ai_settings, name="settings"),
     path("despre/", views.about, name="about"),
+    path("actualizare/", views.content_update, name="content_update"),
+    path("actualizare/ok/", views.content_notice_ok, name="content_notice_ok"),
 ]

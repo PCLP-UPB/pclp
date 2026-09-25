@@ -16,6 +16,9 @@
   compilări, teste, prompturi AI). Detalii: secțiunile 4 și 9.
 - **Materialele** (laboratoare, concepte, probleme, indicii) se modifică în acest repo prin pull request;
   soluțiile de referință stau în repo-ul privat `PCLP-UPB/pclp-solutions`. Detalii: secțiunea 8.
+- **Actualizarea la studenți e automată:** după merge pe `main`, workflow-ul `content` publică un pachet
+  nou de materiale (≈11 MB), iar portalul din containerul fiecărui student îl descarcă singur în câteva ore
+  (sau imediat, cu „Verifică acum” din pagina Despre ori `pclp update`). Detalii: secțiunea 10.
 
 
 ## 1. Construirea și publicarea imaginii
@@ -225,3 +228,32 @@ Timpul activ se calculează ca în `pclp-verify` (evenimente din fereastra săpt
 15 minute începe o sesiune nouă). Punctaj liniar: 0 h = 0%, 4 h = 100% (plafonat). O arhivă care nu trece
 verificarea primește 0 (`--ignore-integrity` pentru a o puncta totuși). Implicit se punctează doar cea mai
 recentă predare a fiecărui student pentru fiecare săptămână (`--all-submissions` pentru toate).
+
+
+## 10. Actualizarea materialelor la studenți
+
+Materialele (textele laboratoarelor, conceptele, problemele, indiciile, testele, prompturile) sunt publicate
+**separat de imagine**, ca pachet de conținut:
+
+1. Faceți modificarea în repo (`content/curated/…`, sau `sources/raw/…` după `fetch_sources.py`) și o
+   aduceți pe `main` (direct sau prin pull request, după ce trece `check`).
+2. Workflow-ul **`content`** construiește baza (cu paginile de manual), o verifică și publică un
+   GitHub Release `content-AAAA.LL.ZZ-N` cu `content.tar.gz` + `content.json`. Se poate rula și manual
+   (Actions → content → Run workflow), cu un **mesaj pentru studenți** („Am corectat testele problemei 5 din lab04”)
+   care apare în portal la actualizare.
+3. Portalul fiecărui student verifică `…/releases/latest/download/content.json` la pornire și apoi la
+   fiecare 6 ore (`PCLP_UPDATE_HOURS`), descarcă pachetul, îi verifică amprenta SHA-256 și integritatea bazei
+   și trece pe versiunea nouă fără repornire. Studentul vede un anunț „Materialele cursului au fost
+   actualizate”. `pclp test` folosește imediat testele noi.
+
+Detalii tehnice:
+
+- Pachetele descărcate stau în `work/.pclp/state/content/` (ignorat de git, nu intră în arhive); se
+  păstrează ultimele două versiuni. Dacă descărcarea sau verificarea eșuează, rămâne versiunea curentă.
+- Fără internet, portalul folosește ultima versiune descărcată (sau pe cea din imagine).
+- Fiecare pachet are o **schemă** (`CONTENT_SCHEMA` în `build_database.py` = `SCHEMA` în
+  `tools/pclp_content.py`). Dacă schimbați structura bazei, măriți ambele valori: studenții cu imagine veche
+  nu vor instala pachetul și vor fi rugați să ruleze `docker compose pull && docker compose up -d`.
+- **Imaginea** se reconstruiește doar când se schimbă uneltele, portalul sau pipeline-ul (`env/`, `portal/`,
+  `tools/`, `content/pipeline/`). Abia atunci studenții au nevoie de `docker compose pull`.
+- Oprire pentru un container anume: `PCLP_CONTENT_URL=` (gol) în mediul containerului.
