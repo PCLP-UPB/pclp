@@ -14,6 +14,22 @@ La PCLP lucrezi într-un **container Docker** care conține tot ce îți trebuie
 
 ---
 
+## Pe scurt
+
+1. Instalează [Docker Desktop](https://www.docker.com/products/docker-desktop/) și pornește-l.
+2. Creează un director pentru curs și descarcă în el fișierul `compose.yaml`
+   ([link direct](https://raw.githubusercontent.com/PCLP-UPB/pclp/main/env/compose.student.yaml) — salvează-l cu numele **`compose.yaml`**), sau din terminal, în acel director:
+   - macOS / Linux: `curl -fsSL https://raw.githubusercontent.com/PCLP-UPB/pclp/main/env/compose.student.yaml -o compose.yaml`
+   - Windows (PowerShell): `curl.exe -fsSL https://raw.githubusercontent.com/PCLP-UPB/pclp/main/env/compose.student.yaml -o compose.yaml`
+3. În același director: `docker compose up -d`
+4. Deschide portalul: <http://localhost:8000> (completează numele, emailul Moodle și grupa) și VS Code: <http://localhost:8080>.
+5. Lucrezi la problemele săptămânii; la final, în terminalul din VS Code: `pclp submit <săptămâna>`,
+   apoi încarci arhiva din `work/predari/` pe Moodle și lipești **codul de verificare** afișat.
+
+Detaliile sunt mai jos.
+
+---
+
 ## 1. Instalare (o singură dată)
 
 1. Instalează **Docker Desktop**: <https://www.docker.com/products/docker-desktop/>
@@ -22,7 +38,8 @@ La PCLP lucrezi într-un **container Docker** care conține tot ce îți trebuie
    - **macOS**: alege varianta potrivită procesorului (Apple Silicon — M1/M2/M3/M4 — sau Intel).
    - **Linux**: instalează Docker Engine + pluginul `docker compose` (sau Docker Desktop).
 2. Creează un director pentru curs, de exemplu `Documente/pclp`.
-3. Descarcă în el fișierul **`compose.yaml`** primit de la profesor (pe Moodle).
+3. Descarcă în el fișierul **`compose.yaml`** ([link direct](https://raw.githubusercontent.com/PCLP-UPB/pclp/main/env/compose.student.yaml); salvează-l exact cu numele
+   `compose.yaml`) — sau varianta pusă de profesor pe Moodle.
    Tot ce lucrezi va fi salvat în subdirectorul **`work/`**, creat automat lângă `compose.yaml`.
    **Nu șterge directorul `work/`** — acolo sunt sursele tale și istoricul.
 4. Deschide un terminal (Windows: PowerShell; macOS: Terminal) **în directorul cursului** și rulează:
@@ -31,7 +48,7 @@ La PCLP lucrezi într-un **container Docker** care conține tot ce îți trebuie
    docker compose up -d
    ```
 
-   Prima dată durează câteva minute (se descarcă imaginea, ~2,5 GB).
+   Prima dată durează câteva minute (se descarcă imaginea: ~1 GB, ~2,5 GB după dezarhivare).
 
 ## 2. Utilizare zilnică
 
@@ -52,7 +69,8 @@ docker exec -it -u student pclp bash
 
 ### Prima pornire: datele tale
 
-În terminalul din VS Code rulează o singură dată:
+La prima deschidere, portalul (<http://localhost:8000>) îți cere numele, emailul și grupa. Alternativ,
+în terminalul din VS Code rulează o singură dată:
 
 ```sh
 pclp init

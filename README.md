@@ -1,5 +1,7 @@
 # PCLP — mediu de învățare pentru Programarea Calculatoarelor (C)
 
+> **Ghiduri:** [pentru studenți](docs/student.md) · [pentru profesori](docs/teacher.md)
+
 Un singur container Docker pentru studenți: VS Code în browser (code-server), toolchain C complet
 (gcc, clang, gdb, valgrind, make, cppcheck, clang-format, clangd, pagini man), portalul cursului și o
 înregistrare minimă a **procesului** de lucru (snapshot-uri git, comenzi din terminal, ieșirea

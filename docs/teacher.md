@@ -1,5 +1,23 @@
 # Mediul PCLP — ghid pentru profesori
 
+## Pe scurt
+
+- **Studenții** primesc linkul la [ghidul pentru studenți](student.md). Imaginea publică este
+  `ghcr.io/pclp-upb/pclp-env:latest` (amd64 + arm64), reconstruită automat la fiecare push pe `main`.
+- **Săptămânal**, după termenul de predare, descărcați de pe Moodle toate predările temei
+  („Download all submissions”, un `.zip`) și rulați, dintr-o clonă a acestui repo (Python ≥ 3.10):
+
+  ```bash
+  python3 tools/pclp-verify predari-saptamana-5.zip --out raport-s5     # integritate + cronologii HTML
+  python3 tools/pclp-grade  predari-saptamana-5.zip --csv note-s5.csv   # punctaj după timpul activ (4 h = 100%)
+  ```
+
+  Deschideți `raport-s5/index.html`; pentru fiecare student există o cronologie (cod, comenzi,
+  compilări, teste, prompturi AI). Detalii: secțiunile 4 și 9.
+- **Materialele** (laboratoare, concepte, probleme, indicii) se modifică în acest repo prin pull request;
+  soluțiile de referință stau în repo-ul privat `PCLP-UPB/pclp-solutions`. Detalii: secțiunea 8.
+
+
 ## 1. Construirea și publicarea imaginii
 
 Imaginea se construiește din rădăcina repo-ului (contextul include `portal/`, `content/`, `tools/`,
