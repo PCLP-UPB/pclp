@@ -14,7 +14,7 @@ compilatoarelor, prompturi AI), predată săptămânal pe Moodle cu un cod de ve
 | `portal/` | portalul web Django (rulează în container pe portul 8000) |
 | `content/` | pipeline-ul de conținut (`content/pipeline/build.py`) → `content/build/` (materiale, probleme, teste, `course.json`) |
 | `sources/` | materialele sursă descărcate (folosite de pipeline) |
-| `solutions/` | soluții de referință — doar pentru profesori, **excluse** din imagine |
+| `../pclp-solutions/` | soluțiile de referință — în repo-ul **privat** [PCLP-UPB/pclp-solutions](https://github.com/PCLP-UPB/pclp-solutions), clonat alături de acesta; nu sunt în acest repo și nici în imagine |
 | `docs/` | `student.md` (ghid studenți), `teacher.md` (build, verificare, limite, GDPR) |
 
 ## Pornire rapidă (dezvoltatori)

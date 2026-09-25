@@ -47,7 +47,7 @@ down:
 	docker compose -f env/compose.yaml down
 
 check-solutions:
-	$(PY) solutions/check_all.py
+	$(PY) tools/check_solutions.py
 
 export-edits:
 	cd portal && PCLP_AUTHOR=1 ../$(PY) manage.py exporta_editari

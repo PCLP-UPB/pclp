@@ -1,0 +1,108 @@
+# Construiește imaginea studenților pentru amd64 și arm64 (nativ, pe runnere separate)
+# și o publică pe GHCR ca ghcr.io/pclp-upb/pclp-env.
+#   - push pe main  -> :latest și :sha-<commit>
+#   - tag vAAAA.LL.N -> :AAAA.LL.N și :latest
+#   - manual (Actions → image → Run workflow)
+name: image
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+    paths: ["env/**", "portal/**", "content/**", "tools/**", "sources/**", ".github/workflows/image.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE: ghcr.io/pclp-upb/pclp-env
+
+concurrency:
+  group: image-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - platform: linux/amd64
+            runner: ubuntu-24.04
+          - platform: linux/arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Versiune
+        id: v
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then echo "version=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT";
+          else echo "version=main-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"; fi
+          echo "arch=${PLATFORM#linux/}" >> "$GITHUB_OUTPUT"
+        env:
+          PLATFORM: ${{ matrix.platform }}
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build + push (după digest)
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: env/Dockerfile
+          platforms: ${{ matrix.platform }}
+          build-args: |
+            PCLP_VERSION=${{ steps.v.outputs.version }}
+            PCLP_STRICT_CONTENT=1
+          outputs: type=image,name=${{ env.IMAGE }},push-by-digest=true,name-canonical=true,push=true
+          cache-from: type=gha,scope=${{ steps.v.outputs.arch }}
+          cache-to: type=gha,mode=max,scope=${{ steps.v.outputs.arch }}
+      - name: Salvează digest-ul
+        run: |
+          mkdir -p /tmp/digests
+          touch "/tmp/digests/${DIGEST#sha256:}"
+        env:
+          DIGEST: ${{ steps.build.outputs.digest }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: digest-${{ steps.v.outputs.arch }}
+          path: /tmp/digests/*
+          retention-days: 1
+
+  manifest:
+    needs: build
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: /tmp/digests
+          pattern: digest-*
+          merge-multiple: true
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Etichete
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE }}
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v') }}
+            type=sha,prefix=sha-
+            type=match,pattern=v(.*),group=1
+      - name: Manifest multi-arch
+        working-directory: /tmp/digests
+        run: |
+          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf '${{ env.IMAGE }}@sha256:%s ' *)
+      - name: Verificare
+        run: docker buildx imagetools inspect ${{ env.IMAGE }}:${{ steps.meta.outputs.version }}

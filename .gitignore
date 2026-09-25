@@ -13,3 +13,6 @@ pclp-report*/
 content/build/
 # configurație locală de dezvoltare (căi absolute)
 .claude/
+
+# soluțiile de referință stau în repo-ul privat PCLP-UPB/pclp-solutions (clonat alături: ../pclp-solutions)
+solutions/

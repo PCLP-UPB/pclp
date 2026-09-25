@@ -1,0 +1,118 @@
+#!/usr/bin/env python3
+"""Punctaj pentru procesul de lucru, după timpul activ din arhivele PCLP.
+
+    pclp-grade <arhive | director | moodle.zip> [--hours 4] [--max-points 100] [--csv note.csv]
+
+Timpul activ se calculează exact ca în `pclp-verify` (aceleași evenimente: snapshot-uri de cod,
+comenzi, compilări, teste, prompturi AI; o pauză mai mare de --gap minute începe o sesiune nouă).
+Punctajul este liniar: 0 ore = 0%, --hours ore (implicit 4) = 100%, plafonat la 100%.
+O arhivă care nu trece verificarea de integritate primește 0 (cu --ignore-integrity se punctează oricum).
+"""
+from __future__ import annotations
+
+import argparse
+import csv
+import sys
+import tempfile
+from importlib.machinery import SourceFileLoader
+from importlib.util import module_from_spec, spec_from_loader
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+_loader = SourceFileLoader("pclp_verify", str(HERE / "pclp-verify"))
+_spec = spec_from_loader("pclp_verify", _loader)
+V = module_from_spec(_spec)
+sys.modules["pclp_verify"] = V
+_loader.exec_module(V)
+
+
+def fmt(minutes: float) -> str:
+    h, m = divmod(int(round(minutes)), 60)
+    return f"{h}h{m:02d}m"
+
+
+def grade(s, hours: float, max_points: float, ignore_integrity: bool) -> dict:
+    st = s.manifest.get("student") or {}
+    minutes = s.stats["active"].total_seconds() / 60 if s.stats else 0.0
+    pct = max(0.0, min(1.0, minutes / (hours * 60))) * 100
+    ok = s.ok and not s.fatal
+    errors = [f.msg for f in s.flags if f.sev == "error"]
+    if not ok and not ignore_integrity:
+        pct = 0.0
+    points = round(pct / 100 * max_points, 2)
+    x = s.stats or {}
+    if not ok and not ignore_integrity:
+        comment = "0 puncte: arhiva nu a trecut verificarea (" + "; ".join(errors)[:160] + ")."
+    elif minutes == 0:
+        comment = "Nu există activitate înregistrată în fereastra săptămânii."
+    else:
+        comment = (f"{fmt(minutes)} de lucru activ în {x.get('sessions', 0)} sesiuni "
+                   f"({x.get('snapshots', 0)} snapshot-uri, {x.get('compiles', 0)} compilări, "
+                   f"{x.get('tests', 0)} rulări de teste, {x.get('ai_total', 0)} prompturi AI)"
+                   + (" — plafon atins." if pct >= 100 else f" — {pct:.0f}% din {hours:g}h."))
+    return {
+        "student": st.get("name") or s.moodle_name or "?", "email": st.get("email", ""), "grupa": st.get("group", ""),
+        "saptamana": s.week or s.manifest.get("week", ""), "arhiva": s.archive.name,
+        "verificare": "OK" if ok else "EROARE", "minute_active": round(minutes, 1),
+        "procent": round(pct, 1), "puncte": points, "comentariu": comment,
+    }
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(prog="pclp-grade", description="Punctaj după timpul activ din arhivele PCLP.")
+    ap.add_argument("inputs", nargs="+", help="arhive .tar.gz, directoare sau .zip descărcat de pe Moodle")
+    ap.add_argument("--hours", type=float, default=4.0, help="orele care dau 100%% (implicit 4)")
+    ap.add_argument("--max-points", type=float, default=100.0, help="punctajul maxim (implicit 100)")
+    ap.add_argument("--gap", type=int, default=15, help="pauza (minute) care separă sesiunile (implicit 15)")
+    ap.add_argument("--codes", help="CSV archive,code cu codurile de verificare (altfel se caută în folderul Moodle)")
+    ap.add_argument("--csv", help="scrie rezultatele și într-un fișier CSV")
+    ap.add_argument("--ignore-integrity", action="store_true", help="punctează și arhivele care nu trec verificarea")
+    ap.add_argument("--all-history", action="store_true", help="numără tot istoricul, nu doar săptămâna predată")
+    ap.add_argument("--all-submissions", action="store_true",
+                    help="punctează toate predările (implicit: doar cea mai recentă per student și săptămână)")
+    a = ap.parse_args(argv)
+    if a.hours <= 0:
+        ap.error("--hours trebuie să fie pozitiv")
+
+    with tempfile.TemporaryDirectory(prefix="pclp-grade-") as tmp:
+        work = Path(tmp)
+        subs = V.discover(a.inputs, a.codes, work)
+        if not subs:
+            print("Nu am găsit nicio arhivă PCLP (sapt-*.tar.gz).", file=sys.stderr)
+            return 2
+        for s in subs:
+            try:
+                V.process(s, work, a.all_history, a.gap)
+            except Exception as e:  # o arhivă stricată nu oprește restul
+                s.flag("error", f"eroare la procesare: {e}")
+                s.fatal = True
+        V.cross_check(subs)
+        if not a.all_submissions:
+            latest: dict = {}
+            for s in subs:
+                key = (s.student_key, s.week or s.manifest.get("week"))
+                when = (s.manifest.get("created_at") or "", s.archive.name)
+                if key not in latest or when > latest[key][0]:
+                    latest[key] = (when, s)
+            subs = [v[1] for v in latest.values()]
+        rows = [grade(s, a.hours, a.max_points, a.ignore_integrity) for s in subs]
+
+    rows.sort(key=lambda r: (str(r["saptamana"]), r["student"].lower()))
+    w = max(12, *(len(r["student"]) for r in rows))
+    print(f"{'Student':<{w}}  Săpt  Verif.  Timp activ   %      Puncte")
+    for r in rows:
+        print(f"{r['student']:<{w}}  {str(r['saptamana']):>4}  {r['verificare']:<6}  {fmt(r['minute_active']):>10}  "
+              f"{r['procent']:>5.1f}  {r['puncte']:>7.2f}")
+        print(f"{'':<{w}}  {r['comentariu']}")
+    if a.csv:
+        with open(a.csv, "w", newline="", encoding="utf-8") as f:
+            wr = csv.DictWriter(f, fieldnames=list(rows[0]))
+            wr.writeheader()
+            wr.writerows(rows)
+        print(f"\nCSV: {a.csv}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

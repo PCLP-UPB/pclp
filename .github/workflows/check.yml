@@ -1,0 +1,76 @@
+# Verificări rapide la fiecare modificare (inclusiv pull request-uri de la colegi):
+#   - conținutul se construiește (fără paginile de manual) și portalul pornește;
+#   - toate soluțiile de referință trec testele — doar dacă există secretul SOLUTIONS_TOKEN
+#     (un token cu acces de citire la repo-ul privat PCLP-UPB/pclp-solutions).
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  content:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: portal/requirements.txt
+      - run: pip install -r portal/requirements.txt
+      - name: Build conținut
+        run: python content/pipeline/build.py --skip-man
+      - name: Observații de validare (audit)
+        run: |
+          python - <<'EOF'
+          import sqlite3, collections
+          db = sqlite3.connect("content/build/content.sqlite")
+          rows = db.execute("select kind, ref, message from issues").fetchall()
+          print(dict(collections.Counter(k for k, _, _ in rows)))
+          for k, r, m in rows:
+              print(f"::notice title={k}::{r}: {m}")
+          EOF
+      - name: Portal — django check + pagini principale
+        working-directory: portal
+        env:
+          PCLP_WORK: /tmp/pclp-work
+        run: |
+          python manage.py check
+          python manage.py migrate --noinput
+          python - <<'EOF'
+          import os, django
+          os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pclp_site.settings")
+          django.setup()
+          from django.test import Client
+          c = Client()
+          for url in ["/", "/saptamana/5/", "/probleme/", "/exploreaza/?tab=az", "/carte/lab05/", "/capitol/lab06/",
+                      "/termen/c-pointer/", "/prompturi/", "/intrebari/", "/graf/", "/api/graf/", "/cauta/?q=pointer&toate=1"]:
+              r = c.get(url)
+              assert r.status_code == 200, (url, r.status_code)
+              print("200", url)
+          EOF
+
+  solutions:
+    runs-on: ubuntu-24.04
+    env:
+      HAS_TOKEN: ${{ secrets.SOLUTIONS_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        if: env.HAS_TOKEN == 'true'
+      - uses: actions/checkout@v4
+        if: env.HAS_TOKEN == 'true'
+        with:
+          repository: PCLP-UPB/pclp-solutions
+          token: ${{ secrets.SOLUTIONS_TOKEN }}
+          path: pclp-solutions
+      - name: Toate soluțiile trec testele (gcc)
+        if: env.HAS_TOKEN == 'true'
+        run: python3 tools/check_solutions.py --solutions pclp-solutions
+      - if: env.HAS_TOKEN != 'true'
+        run: echo "SOLUTIONS_TOKEN nu e setat — sar peste verificarea soluțiilor."

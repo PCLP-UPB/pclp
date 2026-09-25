@@ -3,7 +3,7 @@
 ## 1. Construirea și publicarea imaginii
 
 Imaginea se construiește din rădăcina repo-ului (contextul include `portal/`, `content/`, `tools/`,
-`sources/`; `solutions/` este exclus prin `.dockerignore` și nu ajunge niciodată în imagine).
+`sources/`; soluțiile de referință stau în repo-ul privat `PCLP-UPB/pclp-solutions` și nu ajung niciodată în imagine).
 
 Local (arhitectura mașinii curente):
 
@@ -38,7 +38,7 @@ Argumente de build:
 | `PCLP_STRICT_CONTENT` | `0` | `1` = build-ul eșuează dacă pipeline-ul de conținut eșuează (folosiți `1` la release) |
 
 Studenților le dați **`env/compose.student.yaml`** (redenumit `compose.yaml`), după ce înlocuiți
-`ghcr.io/CHANGE-ME/pclp-env:latest` cu imaginea voastră.
+`ghcr.io/pclp-upb/pclp-env:latest` (imaginea publicată de workflow-ul GitHub Actions din acest repo).
 
 ## 2. Data de început a semestrului
 
@@ -165,7 +165,7 @@ sursele sunt paginile OCW (suport teoretic, ghiduri, coding style), enunțurile 
 | `content/curated/course.yaml` | Calendarul: `semester_start`, săptămână → laborator, ghiduri recomandate. |
 | `content/curated/parts/*/concepts.tsv`, `relations.txt`, `prompts.yaml` | Conceptele (≈390), relațiile (≈840) și prompturile recomandate. Format: `content/curated/FORMAT.md`. |
 | `content/curated/problems/<lab>/<id>/` | Cele 10 probleme/laborator: `problem.yaml` (enunț, 3 indicii, greșeli frecvente) + `tests/`. Format: `PROBLEMS_FORMAT.md`. |
-| `solutions/<lab>/<id>/` | **Soluțiile de referință + note pentru profesor. NU intră în imagine** (`.dockerignore`). |
+| `../pclp-solutions/<lab>/<id>/` | **Soluțiile de referință + note pentru profesor**, în repo-ul privat `PCLP-UPB/pclp-solutions`, clonat alături. |
 | `content/pipeline/` | `extract_reader` → `extract_man` → `build_database` (→ `content/build/content.sqlite`). |
 
 Comenzi uzuale (vezi `make help`):
@@ -186,8 +186,9 @@ plus „Termen nou” și „Audit” în subsol. Editările stau într-un strat
 înlocuiesc părțile `parts/*`), apoi `make content`. Pagina `/audit/` listează observațiile validării
 (evidențe care nu conțin termenul, relații cu capete necunoscute etc.).
 
-**Probleme noi:** copiază structura unei probleme existente, scrie soluția în `solutions/`, generează
-ieșirile rulând soluția (ex. `solutions/run_tests.py`) și verifică cu `make check-solutions`.
+**Probleme noi:** copiază structura unei probleme existente, scrie soluția în `../pclp-solutions/<lab>/<id>/`,
+generează ieșirile rulând soluția (`tools/run_tests.py <problemă> <solution.c> --generate`) și verifică cu
+`make check-solutions`.
 Indiciile se scriu pornind de la soluție, de la general la specific, fără cod.
 
 **AI în portal:** tutorele din pagina problemei, butonul „✨ Explică” (selecție în text) și întrebările
@@ -195,3 +196,14 @@ generate folosesc cheia studentului (Claude prin SDK-ul oficial `anthropic`, sau
 compatibil OpenAI: Gemini, OpenAI, Mistral, Ollama local). Cheia stă în `work/.pclp/state/` și nu intră
 în arhivă; prompturile și răspunsurile intră (`.pclp/ai/portal.jsonl`). Chat-ul Copilot integrat în
 code-server e dezactivat (`chat.disableAIFeatures`), pentru că sesiunile lui nu pot fi colectate.
+
+## 9. Punctaj după timpul activ (`tools/pclp-grade`)
+
+```bash
+python3.11 tools/pclp-grade <arhive | director | moodle.zip> [--hours 4] [--max-points 100] [--csv note.csv]
+```
+
+Timpul activ se calculează ca în `pclp-verify` (evenimente din fereastra săptămânii; o pauză de peste
+15 minute începe o sesiune nouă). Punctaj liniar: 0 h = 0%, 4 h = 100% (plafonat). O arhivă care nu trece
+verificarea primește 0 (`--ignore-integrity` pentru a o puncta totuși). Implicit se punctează doar cea mai
+recentă predare a fiecărui student pentru fiecare săptămână (`--all-submissions` pentru toate).

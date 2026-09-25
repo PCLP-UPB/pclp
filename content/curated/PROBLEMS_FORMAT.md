@@ -41,12 +41,12 @@ pitfalls:                             # opțional: greșeli frecvente (se afișe
 - Comparația ignoră spațiile de la finalul liniilor și liniile goale de la final.
 - Problemele cu fișiere sau argumente folosesc `NN.files/` și `NN.args`; ieșirea verificată e tot stdout.
 
-## Ce NU ajunge la student: `solutions/<lab>/<id>/`
+## Ce NU ajunge la student: `pclp-solutions/<lab>/<id>/`
 
 ```
-solutions/lab05/lab05-p03-inversare-vector/
+pclp-solutions/lab05/lab05-p03-inversare-vector/
   solution.c          # soluția de referință, compilează cu: gcc -Wall -Wextra -std=c11 -O0 -g solution.c -o sol -lm
   notes.md            # pentru profesor: ideea, complexitatea, variante, ce urmărim la evaluare
 ```
 
-Directorul `solutions/` e exclus din imaginea Docker (`.dockerignore`) și nu se publică studenților.
+Soluțiile stau în repo-ul privat [PCLP-UPB/pclp-solutions](https://github.com/PCLP-UPB/pclp-solutions), clonat alături de `pclp/` (`../pclp-solutions`). Nu se pun niciodată în repo-ul public `pclp` și nu ajung în imaginea Docker.

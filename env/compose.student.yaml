@@ -3,7 +3,7 @@
 # Tot ce lucrezi se salvează în ./work, lângă acest fișier (NU șterge acest director).
 services:
   pclp:
-    image: ${PCLP_IMAGE:-ghcr.io/CHANGE-ME/pclp-env:latest}
+    image: ${PCLP_IMAGE:-ghcr.io/pclp-upb/pclp-env:latest}
     container_name: pclp
     hostname: pclp
     init: true
