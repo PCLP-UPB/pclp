@@ -19,6 +19,7 @@ def main():
     ap.add_argument("--build", default="content/build")
     ap.add_argument("--out", default="dist")
     ap.add_argument("--changes", action="append", default=[], help="rând pentru lista de modificări (repetabil)")
+    ap.add_argument("--base-url", default="", help="adresa exactă a versiunii publicate (fără numele fișierului)")
     a = ap.parse_args()
     build, out = Path(a.build), Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -38,6 +39,7 @@ def main():
                 tar.add(p, arcname=name, filter=clean)
     digest = hashlib.sha256(tgz.read_bytes()).hexdigest()
     manifest = {**bundle, "asset": tgz.name, "sha256": digest, "size": tgz.stat().st_size,
+                "asset_url": f"{a.base_url.rstrip('/')}/{tgz.name}" if a.base_url else "",
                 "changes": [c for c in a.changes if c.strip()]}
     (out / "content.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"{tgz} ({tgz.stat().st_size // 1024} KiB)  versiunea {bundle['version']}  sha256 {digest[:16]}…")

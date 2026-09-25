@@ -61,7 +61,8 @@ jobs:
       - name: Împachetare
         env:
           CHANGES: ${{ github.event.inputs.changes }}
-        run: python content/pipeline/package.py --build content/build --out dist --changes "$CHANGES"
+          BASE_URL: https://github.com/${{ github.repository }}/releases/download/content-${{ steps.v.outputs.version }}
+        run: python content/pipeline/package.py --build content/build --out dist --changes "$CHANGES" --base-url "$BASE_URL"
       - name: Publicare (GitHub Release)
         env:
           GH_TOKEN: ${{ github.token }}

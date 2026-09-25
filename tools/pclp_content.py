@@ -92,12 +92,18 @@ def _get(url: str, timeout: int = 30) -> bytes:
         return r.read()
 
 
+def _fresh(url: str) -> str:
+    """Adresa `releases/latest/...` a GitHub e ținută în cache de rețea câteva minute; un parametru
+    unic forțează răspunsul curent."""
+    return url + ("&" if "?" in url else "?") + f"t={int(datetime.now(timezone.utc).timestamp())}"
+
+
 def check(url: str | None = None) -> dict:
     """Ce versiune e publicată și dacă e mai nouă decât cea activă (fără descărcare)."""
     url = url or manifest_url()
     if not url:
         return {"status": "dezactivat"}
-    man = json.loads(_get(url))
+    man = json.loads(_get(_fresh(url)))
     cur = read_bundle(active_dir())
     newer = man.get("built_at", "") > cur.get("built_at", "")
     if newer and man.get("schema") != SCHEMA:
@@ -130,8 +136,9 @@ def update(url: str | None = None, keep: int = 2) -> dict:
             return info
         man = info["manifest"]
         version = str(man["version"])
-        asset = man.get("asset") or "content.tar.gz"
-        data = _get(url.rsplit("/", 1)[0] + "/" + asset, timeout=300)
+        # adresa exactă a versiunii (din manifest); altfel, relativ la manifest
+        asset_url = man.get("asset_url") or _fresh(url.split("?")[0].rsplit("/", 1)[0] + "/" + (man.get("asset") or "content.tar.gz"))
+        data = _get(asset_url, timeout=300)
         if hashlib.sha256(data).hexdigest() != man.get("sha256"):
             return {"status": "eroare", "error": "amprenta SHA-256 a pachetului nu corespunde"}
         target = st / version
