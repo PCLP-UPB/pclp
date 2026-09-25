@@ -1,0 +1,9 @@
+cutia 1: 1 2 3
+cutia 2: 4 5 6
+cutia 3: 2 2 7
+cutia 4: 3 8 9
+1 in 2: DA
+2 in 1: NU
+3 in 4: DA
+1 in 3: NU
+4 in 4: NU

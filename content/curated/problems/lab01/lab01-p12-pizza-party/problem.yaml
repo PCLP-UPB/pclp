@@ -1,0 +1,59 @@
+id: lab01-p12-pizza-party
+lab: lab01
+number: 12
+title: "Pizza la cămin"
+difficulty: 1
+estimated_minutes: 15
+concepts: [împărțire întreagă, operatorul modulo, double, printf, precizie de afișare]
+statement: |
+  Colegii de cameră comandă pizza pentru seara de film. Fiecare pizza este tăiată în
+  **8** felii. Feliile se împart în mod egal: fiecare persoană primește același număr de
+  felii întregi, iar feliile care nu se mai pot împărți egal rămân pe masă (pentru cine
+  termină primul). Nota de plată se împarte exact în mod egal.
+
+  Scrie un program care citește numărul de pizze, numărul de persoane și prețul unei
+  pizze și afișează cum se împart feliile și banii.
+
+  **Date de intrare**
+
+  Pe o singură linie: numărul de pizze `n` (întreg), numărul de persoane `k` (întreg) și
+  prețul unei pizze `p` (real, în lei).
+
+  **Date de ieșire**
+
+  Cinci linii, exact în formatul din exemplu:
+
+  1. `Felii in total: T`
+  2. `Felii de persoana: F` — câte felii întregi primește fiecare;
+  3. `Felii ramase: R` — câte felii rămân după împărțirea egală;
+  4. `Cost total: X lei` — cu 2 zecimale;
+  5. `Cost de persoana: Y lei` — cu 2 zecimale.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100`
+  - `1 ≤ k ≤ 50`
+  - `10 ≤ p ≤ 100`, cu cel mult 2 zecimale
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3 7 42.50
+  ```
+
+  Ieșire:
+  ```
+  Felii in total: 24
+  Felii de persoana: 3
+  Felii ramase: 3
+  Cost total: 127.50 lei
+  Cost de persoana: 18.21 lei
+  ```
+hints:
+  - "Numărul total de felii se obține direct din numărul de pizze. Împărțirea egală a feliilor este o problemă de cât și rest."
+  - "Pentru felii folosește operatorii / și % pe numere întregi. Pentru bani ai nevoie de un calcul real, afișat cu 2 zecimale."
+  - "Pseudocod: T = 8·n; F = T / k (întreg); R = T % k; total = n·p; pe persoană = total / k (real)."
+pitfalls:
+  - "Dacă prețul e citit ca întreg, zecimalele se pierd (de ex. 32.50 devine 32)."
+  - "Feliile rămase pot fi 0 — programul nu are nevoie de niciun caz special pentru asta."

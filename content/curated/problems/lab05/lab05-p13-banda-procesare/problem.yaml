@@ -1,0 +1,126 @@
+id: lab05-p13-banda-procesare
+lab: lab05
+number: 13
+title: "Banda de procesare"
+difficulty: 2
+estimated_minutes: 35
+concepts: [pointer la funcție, numele funcției ca pointer, aritmetică cu pointeri, const, funcție]
+statement: |
+  Un senzor produce `n` valori întregi, care trec printr-o „bandă de procesare” programabilă. Banda execută, în ordine, `q` comenzi:
+
+  | comandă | efect |
+  |---|---|
+  | `M c` | transformă **fiecare** valoare `x` cu transformarea de cod `c` |
+  | `R c` | afișează rezultatul reducerii de cod `c` aplicate valorilor curente |
+  | `P` | afișează valorile curente, separate prin câte un spațiu |
+
+  Transformări (`M`): `1` — dublare (`2x`); `2` — negare (`-x`); `3` — valoarea absolută; `4` — ultima cifră a lui `|x|`; `5` — incrementare (`x + 1`).
+
+  Reduceri (`R`): `1` — suma; `2` — minimul; `3` — maximul; `4` — cel mai mare divizor comun al valorilor absolute (cu `cmmdc(0, x) = |x|`, deci cmmdc-ul unor valori toate nule este 0).
+
+  Implementați câte o funcție scurtă pentru fiecare transformare (`int f(int x)`) și pentru fiecare reducere (`int op(int acumulator, int x)`), plus două funcții generice:
+
+  ```c
+  void aplica(int *v, int n, int (*f)(int));                /* v[i] = f(v[i]) pentru toti i */
+  int reduce(const int *v, int n, int (*op)(int, int));     /* acc = v[0]; acc = op(acc, v[i]) pentru i = 1..n-1 */
+  ```
+
+  Funcțiile se aleg după cod din doi **vectori de pointeri la funcții** (fără `switch` sau `if` pe cod). În `aplica` și `reduce` parcurgeți vectorul cu un pointer, nu cu indici.
+
+  **Date de intrare**
+
+  Pe prima linie `n`, pe a doua `n` întregi. Pe a treia linie `q`, apoi `q` linii cu câte o comandă.
+
+  **Date de ieșire**
+
+  Câte o linie pentru fiecare comandă `R` sau `P`, în ordinea comenzilor.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1000`, `1 ≤ q ≤ 30`, valorile inițiale sunt din `[-1000, 1000]`
+  - cel mult 10 comenzi sunt `M 1`, deci toate valorile și sumele încap în `int`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  5
+  3 -4 7 0 -12
+  8
+  P
+  R 1
+  M 3
+  R 4
+  M 1
+  M 5
+  P
+  R 2
+  ```
+
+  Ieșire:
+  ```
+  3 -4 7 0 -12
+  -6
+  1
+  7 9 15 1 25
+  1
+  ```
+
+  Explicație: după `M 3` valorile sunt `3 4 7 0 12` (cmmdc 1); după `M 1` și `M 5` devin `7 9 15 1 25`.
+starter: |
+  #include <stdio.h>
+
+  #define NMAX 1000
+
+  int dublare(int x)
+  {
+      return 2 * x;
+  }
+
+  /* TODO: negare, modul, ultima_cifra, incrementare */
+
+  int suma(int acc, int x)
+  {
+      return acc + x;
+  }
+
+  /* TODO: minim, maxim, cmmdc */
+
+  void aplica(int *v, int n, int (*f)(int))
+  {
+      /* TODO */
+  }
+
+  int reduce(const int *v, int n, int (*op)(int, int))
+  {
+      /* TODO */
+      return 0;
+  }
+
+  int main(void)
+  {
+      /* TODO: vectorii de pointeri la functii, de ex. transformari[] si reduceri[] */
+      int v[NMAX];
+      int n, q, i, cod;
+      char tip;
+
+      scanf("%d", &n);
+      for (i = 0; i < n; i++) {
+          scanf("%d", &v[i]);
+      }
+      scanf("%d", &q);
+      for (i = 0; i < q; i++) {
+          scanf(" %c", &tip);
+          /* TODO: M c, R c, P */
+      }
+      return 0;
+  }
+hints:
+  - "Numele unei funcții scris fără paranteze este adresa ei. Poți pune adresele celor cinci transformări într-un vector și apela direct elementul de indice `c - 1`."
+  - "`aplica` și `reduce` nu știu ce operație fac: primesc funcția ca parametru și doar o apelează. Toată logica specifică stă în funcțiile mici (dublare, minim, cmmdc...)."
+  - "Pseudocod reduce: acc = valoarea de la v; pentru p de la v+1 până înainte de v+n: acc = op(acc, valoarea de la p); returnează acc. Pentru comanda citește tipul cu un spațiu în format, ca să sari peste sfârșitul de linie."
+pitfalls:
+  - "`aplica(v, n, dublare())` apelează funcția (fără argumente) în loc să-i trimită adresa — trebuie `dublare`, fără paranteze."
+  - "`int *f(int)` declară o funcție care returnează pointer; pointerul la funcție are nevoie de paranteze: `int (*f)(int)`."
+  - "Ultima cifră a unui număr negativ: `-37 % 10` este `-7` în C; ia întâi valoarea absolută."
+  - "`scanf(\"%c\", ...)` fără spațiu înainte citește caracterul `\\n` rămas de la linia anterioară."

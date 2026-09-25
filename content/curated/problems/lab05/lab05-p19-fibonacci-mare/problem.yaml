@@ -1,0 +1,95 @@
+id: lab05-p19-fibonacci-mare
+lab: lab05
+number: 19
+title: "Fibonacci cu o mie de cifre"
+difficulty: 4
+estimated_minutes: 50
+concepts: [pointer la pointer, interschimbare prin pointeri, aritmetică cu pointeri, const, echivalența dintre vector și pointer]
+statement: |
+  Șirul lui Fibonacci este `F(0) = 0`, `F(1) = 1`, `F(k) = F(k-1) + F(k-2)`. Deja `F(94)` nu mai încape în `unsigned long long`, iar `F(5000)` are 1045 de cifre. Pentru fiecare dintre cele `q` valori `n` citite, afișați `F(n)` complet, numărul lui de cifre și suma cifrelor.
+
+  Un număr mare se memorează ca vector de cifre, **în ordine inversă** (`a[0]` este cifra unităților), împreună cu numărul de cifre. Implementați și folosiți:
+
+  ```c
+  int aduna(const int *a, int na, const int *b, int nb, int *rez);   /* rez = a + b; returneaza nr. de cifre */
+  void schimba(int **x, int **y);                                     /* interschimba doi pointeri */
+  ```
+
+  Calculul folosește **exact trei** vectori de cifre (de exemplu `int buf[3][1100]`) și trei pointeri `ant`, `cur`, `urm` care indică în ei. După ce `urm = ant + cur` este calculat, cei trei pointeri își schimbă rolurile prin `schimba` — **nu se copiază nicio cifră** dintr-un vector în altul.
+
+  **Date de intrare**
+
+  Pe prima linie `q`, apoi `q` linii cu câte un `n`.
+
+  **Date de ieșire**
+
+  Pentru fiecare `n`, două linii:
+
+  ```
+  F(n) = <cifrele lui F(n), fara zerouri la inceput>
+  <c> cifre, suma cifrelor <s>
+  ```
+
+  **Restricții**
+
+  - `1 ≤ q ≤ 10`, `0 ≤ n ≤ 5000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3
+  10
+  1
+  100
+  ```
+
+  Ieșire:
+  ```
+  F(10) = 55
+  2 cifre, suma cifrelor 10
+  F(1) = 1
+  1 cifre, suma cifrelor 1
+  F(100) = 354224848179261915075
+  21 cifre, suma cifrelor 93
+  ```
+starter: |
+  #include <stdio.h>
+
+  #define CMAX 1100
+
+  int aduna(const int *a, int na, const int *b, int nb, int *rez)
+  {
+      /* TODO: adunare cifra cu cifra, cu transport */
+      return 0;
+  }
+
+  void schimba(int **x, int **y)
+  {
+      /* TODO */
+  }
+
+  int main(void)
+  {
+      static int buf[3][CMAX];
+      int *ant, *cur, *urm;
+      int q, n, k;
+
+      scanf("%d", &q);
+      for (k = 0; k < q; k++) {
+          scanf("%d", &n);
+          ant = buf[0];
+          cur = buf[1];
+          urm = buf[2];
+          /* TODO: F(0) in ant, F(1) in cur, apoi pasii i = 2..n */
+      }
+      return 0;
+  }
+hints:
+  - "La fiecare pas ai nevoie doar de ultimele două numere și de un loc pentru rezultat. În loc să copiezi cifre, mută „etichetele”: după calcul, vechiul `cur` devine `ant`, `urm` devine `cur`, iar vechiul `ant` (de care nu mai ai nevoie) devine spațiul liber pentru pasul următor. Pentru asta trebuie interschimbați pointeri — deci `schimba` primește adresele lor."
+  - "Adunarea în ordine inversă: parcurgi pozițiile de la 0 la max(na, nb) − 1, aduni cifrele existente plus transportul, scrii `s % 10`, transportul devine `s / 10`; la final, dacă a rămas transport, mai scrii o cifră. Numărul de cifre ține-l în variabile separate, pe care le rotești odată cu pointerii."
+  - "Pseudocod pas: l_urm = aduna(ant, l_ant, cur, l_cur, urm); schimba(&ant, &cur); schimbă și l_ant cu l_cur; schimba(&cur, &urm); schimbă și l_cur cu l_urm. Afișarea: de la cifra de indice l_cur − 1 în jos. Tratează separat n = 0 (răspunsul e în ant)."
+pitfalls:
+  - "Dacă rotești pointerii dar uiți să rotești și lungimile, numerele se afișează cu cifre lipsă sau cu resturi din pașii vechi."
+  - "`int *aux = x; x = y; y = aux;` în interiorul unei funcții cu parametri `int *` nu schimbă nimic în `main`; e nevoie de `int **` și de `*x`, `*y`."
+  - "La afișarea în ordine inversă cu un pointer, nu coborî sub începutul vectorului; oprește-te la primul element."

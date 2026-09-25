@@ -1,0 +1,110 @@
+id: lab05-p17-clasament-runde
+lab: lab05
+number: 17
+title: "Clasament fără mutarea datelor"
+difficulty: 3
+estimated_minutes: 45
+concepts: [pointer la pointer, interschimbare prin pointeri, matrice stocată contiguu, aritmetică cu pointeri, indirectare]
+statement: |
+  La un concurs, `n` jucători au participat la `m` runde; punctajele sunt date ca o matrice `n × m` (linia `i` = jucătorul `i`, numerotat de la 1). Trebuie afișat clasamentul, **fără a muta punctajele în memorie**: matricea se memorează liniar, linie după linie, într-un vector `int puncte[n·m]`, iar clasamentul se obține ordonând un vector de pointeri `int *linii[n]`, unde inițial `linii[i]` indică începutul liniei `i`.
+
+  Ordinea în clasament:
+
+  1. totalul punctajelor, **descrescător**;
+  2. la egalitate, cel mai bun punctaj dintr-o rundă, descrescător;
+  3. la egalitate, jucătorul care apare **primul în date** (linia cu adresa mai mică).
+
+  Implementați și folosiți funcțiile:
+
+  ```c
+  int total(const int *linie, int m);
+  int compara(const int *a, const int *b, int m);   /* < 0 daca linia a trebuie clasata inaintea liniei b */
+  void schimba(int **x, int **y);                   /* interschimba doi pointeri */
+  void sorteaza(int **linii, int n, int m);
+  ```
+
+  Numărul jucătorului se deduce din pointerul spre linia lui, prin diferență față de `puncte`. La final, ca verificare, afișați prima linie a vectorului `puncte`, care trebuie să fie tot punctajele jucătorului 1.
+
+  **Date de intrare**
+
+  Pe prima linie `n m`, apoi `n` linii cu câte `m` întregi.
+
+  **Date de ieșire**
+
+  `n` linii de forma `loc. jucatorul j, total t: p1 p2 ... pm`, apoi linia `prima linie citita: ...` cu punctajele jucătorului 1.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100`, `1 ≤ m ≤ 20`, punctajele sunt întregi din `[0, 1000]`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4 3
+  5 7 3
+  9 2 4
+  6 6 4
+  3 10 2
+  ```
+
+  Ieșire:
+  ```
+  1. jucatorul 3, total 16: 6 6 4
+  2. jucatorul 4, total 15: 3 10 2
+  3. jucatorul 2, total 15: 9 2 4
+  4. jucatorul 1, total 15: 5 7 3
+  prima linie citita: 5 7 3
+  ```
+starter: |
+  #include <stdio.h>
+
+  #define NMAX 100
+  #define MMAX 20
+
+  int total(const int *linie, int m)
+  {
+      /* TODO */
+      return 0;
+  }
+
+  int compara(const int *a, const int *b, int m)
+  {
+      /* TODO: total, apoi cel mai bun punctaj, apoi adresa */
+      return 0;
+  }
+
+  void schimba(int **x, int **y)
+  {
+      /* TODO */
+  }
+
+  void sorteaza(int **linii, int n, int m)
+  {
+      /* TODO: orice sortare simpla care muta doar pointerii */
+  }
+
+  int main(void)
+  {
+      int puncte[NMAX * MMAX];   /* matricea memorata linie dupa linie */
+      int *linii[NMAX];
+      int n, m, i, j;
+
+      scanf("%d %d", &n, &m);
+      for (i = 0; i < n; i++) {
+          linii[i] = puncte + i * m;
+          for (j = 0; j < m; j++) {
+              scanf("%d", linii[i] + j);
+          }
+      }
+      /* TODO: sortati si afisati clasamentul */
+      return 0;
+  }
+hints:
+  - "Nu sortezi punctaje, ci pointeri spre linii. Interschimbarea a doi pointeri dintr-un vector de pointeri are nevoie de adresele lor, adică de pointeri la pointeri (`int **`)."
+  - "Linia jucătorului `j` (de la 0) începe la `puncte + j·m`, deci din pointerul spre linie afli `j` împărțind la `m` diferența față de `puncte`. Pentru al treilea criteriu poți compara direct cei doi pointeri: ambii indică în același vector."
+  - "Pseudocod sortare prin selecție: pentru fiecare poziție p din linii (până la penultima): best = p; pentru fiecare q de după p: dacă compara(linia de la q, linia de la best, m) < 0 atunci best = q; schimba(p, best). Afișarea parcurge linii[0..n−1] și, pentru fiecare, cele m valori prin pointer."
+pitfalls:
+  - "`schimba(int *x, int *y)` ar interschimba întregi (primele punctaje), nu pointerii — clasamentul iese greșit, iar datele originale se strică (se vede în ultima linie)."
+  - "Dacă uiți criteriul 3, sortarea poate schimba ordinea jucătorilor egali; comparația de adrese e validă doar pentru pointeri în același vector."
+  - "Diferența de pointeri `linii[i] - puncte` dă numărul de **elemente**, nu de octeți; împarte la `m`, nu la `sizeof`."

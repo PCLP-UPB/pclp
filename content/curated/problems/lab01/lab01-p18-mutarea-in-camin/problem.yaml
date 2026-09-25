@@ -1,0 +1,64 @@
+id: lab01-p18-mutarea-in-camin
+lab: lab01
+number: 18
+title: "Mutarea în cămin"
+difficulty: 4
+estimated_minutes: 30
+concepts: [împărțire întreagă, operatorul modulo, expresie, variabilă, caz limită]
+statement: |
+  Andrei se mută în cămin și are `n` obiecte de transportat. Le pune în cutii: în fiecare
+  cutie încap cel mult `c` obiecte, iar cutiile se umplu pe rând (o cutie nouă se începe
+  doar când cea curentă e plină). Portbagajul mașinii tatălui său încape cel mult `b`
+  cutii pe drum, iar mașina se încarcă tot la maximum, cât timp mai sunt cutii.
+
+  Un drum de acasă până la cămin durează `d` minute, la fel și întoarcerea. După ultimul
+  drum mașina rămâne la cămin (nu se mai întoarce).
+
+  Scrie un program care afișează:
+
+  - numărul de cutii folosite;
+  - câte obiecte sunt în ultima cutie;
+  - numărul de drumuri până la cămin;
+  - câte cutii sunt transportate la ultimul drum;
+  - timpul total petrecut pe drum, în ore și minute (minutele pe două cifre).
+
+  Încearcă să rezolvi problema **fără** instrucțiuni `if`, doar cu operații aritmetice.
+
+  **Date de intrare**
+
+  Patru numere naturale pe o linie: `n c b d`.
+
+  **Date de ieșire**
+
+  Cinci linii, exact în formatul din exemplu.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1 000 000`
+  - `1 ≤ c ≤ 1000`
+  - `1 ≤ b ≤ 50`
+  - `1 ≤ d ≤ 120`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  23 4 4 25
+  ```
+
+  Ieșire:
+  ```
+  Cutii: 6
+  Obiecte in ultima cutie: 3
+  Drumuri: 2
+  Cutii la ultimul drum: 2
+  Timp: 1 h 15 min
+  ```
+hints:
+  - "Numărul de cutii este n / c rotunjit în sus. Aceeași întrebare apare de două ori: obiecte în cutii, apoi cutii în drumuri."
+  - "Împărțirea rotunjită în sus se poate face cu împărțire întreagă, dacă aduni ceva la deîmpărțit înainte. Pentru ultima cutie: toate celelalte sunt pline, deci știi câte obiecte au intrat în ele."
+  - "Pseudocod: cutii = (n + c − 1) / c; ultima = n − (cutii − 1)·c; drumuri = (cutii + b − 1) / b; la_ultimul = cutii − (drumuri − 1)·b; timp = (2·drumuri − 1)·d; afișează timp / 60 și timp % 60."
+pitfalls:
+  - "n / c + 1 greșește când c îl divide exact pe n (ar apărea o cutie goală)."
+  - "n % c dă 0 când ultima cutie e plină — dar ultima cutie are atunci c obiecte, nu 0."
+  - "Mașina nu se mai întoarce după ultimul drum."

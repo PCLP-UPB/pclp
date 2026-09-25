@@ -1,0 +1,95 @@
+id: lab05-p15-fereastra-minima
+lab: lab05
+number: 15
+title: "Cea mai scurtă perioadă aglomerată"
+difficulty: 3
+estimated_minutes: 40
+concepts: [pointer la pointer, parametru de tip pointer, aritmetică cu pointeri, const, "NULL"]
+statement: |
+  Un muzeu a numărat vizitatorii intrați în fiecare dintre cele `n` minute ale unei zile (minutele sunt numerotate de la 1; în fiecare minut a intrat cel puțin un vizitator). Pentru un prag `S`, o **perioadă aglomerată** este o succesiune de minute consecutive în care au intrat, în total, cel puțin `S` vizitatori.
+
+  Pentru fiecare dintre cele `q` praguri, afișați lungimea celei mai scurte perioade aglomerate și minutul în care începe. Dacă există mai multe perioade de lungime minimă, se alege cea care începe cel mai devreme.
+
+  Implementați și folosiți funcția:
+
+  ```c
+  int cea_mai_scurta(const int *v, int n, int s, const int **start);
+  ```
+
+  care returnează lungimea minimă (0 dacă nu există nicio perioadă aglomerată) și scrie la adresa `start` **adresa** primului element al perioadei găsite (`NULL` dacă nu există). Minutul de început se obține în `main` prin diferență de pointeri.
+
+  **Date de intrare**
+
+  Pe prima linie `n`, pe a doua `n` întregi pozitivi. Pe a treia linie `q`, apoi `q` linii cu câte un prag `S`.
+
+  **Date de ieșire**
+
+  Pentru fiecare prag, o linie `lungime minut_start` sau `IMPOSIBIL`.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100000`, `1 ≤ q ≤ 50`
+  - `1 ≤ v[i] ≤ 10000`, `1 ≤ S ≤ 2·10^9` (suma tuturor valorilor încape în `int`)
+  - fiecare prag trebuie rezolvat în `O(n)`; o soluție care încearcă toate perioadele (`O(n²)`) este prea lentă
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  8
+  2 1 5 2 3 2 1 4
+  5
+  7
+  8
+  1
+  20
+  21
+  ```
+
+  Ieșire:
+  ```
+  2 3
+  3 1
+  1 1
+  8 1
+  IMPOSIBIL
+  ```
+
+  Explicație: pentru `S = 7`, perioada `5 2` (minutele 3–4) are lungimea 2; pentru `S = 21` suma tuturor valorilor este doar 20.
+starter: |
+  #include <stdio.h>
+
+  #define NMAX 100000
+
+  int cea_mai_scurta(const int *v, int n, int s, const int **start)
+  {
+      /* TODO: doi pointeri care delimiteaza fereastra curenta */
+      *start = NULL;
+      return 0;
+  }
+
+  int main(void)
+  {
+      static int v[NMAX];
+      int n, q, i, s;
+      const int *start;
+
+      scanf("%d", &n);
+      for (i = 0; i < n; i++) {
+          scanf("%d", &v[i]);
+      }
+      scanf("%d", &q);
+      for (i = 0; i < q; i++) {
+          scanf("%d", &s);
+          /* TODO: apelati cea_mai_scurta(v, n, s, &start) si afisati */
+      }
+      return 0;
+  }
+hints:
+  - "Funcția trebuie să întoarcă două lucruri: o lungime (prin `return`) și o adresă. Ca să modifice un pointer din `main`, primește adresa acelui pointer — un pointer la pointer."
+  - "Tehnica „fereastră glisantă”: un pointer `dr` avansează peste fiecare element și îl adaugă la sumă; un pointer `st` avansează cât timp elementul de la `st` poate fi scos fără ca suma să scadă sub `S`. Fiindcă valorile sunt pozitive, niciunul dintre pointeri nu se întoarce, deci totul e `O(n)`."
+  - "Pseudocod: st = v; suma = 0; best = 0; pentru dr de la v la v+n-1: suma += valoarea de la dr; cât timp suma − valoarea de la st ≥ S: scade-o și avansează st; dacă suma ≥ S și (best = 0 sau dr − st + 1 < best): best = dr − st + 1, iar la adresa start scrie st. Comparația strictă păstrează perioada care începe cel mai devreme."
+pitfalls:
+  - "Un parametru `const int *start` (fără a doua stea) ar fi o copie: modificarea lui în funcție nu se vede în `main`."
+  - "Dacă în `main` calculezi `start - v` când funcția a returnat 0, `start` este `NULL` și rezultatul nu are sens — verifică întâi lungimea."
+  - "Cu `<=` la actualizarea minimului se reține ultima perioadă de lungime minimă, nu prima."

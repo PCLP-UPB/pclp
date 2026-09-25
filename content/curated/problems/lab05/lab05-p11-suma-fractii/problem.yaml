@@ -1,0 +1,91 @@
+id: lab05-p11-suma-fractii
+lab: lab05
+number: 11
+title: "Suma fracțiilor"
+difficulty: 1
+estimated_minutes: 20
+concepts: [parametru de tip pointer, operatorul de referențiere, operatorul de dereferențiere, pointer, funcție]
+statement: |
+  Un contabil adună, una după alta, `n` fracții de forma `a/b`. După fiecare fracție adunată, afișați suma parțială (suma primelor fracții citite până atunci) în **formă ireductibilă**, cu numitorul pozitiv. Dacă numitorul formei ireductibile este 1, afișați doar numărătorul (de exemplu `2`, `0`, `-3`).
+
+  Suma parțială se ține în două variabile din `main` (numărătorul și numitorul), iar funcțiile le modifică prin pointeri. Implementați și folosiți:
+
+  ```c
+  long long cmmdc(long long a, long long b);
+  void simplifica(long long *p, long long *q);   /* aduce *p / *q la forma ireductibila, *q > 0 */
+  void aduna(long long *p, long long *q, long long a, long long b);   /* *p / *q += a / b */
+  ```
+
+  **Date de intrare**
+
+  Pe prima linie `n`. Pe fiecare dintre următoarele `n` linii, o fracție scrisă `a/b` (fără spații; `a` și `b` pot fi negative).
+
+  **Date de ieșire**
+
+  `n` linii: pe linia `i`, suma primelor `i` fracții, în forma `p/q` sau doar `p` dacă `q = 1`. Semnul minus, dacă există, stă în fața numărătorului.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100`
+  - `-1000 ≤ a ≤ 1000`, `1 ≤ |b| ≤ 20`
+  - toate calculele încap în `long long` dacă simplificați după fiecare adunare
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4
+  1/2
+  1/3
+  -5/6
+  3/-4
+  ```
+
+  Ieșire:
+  ```
+  1/2
+  5/6
+  0
+  -3/4
+  ```
+
+  Explicație: `1/2 + 1/3 = 5/6`, `5/6 - 5/6 = 0`, `0 + 3/(-4) = -3/4`.
+starter: |
+  #include <stdio.h>
+
+  long long cmmdc(long long a, long long b)
+  {
+      /* TODO: algoritmul lui Euclid pe valorile absolute */
+  }
+
+  void simplifica(long long *p, long long *q)
+  {
+      /* TODO: numitor pozitiv, apoi imparte ambele valori la cmmdc */
+  }
+
+  void aduna(long long *p, long long *q, long long a, long long b)
+  {
+      /* TODO: *p / *q devine (*p / *q) + (a / b), simplificat */
+  }
+
+  int main(void)
+  {
+      int n, i;
+      long long a, b;
+      long long num = 0, den = 1;   /* suma partiala */
+
+      scanf("%d", &n);
+      for (i = 0; i < n; i++) {
+          scanf("%lld/%lld", &a, &b);
+          /* TODO: apelati aduna si afisati suma partiala */
+      }
+      return 0;
+  }
+hints:
+  - "Suma parțială are două componente, deci o funcție nu o poate „returna” cu `return`. Trimite adresele celor două variabile din `main`, iar funcția scrie la acele adrese."
+  - "Adunarea: `p/q + a/b = (p·b + a·q) / (q·b)`. Imediat după adunare, simplifică: dacă numitorul e negativ, schimbă semnul ambelor componente, apoi împarte-le la cmmdc-ul valorilor absolute. Suma inițială este `0/1`."
+  - "Pseudocod pentru simplifica(p, q): dacă valoarea de la q < 0 atunci neagă valorile de la p și q; d = cmmdc(valoarea de la p, valoarea de la q); dacă d > 1 împarte ambele valori la d. Observă că cmmdc(0, q) = q, deci 0 devine `0/1`."
+pitfalls:
+  - "În funcție, `p = p * b + ...` modifică pointerul, nu valoarea; ai nevoie de `*p`. Compilatorul dă eroare sau warning — citește-l."
+  - "Dacă uiți să normalizezi semnul, `3/-4` se afișează greșit și cmmdc-ul poate ieși negativ."
+  - "`%` cu operanzi negativi dă rest negativ în C; lucrează în cmmdc cu valori absolute."

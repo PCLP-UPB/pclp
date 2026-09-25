@@ -1,0 +1,54 @@
+id: lab02-p13-conjectura-collatz
+lab: lab02
+number: 13
+title: "Conjectura lui Collatz"
+difficulty: 2
+estimated_minutes: 20
+concepts: [while, if, long long, overflow, operatorul modulo]
+statement: |
+  La cercul de matematică recreativă, studenții se joacă cu **conjectura lui Collatz**:
+  pornind de la un număr natural `x`, se repetă operația:
+
+  - dacă `x` este par, `x` devine `x / 2`;
+  - dacă `x` este impar, `x` devine `3 · x + 1`.
+
+  Conjectura (nedemonstrată până azi!) spune că, oricare ar fi numărul de start, se ajunge
+  întotdeauna la 1.
+
+  Scrie un program care citește numărul de start `n` și afișează câți pași sunt necesari
+  pentru a ajunge la 1, câți dintre acești pași au fost de tipul `3 · x + 1` și cea mai
+  mare valoare atinsă pe parcurs (inclusiv `n`).
+
+  **Date de intrare**
+
+  Un număr natural `n`.
+
+  **Date de ieșire**
+
+  Trei linii, exact în formatul din exemplu.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1 000 000 000`
+  - valorile intermediare pot depăși `2 147 483 647`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  6
+  ```
+
+  Ieșire:
+  ```
+  Pasi: 8
+  Pasi de tip 3x+1: 2
+  Valoarea maxima: 16
+  ```
+hints:
+  - "Nu știi dinainte câți pași vor fi, deci bucla potrivită este cea care se oprește după o condiție: cât timp x nu este 1."
+  - "În buclă ai nevoie de un if pentru paritate și de trei variabile care se actualizează la fiecare pas: numărul de pași, numărul de pași impari și maximul. Gândește-te ce tip trebuie să aibă x și maximul, dacă 3·x + 1 poate depăși 2 miliarde."
+  - "Pseudocod: citește x; max = x; pasi = 0; impari = 0; cât timp x ≠ 1: dacă x par, x = x / 2, altfel x = 3x + 1 și impari++; pasi++; dacă x > max, max = x. Afișează rezultatele. Pentru n = 1 răspunsul este 0 pași."
+pitfalls:
+  - "Cu int, 3·x + 1 depășește limita pentru unele numere de start (overflow) și rezultatul devine greșit — folosește long long și %lld."
+  - "Pentru n = 1 nu se face niciun pas."

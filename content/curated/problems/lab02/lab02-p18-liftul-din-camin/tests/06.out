@@ -1,0 +1,15 @@
+Deja la etajul 0
+Deja la etajul 0
+0 -> 1: urca 1 etaje
+1 -> 2: urca 1 etaje
+2 -> 1: coboara 1 etaje
+1 -> 2: urca 1 etaje
+2 -> 3: urca 1 etaje
+3 -> 2: coboara 1 etaje
+2 -> 1: coboara 1 etaje
+1 -> 0: coboara 1 etaje
+Opriri: 8
+Etaje parcurse: 8
+Schimbari de sens: 3
+Cel mai lung drum: 1 etaje
+Timp total: 0:56

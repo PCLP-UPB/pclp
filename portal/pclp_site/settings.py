@@ -82,7 +82,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = PCLP_STATE / "static"
-STATIC_VERSION = "11"
+STATIC_VERSION = "12"
 
 LOGGING = {"version": 1, "handlers": {"console": {"class": "logging.StreamHandler"}},
            "root": {"handlers": ["console"], "level": "WARNING"}}

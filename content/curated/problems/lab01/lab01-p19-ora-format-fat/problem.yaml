@@ -1,0 +1,66 @@
+id: lab01-p19-ora-format-fat
+lab: lab01
+number: 19
+title: "Data și ora în format FAT"
+difficulty: 4
+estimated_minutes: 35
+concepts: ["%x", scanf, împărțire întreagă, operatorul modulo, specificator de format]
+statement: |
+  Stick-urile USB folosesc sistemul de fișiere FAT, care memorează data și ora ultimei
+  modificări a unui fișier în câte un număr întreg pe 16 biți:
+
+  - **codul datei** = `(an − 1980) · 512 + luna · 32 + zi`
+  - **codul orei** = `ora · 2048 + minut · 32 + secunde / 2` (împărțire întreagă — FAT
+    reține secundele doar din 2 în 2)
+
+  Scrie un program care:
+
+  1. citește o dată și o oră și afișează cele două coduri în hexazecimal;
+  2. citește două coduri în hexazecimal (codul unei date și codul unei ore) și afișează
+     data și ora pe care le reprezintă.
+
+  **Date de intrare**
+
+  - Prima linie: data și ora, în formatul `zz.ll.aaaa hh:mm:ss`.
+  - A doua linie: două numere în hexazecimal (fără prefixul `0x`, cu litere mari sau mici),
+    codul unei date și codul unei ore.
+
+  **Date de ieșire**
+
+  Patru linii:
+
+  1. `Cod data: 0xHHHH` — codul datei de pe prima linie, pe exact 4 cifre hexazecimale
+     (litere mari, completat cu zerouri);
+  2. `Cod ora: 0xHHHH` — codul orei de pe prima linie, la fel;
+  3. `Data decodata: zz.ll.aaaa` — data corespunzătoare primului cod de pe a doua linie
+     (ziua și luna pe două cifre);
+  4. `Ora decodata: hh:mm:ss` — ora corespunzătoare celui de-al doilea cod (fiecare
+     componentă pe două cifre).
+
+  **Restricții**
+
+  - datele sunt valide, cu `1980 ≤ aaaa ≤ 2107`; orele sunt valide (`00:00:00` … `23:59:59`)
+  - codurile de pe a doua linie provin din date și ore valide
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  25.09.2023 15:17:57
+  5A8F 9C00
+  ```
+
+  Ieșire:
+  ```
+  Cod data: 0x5739
+  Cod ora: 0x7A3C
+  Data decodata: 15.04.2025
+  Ora decodata: 19:32:00
+  ```
+hints:
+  - "Codificarea e o simplă formulă. Decodificarea este operația inversă: cum scoți înapoi câmpurile dintr-un număr format ca a · 512 + b · 32 + c, dacă știi că c < 32 și b < 16?"
+  - "Restul împărțirii la 32 îți dă ultimul câmp. Împărțind la 32 „elimini” ultimul câmp; restul la 16 al rezultatului este câmpul din mijloc. Același raționament pentru oră, cu 2048 și 64. scanf și printf știu hexazecimal: %x la citire, %04X la afișare."
+  - "Pseudocod decodare dată: zi = cod % 32; luna = (cod / 32) % 16; an = cod / 512 + 1980. Decodare oră: ora = cod / 2048; minut = (cod / 32) % 64; secunde = (cod % 32) · 2."
+pitfalls:
+  - "Secundele impare nu se pot reprezenta: la decodare secundele sunt întotdeauna pare."
+  - "Nu uita să scazi 1980 din an la codare și să-l aduni înapoi la decodare."

@@ -1,0 +1,58 @@
+id: lab02-p20-spirala-fara-tablouri
+lab: lab02
+number: 20
+title: "Spirala fără tablouri"
+difficulty: 5
+estimated_minutes: 60
+concepts: [for, buclă imbricată, if, lățime de afișare, expresie]
+statement: |
+  Pentru un concurs de programare, organizatorii au nevoie de un program care afișează
+  numerele de la 1 la `n²` așezate într-un pătrat `n × n`, **în spirală**: se pornește din
+  colțul din stânga-sus, se merge spre dreapta pe prima linie, apoi în jos pe ultima
+  coloană, apoi spre stânga pe ultima linie, apoi în sus pe prima coloană și așa mai
+  departe, spre centru.
+
+  Provocarea: **nu ai voie să folosești tablouri**. Liniile se afișează de sus în jos, iar
+  pe fiecare linie numerele se afișează de la stânga la dreapta, deci valoarea fiecărei
+  celule trebuie calculată direct din poziția ei.
+
+  La final, afișează suma numerelor de pe diagonala principală (celulele cu linia egală cu
+  coloana).
+
+  **Date de intrare**
+
+  Un număr natural `n`.
+
+  **Date de ieșire**
+
+  `n` linii, fiecare cu `n` numere, fiecare număr aliniat la dreapta într-un câmp de
+  4 caractere (fără alte separatoare), apoi linia `Suma pe diagonala principala: S`.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 30`
+  - nu folosi vectori sau matrice
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  5
+  ```
+
+  Ieșire:
+  ```
+     1   2   3   4   5
+    16  17  18  19   6
+    15  24  25  20   7
+    14  23  22  21   8
+    13  12  11  10   9
+  Suma pe diagonala principala: 73
+  ```
+hints:
+  - "Privește spirala ca pe o serie de „rame” pătrate, una în alta. Pentru o celulă, rama (stratul) în care se află este distanța până la cea mai apropiată margine a pătratului."
+  - "Dacă știi stratul s al celulei, poți calcula ce număr începe stratul: straturile din exterior conțin, fiecare, câte 4·(latura − 1) numere, unde latura scade cu 2 de la un strat la altul. Apoi, în stratul s, vezi pe care dintre cele 4 laturi e celula și cât de departe este de începutul acelei laturi."
+  - "Pseudocod pentru celula (i, j), cu indici de la 0: s = min(i, j, n−1−i, n−1−j); start = 4·s·(n−s) + 1; L = n − 2s; dacă i = s: v = start + (j − s); altfel dacă j = n−1−s: v = start + (L−1) + (i − s); altfel dacă i = n−1−s: v = start + 2(L−1) + (n−1−s−j); altfel v = start + 3(L−1) + (n−1−s−i). Verifică formula pe exemplul din enunț."
+pitfalls:
+  - "Colțurile aparțin a două laturi: ordinea în care testezi laturile (sus, dreapta, jos, stânga) decide cărei laturi îi sunt atribuite."
+  - "Pentru n impar, centrul este un strat cu latura 1 — verifică dacă formula ta dă valoarea corectă (n²)."

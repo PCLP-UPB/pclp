@@ -185,7 +185,7 @@ sursele sunt paginile OCW (suport teoretic, ghiduri, coding style), enunțurile 
 | `content/curated/units.yaml` | Laboratoarele și ghidurile, cu sursele lor. |
 | `content/curated/course.yaml` | Calendarul: `semester_start`, săptămână → laborator, ghiduri recomandate. |
 | `content/curated/parts/*/concepts.tsv`, `relations.txt`, `prompts.yaml` | Conceptele (≈390), relațiile (≈840) și prompturile recomandate. Format: `content/curated/FORMAT.md`. |
-| `content/curated/problems/<lab>/<id>/` | Cele 10 probleme/laborator: `problem.yaml` (enunț, 3 indicii, greșeli frecvente) + `tests/`. Format: `PROBLEMS_FORMAT.md`. |
+| `content/curated/problems/<lab>/<id>/` | Problemele fiecărui laborator (seturi de câte 10): `problem.yaml` (enunț, 3 indicii, greșeli frecvente) + `tests/`. Format: `PROBLEMS_FORMAT.md`. |
 | `../pclp-solutions/<lab>/<id>/` | **Soluțiile de referință + note pentru profesor**, în repo-ul privat `PCLP-UPB/pclp-solutions`, clonat alături. |
 | `content/pipeline/` | `extract_reader` → `extract_man` → `build_database` (→ `content/build/content.sqlite`). |
 

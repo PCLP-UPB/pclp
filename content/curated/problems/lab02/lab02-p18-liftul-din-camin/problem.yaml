@@ -1,0 +1,73 @@
+id: lab02-p18-liftul-din-camin
+lab: lab02
+number: 18
+title: "Liftul din cămin"
+difficulty: 4
+estimated_minutes: 35
+concepts: [while, if, valoare terminator, operator relațional, operatorul condițional]
+statement: |
+  Căminul P5 are un lift care deservește etajele `0` (parter) până la `E`. Administratorul
+  vrea să analizeze o zi de funcționare. Liftul pornește de la parter și primește, pe rând,
+  cereri de forma „mergi la etajul `f`”. Pentru fiecare cerere:
+
+  - dacă etajul nu există (`f > E`), se afișează `Etaj inexistent: f` și cererea se ignoră;
+  - dacă liftul este deja la etajul `f`, se afișează `Deja la etajul f` și cererea se ignoră;
+  - altfel liftul se deplasează și se afișează `c -> f: urca n etaje` sau
+    `c -> f: coboara n etaje`, unde `c` este etajul de plecare și `n` numărul de etaje
+    parcurse. Fiecare deplasare se termină cu o oprire la etajul `f`.
+
+  O **schimbare de sens** are loc atunci când o deplasare are sensul opus deplasării
+  anterioare (cererile ignorate nu contează). Prima deplasare nu este o schimbare de sens.
+
+  Liftul parcurge un etaj în **2 secunde**, iar la fiecare oprire stă **5 secunde**.
+
+  La final, se afișează un rezumat: numărul de opriri, numărul total de etaje parcurse,
+  numărul de schimbări de sens, cea mai lungă deplasare (în etaje) și timpul total de
+  funcționare, în formatul `m:ss`.
+
+  **Date de intrare**
+
+  Pe prima linie numărul `E`. Pe următoarea linie, cererile (etajele), separate prin spații,
+  terminate cu valoarea `-1`, care nu este o cerere.
+
+  **Date de ieșire**
+
+  Câte o linie pentru fiecare cerere, apoi cinci linii de rezumat, exact în formatul din
+  exemplu.
+
+  **Restricții**
+
+  - `1 ≤ E ≤ 100`
+  - cel mult 10 000 de cereri, fiecare `0 ≤ f ≤ 1000`
+  - nu folosi vectori
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  10
+  4 7 7 2 12 0 3 -1
+  ```
+
+  Ieșire:
+  ```
+  0 -> 4: urca 4 etaje
+  4 -> 7: urca 3 etaje
+  Deja la etajul 7
+  7 -> 2: coboara 5 etaje
+  Etaj inexistent: 12
+  2 -> 0: coboara 2 etaje
+  0 -> 3: urca 3 etaje
+  Opriri: 5
+  Etaje parcurse: 17
+  Schimbari de sens: 2
+  Cel mai lung drum: 5 etaje
+  Timp total: 0:59
+  ```
+hints:
+  - "Nu știi câte cereri vor fi — citești până la -1. Între două cereri trebuie să-ți amintești unde se află liftul și în ce sens s-a mișcat ultima dată."
+  - "Codifică sensul ca un număr: +1 sus, −1 jos și 0 pentru „încă nu s-a mișcat”. O schimbare de sens are loc doar dacă sensul anterior nu e 0 și diferă de cel nou. Cererile ignorate nu trebuie să modifice nicio variabilă de stare."
+  - "Pseudocod: curent = 0; sens = 0; citește f; cât timp f ≠ −1: dacă f > E → inexistent; altfel dacă f = curent → deja; altfel: nou = (f > curent ? 1 : −1), d = |f − curent|, afișează, dacă sens ≠ 0 și nou ≠ sens → schimbări++; sens = nou; opriri++, total += d, actualizează maximul; curent = f; citește f. Timp = 2·total + 5·opriri."
+pitfalls:
+  - "Valoarea -1 marchează doar sfârșitul datelor — nu e o cerere."
+  - "Numărul de etaje parcurse la coborâre trebuie să fie pozitiv."

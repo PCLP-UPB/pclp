@@ -1,0 +1,51 @@
+id: lab01-p11-termometru-laborator
+lab: lab01
+number: 11
+title: "Termometrul din laborator"
+difficulty: 1
+estimated_minutes: 10
+concepts: [scanf, printf, double, "%lf", precizie de afișare]
+statement: |
+  Senzorul de temperatură din sala de laborator raportează valori în grade Celsius, dar
+  colegii de la schimbul Erasmus vor să le vadă în grade Fahrenheit, iar cei de la
+  Fizică — în Kelvin.
+
+  Scrie un program care citește o temperatură în grade Celsius și o afișează convertită:
+
+  - `F = C · 9 / 5 + 32`
+  - `K = C + 273.15`
+
+  **Date de intrare**
+
+  Un număr real `C`, temperatura în grade Celsius.
+
+  **Date de ieșire**
+
+  Două linii:
+
+  1. `C C = F F` — temperatura Celsius cu **o** zecimală, apoi cea Fahrenheit cu **două** zecimale;
+  2. `C C = K K` — temperatura Celsius cu o zecimală, apoi cea Kelvin cu două zecimale.
+
+  **Restricții**
+
+  - `-100 ≤ C ≤ 100`, cu cel mult o zecimală
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  21.5
+  ```
+
+  Ieșire:
+  ```
+  21.5 C = 70.70 F
+  21.5 C = 294.65 K
+  ```
+hints:
+  - "Temperatura poate avea zecimale, deci ai nevoie de o variabilă reală (double), citită cu specificatorul potrivit pentru double."
+  - "Numărul de zecimale afișate se controlează din format: un punct și o cifră între % și litera f."
+  - "Atenție la ordinea operațiilor în formula Fahrenheit: dacă scrii 9 / 5 separat, ambii operanzi sunt întregi. Pseudocod: citește C; afișează C (1 zecimală), C·9/5+32 (2 zecimale); afișează C, C+273.15."
+pitfalls:
+  - "9 / 5 între doi întregi dă 1, nu 1.8."
+  - "scanf cu %f pentru o variabilă double citește greșit; pentru double se folosește %lf."

@@ -1,0 +1,91 @@
+id: lab02-p15-automat-cafea
+lab: lab02
+number: 15
+title: "Automatul de cafea din EC"
+difficulty: 3
+estimated_minutes: 35
+concepts: [switch, fall-through, char, while, "%c"]
+statement: |
+  Automatul de cafea din holul corpului EC primește comenzi de la tastatură. Produsele
+  disponibile sunt:
+
+  | Cod | Produs | Preț |
+  |-----|--------|------|
+  | `E` | espresso | 5.00 lei |
+  | `L` | latte | 7.50 lei |
+  | `C` | cappuccino | 7.00 lei |
+  | `T` | ceai | 4.00 lei |
+
+  Automatul acceptă doar monede de **10 bani, 50 de bani, 1 leu și 5 lei** (valori în bani:
+  10, 50, 100, 500). Comenzile sunt:
+
+  - `M v` — se introduce o monedă cu valoarea `v` (în bani). Dacă moneda este acceptată,
+    creditul crește și se afișează `Credit: X lei`; altfel se afișează `Moneda respinsa`
+    (creditul nu se modifică).
+  - `E`, `L`, `C` sau `T` — se comandă un produs. Dacă creditul ajunge, prețul se scade din
+    credit și se afișează `Servit P. Credit: X lei`, unde `P` este codul produsului; altfel
+    se afișează `Credit insuficient: mai trebuie Y lei`, unde `Y` este diferența dintre preț
+    și credit.
+  - `R` — automatul dă restul: se afișează `Rest: X lei`, iar creditul devine 0.
+  - `S` — oprire (nu se afișează nimic pentru ea).
+  - orice alt caracter — se afișează `Comanda necunoscuta`.
+
+  La oprire, se afișează numărul de produse vândute, suma încasată din produse și creditul
+  rămas (neînapoiat).
+
+  Toate sumele se afișează în lei, cu exact două zecimale.
+
+  **Date de intrare**
+
+  Comenzile, câte una pe linie. Ultima comandă este `S`.
+
+  **Date de ieșire**
+
+  Câte o linie pentru fiecare comandă (în afară de `S`), apoi trei linii:
+  `Produse vandute: N`, `Incasari: X lei`, `Credit ramas: X lei`.
+
+  **Restricții**
+
+  - cel mult 1000 de comenzi
+  - `1 ≤ v ≤ 10000`
+  - comenzile sunt litere mari; după `M` urmează întotdeauna un număr
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  M 500
+  M 200
+  M 100
+  L
+  M 100
+  M 50
+  L
+  C
+  R
+  S
+  ```
+
+  Ieșire:
+  ```
+  Credit: 5.00 lei
+  Moneda respinsa
+  Credit: 6.00 lei
+  Credit insuficient: mai trebuie 1.50 lei
+  Credit: 7.00 lei
+  Credit: 7.50 lei
+  Servit L. Credit: 0.00 lei
+  Credit insuficient: mai trebuie 7.00 lei
+  Rest: 0.00 lei
+  Produse vandute: 1
+  Incasari: 7.50 lei
+  Credit ramas: 0.00 lei
+  ```
+hints:
+  - "Programul este o buclă care citește o comandă (un caracter) și decide ce face după valoarea ei — situația ideală pentru switch. Ține banii în bani, ca numere întregi, și transformă-i în lei doar la afișare."
+  - "Ca să citești un caracter sărind peste liniile noi rămase în buffer, pune un spațiu înaintea lui %c în formatul lui scanf. Cele patru produse se tratează identic, deci pot împărți același cod: mai multe etichete case la rând, înaintea aceluiași bloc."
+  - "Pseudocod: cât timp nu s-a citit S: citește c; switch (c): M → citește v, dacă v e una dintre cele 4 valori, credit += v; produs → află prețul, dacă credit ≥ preț, vinde, altfel afișează diferența; R → afișează credit, credit = 0; S → oprește; default → comandă necunoscută. O sumă s în bani se afișează ca s / 100, punct, s % 100 pe două cifre."
+pitfalls:
+  - "scanf(\"%c\") fără spațiu citește caracterul '\\n' rămas de la linia anterioară."
+  - "Nu uita break după fiecare grup de cazuri — altfel execuția continuă în cazul următor."
+  - "Sumele de bani ca double (0.1 + 0.5 ...) pot produce erori de rotunjire; întregii în bani sunt exacți."

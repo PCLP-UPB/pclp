@@ -1,0 +1,58 @@
+id: lab01-p15-coordonate-gps
+lab: lab01
+number: 15
+title: "Coordonatele GPS ale campusului"
+difficulty: 2
+estimated_minutes: 25
+concepts: [scanf, specificator de format, operatorul de împărțire, precizie de afișare, lățime de afișare]
+statement: |
+  Pentru aplicația de orientare în campus, echipa de voluntari a notat coordonatele unor
+  clădiri în formatul clasic **grade:minute:secunde** (de exemplu, `44:26:21`). Hărțile
+  online folosesc însă **grade zecimale**:
+
+  `grade_zecimale = grade + minute / 60 + secunde / 3600`
+
+  Scrie un program care citește coordonatele a două puncte A și B (latitudine nordică și
+  longitudine estică) și afișează:
+
+  - coordonatele fiecărui punct în grade zecimale, fiecare valoare într-un câmp de
+    **9** caractere, cu **5** zecimale;
+  - diferența de latitudine `B − A`, în secunde de arc (întreg, poate fi negativă);
+  - deplasarea spre nord, în metri, cu 2 zecimale, știind că o secundă de arc de
+    latitudine corespunde la **30.87** metri (valoare negativă = deplasare spre sud).
+
+  **Date de intrare**
+
+  Două linii, una pentru A și una pentru B. Fiecare linie conține latitudinea și
+  longitudinea, separate printr-un spațiu, fiecare în formatul `g:m:s`.
+
+  **Date de ieșire**
+
+  Patru linii, exact în formatul din exemplu.
+
+  **Restricții**
+
+  - `0 ≤ g ≤ 89`, `0 ≤ m, s ≤ 59`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  44:26:21 26:03:15
+  44:25:37 26:06:09
+  ```
+
+  Ieșire:
+  ```
+  A:  44.43917 N,  26.05417 E
+  B:  44.42694 N,  26.10250 E
+  Diferenta de latitudine: -44 secunde de arc
+  Deplasare spre nord: -1358.28 m
+  ```
+hints:
+  - "Fiecare linie de intrare are 6 numere întregi, separate de ':' și de un spațiu; un singur scanf cu formatul potrivit le poate citi pe toate."
+  - "Pentru gradele zecimale, împărțirile trebuie să fie reale (60.0, 3600.0). Pentru diferență e mai simplu și mai exact să transformi ambele latitudini în secunde de arc (întregi) și să le scazi."
+  - "Pseudocod: citește A și B; afișează g + m/60.0 + s/3600.0 cu %9.5f pentru fiecare coordonată; secA = g·3600 + m·60 + s (la fel secB); d = secB − secA; afișează d și d · 30.87 cu 2 zecimale."
+pitfalls:
+  - "m / 60 între întregi este 0 pentru orice m < 60."
+  - "Lățimea câmpului include punctul și zecimalele: 44.43917 are 8 caractere, deci în câmp de 9 apare un spațiu în față."

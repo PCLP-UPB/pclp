@@ -1,0 +1,52 @@
+id: lab02-p11-anotimpul
+lab: lab02
+number: 11
+title: "Ce anotimp e?"
+difficulty: 1
+estimated_minutes: 15
+concepts: [switch, break, if, operator logic, operator relațional]
+statement: |
+  Aplicația studențească „Campus Weather” afișează, pentru o dată, numele lunii și
+  anotimpul astronomic. Anotimpurile se schimbă la date fixe:
+
+  - **primăvara**: 21 martie – 20 iunie
+  - **vara**: 21 iunie – 22 septembrie
+  - **toamna**: 23 septembrie – 20 decembrie
+  - **iarna**: 21 decembrie – 20 martie
+
+  Scrie un program care citește ziua și luna unei date și afișează numele lunii și
+  anotimpul.
+
+  **Date de intrare**
+
+  Două numere naturale: ziua `z` și luna `l`.
+
+  **Date de ieșire**
+
+  Două linii: numele lunii (cu litere mici, fără diacritice: `ianuarie`, `februarie`,
+  `martie`, `aprilie`, `mai`, `iunie`, `iulie`, `august`, `septembrie`, `octombrie`,
+  `noiembrie`, `decembrie`), apoi anotimpul (`primavara`, `vara`, `toamna` sau `iarna`).
+
+  **Restricții**
+
+  - `1 ≤ l ≤ 12`, iar `z` este o zi validă a lunii `l` (29 februarie poate apărea)
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  25 9
+  ```
+
+  Ieșire:
+  ```
+  septembrie
+  toamna
+  ```
+hints:
+  - "Cele două afișări sunt independente: numele lunii depinde doar de lună, anotimpul depinde de lună și, în lunile de graniță (martie, iunie, septembrie, decembrie), și de zi."
+  - "Pentru numele lunii, un switch cu 12 cazuri este cea mai clară soluție. Pentru anotimp, descrie fiecare interval printr-o condiție compusă: luna de început cu ziua ≥ ..., lunile întregi din mijloc, luna de sfârșit cu ziua ≤ ... ."
+  - "Pseudocod: dacă (l = 3 și z ≥ 21) sau l = 4 sau l = 5 sau (l = 6 și z ≤ 20) → primavara; altfel dacă ... vara; altfel dacă ... toamna; altfel iarna (iarna trece peste Anul Nou, deci e mai simplu s-o lași pe ultima ramură)."
+pitfalls:
+  - "Fără break la finalul unui case, execuția continuă în cazurile următoare și se afișează mai multe luni."
+  - "Verifică zilele de graniță: 20 și 21 martie, 20 și 21 iunie, 22 și 23 septembrie, 20 și 21 decembrie."

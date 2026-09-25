@@ -1,0 +1,57 @@
+id: lab02-p14-ghiceste-numarul
+lab: lab02
+number: 14
+title: "Ghicește numărul"
+difficulty: 2
+estimated_minutes: 25
+concepts: [do-while, while, if, căutare binară, operator relațional]
+statement: |
+  În pauză, doi colegi joacă „Ghicește numărul”: unul se gândește la un număr secret între
+  1 și `n`, iar celălalt încearcă să-l ghicească. După fiecare încercare, primul răspunde
+  „mai mare” (numărul secret este mai mare decât încercarea), „mai mic” sau „ghicit”.
+
+  Cel care ghicește folosește strategia optimă: știe mereu intervalul `[st, dr]` în care se
+  poate afla numărul (inițial `[1, n]`) și încearcă **mijlocul** lui, `(st + dr) / 2`
+  (împărțire întreagă). După răspuns, intervalul se restrânge la partea în care se află
+  numărul secret.
+
+  Scrie un program care simulează jocul și afișează fiecare încercare, apoi numărul total
+  de încercări și numărul maxim de încercări de care ar putea avea nevoie această strategie
+  pentru `n` dat — acesta este cel mai mic `k` pentru care `2^k > n`.
+
+  **Date de intrare**
+
+  Două numere naturale: `n` și numărul secret `x`.
+
+  **Date de ieșire**
+
+  Pentru fiecare încercare, câte o linie `Incercarea i: v -> R`, unde `v` este valoarea
+  încercată, iar `R` este `mai mare`, `mai mic` sau `GHICIT`. La final, o linie
+  `Ghicit din k incercari (maxim posibil: M)`.
+
+  **Restricții**
+
+  - `1 ≤ x ≤ n ≤ 1 000 000 000`
+  - nu folosi funcții din `math.h`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  100 37
+  ```
+
+  Ieșire:
+  ```
+  Incercarea 1: 50 -> mai mic
+  Incercarea 2: 25 -> mai mare
+  Incercarea 3: 37 -> GHICIT
+  Ghicit din 3 incercari (maxim posibil: 7)
+  ```
+hints:
+  - "Păstrează două variabile, capetele intervalului în care poate fi numărul. Fiecare încercare elimină jumătatea în care sigur nu este."
+  - "Dacă încercarea v este prea mică, numărul e în [v + 1, dr]; dacă e prea mare, în [st, v − 1]. Jocul se oprește când ai ghicit, deci se face cel puțin o încercare — un do-while se potrivește. Pentru maxim, dublează o putere a lui 2 până depășește n și numără dublările."
+  - "Pseudocod: st = 1; dr = n; repetă: v = (st + dr) / 2; nr++; afișează v; dacă v < x: 'mai mare', st = v + 1; altfel dacă v > x: 'mai mic', dr = v − 1; altfel 'GHICIT'; până când v = x. Apoi p = 1, k = 0; cât timp p ≤ n: p = 2p, k++."
+pitfalls:
+  - "„mai mare” înseamnă că numărul secret este mai mare decât încercarea, deci trebuie mutat capătul din stânga."
+  - "Dacă scrii st = v în loc de st = v + 1, intervalul se poate bloca și bucla nu se mai termină."

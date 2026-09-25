@@ -1,0 +1,56 @@
+id: lab01-p13-crosul-politehnicii
+lab: lab01
+number: 13
+title: "Crosul Politehnicii"
+difficulty: 2
+estimated_minutes: 20
+concepts: [scanf, specificator de format, împărțire întreagă, operatorul modulo, precizie de afișare]
+statement: |
+  La Crosul Politehnicii, ceasul fiecărui alergător înregistrează distanța parcursă (în
+  metri) și timpul (ore, minute, secunde). Alergătorii vor să afle **ritmul** — câte
+  minute și secunde le ia, în medie, un kilometru — și viteza medie.
+
+  Scrie un program care citește distanța și timpul și afișează:
+
+  - distanța în kilometri, cu 3 zecimale;
+  - timpul total în secunde;
+  - ritmul, în formatul `m:ss min/km`: numărul de secunde pe kilometru este partea
+    întreagă a valorii `timp_total · 1000 / distanta` și se afișează ca minute și
+    secunde (secundele pe exact două cifre);
+  - viteza medie în km/h, cu 2 zecimale.
+
+  **Date de intrare**
+
+  Pe o singură linie: distanța `d` în metri (întreg), un spațiu, apoi timpul în formatul
+  `h:mm:ss`.
+
+  **Date de ieșire**
+
+  Patru linii, exact în formatul din exemplu.
+
+  **Restricții**
+
+  - `100 ≤ d ≤ 50000`
+  - `0 ≤ h ≤ 9`, `0 ≤ mm, ss ≤ 59`, timpul total este cel puțin 1 secundă
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  5000 0:25:00
+  ```
+
+  Ieșire:
+  ```
+  Distanta: 5.000 km
+  Timp total: 1500 s
+  Ritm: 5:00 min/km
+  Viteza: 12.00 km/h
+  ```
+hints:
+  - "Transformă totul într-o singură unitate întâi: timpul în secunde. De acolo, toate celelalte valori sunt câte o formulă."
+  - "scanf poate citi și caracterele fixe dintre numere: dacă pui ':' în format, acesta trebuie să apară exact acolo în intrare. Pentru ritm lucrezi cu întregi (/ și %), pentru distanță și viteză cu reali."
+  - "Pseudocod: T = h·3600 + mm·60 + ss; r = T·1000 / d (întreg); afișează r / 60 și r % 60 cu %02d; viteza = d / T metri pe secundă, înmulțit cu 3.6."
+pitfalls:
+  - "T / d · 1000 nu este același lucru cu T · 1000 / d când lucrezi cu întregi: prima variantă trunchiază prea devreme."
+  - "d / 1000 între întregi dă kilometri întregi; ai nevoie de 1000.0."

@@ -1,0 +1,52 @@
+id: lab02-p12-tabla-inmultirii
+lab: lab02
+number: 12
+title: "Tabla înmulțirii pentru meditații"
+difficulty: 2
+estimated_minutes: 15
+concepts: [for, buclă imbricată, lățime de afișare, putchar]
+statement: |
+  O studentă care dă meditații la matematică vrea să tipărească pentru elevii ei o tablă a
+  înmulțirii cu `n` linii și `m` coloane, cu cifrele frumos aliniate.
+
+  **Date de intrare**
+
+  Două numere naturale `n` (numărul de linii) și `m` (numărul de coloane).
+
+  **Date de ieșire**
+
+  `n + 2` linii:
+
+  1. antetul: textul `  x |` (două spații, `x`, un spațiu, bara verticală), urmat de
+     numerele `1, 2, …, m`, fiecare aliniat la dreapta într-un câmp de 4 caractere;
+  2. separatorul: textul `----+`, urmat de `4 · m` caractere `-`;
+  3. câte o linie pentru fiecare `i = 1, 2, …, n`: numărul `i` aliniat la dreapta într-un
+     câmp de 3 caractere, textul ` |`, apoi produsele `i · 1, i · 2, …, i · m`, fiecare
+     într-un câmp de 4 caractere.
+
+  **Restricții**
+
+  - `1 ≤ n, m ≤ 20`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4 6
+  ```
+
+  Ieșire:
+  ```
+    x |   1   2   3   4   5   6
+  ----+------------------------
+    1 |   1   2   3   4   5   6
+    2 |   2   4   6   8  10  12
+    3 |   3   6   9  12  15  18
+    4 |   4   8  12  16  20  24
+  ```
+hints:
+  - "Tabelul are trei părți diferite: antetul, separatorul și corpul. Fiecare parte are nevoie de o buclă pe coloane."
+  - "Pentru corp ai nevoie de două bucle una în alta: cea exterioară pe linii, cea interioară pe coloane. Aliniere: %4d ocupă mereu 4 caractere, chiar dacă numărul are o singură cifră."
+  - "Pseudocod: afișează '  x |' și pentru j = 1..m afișează j cu %4d; afișează '----+' și 4·m liniuțe; pentru i = 1..n: afișează i cu %3d și ' |', apoi pentru j = 1..m afișează i·j cu %4d; trece la linie nouă."
+pitfalls:
+  - "Linia nouă se afișează după bucla interioară, nu în ea."

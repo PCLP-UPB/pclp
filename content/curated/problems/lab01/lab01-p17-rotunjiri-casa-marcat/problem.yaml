@@ -1,0 +1,64 @@
+id: lab01-p17-rotunjiri-casa-marcat
+lab: lab01
+number: 17
+title: "Rotunjiri la casa de marcat"
+difficulty: 3
+estimated_minutes: 25
+concepts: [împărțire întreagă, operatorul modulo, "%d", lățime de afișare, caz limită]
+statement: |
+  Magazinul din campus testează o casă de marcat nouă, care știe să rotunjească prețurile
+  în mai multe feluri. Prețurile sunt memorate **în bani** (1 leu = 100 de bani), ca numere
+  întregi.
+
+  Scrie un program care citește un preț `x` (în bani) și afișează, în lei, cu exact două
+  zecimale:
+
+  1. prețul inițial;
+  2. prețul rotunjit la cel mai apropiat multiplu de **5 bani** (la egalitate nu se poate
+     ajunge, deoarece distanța este de 1 sau 2 bani față de un multiplu);
+  3. prețul rotunjit la cel mai apropiat multiplu de **10 bani** (la egalitate — rest 5 —
+     se rotunjește în sus);
+  4. prețul rotunjit **în jos** la un număr întreg de lei;
+  5. prețul rotunjit **în sus** la un număr întreg de lei (un preț deja întreg rămâne
+     neschimbat);
+  6. „prețul psihologic”: cel mai mic preț de forma `N.99` lei care este mai mare sau egal
+     cu `x`.
+
+  Programul **nu** are nevoie de instrucțiuni `if`: toate rotunjirile se pot face doar cu
+  împărțiri întregi.
+
+  **Date de intrare**
+
+  Un număr natural `x`, prețul în bani.
+
+  **Date de ieșire**
+
+  Șase linii, exact în formatul din exemplu.
+
+  **Restricții**
+
+  - `1 ≤ x ≤ 10 000 000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  1234
+  ```
+
+  Ieșire:
+  ```
+  Pret: 12.34 lei
+  La 5 bani: 12.35 lei
+  La 10 bani: 12.30 lei
+  Leu in jos: 12.00 lei
+  Leu in sus: 13.00 lei
+  Pret psihologic: 12.99 lei
+  ```
+hints:
+  - "Lucrează doar cu întregi, în bani. Împărțirea întreagă x / k · k „taie” x la multiplul de k de dedesubt; toate celelalte rotunjiri sunt aceeași idee, după ce aduni ceva la x."
+  - "Ca să rotunjești la cel mai apropiat multiplu, adaugă jumătate din pas înainte să tai; ca să rotunjești în sus, adaugă pasul minus 1. Afișarea în lei: partea întreagă și restul împărțirii la 100, restul pe două cifre."
+  - "Pseudocod: la5 = (x + 2) / 5 · 5; la10 = (x + 5) / 10 · 10; jos = x / 100 · 100; sus = (x + 99) / 100 · 100; psihologic = (x + 100) / 100 · 100 − 1. Verifică formulele pe x = 1200 și x = 1299."
+pitfalls:
+  - "Rotunjirea în sus a unui preț deja întreg (de ex. 1200 bani) trebuie să rămână 12.00, nu 13.00."
+  - "5 bani se afișează .05, nu .5 — ai nevoie de %02d."

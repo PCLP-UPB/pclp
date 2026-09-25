@@ -1,0 +1,56 @@
+id: lab01-p14-culori-afis
+lab: lab01
+number: 14
+title: "Culorile de pe afiș"
+difficulty: 2
+estimated_minutes: 20
+concepts: ["%x", specificator de format, lățime de afișare, "%%", precizie de afișare]
+statement: |
+  Liga Studenților pregătește afișul pentru Balul Bobocilor, iar designerul lucrează cu
+  culori date prin cele trei componente **R** (roșu), **G** (verde) și **B** (albastru),
+  fiecare între 0 și 255. Site-ul are însă nevoie de culori în alte formate.
+
+  Scrie un program care citește cele trei componente și afișează:
+
+  1. codul hexazecimal `#RRGGBB` — fiecare componentă pe exact două cifre hexazecimale,
+     cu **litere mari**;
+  2. culoarea „negativ” (componentele `255 − R`, `255 − G`, `255 − B`), în același format;
+  3. fiecare componentă ca procent din 255, cu o zecimală, urmat de semnul `%`;
+  4. nivelul de gri, calculat ca **partea întreagă** a valorii
+     `(299 · R + 587 · G + 114 · B) / 1000`;
+  5. codul întreg al culorii: `R · 65536 + G · 256 + B`.
+
+  **Date de intrare**
+
+  Trei numere naturale `R G B`, separate prin spații.
+
+  **Date de ieșire**
+
+  Cinci linii, exact în formatul din exemplu (procentele sunt separate printr-un spațiu).
+
+  **Restricții**
+
+  - `0 ≤ R, G, B ≤ 255`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  255 128 0
+  ```
+
+  Ieșire:
+  ```
+  HEX: #FF8000
+  Negativ: #007FFF
+  Procente: 100.0% 50.2% 0.0%
+  Gri: 151
+  Cod intreg: 16744448
+  ```
+hints:
+  - "printf știe să afișeze un întreg direct în baza 16; tu trebuie doar să alegi varianta cu litere mari și să forțezi două cifre."
+  - "Un 0 pus înaintea lățimii câmpului completează cu zerouri în loc de spații. Semnul procent se scrie în format dublat."
+  - "Pentru fiecare linie ai nevoie de un singur printf. Procentul este R · 100 / 255 calculat real (unul dintre operanzi trebuie să fie real, de ex. 100.0); gri-ul este o împărțire întreagă la 1000."
+pitfalls:
+  - "O componentă mai mică decât 16 are o singură cifră hexazecimală: 5 trebuie afișat 05, nu 5 sau ' 5'."
+  - "Un singur % în format nu afișează caracterul procent."

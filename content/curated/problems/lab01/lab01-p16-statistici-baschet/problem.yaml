@@ -1,0 +1,59 @@
+id: lab01-p16-statistici-baschet
+lab: lab01
+number: 16
+title: "Statisticile meciului de baschet"
+difficulty: 3
+estimated_minutes: 25
+concepts: [scanf, specificator de format, lățime de afișare, "%s", precizie de afișare]
+statement: |
+  La derby-ul de baschet dintre echipa **Politehnica** și echipa **Rapid**, statisticianul
+  notează, pentru fiecare echipă, câte aruncări au fost reușite din câte au fost încercate,
+  separat pentru aruncările de 1 punct (aruncări libere), de 2 puncte și de 3 puncte.
+
+  Scrie un program care afișează tabelul cu scorul și procentajele de reușită.
+
+  **Date de intrare**
+
+  Două linii: prima pentru Politehnica, a doua pentru Rapid. Fiecare linie are forma
+  `r1/t1 r2/t2 r3/t3`, unde `ri` este numărul de aruncări de `i` puncte reușite, iar `ti`
+  numărul de aruncări de `i` puncte încercate.
+
+  **Date de ieșire**
+
+  Patru linii:
+
+  1. antetul: textul `ECHIPA` aliniat la stânga într-un câmp de 12 caractere, apoi textele
+     `PCT`, `1P%`, `2P%`, `3P%`, aliniate la dreapta în câmpuri de 5, 7, 7 și respectiv 7
+     caractere;
+  2. – 3. câte un rând pentru fiecare echipă (întâi Politehnica, apoi Rapid): numele
+     aliniat la stânga într-un câmp de 12 caractere, punctele marcate (`r1 + 2·r2 + 3·r3`)
+     într-un câmp de 5 caractere, apoi cele trei procentaje de reușită (`100 · ri / ti`),
+     fiecare într-un câmp de 7 caractere, cu o zecimală;
+  4. `Diferenta: D`, unde `D` = punctele Politehnicii − punctele Rapidului (poate fi negativ).
+
+  **Restricții**
+
+  - `1 ≤ ti ≤ 99`, `0 ≤ ri ≤ ti`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  15/20 20/41 8/22
+  12/18 23/45 3/17
+  ```
+
+  Ieșire:
+  ```
+  ECHIPA        PCT    1P%    2P%    3P%
+  Politehnica    79   75.0   48.8   36.4
+  Rapid          67   66.7   51.1   17.6
+  Diferenta: 12
+  ```
+hints:
+  - "Problema are două părți: citirea a 12 numere despărțite de '/' și spații, apoi afișarea unui tabel în care toate rândurile au aceleași lățimi de coloană."
+  - "Pentru a alinia antetul exact deasupra coloanelor, poți afișa și textele cu lățime: %s acceptă aceleași lățimi ca %d, iar %-12s aliniază la stânga. Procentajul trebuie calculat real."
+  - "Pseudocod: citește cele 6 perechi; pct = r1 + 2·r2 + 3·r3 pentru fiecare echipă; afișează antetul cu %-12s%5s%7s%7s%7s; fiecare rând cu nume, pct și 100.0·ri/ti cu %7.1f; la final diferența."
+pitfalls:
+  - "ri / ti · 100 între întregi dă 0 (sau 100 dacă toate au reușit)."
+  - "Un % scris direct în șirul de format trebuie dublat (%%); dacă textul 1P% este trimis ca argument pentru %s, nu."

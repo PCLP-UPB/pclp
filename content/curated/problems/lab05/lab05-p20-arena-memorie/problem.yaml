@@ -1,0 +1,119 @@
+id: lab05-p20-arena-memorie
+lab: lab05
+number: 20
+title: "Arena de memorie"
+difficulty: 5
+estimated_minutes: 90
+concepts: [pointer returnat de funcție, "NULL", dangling pointer, aritmetică cu pointeri, inițializarea pointerilor cu NULL, vector de pointeri]
+statement: |
+  Simulați un mic administrator de memorie. „Memoria” este o arenă de `N` celule întregi (offseturile celulelor sunt `0 … N-1`). Programele cer blocuri de celule consecutive, identificate printr-un număr `id`. Se execută `q` comenzi:
+
+  | comandă | efect | afișează |
+  |---|---|---|
+  | `A id len` | alocă blocul `id` de `len` celule: **prima** zonă liberă (cea cu offsetul cel mai mic) de cel puțin `len` celule consecutive; celulele blocului primesc valoarea 0 | offsetul blocului; `ESEC` dacă nu există zonă liberă suficientă; `EROARE` dacă `id` este deja alocat |
+  | `F id` | eliberează blocul `id` | `EROARE` dacă `id` nu este alocat; altfel nimic |
+  | `W id k val` | scrie `val` în celula `k` (numerotată de la 0) a blocului `id` | `EROARE` dacă `id` nu e alocat sau `k` nu e în `[0, len)`; altfel nimic |
+  | `R id k` | citește celula `k` a blocului `id` | valoarea; `EROARE` în aceleași cazuri ca la `W` |
+  | `C` | compactează arena: mută toate blocurile alocate spre început, în ordinea offseturilor, unul lângă altul, **păstrându-le conținutul** | nimic |
+  | `H` | afișează harta arenei | vezi mai jos |
+
+  Harta: blocurile alocate în ordinea offseturilor, fiecare ca `id@offset:len`, separate prin spațiu (sau `-` dacă nu există niciunul), apoi ` | liber=X max=Y`, unde `X` este numărul total de celule libere, iar `Y` lungimea celei mai lungi zone libere.
+
+  **Reprezentare obligatorie.** Arena este un vector `int arena[N]`. Fiecare bloc se memorează prin **adresa** primei lui celule: `int *bloc[1001]`, cu `bloc[id] == NULL` pentru un `id` nealocat. Toate offseturile afișate se calculează ca diferență de pointeri (`bloc[id] - arena`), iar accesul la celula `k` se face prin `*(bloc[id] + k)`. Implementați cel puțin:
+
+  ```c
+  int *prima_potrivire(int *baza, const int *ocupat, int n, int len);   /* adresa primei zone libere de len celule, sau NULL */
+  void muta_stanga(int *dest, const int *src, int len);                 /* copiere cu dest <= src, zonele se pot suprapune */
+  ```
+
+  unde `ocupat[i]` (în starter, vectorul global `proprietar`) este id-ul blocului care ocupă celula `i` (0 = liberă). După `F`, pointerul blocului trebuie pus pe `NULL` (altfel ar rămâne un *dangling pointer*); după `C`, pointerii blocurilor mutate trebuie actualizați.
+
+  **Date de intrare**
+
+  Pe prima linie `N q`, apoi `q` linii cu câte o comandă.
+
+  **Date de ieșire**
+
+  Liniile afișate de comenzi, în ordine.
+
+  **Restricții**
+
+  - `1 ≤ N ≤ 10000`, `1 ≤ q ≤ 5000`
+  - `1 ≤ id ≤ 1000`, `1 ≤ len ≤ N`, `-1 ≤ k ≤ 10000`, `|val| ≤ 10^9`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  10 12
+  A 1 3
+  A 2 4
+  W 2 0 7
+  F 1
+  A 3 4
+  A 4 2
+  H
+  C
+  H
+  R 2 0
+  A 3 4
+  H
+  ```
+
+  Ieșire:
+  ```
+  0
+  3
+  ESEC
+  0
+  4@0:2 2@3:4 | liber=4 max=3
+  4@0:2 2@2:4 | liber=4 max=4
+  7
+  6
+  4@0:2 2@2:4 3@6:4 | liber=0 max=0
+  ```
+
+  Explicație: după `F 1` rămân libere celulele 0–2 și 7–9, deci blocul 3 (4 celule) nu încape (`ESEC`), iar blocul 4 ocupă celulele 0–1. `C` mută blocul 2 la offsetul 2, cu tot cu valoarea 7; acum există 4 celule libere consecutive, deci `A 3 4` reușește la offsetul 6, iar al doilea `A 3 4` dă `EROARE`.
+starter: |
+  #include <stdio.h>
+
+  #define NMAX 10000
+  #define IDMAX 1000
+
+  int arena[NMAX];
+  int proprietar[NMAX];       /* id-ul blocului care ocupa celula (0 = libera) */
+  int *bloc[IDMAX + 1];       /* adresa primei celule a blocului (NULL = nealocat) */
+  int lung[IDMAX + 1];
+
+  int *prima_potrivire(int *baza, const int *ocupat, int n, int len)
+  {
+      /* TODO */
+      return NULL;
+  }
+
+  void muta_stanga(int *dest, const int *src, int len)
+  {
+      /* TODO */
+  }
+
+  int main(void)
+  {
+      int n, q, i;
+      char cmd;
+
+      scanf("%d %d", &n, &q);
+      for (i = 0; i < q; i++) {
+          scanf(" %c", &cmd);
+          /* TODO: A, F, W, R, C, H */
+      }
+      return 0;
+  }
+hints:
+  - "Ține două vederi ale aceleiași memorii: vectorul `proprietar` (primit de `prima_potrivire` ca parametrul `ocupat`: cine deține fiecare celulă, util pentru căutarea zonelor libere și pentru hartă) și pointerii `bloc[id]` (unde începe fiecare bloc, util pentru citire/scriere). Orice operație care schimbă una trebuie să o actualizeze și pe cealaltă."
+  - "Prima potrivire: parcurge vectorul de proprietari și numără celulele libere consecutive; în momentul în care numărul ajunge la `len`, zona începe cu `len − 1` celule în urmă. Harta și compactarea parcurg arena de la stânga: la o celulă ocupată de `id`, știi că acolo începe blocul `id` și poți sări direct `lung[id]` celule."
+  - "Pseudocod compactare: dest = arena; pentru fiecare început de bloc întâlnit de la stânga la dreapta: muta_stanga(dest, bloc[id], lung[id]); bloc[id] = dest; marchează în proprietar celulele [dest, dest + lung) cu id; dest += lung. La final marchează ca libere celulele de la dest până la sfârșitul arenei. Copierea de la stânga la dreapta e corectă pentru că destinația nu e niciodată după sursă."
+pitfalls:
+  - "După `F`, dacă nu pui `bloc[id] = NULL`, un `R` ulterior citește dintr-o zonă care poate aparține deja altui bloc — exact problema unui *dangling pointer*."
+  - "Dacă la compactare copiezi datele dar uiți să actualizezi `bloc[id]`, pointerul indică vechea poziție; testele care citesc după `C` o detectează."
+  - "`k = -1` sau `k = len` trebuie respinse: `bloc[id] - 1` și `bloc[id] + len` sunt în afara blocului (poate chiar în afara arenei)."
+  - "Căutarea primei zone libere trebuie să caute zone de celule consecutive, nu doar să numere celulele libere totale."

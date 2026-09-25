@@ -1,0 +1,61 @@
+id: lab02-p19-fractii-egiptene
+lab: lab02
+number: 19
+title: "Fracțiile egiptenilor"
+difficulty: 4
+estimated_minutes: 40
+concepts: [while, long long, operatorul modulo, overflow, împărțire întreagă]
+statement: |
+  Scribii Egiptului antic scriau orice fracție ca sumă de **fracții unitare** distincte
+  (cu numărătorul 1), de exemplu `4/13 = 1/4 + 1/18 + 1/468`. La cursul de istoria
+  matematicii, studenții descompun fracții cu **metoda greedy** a lui Fibonacci:
+
+  - cât timp fracția rămasă `a/b` nu este 0, se alege cea mai mare fracție unitară
+    `1/n` care nu depășește `a/b` — adică `n` este cel mai mic întreg cu `n ≥ b / a`;
+  - se scrie termenul `1/n` și se continuă cu diferența `a/b − 1/n`.
+
+  Dacă fracția inițială este cel puțin 1, se scrie întâi partea ei întreagă.
+
+  Scrie un program care citește o fracție și afișează forma ei ireductibilă, descompunerea
+  și numărul de termeni ai descompunerii.
+
+  **Date de intrare**
+
+  O fracție în formatul `a/b`.
+
+  **Date de ieșire**
+
+  Trei linii:
+
+  1. `Ireductibila: p/q` — fracția simplificată;
+  2. `p/q = T1 + T2 + … + Tk` — descompunerea fracției ireductibile: partea întreagă
+     (dacă este nenulă), apoi fracțiile unitare, în ordinea în care sunt găsite de metoda
+     greedy; termenii sunt separați prin ` + `;
+  3. `Termeni: k` — numărul de termeni (partea întreagă, dacă apare, se numără și ea).
+
+  **Restricții**
+
+  - `1 ≤ a ≤ 1000`, `1 ≤ b ≤ 30`
+  - numitorii din descompunere și rezultatele intermediare pot depăși `2 147 483 647`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4/13
+  ```
+
+  Ieșire:
+  ```
+  Ireductibila: 4/13
+  4/13 = 1/4 + 1/18 + 1/468
+  Termeni: 3
+  ```
+hints:
+  - "Lucrează doar cu întregi: fracția curentă este perechea (a, b). Cel mai mic n cu n ≥ b / a este b / a rotunjit în sus, care se poate calcula cu împărțire întreagă."
+  - "a/b − 1/n = (a·n − b) / (b·n). Numitorii cresc foarte repede, deci ai nevoie de long long; simplificarea prin cmmdc (algoritmul lui Euclid, cu o buclă) după fiecare pas ține numerele mai mici. Partea întreagă este a / b, iar ce rămâne este (a % b) / b."
+  - "Pseudocod: simplifică a/b și afișează-l; dacă a ≥ b: afișează a / b, a = a % b, k++; cât timp a ≠ 0: n = (b + a − 1) / a; afișează ' + ' (doar dacă nu e primul termen) și 1/n; a = a·n − b; b = b·n; simplifică; k++."
+pitfalls:
+  - "b / a + 1 nu este rotunjirea în sus când a îl divide pe b (de exemplu 1/3: n trebuie să fie 3, nu 4)."
+  - "Cu int, produsul b · n iese din domeniu (overflow) chiar și pentru fracții mici, cum ar fi 27/29."
+  - "Dacă fracția este un număr întreg, descompunerea are un singur termen, fără fracții unitare."

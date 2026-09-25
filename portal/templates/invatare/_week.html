@@ -7,7 +7,7 @@
     {% if u %}
       <h1>{{ u.icon }} {{ u.title }}</h1>
       <p>Citește laboratorul, rezolvă problemele de mai jos în VS Code și folosește AI-ul ca pe un tutore. La final trimite arhiva săptămânii pe Moodle.</p>
-      <p style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn primary" href="/carte/{{ u.id }}/">Citește laboratorul</a><a class="btn" href="/capitol/{{ u.id }}/">Conceptele săptămânii</a><a class="btn" href="{{ CODE_URL }}" target="pclp-code">Deschide VS Code ↗</a></p>
+      <p style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn primary" href="/carte/{{ u.id }}/">Citește laboratorul</a><a class="btn" href="/capitol/{{ u.id }}/">Conceptele săptămânii</a><a class="btn" href="{{ CODE_URL }}" target="_blank" rel="noopener">Deschide VS Code ↗</a></p>
       <div class="small muted" style="margin-top:10px">Probleme rezolvate: {{ solved }} / {{ problems|length }}</div>
       <div class="progressbar" style="margin-top:4px"><span style="width:{% widthratio solved problems|length|default:1 100 %}%"></span></div>
     {% else %}

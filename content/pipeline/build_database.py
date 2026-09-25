@@ -499,7 +499,7 @@ def build_problems(db, reader, units, matcher, by_label, out: Path, issues) -> i
         shutil.rmtree(pdir)
     pdir.mkdir(parents=True)
     ord_ = 0
-    # 1) problemele curate (10 pe laborator)
+    # 1) problemele curate (seturi de câte 10 pe laborator)
     for yml in sorted((CUR / "problems").glob("*/*/problem.yaml")):
         try:
             p = yaml.safe_load(yml.read_text(encoding="utf-8"))

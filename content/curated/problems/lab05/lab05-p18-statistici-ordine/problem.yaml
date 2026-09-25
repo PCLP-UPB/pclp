@@ -1,0 +1,107 @@
+id: lab05-p18-statistici-ordine
+lab: lab05
+number: 18
+title: "Al k-lea timp de răspuns"
+difficulty: 4
+estimated_minutes: 50
+concepts: [pointer la pointer, interschimbare prin pointeri, aritmetică cu pointeri, parametru de tip pointer, indirectare]
+statement: |
+  Un server a înregistrat `n` timpi de răspuns (întregi, pot fi și negativi după o corecție de ceas). Echipa de monitorizare pune `q` întrebări de forma „care este al `k`-lea cel mai mic timp?” (de exemplu, `k = (n + 1) / 2` dă mediana). Pentru fiecare întrebare afișați valoarea respectivă și de câte ori apare ea printre cei `n` timpi.
+
+  Rezolvați fiecare întrebare prin **selecție rapidă** (quickselect), fără a sorta vectorul. Piesa de bază este partiționarea în trei zone:
+
+  ```c
+  void partitie3(int *st, int *sf, int pivot, int **egal_st, int **egal_sf);
+  int k_minim(int *st, int *sf, int k, int *aparitii);
+  ```
+
+  - `partitie3` rearanjează zona `[st, sf)` astfel încât să conțină întâi elementele `< pivot`, apoi cele `== pivot`, apoi cele `> pivot`, printr-o singură parcurgere, doar cu interschimbări; la adresele `egal_st` și `egal_sf` scrie începutul zonei egale și adresa de după ea;
+  - `k_minim` alege ca pivot elementul din **mijlocul** zonei curente (`*(st + (sf - st) / 2)`), partiționează și continuă doar în zona în care se află al `k`-lea element, până când acesta cade în zona egală. Returnează valoarea și scrie la `aparitii` lungimea zonei egale finale.
+
+  Vectorul poate rămâne rearanjat de la o întrebare la alta (valorile, deci și răspunsurile, nu se schimbă).
+
+  **Date de intrare**
+
+  Pe prima linie `n`, pe a doua `n` întregi. Pe a treia linie `q`, apoi `q` linii cu câte un `k`.
+
+  **Date de ieșire**
+
+  Pentru fiecare întrebare, o linie `valoare aparitii`.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 200000`, `1 ≤ q ≤ 300`, `1 ≤ k ≤ n`
+  - valorile sunt întregi din `[-10^9, 10^9]`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  9
+  12 5 -3 12 8 5 5 20 0
+  5
+  1
+  5
+  4
+  9
+  7
+  ```
+
+  Ieșire:
+  ```
+  -3 1
+  5 3
+  5 3
+  20 1
+  12 2
+  ```
+
+  Explicație: sortat, vectorul ar fi `-3 0 5 5 5 8 12 12 20`; al 5-lea element este `5`, care apare de 3 ori.
+starter: |
+  #include <stdio.h>
+
+  #define NMAX 200000
+
+  void interschimba(int *a, int *b)
+  {
+      int aux = *a;
+
+      *a = *b;
+      *b = aux;
+  }
+
+  void partitie3(int *st, int *sf, int pivot, int **egal_st, int **egal_sf)
+  {
+      /* TODO: trei pointeri: sfarsitul zonei <, elementul curent, inceputul zonei > */
+  }
+
+  int k_minim(int *st, int *sf, int k, int *aparitii)
+  {
+      /* TODO */
+      return 0;
+  }
+
+  int main(void)
+  {
+      static int v[NMAX];
+      int n, q, i, k, aparitii;
+
+      scanf("%d", &n);
+      for (i = 0; i < n; i++) {
+          scanf("%d", &v[i]);
+      }
+      scanf("%d", &q);
+      for (i = 0; i < q; i++) {
+          scanf("%d", &k);
+          /* TODO */
+      }
+      return 0;
+  }
+hints:
+  - "`partitie3` produce două adrese; ca să le transmită apelantului primește adresele a doi pointeri din `k_minim` (pointeri la pointeri). Diferențele `egal_st - st` și `egal_sf - st` spun câte elemente sunt mai mici decât pivotul, respectiv cel mult egale cu el."
+  - "Partiționarea „steagului olandez”: trei pointeri `mic`, `cur`, `mare`. Zona `[st, mic)` are elemente mai mici, `[mic, cur)` egale, `[cur, mare)` neexaminate, `[mare, sf)` mai mari. Elementul de la `cur` merge într-una din zone printr-o interschimbare; când `cur` ajunge la `mare`, ai terminat."
+  - "Pseudocod k_minim: repetă: pivot = elementul din mijlocul lui [st, sf); partitie3; dacă k ≤ egal_st − st atunci sf = egal_st; altfel dacă k > egal_sf − st atunci k −= egal_sf − st și st = egal_sf; altfel aparitii = egal_sf − egal_st și returnează pivot. Toate aparițiile valorii căutate sunt în zona egală finală, pentru că la fiecare pas ele rămân împreună în zona în care continui."
+pitfalls:
+  - "Pivotul trebuie copiat într-o variabilă înainte de partiționare: dacă păstrezi doar adresa lui, valoarea de acolo se schimbă după primele interschimbări."
+  - "Când elementul de la `cur` este mai mare decât pivotul, după interschimbarea cu `mare - 1` **nu** avansezi `cur`: elementul adus acolo nu a fost încă examinat."
+  - "Partiționarea în două zone (fără zona egală) poate intra în buclă infinită când toate valorile sunt egale (vezi testele cu multe duplicate)."

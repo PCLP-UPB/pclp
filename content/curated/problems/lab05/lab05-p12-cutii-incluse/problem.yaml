@@ -1,0 +1,111 @@
+id: lab05-p12-cutii-incluse
+lab: lab05
+number: 12
+title: "Cutii care intră una în alta"
+difficulty: 2
+estimated_minutes: 25
+concepts: [interschimbare prin pointeri, parametru de tip pointer, aritmetică cu pointeri, echivalența dintre vector și pointer, const]
+statement: |
+  Un depozit are `n` cutii în formă de paralelipiped, fiecare descrisă prin cele trei dimensiuni ale ei, date în orice ordine. O cutie poate fi rotită oricum, dar muchiile rămân paralele cu ale celeilalte cutii. Cutia `A` **intră** în cutia `B` dacă, după ce dimensiunile fiecăreia sunt ordonate crescător, fiecare dimensiune a lui `A` este **strict mai mică** decât dimensiunea corespunzătoare a lui `B`.
+
+  Afișați dimensiunile ordonate ale fiecărei cutii, apoi răspundeți la `q` întrebări de forma „intră cutia `a` în cutia `b`?”.
+
+  Implementați și folosiți funcțiile:
+
+  ```c
+  void interschimba(int *a, int *b);
+  void ordoneaza3(int *a, int *b, int *c);        /* ordoneaza crescator valorile de la cele trei adrese */
+  int incape(const int *d1, const int *d2);       /* d1, d2: adresele primei dimensiuni a doua cutii */
+  ```
+
+  Dimensiunile cutiei `i` se memorează în `dim[i][0]`, `dim[i][1]`, `dim[i][2]`; `incape` primește `dim[a-1]` și `dim[b-1]` și parcurge cele trei dimensiuni cu pointeri (fără `[]`).
+
+  **Date de intrare**
+
+  Pe prima linie `n`. Pe următoarele `n` linii, câte trei întregi: dimensiunile cutiei. Apoi `q`, urmat de `q` linii cu câte două numere `a b` (numerotare de la 1).
+
+  **Date de ieșire**
+
+  Mai întâi `n` linii `cutia i: x y z`, cu `x ≤ y ≤ z`. Apoi, pentru fiecare întrebare, o linie `a in b: DA` sau `a in b: NU`.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1000`, `1 ≤ q ≤ 1000`
+  - dimensiunile sunt întregi din `[1, 10^6]`
+  - `a` și `b` pot fi egale (o cutie nu intră în ea însăși)
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4
+  3 1 2
+  5 4 6
+  2 2 7
+  8 3 9
+  5
+  1 2
+  2 1
+  3 4
+  1 3
+  4 4
+  ```
+
+  Ieșire:
+  ```
+  cutia 1: 1 2 3
+  cutia 2: 4 5 6
+  cutia 3: 2 2 7
+  cutia 4: 3 8 9
+  1 in 2: DA
+  2 in 1: NU
+  3 in 4: DA
+  1 in 3: NU
+  4 in 4: NU
+  ```
+starter: |
+  #include <stdio.h>
+
+  #define NMAX 1000
+
+  void interschimba(int *a, int *b)
+  {
+      /* TODO */
+  }
+
+  void ordoneaza3(int *a, int *b, int *c)
+  {
+      /* TODO: cel mult trei comparatii + interschimbari */
+  }
+
+  int incape(const int *d1, const int *d2)
+  {
+      /* TODO: parcurgeti cele 3 dimensiuni cu pointeri */
+      return 0;
+  }
+
+  int main(void)
+  {
+      int n, q, i, a, b;
+      int dim[NMAX][3];
+
+      scanf("%d", &n);
+      for (i = 0; i < n; i++) {
+          scanf("%d %d %d", &dim[i][0], &dim[i][1], &dim[i][2]);
+          /* TODO: ordonati si afisati */
+      }
+      scanf("%d", &q);
+      for (i = 0; i < q; i++) {
+          scanf("%d %d", &a, &b);
+          /* TODO */
+      }
+      return 0;
+  }
+hints:
+  - "Funcția de ordonare trebuie să modifice trei variabile ale apelantului, deci primește adresele lor. `interschimba` este piesa de bază: o poți apela din `ordoneaza3` cu pointerii primiți, fără `&` în plus."
+  - "Trei comparații sunt suficiente: pune maximul dintre primele două pe poziția a doua, apoi maximul dintre ultimele două pe poziția a treia, apoi mai compară o dată primele două. Linia `dim[i]` este un vector de 3 întregi, deci se transmite ca pointer la primul element."
+  - "Pseudocod pentru incape(d1, d2): pentru k de la 0 la 2 (avansând ambii pointeri): dacă valoarea de la d1 ≥ valoarea de la d2 returnează 0; la final returnează 1. Atenție la inegalitatea strictă și la cazul a = b."
+pitfalls:
+  - "`interschimba(*a, *b)` trimite valorile, nu adresele — funcția ar interschimba copii locale (și compilatorul dă warning)."
+  - "Dacă ordonezi dimensiunile doar în copii locale din funcție, `dim` rămâne neordonat și comparația din `incape` e greșită."
+  - "Cu `<=` în loc de `<`, cutiile egale ar „intra” una în alta."

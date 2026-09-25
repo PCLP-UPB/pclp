@@ -1,6 +1,6 @@
 # Formatul problemelor săptămânale
 
-Fiecare laborator are 10 probleme proprii, cu dificultate crescătoare (p01 cea mai ușoară, p10 cea mai grea).
+Fiecare laborator are seturi de câte 10 probleme proprii (p01–p10, apoi p11–p20 …), fiecare set cu dificultate crescătoare (prima cea mai ușoară, ultima o provocare).
 
 ## Ce vede studentul: `content/curated/problems/<lab>/<id>/`
 

@@ -24,7 +24,7 @@
     <input name="q" id="q" type="search" placeholder="Caută un termen… ( / )" value="{{ q|default:'' }}" aria-label="Caută">
     <div class="sugg" id="sugg" hidden></div>
   </form>
-  <a class="btn code" href="{{ CODE_URL }}" target="pclp-code" title="Deschide VS Code în browser">VS Code ↗</a>
+  <a class="btn code" href="{{ CODE_URL }}" target="_blank" rel="noopener" title="Deschide VS Code în browser">VS Code ↗</a>
   <button class="menu" id="menu" aria-label="Meniu" type="button">☰</button>
 </header>
 {% if CONTENT_NOTICE %}<div class="flash"><div class="msg success" style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">

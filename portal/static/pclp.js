@@ -293,6 +293,10 @@
     }).catch(() => { runBtn.disabled = false; runBtn.textContent = "▶ Rulează testele"; out.innerHTML = '<div class="msg error">Cererea a eșuat.</div>'; });
   });
 
+  // ---- „Începe problema și deschide VS Code”: VS Code se deschide în tab nou, iar pagina
+  // problemei se reîncarcă, ca să arate folderul creat și butonul de teste
+  $$("button[data-reload]").forEach((b) => b.addEventListener("click", () => setTimeout(() => location.reload(), 1200)));
+
   // ---- întrebări: butoanele de variantă trimit formularul
   $$(".q form.opts button").forEach((b) => b.addEventListener("click", () => { b.form.querySelector("[name=choice]").value = b.value; }));
 })();

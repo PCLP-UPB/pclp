@@ -1,0 +1,3005 @@
+0 -> 20: urca 20 etaje
+Etaj inexistent: 60
+20 -> 9: coboara 11 etaje
+9 -> 25: urca 16 etaje
+25 -> 41: urca 16 etaje
+41 -> 3: coboara 38 etaje
+3 -> 4: urca 1 etaje
+Etaj inexistent: 52
+4 -> 34: urca 30 etaje
+34 -> 6: coboara 28 etaje
+6 -> 23: urca 17 etaje
+23 -> 37: urca 14 etaje
+37 -> 3: coboara 34 etaje
+Etaj inexistent: 58
+3 -> 32: urca 29 etaje
+32 -> 13: coboara 19 etaje
+13 -> 2: coboara 11 etaje
+2 -> 5: urca 3 etaje
+5 -> 27: urca 22 etaje
+27 -> 26: coboara 1 etaje
+26 -> 4: coboara 22 etaje
+4 -> 15: urca 11 etaje
+15 -> 5: coboara 10 etaje
+5 -> 35: urca 30 etaje
+35 -> 27: coboara 8 etaje
+27 -> 3: coboara 24 etaje
+Etaj inexistent: 52
+3 -> 36: urca 33 etaje
+36 -> 7: coboara 29 etaje
+Etaj inexistent: 60
+7 -> 14: urca 7 etaje
+14 -> 40: urca 26 etaje
+Deja la etajul 40
+40 -> 37: coboara 3 etaje
+Etaj inexistent: 60
+37 -> 3: coboara 34 etaje
+3 -> 36: urca 33 etaje
+36 -> 37: urca 1 etaje
+37 -> 25: coboara 12 etaje
+25 -> 3: coboara 22 etaje
+3 -> 14: urca 11 etaje
+14 -> 2: coboara 12 etaje
+2 -> 35: urca 33 etaje
+Etaj inexistent: 54
+35 -> 8: coboara 27 etaje
+8 -> 18: urca 10 etaje
+18 -> 26: urca 8 etaje
+26 -> 9: coboara 17 etaje
+9 -> 34: urca 25 etaje
+34 -> 7: coboara 27 etaje
+7 -> 36: urca 29 etaje
+36 -> 19: coboara 17 etaje
+19 -> 35: urca 16 etaje
+Etaj inexistent: 52
+35 -> 43: urca 8 etaje
+43 -> 11: coboara 32 etaje
+11 -> 6: coboara 5 etaje
+6 -> 37: urca 31 etaje
+37 -> 36: coboara 1 etaje
+36 -> 40: urca 4 etaje
+40 -> 12: coboara 28 etaje
+12 -> 23: urca 11 etaje
+23 -> 6: coboara 17 etaje
+6 -> 35: urca 29 etaje
+35 -> 45: urca 10 etaje
+45 -> 4: coboara 41 etaje
+4 -> 36: urca 32 etaje
+36 -> 3: coboara 33 etaje
+3 -> 39: urca 36 etaje
+39 -> 13: coboara 26 etaje
+13 -> 31: urca 18 etaje
+31 -> 43: urca 12 etaje
+43 -> 34: coboara 9 etaje
+34 -> 27: coboara 7 etaje
+27 -> 49: urca 22 etaje
+49 -> 20: coboara 29 etaje
+20 -> 29: urca 9 etaje
+29 -> 37: urca 8 etaje
+Etaj inexistent: 59
+37 -> 29: coboara 8 etaje
+29 -> 23: coboara 6 etaje
+23 -> 19: coboara 4 etaje
+19 -> 15: coboara 4 etaje
+15 -> 50: urca 35 etaje
+50 -> 11: coboara 39 etaje
+11 -> 44: urca 33 etaje
+44 -> 49: urca 5 etaje
+49 -> 15: coboara 34 etaje
+15 -> 5: coboara 10 etaje
+5 -> 36: urca 31 etaje
+36 -> 19: coboara 17 etaje
+19 -> 33: urca 14 etaje
+33 -> 31: coboara 2 etaje
+Etaj inexistent: 56
+31 -> 21: coboara 10 etaje
+21 -> 46: urca 25 etaje
+46 -> 28: coboara 18 etaje
+28 -> 18: coboara 10 etaje
+18 -> 38: urca 20 etaje
+38 -> 4: coboara 34 etaje
+4 -> 7: urca 3 etaje
+7 -> 32: urca 25 etaje
+32 -> 26: coboara 6 etaje
+26 -> 10: coboara 16 etaje
+10 -> 48: urca 38 etaje
+48 -> 21: coboara 27 etaje
+21 -> 9: coboara 12 etaje
+Etaj inexistent: 59
+9 -> 31: urca 22 etaje
+31 -> 26: coboara 5 etaje
+26 -> 2: coboara 24 etaje
+2 -> 42: urca 40 etaje
+42 -> 4: coboara 38 etaje
+4 -> 48: urca 44 etaje
+48 -> 35: coboara 13 etaje
+35 -> 36: urca 1 etaje
+36 -> 50: urca 14 etaje
+Etaj inexistent: 56
+Etaj inexistent: 52
+50 -> 20: coboara 30 etaje
+20 -> 21: urca 1 etaje
+21 -> 44: urca 23 etaje
+44 -> 22: coboara 22 etaje
+22 -> 38: urca 16 etaje
+38 -> 31: coboara 7 etaje
+31 -> 37: urca 6 etaje
+Etaj inexistent: 51
+37 -> 29: coboara 8 etaje
+29 -> 4: coboara 25 etaje
+Etaj inexistent: 53
+4 -> 5: urca 1 etaje
+Etaj inexistent: 60
+5 -> 17: urca 12 etaje
+17 -> 30: urca 13 etaje
+30 -> 44: urca 14 etaje
+44 -> 42: coboara 2 etaje
+42 -> 4: coboara 38 etaje
+4 -> 3: coboara 1 etaje
+3 -> 46: urca 43 etaje
+46 -> 44: coboara 2 etaje
+44 -> 19: coboara 25 etaje
+19 -> 41: urca 22 etaje
+41 -> 36: coboara 5 etaje
+36 -> 43: urca 7 etaje
+Etaj inexistent: 52
+43 -> 28: coboara 15 etaje
+28 -> 18: coboara 10 etaje
+18 -> 45: urca 27 etaje
+45 -> 24: coboara 21 etaje
+Etaj inexistent: 56
+24 -> 42: urca 18 etaje
+42 -> 22: coboara 20 etaje
+22 -> 1: coboara 21 etaje
+Etaj inexistent: 60
+1 -> 29: urca 28 etaje
+29 -> 22: coboara 7 etaje
+22 -> 10: coboara 12 etaje
+10 -> 39: urca 29 etaje
+39 -> 7: coboara 32 etaje
+7 -> 31: urca 24 etaje
+31 -> 3: coboara 28 etaje
+3 -> 13: urca 10 etaje
+13 -> 49: urca 36 etaje
+49 -> 18: coboara 31 etaje
+18 -> 8: coboara 10 etaje
+8 -> 47: urca 39 etaje
+47 -> 15: coboara 32 etaje
+15 -> 25: urca 10 etaje
+Deja la etajul 25
+Etaj inexistent: 58
+Etaj inexistent: 55
+25 -> 31: urca 6 etaje
+31 -> 5: coboara 26 etaje
+5 -> 10: urca 5 etaje
+10 -> 28: urca 18 etaje
+28 -> 25: coboara 3 etaje
+25 -> 35: urca 10 etaje
+35 -> 17: coboara 18 etaje
+Etaj inexistent: 56
+17 -> 8: coboara 9 etaje
+Etaj inexistent: 52
+8 -> 27: urca 19 etaje
+Etaj inexistent: 55
+27 -> 35: urca 8 etaje
+35 -> 17: coboara 18 etaje
+17 -> 45: urca 28 etaje
+45 -> 26: coboara 19 etaje
+26 -> 22: coboara 4 etaje
+22 -> 43: urca 21 etaje
+Etaj inexistent: 56
+43 -> 24: coboara 19 etaje
+24 -> 14: coboara 10 etaje
+14 -> 9: coboara 5 etaje
+9 -> 5: coboara 4 etaje
+5 -> 11: urca 6 etaje
+11 -> 9: coboara 2 etaje
+9 -> 14: urca 5 etaje
+14 -> 42: urca 28 etaje
+42 -> 14: coboara 28 etaje
+14 -> 0: coboara 14 etaje
+0 -> 31: urca 31 etaje
+Etaj inexistent: 53
+31 -> 37: urca 6 etaje
+37 -> 11: coboara 26 etaje
+11 -> 16: urca 5 etaje
+16 -> 18: urca 2 etaje
+18 -> 0: coboara 18 etaje
+0 -> 9: urca 9 etaje
+9 -> 26: urca 17 etaje
+26 -> 34: urca 8 etaje
+34 -> 23: coboara 11 etaje
+23 -> 39: urca 16 etaje
+39 -> 36: coboara 3 etaje
+36 -> 20: coboara 16 etaje
+Etaj inexistent: 60
+20 -> 8: coboara 12 etaje
+8 -> 44: urca 36 etaje
+Etaj inexistent: 54
+44 -> 32: coboara 12 etaje
+Etaj inexistent: 60
+32 -> 39: urca 7 etaje
+39 -> 41: urca 2 etaje
+41 -> 43: urca 2 etaje
+43 -> 47: urca 4 etaje
+47 -> 3: coboara 44 etaje
+3 -> 29: urca 26 etaje
+Etaj inexistent: 57
+Etaj inexistent: 55
+29 -> 49: urca 20 etaje
+Etaj inexistent: 60
+Etaj inexistent: 55
+49 -> 43: coboara 6 etaje
+Etaj inexistent: 51
+43 -> 35: coboara 8 etaje
+35 -> 25: coboara 10 etaje
+Deja la etajul 25
+Deja la etajul 25
+Deja la etajul 25
+25 -> 6: coboara 19 etaje
+6 -> 30: urca 24 etaje
+30 -> 40: urca 10 etaje
+40 -> 25: coboara 15 etaje
+25 -> 3: coboara 22 etaje
+3 -> 12: urca 9 etaje
+12 -> 4: coboara 8 etaje
+4 -> 13: urca 9 etaje
+13 -> 28: urca 15 etaje
+28 -> 10: coboara 18 etaje
+10 -> 7: coboara 3 etaje
+7 -> 21: urca 14 etaje
+21 -> 38: urca 17 etaje
+38 -> 3: coboara 35 etaje
+3 -> 6: urca 3 etaje
+6 -> 0: coboara 6 etaje
+0 -> 36: urca 36 etaje
+36 -> 9: coboara 27 etaje
+9 -> 34: urca 25 etaje
+34 -> 6: coboara 28 etaje
+Etaj inexistent: 60
+6 -> 23: urca 17 etaje
+23 -> 39: urca 16 etaje
+39 -> 1: coboara 38 etaje
+1 -> 4: urca 3 etaje
+Etaj inexistent: 55
+4 -> 13: urca 9 etaje
+13 -> 39: urca 26 etaje
+39 -> 24: coboara 15 etaje
+24 -> 9: coboara 15 etaje
+9 -> 40: urca 31 etaje
+40 -> 16: coboara 24 etaje
+16 -> 22: urca 6 etaje
+22 -> 38: urca 16 etaje
+38 -> 23: coboara 15 etaje
+23 -> 30: urca 7 etaje
+30 -> 7: coboara 23 etaje
+Deja la etajul 7
+Etaj inexistent: 54
+7 -> 31: urca 24 etaje
+31 -> 29: coboara 2 etaje
+29 -> 30: urca 1 etaje
+Deja la etajul 30
+30 -> 19: coboara 11 etaje
+19 -> 5: coboara 14 etaje
+5 -> 9: urca 4 etaje
+9 -> 6: coboara 3 etaje
+6 -> 47: urca 41 etaje
+47 -> 21: coboara 26 etaje
+21 -> 47: urca 26 etaje
+47 -> 16: coboara 31 etaje
+16 -> 30: urca 14 etaje
+Etaj inexistent: 53
+30 -> 44: urca 14 etaje
+44 -> 10: coboara 34 etaje
+10 -> 33: urca 23 etaje
+33 -> 1: coboara 32 etaje
+1 -> 13: urca 12 etaje
+Etaj inexistent: 60
+Etaj inexistent: 60
+13 -> 33: urca 20 etaje
+33 -> 23: coboara 10 etaje
+23 -> 9: coboara 14 etaje
+9 -> 44: urca 35 etaje
+44 -> 34: coboara 10 etaje
+Etaj inexistent: 58
+34 -> 1: coboara 33 etaje
+1 -> 48: urca 47 etaje
+48 -> 33: coboara 15 etaje
+33 -> 19: coboara 14 etaje
+19 -> 41: urca 22 etaje
+Etaj inexistent: 55
+41 -> 5: coboara 36 etaje
+5 -> 44: urca 39 etaje
+Etaj inexistent: 54
+44 -> 16: coboara 28 etaje
+16 -> 33: urca 17 etaje
+33 -> 23: coboara 10 etaje
+Etaj inexistent: 58
+23 -> 10: coboara 13 etaje
+10 -> 22: urca 12 etaje
+22 -> 49: urca 27 etaje
+49 -> 14: coboara 35 etaje
+14 -> 34: urca 20 etaje
+Deja la etajul 34
+34 -> 49: urca 15 etaje
+49 -> 32: coboara 17 etaje
+32 -> 21: coboara 11 etaje
+21 -> 40: urca 19 etaje
+40 -> 14: coboara 26 etaje
+14 -> 39: urca 25 etaje
+Etaj inexistent: 51
+39 -> 50: urca 11 etaje
+50 -> 48: coboara 2 etaje
+Etaj inexistent: 54
+48 -> 12: coboara 36 etaje
+Etaj inexistent: 51
+12 -> 15: urca 3 etaje
+Etaj inexistent: 52
+15 -> 25: urca 10 etaje
+25 -> 47: urca 22 etaje
+Etaj inexistent: 51
+47 -> 14: coboara 33 etaje
+14 -> 12: coboara 2 etaje
+12 -> 33: urca 21 etaje
+33 -> 31: coboara 2 etaje
+31 -> 22: coboara 9 etaje
+22 -> 46: urca 24 etaje
+46 -> 1: coboara 45 etaje
+Deja la etajul 1
+1 -> 50: urca 49 etaje
+50 -> 17: coboara 33 etaje
+17 -> 30: urca 13 etaje
+30 -> 16: coboara 14 etaje
+16 -> 12: coboara 4 etaje
+12 -> 44: urca 32 etaje
+44 -> 38: coboara 6 etaje
+38 -> 22: coboara 16 etaje
+22 -> 28: urca 6 etaje
+Etaj inexistent: 51
+Etaj inexistent: 59
+28 -> 46: urca 18 etaje
+46 -> 22: coboara 24 etaje
+22 -> 23: urca 1 etaje
+23 -> 5: coboara 18 etaje
+5 -> 14: urca 9 etaje
+14 -> 6: coboara 8 etaje
+6 -> 14: urca 8 etaje
+14 -> 30: urca 16 etaje
+30 -> 12: coboara 18 etaje
+12 -> 21: urca 9 etaje
+21 -> 13: coboara 8 etaje
+13 -> 30: urca 17 etaje
+30 -> 39: urca 9 etaje
+Etaj inexistent: 57
+Deja la etajul 39
+Etaj inexistent: 53
+39 -> 0: coboara 39 etaje
+0 -> 30: urca 30 etaje
+Etaj inexistent: 58
+30 -> 41: urca 11 etaje
+41 -> 22: coboara 19 etaje
+Etaj inexistent: 51
+22 -> 41: urca 19 etaje
+41 -> 5: coboara 36 etaje
+Etaj inexistent: 53
+5 -> 42: urca 37 etaje
+42 -> 7: coboara 35 etaje
+Etaj inexistent: 58
+7 -> 24: urca 17 etaje
+24 -> 50: urca 26 etaje
+50 -> 45: coboara 5 etaje
+45 -> 48: urca 3 etaje
+48 -> 12: coboara 36 etaje
+12 -> 30: urca 18 etaje
+Etaj inexistent: 56
+30 -> 11: coboara 19 etaje
+11 -> 27: urca 16 etaje
+27 -> 50: urca 23 etaje
+50 -> 40: coboara 10 etaje
+40 -> 21: coboara 19 etaje
+21 -> 5: coboara 16 etaje
+Etaj inexistent: 51
+Etaj inexistent: 60
+5 -> 46: urca 41 etaje
+46 -> 25: coboara 21 etaje
+25 -> 29: urca 4 etaje
+29 -> 25: coboara 4 etaje
+25 -> 47: urca 22 etaje
+Etaj inexistent: 60
+47 -> 5: coboara 42 etaje
+5 -> 46: urca 41 etaje
+46 -> 10: coboara 36 etaje
+Deja la etajul 10
+10 -> 8: coboara 2 etaje
+8 -> 1: coboara 7 etaje
+1 -> 9: urca 8 etaje
+9 -> 37: urca 28 etaje
+Etaj inexistent: 57
+37 -> 29: coboara 8 etaje
+Etaj inexistent: 51
+29 -> 41: urca 12 etaje
+41 -> 9: coboara 32 etaje
+9 -> 39: urca 30 etaje
+Etaj inexistent: 52
+39 -> 38: coboara 1 etaje
+38 -> 30: coboara 8 etaje
+30 -> 42: urca 12 etaje
+Etaj inexistent: 59
+42 -> 22: coboara 20 etaje
+22 -> 9: coboara 13 etaje
+9 -> 35: urca 26 etaje
+Deja la etajul 35
+35 -> 8: coboara 27 etaje
+8 -> 1: coboara 7 etaje
+1 -> 0: coboara 1 etaje
+Etaj inexistent: 51
+0 -> 46: urca 46 etaje
+46 -> 41: coboara 5 etaje
+41 -> 6: coboara 35 etaje
+6 -> 33: urca 27 etaje
+33 -> 47: urca 14 etaje
+Etaj inexistent: 59
+47 -> 8: coboara 39 etaje
+8 -> 27: urca 19 etaje
+Etaj inexistent: 55
+27 -> 12: coboara 15 etaje
+Etaj inexistent: 52
+Etaj inexistent: 55
+12 -> 13: urca 1 etaje
+13 -> 1: coboara 12 etaje
+1 -> 16: urca 15 etaje
+16 -> 13: coboara 3 etaje
+13 -> 18: urca 5 etaje
+18 -> 32: urca 14 etaje
+32 -> 15: coboara 17 etaje
+15 -> 48: urca 33 etaje
+48 -> 37: coboara 11 etaje
+37 -> 20: coboara 17 etaje
+20 -> 16: coboara 4 etaje
+16 -> 34: urca 18 etaje
+34 -> 26: coboara 8 etaje
+Etaj inexistent: 53
+26 -> 8: coboara 18 etaje
+8 -> 3: coboara 5 etaje
+Etaj inexistent: 58
+3 -> 47: urca 44 etaje
+47 -> 22: coboara 25 etaje
+Etaj inexistent: 57
+22 -> 29: urca 7 etaje
+29 -> 42: urca 13 etaje
+42 -> 37: coboara 5 etaje
+Etaj inexistent: 52
+Etaj inexistent: 57
+37 -> 33: coboara 4 etaje
+33 -> 26: coboara 7 etaje
+Etaj inexistent: 52
+Etaj inexistent: 58
+Etaj inexistent: 56
+26 -> 32: urca 6 etaje
+32 -> 8: coboara 24 etaje
+8 -> 34: urca 26 etaje
+34 -> 9: coboara 25 etaje
+9 -> 33: urca 24 etaje
+33 -> 32: coboara 1 etaje
+32 -> 1: coboara 31 etaje
+Etaj inexistent: 55
+1 -> 28: urca 27 etaje
+28 -> 49: urca 21 etaje
+49 -> 11: coboara 38 etaje
+11 -> 38: urca 27 etaje
+38 -> 0: coboara 38 etaje
+0 -> 49: urca 49 etaje
+Etaj inexistent: 51
+49 -> 9: coboara 40 etaje
+9 -> 11: urca 2 etaje
+11 -> 9: coboara 2 etaje
+9 -> 30: urca 21 etaje
+30 -> 39: urca 9 etaje
+39 -> 46: urca 7 etaje
+46 -> 7: coboara 39 etaje
+7 -> 35: urca 28 etaje
+35 -> 3: coboara 32 etaje
+3 -> 20: urca 17 etaje
+20 -> 43: urca 23 etaje
+43 -> 33: coboara 10 etaje
+Deja la etajul 33
+33 -> 35: urca 2 etaje
+35 -> 30: coboara 5 etaje
+30 -> 50: urca 20 etaje
+50 -> 49: coboara 1 etaje
+49 -> 6: coboara 43 etaje
+Etaj inexistent: 56
+6 -> 35: urca 29 etaje
+35 -> 3: coboara 32 etaje
+3 -> 15: urca 12 etaje
+15 -> 12: coboara 3 etaje
+12 -> 17: urca 5 etaje
+17 -> 2: coboara 15 etaje
+2 -> 49: urca 47 etaje
+49 -> 6: coboara 43 etaje
+6 -> 32: urca 26 etaje
+32 -> 28: coboara 4 etaje
+28 -> 35: urca 7 etaje
+35 -> 1: coboara 34 etaje
+1 -> 48: urca 47 etaje
+Etaj inexistent: 57
+Etaj inexistent: 58
+48 -> 4: coboara 44 etaje
+4 -> 28: urca 24 etaje
+28 -> 20: coboara 8 etaje
+20 -> 39: urca 19 etaje
+39 -> 32: coboara 7 etaje
+32 -> 38: urca 6 etaje
+38 -> 32: coboara 6 etaje
+32 -> 12: coboara 20 etaje
+12 -> 44: urca 32 etaje
+44 -> 17: coboara 27 etaje
+17 -> 28: urca 11 etaje
+28 -> 32: urca 4 etaje
+32 -> 34: urca 2 etaje
+Etaj inexistent: 51
+34 -> 30: coboara 4 etaje
+30 -> 32: urca 2 etaje
+Etaj inexistent: 60
+32 -> 15: coboara 17 etaje
+15 -> 44: urca 29 etaje
+44 -> 33: coboara 11 etaje
+Etaj inexistent: 56
+Etaj inexistent: 56
+Etaj inexistent: 60
+Etaj inexistent: 59
+33 -> 16: coboara 17 etaje
+Etaj inexistent: 59
+16 -> 35: urca 19 etaje
+Etaj inexistent: 57
+Etaj inexistent: 60
+35 -> 12: coboara 23 etaje
+Etaj inexistent: 53
+12 -> 28: urca 16 etaje
+28 -> 8: coboara 20 etaje
+8 -> 26: urca 18 etaje
+26 -> 7: coboara 19 etaje
+7 -> 25: urca 18 etaje
+25 -> 28: urca 3 etaje
+28 -> 20: coboara 8 etaje
+20 -> 4: coboara 16 etaje
+4 -> 42: urca 38 etaje
+42 -> 15: coboara 27 etaje
+15 -> 27: urca 12 etaje
+27 -> 4: coboara 23 etaje
+4 -> 13: urca 9 etaje
+13 -> 42: urca 29 etaje
+42 -> 19: coboara 23 etaje
+19 -> 50: urca 31 etaje
+50 -> 7: coboara 43 etaje
+Etaj inexistent: 57
+7 -> 49: urca 42 etaje
+49 -> 9: coboara 40 etaje
+Etaj inexistent: 60
+9 -> 45: urca 36 etaje
+45 -> 41: coboara 4 etaje
+41 -> 42: urca 1 etaje
+42 -> 23: coboara 19 etaje
+23 -> 9: coboara 14 etaje
+9 -> 16: urca 7 etaje
+Etaj inexistent: 56
+16 -> 8: coboara 8 etaje
+8 -> 29: urca 21 etaje
+29 -> 14: coboara 15 etaje
+14 -> 47: urca 33 etaje
+Etaj inexistent: 60
+47 -> 6: coboara 41 etaje
+6 -> 25: urca 19 etaje
+Etaj inexistent: 56
+25 -> 31: urca 6 etaje
+31 -> 10: coboara 21 etaje
+10 -> 42: urca 32 etaje
+Etaj inexistent: 53
+42 -> 14: coboara 28 etaje
+14 -> 10: coboara 4 etaje
+10 -> 45: urca 35 etaje
+45 -> 27: coboara 18 etaje
+27 -> 32: urca 5 etaje
+32 -> 25: coboara 7 etaje
+25 -> 21: coboara 4 etaje
+21 -> 26: urca 5 etaje
+26 -> 12: coboara 14 etaje
+12 -> 22: urca 10 etaje
+22 -> 20: coboara 2 etaje
+20 -> 5: coboara 15 etaje
+5 -> 46: urca 41 etaje
+46 -> 23: coboara 23 etaje
+23 -> 1: coboara 22 etaje
+1 -> 21: urca 20 etaje
+21 -> 35: urca 14 etaje
+35 -> 29: coboara 6 etaje
+29 -> 28: coboara 1 etaje
+28 -> 45: urca 17 etaje
+45 -> 1: coboara 44 etaje
+1 -> 24: urca 23 etaje
+24 -> 21: coboara 3 etaje
+21 -> 33: urca 12 etaje
+33 -> 39: urca 6 etaje
+39 -> 18: coboara 21 etaje
+18 -> 32: urca 14 etaje
+32 -> 4: coboara 28 etaje
+4 -> 7: urca 3 etaje
+Etaj inexistent: 58
+7 -> 50: urca 43 etaje
+50 -> 14: coboara 36 etaje
+Etaj inexistent: 56
+14 -> 6: coboara 8 etaje
+6 -> 5: coboara 1 etaje
+5 -> 16: urca 11 etaje
+16 -> 17: urca 1 etaje
+17 -> 2: coboara 15 etaje
+Etaj inexistent: 57
+2 -> 49: urca 47 etaje
+49 -> 11: coboara 38 etaje
+11 -> 17: urca 6 etaje
+17 -> 48: urca 31 etaje
+48 -> 8: coboara 40 etaje
+Etaj inexistent: 52
+8 -> 27: urca 19 etaje
+Etaj inexistent: 54
+Etaj inexistent: 58
+27 -> 43: urca 16 etaje
+Etaj inexistent: 52
+Etaj inexistent: 60
+43 -> 16: coboara 27 etaje
+16 -> 25: urca 9 etaje
+25 -> 9: coboara 16 etaje
+9 -> 34: urca 25 etaje
+Etaj inexistent: 58
+34 -> 32: coboara 2 etaje
+32 -> 36: urca 4 etaje
+36 -> 31: coboara 5 etaje
+31 -> 44: urca 13 etaje
+44 -> 20: coboara 24 etaje
+20 -> 5: coboara 15 etaje
+5 -> 17: urca 12 etaje
+17 -> 3: coboara 14 etaje
+Etaj inexistent: 51
+3 -> 44: urca 41 etaje
+44 -> 11: coboara 33 etaje
+11 -> 27: urca 16 etaje
+Etaj inexistent: 57
+27 -> 4: coboara 23 etaje
+4 -> 17: urca 13 etaje
+Etaj inexistent: 60
+17 -> 1: coboara 16 etaje
+1 -> 40: urca 39 etaje
+40 -> 5: coboara 35 etaje
+Etaj inexistent: 51
+5 -> 16: urca 11 etaje
+16 -> 5: coboara 11 etaje
+5 -> 38: urca 33 etaje
+Etaj inexistent: 54
+38 -> 14: coboara 24 etaje
+14 -> 4: coboara 10 etaje
+4 -> 16: urca 12 etaje
+Etaj inexistent: 55
+16 -> 7: coboara 9 etaje
+7 -> 29: urca 22 etaje
+29 -> 0: coboara 29 etaje
+0 -> 21: urca 21 etaje
+21 -> 35: urca 14 etaje
+35 -> 26: coboara 9 etaje
+Etaj inexistent: 59
+Etaj inexistent: 58
+26 -> 17: coboara 9 etaje
+17 -> 39: urca 22 etaje
+39 -> 8: coboara 31 etaje
+8 -> 2: coboara 6 etaje
+2 -> 33: urca 31 etaje
+33 -> 45: urca 12 etaje
+45 -> 15: coboara 30 etaje
+Etaj inexistent: 60
+15 -> 7: coboara 8 etaje
+7 -> 10: urca 3 etaje
+10 -> 16: urca 6 etaje
+16 -> 3: coboara 13 etaje
+3 -> 11: urca 8 etaje
+11 -> 12: urca 1 etaje
+Etaj inexistent: 59
+12 -> 19: urca 7 etaje
+19 -> 40: urca 21 etaje
+40 -> 19: coboara 21 etaje
+19 -> 33: urca 14 etaje
+33 -> 48: urca 15 etaje
+48 -> 13: coboara 35 etaje
+13 -> 18: urca 5 etaje
+18 -> 28: urca 10 etaje
+28 -> 32: urca 4 etaje
+32 -> 43: urca 11 etaje
+43 -> 11: coboara 32 etaje
+11 -> 17: urca 6 etaje
+17 -> 22: urca 5 etaje
+Etaj inexistent: 51
+22 -> 1: coboara 21 etaje
+1 -> 16: urca 15 etaje
+16 -> 2: coboara 14 etaje
+2 -> 0: coboara 2 etaje
+0 -> 1: urca 1 etaje
+1 -> 46: urca 45 etaje
+46 -> 32: coboara 14 etaje
+32 -> 35: urca 3 etaje
+35 -> 12: coboara 23 etaje
+12 -> 32: urca 20 etaje
+32 -> 30: coboara 2 etaje
+30 -> 15: coboara 15 etaje
+Etaj inexistent: 59
+15 -> 28: urca 13 etaje
+28 -> 6: coboara 22 etaje
+6 -> 42: urca 36 etaje
+Etaj inexistent: 52
+42 -> 41: coboara 1 etaje
+41 -> 27: coboara 14 etaje
+27 -> 42: urca 15 etaje
+42 -> 31: coboara 11 etaje
+31 -> 34: urca 3 etaje
+Etaj inexistent: 53
+Etaj inexistent: 56
+34 -> 25: coboara 9 etaje
+25 -> 32: urca 7 etaje
+32 -> 19: coboara 13 etaje
+19 -> 44: urca 25 etaje
+44 -> 13: coboara 31 etaje
+13 -> 14: urca 1 etaje
+14 -> 21: urca 7 etaje
+21 -> 12: coboara 9 etaje
+Etaj inexistent: 53
+Etaj inexistent: 56
+12 -> 45: urca 33 etaje
+45 -> 46: urca 1 etaje
+46 -> 40: coboara 6 etaje
+40 -> 8: coboara 32 etaje
+8 -> 25: urca 17 etaje
+25 -> 22: coboara 3 etaje
+22 -> 3: coboara 19 etaje
+Etaj inexistent: 53
+3 -> 8: urca 5 etaje
+8 -> 0: coboara 8 etaje
+0 -> 4: urca 4 etaje
+4 -> 40: urca 36 etaje
+40 -> 47: urca 7 etaje
+Etaj inexistent: 56
+47 -> 16: coboara 31 etaje
+16 -> 27: urca 11 etaje
+27 -> 10: coboara 17 etaje
+10 -> 3: coboara 7 etaje
+3 -> 5: urca 2 etaje
+5 -> 42: urca 37 etaje
+Etaj inexistent: 53
+42 -> 24: coboara 18 etaje
+Etaj inexistent: 55
+24 -> 32: urca 8 etaje
+32 -> 42: urca 10 etaje
+42 -> 18: coboara 24 etaje
+18 -> 38: urca 20 etaje
+38 -> 15: coboara 23 etaje
+15 -> 44: urca 29 etaje
+44 -> 18: coboara 26 etaje
+18 -> 2: coboara 16 etaje
+2 -> 29: urca 27 etaje
+29 -> 11: coboara 18 etaje
+11 -> 10: coboara 1 etaje
+10 -> 17: urca 7 etaje
+17 -> 28: urca 11 etaje
+28 -> 0: coboara 28 etaje
+0 -> 16: urca 16 etaje
+16 -> 23: urca 7 etaje
+23 -> 21: coboara 2 etaje
+21 -> 35: urca 14 etaje
+35 -> 20: coboara 15 etaje
+20 -> 15: coboara 5 etaje
+15 -> 2: coboara 13 etaje
+Etaj inexistent: 56
+2 -> 19: urca 17 etaje
+19 -> 13: coboara 6 etaje
+13 -> 22: urca 9 etaje
+22 -> 11: coboara 11 etaje
+11 -> 0: coboara 11 etaje
+0 -> 21: urca 21 etaje
+21 -> 24: urca 3 etaje
+24 -> 5: coboara 19 etaje
+5 -> 30: urca 25 etaje
+30 -> 17: coboara 13 etaje
+17 -> 32: urca 15 etaje
+32 -> 41: urca 9 etaje
+41 -> 12: coboara 29 etaje
+12 -> 15: urca 3 etaje
+15 -> 32: urca 17 etaje
+32 -> 49: urca 17 etaje
+49 -> 0: coboara 49 etaje
+0 -> 5: urca 5 etaje
+5 -> 16: urca 11 etaje
+Etaj inexistent: 52
+16 -> 5: coboara 11 etaje
+5 -> 9: urca 4 etaje
+9 -> 25: urca 16 etaje
+25 -> 37: urca 12 etaje
+37 -> 2: coboara 35 etaje
+2 -> 25: urca 23 etaje
+25 -> 1: coboara 24 etaje
+1 -> 19: urca 18 etaje
+Deja la etajul 19
+19 -> 40: urca 21 etaje
+40 -> 14: coboara 26 etaje
+14 -> 5: coboara 9 etaje
+5 -> 37: urca 32 etaje
+37 -> 33: coboara 4 etaje
+Etaj inexistent: 54
+33 -> 48: urca 15 etaje
+48 -> 9: coboara 39 etaje
+9 -> 42: urca 33 etaje
+Etaj inexistent: 57
+42 -> 45: urca 3 etaje
+45 -> 50: urca 5 etaje
+Etaj inexistent: 56
+50 -> 38: coboara 12 etaje
+38 -> 24: coboara 14 etaje
+24 -> 48: urca 24 etaje
+48 -> 20: coboara 28 etaje
+20 -> 46: urca 26 etaje
+46 -> 31: coboara 15 etaje
+31 -> 9: coboara 22 etaje
+9 -> 18: urca 9 etaje
+18 -> 46: urca 28 etaje
+46 -> 39: coboara 7 etaje
+39 -> 41: urca 2 etaje
+41 -> 9: coboara 32 etaje
+9 -> 2: coboara 7 etaje
+Etaj inexistent: 52
+Etaj inexistent: 53
+2 -> 45: urca 43 etaje
+Etaj inexistent: 57
+45 -> 32: coboara 13 etaje
+32 -> 40: urca 8 etaje
+40 -> 27: coboara 13 etaje
+27 -> 46: urca 19 etaje
+46 -> 44: coboara 2 etaje
+Etaj inexistent: 51
+44 -> 32: coboara 12 etaje
+32 -> 8: coboara 24 etaje
+Etaj inexistent: 58
+8 -> 33: urca 25 etaje
+33 -> 48: urca 15 etaje
+48 -> 32: coboara 16 etaje
+32 -> 36: urca 4 etaje
+Etaj inexistent: 53
+Etaj inexistent: 52
+Etaj inexistent: 51
+36 -> 1: coboara 35 etaje
+Etaj inexistent: 52
+1 -> 43: urca 42 etaje
+43 -> 37: coboara 6 etaje
+Etaj inexistent: 51
+Etaj inexistent: 57
+37 -> 45: urca 8 etaje
+45 -> 43: coboara 2 etaje
+43 -> 44: urca 1 etaje
+44 -> 41: coboara 3 etaje
+41 -> 14: coboara 27 etaje
+14 -> 5: coboara 9 etaje
+5 -> 1: coboara 4 etaje
+1 -> 2: urca 1 etaje
+2 -> 8: urca 6 etaje
+8 -> 40: urca 32 etaje
+40 -> 23: coboara 17 etaje
+23 -> 6: coboara 17 etaje
+6 -> 24: urca 18 etaje
+Etaj inexistent: 53
+24 -> 28: urca 4 etaje
+28 -> 35: urca 7 etaje
+35 -> 3: coboara 32 etaje
+3 -> 40: urca 37 etaje
+40 -> 1: coboara 39 etaje
+1 -> 40: urca 39 etaje
+40 -> 34: coboara 6 etaje
+34 -> 43: urca 9 etaje
+43 -> 15: coboara 28 etaje
+15 -> 31: urca 16 etaje
+31 -> 16: coboara 15 etaje
+16 -> 0: coboara 16 etaje
+0 -> 29: urca 29 etaje
+Etaj inexistent: 51
+29 -> 4: coboara 25 etaje
+4 -> 47: urca 43 etaje
+Etaj inexistent: 59
+47 -> 32: coboara 15 etaje
+Etaj inexistent: 57
+32 -> 34: urca 2 etaje
+34 -> 5: coboara 29 etaje
+5 -> 42: urca 37 etaje
+42 -> 33: coboara 9 etaje
+33 -> 4: coboara 29 etaje
+4 -> 47: urca 43 etaje
+Deja la etajul 47
+47 -> 30: coboara 17 etaje
+30 -> 16: coboara 14 etaje
+Etaj inexistent: 51
+16 -> 4: coboara 12 etaje
+Etaj inexistent: 54
+4 -> 16: urca 12 etaje
+16 -> 15: coboara 1 etaje
+15 -> 46: urca 31 etaje
+46 -> 48: urca 2 etaje
+48 -> 13: coboara 35 etaje
+13 -> 14: urca 1 etaje
+14 -> 47: urca 33 etaje
+47 -> 41: coboara 6 etaje
+41 -> 29: coboara 12 etaje
+29 -> 31: urca 2 etaje
+Etaj inexistent: 54
+31 -> 24: coboara 7 etaje
+24 -> 4: coboara 20 etaje
+4 -> 30: urca 26 etaje
+Etaj inexistent: 58
+30 -> 43: urca 13 etaje
+43 -> 18: coboara 25 etaje
+18 -> 49: urca 31 etaje
+49 -> 2: coboara 47 etaje
+2 -> 39: urca 37 etaje
+39 -> 40: urca 1 etaje
+40 -> 41: urca 1 etaje
+41 -> 12: coboara 29 etaje
+12 -> 4: coboara 8 etaje
+4 -> 38: urca 34 etaje
+38 -> 9: coboara 29 etaje
+9 -> 21: urca 12 etaje
+21 -> 16: coboara 5 etaje
+16 -> 41: urca 25 etaje
+41 -> 47: urca 6 etaje
+47 -> 44: coboara 3 etaje
+44 -> 19: coboara 25 etaje
+19 -> 39: urca 20 etaje
+39 -> 36: coboara 3 etaje
+36 -> 8: coboara 28 etaje
+8 -> 0: coboara 8 etaje
+0 -> 30: urca 30 etaje
+30 -> 3: coboara 27 etaje
+3 -> 31: urca 28 etaje
+31 -> 17: coboara 14 etaje
+17 -> 43: urca 26 etaje
+43 -> 6: coboara 37 etaje
+6 -> 44: urca 38 etaje
+44 -> 13: coboara 31 etaje
+13 -> 43: urca 30 etaje
+43 -> 31: coboara 12 etaje
+31 -> 18: coboara 13 etaje
+18 -> 45: urca 27 etaje
+45 -> 33: coboara 12 etaje
+33 -> 18: coboara 15 etaje
+18 -> 29: urca 11 etaje
+Deja la etajul 29
+Deja la etajul 29
+29 -> 49: urca 20 etaje
+49 -> 7: coboara 42 etaje
+Etaj inexistent: 57
+7 -> 35: urca 28 etaje
+35 -> 12: coboara 23 etaje
+12 -> 19: urca 7 etaje
+19 -> 5: coboara 14 etaje
+Etaj inexistent: 59
+5 -> 30: urca 25 etaje
+30 -> 1: coboara 29 etaje
+1 -> 18: urca 17 etaje
+18 -> 29: urca 11 etaje
+29 -> 4: coboara 25 etaje
+Etaj inexistent: 52
+4 -> 32: urca 28 etaje
+32 -> 28: coboara 4 etaje
+28 -> 17: coboara 11 etaje
+17 -> 24: urca 7 etaje
+24 -> 13: coboara 11 etaje
+Etaj inexistent: 58
+Etaj inexistent: 60
+Etaj inexistent: 59
+Deja la etajul 13
+13 -> 4: coboara 9 etaje
+4 -> 37: urca 33 etaje
+37 -> 5: coboara 32 etaje
+5 -> 9: urca 4 etaje
+9 -> 47: urca 38 etaje
+47 -> 33: coboara 14 etaje
+33 -> 16: coboara 17 etaje
+Etaj inexistent: 60
+16 -> 23: urca 7 etaje
+23 -> 8: coboara 15 etaje
+8 -> 38: urca 30 etaje
+Etaj inexistent: 52
+38 -> 40: urca 2 etaje
+40 -> 32: coboara 8 etaje
+32 -> 17: coboara 15 etaje
+Etaj inexistent: 56
+17 -> 7: coboara 10 etaje
+7 -> 45: urca 38 etaje
+45 -> 23: coboara 22 etaje
+23 -> 14: coboara 9 etaje
+14 -> 31: urca 17 etaje
+Etaj inexistent: 57
+Etaj inexistent: 56
+Deja la etajul 31
+31 -> 25: coboara 6 etaje
+25 -> 1: coboara 24 etaje
+1 -> 10: urca 9 etaje
+10 -> 0: coboara 10 etaje
+Etaj inexistent: 60
+0 -> 31: urca 31 etaje
+31 -> 43: urca 12 etaje
+43 -> 28: coboara 15 etaje
+28 -> 25: coboara 3 etaje
+25 -> 19: coboara 6 etaje
+19 -> 46: urca 27 etaje
+46 -> 9: coboara 37 etaje
+9 -> 26: urca 17 etaje
+26 -> 22: coboara 4 etaje
+22 -> 24: urca 2 etaje
+24 -> 20: coboara 4 etaje
+20 -> 7: coboara 13 etaje
+Etaj inexistent: 53
+7 -> 21: urca 14 etaje
+21 -> 0: coboara 21 etaje
+0 -> 20: urca 20 etaje
+20 -> 48: urca 28 etaje
+48 -> 21: coboara 27 etaje
+Etaj inexistent: 53
+21 -> 25: urca 4 etaje
+25 -> 7: coboara 18 etaje
+Etaj inexistent: 60
+Etaj inexistent: 59
+7 -> 12: urca 5 etaje
+12 -> 45: urca 33 etaje
+45 -> 0: coboara 45 etaje
+Etaj inexistent: 57
+0 -> 47: urca 47 etaje
+47 -> 18: coboara 29 etaje
+18 -> 16: coboara 2 etaje
+16 -> 23: urca 7 etaje
+23 -> 4: coboara 19 etaje
+4 -> 25: urca 21 etaje
+25 -> 24: coboara 1 etaje
+Etaj inexistent: 55
+24 -> 37: urca 13 etaje
+37 -> 4: coboara 33 etaje
+4 -> 23: urca 19 etaje
+Etaj inexistent: 59
+23 -> 27: urca 4 etaje
+27 -> 48: urca 21 etaje
+48 -> 17: coboara 31 etaje
+Etaj inexistent: 54
+17 -> 3: coboara 14 etaje
+3 -> 17: urca 14 etaje
+17 -> 6: coboara 11 etaje
+6 -> 3: coboara 3 etaje
+Etaj inexistent: 53
+3 -> 42: urca 39 etaje
+42 -> 18: coboara 24 etaje
+18 -> 40: urca 22 etaje
+Etaj inexistent: 59
+40 -> 9: coboara 31 etaje
+9 -> 15: urca 6 etaje
+15 -> 17: urca 2 etaje
+17 -> 27: urca 10 etaje
+27 -> 32: urca 5 etaje
+32 -> 20: coboara 12 etaje
+20 -> 12: coboara 8 etaje
+12 -> 49: urca 37 etaje
+49 -> 23: coboara 26 etaje
+23 -> 50: urca 27 etaje
+50 -> 27: coboara 23 etaje
+Etaj inexistent: 56
+27 -> 1: coboara 26 etaje
+Etaj inexistent: 51
+1 -> 48: urca 47 etaje
+48 -> 40: coboara 8 etaje
+40 -> 25: coboara 15 etaje
+Etaj inexistent: 58
+Etaj inexistent: 56
+Etaj inexistent: 60
+25 -> 35: urca 10 etaje
+Deja la etajul 35
+35 -> 13: coboara 22 etaje
+13 -> 46: urca 33 etaje
+46 -> 5: coboara 41 etaje
+5 -> 3: coboara 2 etaje
+Etaj inexistent: 59
+3 -> 46: urca 43 etaje
+46 -> 26: coboara 20 etaje
+26 -> 28: urca 2 etaje
+28 -> 39: urca 11 etaje
+39 -> 48: urca 9 etaje
+48 -> 8: coboara 40 etaje
+8 -> 41: urca 33 etaje
+Etaj inexistent: 55
+41 -> 18: coboara 23 etaje
+18 -> 31: urca 13 etaje
+31 -> 3: coboara 28 etaje
+Etaj inexistent: 58
+Etaj inexistent: 59
+3 -> 35: urca 32 etaje
+35 -> 8: coboara 27 etaje
+8 -> 10: urca 2 etaje
+10 -> 30: urca 20 etaje
+30 -> 26: coboara 4 etaje
+26 -> 21: coboara 5 etaje
+21 -> 18: coboara 3 etaje
+18 -> 19: urca 1 etaje
+19 -> 16: coboara 3 etaje
+16 -> 47: urca 31 etaje
+Deja la etajul 47
+47 -> 41: coboara 6 etaje
+41 -> 16: coboara 25 etaje
+16 -> 25: urca 9 etaje
+25 -> 41: urca 16 etaje
+41 -> 15: coboara 26 etaje
+15 -> 19: urca 4 etaje
+19 -> 30: urca 11 etaje
+30 -> 35: urca 5 etaje
+35 -> 42: urca 7 etaje
+42 -> 25: coboara 17 etaje
+25 -> 7: coboara 18 etaje
+7 -> 10: urca 3 etaje
+10 -> 41: urca 31 etaje
+41 -> 10: coboara 31 etaje
+10 -> 4: coboara 6 etaje
+4 -> 13: urca 9 etaje
+13 -> 32: urca 19 etaje
+Etaj inexistent: 57
+Etaj inexistent: 51
+32 -> 31: coboara 1 etaje
+31 -> 35: urca 4 etaje
+35 -> 14: coboara 21 etaje
+14 -> 28: urca 14 etaje
+Etaj inexistent: 58
+28 -> 21: coboara 7 etaje
+21 -> 48: urca 27 etaje
+48 -> 28: coboara 20 etaje
+28 -> 27: coboara 1 etaje
+27 -> 8: coboara 19 etaje
+8 -> 35: urca 27 etaje
+35 -> 12: coboara 23 etaje
+12 -> 15: urca 3 etaje
+15 -> 5: coboara 10 etaje
+5 -> 11: urca 6 etaje
+11 -> 21: urca 10 etaje
+21 -> 35: urca 14 etaje
+35 -> 5: coboara 30 etaje
+5 -> 20: urca 15 etaje
+20 -> 15: coboara 5 etaje
+15 -> 23: urca 8 etaje
+23 -> 16: coboara 7 etaje
+Etaj inexistent: 51
+16 -> 36: urca 20 etaje
+36 -> 12: coboara 24 etaje
+Etaj inexistent: 56
+12 -> 1: coboara 11 etaje
+1 -> 47: urca 46 etaje
+Etaj inexistent: 55
+47 -> 26: coboara 21 etaje
+26 -> 24: coboara 2 etaje
+24 -> 26: urca 2 etaje
+26 -> 47: urca 21 etaje
+47 -> 33: coboara 14 etaje
+33 -> 13: coboara 20 etaje
+13 -> 24: urca 11 etaje
+24 -> 17: coboara 7 etaje
+17 -> 21: urca 4 etaje
+21 -> 48: urca 27 etaje
+48 -> 3: coboara 45 etaje
+3 -> 31: urca 28 etaje
+31 -> 17: coboara 14 etaje
+17 -> 36: urca 19 etaje
+36 -> 23: coboara 13 etaje
+23 -> 8: coboara 15 etaje
+8 -> 43: urca 35 etaje
+43 -> 32: coboara 11 etaje
+32 -> 33: urca 1 etaje
+33 -> 40: urca 7 etaje
+40 -> 50: urca 10 etaje
+Etaj inexistent: 55
+Etaj inexistent: 54
+50 -> 13: coboara 37 etaje
+13 -> 5: coboara 8 etaje
+5 -> 17: urca 12 etaje
+Etaj inexistent: 57
+17 -> 15: coboara 2 etaje
+15 -> 24: urca 9 etaje
+24 -> 25: urca 1 etaje
+25 -> 41: urca 16 etaje
+41 -> 28: coboara 13 etaje
+28 -> 27: coboara 1 etaje
+27 -> 19: coboara 8 etaje
+Etaj inexistent: 54
+Etaj inexistent: 52
+Etaj inexistent: 55
+19 -> 1: coboara 18 etaje
+1 -> 8: urca 7 etaje
+8 -> 2: coboara 6 etaje
+2 -> 27: urca 25 etaje
+27 -> 45: urca 18 etaje
+45 -> 48: urca 3 etaje
+Etaj inexistent: 57
+Etaj inexistent: 51
+48 -> 30: coboara 18 etaje
+30 -> 37: urca 7 etaje
+37 -> 31: coboara 6 etaje
+31 -> 0: coboara 31 etaje
+0 -> 4: urca 4 etaje
+4 -> 25: urca 21 etaje
+Etaj inexistent: 59
+Etaj inexistent: 59
+Etaj inexistent: 59
+Etaj inexistent: 52
+25 -> 33: urca 8 etaje
+Etaj inexistent: 54
+33 -> 29: coboara 4 etaje
+29 -> 28: coboara 1 etaje
+28 -> 15: coboara 13 etaje
+15 -> 50: urca 35 etaje
+50 -> 6: coboara 44 etaje
+6 -> 14: urca 8 etaje
+14 -> 9: coboara 5 etaje
+Deja la etajul 9
+9 -> 33: urca 24 etaje
+33 -> 43: urca 10 etaje
+43 -> 6: coboara 37 etaje
+Etaj inexistent: 60
+Etaj inexistent: 52
+6 -> 46: urca 40 etaje
+46 -> 44: coboara 2 etaje
+44 -> 41: coboara 3 etaje
+Etaj inexistent: 54
+41 -> 48: urca 7 etaje
+Etaj inexistent: 57
+48 -> 29: coboara 19 etaje
+29 -> 5: coboara 24 etaje
+5 -> 35: urca 30 etaje
+35 -> 49: urca 14 etaje
+49 -> 2: coboara 47 etaje
+2 -> 0: coboara 2 etaje
+0 -> 50: urca 50 etaje
+50 -> 8: coboara 42 etaje
+8 -> 14: urca 6 etaje
+14 -> 36: urca 22 etaje
+Etaj inexistent: 58
+36 -> 2: coboara 34 etaje
+2 -> 41: urca 39 etaje
+41 -> 45: urca 4 etaje
+45 -> 19: coboara 26 etaje
+19 -> 8: coboara 11 etaje
+8 -> 40: urca 32 etaje
+40 -> 16: coboara 24 etaje
+16 -> 33: urca 17 etaje
+33 -> 40: urca 7 etaje
+40 -> 27: coboara 13 etaje
+27 -> 44: urca 17 etaje
+44 -> 48: urca 4 etaje
+48 -> 7: coboara 41 etaje
+7 -> 6: coboara 1 etaje
+6 -> 4: coboara 2 etaje
+4 -> 19: urca 15 etaje
+19 -> 33: urca 14 etaje
+Etaj inexistent: 60
+33 -> 37: urca 4 etaje
+37 -> 12: coboara 25 etaje
+12 -> 24: urca 12 etaje
+24 -> 16: coboara 8 etaje
+16 -> 14: coboara 2 etaje
+14 -> 50: urca 36 etaje
+50 -> 38: coboara 12 etaje
+38 -> 0: coboara 38 etaje
+Deja la etajul 0
+0 -> 34: urca 34 etaje
+34 -> 19: coboara 15 etaje
+19 -> 29: urca 10 etaje
+29 -> 17: coboara 12 etaje
+17 -> 20: urca 3 etaje
+20 -> 41: urca 21 etaje
+Etaj inexistent: 53
+Etaj inexistent: 56
+41 -> 15: coboara 26 etaje
+15 -> 30: urca 15 etaje
+30 -> 33: urca 3 etaje
+33 -> 15: coboara 18 etaje
+15 -> 35: urca 20 etaje
+35 -> 15: coboara 20 etaje
+15 -> 1: coboara 14 etaje
+1 -> 26: urca 25 etaje
+26 -> 45: urca 19 etaje
+45 -> 41: coboara 4 etaje
+41 -> 19: coboara 22 etaje
+19 -> 3: coboara 16 etaje
+3 -> 1: coboara 2 etaje
+1 -> 12: urca 11 etaje
+12 -> 31: urca 19 etaje
+Etaj inexistent: 56
+31 -> 43: urca 12 etaje
+43 -> 41: coboara 2 etaje
+41 -> 26: coboara 15 etaje
+26 -> 5: coboara 21 etaje
+5 -> 16: urca 11 etaje
+16 -> 14: coboara 2 etaje
+14 -> 42: urca 28 etaje
+42 -> 27: coboara 15 etaje
+Etaj inexistent: 59
+27 -> 23: coboara 4 etaje
+23 -> 14: coboara 9 etaje
+14 -> 31: urca 17 etaje
+31 -> 2: coboara 29 etaje
+2 -> 44: urca 42 etaje
+44 -> 21: coboara 23 etaje
+21 -> 45: urca 24 etaje
+45 -> 26: coboara 19 etaje
+26 -> 23: coboara 3 etaje
+23 -> 43: urca 20 etaje
+43 -> 25: coboara 18 etaje
+25 -> 12: coboara 13 etaje
+12 -> 0: coboara 12 etaje
+Etaj inexistent: 51
+0 -> 18: urca 18 etaje
+18 -> 47: urca 29 etaje
+Etaj inexistent: 54
+47 -> 32: coboara 15 etaje
+32 -> 4: coboara 28 etaje
+4 -> 13: urca 9 etaje
+13 -> 31: urca 18 etaje
+31 -> 12: coboara 19 etaje
+12 -> 19: urca 7 etaje
+19 -> 49: urca 30 etaje
+Etaj inexistent: 52
+49 -> 12: coboara 37 etaje
+12 -> 14: urca 2 etaje
+14 -> 29: urca 15 etaje
+29 -> 14: coboara 15 etaje
+14 -> 16: urca 2 etaje
+16 -> 48: urca 32 etaje
+Etaj inexistent: 56
+48 -> 18: coboara 30 etaje
+18 -> 6: coboara 12 etaje
+Etaj inexistent: 60
+6 -> 39: urca 33 etaje
+39 -> 31: coboara 8 etaje
+31 -> 39: urca 8 etaje
+39 -> 11: coboara 28 etaje
+Etaj inexistent: 57
+11 -> 14: urca 3 etaje
+14 -> 31: urca 17 etaje
+31 -> 26: coboara 5 etaje
+Etaj inexistent: 58
+26 -> 42: urca 16 etaje
+42 -> 3: coboara 39 etaje
+Etaj inexistent: 60
+3 -> 38: urca 35 etaje
+38 -> 9: coboara 29 etaje
+Etaj inexistent: 59
+9 -> 25: urca 16 etaje
+25 -> 3: coboara 22 etaje
+3 -> 13: urca 10 etaje
+13 -> 1: coboara 12 etaje
+1 -> 38: urca 37 etaje
+38 -> 9: coboara 29 etaje
+9 -> 26: urca 17 etaje
+26 -> 3: coboara 23 etaje
+3 -> 45: urca 42 etaje
+45 -> 3: coboara 42 etaje
+3 -> 11: urca 8 etaje
+11 -> 25: urca 14 etaje
+25 -> 28: urca 3 etaje
+Etaj inexistent: 57
+28 -> 45: urca 17 etaje
+Etaj inexistent: 56
+45 -> 20: coboara 25 etaje
+20 -> 46: urca 26 etaje
+46 -> 7: coboara 39 etaje
+7 -> 5: coboara 2 etaje
+Etaj inexistent: 59
+5 -> 10: urca 5 etaje
+10 -> 21: urca 11 etaje
+21 -> 12: coboara 9 etaje
+12 -> 11: coboara 1 etaje
+11 -> 41: urca 30 etaje
+Etaj inexistent: 59
+41 -> 33: coboara 8 etaje
+33 -> 47: urca 14 etaje
+47 -> 29: coboara 18 etaje
+29 -> 2: coboara 27 etaje
+2 -> 19: urca 17 etaje
+19 -> 42: urca 23 etaje
+42 -> 46: urca 4 etaje
+46 -> 24: coboara 22 etaje
+Etaj inexistent: 53
+24 -> 23: coboara 1 etaje
+23 -> 21: coboara 2 etaje
+21 -> 28: urca 7 etaje
+28 -> 10: coboara 18 etaje
+10 -> 6: coboara 4 etaje
+6 -> 0: coboara 6 etaje
+0 -> 5: urca 5 etaje
+5 -> 17: urca 12 etaje
+17 -> 5: coboara 12 etaje
+5 -> 22: urca 17 etaje
+22 -> 26: urca 4 etaje
+Etaj inexistent: 56
+26 -> 7: coboara 19 etaje
+7 -> 35: urca 28 etaje
+35 -> 48: urca 13 etaje
+48 -> 13: coboara 35 etaje
+13 -> 24: urca 11 etaje
+24 -> 22: coboara 2 etaje
+22 -> 49: urca 27 etaje
+Etaj inexistent: 52
+49 -> 19: coboara 30 etaje
+Etaj inexistent: 52
+Etaj inexistent: 51
+19 -> 27: urca 8 etaje
+27 -> 5: coboara 22 etaje
+5 -> 3: coboara 2 etaje
+3 -> 45: urca 42 etaje
+45 -> 30: coboara 15 etaje
+30 -> 12: coboara 18 etaje
+12 -> 23: urca 11 etaje
+23 -> 34: urca 11 etaje
+Etaj inexistent: 58
+34 -> 28: coboara 6 etaje
+28 -> 12: coboara 16 etaje
+12 -> 20: urca 8 etaje
+20 -> 23: urca 3 etaje
+23 -> 47: urca 24 etaje
+Etaj inexistent: 57
+47 -> 30: coboara 17 etaje
+30 -> 1: coboara 29 etaje
+1 -> 40: urca 39 etaje
+40 -> 26: coboara 14 etaje
+26 -> 15: coboara 11 etaje
+Etaj inexistent: 51
+15 -> 40: urca 25 etaje
+40 -> 49: urca 9 etaje
+49 -> 25: coboara 24 etaje
+25 -> 2: coboara 23 etaje
+2 -> 24: urca 22 etaje
+24 -> 2: coboara 22 etaje
+2 -> 29: urca 27 etaje
+29 -> 4: coboara 25 etaje
+Etaj inexistent: 51
+Etaj inexistent: 58
+4 -> 3: coboara 1 etaje
+3 -> 16: urca 13 etaje
+16 -> 12: coboara 4 etaje
+12 -> 47: urca 35 etaje
+47 -> 4: coboara 43 etaje
+Etaj inexistent: 57
+4 -> 38: urca 34 etaje
+38 -> 21: coboara 17 etaje
+21 -> 23: urca 2 etaje
+23 -> 17: coboara 6 etaje
+17 -> 21: urca 4 etaje
+21 -> 39: urca 18 etaje
+39 -> 2: coboara 37 etaje
+2 -> 16: urca 14 etaje
+16 -> 47: urca 31 etaje
+47 -> 45: coboara 2 etaje
+45 -> 44: coboara 1 etaje
+44 -> 20: coboara 24 etaje
+Etaj inexistent: 59
+20 -> 17: coboara 3 etaje
+17 -> 19: urca 2 etaje
+19 -> 0: coboara 19 etaje
+0 -> 46: urca 46 etaje
+46 -> 48: urca 2 etaje
+48 -> 38: coboara 10 etaje
+Etaj inexistent: 58
+Etaj inexistent: 51
+38 -> 40: urca 2 etaje
+Etaj inexistent: 60
+Etaj inexistent: 60
+40 -> 4: coboara 36 etaje
+4 -> 1: coboara 3 etaje
+Etaj inexistent: 52
+1 -> 14: urca 13 etaje
+14 -> 6: coboara 8 etaje
+6 -> 30: urca 24 etaje
+30 -> 45: urca 15 etaje
+45 -> 29: coboara 16 etaje
+29 -> 49: urca 20 etaje
+49 -> 24: coboara 25 etaje
+24 -> 50: urca 26 etaje
+50 -> 16: coboara 34 etaje
+Etaj inexistent: 58
+16 -> 27: urca 11 etaje
+Etaj inexistent: 52
+27 -> 31: urca 4 etaje
+31 -> 8: coboara 23 etaje
+Etaj inexistent: 59
+8 -> 31: urca 23 etaje
+31 -> 11: coboara 20 etaje
+11 -> 0: coboara 11 etaje
+Etaj inexistent: 51
+Etaj inexistent: 59
+0 -> 47: urca 47 etaje
+47 -> 19: coboara 28 etaje
+Etaj inexistent: 52
+19 -> 44: urca 25 etaje
+44 -> 49: urca 5 etaje
+49 -> 9: coboara 40 etaje
+9 -> 38: urca 29 etaje
+38 -> 15: coboara 23 etaje
+15 -> 20: urca 5 etaje
+Etaj inexistent: 55
+Deja la etajul 20
+20 -> 29: urca 9 etaje
+29 -> 23: coboara 6 etaje
+23 -> 50: urca 27 etaje
+Deja la etajul 50
+50 -> 38: coboara 12 etaje
+38 -> 5: coboara 33 etaje
+5 -> 32: urca 27 etaje
+32 -> 12: coboara 20 etaje
+12 -> 25: urca 13 etaje
+25 -> 48: urca 23 etaje
+48 -> 10: coboara 38 etaje
+10 -> 15: urca 5 etaje
+15 -> 26: urca 11 etaje
+26 -> 4: coboara 22 etaje
+4 -> 41: urca 37 etaje
+41 -> 2: coboara 39 etaje
+2 -> 30: urca 28 etaje
+30 -> 35: urca 5 etaje
+35 -> 34: coboara 1 etaje
+34 -> 20: coboara 14 etaje
+20 -> 10: coboara 10 etaje
+10 -> 27: urca 17 etaje
+Etaj inexistent: 56
+27 -> 6: coboara 21 etaje
+6 -> 4: coboara 2 etaje
+4 -> 16: urca 12 etaje
+16 -> 39: urca 23 etaje
+39 -> 5: coboara 34 etaje
+5 -> 13: urca 8 etaje
+13 -> 6: coboara 7 etaje
+6 -> 26: urca 20 etaje
+26 -> 31: urca 5 etaje
+31 -> 45: urca 14 etaje
+45 -> 28: coboara 17 etaje
+28 -> 11: coboara 17 etaje
+11 -> 14: urca 3 etaje
+14 -> 8: coboara 6 etaje
+8 -> 26: urca 18 etaje
+26 -> 29: urca 3 etaje
+29 -> 39: urca 10 etaje
+Etaj inexistent: 57
+39 -> 43: urca 4 etaje
+43 -> 15: coboara 28 etaje
+15 -> 47: urca 32 etaje
+47 -> 34: coboara 13 etaje
+Etaj inexistent: 54
+34 -> 49: urca 15 etaje
+49 -> 42: coboara 7 etaje
+42 -> 48: urca 6 etaje
+48 -> 7: coboara 41 etaje
+7 -> 49: urca 42 etaje
+Etaj inexistent: 53
+49 -> 18: coboara 31 etaje
+Deja la etajul 18
+18 -> 17: coboara 1 etaje
+17 -> 36: urca 19 etaje
+36 -> 17: coboara 19 etaje
+17 -> 23: urca 6 etaje
+23 -> 16: coboara 7 etaje
+16 -> 47: urca 31 etaje
+47 -> 16: coboara 31 etaje
+16 -> 12: coboara 4 etaje
+12 -> 28: urca 16 etaje
+28 -> 15: coboara 13 etaje
+15 -> 11: coboara 4 etaje
+11 -> 15: urca 4 etaje
+Deja la etajul 15
+15 -> 9: coboara 6 etaje
+9 -> 18: urca 9 etaje
+Etaj inexistent: 56
+Etaj inexistent: 58
+18 -> 37: urca 19 etaje
+37 -> 12: coboara 25 etaje
+12 -> 20: urca 8 etaje
+20 -> 4: coboara 16 etaje
+4 -> 25: urca 21 etaje
+25 -> 16: coboara 9 etaje
+16 -> 15: coboara 1 etaje
+15 -> 32: urca 17 etaje
+32 -> 33: urca 1 etaje
+33 -> 14: coboara 19 etaje
+14 -> 41: urca 27 etaje
+Etaj inexistent: 51
+41 -> 6: coboara 35 etaje
+6 -> 41: urca 35 etaje
+41 -> 29: coboara 12 etaje
+29 -> 2: coboara 27 etaje
+2 -> 6: urca 4 etaje
+6 -> 0: coboara 6 etaje
+0 -> 30: urca 30 etaje
+Etaj inexistent: 56
+Etaj inexistent: 52
+30 -> 14: coboara 16 etaje
+Etaj inexistent: 53
+14 -> 28: urca 14 etaje
+Etaj inexistent: 58
+28 -> 23: coboara 5 etaje
+23 -> 2: coboara 21 etaje
+Etaj inexistent: 56
+2 -> 18: urca 16 etaje
+18 -> 14: coboara 4 etaje
+14 -> 7: coboara 7 etaje
+7 -> 3: coboara 4 etaje
+3 -> 12: urca 9 etaje
+12 -> 38: urca 26 etaje
+Etaj inexistent: 52
+38 -> 37: coboara 1 etaje
+37 -> 12: coboara 25 etaje
+Etaj inexistent: 59
+12 -> 4: coboara 8 etaje
+4 -> 23: urca 19 etaje
+23 -> 32: urca 9 etaje
+Etaj inexistent: 55
+32 -> 11: coboara 21 etaje
+11 -> 28: urca 17 etaje
+28 -> 38: urca 10 etaje
+38 -> 16: coboara 22 etaje
+16 -> 49: urca 33 etaje
+Deja la etajul 49
+49 -> 42: coboara 7 etaje
+Etaj inexistent: 60
+42 -> 0: coboara 42 etaje
+0 -> 6: urca 6 etaje
+6 -> 40: urca 34 etaje
+40 -> 38: coboara 2 etaje
+38 -> 45: urca 7 etaje
+45 -> 39: coboara 6 etaje
+39 -> 22: coboara 17 etaje
+22 -> 13: coboara 9 etaje
+13 -> 2: coboara 11 etaje
+2 -> 23: urca 21 etaje
+23 -> 21: coboara 2 etaje
+21 -> 9: coboara 12 etaje
+9 -> 2: coboara 7 etaje
+2 -> 13: urca 11 etaje
+13 -> 16: urca 3 etaje
+16 -> 2: coboara 14 etaje
+2 -> 38: urca 36 etaje
+38 -> 46: urca 8 etaje
+46 -> 41: coboara 5 etaje
+Etaj inexistent: 58
+41 -> 13: coboara 28 etaje
+Etaj inexistent: 52
+13 -> 0: coboara 13 etaje
+Etaj inexistent: 52
+0 -> 20: urca 20 etaje
+20 -> 26: urca 6 etaje
+26 -> 43: urca 17 etaje
+43 -> 23: coboara 20 etaje
+23 -> 11: coboara 12 etaje
+11 -> 39: urca 28 etaje
+39 -> 19: coboara 20 etaje
+19 -> 4: coboara 15 etaje
+4 -> 13: urca 9 etaje
+13 -> 2: coboara 11 etaje
+2 -> 50: urca 48 etaje
+50 -> 31: coboara 19 etaje
+31 -> 35: urca 4 etaje
+35 -> 30: coboara 5 etaje
+30 -> 4: coboara 26 etaje
+4 -> 26: urca 22 etaje
+26 -> 6: coboara 20 etaje
+6 -> 50: urca 44 etaje
+50 -> 25: coboara 25 etaje
+25 -> 42: urca 17 etaje
+42 -> 35: coboara 7 etaje
+35 -> 9: coboara 26 etaje
+9 -> 40: urca 31 etaje
+40 -> 34: coboara 6 etaje
+34 -> 5: coboara 29 etaje
+5 -> 41: urca 36 etaje
+41 -> 10: coboara 31 etaje
+10 -> 25: urca 15 etaje
+25 -> 44: urca 19 etaje
+44 -> 17: coboara 27 etaje
+17 -> 26: urca 9 etaje
+26 -> 18: coboara 8 etaje
+18 -> 42: urca 24 etaje
+42 -> 19: coboara 23 etaje
+19 -> 26: urca 7 etaje
+26 -> 3: coboara 23 etaje
+3 -> 19: urca 16 etaje
+19 -> 47: urca 28 etaje
+47 -> 36: coboara 11 etaje
+Etaj inexistent: 56
+36 -> 22: coboara 14 etaje
+22 -> 26: urca 4 etaje
+Deja la etajul 26
+26 -> 1: coboara 25 etaje
+Etaj inexistent: 55
+1 -> 49: urca 48 etaje
+Etaj inexistent: 51
+49 -> 23: coboara 26 etaje
+23 -> 41: urca 18 etaje
+41 -> 12: coboara 29 etaje
+12 -> 25: urca 13 etaje
+25 -> 46: urca 21 etaje
+46 -> 25: coboara 21 etaje
+25 -> 13: coboara 12 etaje
+Etaj inexistent: 60
+13 -> 0: coboara 13 etaje
+0 -> 27: urca 27 etaje
+Etaj inexistent: 57
+27 -> 10: coboara 17 etaje
+10 -> 27: urca 17 etaje
+27 -> 7: coboara 20 etaje
+Etaj inexistent: 52
+7 -> 5: coboara 2 etaje
+5 -> 25: urca 20 etaje
+25 -> 36: urca 11 etaje
+Etaj inexistent: 56
+36 -> 23: coboara 13 etaje
+23 -> 29: urca 6 etaje
+29 -> 49: urca 20 etaje
+49 -> 10: coboara 39 etaje
+10 -> 8: coboara 2 etaje
+8 -> 0: coboara 8 etaje
+0 -> 3: urca 3 etaje
+3 -> 35: urca 32 etaje
+35 -> 9: coboara 26 etaje
+9 -> 41: urca 32 etaje
+Etaj inexistent: 51
+Etaj inexistent: 58
+41 -> 25: coboara 16 etaje
+25 -> 5: coboara 20 etaje
+5 -> 36: urca 31 etaje
+36 -> 39: urca 3 etaje
+Etaj inexistent: 59
+39 -> 23: coboara 16 etaje
+23 -> 47: urca 24 etaje
+47 -> 32: coboara 15 etaje
+32 -> 10: coboara 22 etaje
+10 -> 9: coboara 1 etaje
+9 -> 22: urca 13 etaje
+22 -> 18: coboara 4 etaje
+18 -> 10: coboara 8 etaje
+10 -> 33: urca 23 etaje
+33 -> 10: coboara 23 etaje
+Etaj inexistent: 59
+10 -> 4: coboara 6 etaje
+4 -> 6: urca 2 etaje
+6 -> 24: urca 18 etaje
+24 -> 31: urca 7 etaje
+31 -> 48: urca 17 etaje
+Etaj inexistent: 51
+48 -> 50: urca 2 etaje
+Etaj inexistent: 51
+50 -> 12: coboara 38 etaje
+12 -> 19: urca 7 etaje
+19 -> 8: coboara 11 etaje
+Etaj inexistent: 53
+Etaj inexistent: 60
+8 -> 2: coboara 6 etaje
+Etaj inexistent: 58
+2 -> 30: urca 28 etaje
+30 -> 20: coboara 10 etaje
+20 -> 3: coboara 17 etaje
+3 -> 38: urca 35 etaje
+Etaj inexistent: 59
+38 -> 40: urca 2 etaje
+40 -> 24: coboara 16 etaje
+24 -> 5: coboara 19 etaje
+Etaj inexistent: 57
+5 -> 45: urca 40 etaje
+45 -> 39: coboara 6 etaje
+39 -> 44: urca 5 etaje
+Etaj inexistent: 52
+Etaj inexistent: 57
+44 -> 10: coboara 34 etaje
+10 -> 40: urca 30 etaje
+40 -> 50: urca 10 etaje
+Etaj inexistent: 54
+50 -> 14: coboara 36 etaje
+14 -> 39: urca 25 etaje
+39 -> 25: coboara 14 etaje
+25 -> 39: urca 14 etaje
+Etaj inexistent: 54
+39 -> 12: coboara 27 etaje
+Etaj inexistent: 53
+12 -> 30: urca 18 etaje
+30 -> 11: coboara 19 etaje
+11 -> 36: urca 25 etaje
+36 -> 13: coboara 23 etaje
+13 -> 2: coboara 11 etaje
+2 -> 25: urca 23 etaje
+Etaj inexistent: 60
+25 -> 33: urca 8 etaje
+33 -> 10: coboara 23 etaje
+10 -> 24: urca 14 etaje
+24 -> 22: coboara 2 etaje
+22 -> 7: coboara 15 etaje
+7 -> 9: urca 2 etaje
+9 -> 15: urca 6 etaje
+15 -> 46: urca 31 etaje
+Etaj inexistent: 52
+Etaj inexistent: 57
+46 -> 12: coboara 34 etaje
+12 -> 2: coboara 10 etaje
+Etaj inexistent: 56
+2 -> 35: urca 33 etaje
+Etaj inexistent: 53
+35 -> 48: urca 13 etaje
+48 -> 43: coboara 5 etaje
+43 -> 2: coboara 41 etaje
+2 -> 42: urca 40 etaje
+Etaj inexistent: 53
+42 -> 20: coboara 22 etaje
+20 -> 7: coboara 13 etaje
+7 -> 24: urca 17 etaje
+24 -> 38: urca 14 etaje
+38 -> 29: coboara 9 etaje
+29 -> 35: urca 6 etaje
+Etaj inexistent: 54
+35 -> 40: urca 5 etaje
+40 -> 49: urca 9 etaje
+49 -> 19: coboara 30 etaje
+19 -> 41: urca 22 etaje
+41 -> 26: coboara 15 etaje
+26 -> 19: coboara 7 etaje
+19 -> 37: urca 18 etaje
+37 -> 15: coboara 22 etaje
+15 -> 27: urca 12 etaje
+27 -> 24: coboara 3 etaje
+24 -> 42: urca 18 etaje
+42 -> 23: coboara 19 etaje
+23 -> 28: urca 5 etaje
+28 -> 32: urca 4 etaje
+32 -> 28: coboara 4 etaje
+28 -> 11: coboara 17 etaje
+11 -> 1: coboara 10 etaje
+1 -> 0: coboara 1 etaje
+0 -> 39: urca 39 etaje
+39 -> 31: coboara 8 etaje
+31 -> 29: coboara 2 etaje
+29 -> 15: coboara 14 etaje
+15 -> 28: urca 13 etaje
+28 -> 48: urca 20 etaje
+48 -> 39: coboara 9 etaje
+39 -> 49: urca 10 etaje
+Etaj inexistent: 52
+49 -> 29: coboara 20 etaje
+Etaj inexistent: 53
+29 -> 11: coboara 18 etaje
+Etaj inexistent: 51
+11 -> 30: urca 19 etaje
+30 -> 25: coboara 5 etaje
+25 -> 6: coboara 19 etaje
+6 -> 4: coboara 2 etaje
+4 -> 8: urca 4 etaje
+8 -> 22: urca 14 etaje
+22 -> 27: urca 5 etaje
+27 -> 23: coboara 4 etaje
+23 -> 5: coboara 18 etaje
+Etaj inexistent: 51
+5 -> 28: urca 23 etaje
+28 -> 32: urca 4 etaje
+Deja la etajul 32
+32 -> 42: urca 10 etaje
+42 -> 2: coboara 40 etaje
+Deja la etajul 2
+2 -> 40: urca 38 etaje
+40 -> 8: coboara 32 etaje
+8 -> 5: coboara 3 etaje
+Etaj inexistent: 59
+5 -> 46: urca 41 etaje
+46 -> 20: coboara 26 etaje
+20 -> 49: urca 29 etaje
+49 -> 46: coboara 3 etaje
+46 -> 32: coboara 14 etaje
+32 -> 5: coboara 27 etaje
+5 -> 3: coboara 2 etaje
+3 -> 48: urca 45 etaje
+48 -> 32: coboara 16 etaje
+Etaj inexistent: 57
+32 -> 24: coboara 8 etaje
+24 -> 41: urca 17 etaje
+Etaj inexistent: 60
+41 -> 50: urca 9 etaje
+50 -> 8: coboara 42 etaje
+8 -> 1: coboara 7 etaje
+Etaj inexistent: 54
+1 -> 4: urca 3 etaje
+4 -> 39: urca 35 etaje
+39 -> 46: urca 7 etaje
+46 -> 44: coboara 2 etaje
+Etaj inexistent: 52
+44 -> 7: coboara 37 etaje
+7 -> 12: urca 5 etaje
+12 -> 8: coboara 4 etaje
+Etaj inexistent: 56
+8 -> 31: urca 23 etaje
+31 -> 18: coboara 13 etaje
+Etaj inexistent: 51
+Etaj inexistent: 58
+18 -> 50: urca 32 etaje
+50 -> 10: coboara 40 etaje
+10 -> 43: urca 33 etaje
+43 -> 50: urca 7 etaje
+50 -> 46: coboara 4 etaje
+Etaj inexistent: 59
+46 -> 14: coboara 32 etaje
+14 -> 4: coboara 10 etaje
+Etaj inexistent: 53
+4 -> 22: urca 18 etaje
+22 -> 39: urca 17 etaje
+39 -> 48: urca 9 etaje
+48 -> 16: coboara 32 etaje
+16 -> 10: coboara 6 etaje
+10 -> 20: urca 10 etaje
+Etaj inexistent: 57
+20 -> 39: urca 19 etaje
+39 -> 17: coboara 22 etaje
+Etaj inexistent: 57
+Etaj inexistent: 52
+17 -> 29: urca 12 etaje
+29 -> 9: coboara 20 etaje
+9 -> 16: urca 7 etaje
+16 -> 32: urca 16 etaje
+Etaj inexistent: 58
+32 -> 30: coboara 2 etaje
+30 -> 13: coboara 17 etaje
+13 -> 37: urca 24 etaje
+37 -> 16: coboara 21 etaje
+16 -> 39: urca 23 etaje
+39 -> 32: coboara 7 etaje
+32 -> 15: coboara 17 etaje
+15 -> 20: urca 5 etaje
+20 -> 23: urca 3 etaje
+23 -> 2: coboara 21 etaje
+2 -> 12: urca 10 etaje
+12 -> 11: coboara 1 etaje
+11 -> 25: urca 14 etaje
+25 -> 10: coboara 15 etaje
+10 -> 40: urca 30 etaje
+Etaj inexistent: 59
+40 -> 17: coboara 23 etaje
+17 -> 43: urca 26 etaje
+43 -> 20: coboara 23 etaje
+Etaj inexistent: 57
+20 -> 24: urca 4 etaje
+24 -> 10: coboara 14 etaje
+10 -> 50: urca 40 etaje
+Deja la etajul 50
+50 -> 16: coboara 34 etaje
+16 -> 7: coboara 9 etaje
+7 -> 49: urca 42 etaje
+49 -> 33: coboara 16 etaje
+33 -> 3: coboara 30 etaje
+3 -> 40: urca 37 etaje
+Etaj inexistent: 54
+40 -> 23: coboara 17 etaje
+Etaj inexistent: 55
+23 -> 28: urca 5 etaje
+28 -> 35: urca 7 etaje
+35 -> 33: coboara 2 etaje
+33 -> 37: urca 4 etaje
+37 -> 44: urca 7 etaje
+Etaj inexistent: 56
+Etaj inexistent: 57
+44 -> 6: coboara 38 etaje
+6 -> 16: urca 10 etaje
+16 -> 34: urca 18 etaje
+34 -> 40: urca 6 etaje
+Etaj inexistent: 54
+40 -> 25: coboara 15 etaje
+25 -> 47: urca 22 etaje
+Etaj inexistent: 51
+47 -> 23: coboara 24 etaje
+23 -> 16: coboara 7 etaje
+16 -> 24: urca 8 etaje
+24 -> 23: coboara 1 etaje
+23 -> 36: urca 13 etaje
+36 -> 9: coboara 27 etaje
+9 -> 23: urca 14 etaje
+23 -> 21: coboara 2 etaje
+21 -> 48: urca 27 etaje
+48 -> 5: coboara 43 etaje
+5 -> 28: urca 23 etaje
+28 -> 14: coboara 14 etaje
+14 -> 11: coboara 3 etaje
+11 -> 39: urca 28 etaje
+39 -> 47: urca 8 etaje
+47 -> 3: coboara 44 etaje
+3 -> 18: urca 15 etaje
+Etaj inexistent: 52
+18 -> 33: urca 15 etaje
+33 -> 16: coboara 17 etaje
+16 -> 19: urca 3 etaje
+19 -> 40: urca 21 etaje
+Etaj inexistent: 55
+40 -> 37: coboara 3 etaje
+Etaj inexistent: 59
+37 -> 42: urca 5 etaje
+Etaj inexistent: 57
+42 -> 20: coboara 22 etaje
+20 -> 46: urca 26 etaje
+46 -> 0: coboara 46 etaje
+0 -> 47: urca 47 etaje
+47 -> 2: coboara 45 etaje
+2 -> 14: urca 12 etaje
+14 -> 9: coboara 5 etaje
+9 -> 18: urca 9 etaje
+18 -> 39: urca 21 etaje
+39 -> 40: urca 1 etaje
+40 -> 27: coboara 13 etaje
+27 -> 26: coboara 1 etaje
+26 -> 32: urca 6 etaje
+32 -> 23: coboara 9 etaje
+Etaj inexistent: 57
+23 -> 3: coboara 20 etaje
+3 -> 8: urca 5 etaje
+8 -> 31: urca 23 etaje
+31 -> 14: coboara 17 etaje
+14 -> 39: urca 25 etaje
+39 -> 41: urca 2 etaje
+41 -> 2: coboara 39 etaje
+2 -> 1: coboara 1 etaje
+1 -> 3: urca 2 etaje
+3 -> 0: coboara 3 etaje
+0 -> 36: urca 36 etaje
+36 -> 22: coboara 14 etaje
+22 -> 19: coboara 3 etaje
+19 -> 6: coboara 13 etaje
+6 -> 33: urca 27 etaje
+33 -> 22: coboara 11 etaje
+22 -> 34: urca 12 etaje
+34 -> 14: coboara 20 etaje
+14 -> 26: urca 12 etaje
+26 -> 37: urca 11 etaje
+37 -> 19: coboara 18 etaje
+19 -> 37: urca 18 etaje
+37 -> 8: coboara 29 etaje
+8 -> 13: urca 5 etaje
+13 -> 23: urca 10 etaje
+23 -> 39: urca 16 etaje
+Etaj inexistent: 53
+39 -> 30: coboara 9 etaje
+30 -> 10: coboara 20 etaje
+10 -> 8: coboara 2 etaje
+8 -> 0: coboara 8 etaje
+Etaj inexistent: 59
+Etaj inexistent: 51
+0 -> 15: urca 15 etaje
+15 -> 45: urca 30 etaje
+45 -> 9: coboara 36 etaje
+9 -> 28: urca 19 etaje
+28 -> 6: coboara 22 etaje
+6 -> 4: coboara 2 etaje
+4 -> 40: urca 36 etaje
+40 -> 9: coboara 31 etaje
+Etaj inexistent: 55
+9 -> 42: urca 33 etaje
+42 -> 50: urca 8 etaje
+50 -> 17: coboara 33 etaje
+17 -> 25: urca 8 etaje
+Etaj inexistent: 51
+25 -> 16: coboara 9 etaje
+16 -> 0: coboara 16 etaje
+0 -> 3: urca 3 etaje
+3 -> 41: urca 38 etaje
+Etaj inexistent: 52
+41 -> 35: coboara 6 etaje
+Etaj inexistent: 57
+35 -> 22: coboara 13 etaje
+22 -> 38: urca 16 etaje
+38 -> 41: urca 3 etaje
+41 -> 37: coboara 4 etaje
+37 -> 28: coboara 9 etaje
+28 -> 38: urca 10 etaje
+Etaj inexistent: 59
+38 -> 33: coboara 5 etaje
+33 -> 46: urca 13 etaje
+46 -> 31: coboara 15 etaje
+31 -> 15: coboara 16 etaje
+15 -> 10: coboara 5 etaje
+Etaj inexistent: 57
+10 -> 0: coboara 10 etaje
+0 -> 2: urca 2 etaje
+2 -> 3: urca 1 etaje
+3 -> 34: urca 31 etaje
+34 -> 1: coboara 33 etaje
+1 -> 25: urca 24 etaje
+25 -> 11: coboara 14 etaje
+11 -> 15: urca 4 etaje
+15 -> 10: coboara 5 etaje
+10 -> 3: coboara 7 etaje
+Etaj inexistent: 58
+3 -> 49: urca 46 etaje
+49 -> 6: coboara 43 etaje
+6 -> 0: coboara 6 etaje
+0 -> 39: urca 39 etaje
+39 -> 35: coboara 4 etaje
+35 -> 42: urca 7 etaje
+Etaj inexistent: 60
+42 -> 12: coboara 30 etaje
+12 -> 9: coboara 3 etaje
+9 -> 26: urca 17 etaje
+26 -> 12: coboara 14 etaje
+12 -> 33: urca 21 etaje
+33 -> 38: urca 5 etaje
+38 -> 41: urca 3 etaje
+41 -> 32: coboara 9 etaje
+32 -> 41: urca 9 etaje
+Deja la etajul 41
+41 -> 26: coboara 15 etaje
+Etaj inexistent: 52
+26 -> 39: urca 13 etaje
+39 -> 11: coboara 28 etaje
+11 -> 32: urca 21 etaje
+32 -> 19: coboara 13 etaje
+19 -> 4: coboara 15 etaje
+4 -> 19: urca 15 etaje
+19 -> 40: urca 21 etaje
+40 -> 3: coboara 37 etaje
+Etaj inexistent: 56
+3 -> 46: urca 43 etaje
+46 -> 50: urca 4 etaje
+50 -> 30: coboara 20 etaje
+30 -> 45: urca 15 etaje
+45 -> 34: coboara 11 etaje
+34 -> 0: coboara 34 etaje
+0 -> 24: urca 24 etaje
+Etaj inexistent: 54
+24 -> 27: urca 3 etaje
+27 -> 47: urca 20 etaje
+Etaj inexistent: 58
+47 -> 29: coboara 18 etaje
+29 -> 5: coboara 24 etaje
+5 -> 47: urca 42 etaje
+47 -> 41: coboara 6 etaje
+41 -> 28: coboara 13 etaje
+28 -> 11: coboara 17 etaje
+11 -> 14: urca 3 etaje
+14 -> 6: coboara 8 etaje
+6 -> 16: urca 10 etaje
+16 -> 14: coboara 2 etaje
+14 -> 41: urca 27 etaje
+41 -> 2: coboara 39 etaje
+2 -> 7: urca 5 etaje
+7 -> 21: urca 14 etaje
+Etaj inexistent: 57
+21 -> 47: urca 26 etaje
+Etaj inexistent: 59
+47 -> 44: coboara 3 etaje
+Etaj inexistent: 60
+Etaj inexistent: 54
+44 -> 16: coboara 28 etaje
+16 -> 45: urca 29 etaje
+45 -> 3: coboara 42 etaje
+3 -> 17: urca 14 etaje
+17 -> 40: urca 23 etaje
+40 -> 35: coboara 5 etaje
+35 -> 43: urca 8 etaje
+43 -> 27: coboara 16 etaje
+27 -> 43: urca 16 etaje
+43 -> 50: urca 7 etaje
+Etaj inexistent: 58
+50 -> 33: coboara 17 etaje
+33 -> 16: coboara 17 etaje
+16 -> 18: urca 2 etaje
+18 -> 41: urca 23 etaje
+Etaj inexistent: 59
+Etaj inexistent: 57
+41 -> 13: coboara 28 etaje
+13 -> 5: coboara 8 etaje
+Etaj inexistent: 56
+5 -> 32: urca 27 etaje
+32 -> 0: coboara 32 etaje
+0 -> 10: urca 10 etaje
+10 -> 16: urca 6 etaje
+Etaj inexistent: 57
+16 -> 15: coboara 1 etaje
+Etaj inexistent: 53
+15 -> 47: urca 32 etaje
+47 -> 12: coboara 35 etaje
+Etaj inexistent: 60
+12 -> 10: coboara 2 etaje
+10 -> 47: urca 37 etaje
+Etaj inexistent: 58
+47 -> 20: coboara 27 etaje
+20 -> 12: coboara 8 etaje
+Etaj inexistent: 56
+12 -> 24: urca 12 etaje
+24 -> 21: coboara 3 etaje
+21 -> 38: urca 17 etaje
+38 -> 15: coboara 23 etaje
+15 -> 24: urca 9 etaje
+Etaj inexistent: 58
+Etaj inexistent: 54
+24 -> 40: urca 16 etaje
+Etaj inexistent: 58
+40 -> 44: urca 4 etaje
+44 -> 42: coboara 2 etaje
+Etaj inexistent: 53
+42 -> 34: coboara 8 etaje
+34 -> 30: coboara 4 etaje
+Deja la etajul 30
+Etaj inexistent: 53
+30 -> 33: urca 3 etaje
+33 -> 44: urca 11 etaje
+44 -> 0: coboara 44 etaje
+Etaj inexistent: 54
+0 -> 1: urca 1 etaje
+1 -> 27: urca 26 etaje
+27 -> 46: urca 19 etaje
+46 -> 14: coboara 32 etaje
+14 -> 36: urca 22 etaje
+Etaj inexistent: 56
+36 -> 19: coboara 17 etaje
+19 -> 50: urca 31 etaje
+50 -> 13: coboara 37 etaje
+13 -> 25: urca 12 etaje
+25 -> 39: urca 14 etaje
+39 -> 37: coboara 2 etaje
+37 -> 4: coboara 33 etaje
+4 -> 36: urca 32 etaje
+Etaj inexistent: 58
+36 -> 10: coboara 26 etaje
+10 -> 9: coboara 1 etaje
+9 -> 2: coboara 7 etaje
+2 -> 1: coboara 1 etaje
+1 -> 7: urca 6 etaje
+7 -> 6: coboara 1 etaje
+6 -> 39: urca 33 etaje
+Etaj inexistent: 59
+39 -> 10: coboara 29 etaje
+10 -> 22: urca 12 etaje
+22 -> 9: coboara 13 etaje
+9 -> 44: urca 35 etaje
+44 -> 1: coboara 43 etaje
+Deja la etajul 1
+1 -> 2: urca 1 etaje
+2 -> 8: urca 6 etaje
+8 -> 44: urca 36 etaje
+44 -> 41: coboara 3 etaje
+41 -> 40: coboara 1 etaje
+40 -> 2: coboara 38 etaje
+2 -> 44: urca 42 etaje
+44 -> 4: coboara 40 etaje
+4 -> 47: urca 43 etaje
+47 -> 2: coboara 45 etaje
+2 -> 4: urca 2 etaje
+Etaj inexistent: 54
+4 -> 37: urca 33 etaje
+37 -> 48: urca 11 etaje
+48 -> 23: coboara 25 etaje
+23 -> 12: coboara 11 etaje
+Etaj inexistent: 52
+Etaj inexistent: 52
+12 -> 34: urca 22 etaje
+Etaj inexistent: 57
+34 -> 42: urca 8 etaje
+42 -> 4: coboara 38 etaje
+Etaj inexistent: 56
+Etaj inexistent: 55
+4 -> 48: urca 44 etaje
+Etaj inexistent: 58
+48 -> 45: coboara 3 etaje
+Etaj inexistent: 60
+45 -> 24: coboara 21 etaje
+24 -> 6: coboara 18 etaje
+6 -> 15: urca 9 etaje
+15 -> 13: coboara 2 etaje
+Deja la etajul 13
+13 -> 7: coboara 6 etaje
+7 -> 2: coboara 5 etaje
+Deja la etajul 2
+Etaj inexistent: 60
+Etaj inexistent: 54
+Etaj inexistent: 58
+Etaj inexistent: 51
+2 -> 48: urca 46 etaje
+48 -> 40: coboara 8 etaje
+40 -> 5: coboara 35 etaje
+Etaj inexistent: 52
+5 -> 48: urca 43 etaje
+48 -> 40: coboara 8 etaje
+Deja la etajul 40
+40 -> 18: coboara 22 etaje
+18 -> 30: urca 12 etaje
+30 -> 6: coboara 24 etaje
+6 -> 8: urca 2 etaje
+8 -> 6: coboara 2 etaje
+6 -> 50: urca 44 etaje
+50 -> 48: coboara 2 etaje
+48 -> 41: coboara 7 etaje
+41 -> 13: coboara 28 etaje
+13 -> 18: urca 5 etaje
+18 -> 20: urca 2 etaje
+20 -> 21: urca 1 etaje
+21 -> 27: urca 6 etaje
+27 -> 16: coboara 11 etaje
+16 -> 1: coboara 15 etaje
+1 -> 22: urca 21 etaje
+22 -> 16: coboara 6 etaje
+Etaj inexistent: 59
+16 -> 18: urca 2 etaje
+18 -> 3: coboara 15 etaje
+3 -> 45: urca 42 etaje
+45 -> 48: urca 3 etaje
+48 -> 23: coboara 25 etaje
+Etaj inexistent: 58
+23 -> 20: coboara 3 etaje
+20 -> 49: urca 29 etaje
+49 -> 38: coboara 11 etaje
+38 -> 32: coboara 6 etaje
+32 -> 30: coboara 2 etaje
+Etaj inexistent: 54
+30 -> 18: coboara 12 etaje
+18 -> 39: urca 21 etaje
+39 -> 47: urca 8 etaje
+47 -> 1: coboara 46 etaje
+1 -> 50: urca 49 etaje
+50 -> 26: coboara 24 etaje
+26 -> 1: coboara 25 etaje
+1 -> 27: urca 26 etaje
+27 -> 33: urca 6 etaje
+33 -> 49: urca 16 etaje
+49 -> 6: coboara 43 etaje
+6 -> 22: urca 16 etaje
+22 -> 30: urca 8 etaje
+30 -> 45: urca 15 etaje
+45 -> 3: coboara 42 etaje
+3 -> 34: urca 31 etaje
+34 -> 36: urca 2 etaje
+36 -> 13: coboara 23 etaje
+13 -> 45: urca 32 etaje
+Etaj inexistent: 55
+Etaj inexistent: 52
+45 -> 5: coboara 40 etaje
+5 -> 36: urca 31 etaje
+Etaj inexistent: 52
+36 -> 18: coboara 18 etaje
+18 -> 10: coboara 8 etaje
+10 -> 27: urca 17 etaje
+27 -> 0: coboara 27 etaje
+0 -> 33: urca 33 etaje
+33 -> 12: coboara 21 etaje
+12 -> 18: urca 6 etaje
+18 -> 48: urca 30 etaje
+Deja la etajul 48
+48 -> 3: coboara 45 etaje
+3 -> 0: coboara 3 etaje
+0 -> 22: urca 22 etaje
+22 -> 31: urca 9 etaje
+31 -> 6: coboara 25 etaje
+6 -> 31: urca 25 etaje
+31 -> 44: urca 13 etaje
+44 -> 50: urca 6 etaje
+Etaj inexistent: 52
+50 -> 11: coboara 39 etaje
+11 -> 31: urca 20 etaje
+31 -> 37: urca 6 etaje
+37 -> 22: coboara 15 etaje
+Etaj inexistent: 53
+22 -> 32: urca 10 etaje
+32 -> 16: coboara 16 etaje
+16 -> 36: urca 20 etaje
+Etaj inexistent: 60
+36 -> 10: coboara 26 etaje
+10 -> 18: urca 8 etaje
+Etaj inexistent: 52
+18 -> 13: coboara 5 etaje
+Etaj inexistent: 60
+13 -> 44: urca 31 etaje
+44 -> 14: coboara 30 etaje
+14 -> 31: urca 17 etaje
+31 -> 10: coboara 21 etaje
+10 -> 7: coboara 3 etaje
+Etaj inexistent: 60
+7 -> 40: urca 33 etaje
+40 -> 49: urca 9 etaje
+49 -> 5: coboara 44 etaje
+5 -> 31: urca 26 etaje
+31 -> 50: urca 19 etaje
+50 -> 44: coboara 6 etaje
+44 -> 35: coboara 9 etaje
+35 -> 50: urca 15 etaje
+50 -> 6: coboara 44 etaje
+6 -> 40: urca 34 etaje
+40 -> 20: coboara 20 etaje
+20 -> 22: urca 2 etaje
+22 -> 6: coboara 16 etaje
+6 -> 25: urca 19 etaje
+Etaj inexistent: 59
+Deja la etajul 25
+Etaj inexistent: 57
+Etaj inexistent: 56
+25 -> 47: urca 22 etaje
+47 -> 5: coboara 42 etaje
+5 -> 27: urca 22 etaje
+Etaj inexistent: 56
+27 -> 41: urca 14 etaje
+41 -> 1: coboara 40 etaje
+1 -> 23: urca 22 etaje
+23 -> 13: coboara 10 etaje
+13 -> 19: urca 6 etaje
+19 -> 16: coboara 3 etaje
+16 -> 27: urca 11 etaje
+Etaj inexistent: 57
+27 -> 34: urca 7 etaje
+34 -> 32: coboara 2 etaje
+32 -> 10: coboara 22 etaje
+10 -> 24: urca 14 etaje
+Etaj inexistent: 56
+24 -> 40: urca 16 etaje
+40 -> 14: coboara 26 etaje
+Etaj inexistent: 60
+14 -> 29: urca 15 etaje
+29 -> 8: coboara 21 etaje
+8 -> 34: urca 26 etaje
+34 -> 38: urca 4 etaje
+38 -> 48: urca 10 etaje
+48 -> 44: coboara 4 etaje
+44 -> 48: urca 4 etaje
+48 -> 38: coboara 10 etaje
+38 -> 41: urca 3 etaje
+41 -> 2: coboara 39 etaje
+2 -> 22: urca 20 etaje
+22 -> 37: urca 15 etaje
+37 -> 20: coboara 17 etaje
+20 -> 33: urca 13 etaje
+33 -> 9: coboara 24 etaje
+Etaj inexistent: 55
+Etaj inexistent: 53
+9 -> 28: urca 19 etaje
+28 -> 42: urca 14 etaje
+42 -> 35: coboara 7 etaje
+35 -> 47: urca 12 etaje
+47 -> 20: coboara 27 etaje
+20 -> 10: coboara 10 etaje
+10 -> 29: urca 19 etaje
+29 -> 28: coboara 1 etaje
+28 -> 44: urca 16 etaje
+44 -> 49: urca 5 etaje
+49 -> 16: coboara 33 etaje
+16 -> 37: urca 21 etaje
+37 -> 14: coboara 23 etaje
+14 -> 8: coboara 6 etaje
+8 -> 21: urca 13 etaje
+21 -> 29: urca 8 etaje
+29 -> 41: urca 12 etaje
+Etaj inexistent: 56
+41 -> 44: urca 3 etaje
+44 -> 15: coboara 29 etaje
+15 -> 32: urca 17 etaje
+32 -> 12: coboara 20 etaje
+12 -> 17: urca 5 etaje
+17 -> 19: urca 2 etaje
+19 -> 48: urca 29 etaje
+48 -> 45: coboara 3 etaje
+Etaj inexistent: 52
+Etaj inexistent: 53
+45 -> 39: coboara 6 etaje
+39 -> 9: coboara 30 etaje
+9 -> 46: urca 37 etaje
+46 -> 9: coboara 37 etaje
+9 -> 15: urca 6 etaje
+15 -> 46: urca 31 etaje
+46 -> 20: coboara 26 etaje
+20 -> 38: urca 18 etaje
+38 -> 33: coboara 5 etaje
+33 -> 22: coboara 11 etaje
+22 -> 10: coboara 12 etaje
+10 -> 15: urca 5 etaje
+15 -> 20: urca 5 etaje
+20 -> 12: coboara 8 etaje
+12 -> 16: urca 4 etaje
+16 -> 46: urca 30 etaje
+46 -> 6: coboara 40 etaje
+6 -> 10: urca 4 etaje
+10 -> 42: urca 32 etaje
+42 -> 6: coboara 36 etaje
+6 -> 12: urca 6 etaje
+12 -> 24: urca 12 etaje
+24 -> 9: coboara 15 etaje
+Deja la etajul 9
+9 -> 50: urca 41 etaje
+50 -> 19: coboara 31 etaje
+19 -> 46: urca 27 etaje
+46 -> 19: coboara 27 etaje
+19 -> 27: urca 8 etaje
+27 -> 17: coboara 10 etaje
+17 -> 12: coboara 5 etaje
+12 -> 6: coboara 6 etaje
+6 -> 40: urca 34 etaje
+Etaj inexistent: 58
+40 -> 6: coboara 34 etaje
+6 -> 17: urca 11 etaje
+17 -> 13: coboara 4 etaje
+Etaj inexistent: 56
+13 -> 24: urca 11 etaje
+24 -> 29: urca 5 etaje
+29 -> 2: coboara 27 etaje
+2 -> 0: coboara 2 etaje
+0 -> 25: urca 25 etaje
+Etaj inexistent: 54
+25 -> 50: urca 25 etaje
+50 -> 27: coboara 23 etaje
+27 -> 44: urca 17 etaje
+44 -> 14: coboara 30 etaje
+14 -> 32: urca 18 etaje
+32 -> 40: urca 8 etaje
+40 -> 18: coboara 22 etaje
+18 -> 29: urca 11 etaje
+29 -> 1: coboara 28 etaje
+1 -> 9: urca 8 etaje
+9 -> 16: urca 7 etaje
+16 -> 38: urca 22 etaje
+38 -> 47: urca 9 etaje
+47 -> 25: coboara 22 etaje
+25 -> 0: coboara 25 etaje
+0 -> 47: urca 47 etaje
+47 -> 15: coboara 32 etaje
+Etaj inexistent: 58
+Etaj inexistent: 54
+15 -> 27: urca 12 etaje
+27 -> 44: urca 17 etaje
+44 -> 36: coboara 8 etaje
+36 -> 37: urca 1 etaje
+37 -> 47: urca 10 etaje
+47 -> 41: coboara 6 etaje
+41 -> 26: coboara 15 etaje
+Etaj inexistent: 54
+26 -> 14: coboara 12 etaje
+14 -> 42: urca 28 etaje
+42 -> 46: urca 4 etaje
+46 -> 41: coboara 5 etaje
+Etaj inexistent: 56
+Etaj inexistent: 56
+41 -> 49: urca 8 etaje
+49 -> 41: coboara 8 etaje
+41 -> 44: urca 3 etaje
+44 -> 37: coboara 7 etaje
+Etaj inexistent: 54
+37 -> 14: coboara 23 etaje
+14 -> 43: urca 29 etaje
+43 -> 11: coboara 32 etaje
+11 -> 41: urca 30 etaje
+41 -> 7: coboara 34 etaje
+7 -> 29: urca 22 etaje
+29 -> 27: coboara 2 etaje
+27 -> 20: coboara 7 etaje
+20 -> 16: coboara 4 etaje
+16 -> 40: urca 24 etaje
+40 -> 44: urca 4 etaje
+44 -> 6: coboara 38 etaje
+Etaj inexistent: 57
+6 -> 26: urca 20 etaje
+26 -> 15: coboara 11 etaje
+15 -> 50: urca 35 etaje
+50 -> 25: coboara 25 etaje
+25 -> 45: urca 20 etaje
+Deja la etajul 45
+45 -> 40: coboara 5 etaje
+40 -> 10: coboara 30 etaje
+10 -> 16: urca 6 etaje
+Etaj inexistent: 54
+16 -> 27: urca 11 etaje
+27 -> 30: urca 3 etaje
+30 -> 29: coboara 1 etaje
+29 -> 1: coboara 28 etaje
+1 -> 39: urca 38 etaje
+Etaj inexistent: 54
+39 -> 26: coboara 13 etaje
+26 -> 33: urca 7 etaje
+33 -> 43: urca 10 etaje
+43 -> 42: coboara 1 etaje
+Etaj inexistent: 59
+Etaj inexistent: 55
+42 -> 11: coboara 31 etaje
+Etaj inexistent: 57
+11 -> 41: urca 30 etaje
+41 -> 20: coboara 21 etaje
+20 -> 49: urca 29 etaje
+49 -> 0: coboara 49 etaje
+0 -> 24: urca 24 etaje
+Etaj inexistent: 53
+24 -> 31: urca 7 etaje
+Etaj inexistent: 58
+31 -> 6: coboara 25 etaje
+6 -> 2: coboara 4 etaje
+2 -> 16: urca 14 etaje
+16 -> 34: urca 18 etaje
+34 -> 13: coboara 21 etaje
+13 -> 10: coboara 3 etaje
+10 -> 45: urca 35 etaje
+45 -> 50: urca 5 etaje
+Etaj inexistent: 60
+Etaj inexistent: 60
+50 -> 12: coboara 38 etaje
+12 -> 33: urca 21 etaje
+33 -> 22: coboara 11 etaje
+22 -> 6: coboara 16 etaje
+Etaj inexistent: 54
+6 -> 36: urca 30 etaje
+36 -> 29: coboara 7 etaje
+29 -> 34: urca 5 etaje
+34 -> 13: coboara 21 etaje
+13 -> 45: urca 32 etaje
+45 -> 30: coboara 15 etaje
+30 -> 32: urca 2 etaje
+32 -> 1: coboara 31 etaje
+1 -> 40: urca 39 etaje
+40 -> 50: urca 10 etaje
+Etaj inexistent: 53
+50 -> 23: coboara 27 etaje
+23 -> 33: urca 10 etaje
+33 -> 21: coboara 12 etaje
+21 -> 26: urca 5 etaje
+26 -> 47: urca 21 etaje
+Etaj inexistent: 60
+47 -> 29: coboara 18 etaje
+29 -> 13: coboara 16 etaje
+13 -> 43: urca 30 etaje
+43 -> 11: coboara 32 etaje
+11 -> 25: urca 14 etaje
+25 -> 32: urca 7 etaje
+32 -> 48: urca 16 etaje
+Etaj inexistent: 59
+48 -> 7: coboara 41 etaje
+7 -> 46: urca 39 etaje
+46 -> 39: coboara 7 etaje
+39 -> 22: coboara 17 etaje
+22 -> 40: urca 18 etaje
+40 -> 3: coboara 37 etaje
+3 -> 16: urca 13 etaje
+16 -> 17: urca 1 etaje
+17 -> 24: urca 7 etaje
+24 -> 25: urca 1 etaje
+25 -> 3: coboara 22 etaje
+3 -> 0: coboara 3 etaje
+0 -> 4: urca 4 etaje
+4 -> 26: urca 22 etaje
+Etaj inexistent: 58
+Deja la etajul 26
+26 -> 40: urca 14 etaje
+40 -> 44: urca 4 etaje
+44 -> 43: coboara 1 etaje
+43 -> 22: coboara 21 etaje
+22 -> 37: urca 15 etaje
+37 -> 16: coboara 21 etaje
+16 -> 6: coboara 10 etaje
+6 -> 14: urca 8 etaje
+14 -> 19: urca 5 etaje
+19 -> 47: urca 28 etaje
+47 -> 25: coboara 22 etaje
+Etaj inexistent: 60
+25 -> 33: urca 8 etaje
+33 -> 14: coboara 19 etaje
+Etaj inexistent: 51
+14 -> 25: urca 11 etaje
+25 -> 29: urca 4 etaje
+29 -> 13: coboara 16 etaje
+13 -> 10: coboara 3 etaje
+10 -> 8: coboara 2 etaje
+Etaj inexistent: 59
+8 -> 49: urca 41 etaje
+49 -> 4: coboara 45 etaje
+Etaj inexistent: 51
+Etaj inexistent: 51
+4 -> 40: urca 36 etaje
+40 -> 12: coboara 28 etaje
+12 -> 30: urca 18 etaje
+30 -> 41: urca 11 etaje
+41 -> 35: coboara 6 etaje
+35 -> 46: urca 11 etaje
+46 -> 14: coboara 32 etaje
+Etaj inexistent: 52
+14 -> 9: coboara 5 etaje
+9 -> 22: urca 13 etaje
+22 -> 42: urca 20 etaje
+42 -> 40: coboara 2 etaje
+Etaj inexistent: 53
+Etaj inexistent: 52
+40 -> 50: urca 10 etaje
+Etaj inexistent: 52
+50 -> 26: coboara 24 etaje
+26 -> 29: urca 3 etaje
+29 -> 18: coboara 11 etaje
+18 -> 48: urca 30 etaje
+48 -> 35: coboara 13 etaje
+35 -> 41: urca 6 etaje
+41 -> 8: coboara 33 etaje
+8 -> 49: urca 41 etaje
+Etaj inexistent: 53
+49 -> 30: coboara 19 etaje
+30 -> 22: coboara 8 etaje
+22 -> 50: urca 28 etaje
+Etaj inexistent: 54
+50 -> 14: coboara 36 etaje
+14 -> 17: urca 3 etaje
+17 -> 45: urca 28 etaje
+45 -> 24: coboara 21 etaje
+24 -> 43: urca 19 etaje
+43 -> 16: coboara 27 etaje
+16 -> 27: urca 11 etaje
+27 -> 43: urca 16 etaje
+43 -> 11: coboara 32 etaje
+11 -> 30: urca 19 etaje
+30 -> 0: coboara 30 etaje
+Etaj inexistent: 51
+0 -> 46: urca 46 etaje
+Etaj inexistent: 51
+46 -> 17: coboara 29 etaje
+17 -> 22: urca 5 etaje
+22 -> 15: coboara 7 etaje
+15 -> 41: urca 26 etaje
+41 -> 19: coboara 22 etaje
+19 -> 20: urca 1 etaje
+20 -> 30: urca 10 etaje
+30 -> 31: urca 1 etaje
+31 -> 27: coboara 4 etaje
+27 -> 39: urca 12 etaje
+39 -> 40: urca 1 etaje
+40 -> 5: coboara 35 etaje
+5 -> 42: urca 37 etaje
+Etaj inexistent: 57
+42 -> 23: coboara 19 etaje
+23 -> 9: coboara 14 etaje
+Etaj inexistent: 59
+9 -> 19: urca 10 etaje
+Etaj inexistent: 54
+19 -> 24: urca 5 etaje
+24 -> 3: coboara 21 etaje
+3 -> 5: urca 2 etaje
+Etaj inexistent: 52
+5 -> 36: urca 31 etaje
+Etaj inexistent: 57
+36 -> 20: coboara 16 etaje
+20 -> 50: urca 30 etaje
+Etaj inexistent: 60
+50 -> 8: coboara 42 etaje
+8 -> 33: urca 25 etaje
+Etaj inexistent: 53
+33 -> 22: coboara 11 etaje
+22 -> 40: urca 18 etaje
+40 -> 37: coboara 3 etaje
+37 -> 0: coboara 37 etaje
+0 -> 42: urca 42 etaje
+42 -> 0: coboara 42 etaje
+0 -> 13: urca 13 etaje
+Etaj inexistent: 60
+13 -> 4: coboara 9 etaje
+4 -> 41: urca 37 etaje
+41 -> 18: coboara 23 etaje
+18 -> 16: coboara 2 etaje
+16 -> 38: urca 22 etaje
+38 -> 6: coboara 32 etaje
+6 -> 37: urca 31 etaje
+37 -> 9: coboara 28 etaje
+Etaj inexistent: 54
+9 -> 14: urca 5 etaje
+14 -> 11: coboara 3 etaje
+11 -> 49: urca 38 etaje
+49 -> 28: coboara 21 etaje
+28 -> 22: coboara 6 etaje
+22 -> 50: urca 28 etaje
+50 -> 9: coboara 41 etaje
+9 -> 13: urca 4 etaje
+Etaj inexistent: 57
+13 -> 25: urca 12 etaje
+25 -> 50: urca 25 etaje
+50 -> 34: coboara 16 etaje
+34 -> 10: coboara 24 etaje
+10 -> 39: urca 29 etaje
+Etaj inexistent: 57
+39 -> 44: urca 5 etaje
+44 -> 38: coboara 6 etaje
+38 -> 50: urca 12 etaje
+50 -> 5: coboara 45 etaje
+5 -> 42: urca 37 etaje
+Etaj inexistent: 57
+Etaj inexistent: 57
+42 -> 35: coboara 7 etaje
+35 -> 50: urca 15 etaje
+50 -> 40: coboara 10 etaje
+Etaj inexistent: 53
+40 -> 19: coboara 21 etaje
+19 -> 12: coboara 7 etaje
+12 -> 31: urca 19 etaje
+31 -> 44: urca 13 etaje
+44 -> 13: coboara 31 etaje
+13 -> 33: urca 20 etaje
+33 -> 5: coboara 28 etaje
+5 -> 47: urca 42 etaje
+Etaj inexistent: 53
+47 -> 28: coboara 19 etaje
+28 -> 42: urca 14 etaje
+Etaj inexistent: 56
+42 -> 7: coboara 35 etaje
+7 -> 35: urca 28 etaje
+35 -> 7: coboara 28 etaje
+7 -> 16: urca 9 etaje
+16 -> 26: urca 10 etaje
+26 -> 14: coboara 12 etaje
+Etaj inexistent: 52
+14 -> 8: coboara 6 etaje
+8 -> 30: urca 22 etaje
+30 -> 31: urca 1 etaje
+31 -> 35: urca 4 etaje
+35 -> 3: coboara 32 etaje
+3 -> 30: urca 27 etaje
+30 -> 29: coboara 1 etaje
+Etaj inexistent: 57
+29 -> 9: coboara 20 etaje
+9 -> 44: urca 35 etaje
+44 -> 31: coboara 13 etaje
+31 -> 15: coboara 16 etaje
+15 -> 31: urca 16 etaje
+31 -> 10: coboara 21 etaje
+10 -> 34: urca 24 etaje
+34 -> 38: urca 4 etaje
+Etaj inexistent: 55
+38 -> 47: urca 9 etaje
+47 -> 0: coboara 47 etaje
+0 -> 10: urca 10 etaje
+Etaj inexistent: 53
+10 -> 20: urca 10 etaje
+20 -> 29: urca 9 etaje
+29 -> 44: urca 15 etaje
+44 -> 36: coboara 8 etaje
+36 -> 31: coboara 5 etaje
+31 -> 42: urca 11 etaje
+42 -> 18: coboara 24 etaje
+Etaj inexistent: 53
+18 -> 29: urca 11 etaje
+29 -> 23: coboara 6 etaje
+23 -> 27: urca 4 etaje
+27 -> 26: coboara 1 etaje
+26 -> 43: urca 17 etaje
+43 -> 4: coboara 39 etaje
+4 -> 11: urca 7 etaje
+11 -> 40: urca 29 etaje
+40 -> 23: coboara 17 etaje
+23 -> 40: urca 17 etaje
+40 -> 41: urca 1 etaje
+41 -> 1: coboara 40 etaje
+Deja la etajul 1
+1 -> 39: urca 38 etaje
+39 -> 2: coboara 37 etaje
+2 -> 43: urca 41 etaje
+43 -> 47: urca 4 etaje
+Etaj inexistent: 59
+47 -> 21: coboara 26 etaje
+Etaj inexistent: 51
+21 -> 6: coboara 15 etaje
+6 -> 32: urca 26 etaje
+32 -> 30: coboara 2 etaje
+30 -> 31: urca 1 etaje
+31 -> 48: urca 17 etaje
+Etaj inexistent: 57
+48 -> 9: coboara 39 etaje
+9 -> 2: coboara 7 etaje
+2 -> 13: urca 11 etaje
+13 -> 45: urca 32 etaje
+45 -> 26: coboara 19 etaje
+26 -> 40: urca 14 etaje
+40 -> 8: coboara 32 etaje
+8 -> 21: urca 13 etaje
+21 -> 6: coboara 15 etaje
+Etaj inexistent: 55
+6 -> 42: urca 36 etaje
+42 -> 23: coboara 19 etaje
+23 -> 21: coboara 2 etaje
+21 -> 30: urca 9 etaje
+30 -> 49: urca 19 etaje
+49 -> 33: coboara 16 etaje
+33 -> 35: urca 2 etaje
+35 -> 49: urca 14 etaje
+Etaj inexistent: 58
+49 -> 13: coboara 36 etaje
+13 -> 18: urca 5 etaje
+18 -> 27: urca 9 etaje
+27 -> 21: coboara 6 etaje
+21 -> 27: urca 6 etaje
+27 -> 16: coboara 11 etaje
+16 -> 35: urca 19 etaje
+35 -> 3: coboara 32 etaje
+Etaj inexistent: 52
+3 -> 18: urca 15 etaje
+Deja la etajul 18
+18 -> 22: urca 4 etaje
+Etaj inexistent: 52
+22 -> 31: urca 9 etaje
+31 -> 25: coboara 6 etaje
+25 -> 21: coboara 4 etaje
+21 -> 32: urca 11 etaje
+32 -> 17: coboara 15 etaje
+Etaj inexistent: 55
+17 -> 32: urca 15 etaje
+32 -> 22: coboara 10 etaje
+22 -> 13: coboara 9 etaje
+13 -> 41: urca 28 etaje
+41 -> 31: coboara 10 etaje
+31 -> 50: urca 19 etaje
+50 -> 7: coboara 43 etaje
+7 -> 21: urca 14 etaje
+21 -> 12: coboara 9 etaje
+12 -> 20: urca 8 etaje
+20 -> 45: urca 25 etaje
+45 -> 19: coboara 26 etaje
+19 -> 8: coboara 11 etaje
+8 -> 37: urca 29 etaje
+37 -> 40: urca 3 etaje
+40 -> 5: coboara 35 etaje
+5 -> 50: urca 45 etaje
+50 -> 2: coboara 48 etaje
+2 -> 25: urca 23 etaje
+25 -> 46: urca 21 etaje
+46 -> 35: coboara 11 etaje
+Etaj inexistent: 56
+35 -> 25: coboara 10 etaje
+25 -> 34: urca 9 etaje
+34 -> 36: urca 2 etaje
+36 -> 3: coboara 33 etaje
+3 -> 25: urca 22 etaje
+25 -> 19: coboara 6 etaje
+19 -> 6: coboara 13 etaje
+6 -> 0: coboara 6 etaje
+0 -> 2: urca 2 etaje
+2 -> 12: urca 10 etaje
+Etaj inexistent: 52
+Etaj inexistent: 58
+12 -> 30: urca 18 etaje
+30 -> 38: urca 8 etaje
+38 -> 49: urca 11 etaje
+49 -> 42: coboara 7 etaje
+42 -> 3: coboara 39 etaje
+3 -> 50: urca 47 etaje
+50 -> 32: coboara 18 etaje
+Etaj inexistent: 58
+32 -> 34: urca 2 etaje
+34 -> 39: urca 5 etaje
+39 -> 24: coboara 15 etaje
+24 -> 39: urca 15 etaje
+39 -> 9: coboara 30 etaje
+9 -> 40: urca 31 etaje
+40 -> 43: urca 3 etaje
+43 -> 44: urca 1 etaje
+Deja la etajul 44
+44 -> 38: coboara 6 etaje
+Etaj inexistent: 56
+38 -> 43: urca 5 etaje
+43 -> 5: coboara 38 etaje
+5 -> 13: urca 8 etaje
+13 -> 2: coboara 11 etaje
+2 -> 42: urca 40 etaje
+42 -> 40: coboara 2 etaje
+40 -> 29: coboara 11 etaje
+29 -> 40: urca 11 etaje
+40 -> 48: urca 8 etaje
+48 -> 11: coboara 37 etaje
+11 -> 6: coboara 5 etaje
+6 -> 42: urca 36 etaje
+42 -> 11: coboara 31 etaje
+Etaj inexistent: 55
+11 -> 2: coboara 9 etaje
+2 -> 26: urca 24 etaje
+26 -> 49: urca 23 etaje
+49 -> 6: coboara 43 etaje
+Etaj inexistent: 58
+Etaj inexistent: 59
+6 -> 41: urca 35 etaje
+41 -> 0: coboara 41 etaje
+0 -> 23: urca 23 etaje
+Etaj inexistent: 55
+Etaj inexistent: 52
+23 -> 8: coboara 15 etaje
+8 -> 50: urca 42 etaje
+Opriri: 2474
+Etaje parcurse: 43184
+Schimbari de sens: 1710
+Cel mai lung drum: 50 etaje
+Timp total: 1645:38

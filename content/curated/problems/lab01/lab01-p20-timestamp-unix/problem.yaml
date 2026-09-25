@@ -1,0 +1,70 @@
+id: lab01-p20-timestamp-unix
+lab: lab01
+number: 20
+title: "Ceasul serverului"
+difficulty: 5
+estimated_minutes: 45
+concepts: [împărțire întreagă, operatorul modulo, expresie, printf, lățime de afișare]
+statement: |
+  Serverul pe care rulează platforma de teme a facultății nu memorează datele „frumos”, ci
+  ca **timestamp Unix**: numărul de secunde scurse de la 1 ianuarie 1970, ora 00:00:00.
+  Administratorul vrea un program mic care traduce un timestamp în dată și oră.
+
+  Scrie un program care citește un timestamp `t` și afișează:
+
+  1. numărul de zile **întregi** scurse de la 1 ianuarie 1970;
+  2. data, în formatul `aaaa-ll-zz`;
+  3. ora, în formatul `hh:mm:ss`;
+  4. ziua săptămânii, ca număr de la 1 (luni) la 7 (duminică) — știind că
+     1 ianuarie 1970 a fost **joi**;
+  5. câte secunde mai sunt până la miezul nopții următor.
+
+  Pentru a transforma numărul de zile `Z` în dată, folosește algoritmul de mai jos (toate
+  împărțirile sunt **întregi**). Ideea lui: anul se numără din martie, astfel încât ziua
+  bisectă, 29 februarie, să cadă la sfârșitul anului.
+
+  1. `z = Z + 719468`
+  2. `era = z / 146097`, `doe = z − era · 146097`
+  3. `yoe = (doe − doe / 1460 + doe / 36524 − doe / 146096) / 365`
+  4. `doy = doe − (365 · yoe + yoe / 4 − yoe / 100)`
+  5. `mp = (5 · doy + 2) / 153`
+  6. `zi = doy − (153 · mp + 2) / 5 + 1`, `luna = (mp + 2) % 12 + 1`
+  7. `an = yoe + era · 400 + mp / 10`
+
+  Programul nu are nevoie de instrucțiuni `if` sau bucle.
+
+  **Date de intrare**
+
+  Un număr natural `t`.
+
+  **Date de ieșire**
+
+  Cinci linii, exact în formatul din exemplu (luna, ziua, ora, minutul și secunda pe câte
+  două cifre).
+
+  **Restricții**
+
+  - `0 ≤ t ≤ 2 147 483 647`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  1695391509
+  ```
+
+  Ieșire:
+  ```
+  Zile scurse: 19622
+  Data: 2023-09-22
+  Ora: 14:05:09
+  Ziua saptamanii: 5
+  Pana la miezul noptii: 35691 s
+  ```
+hints:
+  - "Desparte timestamp-ul în două: zilele întregi scurse și secundele scurse din ziua curentă. Ora și secundele până la miezul nopții depind doar de a doua parte; data și ziua săptămânii doar de prima."
+  - "Algoritmul din enunț se transcrie pas cu pas, cu câte o variabilă int pentru fiecare mărime. Pentru ziua săptămânii: zilele se repetă din 7 în 7, deci contează restul împărțirii la 7 — dar trebuie „decalat” astfel încât ziua 0 să dea joi, adică 4."
+  - "Pseudocod: Z = t / 86400; s = t % 86400; aplică pașii 1–7 pe Z; ora = s / 3600, minut = (s / 60) % 60, secunda = s % 60; ziua = (Z + 3) % 7 + 1; rămase = 86400 − s. Verifică pe t = 0 (1970-01-01, joi, 00:00:00)."
+pitfalls:
+  - "Ordinea operațiilor contează: împărțirile întregi nu sunt asociative cu înmulțirile, deci (153 · mp + 2) / 5 nu este același lucru cu 153 · mp / 5 + 2 / 5."
+  - "Anul 2000 a fost bisect (29 februarie 2000 a existat), deși este multiplu de 100."

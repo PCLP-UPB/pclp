@@ -23,12 +23,12 @@
       <h2>Lucrează</h2>
       {% if dir_exists %}
         <p>Folderul problemei: <code>{{ dir }}</code></p>
-        <p style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn primary" href="{{ code_url }}" target="pclp-code">Deschide în VS Code ↗</a>
+        <p style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn primary" href="{{ code_url }}" target="_blank" rel="noopener">Deschide în VS Code ↗</a>
         <button class="btn" id="runtests" data-url="/problema/{{ p.id }}/teste/" type="button">▶ Rulează testele</button></p>
         <p class="small muted">Sau în terminal: <code>cd {{ dir }} &amp;&amp; pclp test</code> · cu valgrind: <code>pclp test --valgrind</code></p>
       {% else %}
         <form method="post" action="/problema/{{ p.id }}/incepe/" style="display:flex;gap:8px;flex-wrap:wrap">{% csrf_token %}
-          <button class="btn primary" name="open" value="1">Începe problema și deschide VS Code</button>
+          <button class="btn primary" name="open" value="1" formtarget="_blank" data-reload>Începe problema și deschide VS Code ↗</button>
           <button class="btn">Doar creează folderul</button>
         </form>
         <p class="small muted">Se creează <code>{{ dir }}</code> cu <code>main.c</code>{% if p.starter %} (schelet){% endif %}, <code>README.md</code> (enunțul) și configurația de compilare/debug.</p>

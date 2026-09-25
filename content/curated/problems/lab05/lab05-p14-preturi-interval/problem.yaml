@@ -1,0 +1,98 @@
+id: lab05-p14-preturi-interval
+lab: lab05
+number: 14
+title: "Produse într-un interval de preț"
+difficulty: 3
+estimated_minutes: 35
+concepts: [pointer returnat de funcție, aritmetică cu pointeri, const, echivalența dintre vector și pointer]
+statement: |
+  Un magazin online are `n` produse, cu prețurile (în lei) sortate **crescător** (pot exista prețuri egale). Clienții filtrează produsele după preț: pentru fiecare dintre cele `q` filtre `a b`, afișați câte produse au prețul în intervalul `[a, b]` și pozițiile (numerotate de la 1) primului și ultimului dintre ele în lista sortată.
+
+  Implementați și folosiți două funcții de **căutare binară** care lucrează pe zona `[st, sf)` (de la `st` inclusiv până la `sf` exclusiv) și returnează adrese:
+
+  ```c
+  const int *primul_cel_putin(const int *st, const int *sf, int x);   /* primul element >= x, sau sf */
+  const int *primul_peste(const int *st, const int *sf, int x);       /* primul element > x, sau sf */
+  ```
+
+  Numărul de produse și pozițiile se calculează în `main` **doar prin diferențe de pointeri** între rezultatele celor două funcții și începutul vectorului.
+
+  **Date de intrare**
+
+  Pe prima linie `n`, pe a doua `n` prețuri sortate crescător. Pe a treia linie `q`, apoi `q` linii cu câte două numere `a b`.
+
+  **Date de ieșire**
+
+  Pentru fiecare filtru, o linie: `k prim ultim` (numărul de produse și pozițiile primului și ultimului), sau `0` dacă niciun produs nu are prețul în interval (inclusiv când `a > b`).
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100000`, `1 ≤ q ≤ 100000`
+  - prețurile și `a`, `b` sunt întregi din `[0, 10^9]`
+  - soluția trebuie să răspundă fiecărui filtru în `O(log n)` (o parcurgere liniară pe filtru este prea lentă)
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  8
+  5 10 10 20 35 35 35 50
+  6
+  10 35
+  0 4
+  36 49
+  50 100
+  1 1000
+  20 10
+  ```
+
+  Ieșire:
+  ```
+  6 2 7
+  0
+  0
+  1 8 8
+  8 1 8
+  0
+  ```
+starter: |
+  #include <stdio.h>
+
+  #define NMAX 100000
+
+  const int *primul_cel_putin(const int *st, const int *sf, int x)
+  {
+      /* TODO: cautare binara pe [st, sf) */
+      return sf;
+  }
+
+  const int *primul_peste(const int *st, const int *sf, int x)
+  {
+      /* TODO */
+      return sf;
+  }
+
+  int main(void)
+  {
+      static int pret[NMAX];
+      int n, q, i, a, b;
+
+      scanf("%d", &n);
+      for (i = 0; i < n; i++) {
+          scanf("%d", &pret[i]);
+      }
+      scanf("%d", &q);
+      for (i = 0; i < q; i++) {
+          scanf("%d %d", &a, &b);
+          /* TODO: doua cautari, apoi diferente de pointeri */
+      }
+      return 0;
+  }
+hints:
+  - "Produsele cu prețul în `[a, b]` formează o zonă contiguă a vectorului sortat: începe la primul preț ≥ a și se termină înainte de primul preț > b. Numărul lor este diferența dintre aceste două adrese."
+  - "Căutarea binară pe pointeri: cât timp zona `[st, sf)` nu e vidă, ia mijlocul `st + (sf - st) / 2`; dacă valoarea de acolo e prea mică, zona devine `[mij + 1, sf)`, altfel `[st, mij)`. La final `st == sf` este răspunsul."
+  - "Pseudocod în main: st = primul_cel_putin(pret, pret + n, a); sf = primul_peste(pret, pret + n, b); dacă st ≥ sf afișează 0, altfel afișează sf - st, (st - pret) + 1, sf - pret. Condiția st ≥ sf acoperă și cazul a > b."
+pitfalls:
+  - "Mijlocul nu se poate calcula ca `(st + sf) / 2`: suma a doi pointeri nu are sens în C (eroare de compilare). Folosește `st + (sf - st) / 2`."
+  - "Zona este semideschisă: `sf` nu se dereferențiază niciodată, poate fi chiar adresa de după ultimul element."
+  - "Cu `<` în loc de `<=` în `primul_peste` obții același lucru ca în `primul_cel_putin` și pierzi produsele cu prețul exact `b`."

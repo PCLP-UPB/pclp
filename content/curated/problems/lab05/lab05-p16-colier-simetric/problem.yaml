@@ -1,0 +1,82 @@
+id: lab05-p16-colier-simetric
+lab: lab05
+number: 16
+title: "Colierul simetric"
+difficulty: 3
+estimated_minutes: 40
+concepts: [aritmetică cu pointeri, parametru de tip pointer, expresii complexe cu pointeri, operatorul de dereferențiere]
+statement: |
+  Un bijutier are un șirag de `n` mărgele, fiecare cu o greutate (număr întreg pozitiv). Singura operație permisă este **contopirea** a două mărgele vecine într-una singură, cu greutatea egală cu suma greutăților lor (șiragul scade cu o mărgea). Bijutierul vrea ca șiragul să devină **simetric**: șirul greutăților citit de la stânga la dreapta să fie identic cu cel citit de la dreapta la stânga.
+
+  Aflați numărul **minim** de contopiri necesare și afișați șiragul simetric obținut.
+
+  Se poate demonstra că strategia următoare este optimă: se privesc mărgelele de la cele două capete; dacă au greutăți egale, rămân în șirag și se trece la următoarele două spre interior; altfel, mărgeaua mai ușoară dintre cele două se contopește cu vecina ei spre interior.
+
+  Implementați și folosiți funcția:
+
+  ```c
+  int fa_simetric(int *st, int *dr, int *jumatate, int *nr_jum, int *mijloc);
+  ```
+
+  unde `st` și `dr` sunt adresele primei și ultimei mărgele (capete **inclusive**). Funcția parcurge șiragul cu cei doi pointeri, returnează numărul de contopiri, scrie în vectorul `jumatate` greutățile perechilor egale găsite (de la exterior spre interior), la adresa `nr_jum` numărul lor și la adresa `mijloc` greutatea mărgelei din centru (0 dacă șiragul final are un număr par de mărgele). Nu folosiți operatorul `[]` în această funcție.
+
+  **Date de intrare**
+
+  Pe prima linie `n`, pe a doua `n` întregi pozitivi — greutățile, de la stânga la dreapta.
+
+  **Date de ieșire**
+
+  Pe prima linie numărul minim de contopiri. Pe a doua linie greutățile șiragului final, separate prin spațiu.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100000`, `1 ≤` greutate `≤ 10000`
+  - suma tuturor greutăților încape în `int`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  7
+  3 1 2 4 3 1 2
+  ```
+
+  Ieșire:
+  ```
+  2
+  3 3 4 3 3
+  ```
+
+  Explicație: capetele `3` și `2` diferă, deci `2` se contopește cu `1` (→ `3`); apoi `1` se contopește cu `2` (→ `3`) și rămâne `3 3 4 3 3`.
+starter: |
+  #include <stdio.h>
+
+  #define NMAX 100000
+
+  int fa_simetric(int *st, int *dr, int *jumatate, int *nr_jum, int *mijloc)
+  {
+      /* TODO: doi pointeri care se apropie unul de altul */
+      return 0;
+  }
+
+  int main(void)
+  {
+      static int v[NMAX], jum[NMAX];
+      int n, i, nr_jum, mijloc;
+
+      scanf("%d", &n);
+      for (i = 0; i < n; i++) {
+          scanf("%d", &v[i]);
+      }
+      /* TODO: apelati fa_simetric(v, v + n - 1, jum, &nr_jum, &mijloc)
+         si afisati jumatatea, mijlocul (daca exista) si jumatatea in ordine inversa */
+      return 0;
+  }
+hints:
+  - "Lucrează cu doi pointeri, unul la fiecare capăt, care se apropie. O contopire nu trebuie să mute elemente: adaugi greutatea mărgelei de la capăt la vecina ei spre interior și avansezi pointerul — mărgeaua veche pur și simplu nu mai face parte din zonă."
+  - "Nu e nevoie să memorezi tot șiragul final: el este jumătatea stângă (perechile egale, în ordinea găsirii), eventual o mărgea din mijloc, apoi aceeași jumătate în ordine inversă. Folosește un pointer de scriere în vectorul `jumatate`; numărul de elemente scrise e diferența dintre el și începutul vectorului."
+  - "Pseudocod: cât timp st < dr: dacă valorile sunt egale, scrie valoarea în jumătate, avansează st, retrage dr; altfel, dacă valoarea de la st e mai mică: adun-o la elementul st+1, avansează st, contopiri++; altfel adună valoarea de la dr la elementul dr−1, retrage dr, contopiri++. La final, mijlocul există doar dacă st == dr."
+pitfalls:
+  - "`*st++ += x` și `(*st)++` fac lucruri foarte diferite de „adaugă la vecin și avansează”; scrie operațiile separat până ești sigur de precedență."
+  - "La afișarea inversă, un pointer care coboară până la `jumatate - 1` iese înaintea vectorului (comportament nedefinit); oprește bucla la `p > jumatate` și afișează elementul `p - 1`."
+  - "Când doar două mărgele diferite rămân în zonă, contopirea le unește într-una singură: aceasta devine mijlocul (cazul `st == dr`), nu trebuie tratat separat."

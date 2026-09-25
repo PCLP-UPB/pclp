@@ -1,0 +1,68 @@
+id: lab02-p17-cod-gray
+lab: lab02
+number: 17
+title: "Codul Gray al encoderului"
+difficulty: 3
+estimated_minutes: 35
+concepts: [operator pe biți, SAU-EXCLUSIV pe biți, deplasare la dreapta, ȘI pe biți, buclă imbricată]
+statement: |
+  Robotul echipei de robotică al facultății măsoară unghiul roților cu un **encoder**, care
+  transmite poziția în **cod Gray**: un cod binar în care două valori consecutive diferă
+  printr-un **singur** bit (astfel, o citire făcută exact în momentul tranziției nu poate
+  da o valoare complet greșită).
+
+  Codul Gray al numărului `i` se calculează cu formula `g = i XOR (i >> 1)`. Invers, dintr-un
+  cod Gray `g`, valoarea inițială este `g XOR (g >> 1) XOR (g >> 2) XOR …` (până când
+  deplasarea dă 0).
+
+  Scrie un program care:
+
+  1. afișează tabelul codurilor Gray pe `k` biți, pentru `i = 0, 1, …, 2^k − 1`;
+  2. decodifică un cod Gray dat.
+
+  **Date de intrare**
+
+  Două numere naturale: `k` (numărul de biți) și `G` (un cod Gray, scris în baza 10).
+
+  **Date de ieșire**
+
+  - `2^k` linii, câte una pentru fiecare `i`, de forma: `i` aliniat la dreapta într-un câmp
+    de 4 caractere, două spații, scrierea binară a lui `i` pe exact `k` biți, două spații,
+    codul Gray al lui `i` pe exact `k` biți, două spații, apoi poziția bitului care s-a
+    schimbat față de codul Gray al lui `i − 1` (pozițiile se numără de la 0, de la dreapta
+    la stânga); pentru `i = 0` se afișează `-` în loc de poziție.
+  - O linie `Decodare: B -> v`, unde `B` este scrierea lui `G` pe `k` biți, iar `v` este
+    valoarea al cărei cod Gray este `G`.
+
+  **Restricții**
+
+  - `1 ≤ k ≤ 10`
+  - `0 ≤ G < 2^k`
+  - nu folosi vectori
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3 6
+  ```
+
+  Ieșire:
+  ```
+     0  000  000  -
+     1  001  001  0
+     2  010  011  1
+     3  011  010  0
+     4  100  110  2
+     5  101  111  0
+     6  110  101  1
+     7  111  100  0
+  Decodare: 110 -> 4
+  ```
+hints:
+  - "Toată problema se rezolvă cu operatorii pe biți: ^ (XOR), >> (deplasare), & (ȘI) și 1 << k (2 la puterea k). Bitul de pe poziția b al lui x este (x >> b) & 1."
+  - "Pentru scrierea pe k biți, parcurge pozițiile de la k − 1 în jos până la 0 și afișează câte un caracter. Bitul schimbat între două coduri consecutive se poate afla făcând XOR între ele (rămâne un singur bit 1) sau, echivalent, căutând cel mai de jos bit 1 al lui i."
+  - "Pseudocod: pentru i = 0..2^k − 1: g = i ^ (i >> 1); afișează i, biții lui i, biții lui g; dacă i = 0 afișează '-', altfel p = 0, x = i, cât timp x & 1 = 0: x >>= 1, p++; afișează p. Decodare: v = 0; x = G; cât timp x ≠ 0: v ^= x; x >>= 1."
+pitfalls:
+  - "Operatorul == are prioritate mai mare decât &: x & 1 == 0 înseamnă x & (1 == 0). Pune paranteze: (x & 1) == 0."
+  - "Biții se afișează de la cel mai semnificativ spre cel mai puțin semnificativ, inclusiv zerourile din față."

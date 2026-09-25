@@ -1,0 +1,53 @@
+id: lab02-p16-bilete-norocoase
+lab: lab02
+number: 16
+title: "Biletele norocoase de autobuz"
+difficulty: 3
+estimated_minutes: 25
+concepts: [for, buclă imbricată, operatorul modulo, împărțire întreagă, lățime de afișare]
+statement: |
+  Biletele de autobuz au un număr de serie format din exact **6 cifre** (de la `000000` la
+  `999999`). O superstiție studențească spune că un bilet este **norocos** dacă suma
+  primelor trei cifre este egală cu suma ultimelor trei. De exemplu, `123501` este norocos
+  (1 + 2 + 3 = 5 + 0 + 1), iar `000000` la fel.
+
+  Scrie un program care, pentru un interval de numere de serie `[a, b]`, afișează câte
+  bilete norocoase există în interval, precum și primul și ultimul bilet norocos din
+  interval.
+
+  **Date de intrare**
+
+  Două numere naturale `a` și `b`, capetele intervalului (scrise fără zerourile de la
+  început).
+
+  **Date de ieșire**
+
+  - Linia `Bilete norocoase: N`.
+  - Dacă `N > 0`, încă două linii: `Primul: xxxxxx` și `Ultimul: xxxxxx` — numerele de serie
+    scrise pe exact 6 cifre (cu zerouri în față, dacă e cazul).
+
+  **Restricții**
+
+  - `0 ≤ a ≤ b ≤ 999999`
+  - nu folosi vectori
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  123400 123600
+  ```
+
+  Ieșire:
+  ```
+  Bilete norocoase: 6
+  Primul: 123402
+  Ultimul: 123600
+  ```
+hints:
+  - "Primele trei cifre ale unui număr de 6 cifre formează câtul împărțirii la 1000, iar ultimele trei — restul. Rămâne să aduni cifrele fiecărei jumătăți."
+  - "Parcurge toate biletele din interval; pentru fiecare, calculează cele două sume cu o buclă interioară (% 10 și / 10). Primul bilet norocos îl reții o singură dată, ultimul se suprascrie de fiecare dată când găsești unul. Atenție la ce valoare folosești ca „încă n-am găsit”."
+  - "Pseudocod: nr = 0; primul = −1; pentru x = a..b: s = x / 1000, d = x % 1000; calculează suma cifrelor lui s și a lui d; dacă sunt egale: nr++, dacă primul = −1 atunci primul = x, ultimul = x. Afișează nr și, dacă nr > 0, primul și ultimul cu %06d."
+pitfalls:
+  - "Biletul 000000 este norocos, deci 0 nu poate însemna „niciun bilet găsit”."
+  - "Biletul 1001 se afișează 001001 — folosește %06d."
