@@ -1,0 +1,91 @@
+id: lab03-p20-tipografia
+lab: lab03
+number: 20
+title: "Tipografia"
+difficulty: 5
+estimated_minutes: 75
+concepts: [recursivitate, funcție, long long, overflow, împărțire întreagă, operatorul modulo]
+statement: |
+  O tipografie numerotează paginile cărților de la 1 la `N` și are două întrebări frecvente:
+
+  - **`C N c`** — de câte ori apare cifra `c` în numerele paginilor 1, 2, ..., `N`? (de exemplu,
+    pentru `N = 12` și `c = 1`: o dată în 1, 10 și 12, de două ori în 11, deci de 5 ori);
+  - **`T D`** — pentru numerotarea unei cărți s-au folosit în total exact `D` cifre; câte pagini
+    are cartea? (de exemplu, `D = 15`: paginile 1–9 folosesc 9 cifre, iar 10, 11, 12 încă 6, deci
+    12 pagini). Dacă nicio carte nu folosește exact `D` cifre, răspunsul este `IMPOSIBIL`.
+
+  Cărțile (și `N`) pot fi uriașe, până la `10^18`, deci nu poți parcurge paginile una câte una.
+  Pentru întrebarea `C`, scrie o funcție **recursivă**
+  `long long aparitii(long long n, int c, long long p)`, care numără aparițiile cifrei `c` pe
+  poziția de valoare `p` (unități pentru `p = 1`, zeci pentru `p = 10`, ...) și pe toate
+  pozițiile mai mari, în numerele de la 1 la `n`.
+
+  Numerele se scriu fără zerouri în față (pagina 7 nu este „07”).
+
+  **Date de intrare**
+
+  Pe prima linie, `q`. Pe următoarele `q` linii, câte o întrebare, `C N c` sau `T D`.
+
+  **Date de ieșire**
+
+  Câte o linie pentru fiecare întrebare: numărul cerut sau `IMPOSIBIL`.
+
+  **Restricții**
+
+  - `1 ≤ q ≤ 1000`
+  - `1 ≤ N ≤ 10^18`, `0 ≤ c ≤ 9`, `1 ≤ D ≤ 10^18`
+  - toate rezultatele încap în `long long`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  5
+  C 12 1
+  C 100 0
+  T 15
+  T 16
+  C 1000000000000000000 1
+  ```
+
+  Ieșire:
+  ```
+  5
+  11
+  12
+  IMPOSIBIL
+  1800000000000000001
+  ```
+starter: |
+  #include <stdio.h>
+
+  long long aparitii(long long n, int c, long long p)
+  {
+  	/* TODO: aparițiile lui c pe poziția p, plus apelul recursiv pentru 10 * p */
+  }
+
+  long long pagini(long long d)
+  {
+  	/* TODO: numărul de pagini sau -1 */
+  }
+
+  int main(void)
+  {
+  	int q, i;
+  	char tip;
+
+  	scanf("%d", &q);
+  	for (i = 0; i < q; i++) {
+  		scanf(" %c", &tip);
+  		/* TODO */
+  	}
+
+  	return 0;
+  }
+hints:
+  - "Numără pe poziții, nu pe numere: pe poziția unităților, cifra c apare o dată la fiecare 10 numere consecutive; pe poziția zecilor, apare în blocuri de câte 10 numere o dată la fiecare 100 de numere; în general, pe poziția p apare în blocuri de câte p numere, o dată la fiecare 10 · p numere."
+  - "Pentru poziția p, desparte n în trei părți: sus = n / (10p), cur = cifra de pe poziția p = (n / p) mod 10, jos = n mod p. Dacă c ≠ 0: cifra c apare de sus · p ori în blocurile complete, plus p dacă cur > c, sau jos + 1 dacă cur = c. Pentru c = 0 ai grijă: partea de sus nu poate fi 0 (ar însemna zerouri în față), deci blocurile complete sunt doar sus − 1, și nu există nimic dacă sus = 0."
+  - "Pentru T, ia pe rând lungimile L = 1, 2, 3, ...: există 9 · 10^(L−1) pagini cu L cifre, care folosesc L · 9 · 10^(L−1) cifre. Scade grupurile întregi cât timp D e mai mare; în ultimul grup, D trebuie să se împartă exact la L, iar numărul de pagini este 10^(L−1) − 1 + D / L. Atenție la depășiri: nu calcula 10 · p dacă p > n / 10."
+pitfalls:
+  - "Pentru N = 10^18, 10 · p poate ajunge la 10^19, care depășește long long: oprește recursivitatea înainte să calculezi o putere a lui 10 mai mare decât n."
+  - "Cifra 0 are regula ei: fără tratarea separată, ai număra zerourile din fața numerelor mai scurte."

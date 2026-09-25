@@ -1,0 +1,12 @@
+1 = 1
+monede: 1
+cod: 1
+2 = 2
+monede: 1
+cod: 10
+3 = 3
+monede: 1
+cod: 100
+4 = 3 + 1
+monede: 2
+cod: 101

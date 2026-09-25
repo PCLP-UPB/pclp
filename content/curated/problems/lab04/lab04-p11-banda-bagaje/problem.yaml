@@ -1,0 +1,51 @@
+id: lab04-p11-banda-bagaje
+lab: lab04
+number: 11
+title: "Banda de bagaje"
+difficulty: 1
+estimated_minutes: 20
+concepts: [vector, indice, operatorul modulo, constantă simbolică, depășirea limitelor tabloului]
+statement: |
+  Pe banda circulară de bagaje din aeroport sunt `n` valize, pe pozițiile `1, 2, ..., n`. La
+  fiecare pas, banda se deplasează cu o poziție **spre stânga**: valiza de pe poziția 1 trece pe
+  poziția `n`, iar toate celelalte avansează cu o poziție (cea de pe poziția 2 ajunge pe 1 etc.).
+  Un număr de pași negativ înseamnă că banda merge invers (spre dreapta): cu `-1`, valiza de pe
+  poziția `n` ajunge pe poziția 1.
+
+  Știind etichetele valizelor și numărul de pași `k`, afișează etichetele în ordinea pozițiilor,
+  după ce banda s-a oprit.
+
+  **Date de intrare**
+
+  Pe prima linie, `n` și `k`. Pe a doua linie, `n` numere: etichetele valizelor de pe pozițiile
+  `1, 2, ..., n`.
+
+  **Date de ieșire**
+
+  O singură linie cu `n` etichete, separate prin câte un spațiu: valizele de pe pozițiile
+  `1, 2, ..., n` după deplasare.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1000`
+  - `-10^9 ≤ k ≤ 10^9`
+  - etichetele sunt numere naturale între 1 și `10^6`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  6 2
+  14 7 22 5 31 9
+  ```
+
+  Ieșire:
+  ```
+  22 5 31 9 14 7
+  ```
+hints:
+  - "După n pași, banda revine în poziția inițială. Deci contează doar restul împărțirii lui k la n: nu simula un miliard de pași."
+  - "După p pași spre stânga (0 ≤ p < n), pe poziția i (numerotată de la 0) se află valiza care era pe poziția (i + p) mod n. Poți afișa direct în această ordine, fără un al doilea vector."
+  - "Pentru k negativ, în C, k % n este negativ sau 0 (de exemplu -2 % 6 = -2). Un pas spre dreapta este echivalent cu n − 1 pași spre stânga, deci p = ((k % n) + n) % n aduce întotdeauna rezultatul în intervalul [0, n)."
+pitfalls:
+  - "Un indice calculat cu un rest negativ (bagaje[-2]) iese din vector: comportament nedefinit, nu eroare de compilare."

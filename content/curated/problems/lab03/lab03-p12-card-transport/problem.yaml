@@ -1,0 +1,92 @@
+id: lab03-p12-card-transport
+lab: lab03
+number: 12
+title: "Cardul de transport"
+difficulty: 2
+estimated_minutes: 25
+concepts: [funcție, apel prin valoare, long long, operatorul modulo, modularizare]
+statement: |
+  Numerele cardurilor de transport (ca și cele ale cardurilor bancare) se termină cu o
+  **cifră de control**, aleasă astfel încât numărul întreg să treacă **testul Luhn**, care
+  prinde majoritatea greșelilor de tastare:
+
+  1. se parcurg cifrele de la **dreapta** la stânga; prima (cea mai din dreapta) este cifra de control;
+  2. fiecare a doua cifră (a 2-a, a 4-a, a 6-a de la dreapta, ...) se **dublează**; dacă
+     rezultatul depășește 9, se scade 9 din el (de exemplu 7 → 14 → 5);
+  3. se adună toate valorile obținute (cele dublate și cele neschimbate);
+  4. numărul este valid dacă suma se divide cu 10.
+
+  De exemplu, pentru `79927398713`, valorile de la dreapta la stânga sunt
+  `3, 2, 7, 16→7, 9, 12→3, 7, 4, 9, 18→9, 7` (s-au dublat 1, 8, 6, 9), cu suma 70, deci
+  numărul este valid.
+
+  Pentru fiecare număr citit, afișează dacă este valid; dacă nu, afișează și cifra care ar
+  trebui să fie ultima (în locul celei existente) pentru ca numărul să devină valid.
+  Scrie cel puțin funcțiile `int este_valid(long long numar)` și
+  `int cifra_control(long long fara_control)` (primește numărul fără ultima cifră).
+
+  **Date de intrare**
+
+  Pe prima linie, numărul `q`. Pe următoarele `q` linii, câte un număr natural.
+
+  **Date de ieșire**
+
+  Pentru fiecare număr, o linie: `<numar> VALID` sau
+  `<numar> INVALID (cifra de control corecta: <c>)`.
+
+  **Restricții**
+
+  - `1 ≤ q ≤ 1000`
+  - `10 ≤ numar < 10^18` (cel puțin două cifre)
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4
+  79927398713
+  79927398710
+  4000123456789010
+  18
+  ```
+
+  Ieșire:
+  ```
+  79927398713 VALID
+  79927398710 INVALID (cifra de control corecta: 3)
+  4000123456789010 INVALID (cifra de control corecta: 7)
+  18 VALID
+  ```
+starter: |
+  #include <stdio.h>
+
+  int este_valid(long long numar)
+  {
+  	/* TODO: 1 dacă numărul trece testul Luhn, 0 altfel */
+  }
+
+  int cifra_control(long long fara_control)
+  {
+  	/* TODO: cifra c (0..9) pentru care fara_control urmat de c e valid */
+  }
+
+  int main(void)
+  {
+  	int q, i;
+  	long long numar;
+
+  	scanf("%d", &q);
+  	for (i = 0; i < q; i++) {
+  		scanf("%lld", &numar);
+  		/* TODO */
+  	}
+
+  	return 0;
+  }
+hints:
+  - "Cifrele de la dreapta la stânga se obțin cu numar % 10 și numar / 10, repetat. Ține minte, cu o variabilă care alternează între 0 și 1, dacă cifra curentă se dublează."
+  - "Pentru cifra de control ai două variante: încerci pe rând c = 0..9 și verifici cu este_valid(fara_control * 10 + c), sau calculezi suma direct pe fara_control, știind că acum cifra lui cea mai din dreapta este cea care se dublează."
+  - "Cu suma S (calculată fără cifra de control, cu dublarea începând de la ultima cifră), cifra căutată este (10 - S % 10) % 10. Al doilea % 10 tratează cazul S multiplu de 10, când cifra corectă este 0."
+pitfalls:
+  - "Dublarea începe de la a doua cifră din dreapta, nu de la prima cifră din stânga: pentru numere cu lungimi diferite, cele două convenții dau rezultate diferite."
+  - "Numerele au până la 18 cifre: ai nevoie de long long și de %lld."

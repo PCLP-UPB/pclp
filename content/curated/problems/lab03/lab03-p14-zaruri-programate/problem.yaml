@@ -1,0 +1,115 @@
+id: lab03-p14-zaruri-programate
+lab: lab03
+number: 14
+title: "Zarurile programate"
+difficulty: 3
+estimated_minutes: 35
+concepts: [static, clasă de stocare, variabilă globală, funcție, void, switch]
+statement: |
+  Un joc de societate online are nevoie de zaruri **reproductibile**: pornind de la aceeași
+  „sămânță”, aruncările trebuie să iasă identic pe orice calculator, ca o partidă să poată fi
+  reluată. Pentru asta, jocul folosește propriul generator de numere pseudo-aleatoare, cu o
+  **stare** `x` care se actualizează la fiecare număr generat:
+
+  ```
+  x = (x · 1103515245 + 12345) mod 2^31
+  ```
+
+  Starea inițială (înainte de orice sămânță) este `x = 1`. Un **zar** se obține generând
+  un număr nou `x` și calculând `(x / 65536) mod 6 + 1` (împărțire întreagă).
+
+  Programul primește comenzi:
+
+  - `S s` — setează sămânța: `x = s mod 2^31`; contorul de numere generate revine la 0.
+    Nu afișează nimic.
+  - `Z k` — aruncă `k` zaruri și le afișează, fiecare urmat de un spațiu, apoi `(suma T)`.
+  - `D` — un duel: Ana aruncă două zaruri, apoi Bogdan două (în această ordine). Afișează
+    `Runda r: Ana a1+a2=A, Bogdan b1+b2=B: <rezultat>`, unde rezultatul e `castiga Ana`,
+    `castiga Bogdan` sau `egalitate`. Rundele se numără de la 1, de la pornirea programului
+    (setarea seminței **nu** resetează numărul rundei).
+  - `N` — afișează `Generate: g`, câte numere a produs generatorul de la ultima setare a
+    seminței (sau de la pornire).
+
+  Cerințe de organizare: starea generatorului și contorul trebuie să fie variabile globale
+  `static` (vizibile doar în fișierul sursă), folosite de funcțiile
+  `void seteaza_samanta(long long s)`, `long long urmatorul(void)`, `int zar(void)`;
+  numărul rundei trebuie să fie o variabilă locală `static` a funcției `void duel(void)`.
+
+  **Date de intrare**
+
+  Pe prima linie, numărul `n` de comenzi; pe fiecare dintre următoarele `n` linii, o comandă.
+
+  **Date de ieșire**
+
+  Câte o linie pentru fiecare comandă `Z`, `D` și `N`, în formatul de mai sus.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1000`, `0 ≤ s ≤ 10^9`, `1 ≤ k ≤ 100`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  6
+  Z 3
+  D
+  N
+  S 2026
+  Z 5
+  N
+  ```
+
+  Ieșire:
+  ```
+  3 5 4 (suma 12)
+  Runda 1: Ana 2+2=4, Bogdan 6+1=7: castiga Bogdan
+  Generate: 7
+  5 1 2 3 3 (suma 14)
+  Generate: 5
+  ```
+starter: |
+  #include <stdio.h>
+
+  /* TODO: starea generatorului și contorul, ca variabile globale static */
+
+  void seteaza_samanta(long long s)
+  {
+  	/* TODO */
+  }
+
+  long long urmatorul(void)
+  {
+  	/* TODO: actualizează starea, numără, întoarce noua stare */
+  }
+
+  int zar(void)
+  {
+  	/* TODO */
+  }
+
+  void duel(void)
+  {
+  	/* TODO: numărul rundei, variabilă locală static */
+  }
+
+  int main(void)
+  {
+  	int n, i;
+  	char comanda;
+
+  	scanf("%d", &n);
+  	for (i = 0; i < n; i++) {
+  		scanf(" %c", &comanda);
+  		/* TODO: switch după comandă */
+  	}
+
+  	return 0;
+  }
+hints:
+  - "Starea trebuie să supraviețuiască între apeluri și să fie comună mai multor funcții (seteaza_samanta o scrie, urmatorul o citește și o scrie): de aceea e o variabilă globală. Cuvântul static în fața ei o ascunde de alte fișiere sursă."
+  - "Toate zarurile trec prin urmatorul(), deci contorul se incrementează într-un singur loc. Pentru rundă, o variabilă static declarată în duel() e inițializată o singură dată (cu 0) și își păstrează valoarea de la un apel la altul."
+  - "Verifică tipurile: x < 2^31 și multiplicatorul ≈ 1.1 · 10^9, deci produsul are până la ~62 de biți; calculează-l în long long (2^31 scris ca 2147483648LL). În duel, aruncă întâi toate cele 4 zaruri în variabile, în ordinea din enunț, și abia apoi afișează."
+pitfalls:
+  - "Apelurile zar() direct ca argumente ale lui printf nu au o ordine de evaluare garantată: zarurile Anei și ale lui Bogdan pot ieși amestecate. Salvează-le întâi în variabile."
+  - "Un int x = 0; obișnuit în duel() ar reporni numărătoarea rundelor la fiecare apel."

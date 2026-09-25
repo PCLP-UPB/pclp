@@ -1,0 +1,100 @@
+id: lab03-p15-cifre-romane
+lab: lab03
+number: 15
+title: "Cadranul cu cifre romane"
+difficulty: 3
+estimated_minutes: 40
+concepts: [funcție, parametru, getchar, putchar, switch, modularizare]
+statement: |
+  Un atelier restaurează ceasuri vechi și plăci comemorative, pe care anii sunt scriși cu
+  **cifre romane**. Atelierul are nevoie de un convertor în ambele sensuri.
+
+  Literele romane au valorile `I = 1`, `V = 5`, `X = 10`, `L = 50`, `C = 100`, `D = 500`,
+  `M = 1000`. Un număr se scrie ordin cu ordin (mii, sute, zeci, unități), fiecare cifră
+  zecimală după același model; de exemplu, pentru unități:
+
+  | cifra | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+  |---|---|---|---|---|---|---|---|---|---|
+  | scriere | I | II | III | IV | V | VI | VII | VIII | IX |
+
+  La zeci se folosesc, în același mod, `X`, `L`, `C` (de exemplu 40 = `XL`, 90 = `XC`), la
+  sute `C`, `D`, `M` (400 = `CD`, 900 = `CM`), iar miile se scriu doar cu `M` repetat. Astfel
+  `1994 = M CM XC IV = MCMXCIV`. La citire, o literă urmată de una cu valoare mai mare se
+  **scade** (`IV = 4`), altfel se adună.
+
+  Pentru fiecare element citit: dacă este un număr zecimal, afișează-l cu cifre romane; dacă
+  este un număr roman, afișează-i valoarea zecimală. Organizează codul în funcții; de exemplu,
+  `void scrie_cifra(int cifra, char unu, char cinci, char zece)` scrie **o singură** cifră
+  zecimală cu literele ordinului ei și e apelată de patru ori pentru un număr.
+
+  **Date de intrare**
+
+  Pe prima linie, `q`. Pe fiecare dintre următoarele `q` linii, fie un număr zecimal, fie un
+  număr roman scris corect (cu majuscule, în forma standard descrisă mai sus).
+
+  **Date de ieșire**
+
+  `q` linii, pe fiecare rezultatul conversiei.
+
+  **Restricții**
+
+  - `1 ≤ q ≤ 5000`
+  - toate valorile sunt între 1 și 3999
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  5
+  2026
+  XIV
+  1994
+  MCMXCIV
+  4
+  ```
+
+  Ieșire:
+  ```
+  MMXXVI
+  14
+  MCMXCIV
+  1994
+  IV
+  ```
+starter: |
+  #include <stdio.h>
+
+  int valoare(char litera)
+  {
+  	/* TODO: valoarea literei romane (switch) */
+  }
+
+  void scrie_cifra(int cifra, char unu, char cinci, char zece)
+  {
+  	/* TODO: 0..9 scrisă cu literele date, cu putchar */
+  }
+
+  void scrie_roman(int n)
+  {
+  	/* TODO: patru apeluri scrie_cifra */
+  }
+
+  int main(void)
+  {
+  	int q, i;
+  	char prima;
+
+  	scanf("%d", &q);
+  	for (i = 0; i < q; i++) {
+  		scanf(" %c", &prima);
+  		/* TODO: cifră zecimală sau literă romană? citește restul cu getchar */
+  	}
+
+  	return 0;
+  }
+hints:
+  - "Nu ai nevoie de șiruri de caractere: citește primul caracter nenul cu scanf(\" %c\"), decide după el tipul elementului, apoi citește restul caracter cu caracter cu getchar, până la primul caracter care nu mai face parte din număr (de exemplu, '\\n')."
+  - "Arab → roman: cifra sutelor se scrie exact ca cifra unităților, doar cu alte trei litere (C, D, M în loc de I, V, X). De aceea o singură funcție parametrizată cu literele ajunge pentru toate ordinele: 9 → unu zece, 4 → unu cinci, altfel (cinci dacă cifra ≥ 5) urmat de unu repetat de (cifra mod 5) ori."
+  - "Roman → arab, fără să te uiți înainte: adună valoarea fiecărei litere; dacă litera curentă e mai mare decât precedenta, înseamnă că precedenta trebuia scăzută, nu adunată, deci scade de două ori valoarea precedentei. Exemplu: MCM → 1000, apoi +100, apoi +1000 − 2·100 = 1900."
+pitfalls:
+  - "Caracterul de după număr (newline) e consumat de getchar; asta e în regulă, pentru că următorul scanf(\" %c\") sare oricum peste spații albe."

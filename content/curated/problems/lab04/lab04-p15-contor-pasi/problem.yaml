@@ -1,0 +1,65 @@
+id: lab04-p15-contor-pasi
+lab: lab04
+number: 15
+title: "Contorul de pași"
+difficulty: 3
+estimated_minutes: 40
+concepts: [vector, căutare binară, calcularea mijlocului intervalului, long long, overflow, constantă simbolică]
+statement: |
+  O brățară de fitness a înregistrat numărul de pași făcuți în fiecare dintre cele `n` zile ale unui
+  an de studiu. Aplicația care o însoțește trebuie să răspundă rapid la multe întrebări:
+
+  - `S l r` — câți pași s-au făcut în total în zilele `l, l+1, ..., r`?
+  - `Z x` — în ce zi s-a atins pentru prima dată un total (cumulat de la ziua 1) de **cel puțin**
+    `x` pași? Dacă totalul pe toate cele `n` zile rămâne sub `x`, răspunsul este `NICIODATA`.
+
+  Cu până la `10^5` zile și `10^5` întrebări, parcurgerea zilelor la fiecare întrebare este prea
+  lentă. Precalculează o dată **sumele parțiale** și răspunde la fiecare întrebare `S` în timp
+  constant, iar la fiecare întrebare `Z` prin **căutare binară**.
+
+  **Date de intrare**
+
+  Pe prima linie, `n`. Pe a doua linie, `n` numere naturale: pașii din zilele `1..n`. Pe a treia
+  linie, numărul de întrebări `q`, apoi `q` linii cu câte o întrebare.
+
+  **Date de ieșire**
+
+  Câte o linie pentru fiecare întrebare: numărul cerut (pași sau zi) sau `NICIODATA`.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100 000`, `1 ≤ q ≤ 100 000`
+  - `0 ≤ pași într-o zi ≤ 100 000`
+  - `1 ≤ l ≤ r ≤ n`, `1 ≤ x ≤ 10^11`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  7
+  4200 10500 0 7800 12000 3000 9100
+  6
+  S 2 4
+  S 1 7
+  Z 15000
+  Z 14700
+  Z 46601
+  S 3 3
+  ```
+
+  Ieșire:
+  ```
+  18300
+  46600
+  4
+  2
+  NICIODATA
+  0
+  ```
+hints:
+  - "Construiește vectorul suma, cu suma[i] = pașii din zilele 1..i și suma[0] = 0. Atunci pașii din zilele l..r sunt suma[r] − suma[l − 1]: o singură scădere, oricât de lung ar fi intervalul."
+  - "Pașii sunt nenegativi, deci vectorul suma este crescător (nu neapărat strict). „Prima zi cu suma[d] ≥ x” este deci o căutare într-un vector sortat: căutare binară, dar nu după o valoare exactă, ci după prima poziție care îndeplinește condiția."
+  - "Căutarea: st = 1, dr = n, gasit = −1. Cât timp st ≤ dr: mij = st + (dr − st) / 2; dacă suma[mij] ≥ x, reții gasit = mij și cauți mai la stânga (dr = mij − 1); altfel st = mij + 1. La final, gasit este răspunsul (−1 înseamnă NICIODATA)."
+pitfalls:
+  - "Totalul poate ajunge la 10^10, peste limita lui int: sumele parțiale și x sunt long long."
+  - "Căutarea binară clasică se oprește la prima potrivire exactă găsită, care nu e neapărat prima zi (pot exista zile cu 0 pași, deci sume egale)."

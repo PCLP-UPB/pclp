@@ -1,0 +1,439 @@
+3 5 4 2 2 6 1 4 1 1 2 6 1 1 6 6 4 (suma 55)
+Generate: 17
+4 4 1 3 5 6 4 4 1 (suma 32)
+4 6 5 (suma 15)
+Runda 1: Ana 3+3=6, Bogdan 6+3=9: castiga Bogdan
+5 6 6 5 2 4 1 3 3 4 4 2 3 (suma 48)
+4 6 3 1 (suma 14)
+4 3 5 6 1 5 1 2 6 2 2 (suma 37)
+2 2 1 5 4 1 6 6 5 (suma 32)
+5 5 3 1 5 1 5 2 2 1 6 1 2 1 5 2 2 (suma 49)
+2 1 6 3 6 4 1 2 2 3 4 3 2 1 4 1 4 1 (suma 50)
+Runda 2: Ana 6+3=9, Bogdan 6+3=9: egalitate
+5 (suma 5)
+Runda 3: Ana 2+1=3, Bogdan 6+5=11: castiga Bogdan
+4 5 5 5 5 4 3 3 3 4 6 (suma 47)
+3 5 6 3 3 4 4 6 3 3 4 5 6 (suma 55)
+5 6 1 3 2 4 6 4 6 6 1 2 5 3 2 (suma 56)
+Runda 4: Ana 1+1=2, Bogdan 5+3=8: castiga Bogdan
+Runda 5: Ana 2+6=8, Bogdan 4+5=9: castiga Bogdan
+2 2 1 1 1 4 5 2 5 2 6 4 6 4 1 1 6 4 5 (suma 62)
+Runda 6: Ana 4+3=7, Bogdan 3+3=6: castiga Ana
+1 4 2 6 (suma 13)
+Runda 7: Ana 3+5=8, Bogdan 3+5=8: egalitate
+6 1 2 5 1 3 3 (suma 21)
+5 2 1 3 6 1 3 6 3 1 3 6 4 2 2 5 4 5 3 6 (suma 71)
+6 1 5 3 5 6 2 2 3 6 (suma 39)
+Runda 8: Ana 3+3=6, Bogdan 2+1=3: castiga Ana
+3 6 3 (suma 12)
+2 3 3 1 (suma 9)
+3 5 6 4 2 3 5 5 1 4 4 4 1 3 2 5 5 (suma 62)
+Runda 9: Ana 4+4=8, Bogdan 6+4=10: castiga Bogdan
+1 6 1 5 3 5 (suma 21)
+Runda 10: Ana 6+5=11, Bogdan 3+5=8: castiga Ana
+6 2 2 2 1 6 5 4 4 4 6 5 3 6 2 2 (suma 60)
+3 3 1 6 4 3 4 5 1 6 5 1 5 4 (suma 51)
+Runda 11: Ana 3+2=5, Bogdan 2+1=3: castiga Ana
+2 1 4 2 2 5 6 6 3 3 2 6 3 4 5 (suma 54)
+Runda 12: Ana 1+3=4, Bogdan 3+1=4: egalitate
+Generate: 19
+3 4 2 2 5 1 1 3 5 (suma 26)
+Runda 13: Ana 5+3=8, Bogdan 2+3=5: castiga Ana
+3 5 4 2 1 6 6 1 2 3 6 3 4 3 (suma 49)
+Runda 14: Ana 1+2=3, Bogdan 4+5=9: castiga Bogdan
+Generate: 4
+3 2 6 6 4 3 3 5 5 4 (suma 41)
+Runda 15: Ana 3+1=4, Bogdan 3+6=9: castiga Bogdan
+3 6 2 2 4 6 2 5 4 (suma 34)
+Runda 16: Ana 3+1=4, Bogdan 4+1=5: castiga Bogdan
+4 5 3 2 4 6 6 1 4 3 3 4 (suma 45)
+Generate: 16
+6 1 5 1 6 (suma 19)
+Runda 17: Ana 5+1=6, Bogdan 4+2=6: egalitate
+Runda 18: Ana 5+5=10, Bogdan 4+6=10: egalitate
+4 5 6 1 5 5 1 3 (suma 30)
+4 5 1 4 3 5 6 2 4 3 6 (suma 43)
+5 5 2 4 2 3 3 5 6 6 1 5 (suma 47)
+Runda 19: Ana 3+3=6, Bogdan 6+5=11: castiga Bogdan
+Generate: 4
+Runda 20: Ana 1+1=2, Bogdan 6+6=12: castiga Bogdan
+Runda 21: Ana 2+5=7, Bogdan 4+4=8: castiga Bogdan
+Runda 22: Ana 1+6=7, Bogdan 1+3=4: castiga Ana
+4 1 2 1 1 3 5 5 4 6 3 2 4 (suma 41)
+1 6 4 2 2 2 3 2 6 3 2 5 3 (suma 41)
+Runda 23: Ana 3+1=4, Bogdan 1+6=7: castiga Bogdan
+Runda 24: Ana 3+3=6, Bogdan 6+1=7: castiga Bogdan
+3 5 6 5 4 2 5 6 3 4 5 4 1 6 5 2 3 5 5 3 (suma 82)
+Generate: 0
+6 3 2 3 6 6 5 1 6 6 6 (suma 50)
+2 4 6 4 2 1 6 (suma 25)
+3 4 5 6 6 5 3 5 2 (suma 39)
+2 2 3 5 1 (suma 13)
+Runda 25: Ana 2+4=6, Bogdan 2+4=6: egalitate
+2 4 6 3 (suma 15)
+3 1 3 3 3 4 3 1 4 3 1 5 (suma 34)
+Runda 26: Ana 6+2=8, Bogdan 4+4=8: egalitate
+6 6 2 6 4 1 2 5 5 6 2 3 5 6 4 (suma 63)
+5 2 1 2 1 (suma 11)
+Runda 27: Ana 2+3=5, Bogdan 6+2=8: castiga Bogdan
+4 (suma 4)
+Runda 28: Ana 2+5=7, Bogdan 1+1=2: castiga Ana
+6 3 2 5 3 2 5 1 1 4 2 5 (suma 39)
+Generate: 79
+Runda 29: Ana 6+6=12, Bogdan 2+4=6: castiga Ana
+Runda 30: Ana 5+1=6, Bogdan 4+6=10: castiga Bogdan
+Runda 31: Ana 6+2=8, Bogdan 6+4=10: castiga Bogdan
+Runda 32: Ana 4+6=10, Bogdan 2+2=4: castiga Ana
+2 2 1 5 3 1 2 3 2 6 6 4 5 4 4 2 (suma 52)
+6 2 5 (suma 13)
+Runda 33: Ana 4+1=5, Bogdan 2+4=6: castiga Bogdan
+Runda 34: Ana 5+2=7, Bogdan 1+2=3: castiga Ana
+Runda 35: Ana 3+4=7, Bogdan 3+2=5: castiga Ana
+Runda 36: Ana 3+3=6, Bogdan 6+5=11: castiga Bogdan
+Generate: 12
+Generate: 0
+Runda 37: Ana 1+5=6, Bogdan 5+1=6: egalitate
+Runda 38: Ana 4+1=5, Bogdan 1+5=6: castiga Bogdan
+Generate: 8
+Runda 39: Ana 3+4=7, Bogdan 4+1=5: castiga Ana
+Runda 40: Ana 1+5=6, Bogdan 2+2=4: castiga Ana
+3 5 3 1 4 2 5 5 1 2 1 1 4 3 4 (suma 44)
+4 4 5 6 6 5 5 1 4 3 5 5 5 2 6 3 (suma 69)
+Runda 41: Ana 5+6=11, Bogdan 4+4=8: castiga Ana
+Generate: 0
+6 5 2 1 4 5 4 5 2 3 3 6 2 6 1 3 1 3 1 (suma 63)
+Runda 42: Ana 4+3=7, Bogdan 2+3=5: castiga Ana
+3 (suma 3)
+Generate: 1
+Generate: 1
+Runda 43: Ana 5+4=9, Bogdan 5+1=6: castiga Ana
+4 5 3 6 2 2 4 1 4 6 3 6 5 3 2 (suma 56)
+5 4 4 4 5 5 2 3 2 2 4 (suma 40)
+1 5 2 4 1 5 6 2 6 4 4 2 5 5 4 3 2 1 5 (suma 67)
+Runda 44: Ana 3+2=5, Bogdan 6+3=9: castiga Bogdan
+Runda 45: Ana 1+4=5, Bogdan 5+1=6: castiga Bogdan
+Generate: 27
+Runda 46: Ana 2+6=8, Bogdan 4+6=10: castiga Bogdan
+Runda 47: Ana 4+3=7, Bogdan 6+6=12: castiga Bogdan
+4 3 5 (suma 12)
+Generate: 38
+5 6 6 4 3 5 2 3 2 3 3 6 6 (suma 54)
+Runda 48: Ana 6+3=9, Bogdan 3+5=8: castiga Ana
+5 5 4 4 4 3 1 3 5 4 5 2 6 4 (suma 55)
+Generate: 69
+Runda 49: Ana 3+6=9, Bogdan 4+1=5: castiga Ana
+2 1 2 3 3 3 5 2 2 6 1 3 5 1 5 5 (suma 49)
+4 4 6 6 4 5 6 2 3 5 1 4 6 4 6 1 1 (suma 68)
+Generate: 106
+Runda 50: Ana 5+4=9, Bogdan 1+6=7: castiga Ana
+Runda 51: Ana 5+6=11, Bogdan 4+2=6: castiga Ana
+6 3 1 (suma 10)
+3 2 3 (suma 8)
+2 4 4 1 2 4 1 2 6 4 1 5 1 1 4 2 5 4 (suma 53)
+Runda 52: Ana 4+5=9, Bogdan 3+1=4: castiga Ana
+Runda 53: Ana 2+6=8, Bogdan 3+3=6: castiga Ana
+Runda 54: Ana 5+6=11, Bogdan 2+5=7: castiga Ana
+Runda 55: Ana 3+6=9, Bogdan 6+2=8: castiga Ana
+3 4 5 2 4 1 2 1 (suma 22)
+Runda 56: Ana 2+6=8, Bogdan 6+6=12: castiga Bogdan
+Runda 57: Ana 4+2=6, Bogdan 4+4=8: castiga Bogdan
+3 5 4 2 5 5 2 2 6 1 3 2 (suma 40)
+3 1 2 3 1 4 1 (suma 15)
+2 6 2 5 6 1 3 3 3 6 5 1 1 5 2 3 5 6 1 6 (suma 72)
+5 4 6 1 4 1 4 (suma 25)
+Runda 58: Ana 6+6=12, Bogdan 1+2=3: castiga Ana
+2 3 4 5 3 2 6 6 5 4 3 1 4 4 6 5 (suma 63)
+Runda 59: Ana 1+1=2, Bogdan 1+1=2: egalitate
+Generate: 74
+Runda 60: Ana 1+1=2, Bogdan 5+1=6: castiga Bogdan
+2 2 1 1 2 4 3 6 3 (suma 24)
+6 1 4 3 5 5 6 5 5 5 (suma 45)
+Runda 61: Ana 3+3=6, Bogdan 4+1=5: castiga Ana
+6 4 6 1 3 5 3 6 1 2 2 1 1 5 5 3 6 (suma 60)
+6 6 2 1 4 4 1 3 3 3 (suma 33)
+3 6 5 4 3 1 (suma 22)
+6 (suma 6)
+6 4 4 (suma 14)
+Generate: 20
+Runda 62: Ana 2+3=5, Bogdan 1+5=6: castiga Bogdan
+4 6 5 6 4 6 1 3 1 2 (suma 38)
+Runda 63: Ana 5+1=6, Bogdan 4+4=8: castiga Bogdan
+Runda 64: Ana 6+5=11, Bogdan 1+3=4: castiga Ana
+Runda 65: Ana 3+6=9, Bogdan 5+2=7: castiga Ana
+Runda 66: Ana 6+5=11, Bogdan 2+3=5: castiga Ana
+3 2 1 2 4 4 1 2 (suma 19)
+Runda 67: Ana 1+3=4, Bogdan 4+4=8: castiga Bogdan
+Runda 68: Ana 5+1=6, Bogdan 3+6=9: castiga Bogdan
+5 5 6 4 2 5 6 1 6 2 5 1 2 3 4 1 6 (suma 64)
+Generate: 83
+3 (suma 3)
+Runda 69: Ana 3+1=4, Bogdan 2+1=3: castiga Ana
+5 2 3 2 2 4 4 (suma 22)
+Runda 70: Ana 2+3=5, Bogdan 5+4=9: castiga Bogdan
+2 4 6 1 4 6 5 4 5 2 3 2 3 5 2 5 6 (suma 65)
+Runda 71: Ana 6+3=9, Bogdan 2+6=8: castiga Ana
+1 1 4 6 1 4 2 3 5 6 2 4 3 (suma 42)
+5 6 5 4 5 1 3 4 4 2 4 6 3 1 4 (suma 57)
+3 5 2 3 (suma 13)
+3 4 1 5 5 6 3 4 3 3 3 6 1 6 6 4 1 5 4 4 (suma 77)
+Runda 72: Ana 1+1=2, Bogdan 5+1=6: castiga Bogdan
+Runda 73: Ana 1+3=4, Bogdan 4+5=9: castiga Bogdan
+Generate: 4
+4 5 5 5 2 1 6 1 4 6 5 1 1 3 2 2 5 1 (suma 59)
+Generate: 18
+Runda 74: Ana 3+1=4, Bogdan 2+5=7: castiga Bogdan
+4 4 1 (suma 9)
+2 3 5 6 4 6 2 5 1 4 1 1 6 4 1 2 (suma 53)
+Runda 75: Ana 6+6=12, Bogdan 2+3=5: castiga Ana
+Generate: 0
+Runda 76: Ana 1+5=6, Bogdan 5+2=7: castiga Bogdan
+Runda 77: Ana 3+5=8, Bogdan 6+5=11: castiga Bogdan
+4 3 3 3 (suma 13)
+5 3 3 1 5 6 3 5 6 4 1 6 1 3 2 6 1 4 (suma 65)
+5 6 6 3 5 6 3 6 4 1 5 3 6 (suma 59)
+Runda 78: Ana 6+2=8, Bogdan 2+2=4: castiga Ana
+Runda 79: Ana 4+2=6, Bogdan 4+6=10: castiga Bogdan
+Runda 80: Ana 2+6=8, Bogdan 4+3=7: castiga Ana
+Runda 81: Ana 3+2=5, Bogdan 1+1=2: castiga Ana
+2 5 6 5 4 1 6 1 1 4 5 5 2 1 2 3 4 (suma 57)
+3 2 3 2 6 4 2 3 1 (suma 26)
+5 4 3 2 3 6 3 3 6 2 1 4 5 4 1 4 (suma 56)
+Generate: 101
+Runda 82: Ana 3+5=8, Bogdan 2+6=8: egalitate
+Runda 83: Ana 2+3=5, Bogdan 5+1=6: castiga Bogdan
+4 6 (suma 10)
+Runda 84: Ana 2+3=5, Bogdan 1+2=3: castiga Ana
+3 6 2 2 2 4 1 6 6 6 4 6 6 5 1 4 4 1 (suma 69)
+5 1 1 5 3 2 4 3 6 1 4 2 2 5 5 6 4 (suma 59)
+Runda 85: Ana 1+6=7, Bogdan 4+1=5: castiga Ana
+Generate: 45
+5 5 3 5 2 1 5 5 4 (suma 35)
+6 4 5 5 3 4 (suma 27)
+Runda 86: Ana 6+1=7, Bogdan 6+1=7: egalitate
+3 1 3 6 5 4 1 (suma 23)
+Runda 87: Ana 2+1=3, Bogdan 6+6=12: castiga Bogdan
+Generate: 11
+Runda 88: Ana 5+3=8, Bogdan 1+5=6: castiga Ana
+Generate: 15
+5 2 2 1 3 5 4 4 5 6 3 4 2 5 2 1 1 6 (suma 61)
+Runda 89: Ana 4+4=8, Bogdan 5+2=7: castiga Ana
+Runda 90: Ana 2+4=6, Bogdan 3+2=5: castiga Ana
+2 1 2 2 2 6 6 1 (suma 22)
+Runda 91: Ana 4+6=10, Bogdan 2+5=7: castiga Ana
+1 5 4 4 (suma 14)
+3 1 1 6 4 5 4 1 1 5 1 2 5 3 4 1 3 (suma 50)
+Runda 92: Ana 1+1=2, Bogdan 3+5=8: castiga Bogdan
+3 2 5 1 1 4 4 (suma 20)
+5 5 5 2 (suma 17)
+3 (suma 3)
+3 2 2 2 2 5 2 2 5 5 (suma 30)
+Runda 93: Ana 6+3=9, Bogdan 6+2=8: castiga Ana
+1 3 3 6 4 (suma 17)
+2 5 1 1 4 3 2 1 2 (suma 21)
+Runda 94: Ana 5+4=9, Bogdan 4+3=7: castiga Ana
+Runda 95: Ana 3+6=9, Bogdan 3+5=8: castiga Ana
+Runda 96: Ana 2+4=6, Bogdan 5+5=10: castiga Bogdan
+4 4 5 1 2 1 5 3 3 1 3 5 3 5 1 2 (suma 48)
+5 1 3 2 3 2 4 4 (suma 24)
+Runda 97: Ana 2+2=4, Bogdan 6+3=9: castiga Bogdan
+2 6 5 6 1 (suma 20)
+5 6 1 6 2 6 6 6 4 (suma 42)
+Generate: 50
+Generate: 50
+Generate: 50
+Runda 98: Ana 3+4=7, Bogdan 4+2=6: castiga Ana
+Generate: 54
+6 3 5 6 (suma 20)
+5 2 1 1 5 6 2 4 6 1 6 2 4 (suma 45)
+5 6 5 1 4 5 5 3 3 4 1 4 4 1 (suma 51)
+5 1 1 6 5 6 3 5 6 2 6 1 6 3 2 5 5 2 (suma 70)
+2 5 1 6 3 1 1 3 1 6 4 4 6 5 5 1 4 1 (suma 59)
+Generate: 0
+2 6 1 3 4 2 2 5 2 4 3 5 5 3 4 (suma 51)
+4 6 1 1 4 4 3 1 6 2 6 5 4 (suma 47)
+Runda 99: Ana 1+6=7, Bogdan 2+4=6: castiga Ana
+5 3 2 (suma 10)
+1 2 5 3 1 5 3 1 2 2 1 5 4 6 3 3 5 (suma 52)
+Runda 100: Ana 1+3=4, Bogdan 6+4=10: castiga Bogdan
+3 1 6 1 1 1 6 6 5 3 1 5 6 5 1 4 3 (suma 58)
+6 3 4 6 1 4 5 2 6 6 2 3 4 4 (suma 56)
+Runda 101: Ana 4+2=6, Bogdan 2+2=4: castiga Ana
+4 2 6 4 5 2 4 5 4 4 6 5 (suma 51)
+6 1 6 1 3 1 3 3 2 4 4 5 2 3 6 6 4 4 5 (suma 69)
+4 3 1 3 2 2 6 3 6 (suma 30)
+1 2 1 5 3 5 1 4 5 1 5 5 (suma 38)
+1 1 4 1 5 (suma 12)
+Runda 102: Ana 4+1=5, Bogdan 1+4=5: egalitate
+3 2 2 3 3 3 4 2 6 3 5 4 1 1 6 2 (suma 50)
+Runda 103: Ana 6+2=8, Bogdan 6+3=9: castiga Bogdan
+Generate: 140
+Runda 104: Ana 4+2=6, Bogdan 2+2=4: castiga Ana
+3 3 (suma 6)
+5 (suma 5)
+Runda 105: Ana 5+1=6, Bogdan 2+6=8: castiga Bogdan
+Runda 106: Ana 3+5=8, Bogdan 4+3=7: castiga Ana
+2 5 2 4 4 3 6 (suma 26)
+Runda 107: Ana 5+6=11, Bogdan 5+3=8: castiga Ana
+2 5 (suma 7)
+2 4 2 4 6 (suma 18)
+Generate: 26
+Generate: 0
+Runda 108: Ana 4+4=8, Bogdan 5+1=6: castiga Ana
+4 4 (suma 8)
+5 6 4 3 3 2 6 4 2 6 1 4 6 5 2 2 6 5 5 (suma 77)
+Runda 109: Ana 3+2=5, Bogdan 3+5=8: castiga Bogdan
+4 6 6 1 4 6 3 2 5 5 5 1 1 3 (suma 52)
+Runda 110: Ana 5+6=11, Bogdan 2+1=3: castiga Ana
+5 4 (suma 9)
+Runda 111: Ana 6+6=12, Bogdan 1+6=7: castiga Ana
+2 4 1 5 6 1 5 6 5 2 3 5 1 4 4 1 5 1 6 6 (suma 73)
+5 4 6 3 2 2 2 5 1 6 (suma 36)
+5 1 (suma 6)
+Runda 112: Ana 1+4=5, Bogdan 6+2=8: castiga Bogdan
+2 2 2 5 4 2 2 3 4 4 5 1 2 5 5 (suma 48)
+Runda 113: Ana 4+2=6, Bogdan 3+4=7: castiga Bogdan
+1 6 3 2 1 1 6 2 (suma 22)
+2 1 1 1 2 2 1 5 3 (suma 18)
+Runda 114: Ana 5+6=11, Bogdan 4+6=10: castiga Ana
+Generate: 56
+2 4 6 3 5 5 2 5 6 2 6 4 5 3 3 5 (suma 66)
+Runda 115: Ana 6+3=9, Bogdan 3+2=5: castiga Ana
+Runda 116: Ana 5+4=9, Bogdan 5+4=9: egalitate
+Runda 117: Ana 2+5=7, Bogdan 5+2=7: egalitate
+Runda 118: Ana 2+2=4, Bogdan 5+1=6: castiga Bogdan
+1 4 2 6 5 2 4 1 1 (suma 26)
+Generate: 97
+1 1 2 (suma 4)
+Runda 119: Ana 6+5=11, Bogdan 5+5=10: castiga Ana
+3 5 4 4 1 2 (suma 19)
+1 6 6 6 6 4 1 4 1 3 6 1 1 1 4 5 2 2 4 (suma 64)
+Runda 120: Ana 6+6=12, Bogdan 5+2=7: castiga Ana
+5 6 3 4 6 5 2 2 1 3 (suma 37)
+2 6 3 6 3 1 6 4 4 6 5 5 4 1 6 4 6 6 (suma 78)
+4 3 (suma 7)
+6 4 4 6 2 4 3 3 6 4 3 3 1 3 3 3 4 2 (suma 64)
+Runda 121: Ana 3+6=9, Bogdan 3+4=7: castiga Ana
+Generate: 185
+Generate: 0
+3 2 5 3 5 3 2 1 5 1 4 3 3 6 6 2 1 (suma 55)
+Runda 122: Ana 4+2=6, Bogdan 3+5=8: castiga Bogdan
+Generate: 21
+Runda 123: Ana 6+6=12, Bogdan 4+3=7: castiga Ana
+Runda 124: Ana 5+2=7, Bogdan 4+2=6: castiga Ana
+5 2 2 1 6 1 3 2 5 5 4 4 4 (suma 44)
+Runda 125: Ana 1+2=3, Bogdan 2+2=4: castiga Bogdan
+4 2 1 3 5 4 5 (suma 24)
+5 6 6 5 3 1 1 3 5 1 3 1 1 4 6 4 1 2 (suma 58)
+Runda 126: Ana 5+5=10, Bogdan 2+1=3: castiga Ana
+4 2 3 6 3 5 5 (suma 28)
+3 3 3 1 1 5 4 6 5 1 4 5 (suma 41)
+Runda 127: Ana 3+6=9, Bogdan 5+3=8: castiga Ana
+Runda 128: Ana 4+2=6, Bogdan 5+1=6: egalitate
+Runda 129: Ana 1+2=3, Bogdan 1+2=3: egalitate
+Generate: 106
+Generate: 106
+Runda 130: Ana 4+6=10, Bogdan 1+4=5: castiga Ana
+Generate: 110
+6 1 1 2 3 3 6 2 2 3 3 6 4 1 6 1 1 5 4 5 (suma 65)
+Runda 131: Ana 2+5=7, Bogdan 3+6=9: castiga Bogdan
+1 5 2 3 (suma 11)
+2 5 6 6 2 4 6 2 3 4 6 (suma 46)
+2 5 4 5 6 5 3 3 3 6 6 (suma 48)
+Runda 132: Ana 5+6=11, Bogdan 4+4=8: castiga Ana
+1 1 3 1 5 1 1 (suma 13)
+Runda 133: Ana 3+5=8, Bogdan 6+3=9: castiga Bogdan
+1 2 5 4 4 2 2 3 6 4 1 3 1 2 6 (suma 46)
+Generate: 30
+1 4 5 5 2 1 4 6 6 3 (suma 37)
+Generate: 10
+Generate: 10
+4 1 1 2 3 4 5 2 5 5 (suma 32)
+1 4 4 3 5 1 1 3 2 5 5 3 6 5 5 2 (suma 55)
+1 5 4 1 6 5 3 5 6 (suma 36)
+Generate: 0
+2 2 3 6 4 2 6 1 6 6 3 (suma 41)
+Runda 134: Ana 4+1=5, Bogdan 6+2=8: castiga Bogdan
+5 5 5 (suma 15)
+3 4 3 6 6 5 5 4 2 2 5 4 4 1 3 1 4 5 1 5 (suma 73)
+Runda 135: Ana 4+3=7, Bogdan 2+5=7: egalitate
+Runda 136: Ana 5+3=8, Bogdan 3+5=8: egalitate
+Generate: 46
+Runda 137: Ana 6+5=11, Bogdan 6+2=8: castiga Ana
+Runda 138: Ana 2+4=6, Bogdan 6+1=7: castiga Bogdan
+Generate: 54
+Runda 139: Ana 2+1=3, Bogdan 2+2=4: castiga Bogdan
+Runda 140: Ana 4+4=8, Bogdan 6+4=10: castiga Bogdan
+1 3 3 5 6 2 6 1 1 2 4 4 4 (suma 42)
+4 3 5 3 (suma 15)
+5 1 3 5 4 1 6 1 1 5 5 2 3 1 3 5 1 5 (suma 57)
+Runda 141: Ana 3+4=7, Bogdan 4+1=5: castiga Ana
+2 6 6 4 6 2 5 6 (suma 37)
+2 6 3 5 6 5 (suma 27)
+Runda 142: Ana 4+2=6, Bogdan 1+3=4: castiga Ana
+4 4 6 2 3 5 4 5 3 5 4 1 5 2 1 2 3 1 4 (suma 64)
+Runda 143: Ana 1+3=4, Bogdan 4+3=7: castiga Bogdan
+Runda 144: Ana 1+5=6, Bogdan 6+5=11: castiga Bogdan
+Runda 145: Ana 5+3=8, Bogdan 3+4=7: castiga Ana
+Runda 146: Ana 2+6=8, Bogdan 5+3=8: egalitate
+Runda 147: Ana 5+1=6, Bogdan 6+6=12: castiga Bogdan
+Runda 148: Ana 5+3=8, Bogdan 1+1=2: castiga Ana
+Runda 149: Ana 1+1=2, Bogdan 5+2=7: castiga Bogdan
+1 4 6 3 6 2 1 6 6 5 5 1 1 6 (suma 53)
+Runda 150: Ana 1+3=4, Bogdan 2+4=6: castiga Bogdan
+1 3 2 3 2 4 4 1 4 (suma 24)
+1 4 3 5 6 3 1 5 6 4 2 4 1 (suma 45)
+2 1 6 3 2 1 4 (suma 19)
+3 4 2 2 2 3 3 2 2 1 5 2 2 (suma 33)
+Generate: 226
+Runda 151: Ana 1+4=5, Bogdan 5+6=11: castiga Bogdan
+6 2 6 3 5 1 (suma 23)
+Generate: 236
+4 3 6 4 (suma 17)
+Runda 152: Ana 5+4=9, Bogdan 3+4=7: castiga Ana
+6 2 3 3 (suma 14)
+Runda 153: Ana 5+2=7, Bogdan 1+2=3: castiga Ana
+Generate: 8
+Runda 154: Ana 6+4=10, Bogdan 4+6=10: egalitate
+Runda 155: Ana 1+4=5, Bogdan 6+3=9: castiga Bogdan
+4 6 1 1 3 4 1 (suma 20)
+Runda 156: Ana 6+4=10, Bogdan 3+5=8: castiga Ana
+Runda 157: Ana 5+6=11, Bogdan 4+6=10: castiga Ana
+3 3 4 4 3 4 3 2 5 5 1 2 1 1 5 4 (suma 50)
+Runda 158: Ana 1+6=7, Bogdan 4+3=7: egalitate
+6 (suma 6)
+Runda 159: Ana 3+5=8, Bogdan 3+4=7: castiga Ana
+Runda 160: Ana 4+2=6, Bogdan 4+5=9: castiga Bogdan
+3 4 1 4 (suma 12)
+4 1 2 1 1 2 2 3 4 6 3 5 5 6 6 6 (suma 57)
+5 6 4 4 5 6 5 3 6 6 5 2 1 5 1 2 5 1 6 5 (suma 83)
+4 3 3 3 1 5 5 3 3 4 1 1 4 6 1 2 (suma 49)
+Runda 161: Ana 5+5=10, Bogdan 4+6=10: egalitate
+3 4 1 4 2 1 5 2 1 2 4 1 (suma 30)
+1 1 4 6 6 6 4 2 2 (suma 32)
+Generate: 141
+Runda 162: Ana 4+4=8, Bogdan 6+6=12: castiga Bogdan
+4 3 1 4 3 1 4 5 4 1 (suma 30)
+Runda 163: Ana 6+5=11, Bogdan 4+1=5: castiga Ana
+3 6 5 5 4 5 4 1 6 3 6 3 2 2 2 6 1 (suma 64)
+Runda 164: Ana 5+3=8, Bogdan 4+1=5: castiga Ana
+Generate: 180
+4 4 1 4 4 1 2 5 3 2 5 4 6 6 4 1 6 4 4 (suma 70)
+3 1 2 6 2 5 6 3 2 4 1 4 2 4 5 2 1 6 1 3 (suma 63)
+Generate: 0
+Runda 165: Ana 5+4=9, Bogdan 6+5=11: castiga Bogdan
+Generate: 4
+Runda 166: Ana 1+5=6, Bogdan 3+3=6: egalitate
+3 5 2 6 5 4 4 6 6 6 6 2 4 3 6 3 (suma 71)
+Runda 167: Ana 5+1=6, Bogdan 2+6=8: castiga Bogdan
+Runda 168: Ana 4+2=6, Bogdan 5+1=6: egalitate
+3 2 3 2 2 1 3 3 6 6 6 5 (suma 42)
+5 6 6 5 3 5 6 4 5 4 3 4 3 1 3 4 3 (suma 70)
+Generate: 61
+Runda 169: Ana 5+4=9, Bogdan 3+3=6: castiga Ana
+6 4 4 6 6 6 2 1 4 3 (suma 42)
+Runda 170: Ana 2+5=7, Bogdan 6+1=7: egalitate
+Runda 171: Ana 2+3=5, Bogdan 1+6=7: castiga Bogdan
+2 3 (suma 5)
+5 6 (suma 11)
+Runda 172: Ana 1+6=7, Bogdan 4+2=6: castiga Ana
+Generate: 8

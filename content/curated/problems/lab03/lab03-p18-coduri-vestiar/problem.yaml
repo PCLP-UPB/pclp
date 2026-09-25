@@ -1,0 +1,83 @@
+id: lab03-p18-coduri-vestiar
+lab: lab03
+number: 18
+title: "Codurile de la vestiar"
+difficulty: 4
+estimated_minutes: 60
+concepts: [recursivitate, condiție de oprire, funcție, putchar, buclă imbricată]
+statement: |
+  Dulapurile de la vestiarul sălii de sport se închid cu lacăte cu cifru de `k` cifre (de la
+  0 la 9). Ca să fie ușor de ținut minte, administratorul acceptă doar coduri în care:
+
+  - fiecare cifră este **cu cel puțin `d` mai mare** decât cifra dinaintea ei
+    (pentru `d = 0`, cifrele trebuie doar să nu scadă);
+  - suma cifrelor este exact `S`.
+
+  Aplicația de la recepție listează toate codurile acceptate în **ordine crescătoare** (ca numere
+  cu exact `k` cifre, eventual cu zerouri în față) și le numerotează de la 1. Un client cere
+  codul cu numărul `p`. Afișează câte coduri există și, pentru fiecare cerere, codul corespunzător.
+
+  De exemplu, pentru `k = 3`, `S = 12`, `d = 2`, codurile sunt `039, 048, 057, 138, 147, 246`.
+
+  Nu ai voie să folosești vectori: rezolvă cu funcții **recursive**. O idee bună este o funcție
+  `int numara(int ramase, int minim, int pas, int suma)`, care întoarce câte coduri de `ramase`
+  cifre au prima cifră cel puțin `minim`, respectă regula pasului și au suma cifrelor `suma`.
+
+  **Date de intrare**
+
+  Pe prima linie, patru numere `k S d q`. Pe a doua linie, `q` numere `p`.
+
+  **Date de ieșire**
+
+  Pe prima linie, numărul total de coduri acceptate. Apoi, pentru fiecare `p`, câte o linie cu
+  codul cu numărul `p` (exact `k` cifre) sau `-` dacă nu există atâtea coduri.
+
+  **Restricții**
+
+  - `1 ≤ k ≤ 12`, `0 ≤ d ≤ 9`, `0 ≤ S ≤ 108`
+  - `1 ≤ q ≤ 100`, `1 ≤ p ≤ 10^9`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3 12 2 3
+  1 5 100
+  ```
+
+  Ieșire:
+  ```
+  6
+  039
+  147
+  -
+  ```
+starter: |
+  #include <stdio.h>
+
+  int numara(int ramase, int minim, int pas, int suma)
+  {
+  	/* TODO: câte coduri de „ramase” cifre, cu prima cifră >= minim, suma „suma” */
+  }
+
+  void afiseaza_codul(int ramase, int minim, int pas, int suma, int p)
+  {
+  	/* TODO: afișează al p-lea dintre codurile numărate de numara(...) */
+  }
+
+  int main(void)
+  {
+  	int k, s, d, q;
+
+  	scanf("%d%d%d%d", &k, &s, &d, &q);
+  	/* TODO */
+
+  	return 0;
+  }
+hints:
+  - "Un cod se construiește cifră cu cifră: după ce ai ales prima cifră c, restul codului este tot un cod (cu o cifră mai puțin), a cărui primă cifră trebuie să fie cel puțin c + d și a cărui sumă trebuie să fie S − c. Asta îți dă recursivitatea pentru numara; cazul de bază e ramase = 0 (există exact un cod gol, dacă suma rămasă e 0)."
+  - "Codurile în ordine crescătoare sunt grupate după prima cifră: întâi toate cele care încep cu cea mai mică cifră posibilă, apoi cele cu următoarea etc. Dacă știi câte coduri sunt în fiecare grup (cu numara), poți afla în ce grup cade al p-lea cod fără să le generezi pe toate."
+  - "afiseaza_codul: pentru c de la minim la 9, calculează cate = numara(ramase − 1, c + pas, pas, suma − c). Dacă p ≤ cate, afișează c și continuă recursiv cu (ramase − 1, c + pas, suma − c, p); altfel p = p − cate și încerci următoarea cifră. Pentru viteză, în numara renunță imediat când suma rămasă e negativă sau nu mai poate fi atinsă (de exemplu, 9 · ramase < suma)."
+pitfalls:
+  - "Codurile pot începe cu 0 (de exemplu 039): afișează cifrele una câte una, nu ca un număr întreg cu %d."
+  - "Pentru d = 0 sunt permise cifre egale (0011...); nu presupune că cifrele sunt distincte."

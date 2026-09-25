@@ -1,0 +1,68 @@
+id: lab04-p16-editor-imagini
+lab: lab04
+number: 16
+title: "Mini-editorul de imagini"
+difficulty: 3
+estimated_minutes: 45
+concepts: [matrice, indice, buclă imbricată, interschimbare, switch, constantă simbolică]
+statement: |
+  O imagine în tonuri de gri este o matrice cu `n` linii și `m` coloane, cu valori între 0 (negru)
+  și 255 (alb). Scrie nucleul unui mini-editor care aplică, în ordine, o serie de operații:
+
+  - `R` — rotire cu 90° **în sensul acelor de ceasornic** (imaginea devine `m × n`);
+  - `L` — rotire cu 90° **în sens invers** acelor de ceasornic (imaginea devine `m × n`);
+  - `H` — oglindire stânga–dreapta (fiecare linie se citește de la coadă la cap);
+  - `V` — oglindire sus–jos (ordinea liniilor se inversează);
+  - `I` — negativ: fiecare valoare `v` devine `255 − v`.
+
+  De exemplu, rotirea spre dreapta a imaginii
+
+  ```
+  1 2 3
+  4 5 6
+  ```
+
+  dă imaginea de 3 × 2 cu liniile `4 1`, `5 2`, `6 3`.
+
+  Scrie câte o funcție pentru fiecare operație și afișează imaginea finală.
+
+  **Date de intrare**
+
+  Pe prima linie, `n m`. Pe următoarele `n` linii, câte `m` valori. Apoi numărul de operații `q`
+  și, pe ultima linie, cele `q` litere ale operațiilor, separate prin spații.
+
+  **Date de ieșire**
+
+  Pe prima linie, dimensiunile imaginii finale (linii, coloane). Apoi imaginea, câte o linie a
+  matricei pe rând, cu valorile separate prin câte un spațiu.
+
+  **Restricții**
+
+  - `1 ≤ n, m ≤ 100`
+  - `1 ≤ q ≤ 1000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  2 3
+  1 2 3
+  4 5 6
+  2
+  R H
+  ```
+
+  Ieșire:
+  ```
+  3 2
+  1 4
+  2 5
+  3 6
+  ```
+hints:
+  - "Oglindirile și negativul se pot face pe loc, interschimbând elemente simetrice (oglindire) sau transformând fiecare valoare. Rotirile schimbă forma imaginii, deci le construiești într-o a doua matrice, pe care apoi o copiezi înapoi, actualizând n și m."
+  - "Ca să afli unde ajunge un element la rotire, urmărește colțurile: la rotirea spre dreapta, colțul stânga-jos (n − 1, 0) ajunge în stânga-sus (0, 0), iar stânga-sus (0, 0) ajunge în dreapta-sus (0, n − 1). De aici: elementul (i, j) ajunge în (j, n − 1 − i)."
+  - "Pentru rotirea spre stânga, (i, j) ajunge în (m − 1 − j, i). La oglindiri, interschimbă doar până la jumătate (j < m / 2, respectiv i < n / 2) — altfel fiecare pereche e interschimbată de două ori și imaginea rămâne neschimbată. Dimensiunile n și m pot fi variabile globale, ca să le poată modifica funcțiile de rotire."
+pitfalls:
+  - "Rotirea „pe loc” în aceeași matrice suprascrie valori pe care încă nu le-ai mutat; folosește o matrice auxiliară."
+  - "După o rotire, n și m se schimbă între ele: operațiile următoare trebuie să folosească noile dimensiuni."

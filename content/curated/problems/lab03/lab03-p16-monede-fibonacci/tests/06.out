@@ -1,0 +1,150 @@
+1 = 1
+monede: 1
+cod: 1
+2 = 2
+monede: 1
+cod: 10
+3 = 3
+monede: 1
+cod: 100
+4 = 3 + 1
+monede: 2
+cod: 101
+5 = 5
+monede: 1
+cod: 1000
+6 = 5 + 1
+monede: 2
+cod: 1001
+7 = 5 + 2
+monede: 2
+cod: 1010
+8 = 8
+monede: 1
+cod: 10000
+9 = 8 + 1
+monede: 2
+cod: 10001
+10 = 8 + 2
+monede: 2
+cod: 10010
+11 = 8 + 3
+monede: 2
+cod: 10100
+12 = 8 + 3 + 1
+monede: 3
+cod: 10101
+13 = 13
+monede: 1
+cod: 100000
+14 = 13 + 1
+monede: 2
+cod: 100001
+15 = 13 + 2
+monede: 2
+cod: 100010
+16 = 13 + 3
+monede: 2
+cod: 100100
+17 = 13 + 3 + 1
+monede: 3
+cod: 100101
+18 = 13 + 5
+monede: 2
+cod: 101000
+19 = 13 + 5 + 1
+monede: 3
+cod: 101001
+20 = 13 + 5 + 2
+monede: 3
+cod: 101010
+21 = 21
+monede: 1
+cod: 1000000
+22 = 21 + 1
+monede: 2
+cod: 1000001
+23 = 21 + 2
+monede: 2
+cod: 1000010
+24 = 21 + 3
+monede: 2
+cod: 1000100
+25 = 21 + 3 + 1
+monede: 3
+cod: 1000101
+26 = 21 + 5
+monede: 2
+cod: 1001000
+27 = 21 + 5 + 1
+monede: 3
+cod: 1001001
+28 = 21 + 5 + 2
+monede: 3
+cod: 1001010
+29 = 21 + 8
+monede: 2
+cod: 1010000
+30 = 21 + 8 + 1
+monede: 3
+cod: 1010001
+31 = 21 + 8 + 2
+monede: 3
+cod: 1010010
+32 = 21 + 8 + 3
+monede: 3
+cod: 1010100
+33 = 21 + 8 + 3 + 1
+monede: 4
+cod: 1010101
+34 = 34
+monede: 1
+cod: 10000000
+35 = 34 + 1
+monede: 2
+cod: 10000001
+36 = 34 + 2
+monede: 2
+cod: 10000010
+37 = 34 + 3
+monede: 2
+cod: 10000100
+38 = 34 + 3 + 1
+monede: 3
+cod: 10000101
+39 = 34 + 5
+monede: 2
+cod: 10001000
+40 = 34 + 5 + 1
+monede: 3
+cod: 10001001
+41 = 34 + 5 + 2
+monede: 3
+cod: 10001010
+42 = 34 + 8
+monede: 2
+cod: 10010000
+43 = 34 + 8 + 1
+monede: 3
+cod: 10010001
+44 = 34 + 8 + 2
+monede: 3
+cod: 10010010
+45 = 34 + 8 + 3
+monede: 3
+cod: 10010100
+46 = 34 + 8 + 3 + 1
+monede: 4
+cod: 10010101
+47 = 34 + 13
+monede: 2
+cod: 10100000
+48 = 34 + 13 + 1
+monede: 3
+cod: 10100001
+49 = 34 + 13 + 2
+monede: 3
+cod: 10100010
+50 = 34 + 13 + 3
+monede: 3
+cod: 10100100

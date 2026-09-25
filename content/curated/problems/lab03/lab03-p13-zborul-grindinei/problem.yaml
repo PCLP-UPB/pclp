@@ -1,0 +1,76 @@
+id: lab03-p13-zborul-grindinei
+lab: lab03
+number: 13
+title: "Zborul grindinei"
+difficulty: 2
+estimated_minutes: 30
+concepts: [recursivitate, condiție de oprire, funcție, long long, overflow]
+statement: |
+  Un bob de grindină urcă și coboară prin nor de mai multe ori înainte să cadă. Matematicienii
+  folosesc aceeași imagine pentru **șirul Collatz**: pornind de la un număr natural `n`,
+
+  - dacă `n` este par, următorul termen este `n / 2`;
+  - dacă `n` este impar, următorul termen este `3n + 1`;
+
+  și se continuă până se ajunge la 1. De exemplu, din 6: `6 → 3 → 10 → 5 → 16 → 8 → 4 → 2 → 1`,
+  adică **8 pași**, iar cea mai mare valoare atinsă (**vârful**) este 16. Pentru `n = 1` sunt
+  0 pași, iar vârful este 1.
+
+  Scrie două funcții **recursive**: `int pasi(long long n)` (numărul de pași până la 1) și
+  `long long varf(long long n)` (cea mai mare valoare din șir, inclusiv `n`). Folosește-le ca
+  să găsești, în intervalul `[a, b]`, numărul cu cei mai mulți pași (la egalitate, pe cel mai mic).
+
+  **Date de intrare**
+
+  O linie cu două numere naturale `a b`.
+
+  **Date de ieșire**
+
+  O linie cu trei numere: numărul găsit, numărul lui de pași și vârful lui.
+
+  **Restricții**
+
+  - `1 ≤ a ≤ b ≤ 10^7`, `b - a ≤ 10^5`
+  - pentru aceste numere, șirul ajunge mereu la 1 (s-a verificat pe calculator), dar valorile
+    intermediare pot depăși limita tipului `int`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  1 10
+  ```
+
+  Ieșire:
+  ```
+  9 19 52
+  ```
+starter: |
+  #include <stdio.h>
+
+  int pasi(long long n)
+  {
+  	/* TODO: caz de bază n == 1; altfel 1 + pasi(următorul termen) */
+  }
+
+  long long varf(long long n)
+  {
+  	/* TODO: maximul dintre n și vârful șirului care pornește din următorul termen */
+  }
+
+  int main(void)
+  {
+  	long long a, b;
+
+  	scanf("%lld%lld", &a, &b);
+  	/* TODO */
+
+  	return 0;
+  }
+hints:
+  - "Ambele funcții au aceeași structură: cazul de bază este n = 1, iar în rest problema pentru n se reduce la aceeași problemă pentru termenul următor din șir."
+  - "Scrie o funcție ajutătoare care întoarce termenul următor. Atunci pasi(n) = 1 + pasi(urmator(n)), iar varf(n) = maximul dintre n și varf(urmator(n))."
+  - "În main: parcurge n de la a la b, păstrează cel mai mare număr de pași găsit și numărul care l-a dat; actualizează doar la „strict mai mare”, ca la egalitate să rămână numărul mai mic. Calculează vârful doar pentru câștigător."
+pitfalls:
+  - "3n + 1 depășește int pentru multe numere de start sub 10^7 (vârfuri de ordinul 10^10): parametrii și rezultatul lui varf trebuie să fie long long."
+  - "Fără cazul de bază (sau cu un caz de bază greșit, de exemplu n == 0), recursivitatea nu se oprește și programul se termină cu stack overflow."

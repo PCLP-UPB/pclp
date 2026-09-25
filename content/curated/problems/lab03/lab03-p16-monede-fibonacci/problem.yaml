@@ -1,0 +1,95 @@
+id: lab03-p16-monede-fibonacci
+lab: lab03
+number: 16
+title: "Monedele din Fibonaccia"
+difficulty: 3
+estimated_minutes: 40
+concepts: [recursivitate, condiție de oprire, funcție, long long, putchar]
+statement: |
+  În țara Fibonaccia, monedele au valorile șirului lui Fibonacci: `1, 2, 3, 5, 8, 13, 21, ...`
+  (fiecare valoare este suma precedentelor două). Casieria plătește orice sumă **lacom**: dă
+  cea mai mare monedă care nu depășește suma rămasă, apoi continuă la fel cu restul, până
+  rămâne 0. Se poate demonstra că așa se folosesc cele mai puține monede și că nu apar
+  niciodată două monede cu valori vecine în șir.
+
+  Pentru fiecare sumă `n`, afișează:
+
+  1. descompunerea: `n = m1 + m2 + ... + mk`, cu monedele în ordinea în care sunt date (descrescător);
+  2. numărul de monede;
+  3. **codul** sumei: pentru fiecare valoare din șir, de la cea mai mare monedă folosită până la 1,
+     cifra `1` dacă moneda e folosită și `0` altfel. De exemplu, `100 = 89 + 8 + 3`, iar valorile
+     de la 89 în jos sunt `89 55 34 21 13 8 5 3 2 1`, deci codul este `1000010100`.
+
+  Scrie cel puțin o funcție **recursivă** `int plateste(long long n, int prima)` care afișează
+  monedele pentru suma `n` și întoarce câte monede a folosit (`prima` spune dacă trebuie afișat
+  separatorul `" + "` înaintea monedei curente), plus o funcție recursivă pentru cod.
+
+  **Date de intrare**
+
+  Pe prima linie, `q`. Pe următoarele `q` linii, câte o sumă `n`.
+
+  **Date de ieșire**
+
+  Pentru fiecare sumă, trei linii: `n = m1 + ... + mk`, `monede: k`, `cod: <cifre>`.
+
+  **Restricții**
+
+  - `1 ≤ q ≤ 500`
+  - `1 ≤ n ≤ 10^18`
+  - nu folosi vectori: termenii șirului se pot calcula din mers
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3
+  100
+  7
+  1
+  ```
+
+  Ieșire:
+  ```
+  100 = 89 + 8 + 3
+  monede: 3
+  cod: 1000010100
+  7 = 5 + 2
+  monede: 2
+  cod: 1010
+  1 = 1
+  monede: 1
+  cod: 1
+  ```
+starter: |
+  #include <stdio.h>
+
+  long long cea_mai_mare_moneda(long long n)
+  {
+  	/* TODO: cel mai mare termen din 1, 2, 3, 5, 8, ... care nu depășește n */
+  }
+
+  int plateste(long long n, int prima)
+  {
+  	/* TODO: recursiv; caz de bază n == 0 */
+  }
+
+  int main(void)
+  {
+  	int q, i;
+  	long long n;
+
+  	scanf("%d", &q);
+  	for (i = 0; i < q; i++) {
+  		scanf("%lld", &n);
+  		/* TODO */
+  	}
+
+  	return 0;
+  }
+hints:
+  - "Plata e natural recursivă: a plăti n înseamnă a da cea mai mare monedă m ≤ n și apoi a plăti n − m. Cazul de bază: suma 0 nu mai cere nicio monedă."
+  - "Cea mai mare monedă ≤ n se găsește iterativ, cu două variabile consecutive din șir (a, b) avansate cât timp b ≤ n. Pentru cod, mergi în jos pe șir: dacă știi doi termeni consecutivi (x, anterior), perechea următoare în jos este (anterior, x − anterior)."
+  - "Cod: scrie_cod(n, x, anterior): dacă x ≤ n, afișează 1 și scade x din n, altfel afișează 0; dacă x == 1 te oprești, altfel apelezi scrie_cod(n, anterior, x − anterior). Pornești cu x = cea mai mare monedă ≤ n, iar anterior = cea mai mare monedă ≤ x − 1."
+pitfalls:
+  - "Sumele ajung la 10^18: tot ce ține de sume și monede trebuie să fie long long (și %lld)."
+  - "Șirul monedelor începe cu 1, 2 (nu cu 1, 1): altfel codul ar avea o cifră în plus."

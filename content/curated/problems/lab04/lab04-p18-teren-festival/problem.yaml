@@ -1,0 +1,61 @@
+id: lab04-p18-teren-festival
+lab: lab04
+number: 18
+title: "Terenul pentru scena festivalului"
+difficulty: 4
+estimated_minutes: 60
+concepts: [matrice, indice, buclă imbricată, verificarea indicilor, constantă simbolică]
+statement: |
+  Organizatorii unui festival au harta unui câmp, împărțită în `n × m` parcele: `.` înseamnă parcelă
+  liberă, iar `#` una ocupată (copac, stâlp, cort). Scena are formă **pătrată** și trebuie așezată
+  doar pe parcele libere, cu laturile paralele cu marginile hărții.
+
+  Află:
+
+  1. latura `L` a celei mai mari scene care încape;
+  2. poziția ei: colțul stânga-sus (linie, coloană, numerotate de la 1); dacă sunt mai multe
+     poziții posibile, alege-o pe cea cu **linia cea mai mică**, iar apoi cu **coloana cea mai mică**;
+  3. în câte poziții diferite poate fi așezată o scenă de latură `L`.
+
+  Harta poate avea până la un milion de parcele, deci verificarea tuturor pătratelor posibile este
+  mult prea lentă.
+
+  **Date de intrare**
+
+  Pe prima linie, `n m`. Pe următoarele `n` linii, câte `m` caractere `.` sau `#`, fără spații.
+
+  **Date de ieșire**
+
+  Trei linii: `L`, apoi linia și coloana colțului stânga-sus, apoi numărul de poziții. Dacă nu
+  există nicio parcelă liberă, se afișează doar `0`.
+
+  **Restricții**
+
+  - `1 ≤ n, m ≤ 1000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  5 8
+  ..#.....
+  ........
+  #.......
+  ....#...
+  ........
+  ```
+
+  Ieșire:
+  ```
+  3
+  1 4
+  7
+  ```
+hints:
+  - "Privește fiecare parcelă liberă (i, j) drept colțul dreapta-jos al unui pătrat și calculează latura[i][j] = latura celui mai mare pătrat liber care se termină acolo. Răspunsul la prima întrebare este maximul acestor valori."
+  - "Un pătrat de latură k se termină în (i, j) doar dacă se pot termina pătrate de latură k − 1 în vecinii de sus (i − 1, j), din stânga (i, j − 1) și din diagonală (i − 1, j − 1). Deci latura[i][j] se calculează din cele trei valori deja calculate, dacă parcurgi matricea pe linii, de sus în jos și de la stânga la dreapta."
+  - "latura[i][j] = 0 pentru `#`, 1 pe prima linie sau prima coloană, altfel 1 + minimul celor trei vecini. Colțul stânga-sus al pătratului cu colțul dreapta-jos în (i, j) este (i − L + 1, j − L + 1); prima celulă găsită pe linii cu latura maximă dă colțul cerut. Pozițiile posibile: celulele cu latura[i][j] ≥ L (orice pătrat mai mare conține unul de latură L care se termină acolo)."
+pitfalls:
+  - "Pe prima linie și pe prima coloană, vecinii (i − 1, ...) și (..., j − 1) nu există: tratează-le separat, altfel citești în afara matricei."
+  - "Matricele de 1000 × 1000 sunt prea mari pentru stiva lui main: declară-le globale (sau static)."
+  - "Citește hărțile caracter cu caracter, cu \" %c\" (spațiul din format sare peste liniile noi)."

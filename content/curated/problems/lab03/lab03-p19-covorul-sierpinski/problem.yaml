@@ -1,0 +1,121 @@
+id: lab03-p19-covorul-sierpinski
+lab: lab03
+number: 19
+title: "Covorul lui Sierpinski"
+difficulty: 4
+estimated_minutes: 50
+concepts: [recursivitate, condiție de oprire, funcție, long long, buclă imbricată, putchar]
+statement: |
+  Un magazin de covoare vinde modelul „Sierpinski”, definit recursiv:
+
+  - covorul de **ordin 0** este o singură celulă plină;
+  - covorul de **ordin K** (K ≥ 1) are latura `3^K` și se împarte în 3 × 3 blocuri egale, de latură
+    `3^(K−1)`: blocul din mijloc este complet gol, iar celelalte opt sunt covoare de ordin `K − 1`.
+
+  Covorul de ordin 2 arată așa (`#` = plin, `.` = gol):
+
+  ```
+  #########
+  #.##.##.#
+  #########
+  ###...###
+  #.#...#.#
+  ###...###
+  #########
+  #.##.##.#
+  #########
+  ```
+
+  Liniile și coloanele se numerotează de la 0, de sus în jos și de la stânga la dreapta.
+
+  Programul trebuie mai întâi să **deseneze** covorul de ordin `k`, apoi să răspundă la
+  întrebări despre covoare uriașe (până la ordinul 38, cu latura peste `10^18`):
+
+  - `P K x y` — celula de pe linia `x` și coloana `y` a covorului de ordin `K` este plină?
+    Răspunsul este `PLIN` sau `GOL`.
+  - `R K r` — câte celule pline are linia `r` a covorului de ordin `K`?
+
+  Scrie funcțiile **recursive** `int plin(long long x, long long y)` (folosită atât la desen,
+  cât și la întrebări) și `long long pline_pe_linie(int k, long long r)`.
+
+  **Date de intrare**
+
+  Pe prima linie, `k`. Pe a doua, numărul de întrebări `q`. Pe următoarele `q` linii,
+  întrebările, în formatul de mai sus.
+
+  **Date de ieșire**
+
+  `3^k` linii cu câte `3^k` caractere (desenul), apoi câte o linie cu răspunsul fiecărei întrebări.
+
+  **Restricții**
+
+  - `0 ≤ k ≤ 4`
+  - `1 ≤ q ≤ 1000`, `0 ≤ K ≤ 38`, `0 ≤ x, y, r < 3^K`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  2
+  5
+  P 2 1 1
+  P 1 0 2
+  R 2 4
+  R 2 3
+  P 38 1350851717672992088 4
+  ```
+
+  Ieșire:
+  ```
+  #########
+  #.##.##.#
+  #########
+  ###...###
+  #.#...#.#
+  ###...###
+  #########
+  #.##.##.#
+  #########
+  GOL
+  PLIN
+  4
+  6
+  PLIN
+  ```
+starter: |
+  #include <stdio.h>
+
+  int plin(long long x, long long y)
+  {
+  	/* TODO */
+  }
+
+  long long pline_pe_linie(int k, long long r)
+  {
+  	/* TODO */
+  }
+
+  int main(void)
+  {
+  	int k, q, i, ordin;
+  	long long x, y, r;
+  	char tip;
+
+  	scanf("%d", &k);
+  	/* TODO: desenul, cu putchar */
+
+  	scanf("%d", &q);
+  	for (i = 0; i < q; i++) {
+  		scanf(" %c%d", &tip, &ordin);
+  		/* TODO: citește restul întrebării în funcție de tip */
+  	}
+
+  	return 0;
+  }
+hints:
+  - "O celulă (x, y) cade într-unul din cele 3 × 3 blocuri; indicii blocului sunt ultimele cifre ale lui x și y în baza 3 (x mod 3, y mod 3), iar poziția în interiorul blocului mai mic se obține cu x / 3 și y / 3. Gândește-te la pătratul „mare” din mijloc ca fiind cifrele cele mai semnificative."
+  - "Celula e goală dacă, la vreun nivel, cade în blocul din mijloc: atunci x mod 3 = 1 și y mod 3 = 1. Altfel, răspunsul este cel pentru (x / 3, y / 3). Cazul de bază: (0, 0) e plină. Observă că ordinul covorului nici nu mai contează pentru plin."
+  - "Pentru o linie r din covorul de ordin k: banda de blocuri în care se află r este r / 3^(k−1). Dacă e banda din mijloc, linia trece prin 2 covoare de ordin k − 1 (blocul din mijloc e gol), altfel prin 3; în fiecare, linia are indicele r mod 3^(k−1). Deci rezultatul e 2 sau 3 ori pline_pe_linie(k − 1, r mod 3^(k−1)), cu cazul de bază k = 0 → 1."
+pitfalls:
+  - "3^38 ≈ 1,35 · 10^18: coordonatele, puterile lui 3 și numărul de celule pline trebuie să fie long long, iar la puterea lui 3 nu calcula 3^39 (depășește long long)."
+  - "Nu încerca să construiești covorul mare: are mai multe celule decât are memoria oricărui calculator."

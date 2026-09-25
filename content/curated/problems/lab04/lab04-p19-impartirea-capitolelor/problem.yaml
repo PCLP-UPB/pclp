@@ -1,0 +1,55 @@
+id: lab04-p19-impartirea-capitolelor
+lab: lab04
+number: 19
+title: "Împărțirea capitolelor înainte de examen"
+difficulty: 4
+estimated_minutes: 60
+concepts: [căutare binară, calcularea mijlocului intervalului, vector, long long, tablou ca parametru]
+statement: |
+  Înainte de examen, `k` colegi vor să rezume un curs cu `n` capitole, în ordine. Fiecare coleg
+  primește o **secvență de capitole consecutive** (cel puțin un capitol), fiecare capitol ajunge
+  la exact un coleg, iar colegii primesc secvențele în ordine (colegul 1 începe cu capitolul 1,
+  colegul 2 continuă de unde s-a oprit colegul 1 etc.). Cunoscând numărul de pagini al fiecărui
+  capitol, vor să împartă cursul astfel încât **cel mai încărcat coleg să aibă cât mai puține
+  pagini**.
+
+  Afișează această valoare minimă `T` și o împărțire care o respectă, construită astfel: pe rând,
+  fiecare coleg ia **cât mai multe** capitole, fără să depășească `T` pagini și lăsând cel puțin
+  câte un capitol pentru fiecare dintre colegii care urmează.
+
+  **Date de intrare**
+
+  Pe prima linie, `n k`. Pe a doua linie, `n` numere naturale: paginile capitolelor `1..n`.
+
+  **Date de ieșire**
+
+  Pe prima linie, `T`. Apoi `k` linii, câte una pentru fiecare coleg, în formatul
+  `Colegul i: capitolele a-b, total P`.
+
+  **Restricții**
+
+  - `1 ≤ k ≤ n ≤ 100 000`
+  - `1 ≤ pagini ≤ 10^6`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  7 3
+  12 34 67 90 23 45 8
+  ```
+
+  Ieșire:
+  ```
+  113
+  Colegul 1: capitolele 1-3, total 113
+  Colegul 2: capitolele 4-5, total 113
+  Colegul 3: capitolele 6-7, total 53
+  ```
+hints:
+  - "Întoarce întrebarea pe dos: pentru o limită dată L, e ușor de verificat dacă ajung k colegi. Parcurgi capitolele și dai fiecare capitol colegului curent cât timp nu depășește L; când ar depăși, trece la un coleg nou. Numărul de colegi folosit astfel este cel mai mic posibil pentru limita L."
+  - "Dacă limita L e suficientă, orice limită mai mare e și ea suficientă. Răspunsul T este deci cea mai mică limită „bună” dintr-un interval ordonat: între cel mai lung capitol (sub el nu se poate) și totalul paginilor (cu el ajunge un singur coleg). Caută-l binar în acest interval."
+  - "Căutarea: st = max, dr = total; cât timp st < dr: mij = st + (dr − st) / 2; dacă colegi_necesari(mij) ≤ k, atunci dr = mij, altfel st = mij + 1. La final T = st. Pentru afișare, fiecare coleg ia capitolul următor, apoi continuă cât timp suma rămâne ≤ T și după capitolul luat mai rămân cel puțin atâtea capitole câți colegi urmează."
+pitfalls:
+  - "Totalul paginilor ajunge la 10^11: limitele căutării și sumele trebuie să fie long long."
+  - "Dacă verificarea „ajung k colegi?” dă mai puțin de k colegi, limita este tot bună: colegii în plus pot primi câte un capitol luat de la ceilalți — de aceea, la afișare, fiecare coleg trebuie să lase capitole și pentru cei de după el."

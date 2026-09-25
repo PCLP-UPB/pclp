@@ -1,0 +1,90 @@
+id: lab03-p11-cronometru-metrou
+lab: lab03
+number: 11
+title: "Cronometrul de la metrou"
+difficulty: 1
+estimated_minutes: 20
+concepts: [funcție, parametru, tip returnat, void, lățime de afișare, împărțire întreagă]
+statement: |
+  Aplicația de transport a orașului notează, pentru fiecare călătorie, ora urcării și ora
+  coborârii, în formatul `HH:MM:SS`. Metroul circulă și noaptea, deci o călătorie poate
+  trece de miezul nopții (de exemplu `23:50:10` → `00:12:05`). Nicio călătorie nu durează
+  24 de ore sau mai mult; dacă cele două momente coincid, durata este 0.
+
+  Scrie un program care afișează durata fiecărei călătorii și durata totală. Organizează
+  codul în funcții:
+
+  - `int in_secunde(int ore, int minute, int secunde)` — secundele trecute de la miezul nopții;
+  - `int durata(int plecare, int sosire)` — durata în secunde, dacă momentele sunt date în secunde;
+  - `void afiseaza_timp(int secunde)` — afișează o durată ca `HH:MM:SS`.
+
+  **Date de intrare**
+
+  Pe prima linie, numărul `n` de călătorii. Pe fiecare dintre următoarele `n` linii, două
+  momente `HH:MM:SS HH:MM:SS` (urcarea, apoi coborârea).
+
+  **Date de ieșire**
+
+  `n` linii, pe fiecare durata călătoriei corespunzătoare, în formatul `HH:MM:SS`, apoi o
+  linie `Total: HH:MM:SS` cu suma duratelor. Fiecare câmp are cel puțin două cifre (cu zero
+  în față); la total, orele pot avea mai mult de două cifre (de exemplu `119:59:55`).
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1000`
+  - `00 ≤ HH ≤ 23`, `00 ≤ MM ≤ 59`, `00 ≤ SS ≤ 59`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3
+  08:15:00 08:47:30
+  23:50:10 00:12:05
+  12:00:00 12:00:00
+  ```
+
+  Ieșire:
+  ```
+  00:32:30
+  00:21:55
+  00:00:00
+  Total: 00:54:25
+  ```
+starter: |
+  #include <stdio.h>
+
+  int in_secunde(int ore, int minute, int secunde)
+  {
+  	/* TODO */
+  }
+
+  int durata(int plecare, int sosire)
+  {
+  	/* TODO: atenție la călătoriile care trec de miezul nopții */
+  }
+
+  void afiseaza_timp(int secunde)
+  {
+  	/* TODO: afișează HH:MM:SS, fără linie nouă */
+  }
+
+  int main(void)
+  {
+  	int n, i, h1, m1, s1, h2, m2, s2;
+
+  	scanf("%d", &n);
+  	for (i = 0; i < n; i++) {
+  		scanf("%d:%d:%d %d:%d:%d", &h1, &m1, &s1, &h2, &m2, &s2);
+  		/* TODO */
+  	}
+
+  	return 0;
+  }
+hints:
+  - "Lucrează cu un singur număr pe moment, nu cu trei: transformă fiecare oră în secunde de la miezul nopții, calculează diferența și abia la afișare revino la ore, minute și secunde."
+  - "Dacă sosirea (în secunde) e mai mică decât plecarea, călătoria a trecut de miezul nopții: durata este timpul rămas până la 24:00:00 plus timpul de după miezul nopții."
+  - "Pentru afișare: ore = t / 3600, minute = (t / 60) % 60, secunde = t % 60, fiecare cu specificatorul %02d. Adună duratele într-un total pe care îl afișezi cu aceeași funcție."
+pitfalls:
+  - "Momente egale înseamnă durata 0, nu 24 de ore: testul corect pentru miezul nopții este sosire < plecare, nu sosire <= plecare."
+  - "La total, orele nu se iau modulo 24."

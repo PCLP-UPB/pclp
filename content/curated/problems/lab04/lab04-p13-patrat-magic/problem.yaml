@@ -1,0 +1,62 @@
+id: lab04-p13-patrat-magic
+lab: lab04
+number: 13
+title: "Verificatorul de pătrate magice"
+difficulty: 2
+estimated_minutes: 35
+concepts: [matrice, vector, indice, verificarea indicilor, buclă imbricată, constantă simbolică]
+statement: |
+  În gravura „Melencolia I” a lui Albrecht Dürer apare un **pătrat magic** de 4 × 4. Un pătrat
+  de `n × n` este magic dacă:
+
+  1. conține fiecare dintre numerele `1, 2, ..., n²` exact o dată;
+  2. toate liniile, toate coloanele și cele două diagonale au aceeași sumă, care este atunci
+     `M = n · (n² + 1) / 2`.
+
+  Scrie un program care verifică un pătrat și, dacă nu este magic, spune **prima** problemă
+  găsită, verificând în această ordine:
+
+  1. valorile: dacă lipsește vreun număr dintre `1..n²`, afișează `NU: valoarea v lipseste`,
+     cu `v` cel mai mic număr lipsă;
+  2. liniile, de sus în jos: `NU: linia i are suma s` pentru prima linie cu suma diferită de `M`;
+  3. coloanele, de la stânga la dreapta: `NU: coloana j are suma s`;
+  4. `NU: diagonala principala are suma s` (de la stânga-sus la dreapta-jos);
+  5. `NU: diagonala secundara are suma s` (de la dreapta-sus la stânga-jos).
+
+  Dacă totul e în regulă, afișează `MAGIC (suma M)`. Liniile și coloanele se numerotează de la 1.
+
+  **Date de intrare**
+
+  Pe prima linie, `n`. Pe următoarele `n` linii, câte `n` numere întregi.
+
+  **Date de ieșire**
+
+  O singură linie, în unul dintre formatele de mai sus.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100`
+  - elementele sunt numere întregi între `-10^6` și `10^6` (nu neapărat între 1 și `n²`)
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4
+  16 3 2 13
+  5 10 11 8
+  9 6 7 12
+  4 15 14 1
+  ```
+
+  Ieșire:
+  ```
+  MAGIC (suma 34)
+  ```
+hints:
+  - "Pentru prima condiție folosește un vector de frecvență: apare[v] = de câte ori apare valoarea v. Deoarece matricea are exact n² celule, dacă nicio valoare din 1..n² nu lipsește, atunci fiecare apare exact o dată."
+  - "Înainte de apare[a[i][j]]++, verifică faptul că valoarea este între 1 și n²: altfel ai scrie în afara vectorului. Sumele pe linii și pe coloane sunt două bucle imbricate, cu indicii i și j în ordini diferite."
+  - "Diagonala principală conține elementele a[i][i], iar cea secundară a[i][n − 1 − i] (indici de la 0). Oprește-te (return 0 din main sau un indicator) la prima problemă, ca să afișezi doar una."
+pitfalls:
+  - "O matrice cu toate liniile, coloanele și diagonalele de aceeași sumă nu e neapărat magică (de exemplu, toate elementele egale): verifică și valorile."
+  - "Pentru n = 100, vectorul de frecvență are nevoie de n² + 1 = 10 001 de elemente. Declară matricea și vectorul mari global sau cu dimensiuni constante suficiente."

@@ -1,0 +1,75 @@
+id: lab04-p20-sudoku
+lab: lab04
+number: 20
+title: "Rezolvitorul de Sudoku"
+difficulty: 5
+estimated_minutes: 90
+concepts: [matrice, recursivitate, condiție de oprire, vector, indice, inițializarea tabloului]
+statement: |
+  Revista de divertisment a facultății publică săptămânal un **Sudoku**, iar redacția vrea un
+  program care să verifice grilele înainte de tipar.
+
+  Grila are 9 × 9 celule, împărțite în 9 careuri de 3 × 3. Unele celule conțin deja cifre de la 1
+  la 9. Trebuie completate toate celulele goale astfel încât fiecare **linie**, fiecare **coloană**
+  și fiecare **careu** să conțină fiecare cifră de la 1 la 9 exact o dată.
+
+  Programul trebuie să:
+
+  - afișeze `IMPOSIBIL` dacă grila nu poate fi completată (inclusiv când cifrele date se
+    contrazic deja);
+  - altfel, să afișeze **prima** soluție în ordinea următoare: dintre toate soluțiile, cea care,
+    citită linie cu linie, de la stânga la dreapta, formează cel mai mic număr de 81 de cifre;
+  - și să spună dacă soluția este `UNICA` sau dacă există mai multe (`MULTIPLE`) — o grilă bună
+    de publicat are o singură soluție.
+
+  **Date de intrare**
+
+  9 linii cu câte 9 caractere, fără spații: o cifră de la 1 la 9 pentru celulele completate și
+  `.` pentru cele goale.
+
+  **Date de ieșire**
+
+  Fie o singură linie `IMPOSIBIL`, fie 9 linii cu câte 9 cifre (soluția), urmate de o linie cu
+  `UNICA` sau `MULTIPLE`.
+
+  **Restricții**
+
+  - grilele din teste se rezolvă prin backtracking simplu (cifră cu cifră, în ordinea celulelor) în
+    mai puțin de o secundă
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  53..7....
+  6..195...
+  .98....6.
+  8...6...3
+  4..8.3..1
+  7...2...6
+  .6....28.
+  ...419..5
+  ....8..79
+  ```
+
+  Ieșire:
+  ```
+  534678912
+  672195348
+  198342567
+  859761423
+  426853791
+  713924856
+  961537284
+  287419635
+  345286179
+  UNICA
+  ```
+hints:
+  - "Backtracking: parcurge celulele în ordine (linie cu linie). Într-o celulă goală încearcă pe rând cifrele 1..9 care nu apar deja pe linia, coloana și careul ei; pentru fiecare, completeaz-o și treci recursiv la celula următoare; la întoarcere, golește celula la loc. Dacă încerci cifrele crescător, prima soluție găsită este chiar cea cerută."
+  - "Ca să verifici în O(1) dacă o cifră e permisă, ține trei matrice de marcaje: pe_linie[i][c], pe_coloana[j][c], in_careu[k][c], unde careul celulei (i, j) are indicele (i / 3) · 3 + j / 3. Marchează la completare și demarchează la revenire. Verifică la citire și cifrele date: dacă două se contrazic, răspunsul este direct IMPOSIBIL."
+  - "Funcția rezolva(poz), cu poz de la 0 la 80 (linia poz / 9, coloana poz % 9): dacă poz = 81, ai găsit o soluție — o numeri și, dacă e prima, o copiezi în altă matrice (grila va fi golită la revenire!). Nu te opri la prima soluție: continuă până găsești a doua, apoi oprește tot (de exemplu, return imediat dacă numărul de soluții a ajuns la 2)."
+pitfalls:
+  - "La finalul backtracking-ului, grila de lucru e din nou goală: dacă nu salvezi soluția în momentul în care o găsești, o pierzi."
+  - "Fără oprirea după a doua soluție, pe o grilă aproape goală programul ar încerca să numere miliarde de soluții."
+  - "Cifrele date nu trebuie modificate de backtracking: sari peste celulele care nu erau goale."

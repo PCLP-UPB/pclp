@@ -1,0 +1,66 @@
+id: lab04-p17-bulele-playlist
+lab: lab04
+number: 17
+title: "Bulele din playlist"
+difficulty: 3
+estimated_minutes: 40
+concepts: [bubble sort, interschimbare, vector, tablou ca parametru, sortare]
+statement: |
+  Aplicația de muzică a unui telefon vechi sortează playlisturile după durata melodiilor
+  (crescător) cu **bubble sort**, exact în varianta de mai jos. Melodiile sunt numerotate de la 1
+  la `n`, în ordinea inițială, și au duratele `d[0], d[1], ..., d[n−1]`:
+
+  ```
+  pentru trecere = 0, 1, 2, ..., n − 2:
+      pentru j = 0, 1, ..., n − 2 − trecere:
+          dacă d[j] > d[j + 1]: interschimbă melodiile de pe pozițiile j și j + 1
+      dacă în această trecere nu s-a făcut nicio interschimbare: oprește sortarea
+  ```
+
+  Echipa care optimizează aplicația vrea să știe cât lucrează această sortare pe playlisturile
+  reale. Pentru un playlist dat, afișează:
+
+  - numărul total de interschimbări;
+  - numărul de treceri în care s-a făcut **cel puțin o** interschimbare;
+  - numerele melodiilor, în ordinea finală.
+
+  Observă că melodiile cu durate egale nu se interschimbă niciodată, deci își păstrează ordinea
+  inițială.
+
+  **Date de intrare**
+
+  Pe prima linie, `n`. Pe a doua linie, `n` numere naturale: duratele melodiilor 1, 2, ..., `n`,
+  în secunde.
+
+  **Date de ieșire**
+
+  - `Interschimbari: S`
+  - `Treceri cu interschimbari: T`
+  - numerele melodiilor în ordinea finală, separate prin câte un spațiu
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 5000`
+  - `1 ≤ durata ≤ 3600`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  5
+  215 180 240 180 95
+  ```
+
+  Ieșire:
+  ```
+  Interschimbari: 7
+  Treceri cu interschimbari: 4
+  5 2 4 1 3
+  ```
+hints:
+  - "Pe lângă vectorul duratelor, ai nevoie de un vector cu numerele melodiilor: id[i] = i + 1 la început. Orice interschimbare de durate trebuie făcută și în vectorul id, pe aceleași poziții."
+  - "Numără interschimbările cu un contor, iar pentru treceri folosește un indicator resetat la începutul fiecărei treceri și setat la prima interschimbare. O funcție interschimba(v, x, y) folosită pentru ambii vectori te scutește de cod repetat."
+  - "Structura: schimbat = 1; pentru trecere de la 0 cât timp trecere < n − 1 și schimbat: schimbat = 0; parcurge j de la 0 la n − 2 − trecere; la final, dacă schimbat, crește numărul de treceri utile. Ultima trecere (cea fără interschimbări, care oprește sortarea) nu se numără."
+pitfalls:
+  - "Numărul de interschimbări ajunge la n · (n − 1) / 2 ≈ 12,5 milioane pentru un playlist sortat invers — încape în int, dar nu într-un short."
+  - "Condiția d[j] >= d[j + 1] ar interschimba și melodiile egale, schimbând ordinea lor și numărul de interschimbări."

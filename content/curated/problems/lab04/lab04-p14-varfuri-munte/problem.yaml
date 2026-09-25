@@ -1,0 +1,58 @@
+id: lab04-p14-varfuri-munte
+lab: lab04
+number: 14
+title: "Vârfurile din Făgăraș"
+difficulty: 3
+estimated_minutes: 45
+concepts: [matrice, verificarea indicilor, sortare prin selecție, interschimbare, vector, tablou ca parametru]
+statement: |
+  Un club de drumeții are o hartă digitală a unei zone montane: o matrice cu `n` linii și `m`
+  coloane, în care fiecare celulă conține altitudinea medie (în metri). O celulă este un **vârf**
+  dacă altitudinea ei este **strict mai mare** decât a tuturor vecinilor ei — cele (până la) 8
+  celule cu care are o latură sau un colț comun. Celulele de pe margine au mai puțini vecini:
+  se compară doar cu cei care există pe hartă.
+
+  Afișează numărul de vârfuri și lista lor, sortată **descrescător după altitudine**; la
+  altitudini egale, vârful de pe linia mai mică este primul, iar pe aceeași linie, cel de pe
+  coloana mai mică. Liniile și coloanele se numerotează de la 1.
+
+  **Date de intrare**
+
+  Pe prima linie, `n m`. Pe următoarele `n` linii, câte `m` numere naturale: altitudinile.
+
+  **Date de ieșire**
+
+  Pe prima linie, numărul `V` de vârfuri. Pe următoarele `V` linii, câte un vârf, în formatul
+  `altitudine (linie, coloana)`.
+
+  **Restricții**
+
+  - `1 ≤ n, m ≤ 100`
+  - `0 ≤ altitudine ≤ 9000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4 4
+  1200 1500 1400 900
+  1100 1300 1450 1000
+  800 950 1000 1600
+  700 1600 900 1550
+  ```
+
+  Ieșire:
+  ```
+  3
+  1600 (3, 4)
+  1600 (4, 2)
+  1500 (1, 2)
+  ```
+hints:
+  - "Vecinii celulei (i, j) sunt (i + di, j + dj), cu di și dj din {−1, 0, 1}, fără (0, 0). Două bucle mici pe di și dj te scapă de opt if-uri; înainte de a citi un vecin, sari peste cei cu indici în afara hărții."
+  - "Salvează vârfurile găsite în trei vectori paraleli (altitudine, linie, coloană), cu același indice pentru același vârf. Sortează apoi cei trei vectori împreună: la fiecare interschimbare, interschimbă pozițiile în toți trei."
+  - "Scrie o funcție inainte(x, y) care spune dacă vârful x trebuie afișat înaintea lui y: altitudine mai mare; la egalitate, linie mai mică; apoi coloană mai mică. Sortarea prin selecție alege la fiecare pas i vârful care trebuie să fie „înainte” de toate celelalte rămase și îl aduce pe poziția i."
+pitfalls:
+  - "Un platou (celule vecine de aceeași altitudine) nu conține niciun vârf: comparația cu vecinii este strictă."
+  - "Dacă sortezi doar altitudinile, liniile și coloanele nu mai corespund vârfurilor."
+  - "Sortarea prin selecție nu păstrează ordinea elementelor egale; regula de departajare trebuie pusă explicit în comparație."
