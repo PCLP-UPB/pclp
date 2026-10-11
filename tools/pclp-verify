@@ -421,7 +421,7 @@ def cross_check(subs: list[Sub]):
         # ferestre suprapuse (de ex. --since): aceleași ore numărate în două predări (orice ordine)
         for a in lst:
             ws, ac = a.manifest.get("window_start"), a.manifest.get("created_at")
-            if not (ws and ac and a.manifest.get("window_custom")):
+            if not (ws and ac and a.manifest.get("window_custom")) or (a.repo and computed_windows(a) is not None):
                 continue
             for b in lst:
                 bc = b.manifest.get("created_at")
@@ -493,11 +493,46 @@ def assign_git_times(s: Sub, gitpath: str, ms: list[dict]):
         prev_n = max(prev_n, n)
 
 
+def computed_windows(s: Sub) -> list[list] | None:
+    """Intervalele CALCULATE din istoric (jurnalul .pclp/submissions.jsonl de la HEAD-ul arhivei), după regula
+    „fiecare minut aparține primei predări făcute după el”. Nu depind de ce a declarat studentul (--since),
+    deci aceleași ore nu pot fi numărate în două predări. None dacă jurnalul nu e în istoric (arhive vechi)."""
+    g = run_git(s.repo, "show", f"{s.head}:.pclp/submissions.jsonl")
+    if g.returncode != 0 or not g.stdout.strip():
+        return None
+    subs = []
+    for line in g.stdout.splitlines():
+        try:
+            e = json.loads(line)
+            subs.append((datetime.fromisoformat(e["created_at"]).astimezone(timezone.utc), int(e["week"])))
+        except (ValueError, KeyError, TypeError):
+            continue
+    subs.sort()
+    created = s.manifest.get("created_at")
+    if created:  # doar predările făcute până la aceasta (inclusiv)
+        ct = datetime.fromisoformat(created).astimezone(timezone.utc)
+        subs = [x for x in subs if x[0] <= ct + timedelta(seconds=1)]
+    wins = [[subs[i - 1][0] if i else None, t] for i, (t, w) in enumerate(subs) if w == s.week]
+    return wins or None
+
+
 def build_events(s: Sub, commits: list[dict], all_history: bool) -> tuple[list[Ev], datetime | None]:
     since = None
     prev_tag = s.manifest.get("prev_tag")
     windows = None
-    if s.manifest.get("window_rule") in (2, 3):
+    calc = None if all_history else computed_windows(s)
+    if calc is not None:
+        # sursa de adevăr la evaluare: intervalele calculate din istoric, nu cele declarate de student
+        windows = [list(w) for w in calc]
+        windows[-1][1] += timedelta(seconds=120)  # snapshot-ul final, făcut imediat după predare
+        if s.manifest.get("window_custom"):
+            ws = s.manifest.get("window_start")
+            s.flag("info", f"studentul a ales --since {ws[:10] if ws else '?'}; timpul e calculat după regula "
+                           "predărilor (fiecare minut aparține primei predări de după el), nu după data aleasă")
+        if len(calc) > 1:
+            s.flag("info", f"timpul săptămânii e adunat din {len(calc)} intervale (predare + re-predări)")
+        prev_tag = None
+    elif s.manifest.get("window_rule") in (2, 3):
         # regula nouă: intervale de timp din manifest (fiecare minut aparține primei predări de după el)
         raw = s.manifest.get("windows") or [[s.manifest.get("window_start"), s.manifest.get("created_at")]]
         windows = []

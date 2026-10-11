@@ -268,8 +268,12 @@ Consecințe: nimic nu e numărat de două ori; o re-predare întârziată adaug�
 unei săptămâni conține toate intervalele ei (de aceea `pclp-grade` folosește ultima predare).
 
 - Arhiva conține codul din **toate** folderele (`files/sapt-NN/...`, `files_layout: 2`), nu doar `sapt-NN/`.
-- `pclp submit N --since ZZ-LL-AA` lasă studentul să aleagă începutul ferestrei; raportul marchează asta
-  („fereastra a fost aleasă de student”) și semnalează suprapunerile cu alte predări ale aceluiași student.
+- `pclp submit N --since ZZ-LL-AA` lasă studentul să aleagă începutul ferestrei, dar **la evaluare nu contează**:
+  `pclp-verify` și `pclp-grade` recalculează intervalele din jurnalul de predări din istoricul arhivei
+  (`.pclp/submissions.jsonl`), după regula de mai sus. Aceleași ore nu pot fi deci numărate în două predări,
+  orice dată ar alege studentul; raportul notează doar că a folosit `--since`.
+- `pclp submit N` rulat de mai multe ori creează re-predări (#1, #2, …), fiecare cu arhivă și cod nou; fiecare
+  adaugă doar intervalul de la predarea anterioară. `pclp-grade` folosește ultima arhivă a săptămânii.
 - La predarea altei săptămâni decât cea curentă, `pclp` avertizează și cere confirmare.
 - Arhivele vechi (fără `window_rule`) se verifică în continuare cu regula veche.
 
