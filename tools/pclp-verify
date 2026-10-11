@@ -382,14 +382,15 @@ def check_history(s: Sub, commits: list[dict]):
         g = run_git(s.repo, "show", f"{s.head}:{rel}", text=False)
         if g.returncode == 0 and g.stdout != p.read_bytes():
             s.flag("error", f"{arc} diferă de versiunea din istoricul git")
-    # files/ == arborele git sapt-NN/
+    # files/ == arborele git: toate folderele (files_layout 2) sau doar sapt-NN/ (arhive vechi)
     wd = f"sapt-{s.week:02d}"
+    prefix = "" if s.manifest.get("files_layout") == 2 else wd + "/"
     fdir = s.root / "files"
     if fdir.is_dir():
         for p in fdir.rglob("*"):
             if p.is_file():
                 rel = str(p.relative_to(fdir)).replace(os.sep, "/")
-                g = run_git(s.repo, "show", f"{s.head}:{wd}/{rel}", text=False)
+                g = run_git(s.repo, "show", f"{s.head}:{prefix}{rel}", text=False)
                 if g.returncode != 0 or g.stdout != p.read_bytes():
                     s.flag("error", f"files/{rel} diferă de versiunea din istoricul git")
                     break
@@ -417,6 +418,21 @@ def cross_check(subs: list[Sub]):
                     cur.flag("error", f"predarea din săpt. {prev.week} nu este strămoș al acestei predări")
                 else:
                     cur.flag("info", f"verificat lanțul cu predarea din săpt. {prev.week}")
+        # ferestre suprapuse (de ex. --since): aceleași ore numărate în două predări (orice ordine)
+        for a in lst:
+            ws, ac = a.manifest.get("window_start"), a.manifest.get("created_at")
+            if not (ws and ac and a.manifest.get("window_custom")):
+                continue
+            for b in lst:
+                bc = b.manifest.get("created_at")
+                if b is a or b.week == a.week or not bc:
+                    continue
+                try:
+                    if datetime.fromisoformat(ws) < datetime.fromisoformat(bc) < datetime.fromisoformat(ac):
+                        a.flag("warn", f"fereastra se suprapune cu predarea din săpt. {b.week} "
+                                       "(timpul dintre ele e numărat în ambele)")
+                except ValueError:
+                    pass
 
 
 # ---------------------------------------------------------------------------
@@ -480,13 +496,34 @@ def assign_git_times(s: Sub, gitpath: str, ms: list[dict]):
 def build_events(s: Sub, commits: list[dict], all_history: bool) -> tuple[list[Ev], datetime | None]:
     since = None
     prev_tag = s.manifest.get("prev_tag")
-    if prev_tag and not all_history:
+    windows = None
+    if s.manifest.get("window_rule") in (2, 3):
+        # regula nouă: intervale de timp din manifest (fiecare minut aparține primei predări de după el)
+        raw = s.manifest.get("windows") or [[s.manifest.get("window_start"), s.manifest.get("created_at")]]
+        windows = []
+        for a, b in raw:
+            ta = datetime.fromisoformat(a).astimezone(timezone.utc) if a else None
+            tb = datetime.fromisoformat(b).astimezone(timezone.utc) if b else None
+            windows.append([ta, tb])
+        if windows and windows[-1][1]:
+            windows[-1][1] += timedelta(seconds=120)  # snapshot-ul final, făcut imediat după predare
+        if all_history:
+            windows = None
+        ws = s.manifest.get("window_start")
+        if s.manifest.get("window_custom"):
+            s.flag("warn", f"fereastra a fost aleasă de student cu --since (de la {ws[:10] if ws else '?'})")
+        if s.manifest.get("window_rule") == 3 and len(raw) > 1:
+            s.flag("info", f"timpul săptămânii e adunat din {len(raw)} intervale (predare + re-predări)")
+        prev_tag = None  # filtrăm după timp, nu după etichetă
+    elif prev_tag and not all_history:
         r = run_git(s.repo, "log", "-1", "--format=%ct", f"refs/tags/{prev_tag}^{{commit}}", "--")
         if r.returncode == 0 and r.stdout.strip():
             since = datetime.fromtimestamp(int(r.stdout.strip()), tz=timezone.utc)
     evs: list[Ev] = []
 
     def keep(ts):
+        if windows is not None:
+            return ts is None or any((a is None or ts > a) and (b is None or ts <= b) for a, b in windows)
         return since is None or ts is None or ts > since
 
     prev_commit_set = set()
@@ -496,6 +533,8 @@ def build_events(s: Sub, commits: list[dict], all_history: bool) -> tuple[list[E
         if c["hash"] in prev_commit_set:
             continue
         ts = datetime.fromtimestamp(c["ct"], tz=timezone.utc)
+        if not keep(ts):
+            continue
         parent = c["parents"][0] if c["parents"] else EMPTY_TREE
         names = run_git(s.repo, "diff", "--name-status", "--no-renames", parent, c["hash"]).stdout.splitlines()
         changed = [ln.split("\t", 1) for ln in names if "\t" in ln]
@@ -529,6 +568,8 @@ def build_events(s: Sub, commits: list[dict], all_history: bool) -> tuple[list[E
                     evs.append(Ev(m["ts"], kind, cur, approx=bool(m.get("approx"))))
             elif cur is not None:
                 cur["replies"].append(m)
+    if windows:
+        since = windows[0][0]
     return evs, since
 
 

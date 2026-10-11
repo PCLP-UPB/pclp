@@ -1,0 +1,43 @@
+# PCLP — listă albă: se salvează în istoric DOAR sursele și fișierele text ale cursului.
+# (Binarele, executabilele, fișierele obiect etc. nu intră niciodată în git.)
+# Fișierele > 1 MB sunt excluse automat de `pclp snap`.
+*
+!*/
+!*.c
+!*.h
+!*.cpp
+!*.cc
+!*.hpp
+!Makefile
+!makefile
+!GNUmakefile
+!*.md
+!*.txt
+!*.in
+!*.out
+!*.ref
+!*.json
+!*.yaml
+!*.yml
+!*.jsonl
+!*.sh
+!.clang-format
+!.clangd
+!.gitignore
+!.vscode/
+!.vscode/*.json
+!.continue/
+!.continue/rules/
+!.continue/rules/*.md
+!.pclp/
+!.pclp/**
+# stare locală, chei, sesiuni brute ale uneltelor AI -> niciodată în git
+.pclp/state/
+.pclp/state/**
+**/.env
+**/*.key
+**/*credentials*
+**/*oauth*
+**/auth.json
+predari/
+predari/**

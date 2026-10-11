@@ -257,3 +257,24 @@ Detalii tehnice:
 - **Imaginea** se reconstruiește doar când se schimbă uneltele, portalul sau pipeline-ul (`env/`, `portal/`,
   `tools/`, `content/pipeline/`). Abia atunci studenții au nevoie de `docker compose pull`.
 - Oprire pentru un container anume: `PCLP_CONTENT_URL=` (gol) în mediul containerului.
+
+
+## 11. Fereastra de timp a unei predări
+
+Din octombrie 2026 (`window_rule: 3` în manifest), fiecare minut de lucru aparține **primei predări făcute
+după el**, oricare ar fi săptămâna ei. O săptămână primește intervalele (predarea anterioară; predarea ei]
+pentru fiecare predare a ei (inițială + re-predări); intervalele sunt scrise în manifest (`windows`).
+Consecințe: nimic nu e numărat de două ori; o re-predare întârziată adaugă doar munca nouă; ultima arhivă a
+unei săptămâni conține toate intervalele ei (de aceea `pclp-grade` folosește ultima predare).
+
+- Arhiva conține codul din **toate** folderele (`files/sapt-NN/...`, `files_layout: 2`), nu doar `sapt-NN/`.
+- `pclp submit N --since ZZ-LL-AA` lasă studentul să aleagă începutul ferestrei; raportul marchează asta
+  („fereastra a fost aleasă de student”) și semnalează suprapunerile cu alte predări ale aceluiași student.
+- La predarea altei săptămâni decât cea curentă, `pclp` avertizează și cere confirmare.
+- Arhivele vechi (fără `window_rule`) se verifică în continuare cu regula veche.
+
+**Problemă corectată (11.10.2026):** imaginile publicate până atunci nu conțineau șabloanele spațiului de lucru,
+așa că `.gitignore`-ul studenților includea doar `*.c`/`*.h`: jurnalele (terminal, compilări, teste) și prompturile
+AI nu intrau în istoric, deci nici în arhive. Jurnalele au fost totuși scrise pe disc; după actualizarea imaginii,
+`pclp` repară automat `.gitignore`-ul și regulile de tutore, iar primul snapshot adaugă jurnalele, cu marcajele de
+timp originale. Predările făcute înainte de actualizare conțin doar codul; o re-predare după actualizare le conține pe toate.

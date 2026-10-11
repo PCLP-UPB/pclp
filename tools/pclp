@@ -30,7 +30,7 @@ import tarfile
 import tempfile
 import time
 import unicodedata
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
@@ -137,6 +137,38 @@ class Lock:
 def ensure_repo():
     if not (WORK / ".git").is_dir():
         die("~/work nu este inițializat. Rulează: pclp init")
+    migrate_workspace()
+
+
+PLACEHOLDER_TUTOR = "# Tutore PCLP\n"
+
+
+def migrate_workspace():
+    """Repară spațiile de lucru create de imaginile în care lipseau șabloanele (templates/work):
+    .gitignore minimal (jurnalele și prompturile nu intrau în istoric), reguli de tutore goale,
+    .clang-format gol. Nu atinge codul studentului; modificările intră la următorul snapshot."""
+    try:
+        gi = WORK / ".gitignore"
+        full = template("work/gitignore")
+        cur = gi.read_text(encoding="utf-8") if gi.exists() else ""
+        if full and "!.pclp/" not in cur:
+            gi.write_text(full, encoding="utf-8")
+        elif cur and "!*.cpp" not in cur:
+            with open(gi, "a", encoding="utf-8") as f:
+                f.write("\n# surse C++ (adăugat automat)\n!*.cpp\n!*.cc\n!*.hpp\n")
+        tutor = template("work/tutor.md")
+        if tutor:
+            for p in (WORK / "AGENTS.md", WORK / "CLAUDE.md", WORK / "GEMINI.md"):
+                if p.exists() and p.read_text(encoding="utf-8") == PLACEHOLDER_TUTOR:
+                    p.write_text(tutor, encoding="utf-8")
+            rule = WORK / ".continue" / "rules" / "tutor.md"
+            if rule.exists() and rule.read_text(encoding="utf-8").endswith("\n---\n\n" + PLACEHOLDER_TUTOR):
+                rule.write_text(rule.read_text(encoding="utf-8")[: -len(PLACEHOLDER_TUTOR)] + tutor, encoding="utf-8")
+        cf = WORK / ".clang-format"
+        if cf.exists() and not cf.read_text(encoding="utf-8").strip() and template("work/.clang-format"):
+            cf.write_text(template("work/.clang-format"), encoding="utf-8")
+    except OSError:
+        pass
 
 
 # ---------------------------------------------------------------------------
@@ -207,7 +239,7 @@ def cmd_init(a):
     write_if_missing(WORK / "compile_flags.txt", template("work/compile_flags.txt", "-xc\n-Wall\n-Wextra\n"))
     for f in ("tasks.json", "launch.json"):  # VS Code citește .vscode/ doar din rădăcina workspace-ului
         write_if_missing(WORK / ".vscode" / f, template(f"vscode/{f}"))
-    tutor = template("work/tutor.md", "# Tutore PCLP\n")
+    tutor = template("work/tutor.md", PLACEHOLDER_TUTOR)
     write_if_missing(WORK / "AGENTS.md", tutor)
     write_if_missing(WORK / "CLAUDE.md", tutor)
     write_if_missing(WORK / "GEMINI.md", tutor)
@@ -405,10 +437,90 @@ def tags() -> dict[int, str]:
 
 
 def prev_tag_for(week: int) -> str | None:
-    """Referința completă (refs/tags/sapt-NN) a ultimei predări anterioare săptămânii `week`."""
+    """(vechi) Referința ultimei predări a unei săptămâni cu număr mai mic. Păstrat pentru compatibilitate."""
     tg = tags()
     prev = [w for w in tg if w < week]
     return "refs/tags/" + tg[max(prev)] if prev else None
+
+
+def tag_info(tag: str) -> dict:
+    try:
+        return json.loads(git("tag", "-l", "--format=%(contents)", tag).stdout.strip() or "{}")
+    except ValueError:
+        return {}
+
+
+def load_submissions() -> list[dict]:
+    """Jurnalul predărilor (.pclp/submissions.jsonl): săptămâna și momentul fiecărei predări, în ordine."""
+    out = []
+    try:
+        for line in (PDIR / "submissions.jsonl").read_text(encoding="utf-8").splitlines():
+            try:
+                e = json.loads(line)
+                e["_t"] = datetime.fromisoformat(e["created_at"])
+                out.append(e)
+            except (ValueError, KeyError):
+                pass
+    except OSError:
+        pass
+    return sorted(out, key=lambda e: e["_t"])
+
+
+def week_windows(week: int, pending: bool = True) -> list[list]:
+    """Intervalele de timp numărate pentru săptămâna `week`.
+
+    Regula: fiecare minut de lucru aparține PRIMEI predări făcute după el. O săptămână primește
+    intervalele (predarea anterioară, oricare ar fi ea; predarea săptămânii] pentru fiecare predare a ei
+    (inițială + re-predări). Cu `pending`, adaugă intervalul predării care se face acum (deschis până la HEAD).
+    Nimic nu e numărat de două ori, iar ultima arhivă a săptămânii conține toate intervalele ei.
+    """
+    subs = load_submissions()
+    wins = []
+    for i, e in enumerate(subs):
+        if e.get("week") == week:
+            wins.append([subs[i - 1]["_t"] if i else None, e["_t"]])
+    if pending:
+        wins.append([subs[-1]["_t"] if subs else None, None])
+    return wins
+
+
+def in_windows(ts, wins) -> bool:
+    if ts is None:
+        return True
+    for a, b in wins:
+        if (a is None or ts > a) and (b is None or ts <= b):
+            return True
+    return False
+
+
+# fișierele de la rădăcina ~/work care vin din șablon (nu sunt munca studentului)
+TEMPLATE_FILES = {"AGENTS.md", "CLAUDE.md", "GEMINI.md", "compile_flags.txt"}
+
+
+def work_source_files() -> list[str]:
+    """Toate fișierele salvate în istoric care sunt munca studentului (toate folderele, nu doar sapt-NN)."""
+    out = []
+    for rel in filter(None, git("ls-files", "-z").stdout.split("\0")):
+        top = rel.split("/", 1)[0]
+        if top.startswith(".") or top == "predari" or rel in TEMPLATE_FILES:
+            continue
+        out.append(rel)
+    return out
+
+
+def commit_before(t: datetime) -> str | None:
+    r = git("rev-list", "-1", f"--before={t.isoformat()}", "HEAD", "--", check=False).stdout.strip()
+    return r or None
+
+
+def parse_since(text: str) -> datetime:
+    """dd-mm-yy, dd-mm-yyyy, dd.mm.yyyy sau yyyy-mm-dd → începutul zilei (ora locală)."""
+    for fmt in ("%d-%m-%y", "%d-%m-%Y", "%d.%m.%Y", "%d.%m.%y", "%d/%m/%Y", "%d/%m/%y", "%Y-%m-%d"):
+        try:
+            return datetime.strptime(text.strip(), fmt).astimezone()
+        except ValueError:
+            pass
+    raise RuntimeError(f"data „{text}” nu e validă; folosește zz-ll-aa, de ex. 01-10-26")
 
 
 def commit_time(rev: str) -> datetime:
@@ -420,13 +532,13 @@ def head_file(rel: str) -> str:
     return r.stdout if r.returncode == 0 else ""
 
 
-def window_stats(since_rev: str | None, since_time: datetime | None) -> dict:
-    rng = f"{since_rev}..HEAD" if since_rev else "HEAD"
-    commits = int(git("rev-list", "--count", rng, "--").stdout.strip() or 0)
-
+def window_stats(wins: list[list]) -> dict:
     def in_win(ts):
-        return since_time is None or ts is None or ts >= since_time
+        return in_windows(ts, wins)
 
+    cts = [datetime.fromtimestamp(int(x), tz=timezone.utc)
+           for x in git("log", "--format=%ct", "HEAD", "--").stdout.split()]
+    commits = sum(1 for t in cts if in_win(t))
     cmds = [c for c in L.parse_terminal_log(head_file(".pclp/terminal.log")) if in_win(c["ts"])]
     blocks = [b for b in L.parse_tools_log(head_file(".pclp/tools.log")) if in_win(b["ts"])]
     compiles = [b for b in blocks if b["is_compile"]]
@@ -438,12 +550,14 @@ def window_stats(since_rev: str | None, since_time: datetime | None) -> dict:
         for m in L.parse_ai_file(rel, text):
             if m["role"] == "user" and in_win(m["ts"]):
                 ai_counts[m["tool"]] = ai_counts.get(m["tool"], 0) + 1
+    # problemele atinse în intervale: diferențele commit-urilor din ferestre
     problems = set()
-    base = since_rev or "4b825dc642cb6eb9a060e54bf8d69288fbee4904"  # arborele gol
-    diff = git("diff", "--name-only", base, "HEAD", "--", check=False)
-    for rel in diff.stdout.split():
-        m = re.match(r"(sapt-\d\d/[^/]+)/", rel)
-        if m:
+    for line in git("log", "--format=@%ct", "--name-only", "HEAD", "--").stdout.splitlines():
+        if line.startswith("@"):
+            cur_in = in_win(datetime.fromtimestamp(int(line[1:]), tz=timezone.utc))
+            continue
+        m = re.match(r"(sapt-\d\d/[^/]+)/", line)
+        if m and cur_in:
             problems.add(m.group(1))
     return {
         "commits_window": commits,
@@ -515,10 +629,11 @@ def cmd_status(a):
     print(f"Ultimul snapshot: {last}")
     tg = tags()
     wk = w or (max(tg) + 1 if tg else 1)
-    prev = prev_tag_for(wk)
-    since_time = commit_time(prev) if prev else None
-    s = window_stats(prev, since_time)
-    print(f"De la {'predarea ' + prev.replace('refs/tags/', '') if prev else 'început'}:")
+    wins = week_windows(wk)
+    s = window_stats(wins)
+    last = load_submissions()
+    print(f"De la {('predarea din ' + last[-1]['_t'].strftime('%d.%m %H:%M')) if last else 'început'} "
+          f"(ce intră în următoarea predare):")
     print(f"  snapshot-uri: {s['commits_window']}   comenzi: {s['commands']}   "
           f"compilări: {s['compiles']} (eșuate: {s['failed_compiles']})   valgrind: {s['valgrind_runs']}")
     ai = ", ".join(f"{k}: {v}" for k, v in s["ai_prompts"].items()) or "0"
@@ -572,8 +687,28 @@ def cmd_submit(a):
             die("identitatea nu e completată; rulează `pclp init`")
     wd = f"sapt-{week:02d}"
     tag = wd
-    if not (WORK / wd).is_dir():
-        print(f"Atenție: directorul {wd}/ nu există în ~/work — arhiva va conține doar istoricul și jurnalele.")
+    since_arg = parse_since(a.since) if getattr(a, "since", None) else None
+    custom = since_arg is not None
+    wins = [[since_arg, None]] if custom else week_windows(week)
+    since_time = wins[-1][0]
+
+    # avertismente înainte de predare
+    notes = []
+    cw = current_week()
+    if cw and week != cw:
+        notes.append(f"Săptămâna curentă este {cw}, iar tu predai săptămâna {week}"
+                     + (" (cu întârziere)." if week < cw else " (înainte de termen)."))
+    if custom:
+        notes.append(f"Fereastra acestei predări începe pe {since_time:%d.%m.%Y} (ai ales-o cu --since). "
+                     "Profesorul o vede în raport; orele deja numărate în alte predări pot apărea de două ori.")
+    if notes:
+        print("Atenție:")
+        for n in notes:
+            print("  - " + n)
+        print(f"  Timpul de lucru numărat acum: de la {since_time.strftime('%d.%m.%Y %H:%M') if since_time else 'început'} până acum.")
+        if sys.stdin.isatty() and not getattr(a, "yes", False):
+            if input("Continui predarea? [d/N] ").strip().lower() not in ("d", "da", "y", "yes"):
+                die("predarea a fost anulată", 0)
 
     existing = tags()
     resub = 0
@@ -588,13 +723,17 @@ def cmd_submit(a):
                             "pclp_version": VERSION}, ensure_ascii=False) + "\n")
     snap(msg=f"pclp: predare {wd}" + (f" (re-predare {resub})" if resub else ""), quiet=True)
     head = git("rev-parse", "HEAD").stdout.strip()
-    prev = prev_tag_for(week)
-    prev_head = git("rev-list", "-n1", prev, "--").stdout.strip() if prev else None
-    since_time = commit_time(prev) if prev else None
-    tag_msg = json.dumps({"week": week, "resubmission": resub, "created_at": created})
+    # închidem intervalul predării curente la momentul ei
+    created_t = datetime.fromisoformat(created)
+    wins = [[w0, w1 if w1 is not None else created_t] for w0, w1 in wins]
+    if custom:
+        wins = [[since_arg, created_t]]
+    prev_head = commit_before(since_time) if since_time else None
+    tag_msg = json.dumps({"week": week, "resubmission": resub, "created_at": created, "window_custom": custom})
     git_retry("tag", "-f", "-a", tag, "-m", tag_msg, head)
 
-    stats = window_stats(prev, since_time)
+    # ușor după `created`: snapshot-ul final se face imediat după înregistrarea predării
+    stats = window_stats(wins[:-1] + [[wins[-1][0], wins[-1][1] + timedelta(seconds=120)]])
 
     # --- conținutul arhivei ---
     entries: dict[str, bytes] = {}
@@ -602,8 +741,9 @@ def cmd_submit(a):
     git("bundle", "create", "-q", str(bundle_path), "--all")
     entries["history.bundle"] = bundle_path.read_bytes()
     bundle_path.unlink()
-    for rel in filter(None, git("ls-files", "-z", "--", wd).stdout.split("\0")):
-        entries["files/" + rel[len(wd) + 1:]] = git_blob(rel)
+    # codul din TOATE folderele (sapt-01/, sapt-02/, …), cu căile complete
+    for rel in work_source_files():
+        entries["files/" + rel] = git_blob(rel)
     entries["logs/terminal.log"] = git_blob(".pclp/terminal.log")
     entries["logs/tools.log"] = git_blob(".pclp/tools.log")
     entries["logs/tests.log"] = git_blob(".pclp/tests.log")
@@ -617,7 +757,11 @@ def cmd_submit(a):
         "week": week,
         "tag": tag,
         "head": head,
-        "prev_tag": prev.replace("refs/tags/", "") if prev else None,
+        "prev_tag": None,
+        "window_rule": 3,
+        "windows": [[w0.isoformat() if w0 else None, w1.isoformat() if w1 else None] for w0, w1 in wins],
+        "window_custom": custom,
+        "files_layout": 2,
         "prev_head": prev_head,
         "window_start": since_time.isoformat() if since_time else None,
         "created_at": created,
@@ -630,7 +774,7 @@ def cmd_submit(a):
 
     outdir = WORK / "predari"
     outdir.mkdir(exist_ok=True)
-    stamp = datetime.now().strftime("%Y%m%d-%H%M")
+    stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     name = f"{wd}-{slugify(st.get('name', ''))}-{stamp}.tar.gz"
     out = outdir / name
     mtime = int(time.time())
@@ -654,6 +798,12 @@ def cmd_submit(a):
 
     ai = ", ".join(f"{k}: {v}" for k, v in stats["ai_prompts"].items()) or "0"
     bar = "=" * 70
+    base = prev_head or "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
+    changed = [r for r in git("diff", "--name-only", base, "HEAD", "--", check=False).stdout.split()
+               if r in set(work_source_files())]
+    if not changed:
+        print("\nAtenție: nu există modificări de cod în fereastra acestei predări "
+              "(de la ultima predare până acum). Verifică dacă ai lucrat în ~/work.")
     print(f"""
 {bar}
  Predarea pentru săptămâna {week} este gata{' (re-predare #' + str(resub) + ')' if resub else ''}.
@@ -908,6 +1058,9 @@ def main(argv=None):
     s.set_defaults(fn=cmd_snap)
     s = sub.add_parser("submit", help="creează arhiva de predare pentru o săptămână")
     s.add_argument("week", type=int)
+    s.add_argument("--since", metavar="ZZ-LL-AA",
+                   help="începutul ferestrei de timp (implicit: ultima predare făcută), ex. 01-10-26")
+    s.add_argument("-y", "--yes", action="store_true", help="nu cere confirmare la avertismente")
     s.set_defaults(fn=cmd_submit)
     s = sub.add_parser("week", help="săptămâna curentă a semestrului")
     s.set_defaults(fn=cmd_week)

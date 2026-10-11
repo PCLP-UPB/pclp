@@ -201,6 +201,18 @@ Comanda face un ultim snapshot, creează arhiva și afișează un **cod de verif
    de lângă `compose.yaml`);
 2. **lipește codul de verificare** în câmpul de text al predării.
 
+**Ce conține arhiva:** codul din **toate** folderele tale (`sapt-01/`, `sapt-02/`, …), istoricul
+modificărilor, comenzile din terminal, mesajele compilatorului și prompturile AI.
+
+**Ce timp de lucru se numără:** tot ce ai lucrat **de la predarea anterioară** (oricare ar fi săptămâna ei)
+până acum. Dacă în săptămâna 3 lucrezi și la probleme din săptămâna 2, munca intră în predarea săptămânii 3.
+Rulează `pclp submit` cu numărul săptămânii **curente** (`pclp week` îți arată care e). Dacă predai altă
+săptămână (de exemplu una întârziată), comanda te avertizează și îți cere confirmarea.
+
+Opțional, `pclp submit 3 --since 01-10-26` numără timpul începând de la o dată aleasă de tine (zz-ll-aa).
+Folosește opțiunea doar când ți-o cere profesorul: perioada aleasă apare în raport, iar suprapunerile cu
+alte predări sunt semnalate.
+
 Nu modifica, nu redenumi conținutul și nu re-arhiva fișierul — codul n-ar mai corespunde.
 Dacă vrei să predai din nou (înainte de termen), rulează iar `pclp submit 3` și încarcă noua arhivă
 cu noul cod. **Nu rescrie istoricul git** (`git rebase`, `git commit --amend`, `git reset` pe
