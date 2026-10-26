@@ -1,0 +1,12 @@
+SET volum 70
+SET sensibilitate 1.25
+SET fullscreen true
+SET nume_jucator Bobocul
+SET versiune 1.0.3
+ADD volum -15
+TOGGLE fullscreen
+TOGGLE volum
+ADD nume_jucator 1
+GET dificultate
+SET volum mediu
+LIST

@@ -1,0 +1,104 @@
+id: lab06-p12-parcare-etaje
+lab: lab06
+number: 12
+title: "Parcarea cu etaje"
+difficulty: 1
+estimated_minutes: 20
+concepts: [matrice alocată dinamic, vector de pointeri, eliberarea unei matrice, separarea alocării de citire, malloc]
+statement: |
+  Parcarea etajată de lângă facultate are `n` etaje, fiecare cu `m` locuri numerotate de la 1 la `m`. Senzorii trimit starea fiecărui loc: `0` liber, `1` ocupat. Dimensiunile diferă de la o parcare la alta, așa că starea se memorează într-o **matrice alocată dinamic** (vector de `n` pointeri, fiecare către o linie de `m` întregi).
+
+  Afișați:
+
+  - pentru fiecare etaj, câte locuri libere are;
+  - etajul cu cele mai multe locuri libere (la egalitate, cel mai jos — cu numărul cel mai mic);
+  - locurile (numerele de loc) care sunt libere **pe toate etajele**, crescător.
+
+  Implementați și folosiți funcțiile (alocarea separată de citire, ca în laborator):
+
+  ```c
+  int **aloca_matrice(int n, int m);          /* NULL daca alocarea esueaza */
+  void citeste_matrice(int **a, int n, int m);
+  void elibereaza_matrice(int **a, int n);
+  ```
+
+  **Date de intrare**
+
+  Pe prima linie `n m`, apoi `n` linii cu câte `m` valori `0` sau `1` (linia `i` descrie etajul `i`).
+
+  **Date de ieșire**
+
+  ```
+  Etaj <i>: <libere> libere          (cate o linie pentru fiecare etaj)
+  cel mai liber: etajul <i>
+  libere peste tot: <locurile, fiecare precedat de un spatiu>
+  ```
+
+  Dacă niciun loc nu e liber pe toate etajele, ultima linie este `libere peste tot: -`.
+
+  **Restricții**
+
+  - `1 ≤ n, m ≤ 1000`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3 5
+  1 0 1 1 0
+  1 1 1 0 0
+  0 0 1 1 0
+  ```
+
+  Ieșire:
+  ```
+  Etaj 1: 2 libere
+  Etaj 2: 2 libere
+  Etaj 3: 3 libere
+  cel mai liber: etajul 3
+  libere peste tot: 5
+  ```
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  int **aloca_matrice(int n, int m)
+  {
+      /* TODO: vector de n pointeri, apoi fiecare linie de m intregi */
+  }
+
+  void citeste_matrice(int **a, int n, int m)
+  {
+      /* TODO */
+  }
+
+  void elibereaza_matrice(int **a, int n)
+  {
+      /* TODO: intai liniile, apoi vectorul de pointeri */
+  }
+
+  int main(void)
+  {
+      int n, m;
+      int **parcare;
+
+      scanf("%d %d", &n, &m);
+      parcare = aloca_matrice(n, m);
+      if (parcare == NULL) {
+          return 1;
+      }
+      citeste_matrice(parcare, n, m);
+
+      /* TODO: locuri libere pe etaje, cel mai liber etaj, locuri libere peste tot */
+
+      elibereaza_matrice(parcare, n);
+      return 0;
+  }
+hints:
+  - "O matrice alocată dinamic are două niveluri: un vector de `n` elemente de tip `int *` (adresele liniilor) și `n` linii de câte `m` întregi. După alocare o folosești exact ca pe o matrice obișnuită: `a[i][j]`."
+  - "Vectorul de pointeri se alocă cu `n * sizeof(int *)`, fiecare linie cu `m * sizeof(int)`. Eliberarea se face în ordine inversă: întâi fiecare linie, apoi vectorul de pointeri."
+  - "Locul `j` e liber peste tot dacă pe coloana `j` nu apare niciun `1`: parcurgi coloana de sus în jos și te oprești la primul loc ocupat. Pentru etajul cel mai liber actualizezi maximul doar la o valoare strict mai mare."
+pitfalls:
+  - "`malloc(n * sizeof(int))` pentru vectorul de pointeri e greșit pe sistemele pe 64 de biți, unde un pointer are 8 octeți, iar un `int` 4."
+  - "`free(parcare)` singur lasă toate cele `n` linii neeliberate."
+  - "Numerotarea etajelor și a locurilor începe de la 1 în ieșire, dar indicii din matrice încep de la 0."

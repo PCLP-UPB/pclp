@@ -1,0 +1,23 @@
+*.pdf: 4
+raport.final.pdf
+raport.pdf
+rap.pdf
+.pdf
+rap*.pdf: 3
+raport.final.pdf
+raport.pdf
+rap.pdf
+raport*.*: 2
+raport.final.pdf
+raport.pdf
+*.*.*: 1
+raport.final.pdf
+?*.pdf: 3
+raport.final.pdf
+raport.pdf
+rap.pdf
+*?.?*: 3
+raport.final.pdf
+raport.pdf
+rap.pdf
+RAPORT.pdf: 0

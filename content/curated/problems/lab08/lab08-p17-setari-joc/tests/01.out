@@ -1,0 +1,9 @@
+volum: nu e BOOL
+nume_jucator: nu e numeric
+dificultate: inexistent
+--- 5 setari ---
+volum = mediu (TEXT)
+sensibilitate = 1.25 (REAL)
+fullscreen = false (BOOL)
+nume_jucator = Bobocul (TEXT)
+versiune = 1.0.3 (TEXT)

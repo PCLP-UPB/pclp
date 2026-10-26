@@ -1,0 +1,11 @@
+NEW a
+NEW a
+CLONE b c
+CLONE a a
+ADD b x 1:00
+RENAME b 1 y
+REMOVE b 1
+DELETE b
+ADD a unu 0:00
+ADD a doi 999:59
+SHOW a

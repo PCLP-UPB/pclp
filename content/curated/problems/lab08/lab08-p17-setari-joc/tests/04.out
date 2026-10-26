@@ -1,0 +1,5 @@
+bani = -1000000000000 (INT)
+viteza = 3.15 (REAL)
+viteza = -1.85 (REAL)
+viteza = 3 (INT)
+viteza = true (BOOL)

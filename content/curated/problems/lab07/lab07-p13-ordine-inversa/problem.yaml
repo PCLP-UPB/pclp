@@ -1,0 +1,80 @@
+id: lab07-p13-ordine-inversa
+lab: lab07
+number: 13
+title: "Traducătorul pentru Yoda"
+difficulty: 2
+estimated_minutes: 25
+concepts: [strtok, token, vector de pointeri, fgets, șir de caractere]
+statement: |
+  Pentru o seară de film tematică, organizatorii vor să transforme replicile obișnuite în replici „în stilul lui Yoda” și invers: cuvintele fiecărei replici se scriu în ordine inversă.
+
+  Un **cuvânt** este o secvență maximală de caractere diferite de spațiu și tab; semnele de punctuație lipite de un cuvânt fac parte din el (`esti,` este un singur cuvânt). Pentru fiecare linie, afișați cuvintele ei în ordine inversă, separate prin **exact un spațiu**, fără spații la început sau la final.
+
+  Implementați și folosiți funcția:
+
+  ```c
+  int imparte(char *linie, char *cuv[]);
+  ```
+
+  care împarte linia în cuvinte cu `strtok`, pune în `cuv[i]` adresa cuvântului `i` (o adresă din interiorul liniei, fără copii) și returnează numărul de cuvinte.
+
+  **Date de intrare**
+
+  Mai multe linii, până la sfârșitul fișierului. Ultima linie se poate termina sau nu cu `\n`.
+
+  **Date de ieșire**
+
+  Pentru fiecare linie citită, o linie cu cuvintele ei în ordine inversă. O linie fără niciun cuvânt (goală sau doar cu spații și tab-uri) produce o linie goală.
+
+  **Restricții**
+
+  - cel mult 1000 de linii, fiecare de cel mult 200 de caractere ASCII (afișabile sau tab), fără `\n`
+  - deci o linie are cel mult 100 de cuvinte
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  Puternic in tine Forta este
+  rabdare multa ai sa Trebuie
+     cand   gata  esti,  vei sti
+  Hmm.
+  ```
+
+  Ieșire:
+  ```
+  este Forta tine in Puternic
+  Trebuie sa ai multa rabdare
+  sti vei esti, gata cand
+  Hmm.
+  ```
+starter: |
+  #include <stdio.h>
+  #include <string.h>
+
+  #define LMAX 256
+  #define CMAX 128
+
+  int imparte(char *linie, char *cuv[])
+  {
+      /* TODO: strtok cu delimitatorii spatiu, tab si '\n' */
+      return 0;
+  }
+
+  int main(void)
+  {
+      char linie[LMAX];
+      char *cuv[CMAX];
+
+      while (fgets(linie, LMAX, stdin) != NULL) {
+          /* TODO: imparte linia, apoi afiseaza cuvintele de la ultimul la primul */
+      }
+      return 0;
+  }
+hints:
+  - "`strtok` sare peste oricâți delimitatori consecutivi, deci spațiile multiple și cele de la capete nu-ți mai dau bătăi de cap. Primul apel primește linia, următoarele primesc `NULL`, până când funcția returnează `NULL`."
+  - "Nu trebuie să copiezi cuvintele: `strtok` pune `'\\0'` după fiecare cuvânt chiar în linie, deci pointerii returnați sunt deja șiruri corecte. Îi păstrezi într-un vector `char *cuv[]` și apoi îl parcurgi de la coadă."
+  - "Pune și `'\\n'` în lista de delimitatori, ca ultimul cuvânt să nu-l conțină. Spațiul se afișează doar *între* cuvinte: înaintea fiecărui cuvânt în afară de primul afișat, sau după fiecare în afară de ultimul."
+pitfalls:
+  - "Pointerii din `cuv` indică în `linie`; după următorul `fgets` ei arată textul liniei noi. E în regulă aici, pentru că afișezi linia înainte să citești următoarea."
+  - "Dacă uiți tab-ul (`\\t`) din delimitatori, cuvintele separate prin tab rămân lipite."

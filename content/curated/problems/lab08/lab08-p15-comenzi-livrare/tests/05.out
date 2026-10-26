@@ -1,0 +1,19 @@
+Comanda 1000000: PLASATA
+Comanda 7: PLASATA
+Comanda 8: PLASATA
+Comanda 7: IN_PREGATIRE
+Comanda 8: IN_PREGATIRE
+Comanda 8: PE_DRUM
+Comanda 7: PE_DRUM
+Comanda 8: LIVRATA lui Paul dupa 13 minute
+Comanda 7: LIVRATA lui Maria dupa 34 minute
+Comanda 1000000: IN_PREGATIRE
+Comanda 7 nu mai poate fi anulata
+Comanda 1000000: ANULATA
+Comanda 8 exista deja
+PLASATA: 0
+IN_PREGATIRE: 0
+PE_DRUM: 0
+LIVRATA: 2
+ANULATA: 1
+Timp mediu de livrare: 23.5 minute

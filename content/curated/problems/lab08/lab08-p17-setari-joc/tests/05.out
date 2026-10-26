@@ -1,0 +1,6 @@
+o_cheie_foarte_lunga_de_30_car = abcdefghijklmnopqrstuvwxyz0123 (TEXT)
+--- 4 setari ---
+o_cheie_foarte_lunga_de_30_car = 100 (INT)
+x = false (BOOL)
+y = truefalse (TEXT)
+z = 999999999999 (INT)

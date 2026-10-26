@@ -1,0 +1,97 @@
+id: lab07-p11-extensii-fisiere
+lab: lab07
+number: 11
+title: "Extensiile fișierelor"
+difficulty: 1
+estimated_minutes: 15
+concepts: [strrchr, fgets, șir de caractere, terminator de șir, tolower]
+statement: |
+  Un program de backup grupează fișierele după tip, iar tipul se deduce din extensie. Pentru fiecare cale de fișier primită, afișați numele fișierului și extensia lui.
+
+  - **Numele fișierului** este partea căii de după ultimul caracter `/`; dacă linia nu conține `/`, numele este toată linia.
+  - **Extensia** este partea numelui de după **ultimul** punct `.`, transformată în litere mici. Numele **nu are extensie** dacă nu conține niciun punct, dacă ultimul punct este ultimul caracter al numelui (extensia ar fi vidă) sau dacă ultimul punct este chiar primul caracter al numelui (fișierele ascunse, ca `.bashrc`).
+
+  Atenție: punctele din numele directoarelor nu contează (`proiect.v2/README` nu are extensie).
+
+  Implementați și folosiți funcțiile:
+
+  ```c
+  void elimina_linie_noua(char *s);            /* sterge '\n' de la final, daca exista */
+  const char *nume_fisier(const char *cale);   /* adresa primului caracter al numelui */
+  void extensie(const char *nume, char *ext);  /* ext = extensia cu litere mici, sau "" */
+  ```
+
+  **Date de intrare**
+
+  Mai multe linii, până la sfârșitul fișierului; fiecare linie conține o cale. Ultima linie se poate termina sau nu cu `\n`.
+
+  **Date de ieșire**
+
+  Pentru fiecare linie, `nume -> extensie`, sau `nume -> (fara)` dacă numele nu are extensie. Numele se afișează exact cum apare în cale (fără `\n`-ul citit de `fgets`).
+
+  **Restricții**
+
+  - cel mult 1000 de linii, fiecare de cel mult 200 de caractere ASCII afișabile (fără `\n`); pot apărea spații
+  - nicio cale nu se termină cu `/`, deci numele fișierului are cel puțin un caracter
+  - bufferul pentru `fgets` trebuie să aibă loc pentru 200 de caractere, `\n` și `\0`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  poze/vacanta/IMG_0042.JPG
+  teme/pclp/tema1.c
+  proiect/Makefile
+  arhive/backup.tar.gz
+  /home/ana/.bashrc
+  ```
+
+  Ieșire:
+  ```
+  IMG_0042.JPG -> jpg
+  tema1.c -> c
+  Makefile -> (fara)
+  backup.tar.gz -> gz
+  .bashrc -> (fara)
+  ```
+starter: |
+  #include <stdio.h>
+  #include <string.h>
+  #include <ctype.h>
+
+  #define LMAX 256
+
+  void elimina_linie_noua(char *s)
+  {
+      /* TODO */
+  }
+
+  const char *nume_fisier(const char *cale)
+  {
+      /* TODO: cauta ultimul '/' */
+      return cale;
+  }
+
+  void extensie(const char *nume, char *ext)
+  {
+      /* TODO: cauta ultimul '.', verifica pozitia lui, copiaza cu litere mici */
+      ext[0] = '\0';
+  }
+
+  int main(void)
+  {
+      char linie[LMAX];
+      char ext[LMAX];
+
+      while (fgets(linie, LMAX, stdin) != NULL) {
+          /* TODO */
+      }
+      return 0;
+  }
+hints:
+  - "Ai nevoie de **ultima** apariție a unui caracter, de două ori: ultimul `/` din cale și ultimul `.` din nume. `strrchr` face exact asta și returnează `NULL` dacă nu găsește caracterul."
+  - "Numele începe la un caracter după ultimul `/`. Caută punctul în nume (nu în toată calea!), altfel punctele din directoare te încurcă. Un pointer care indică în interiorul liniei e suficient — nu trebuie să copiezi numele."
+  - "Cazurile fără extensie: `p == NULL`, `p == nume` (punctul e primul caracter), `*(p + 1) == '\\0'` (punctul e ultimul). Altfel copiezi caracterele de după punct, fiecare trecut prin `tolower`, și pui `'\\0'` la final."
+pitfalls:
+  - "Dacă nu ștergi `\\n`-ul lăsat de `fgets`, extensia devine `\"c\\n\"`, iar `raport.` pare să aibă extensia `\"\\n\"`."
+  - "Ultima linie poate să nu aibă `\\n`: nu șterge orbește ultimul caracter, verifică întâi că e `\\n`."

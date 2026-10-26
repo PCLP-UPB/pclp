@@ -1,0 +1,157 @@
+id: lab06-p18-foaie-calcul
+lab: lab06
+number: 18
+title: "Foaia de calcul elastică"
+difficulty: 4
+estimated_minutes: 45
+concepts: [matrice alocată dinamic, realloc, vector de pointeri, eliberarea unei matrice, realocare prin pointer auxiliar, pointer returnat de funcție]
+statement: |
+  Scrieți nucleul unei foi de calcul minimaliste: un tabel de întregi cu `r` linii și `c` coloane, care pornește gol (`0 x 0`) și se modifică prin comenzi. Tabelul se memorează ca o matrice alocată dinamic (`int **t`) care ocupă **exact** cât trebuie:
+
+  - vectorul de pointeri are exact `r` elemente (`t == NULL` dacă `r == 0`);
+  - fiecare linie are exact `c` întregi (pointerul liniei este `NULL` dacă `c == 0`).
+
+  Observați că un tabel poate avea coloane fără linii (de exemplu `0 x 2`) sau linii fără coloane (`2 x 0`).
+
+  Comenzi (liniile și coloanele sunt numerotate de la 1):
+
+  | comandă | efect |
+  |---|---|
+  | `L` | adaugă o linie nouă la final, plină cu 0 |
+  | `C` | adaugă o coloană nouă la final, plină cu 0 |
+  | `X i` | șterge linia `i` |
+  | `Y j` | șterge coloana `j` |
+  | `S i j x` | pune valoarea `x` în celula `(i, j)` |
+  | `T` | înlocuiește tabelul cu transpusul lui (`r x c` devine `c x r`) |
+  | `P` | afișează tabelul |
+
+  O comandă `X`, `Y` sau `S` cu poziții inexistente nu modifică nimic și afișează `EROARE`. Implementați și folosiți:
+
+  ```c
+  int **adauga_linie(int **t, int *r, int c);               /* noul t sau NULL la eroare */
+  int adauga_coloana(int **t, int r, int *c);               /* 1 = succes, 0 = eroare */
+  int **sterge_linie(int **t, int *r, int i);               /* i numerotat de la 0 */
+  void sterge_coloana(int **t, int r, int *c, int j);
+  int **transpune(int **t, int r, int c, int *ok);          /* tabel NOU, c x r */
+  void elibereaza(int **t, int r);
+  ```
+
+  După `T`, tabelul vechi se eliberează. La final nu trebuie să rămână memorie neeliberată.
+
+  **Date de intrare**
+
+  Pe prima linie `q`, apoi `q` comenzi, câte una pe linie.
+
+  **Date de ieșire**
+
+  Pentru `P`: o linie `<r> x <c>`, urmată (doar dacă `c > 0`) de `r` linii cu valorile separate prin câte un spațiu. Pentru comenzile invalide, `EROARE`.
+
+  **Restricții**
+
+  - `1 ≤ q ≤ 20000`
+  - în orice moment `r, c ≤ 200`
+  - valorile sunt întregi din `[-10^9, 10^9]`; pozițiile din comenzi sunt întregi din `[-10, 300]`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  20
+  L
+  L
+  C
+  C
+  C
+  S 1 2 5
+  S 2 3 7
+  P
+  T
+  P
+  X 1
+  Y 2
+  S 3 1 4
+  P
+  Y 1
+  P
+  T
+  P
+  L
+  P
+  ```
+
+  Ieșire:
+  ```
+  2 x 3
+  0 5 0
+  0 0 7
+  3 x 2
+  0 0
+  5 0
+  0 7
+  EROARE
+  2 x 1
+  5
+  0
+  2 x 0
+  0 x 2
+  1 x 2
+  0 0
+  ```
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  int **adauga_linie(int **t, int *r, int c)
+  {
+      /* TODO: linie noua de c zerouri (NULL daca c == 0), realloc pe vectorul de pointeri */
+  }
+
+  int adauga_coloana(int **t, int r, int *c)
+  {
+      /* TODO: realloc pe fiecare linie, noul element = 0 */
+  }
+
+  int **sterge_linie(int **t, int *r, int i)
+  {
+      /* TODO: free pe linie, mutarea pointerilor, micsorarea vectorului (NULL daca r ajunge 0) */
+  }
+
+  void sterge_coloana(int **t, int r, int *c, int j)
+  {
+      /* TODO: mutarea elementelor in fiecare linie, micsorarea liniilor (NULL daca c ajunge 0) */
+  }
+
+  int **transpune(int **t, int r, int c, int *ok)
+  {
+      /* TODO: tabel nou cu c linii de cate r elemente */
+  }
+
+  void elibereaza(int **t, int r)
+  {
+      /* TODO */
+  }
+
+  int main(void)
+  {
+      int q, k, r = 0, c = 0;
+      char op;
+      int **t = NULL;
+
+      scanf("%d", &q);
+      for (k = 0; k < q; k++) {
+          scanf(" %c", &op);
+          /* TODO: executarea comenzii */
+      }
+
+      elibereaza(t, r);
+      return 0;
+  }
+hints:
+  - "Desenează cele două niveluri: vectorul de pointeri (lungime `r`) și liniile (lungime `c` fiecare). `L` și `X` modifică doar vectorul de pointeri (plus o linie alocată sau eliberată); `C` și `Y` modifică toate liniile, dar nu și vectorul de pointeri."
+  - "Ștergerea liniei `i`: eliberezi linia, muți pointerii `t[i+1..r-1]` cu o poziție la stânga (se mută adrese, nu valori), apoi micșorezi vectorul. Ștergerea coloanei `j`: în fiecare linie muți elementele de după `j` la stânga și micșorezi linia. Când o dimensiune ajunge la 0, folosește `free` și pune pointerul pe `NULL`, nu `realloc(p, 0)`."
+  - "Transpusa are `c` linii de câte `r` elemente: `nou[j][i] = t[i][j]`. În `main`: `nou = transpune(t, r, c, &ok)`, apoi `elibereaza(t, r)` (cu vechiul `r`!), apoi `t = nou` și interschimbi `r` cu `c`. Cazuri limită: `T` pe `2 x 0` dă `0 x 2` (vector de pointeri `NULL`), iar `T` pe `0 x 2` dă `2 x 0` (doi pointeri `NULL`)."
+pitfalls:
+  - "`realloc(p, 0)` nu are un comportament garantat; tratează explicit dimensiunea 0."
+  - "Dacă la `C` aloci din nou fiecare linie cu `malloc` (fără să copiezi), pierzi valorile și memoria veche."
+  - "Eliberarea tabelului vechi după `T` trebuie făcută cu numărul lui de linii, înainte să interschimbi `r` și `c`."
+  - "La `adauga_linie`, dacă alocarea liniei sau `realloc` eșuează, tabelul vechi trebuie să rămână valid."

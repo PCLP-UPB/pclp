@@ -1,0 +1,116 @@
+id: lab07-p19-sabloane-fisiere
+lab: lab07
+number: 19
+title: "Căutarea fișierelor după șablon"
+difficulty: 4
+estimated_minutes: 50
+concepts: [șir de caractere, terminator de șir, aritmetică cu pointeri, vector de pointeri la șiruri, malloc]
+statement: |
+  În terminal, comanda `ls *.c` afișează doar fișierele care se termină în `.c`. Implementați această potrivire după **șablon**: într-un șablon, `?` se potrivește cu **exact un** caracter oarecare, `*` se potrivește cu **orice secvență** de caractere (inclusiv cea vidă), iar orice alt caracter se potrivește doar cu el însuși (literele mari și mici sunt diferite). Un nume se potrivește cu un șablon dacă **tot** numele corespunde **întregului** șablon.
+
+  De exemplu, `tema?.c` se potrivește cu `tema1.c`, dar nu cu `tema10.c`; `*e*` se potrivește cu orice nume care conține litera `e`.
+
+  Numele de fișiere se păstrează într-un vector de pointeri la șiruri alocat dinamic, fiecare nume fiind copiat într-o zonă alocată exact cât îi trebuie. Implementați și folosiți:
+
+  ```c
+  int potriveste(const char *s, const char *p);   /* 1 daca numele s se potriveste cu sablonul p */
+  ```
+
+  **Atenție la eficiență:** un șablon poate conține multe stele (de exemplu `*a*a*a*a*a*a*a*a*a*a*a*a*b`). O soluție recursivă care încearcă toate variantele pentru fiecare `*` face un număr exponențial de pași și depășește limita de timp; potrivirea unui nume trebuie să facă cel mult de ordinul `lungime(nume) · lungime(sablon)` pași.
+
+  **Date de intrare**
+
+  Pe prima linie `n`. Pe următoarele `n` linii, câte un nume de fișier. Apoi, până la sfârșitul fișierului, câte un șablon pe linie.
+
+  **Date de ieșire**
+
+  Pentru fiecare șablon, o linie `<sablon>: <k>`, unde `k` este numărul de nume care se potrivesc, urmată de cele `k` nume, câte unul pe linie, în ordinea din intrare.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 200`, cel mult 50 de șabloane
+  - numele și șabloanele au între 1 și 100 de caractere; numele conțin doar litere, cifre și `.` `_` `-`; șabloanele pot conține în plus `?` și `*`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  7
+  tema1.c
+  tema2.c
+  tema10.c
+  tema1.h
+  Makefile
+  note.txt
+  tema_bonus.c
+  *.c
+  tema?.c
+  tema*
+  *e*
+  ?????
+  ```
+
+  Ieșire:
+  ```
+  *.c: 4
+  tema1.c
+  tema2.c
+  tema10.c
+  tema_bonus.c
+  tema?.c: 2
+  tema1.c
+  tema2.c
+  tema*: 5
+  tema1.c
+  tema2.c
+  tema10.c
+  tema1.h
+  tema_bonus.c
+  *e*: 7
+  tema1.c
+  tema2.c
+  tema10.c
+  tema1.h
+  Makefile
+  note.txt
+  tema_bonus.c
+  ?????: 0
+  ```
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+
+  #define LMAX 128
+
+  char *copie(const char *s)
+  {
+      /* TODO */
+      return NULL;
+  }
+
+  int potriveste(const char *s, const char *p)
+  {
+      /* TODO: parcurgere cu doi pointeri; tineti minte ultima '*' */
+      return 0;
+  }
+
+  int main(void)
+  {
+      char buf[LMAX];
+      char **nume;
+      int n;
+
+      scanf("%d", &n);
+      /* TODO: cititi si copiati numele, apoi pentru fiecare sablon numarati si afisati potrivirile */
+      return 0;
+  }
+hints:
+  - "Fără stele, problema e simplă: avansezi cu un pointer în nume și unul în șablon; `?` acceptă orice caracter, restul trebuie să fie egale; la final ambii pointeri trebuie să fie pe `'\\0'`. Toată dificultatea vine de la `*`: câte caractere „înghite”?"
+  - "Ideea greedy: când întâlnești o `*`, presupune întâi că înghite zero caractere și ține minte două poziții — unde e steaua în șablon și unde ai ajuns în nume. Dacă mai târziu apare o nepotrivire, nu renunța: revino la caracterul de după ultima stea și lasă steaua să mai înghită **un** caracter din nume. Doar dacă nu ai întâlnit nicio stea, nepotrivirea e definitivă."
+  - "Pseudocod: cât timp numele nu s-a terminat: dacă `*p == '*'` → reține `stea = p`, `reluare = s`, avansează `p`; altfel dacă `*p == '?'` sau `*p == *s` → avansează ambii; altfel dacă există `stea` → `p = stea + 1`, `s = ++reluare`; altfel → 0. După buclă, sari peste stelele rămase în șablon; potrivire dacă `*p == '\\0'`. E suficient să revii doar la **ultima** stea."
+pitfalls:
+  - "Recursivitatea naivă (pentru fiecare `*`, încearcă toate lungimile) e corectă, dar exponențială: testele cu multe stele depășesc timpul."
+  - "Nu uita stelele de la finalul șablonului: `tema*` se potrivește cu `tema` (steaua vidă)."
+  - "Potrivirea e pe tot numele: `*.c` nu se potrivește cu `tema1.c.bak`, iar `?` nu se potrivește cu caracterul vid."
+  - "Eliberează fiecare nume și vectorul de pointeri la final."

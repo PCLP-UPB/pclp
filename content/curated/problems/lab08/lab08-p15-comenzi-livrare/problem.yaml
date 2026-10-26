@@ -1,0 +1,149 @@
+id: lab08-p15-comenzi-livrare
+lab: lab08
+number: 15
+title: "Comenzile de mâncare"
+difficulty: 3
+estimated_minutes: 35
+concepts: [enumerare, structuri imbricate, structură, pointer la structură, operatorul săgeată, vector de structuri]
+statement: |
+  O aplicație de livrare de mâncare urmărește comenzile studenților dintr-o seară. Fiecare comandă trece prin stările `PLASATA` → `IN_PREGATIRE` → `PE_DRUM` → `LIVRATA`, întotdeauna în această ordine. O comandă poate fi anulată doar cât timp e `PLASATA` sau `IN_PREGATIRE`; o comandă `LIVRATA` sau `ANULATA` nu se mai schimbă.
+
+  Folosiți tipurile:
+
+  ```c
+  typedef enum { PLASATA, IN_PREGATIRE, PE_DRUM, LIVRATA, ANULATA, NR_STARI } Stare;
+
+  typedef struct {
+      int h;
+      int m;
+  } Ora;
+
+  typedef struct {
+      int id;
+      char client[21];
+      Ora plasata;        /* ora la care a fost plasata comanda */
+      Stare stare;
+  } Comanda;
+  ```
+
+  Trecerea la starea următoare se face prin calcul cu valoarea enumerării (starea curentă + 1), iar numele stărilor se afișează dintr-un vector de șiruri indexat cu valoarea enumerării. Implementați cel puțin:
+
+  ```c
+  Comanda *cauta(Comanda *v, int n, int id);    /* NULL daca nu exista */
+  int avanseaza(Comanda *c);                    /* 1 daca a ajuns LIVRATA */
+  int poate_fi_anulata(const Comanda *c);
+  ```
+
+  Fiecare linie a intrării începe cu ora `HH:MM` și conține una dintre comenzile:
+
+  | comandă | efect |
+  |---|---|
+  | `HH:MM NOUA id client` | o comandă nouă, în starea `PLASATA`; afișează `Comanda <id>: PLASATA`; dacă `id` există deja, afișează `Comanda <id> exista deja` și nu schimbă nimic |
+  | `HH:MM AVANS id` | trece comanda în starea următoare și afișează `Comanda <id>: <stare noua>`; la `LIVRATA`, mesajul este `Comanda <id>: LIVRATA lui <client> dupa <x> minute`, unde `x` = minutele trecute de la plasare; dacă comanda e `LIVRATA` sau `ANULATA`, afișează `Comanda <id> nu mai poate avansa` |
+  | `HH:MM ANULEAZA id` | trece comanda în `ANULATA` și afișează `Comanda <id>: ANULATA`; dacă nu e permis, afișează `Comanda <id> nu mai poate fi anulata` |
+
+  Pentru `AVANS` și `ANULEAZA` cu un `id` care nu există, se afișează `Comanda <id> nu exista`.
+
+  La final se afișează, pentru fiecare stare în ordinea din enumerare, `<STARE>: <numar de comenzi in starea respectiva>`, apoi `Timp mediu de livrare: <medie cu o zecimala> minute`, unde media se ia peste comenzile livrate (suma minutelor împărțită la numărul lor); dacă nicio comandă n-a fost livrată, ultima linie este `Timp mediu de livrare: -`.
+
+  **Date de intrare**
+
+  Comenzi, câte una pe linie, până la sfârșitul fișierului. Orele sunt din aceeași zi și în ordine nedescrescătoare.
+
+  **Date de ieșire**
+
+  Mesajele comenzilor, în ordine, apoi raportul final.
+
+  **Restricții**
+
+  - cel mult 1000 de comenzi `NOUA` și 5000 de linii în total
+  - `1 ≤ id ≤ 10^6`; numele clienților au între 1 și 20 de caractere, fără spații
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  12:00 NOUA 101 Ana
+  12:02 NOUA 102 Bogdan
+  12:05 AVANS 101
+  12:06 ANULEAZA 102
+  12:20 AVANS 101
+  12:21 NOUA 101 Cristi
+  12:30 NOUA 103 Dana
+  12:41 AVANS 101
+  12:42 ANULEAZA 101
+  12:43 AVANS 102
+  12:50 AVANS 104
+  ```
+
+  Ieșire:
+  ```
+  Comanda 101: PLASATA
+  Comanda 102: PLASATA
+  Comanda 101: IN_PREGATIRE
+  Comanda 102: ANULATA
+  Comanda 101: PE_DRUM
+  Comanda 101 exista deja
+  Comanda 103: PLASATA
+  Comanda 101: LIVRATA lui Ana dupa 41 minute
+  Comanda 101 nu mai poate fi anulata
+  Comanda 102 nu mai poate avansa
+  Comanda 104 nu exista
+  PLASATA: 1
+  IN_PREGATIRE: 0
+  PE_DRUM: 0
+  LIVRATA: 1
+  ANULATA: 1
+  Timp mediu de livrare: 41.0 minute
+  ```
+starter: |
+  #include <stdio.h>
+  #include <string.h>
+
+  #define NMAX 1000
+
+  typedef enum { PLASATA, IN_PREGATIRE, PE_DRUM, LIVRATA, ANULATA, NR_STARI } Stare;
+
+  /* TODO: vectorul cu numele starilor */
+
+  /* TODO: tipurile Ora si Comanda */
+
+  Comanda *cauta(Comanda *v, int n, int id)
+  {
+      /* TODO */
+      return NULL;
+  }
+
+  int avanseaza(Comanda *c)
+  {
+      /* TODO: starea urmatoare; returneaza 1 daca a devenit LIVRATA */
+      return 0;
+  }
+
+  int poate_fi_anulata(const Comanda *c)
+  {
+      /* TODO */
+      return 0;
+  }
+
+  int main(void)
+  {
+      Comanda v[NMAX];
+      int n = 0, id;
+      char cmd[32];
+      Ora acum;
+
+      while (scanf("%d:%d %31s %d", &acum.h, &acum.m, cmd, &id) == 4) {
+          /* TODO: la NOUA mai cititi numele clientului */
+      }
+      /* TODO: raportul final */
+      return 0;
+  }
+hints:
+  - "O comandă conține o structură `Ora` ca simplu câmp: ora plasării se accesează cu `c->plasata.h` (întâi `->` pentru pointerul la comandă, apoi `.` pentru câmpul structurii interioare). Ora curentă citită de pe linie se poate copia dintr-o dată: `c->plasata = acum;`."
+  - "Ordinea stărilor din enumerare coincide cu ordinea din fluxul comenzii, deci starea următoare este `c->stare + 1` — dar doar dacă starea curentă nu e `LIVRATA` sau `ANULATA` (altfel ai ajunge la `ANULATA` sau chiar la `NR_STARI`)."
+  - "Pentru durata livrării, transformă ambele ore în minute de la miezul nopții (`h·60 + m`) și scade. Numărarea finală pe stări se face cu un vector `int numar[NR_STARI]` inițializat cu zero, indexat cu `v[i].stare`. Media se calculează în `double`: `(double)suma / numar_livrate`."
+pitfalls:
+  - "`AVANS` pe o comandă `LIVRATA` nu trebuie s-o mute în `ANULATA` (valoarea următoare din enumerare)."
+  - "La `NOUA` cu un `id` existent, numele clientului trebuie totuși citit de pe linie, altfel e interpretat ca începutul comenzii următoare."
+  - "Testează pointerul returnat de `cauta` față de `NULL` înainte de a-l folosi."

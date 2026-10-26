@@ -1,0 +1,17 @@
+Comanda 101: PLASATA
+Comanda 102: PLASATA
+Comanda 101: IN_PREGATIRE
+Comanda 102: ANULATA
+Comanda 101: PE_DRUM
+Comanda 101 exista deja
+Comanda 103: PLASATA
+Comanda 101: LIVRATA lui Ana dupa 41 minute
+Comanda 101 nu mai poate fi anulata
+Comanda 102 nu mai poate avansa
+Comanda 104 nu exista
+PLASATA: 1
+IN_PREGATIRE: 0
+PE_DRUM: 0
+LIVRATA: 1
+ANULATA: 1
+Timp mediu de livrare: 41.0 minute

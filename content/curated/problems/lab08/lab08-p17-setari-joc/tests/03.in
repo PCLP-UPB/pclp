@@ -1,0 +1,15 @@
+SET a 0
+SET b -0
+SET c 007
+SET d -12.5
+SET e .5
+SET f 5.
+SET g 3.141
+SET h -
+SET i True
+SET j 1e3
+SET k 12a
+SET l --3
+SET m 0.05
+SET n -7.00
+LIST

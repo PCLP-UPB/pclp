@@ -1,0 +1,51 @@
+GET fov
+LIST
+SET fov false
+SET zoom 87.92
+LIST
+SET limba 90.68
+SET vsync true
+GET port
+TOGGLE gama
+TOGGLE server
+ADD zoom -48
+GET fps
+ADD zoom -44
+LIST
+GET fps
+ADD limba -36
+GET limba
+GET zoom
+SET vsync -4.5
+ADD gama -18
+TOGGLE zoom
+SET zoom true
+SET fps true
+GET fps
+TOGGLE fov
+SET port 79.72
+GET server
+SET fov 19.86
+SET fov 40.40
+LIST
+TOGGLE fov
+ADD server 11
+SET vsync en
+LIST
+ADD fps 42
+ADD server 12
+SET server false
+ADD limba 11
+SET limba ro
+GET server
+SET zoom 74.21
+TOGGLE zoom
+SET limba x1.2
+SET vsync 1.2.3
+ADD port 9
+GET gama
+GET port
+GET fov
+SET fps true
+SET fov -400
+LIST

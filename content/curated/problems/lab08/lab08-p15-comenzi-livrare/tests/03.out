@@ -1,0 +1,12 @@
+Comanda 1: PLASATA
+Comanda 1: IN_PREGATIRE
+Comanda 1: PE_DRUM
+Comanda 1: LIVRATA lui Ion dupa 30 minute
+Comanda 1 nu mai poate avansa
+Comanda 1 nu mai poate fi anulata
+PLASATA: 0
+IN_PREGATIRE: 0
+PE_DRUM: 0
+LIVRATA: 1
+ANULATA: 0
+Timp mediu de livrare: 30.0 minute

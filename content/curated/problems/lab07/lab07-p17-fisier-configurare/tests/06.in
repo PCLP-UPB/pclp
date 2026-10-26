@@ -1,0 +1,12 @@
+[joc]
+titlu = Snake [versiunea 2]
+scor maxim = 1500
+dificultate=GREU
+[joc]
+dificultate = usor
+---
+joc.titlu
+joc.scor maxim
+joc.dificultate
+joc.dificultate
+---

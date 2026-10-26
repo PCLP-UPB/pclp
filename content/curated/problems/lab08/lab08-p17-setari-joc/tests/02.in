@@ -1,0 +1,4 @@
+LIST
+GET a
+TOGGLE a
+ADD a 5

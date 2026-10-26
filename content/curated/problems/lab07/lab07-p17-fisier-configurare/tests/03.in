@@ -1,0 +1,17 @@
+   # comentariu cu spatii inainte
+	; si cu tab
+linie fara egal
+= valoare fara cheie
+gol =
+   [  Retea  ]   
+ip = 10.0.0.1   ; nu e comentariu, face parte din valoare
+masca	=	255.255.255.0
+[]
+global = din nou in sectiunea globala
+---
+gol
+retea.ip
+retea.masca
+global
+  RETEA.IP  
+linie fara egal

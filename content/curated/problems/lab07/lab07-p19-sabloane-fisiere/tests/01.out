@@ -1,0 +1,23 @@
+*.c: 4
+tema1.c
+tema2.c
+tema10.c
+tema_bonus.c
+tema?.c: 2
+tema1.c
+tema2.c
+tema*: 5
+tema1.c
+tema2.c
+tema10.c
+tema1.h
+tema_bonus.c
+*e*: 7
+tema1.c
+tema2.c
+tema10.c
+tema1.h
+Makefile
+note.txt
+tema_bonus.c
+?????: 0

@@ -1,0 +1,12 @@
+1. concurentul 8: 7
+2. concurentul 7: 6
+3. concurentul 6: 5
+4. concurentul 5: 4
+5. concurentul 4: 3
+6. concurentul 3: 2
+7. concurentul 2: 1
+8. concurentul 1: 0
+concurentul 1: locul 8, 7 puncte sub lider
+concurentul 8: locul 1, 0 puncte sub lider
+concurentul -3: INEXISTENT
+concurentul 9: INEXISTENT

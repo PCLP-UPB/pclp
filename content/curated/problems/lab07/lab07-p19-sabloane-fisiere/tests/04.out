@@ -1,0 +1,19 @@
+*a*a*a*: 2
+aaa
+aaab
+a*b: 2
+aaab
+abab
+*ab: 2
+aaab
+abab
+ab*ab: 1
+abab
+*b*a: 1
+baba
+?a?a: 1
+baba
+*a?: 3
+aaa
+aaab
+abab

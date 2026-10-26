@@ -1,0 +1,82 @@
+id: lab07-p12-mesaje-cifrate
+lab: lab07
+number: 12
+title: "Mesajele cercului de criptografie"
+difficulty: 1
+estimated_minutes: 20
+concepts: [șir de caractere, fgets, isupper, islower, cod ASCII, caracterul linie nouă]
+statement: |
+  Membrii cercului de criptografie își trimit mesaje cifrate cu **cifrul lui Caesar**: fiecare literă se înlocuiește cu litera aflată cu `k` poziții mai departe în alfabetul englez, circular (după `z` urmează din nou `a`). Literele mari rămân mari, literele mici rămân mici, iar orice alt caracter (cifre, spații, punctuație) rămâne neschimbat. Un `k` negativ înseamnă deplasare înapoi — așa se descifrează un mesaj cifrat cu `-k`.
+
+  De exemplu, pentru `k = 3`: `a → d`, `x → a`, `Z → C`; pentru `k = -1`: `a → z`.
+
+  Implementați și folosiți funcția:
+
+  ```c
+  void cifreaza(char *s, int k);   /* modifica sirul pe loc */
+  ```
+
+  **Date de intrare**
+
+  Pe prima linie, numărul întreg `k` (singur pe linie). Pe următoarele linii, până la sfârșitul fișierului, mesajele de cifrat, câte unul pe linie. Un mesaj poate fi și o linie goală. Ultima linie se poate termina sau nu cu `\n`.
+
+  **Date de ieșire**
+
+  Pentru fiecare mesaj, o linie cu mesajul cifrat (o linie goală pentru un mesaj gol).
+
+  **Restricții**
+
+  - `-1000 ≤ k ≤ 1000`
+  - cel mult 1000 de mesaje, fiecare de cel mult 200 de caractere ASCII afișabile (fără `\n`)
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3
+  Intalnire la Zebra, ora 18:30!
+  xyz ABC
+
+  Parola: Cafea2025
+  ```
+
+  Ieșire:
+  ```
+  Lqwdoqluh od Cheud, rud 18:30!
+  abc DEF
+
+  Sdurod: Fdihd2025
+  ```
+starter: |
+  #include <stdio.h>
+  #include <string.h>
+  #include <ctype.h>
+
+  #define LMAX 256
+
+  void cifreaza(char *s, int k)
+  {
+      /* TODO: adu k in intervalul [0, 25], apoi deplaseaza fiecare litera */
+  }
+
+  int main(void)
+  {
+      char linie[LMAX];
+      int k;
+
+      scanf("%d", &k);
+      /* TODO: consuma restul primei linii (atentie la '\n' lasat de scanf) */
+
+      while (fgets(linie, LMAX, stdin) != NULL) {
+          /* TODO */
+      }
+      return 0;
+  }
+hints:
+  - "O literă mică `c` are poziția `c - 'a'` în alfabet (0 pentru `a`, 25 pentru `z`). Adună `k`, ia restul împărțirii la 26 și adaugă înapoi `'a'`. La fel pentru litere mari, cu `'A'`."
+  - "Pentru `k` negativ, `%` în C poate da rest negativ (`-1 % 26 == -1`). Adu `k` o singură dată în intervalul `[0, 25]` cu `((k % 26) + 26) % 26` — o deplasare cu `-1` e totuna cu o deplasare cu `25`."
+  - "`scanf(\"%d\")` lasă în intrare `\\n`-ul de după `k`; primul `fgets` l-ar citi ca pe un mesaj gol. Consumă caracterele cu `getchar()` până la `\\n` inclusiv, apoi citește mesajele cu `fgets` și șterge `\\n`-ul de la final înainte de afișare."
+pitfalls:
+  - "Dacă nu consumi `\\n`-ul rămas după `scanf`, apare o linie goală în plus la începutul ieșirii."
+  - "Folosește `isupper`/`islower`, nu `isalpha` urmat de `+ k`: altfel `z` devine un caracter care nu e literă."
+  - "Dacă scrii întâi `s[i] = s[i] + k` și abia apoi corectezi, pentru `k` mare valoarea nu mai încape în `char`. Calculează poziția nouă în `int` și abia la final o pui în șir."

@@ -1,0 +1,27 @@
+*: 3
+a
+ab
+abc
+**: 3
+a
+ab
+abc
+?: 1
+a
+??: 1
+ab
+???: 1
+abc
+????: 0
+a*: 3
+a
+ab
+abc
+*c: 1
+abc
+a*c: 1
+abc
+*b*: 2
+ab
+abc
+x*: 0

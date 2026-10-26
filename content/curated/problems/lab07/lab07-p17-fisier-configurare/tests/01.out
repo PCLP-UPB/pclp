@@ -1,0 +1,6 @@
+nume = Verificator PCLP
+server.port = 9090
+server.gazda = localhost
+baza de date.parola = s3cret = da
+server.timeout: nedefinit
+port: nedefinit

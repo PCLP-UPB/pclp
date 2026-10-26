@@ -1,0 +1,7 @@
+SHOW x
+NEW gol
+SHOW gol
+CLONE gol gol2
+SHOW gol2
+REMOVE gol 1
+RENAME gol 0 a

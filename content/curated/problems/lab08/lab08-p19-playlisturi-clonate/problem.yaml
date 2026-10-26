@@ -1,0 +1,167 @@
+id: lab08-p19-playlisturi-clonate
+lab: lab08
+number: 19
+title: "Playlisturi clonate"
+difficulty: 4
+estimated_minutes: 50
+concepts: [copiere profundă, copiere superficială, câmp pointer alocat dinamic, vector de structuri, realloc, vector extensibil, memory leak]
+statement: |
+  O aplicație de muzică îi permite lui Radu să-și facă playlisturi pentru sesiune și să le **cloneze**: clona pornește cu aceleași piese, dar de acolo înainte e un playlist complet independent — orice modificare făcută în clonă nu se vede în original și invers, iar ștergerea unuia nu îl afectează pe celălalt.
+
+  Folosiți tipurile:
+
+  ```c
+  typedef struct {
+      char *titlu;        /* alocat dinamic, exact cat e nevoie */
+      int durata;         /* in secunde */
+  } Piesa;
+
+  typedef struct {
+      char *nume;         /* alocat dinamic */
+      Piesa *piese;       /* vector alocat dinamic, crescut cu realloc */
+      int n, cap;
+  } Playlist;
+  ```
+
+  și implementați cel puțin:
+
+  ```c
+  int adauga_piesa(Playlist *p, const char *titlu, int durata);
+  int cloneaza(const Playlist *src, Playlist *dest, const char *nume_nou);   /* copiere profunda */
+  void elibereaza_playlist(Playlist *p);
+  ```
+
+  Comenzi (pozițiile pieselor se numerotează de la 1):
+
+  | comandă | efect |
+  |---|---|
+  | `NEW nume` | creează un playlist gol |
+  | `ADD nume titlu mm:ss` | adaugă o piesă la finalul playlistului |
+  | `CLONE sursa nou` | creează playlistul `nou` ca o copie independentă a lui `sursa` |
+  | `RENAME nume poz titlu` | schimbă titlul piesei de pe poziția `poz` (noul titlu poate fi mai lung decât cel vechi) |
+  | `REMOVE nume poz` | elimină piesa de pe poziția `poz`; următoarele se mută cu o poziție mai în față |
+  | `SHOW nume` | afișează playlistul (formatul de mai jos) |
+  | `DELETE nume` | șterge playlistul și eliberează toată memoria lui |
+
+  Mesaje de eroare (comanda se ignoră): `Nu exista: <nume>` dacă playlistul indicat (la `CLONE`, sursa) nu există; `Exista deja: <nume>` dacă la `NEW` sau `CLONE` numele nou e deja folosit; `Pozitie invalida` dacă `poz` nu e între 1 și numărul de piese (se verifică după existența playlistului).
+
+  Formatul lui `SHOW`, cu durata totală și duratele pieselor scrise `<minute>:<SS>` (minutele fără zerouri în față):
+
+  ```
+  <nume> (<n> piese, <durata totala>):
+    1. <titlu> <durata>
+    2. <titlu> <durata>
+  ```
+
+  (fiecare piesă pe o linie care începe cu două spații). La final toată memoria trebuie eliberată, fără eliberări duble.
+
+  **Date de intrare**
+
+  Comenzi, câte una pe linie, până la sfârșitul fișierului.
+
+  **Date de ieșire**
+
+  Mesajele comenzilor, în ordine.
+
+  **Restricții**
+
+  - cel mult 2000 de comenzi și cel mult 100 de playlisturi existente în același timp
+  - numele și titlurile au între 1 și 100 de caractere, fără spații; `0 ≤ mm ≤ 999`, `0 ≤ ss ≤ 59`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  NEW sesiune
+  ADD sesiune Lofi_beats 3:25
+  ADD sesiune Interstellar_theme 4:41
+  ADD sesiune Clair_de_lune 5:03
+  CLONE sesiune sesiune_noapte
+  RENAME sesiune_noapte 2 Time
+  REMOVE sesiune_noapte 1
+  ADD sesiune_noapte Nocturne 4:30
+  SHOW sesiune
+  SHOW sesiune_noapte
+  DELETE sesiune
+  SHOW sesiune
+  SHOW sesiune_noapte
+  ```
+
+  Ieșire:
+  ```
+  sesiune (3 piese, 13:09):
+    1. Lofi_beats 3:25
+    2. Interstellar_theme 4:41
+    3. Clair_de_lune 5:03
+  sesiune_noapte (3 piese, 14:14):
+    1. Time 4:41
+    2. Clair_de_lune 5:03
+    3. Nocturne 4:30
+  Nu exista: sesiune
+  sesiune_noapte (3 piese, 14:14):
+    1. Time 4:41
+    2. Clair_de_lune 5:03
+    3. Nocturne 4:30
+  ```
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+
+  #define PMAX 100
+  #define CUV_MAX 128
+
+  typedef struct {
+      char *titlu;
+      int durata;
+  } Piesa;
+
+  typedef struct {
+      char *nume;
+      Piesa *piese;
+      int n, cap;
+  } Playlist;
+
+  char *duplica(const char *s)
+  {
+      /* TODO: malloc(strlen(s) + 1) si strcpy */
+      return NULL;
+  }
+
+  int adauga_piesa(Playlist *p, const char *titlu, int durata)
+  {
+      /* TODO: realloc cand n == cap; titlul se duplica */
+      return 0;
+  }
+
+  int cloneaza(const Playlist *src, Playlist *dest, const char *nume_nou)
+  {
+      /* TODO: dest primeste propriul nume, propriul vector si propriile titluri */
+      return 0;
+  }
+
+  void elibereaza_playlist(Playlist *p)
+  {
+      /* TODO: titlurile, vectorul, numele */
+  }
+
+  int main(void)
+  {
+      Playlist colectie[PMAX];
+      int np = 0;
+      char cmd[32], a[CUV_MAX];
+
+      while (scanf("%31s %127s", cmd, a) == 2) {
+          /* TODO: NEW, ADD, CLONE, RENAME, REMOVE, SHOW, DELETE */
+      }
+      /* TODO: eliberati toate playlisturile ramase */
+      return 0;
+  }
+hints:
+  - "`*dest = *src` copiază doar pointerii (copiere superficială): clona ar folosi **același** vector de piese și **aceleași** titluri ca originalul, deci un `RENAME` în clonă s-ar vedea și în original, iar la `DELETE` aceeași memorie s-ar elibera de două ori. Clona are nevoie de propriile alocări, pe fiecare nivel."
+  - "O variantă simplă pentru `cloneaza`: pornești cu un playlist gol (nume duplicat, `piese = NULL`, `n = cap = 0`) și apelezi `adauga_piesa` pentru fiecare piesă a sursei — funcția duplică deja titlul și crește vectorul cu `realloc`."
+  - "Ordinea la eliberare: întâi titlul fiecărei piese, apoi vectorul `piese`, apoi numele. La `REMOVE`, eliberează titlul piesei scoase și apoi mută structurile următoare cu o poziție (aici atribuirea de structuri e corectă: e o mutare, poziția veche nu mai e folosită). La `RENAME`, eliberează titlul vechi și pune în locul lui o copie a celui nou."
+pitfalls:
+  - "`realloc` poate muta vectorul: dacă două playlisturi împart același vector (copiere superficială), după un `ADD` în unul dintre ele celălalt rămâne cu un pointer invalid."
+  - "`strcpy` peste titlul vechi la `RENAME` scrie dincolo de memoria alocată dacă titlul nou e mai lung."
+  - "La `DELETE` trebuie eliberate și titlurile pieselor, nu doar vectorul."

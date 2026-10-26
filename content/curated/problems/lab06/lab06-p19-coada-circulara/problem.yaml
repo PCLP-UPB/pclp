@@ -1,0 +1,127 @@
+id: lab06-p19-coada-circulara
+lab: lab06
+number: 19
+title: "Coada de la secretariat"
+difficulty: 4
+estimated_minutes: 50
+concepts: [vector extensibil, dublarea capacității, realloc, pointer la pointer, parametru de tip pointer, realocare prin pointer auxiliar]
+statement: |
+  În prima săptămână din semestru, la secretariat se formează o coadă uriașă. Simulați coada: studenții (identificați prin numărul legitimației) sosesc la final, sunt serviți de la început, iar cine nu are actele complete este trimis la finalul cozii.
+
+  Coada se memorează ca o **coadă circulară** într-un vector alocat dinamic `buf` cu `cap` elemente: primul student este `buf[head]`, următorii `buf[(head + 1) % cap]`, `buf[(head + 2) % cap]`, … (`size` studenți în total). Astfel, servirea primului student nu mută niciun element — doar avansează `head`. Inițial `buf = NULL`, `cap = head = size = 0`.
+
+  **Politica de capacitate** (trebuie respectată exact):
+
+  - la sosire, dacă `size == cap`, capacitatea devine 2 (dacă era 0) sau se dublează;
+  - după servire, dacă `cap > 2` și `size <= cap / 4` (împărțire întreagă), capacitatea se înjumătățește;
+  - trimiterea la final nu schimbă capacitatea.
+
+  La mărire, dacă studenții „se întorceau” peste capătul vectorului (`head > 0`), după `realloc` ordinea lor trebuie refăcută; la micșorare, studenții trebuie aduși în zona care rămâne. Implementați și folosiți:
+
+  ```c
+  int coada_adauga(int **buf, int *cap, int *head, int *size, int x);   /* 1 = succes, 0 = eroare */
+  int coada_scoate(int **buf, int *cap, int *head, int *size, int *x);  /* 1 = succes, 0 = coada goala */
+  ```
+
+  Comenzi:
+
+  | comandă | efect |
+  |---|---|
+  | `+ x` | sosește studentul `x` |
+  | `-` | primul student e servit; afișează-i numărul |
+  | `R` | primul student trece la finalul cozii |
+  | `K k` | afișează al `k`-lea student de la începutul cozii (de la 1) sau `EROARE` |
+  | `T` | afișează `size=<size> cap=<cap>` |
+  | `P` | afișează `[<size>]` urmat de studenți, în ordine, fiecare precedat de un spațiu |
+
+  Pentru `-` și `R` pe coada goală se afișează `COADA GOALA`.
+
+  **Date de intrare**
+
+  Pe prima linie `q`, apoi `q` comenzi, câte una pe linie.
+
+  **Date de ieșire**
+
+  Rezultatele comenzilor `-`, `K`, `T`, `P` și mesajele de eroare, câte unul pe linie.
+
+  **Restricții**
+
+  - `1 ≤ q ≤ 200000`; numerele legitimațiilor sunt întregi din `[1, 10^6]`; `k` este un întreg din `[-10, 300000]`
+  - fiecare comandă `+`, `-`, `R`, `K` trebuie executată în `O(1)` (amortizat); mutarea tuturor elementelor la fiecare servire este prea lentă
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  16
+  + 1
+  + 2
+  + 3
+  -
+  + 4
+  + 5
+  P
+  + 6
+  K 5
+  R
+  T
+  -
+  -
+  -
+  T
+  P
+  ```
+
+  Ieșire:
+  ```
+  1
+  [4] 2 3 4 5
+  6
+  size=5 cap=8
+  3
+  4
+  5
+  size=2 cap=4
+  [2] 6 2
+  ```
+
+  Explicație: după `+ 5` vectorul de 4 elemente este `5 2 3 4` cu `head = 1` (coada „s-a întors”); la `+ 6` capacitatea devine 8, iar ordinea `2 3 4 5` trebuie păstrată. După al treilea `-` din final rămân 2 studenți, `2 <= 8 / 4`, deci capacitatea scade la 4.
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  int coada_adauga(int **buf, int *cap, int *head, int *size, int x)
+  {
+      /* TODO: daca e plina: noua capacitate, realloc in pointer auxiliar,
+         refacerea ordinii daca head > 0; apoi pune x pe pozitia (head + size) % cap */
+  }
+
+  int coada_scoate(int **buf, int *cap, int *head, int *size, int *x)
+  {
+      /* TODO: scoate primul element; micsorare daca e cazul (atentie la ordine!) */
+  }
+
+  int main(void)
+  {
+      int q, k, cap = 0, head = 0, size = 0;
+      char op;
+      int *buf = NULL;
+
+      scanf("%d", &q);
+      for (k = 0; k < q; k++) {
+          scanf(" %c", &op);
+          /* TODO: executarea comenzii */
+      }
+
+      free(buf);
+      return 0;
+  }
+hints:
+  - "Desenează vectorul pe hârtie pentru exemplu, după fiecare comandă, cu `head` marcat. Al `k`-lea element al cozii (de la 0) este `buf[(head + k) % cap]`; noul element se pune pe poziția `(head + size) % cap`."
+  - "La mărire coada e plină, deci ocupă tot vectorul: bucata `buf[head .. cap-1]` este începutul cozii, iar `buf[0 .. head-1]` este finalul ei. După `realloc` (care copiază zona așa cum e), mută prima bucată la capătul zonei noi și actualizează `head`; altfel între cele două bucăți apar elemente neinițializate."
+  - "La micșorare nu poți face direct `realloc` mai mic: elementele cozii pot sta chiar în partea care se taie. Cel mai simplu: aloci o zonă nouă de `cap / 2` elemente, copiezi cele `size` elemente în ordine (de la 0), eliberezi zona veche și pui `head = 0`. Funcțiile primesc `int **buf` pentru că pot schimba adresa vectorului din `main`."
+pitfalls:
+  - "`*buf[i]` înseamnă `*(buf[i])`; elementul `i` al vectorului este `(*buf)[i]`."
+  - "Dacă la mărire nu refaci ordinea când `head > 0`, testele trec până la prima „întoarcere” a cozii și apoi afișează valori greșite."
+  - "Calculează pozițiile cu `% cap` folosind capacitatea curentă — după mărire sau micșorare ea s-a schimbat."
+  - "`R` pe o coadă plină nu are nevoie de spațiu nou: primul element se mută pe poziția eliberată chiar de el."

@@ -1,0 +1,52 @@
+fov: inexistent
+--- 0 setari ---
+--- 2 setari ---
+fov = false (BOOL)
+zoom = 87.92 (REAL)
+port: inexistent
+gama: inexistent
+server: inexistent
+fps: inexistent
+--- 4 setari ---
+fov = false (BOOL)
+zoom = -4.08 (REAL)
+limba = 90.68 (REAL)
+vsync = true (BOOL)
+fps: inexistent
+limba = 54.68 (REAL)
+zoom = -4.08 (REAL)
+gama: inexistent
+zoom: nu e BOOL
+fps = true (BOOL)
+server: inexistent
+--- 6 setari ---
+fov = 40.40 (REAL)
+zoom = true (BOOL)
+limba = 54.68 (REAL)
+vsync = -4.50 (REAL)
+fps = true (BOOL)
+port = 79.72 (REAL)
+fov: nu e BOOL
+server: inexistent
+--- 6 setari ---
+fov = 40.40 (REAL)
+zoom = true (BOOL)
+limba = 54.68 (REAL)
+vsync = en (TEXT)
+fps = true (BOOL)
+port = 79.72 (REAL)
+fps: nu e numeric
+server: inexistent
+server = false (BOOL)
+zoom: nu e BOOL
+gama: inexistent
+port = 88.72 (REAL)
+fov = 40.40 (REAL)
+--- 7 setari ---
+fov = -400 (INT)
+zoom = 74.21 (REAL)
+limba = x1.2 (TEXT)
+vsync = 1.2.3 (TEXT)
+fps = true (BOOL)
+port = 88.72 (REAL)
+server = false (BOOL)

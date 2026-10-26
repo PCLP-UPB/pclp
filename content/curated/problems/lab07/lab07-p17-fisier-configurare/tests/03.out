@@ -1,0 +1,6 @@
+gol = 
+retea.ip = 10.0.0.1   ; nu e comentariu, face parte din valoare
+retea.masca = 255.255.255.0
+global = din nou in sectiunea globala
+retea.ip = 10.0.0.1   ; nu e comentariu, face parte din valoare
+linie fara egal: nedefinit

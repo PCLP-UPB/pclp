@@ -1,0 +1,108 @@
+id: lab07-p15-navigare-directoare
+lab: lab07
+number: 15
+title: "Navigarea prin directoare"
+difficulty: 3
+estimated_minutes: 35
+concepts: [strtok, token, strcmp, strcat, vector de pointeri, stivă]
+statement: |
+  Simulați comenzile `cd` și `pwd` dintr-un terminal Linux. Programul ține minte **directorul curent**, mereu sub forma canonică:
+
+  - începe cu `/` și componentele sunt separate prin câte **un singur** `/`;
+  - nu se termină cu `/` (cu excepția rădăcinii, care este chiar `/`);
+  - nu conține componentele speciale `.` și `..`.
+
+  O cale oarecare se citește componentă cu componentă (componentele sunt separate prin unul sau mai multe `/`): `.` înseamnă „directorul în care sunt” și se ignoră; `..` înseamnă „directorul părinte” și elimină ultima componentă păstrată (din rădăcină, `..` rămâne în rădăcină); orice altă componentă (inclusiv `...` sau `.ascuns`) este un nume obișnuit de director. O cale care începe cu `/` este **absolută**; altfel este **relativă** la directorul curent.
+
+  Comenzile:
+
+  - `cd <cale>` — directorul curent devine cel indicat de cale (nu verificăm dacă directorul există);
+  - `pwd` — afișează directorul curent.
+
+  Implementați și folosiți funcția:
+
+  ```c
+  void simplifica(char *cale, char *rez);   /* cale absoluta -> forma canonica in rez (cale se poate modifica) */
+  ```
+
+  **Date de intrare**
+
+  Pe prima linie, directorul inițial: o cale absolută, nu neapărat canonică. Pe următoarele linii, până la sfârșitul fișierului, câte o comandă: `pwd`, sau `cd`, un spațiu și o cale nevidă. Ultima linie se poate termina sau nu cu `\n`.
+
+  **Date de ieșire**
+
+  Pentru fiecare comandă `pwd`, o linie cu directorul curent.
+
+  **Restricții**
+
+  - cel mult 1000 de comenzi; fiecare linie are cel mult 300 de caractere, fără spații în căi
+  - numele componentelor conțin doar litere, cifre și caracterele `.` `_` `-`
+  - directorul curent (în forma canonică) nu depășește niciodată 1000 de caractere
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  /home/student
+  pwd
+  cd teme/pclp
+  pwd
+  cd ../../poze//2024/
+  pwd
+  cd /etc/./ssh/..
+  pwd
+  cd ../../../..
+  pwd
+  ```
+
+  Ieșire:
+  ```
+  /home/student
+  /home/student/teme/pclp
+  /home/student/poze/2024
+  /etc
+  /
+  ```
+starter: |
+  #include <stdio.h>
+  #include <string.h>
+
+  #define LMAX 512
+  #define CMAX 1024
+  #define KMAX 1024
+
+  void elimina_linie_noua(char *s)
+  {
+      /* TODO */
+  }
+
+  void simplifica(char *cale, char *rez)
+  {
+      char *comp[KMAX];   /* stiva de componente (pointeri in cale) */
+      int n = 0;
+
+      /* TODO: strtok pe "/", tratati "." si "..", apoi construiti rez */
+  }
+
+  int main(void)
+  {
+      char linie[LMAX];
+      char curent[CMAX];
+      char tmp[CMAX + LMAX];
+
+      /* TODO: directorul initial */
+
+      while (fgets(linie, LMAX, stdin) != NULL) {
+          /* TODO: pwd sau cd <cale> (absoluta sau relativa) */
+      }
+      return 0;
+  }
+hints:
+  - "Dacă împarți calea cu `strtok(cale, \"/\")`, slash-urile multiple și cele de la capete dispar singure; rămân doar componentele. Gândește-te la componentele păstrate ca la o **stivă**: un nume obișnuit se pune deasupra, `..` scoate ultimul nume (dacă există)."
+  - "Stiva poate fi un vector de pointeri `char *comp[]` care indică direct în șirul împărțit de `strtok` — nu ai nevoie de copii. La final construiești rezultatul cu `strcat`: pentru fiecare componentă, `\"/\"` și apoi numele; dacă stiva e goală, rezultatul este `\"/\"`."
+  - "O cale relativă devine absolută dacă o lipești de directorul curent: `curent + \"/\" + cale` într-un buffer separat (de exemplu `/home/student` + `/` + `../x`). Apoi aplici `simplifica` pe acest buffer, cu rezultatul scris direct în `curent`. Nu folosi același buffer și ca sursă, și ca destinație."
+pitfalls:
+  - "Pointerii din stivă indică în bufferul împărțit de `strtok`; dacă scrii rezultatul chiar în acel buffer, îți suprascrii componentele înainte să le copiezi."
+  - "Compară componentele cu `strcmp(p, \"..\") == 0`, nu cu `p == \"..\"` (asta compară adrese)."
+  - "`...` și `.ascuns` sunt nume obișnuite, nu componente speciale."
+  - "Nu uita `\\n`-ul de la finalul liniei: `cd ..\\n` ar adăuga o componentă numită `..\\n`."

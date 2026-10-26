@@ -1,0 +1,66 @@
+Comanda 24: PLASATA
+Comanda 24: ANULATA
+Comanda 22: PLASATA
+Comanda 11: PLASATA
+Comanda 9: PLASATA
+Comanda 22: ANULATA
+Comanda 22 nu mai poate avansa
+Comanda 9: ANULATA
+Comanda 9 nu mai poate avansa
+Comanda 19: PLASATA
+Comanda 99 nu exista
+Comanda 24 nu mai poate avansa
+Comanda 24 nu mai poate fi anulata
+Comanda 6: PLASATA
+Comanda 22 nu mai poate avansa
+Comanda 9 nu mai poate fi anulata
+Comanda 24 exista deja
+Comanda 22 nu mai poate fi anulata
+Comanda 6: IN_PREGATIRE
+Comanda 10: PLASATA
+Comanda 10: IN_PREGATIRE
+Comanda 22 nu mai poate fi anulata
+Comanda 22 nu mai poate avansa
+Comanda 24 nu mai poate avansa
+Comanda 22 nu mai poate fi anulata
+Comanda 15: PLASATA
+Comanda 16: PLASATA
+Comanda 2: PLASATA
+Comanda 10: PE_DRUM
+Comanda 16: IN_PREGATIRE
+Comanda 19: IN_PREGATIRE
+Comanda 24 nu mai poate avansa
+Comanda 24 nu mai poate avansa
+Comanda 16: PE_DRUM
+Comanda 19: PE_DRUM
+Comanda 24 nu mai poate avansa
+Comanda 6: ANULATA
+Comanda 24 nu mai poate fi anulata
+Comanda 16 exista deja
+Comanda 2: ANULATA
+Comanda 24 nu mai poate avansa
+Comanda 6 nu mai poate avansa
+Comanda 2 nu mai poate fi anulata
+Comanda 16 nu mai poate fi anulata
+Comanda 11: IN_PREGATIRE
+Comanda 11 exista deja
+Comanda 22 nu mai poate avansa
+Comanda 16 nu mai poate fi anulata
+Comanda 5: PLASATA
+Comanda 16: LIVRATA lui Dan dupa 84 minute
+Comanda 9 nu mai poate avansa
+Comanda 16 nu mai poate fi anulata
+Comanda 5: IN_PREGATIRE
+Comanda 16 nu mai poate avansa
+Comanda 11 exista deja
+Comanda 6 nu mai poate avansa
+Comanda 24 nu mai poate avansa
+Comanda 9 exista deja
+Comanda 11: PE_DRUM
+Comanda 10 nu mai poate fi anulata
+PLASATA: 1
+IN_PREGATIRE: 1
+PE_DRUM: 3
+LIVRATA: 1
+ANULATA: 5
+Timp mediu de livrare: 84.0 minute

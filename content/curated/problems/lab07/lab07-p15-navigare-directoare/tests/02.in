@@ -1,0 +1,11 @@
+/
+pwd
+cd ..
+pwd
+cd .
+pwd
+cd ///
+pwd
+cd a
+cd ..
+pwd

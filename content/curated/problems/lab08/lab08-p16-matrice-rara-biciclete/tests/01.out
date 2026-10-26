@@ -1,0 +1,7 @@
+7 -> 100: +4
+12 -> 3: +12
+12 -> 7: -12
+100 -> 7: -1
+Modificari: 4
+Crestere maxima: 12 -> 3 (+12)
+Scadere maxima: 12 -> 7 (-12)

@@ -1,0 +1,10 @@
+/a/b/c/d/e/f
+cd ../../x
+pwd
+cd /
+cd a/b/../../c
+pwd
+cd ./././.
+pwd
+cd ../c/../c/./d
+pwd

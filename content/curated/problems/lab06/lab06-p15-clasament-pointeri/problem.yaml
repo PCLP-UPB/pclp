@@ -1,0 +1,106 @@
+id: lab06-p15-clasament-pointeri
+lab: lab06
+number: 15
+title: "Clasamentul fără a muta scorurile"
+difficulty: 3
+estimated_minutes: 35
+concepts: [vector de pointeri, vector alocat dinamic, aritmetică cu pointeri, malloc, free, sortare]
+statement: |
+  La concursul de programare al facultății s-au înscris `n` concurenți, numerotați de la 1 la `n` în ordinea înscrierii; scorul concurentului `i` este al `i`-lea element al vectorului `v`, alocat dinamic. Organizatorii vor clasamentul, dar vectorul `v` **nu are voie să fie modificat** (alte module ale aplicației se bazează pe ordinea înscrierii).
+
+  Soluția: un **vector de pointeri** `int **ordine`, alocat dinamic, în care `ordine[i]` este adresa unui element din `v`. Se sortează doar pointerii: scor mai mare înainte; la scoruri egale, concurentul înscris mai devreme înainte. Numărul concurentului se obține din adresă, prin diferența `ordine[i] - v`. Implementați și folosiți:
+
+  ```c
+  int **construieste_ordine(int *v, int n);   /* NULL daca alocarea esueaza */
+  ```
+
+  Locul în clasament se acordă ca la competiții: concurenții cu scoruri egale au același loc, iar următorul loc ține cont de câți au fost înainte (de exemplu `1, 2, 2, 4`).
+
+  După clasament urmează `q` întrebări „pe ce loc e concurentul `x` și cât de departe e de lider?”. Pentru a răspunde rapid, construiți un vector `loc` (alocat dinamic) cu locul fiecărui concurent, în ordinea înscrierii.
+
+  **Date de intrare**
+
+  Pe prima linie `n`, pe a doua cele `n` scoruri. Pe a treia linie `q`, apoi `q` linii cu câte un întreg `x`.
+
+  **Date de ieșire**
+
+  Clasamentul, câte o linie pentru fiecare concurent, în ordinea din `ordine`:
+
+  ```
+  <loc>. concurentul <x>: <scor>
+  ```
+
+  Apoi, pentru fiecare întrebare:
+
+  ```
+  concurentul <x>: locul <loc>, <d> puncte sub lider
+  ```
+
+  unde `d` este diferența dintre scorul liderului și scorul lui `x`, sau `concurentul <x>: INEXISTENT` dacă `x` nu este între 1 și `n`.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 5000`, `0 ≤ scor ≤ 10^6`
+  - `1 ≤ q ≤ 10^4`, `-10^6 ≤ x ≤ 10^6`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  6
+  70 95 70 100 95 60
+  3
+  3
+  4
+  7
+  ```
+
+  Ieșire:
+  ```
+  1. concurentul 4: 100
+  2. concurentul 2: 95
+  2. concurentul 5: 95
+  4. concurentul 1: 70
+  4. concurentul 3: 70
+  6. concurentul 6: 60
+  concurentul 3: locul 4, 30 puncte sub lider
+  concurentul 4: locul 1, 0 puncte sub lider
+  concurentul 7: INEXISTENT
+  ```
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  int **construieste_ordine(int *v, int n)
+  {
+      /* TODO: aloca n pointeri, ordine[i] = adresa lui v[i], apoi sorteaza pointerii */
+  }
+
+  int main(void)
+  {
+      int n, q, i;
+      int *v, *loc;
+      int **ordine;
+
+      scanf("%d", &n);
+      /* TODO: alocarea si citirea lui v, alocarea lui loc */
+
+      ordine = construieste_ordine(v, n);
+      /* TODO: clasamentul (locuri cu egalitati), completarea lui loc */
+
+      scanf("%d", &q);
+      for (i = 0; i < q; i++) {
+          /* TODO: raspunsul la intrebare */
+      }
+
+      /* TODO: eliberarea celor trei vectori */
+      return 0;
+  }
+hints:
+  - "Elementele vectorului de pointeri sunt de tip `int *`, deci se alocă `n * sizeof(int *)` octeți. Scorul indicat de `ordine[i]` este `*ordine[i]`, iar numărul concurentului este `ordine[i] - v + 1`."
+  - "Orice sortare simplă merge (`n ≤ 5000`), dar comparația și interschimbarea se fac pe pointeri: compari `*p` cu `*q`, iar la egalitate compari chiar adresele `p < q` (în același vector, adresa mai mică înseamnă înscriere mai devreme). Interschimbi pointerii, nu scorurile."
+  - "Locurile: parcurgi `ordine`; dacă scorul de pe poziția `i` e egal cu cel de pe `i - 1`, locul e același ca al precedentului, altfel e `i + 1`. Scrii locul în `loc[ordine[i] - v]`. La final: `free(ordine)` eliberează doar pointerii, nu și scorurile — mai ai nevoie de `free(v)` și `free(loc)`."
+pitfalls:
+  - "Nu apela `free(ordine[i])`: pointerii indică în interiorul lui `v`, care e un singur bloc alocat."
+  - "Dacă interschimbi `*ordine[i]` cu `*ordine[j]` în loc de `ordine[i]` cu `ordine[j]`, modifici vectorul `v`."
+  - "Verifică `x` înainte să-l folosești ca indice în `loc`."

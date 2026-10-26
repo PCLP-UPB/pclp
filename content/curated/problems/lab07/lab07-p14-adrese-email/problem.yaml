@@ -1,0 +1,105 @@
+id: lab07-p14-adrese-email
+lab: lab07
+number: 14
+title: "Validarea adreselor de e-mail"
+difficulty: 2
+estimated_minutes: 30
+concepts: [strchr, strrchr, strstr, strlen, ctype.h, tolower]
+statement: |
+  La înscrierea în asociația studenților, adresele de e-mail se completează de mână și conțin des greșeli. Verificați fiecare adresă după regulile de mai jos (o variantă simplificată a standardului real).
+
+  Întâi se elimină spațiile și tab-urile de la începutul și de la sfârșitul liniei. Adresa este **validă** dacă:
+
+  1. conține **exact un** caracter `@`, care o împarte în **partea locală** (înainte) și **domeniu** (după);
+  2. partea locală are între 1 și 64 de caractere, doar litere, cifre și caracterele `.` `_` `-` `+`; nu începe și nu se termină cu `.` și nu conține două puncte consecutive;
+  3. domeniul conține doar litere, cifre, `-` și `.`, și este format din cel puțin **două etichete** separate prin `.`; nicio etichetă nu e vidă și nicio etichetă nu începe sau nu se termină cu `-`;
+  4. ultima etichetă a domeniului are cel puțin 2 caractere, toate litere.
+
+  Pentru adresele valide, domeniul se afișează cu litere mici (partea locală rămâne neschimbată).
+
+  Implementați și folosiți funcțiile:
+
+  ```c
+  char *curata(char *s);             /* sterge '\n' si spatiile de la final; returneaza adresa primului caracter nespatiu */
+  int local_valid(const char *s);    /* 1 daca s este o parte locala valida */
+  int domeniu_valid(const char *s);  /* 1 daca s este un domeniu valid */
+  ```
+
+  **Date de intrare**
+
+  Câte o adresă pe linie, până la sfârșitul fișierului. Ultima linie se poate termina sau nu cu `\n`.
+
+  **Date de ieșire**
+
+  Pentru fiecare linie, `DA <adresa>` (cu domeniul în litere mici) dacă adresa este validă, altfel `NU`.
+
+  **Restricții**
+
+  - cel mult 1000 de linii, fiecare de cel mult 200 de caractere ASCII (afișabile sau tab), fără `\n`
+  - o linie poate fi goală sau poate conține doar spații
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  ana.popescu@stud.UPB.ro
+    Ion_Ionescu+pclp@Gmail.COM
+  maria@@yahoo.com
+  .george@upb.ro
+  elena@upb
+  vlad@cs-upb.ro
+  dan@-upb.ro
+  ```
+
+  Ieșire:
+  ```
+  DA ana.popescu@stud.upb.ro
+  DA Ion_Ionescu+pclp@gmail.com
+  NU
+  NU
+  NU
+  DA vlad@cs-upb.ro
+  NU
+  ```
+starter: |
+  #include <stdio.h>
+  #include <string.h>
+  #include <ctype.h>
+
+  #define LMAX 256
+
+  char *curata(char *s)
+  {
+      /* TODO */
+      return s;
+  }
+
+  int local_valid(const char *s)
+  {
+      /* TODO: regula 2 */
+      return 0;
+  }
+
+  int domeniu_valid(const char *s)
+  {
+      /* TODO: regulile 3 si 4 */
+      return 0;
+  }
+
+  int main(void)
+  {
+      char linie[LMAX];
+
+      while (fgets(linie, LMAX, stdin) != NULL) {
+          /* TODO: curata, cauta '@', imparte in doua siruri, verifica */
+      }
+      return 0;
+  }
+hints:
+  - "„Exact un `@`” se verifică elegant cu două căutări: prima apariție (`strchr`) și ultima apariție (`strrchr`) trebuie să existe și să fie aceeași adresă. Apoi pui `'\\0'` în locul lui `@` și ai două șiruri separate: linia și `at + 1`."
+  - "Mai multe reguli devin căutări de subșiruri: două puncte consecutive înseamnă `strstr(s, \"..\") != NULL`; o etichetă care începe sau se termină cu `-` apare ca `\".-\"`, `\"-.\"`, sau `-` pe prima/ultima poziție. Etichetă vidă = `..`, ori `.` la început sau la final. Ultima etichetă începe după `strrchr(dom, '.')`."
+  - "Pentru „caracter permis” la partea locală, `isalnum(c) || strchr(\"._-+\", c) != NULL` e mai scurt decât patru comparații. Verifică toate caracterele întâi, apoi regulile de poziție. La final transformă domeniul cu `tolower` și afișează cele două bucăți cu `@` între ele."
+pitfalls:
+  - "`strchr(\"._-+\", c)` returnează un pointer nenul și pentru `c == '\\0'` (găsește terminatorul). Aici nu contează, pentru că parcurgi doar caracterele dinaintea lui `'\\0'`, dar e o capcană clasică."
+  - "Nu uita că linia poate avea spații la final și `\\n`: dacă nu le ștergi, ultima etichetă `ro\\n` nu mai are doar litere."
+  - "O linie goală sau doar cu spații trebuie să dea `NU`, nu să fie sărită."

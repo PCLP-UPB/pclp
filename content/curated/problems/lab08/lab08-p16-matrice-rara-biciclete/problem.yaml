@@ -1,0 +1,142 @@
+id: lab08-p16-matrice-rara-biciclete
+lab: lab08
+number: 16
+title: "Bicicletele din campus"
+difficulty: 3
+estimated_minutes: 40
+concepts: [matrice rară, structură, vector de structuri, pointer la structură, atribuirea structurilor, sortare]
+statement: |
+  Un sistem de închiriere de biciclete are stații numerotate cu numere până la un miliard. Numărul de curse de la stația `i` la stația `j` dintr-o săptămână formează o matrice uriașă, dar aproape toate elementele sunt 0, așa că se păstrează doar elementele nenule, ca triplete `(linie, coloana, valoare)` — o **matrice rară**.
+
+  Se dau matricea `A` (săptămâna trecută) și matricea `B` (săptămâna aceasta). Calculați matricea rară `B − A` (modificarea numărului de curse) și afișați-i elementele nenule, ordonate după linie și apoi după coloană, plus cea mai mare creștere și cea mai mare scădere.
+
+  Folosiți tipurile:
+
+  ```c
+  typedef struct {
+      int lin;
+      int col;
+      int val;
+  } Element;
+
+  typedef struct {
+      int k;                  /* numarul de elemente nenule */
+      Element e[KMAX];
+  } MatriceRara;
+  ```
+
+  și implementați cel puțin:
+
+  ```c
+  int compara(const Element *a, const Element *b);     /* < 0 daca a este inaintea lui b */
+  void sorteaza(MatriceRara *m);
+  void diferenta(const MatriceRara *a, const MatriceRara *b, MatriceRara *rez);   /* rez = b - a */
+  ```
+
+  O matrice de dimensiunea reală nu încape în memorie, deci calculul trebuie făcut direct pe triplete. Elementele care devin 0 în diferență **nu** apar în rezultat.
+
+  **Date de intrare**
+
+  Pe prima linie `ka`, apoi `ka` linii `lin col val` cu elementele nenule ale lui `A`, în ordine oarecare. Urmează `kb` și `kb` linii cu elementele lui `B`, în același format.
+
+  **Date de ieșire**
+
+  Pentru fiecare element nenul al lui `B − A`, în ordinea cerută, o linie `<lin> -> <col>: <val>`, unde valoarea se afișează **cu semn** (`+4`, `-12`; formatul `%+d`). Urmează:
+
+  ```
+  Modificari: <numar de elemente nenule ale lui B - A>
+  Crestere maxima: <lin> -> <col> (<val cu semn>)
+  Scadere maxima: <lin> -> <col> (<val cu semn>)
+  ```
+
+  Creșterea maximă este elementul cu cea mai mare valoare pozitivă, iar scăderea maximă cel cu cea mai mică valoare negativă; la egalitate se alege primul în ordinea afișării. Dacă nu există nicio valoare pozitivă (respectiv negativă), linia devine `Crestere maxima: -` (respectiv `Scadere maxima: -`).
+
+  **Restricții**
+
+  - `0 ≤ ka, kb ≤ 1000`
+  - `1 ≤ lin, col ≤ 10^9`, `1 ≤ val ≤ 10^6`
+  - în fiecare matrice, perechile `(lin, col)` sunt distincte
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4
+  12 7 30
+  3 12 5
+  12 3 8
+  100 7 2
+  5
+  3 12 5
+  12 7 18
+  7 100 4
+  12 3 20
+  100 7 1
+  ```
+
+  Ieșire:
+  ```
+  7 -> 100: +4
+  12 -> 3: +12
+  12 -> 7: -12
+  100 -> 7: -1
+  Modificari: 4
+  Crestere maxima: 12 -> 3 (+12)
+  Scadere maxima: 12 -> 7 (-12)
+  ```
+
+  Explicație: cursele `3 -> 12` sunt la fel în ambele săptămâni, deci diferența lor este 0 și nu apare; `7 -> 100` există doar în `B`, deci apare cu `+4`.
+starter: |
+  #include <stdio.h>
+
+  #define KMAX 2000
+
+  typedef struct {
+      int lin;
+      int col;
+      int val;
+  } Element;
+
+  typedef struct {
+      int k;
+      Element e[KMAX];
+  } MatriceRara;
+
+  void citeste(MatriceRara *m)
+  {
+      /* TODO: m->k, apoi m->k triplete */
+  }
+
+  int compara(const Element *a, const Element *b)
+  {
+      /* TODO: dupa linie, apoi dupa coloana */
+      return 0;
+  }
+
+  void sorteaza(MatriceRara *m)
+  {
+      /* TODO: orice sortare simpla; elementele se pot muta prin atribuire */
+  }
+
+  void diferenta(const MatriceRara *a, const MatriceRara *b, MatriceRara *rez)
+  {
+      /* TODO: rez = b - a, fara elementele egale cu 0 */
+  }
+
+  int main(void)
+  {
+      MatriceRara a, b, d;
+
+      citeste(&a);
+      citeste(&b);
+      /* TODO: sortati, calculati diferenta, afisati rezultatul */
+      return 0;
+  }
+hints:
+  - "O matrice rară e doar un vector de structuri `Element` plus numărul lor. Structura `MatriceRara` e mare, așa că funcțiile o primesc prin pointer (`const` acolo unde doar se citește): `m->e[i].lin`."
+  - "Sortează ambele matrice după `(lin, col)`. Două structuri se pot muta direct prin atribuire (`m->e[j + 1] = m->e[j];`). După sortare, diferența se face ca o **interclasare**: avansezi simultan prin `a` și `b` și compari elementele curente."
+  - "La interclasare: dacă elementul din `a` e înaintea celui din `b`, el lipsește din `B` și dă `−val`; dacă e invers, elementul din `b` dă `+val`; dacă poziția coincide, valoarea este diferența (și se adaugă doar dacă e nenulă). Nu uita elementele rămase în una dintre matrice după ce cealaltă s-a terminat. Creșterea și scăderea maximă se găsesc la parcurgerea rezultatului, cu comparație strictă."
+pitfalls:
+  - "O matrice `int m[1000000000][...]` nu se poate declara; lucrează doar cu tripletele."
+  - "Fără sortare înainte de interclasare, poziții identice din `A` și `B` nu se mai întâlnesc și apar de două ori în rezultat."
+  - "`%+d` afișează și semnul `+` pentru valorile pozitive; `%d` nu."

@@ -1,0 +1,8 @@
+SET o_cheie_foarte_lunga_de_30_car abcdefghijklmnopqrstuvwxyz0123
+GET o_cheie_foarte_lunga_de_30_car
+SET o_cheie_foarte_lunga_de_30_car 99
+ADD o_cheie_foarte_lunga_de_30_car 1
+SET x false
+SET y truefalse
+SET z 999999999999
+LIST

@@ -1,0 +1,97 @@
+id: lab06-p11-bonuri-casa
+lab: lab06
+number: 11
+title: "Bonurile de la cele două case"
+difficulty: 1
+estimated_minutes: 15
+concepts: [malloc, free, vector alocat dinamic, pointer returnat de funcție, interclasare]
+statement: |
+  Magazinul de lângă cămin are două case de marcat. Fiecare casă păstrează momentele la care a emis bonuri (în secunde de la deschiderea magazinului), **în ordine crescătoare**. La închidere, administratorul vrea un singur jurnal al zilei, cu toate bonurile în ordine cronologică.
+
+  Citiți cele două liste în vectori alocați dinamic, construiți jurnalul comun într-un **al treilea vector alocat dinamic**, de exact `n + m` elemente, și afișați:
+
+  - numărul total de bonuri;
+  - jurnalul comun, sortat crescător;
+  - mediana: elementul de pe poziția `(n + m - 1) / 2` din jurnal (numerotat de la 0, împărțire întreagă);
+  - cea mai lungă pauză dintre două bonuri consecutive din jurnal și momentele dintre care a avut loc (dacă există mai multe pauze maxime, prima dintre ele).
+
+  Implementați și folosiți funcțiile:
+
+  ```c
+  int *citeste_vector(int n);
+  int *interclaseaza(const int *a, int n, const int *b, int m);
+  ```
+
+  `citeste_vector` alocă un vector de `n` elemente, îl citește și îi returnează adresa; `interclaseaza` alocă și completează jurnalul comun. Ambele returnează `NULL` dacă alocarea eșuează. Vectorii inițiali pot fi eliberați imediat după interclasare; la final nu trebuie să rămână memorie neeliberată.
+
+  **Date de intrare**
+
+  Pe prima linie `n`, pe a doua `n` momente (casa 1). Pe a treia linie `m`, pe a patra `m` momente (casa 2). Ambele liste sunt sortate crescător (nedescrescător).
+
+  **Date de ieșire**
+
+  ```
+  total: <n + m>
+  bonuri: <jurnalul comun, fiecare moment precedat de un spatiu>
+  mediana: <valoare>
+  pauza maxima: <durata> (intre <t1> si <t2>)
+  ```
+
+  **Restricții**
+
+  - `1 ≤ n, m ≤ 100000`
+  - `0 ≤ moment ≤ 10^6`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4
+  120 300 305 900
+  3
+  200 305 1500
+  ```
+
+  Ieșire:
+  ```
+  total: 7
+  bonuri: 120 200 300 305 305 900 1500
+  mediana: 305
+  pauza maxima: 600 (intre 900 si 1500)
+  ```
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  int *citeste_vector(int n)
+  {
+      /* TODO: aloca n intregi, verifica rezultatul, citeste elementele */
+  }
+
+  int *interclaseaza(const int *a, int n, const int *b, int m)
+  {
+      /* TODO: aloca n + m intregi si interclaseaza a cu b */
+  }
+
+  int main(void)
+  {
+      int n, m;
+      int *a, *b, *jurnal;
+
+      scanf("%d", &n);
+      a = citeste_vector(n);
+      /* TODO: verificare, citirea lui m si b, interclasare */
+
+      /* TODO: afisare total, bonuri, mediana, pauza maxima */
+
+      /* TODO: eliberarea tuturor vectorilor */
+      return 0;
+  }
+hints:
+  - "Lungimea jurnalului se știe abia după citirea lui `n` și `m`, deci vectorul rezultat se alocă în `interclaseaza`, cu `(n + m) * sizeof(int)` octeți, și se returnează apelantului."
+  - "Interclasarea folosește trei indici: `i` în `a`, `j` în `b`, `k` în rezultat. Cât timp ambele liste mai au elemente, copiezi elementul mai mic (la egalitate, pe cel din `a`); apoi copiezi ce a rămas din lista neterminată."
+  - "Pauza dintre bonurile `k-1` și `k` este `c[k] - c[k-1]`. Pornește cu pauza dintre primele două bonuri și actualizează doar la o pauză strict mai mare, ca să rămână prima. La final: trei apeluri `free` — pentru `a`, `b` și jurnal."
+pitfalls:
+  - "`malloc(n + m)` alocă `n + m` octeți, nu `n + m` întregi."
+  - "Uitarea celor două bucle de la final (elementele rămase dintr-o singură listă) lasă jurnalul incomplet."
+  - "Dacă eliberezi `a` și `b` înainte de interclasare, `interclaseaza` citește memorie eliberată."

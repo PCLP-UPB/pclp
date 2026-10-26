@@ -1,0 +1,128 @@
+id: lab06-p20-tetris-bare
+lab: lab06
+number: 20
+title: "Tetris cu bare"
+difficulty: 5
+estimated_minutes: 70
+concepts: [vector de pointeri, matrice alocată dinamic, realloc, calloc, eliberarea unei matrice, dublarea capacității, memory leak]
+statement: |
+  Pentru concursul de jocuri retro din cămin, scrieți motorul unui Tetris simplificat. Tabla are lățimea `w` (coloane numerotate de la 1 la `w`) și **nu are înălțime maximă**. Cad doar bare:
+
+  - `O L c` — o bară orizontală de lungime `L`, care ocupă coloanele `c, c+1, …, c+L-1`; ea coboară până se oprește pe cea mai înaltă celulă ocupată de sub ea (sau pe fundul tablei) și ocupă o singură linie;
+  - `V H c` — o bară verticală de înălțime `H` în coloana `c`; se așază deasupra celei mai înalte celule ocupate din coloana `c` și ocupă `H` linii consecutive;
+  - `A` — afișează tabla.
+
+  O bară care ar ieși din tablă pe orizontală (`c < 1` sau ultima ei coloană `> w`) este **invalidă**: se ignoră și se numără. După așezarea unei bare, orice linie complet plină dispare, iar tot ce era deasupra ei coboară cu o linie (golurile rămân goluri — nu există „gravitație” pentru celule).
+
+  Tabla se memorează ca un **vector de pointeri la linii**, cu linia de jos pe poziția 0. Fiecare linie are `w` celule și se alocă separat (cu `calloc`). Când o bară ajunge mai sus decât tabla actuală, se adaugă linii noi, iar vectorul de pointeri își **dublează capacitatea** când e nevoie. Când o linie dispare, ea se eliberează și pointerii liniilor de deasupra coboară cu o poziție (nu se copiază celule). Implementați și folosiți cel puțin:
+
+  ```c
+  char **adauga_linii(char **t, int *h, int *cap, int nou_h, int w);   /* NULL la eroare */
+  void elimina_linia(char **t, int *h, int r);
+  void elibereaza_tabla(char **t, int h);
+  ```
+
+  unde `h` este numărul de linii folosite, iar `cap` numărul de pointeri alocați.
+
+  **Date de intrare**
+
+  Pe prima linie `w q`, apoi `q` comenzi, câte una pe linie.
+
+  **Date de ieșire**
+
+  La fiecare `A`, o linie `inaltime: <h>` urmată de cele `h` linii ale tablei, **de sus în jos**, cu `#` pentru celulă ocupată și `.` pentru celulă goală. Înălțimea `h` este numărul de linii până la cea mai înaltă celulă ocupată (0 pentru tabla goală). La final:
+
+  ```
+  piese plasate: <numar>
+  piese invalide: <numar>
+  linii eliminate: <numar>
+  ```
+
+  urmat de tabla finală, în același format ca la `A`.
+
+  **Restricții**
+
+  - `1 ≤ w ≤ 50`, `1 ≤ q ≤ 5000`
+  - `1 ≤ L ≤ 50`, `1 ≤ H ≤ 20`; `c` este un întreg din `[-100, 100]`
+  - numărul total de linii afișate de comenzile `A` este cel mult `10^5`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4 11
+  O 3 1
+  V 2 4
+  O 2 2
+  V 3 1
+  A
+  O 4 0
+  O 3 2
+  O 2 3
+  V 1 2
+  A
+  V 2 3
+  ```
+
+  Ieșire:
+  ```
+  inaltime: 2
+  #...
+  #...
+  inaltime: 0
+  piese plasate: 8
+  piese invalide: 1
+  linii eliminate: 4
+  inaltime: 2
+  ..#.
+  ..#.
+  ```
+
+  Explicație: `O 3 1` și partea de jos a lui `V 2 4` completează prima linie, care dispare; jumătatea de sus a barei verticale coboară pe fund. `O 2 2` aterizează pe fund, lângă ea, iar `V 3 1` completează linia de jos (care dispare și ea), rămânând două celule în coloana 1. `O 4 0` este invalidă.
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  char **adauga_linii(char **t, int *h, int *cap, int nou_h, int w)
+  {
+      /* TODO: daca nou_h > *cap, dubleaza capacitatea vectorului de pointeri (realloc);
+         apoi aloca liniile noi cu calloc pana cand *h == nou_h */
+  }
+
+  void elimina_linia(char **t, int *h, int r)
+  {
+      /* TODO: free pe linia r, coboara pointerii de deasupra, (*h)-- */
+  }
+
+  void elibereaza_tabla(char **t, int h)
+  {
+      /* TODO */
+  }
+
+  int main(void)
+  {
+      int w, q, k, h = 0, cap = 0;
+      char op;
+      char **t = NULL;
+
+      scanf("%d %d", &w, &q);
+      /* TODO: inaltimea fiecarei coloane (vector alocat dinamic) */
+
+      for (k = 0; k < q; k++) {
+          scanf(" %c", &op);
+          /* TODO: A / O L c / V H c: unde aterizeaza bara, adaugarea liniilor,
+             marcarea celulelor, eliminarea liniilor pline */
+      }
+
+      /* TODO: afisarea finala, eliberarea memoriei */
+      return 0;
+  }
+hints:
+  - "Ține un vector `inalt` (alocat dinamic, `w` elemente): `inalt[x]` = numărul de linii până la cea mai înaltă celulă ocupată din coloana `x`. O bară orizontală aterizează pe linia `max(inalt[c..c+L-1])`, iar una verticală începe pe linia `inalt[c]`. Linia de sus a barei poate depăși `h` — atunci chemi `adauga_linii` cu noua înălțime."
+  - "După așezare, verifică doar liniile ocupate de bară, **de sus în jos**: dacă elimini o linie, cele de dedesubt își păstrează indicii. Eliminarea liniei `r`: `free(t[r])`, `t[i] = t[i+1]` pentru `i` de la `r` la `h-2`, `h--`. Capacitatea vectorului de pointeri poate rămâne aceeași."
+  - "Actualizarea lui `inalt` după eliminarea liniei pline `r`: dacă `inalt[x] > r + 1`, vârful coloanei era deasupra și coboară cu 1; dacă `inalt[x] == r + 1`, vârful a dispărut, deci cauți în jos, de la linia `r - 1`, prima celulă ocupată din coloana `x`. Afișarea parcurge liniile de la `h - 1` la 0. La final: fiecare linie, apoi vectorul de pointeri, apoi `inalt`."
+pitfalls:
+  - "Eliberarea liniei după ce ai mutat pointerii eliberează linia greșită și pierde linia plină (memory leak + date corupte)."
+  - "Liniile noi trebuie să fie goale: `malloc` fără inițializare lasă celule „ocupate” la întâmplare; folosește `calloc`."
+  - "`realloc` pe vectorul de pointeri poate muta vectorul: funcția trebuie să returneze noua adresă, iar `main` să o folosească."
+  - "Dacă verifici liniile de jos în sus și elimini una, linia următoare de verificat a coborât pe poziția celei eliminate."

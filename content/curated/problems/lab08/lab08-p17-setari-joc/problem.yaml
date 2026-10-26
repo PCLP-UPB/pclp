@@ -1,0 +1,159 @@
+id: lab08-p17-setari-joc
+lab: lab08
+number: 17
+title: "Setările jocului"
+difficulty: 3
+estimated_minutes: 40
+concepts: [uniune, enumerare, structură, citirea greșită a unei uniuni, vector de structuri, pointer la structură]
+statement: |
+  Un joc făcut de un grup de studenți își păstrează setările ca perechi `cheie valoare`. Valoarea poate fi de patru tipuri, iar tipul se deduce din felul în care e scrisă:
+
+  - `true` sau `false` (exact așa, cu litere mici) → `BOOL`;
+  - un `-` opțional urmat de una sau mai multe cifre (de exemplu `70`, `-15`, `007`) → `INT`;
+  - un `-` opțional, una sau mai multe cifre, punct și **una sau două** cifre (de exemplu `1.25`, `-7.0`) → `REAL`;
+  - orice altceva (de exemplu `mediu`, `1.0.3`, `.5`, `5.`, `3.141`, `1e3`) → `TEXT`.
+
+  Memorați fiecare setare într-o structură cu o **uniune etichetată**: câmpul `tip` spune care variantă a uniunii e valabilă în acel moment.
+
+  ```c
+  typedef enum { INT, REAL, BOOL, TEXT } Tip;
+
+  typedef struct {
+      char cheie[31];
+      Tip tip;
+      union {
+          long long i;
+          double r;
+          int b;          /* 1 = true, 0 = false */
+          char s[31];
+      } val;
+  } Setare;
+  ```
+
+  Implementați cel puțin:
+
+  ```c
+  Tip detecteaza_tip(const char *v);
+  void seteaza(Setare *s, const char *v);    /* stabileste tipul si scrie valoarea in varianta potrivita */
+  void afiseaza(const Setare *s);
+  Setare *cauta(Setare *v, int n, const char *cheie);
+  ```
+
+  Comenzi:
+
+  | comandă | efect |
+  |---|---|
+  | `SET cheie valoare` | dacă cheia există, îi înlocuiește valoarea (tipul se poate schimba); altfel adaugă o setare nouă, la final |
+  | `GET cheie` | afișează setarea în formatul de mai jos |
+  | `TOGGLE cheie` | inversează o valoare `BOOL`; dacă setarea are alt tip, afișează `<cheie>: nu e BOOL` |
+  | `ADD cheie x` | adună întregul `x` la o valoare `INT` sau `REAL` (tipul rămâne același); altfel afișează `<cheie>: nu e numeric` |
+  | `LIST` | afișează `--- <n> setari ---`, apoi toate setările, în ordinea în care au fost adăugate prima dată |
+
+  O setare se afișează `<cheie> = <valoare> (<TIP>)`: `INT` cu `%lld`, `REAL` cu exact două zecimale, `BOOL` ca `true`/`false`, `TEXT` exact cum a fost scris. Pentru o cheie inexistentă, `GET`, `TOGGLE` și `ADD` afișează `<cheie>: inexistent`. Cheile se compară exact (`volum` și `Volum` sunt diferite).
+
+  **Date de intrare**
+
+  Comenzi, câte una pe linie, până la sfârșitul fișierului.
+
+  **Date de ieșire**
+
+  Mesajele comenzilor, în ordine.
+
+  **Restricții**
+
+  - cel mult 2000 de comenzi și cel mult 200 de chei distincte
+  - cheile și valorile au între 1 și 30 de caractere ASCII, fără spații
+  - `|x| ≤ 10^12`; valorile `INT` rămân în valoare absolută sub `10^15`, iar cele `REAL` sub `10^6`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  SET volum 70
+  SET sensibilitate 1.25
+  SET fullscreen true
+  SET nume_jucator Bobocul
+  SET versiune 1.0.3
+  ADD volum -15
+  TOGGLE fullscreen
+  TOGGLE volum
+  ADD nume_jucator 1
+  GET dificultate
+  SET volum mediu
+  LIST
+  ```
+
+  Ieșire:
+  ```
+  volum: nu e BOOL
+  nume_jucator: nu e numeric
+  dificultate: inexistent
+  --- 5 setari ---
+  volum = mediu (TEXT)
+  sensibilitate = 1.25 (REAL)
+  fullscreen = false (BOOL)
+  nume_jucator = Bobocul (TEXT)
+  versiune = 1.0.3 (TEXT)
+  ```
+starter: |
+  #include <ctype.h>
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+
+  #define NMAX 200
+
+  typedef enum { INT, REAL, BOOL, TEXT } Tip;
+
+  typedef struct {
+      char cheie[31];
+      Tip tip;
+      union {
+          long long i;
+          double r;
+          int b;
+          char s[31];
+      } val;
+  } Setare;
+
+  Tip detecteaza_tip(const char *v)
+  {
+      /* TODO: regulile din enunt, verificate caracter cu caracter */
+      return TEXT;
+  }
+
+  void seteaza(Setare *s, const char *v)
+  {
+      /* TODO: s->tip, apoi DOAR campul uniunii corespunzator tipului */
+  }
+
+  void afiseaza(const Setare *s)
+  {
+      /* TODO: citeste din uniune DOAR campul corespunzator lui s->tip */
+  }
+
+  Setare *cauta(Setare *v, int n, const char *cheie)
+  {
+      /* TODO */
+      return NULL;
+  }
+
+  int main(void)
+  {
+      Setare v[NMAX];
+      int n = 0;
+      char cmd[32];
+
+      while (scanf("%31s", cmd) == 1) {
+          /* TODO: SET, GET, TOGGLE, ADD, LIST */
+      }
+      return 0;
+  }
+hints:
+  - "Toate variantele uniunii ocupă **aceeași** zonă de memorie: după ce scrii `val.r`, valoarea din `val.i` nu mai are sens. De aceea, la orice citire din uniune te uiți întâi la `tip` și folosești doar varianta corespunzătoare (un `switch` pe `tip` e potrivit)."
+  - "Pentru detectarea tipului, parcurge șirul cu un pointer: sari peste un eventual `-`, numără cifrele, apoi vezi ce urmează: sfârșitul șirului (`INT`, dacă ai avut măcar o cifră), un punct urmat de 1–2 cifre și sfârșitul șirului (`REAL`), altfel `TEXT`. `true`/`false` se verifică înainte, cu `strcmp`."
+  - "Conversia textului în număr se poate face cu `strtoll(v, NULL, 10)` și `strtod(v, NULL)` (din `<stdlib.h>`), iar textul se copiază în `val.s` cu `strcpy`. La `SET` pe o cheie existentă, folosește pointerul returnat de `cauta` și apelează `seteaza` pe aceeași setare — astfel își păstrează locul în listă."
+pitfalls:
+  - "Dacă la `GET` afișezi `val.i` pentru o setare `REAL`, obții un număr fără sens: biții unui `double` interpretați ca întreg."
+  - "`.5`, `5.` și `3.141` nu sunt `REAL` după regulile de aici, iar `-` singur nu e `INT`."
+  - "`ADD` pe un `REAL` trebuie să adune la `val.r`, nu la `val.i`, și să lase tipul `REAL`."

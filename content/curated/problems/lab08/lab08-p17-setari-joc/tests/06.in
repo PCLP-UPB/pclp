@@ -1,0 +1,11 @@
+SET t true
+SET t text
+TOGGLE t
+SET t 12.34
+TOGGLE t
+ADD t 0
+GET t
+SET t true
+TOGGLE t
+GET t
+GET T

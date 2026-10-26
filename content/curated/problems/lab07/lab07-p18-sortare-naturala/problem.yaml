@@ -1,0 +1,109 @@
+id: lab07-p18-sortare-naturala
+lab: lab07
+number: 18
+title: "Ordonarea naturală a fișierelor"
+difficulty: 4
+estimated_minutes: 50
+concepts: [ordine lexicografică, vector de pointeri la șiruri, strcmp, malloc, tolower, ctype.h]
+statement: |
+  Ordonate cu `strcmp`, pozele dintr-o galerie apar în ordinea `IMG1.jpg`, `IMG10.jpg`, `IMG2.jpg`, pentru că `'1' < '2'`. Oamenii se așteaptă însă la **ordinea naturală**: `IMG1`, `IMG2`, `IMG10`. Ordonați o listă de nume de fișiere în ordine naturală.
+
+  Fiecare nume se privește ca o succesiune de **numere** (secvențe maximale de cifre) și **caractere** (orice altceva). Două nume `a` și `b` se compară parcurgându-le simultan de la stânga la dreapta:
+
+  1. dacă în ambele urmează câte o secvență de cifre, se compară **valorile** numerelor (de exemplu `9 < 10`, `007 = 7`); numerele pot avea până la 100 de cifre, deci nu încap în niciun tip întreg; dacă valorile sunt egale, comparația continuă după cele două secvențe;
+  2. altfel se compară caracterul curent din `a` cu cel din `b`, **după transformarea în litere mici** (`tolower`), după codul ASCII; dacă sunt egale, se trece la caracterul următor;
+  3. dacă unul dintre nume se termină înaintea celuilalt (iar până acolo nu s-a găsit nicio diferență), numele terminat primul este mai mic;
+  4. dacă după toate regulile de mai sus numele sunt „egale” (de exemplu `img02.jpg` și `img2.JPG`), decide comparația obișnuită `strcmp(a, b)`.
+
+  Numele se citesc într-un vector de pointeri la șiruri, alocat dinamic, iar fiecare nume se copiază într-o zonă alocată exact cât îi trebuie. La sortare se mută doar pointerii. Implementați și folosiți:
+
+  ```c
+  int compara_natural(const char *a, const char *b);   /* <0, 0 sau >0, ca strcmp */
+  ```
+
+  **Date de intrare**
+
+  Pe prima linie `n`. Pe următoarele `n` linii, câte un nume de fișier.
+
+  **Date de ieșire**
+
+  Cele `n` nume, câte unul pe linie, în ordine naturală crescătoare.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 1000`
+  - fiecare nume are între 1 și 100 de caractere ASCII afișabile, fără spații
+  - o sortare în `O(n²)` comparații (de exemplu prin inserție) este suficientă
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  8
+  IMG10.jpg
+  img2.jpg
+  IMG1.jpg
+  curs_pclp_9.pdf
+  curs_pclp_10.pdf
+  img02.jpg
+  Curs_pclp_1.pdf
+  img2.JPG
+  ```
+
+  Ieșire:
+  ```
+  Curs_pclp_1.pdf
+  curs_pclp_9.pdf
+  curs_pclp_10.pdf
+  IMG1.jpg
+  img02.jpg
+  img2.JPG
+  img2.jpg
+  IMG10.jpg
+  ```
+
+  Explicație: `img02.jpg`, `img2.JPG` și `img2.jpg` sunt egale după regulile 1–3; `strcmp` le ordonează după `'0' < '2'`, respectiv `'J' < 'j'`.
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+  #include <ctype.h>
+
+  #define LMAX 128
+
+  char *copie(const char *s)
+  {
+      /* TODO */
+      return NULL;
+  }
+
+  int compara_natural(const char *a, const char *b)
+  {
+      /* TODO: regulile 1-4 */
+      return strcmp(a, b);
+  }
+
+  void sorteaza(char **v, int n)
+  {
+      /* TODO: orice sortare care foloseste compara_natural */
+  }
+
+  int main(void)
+  {
+      char buf[LMAX];
+      char **v;
+      int n, i;
+
+      scanf("%d", &n);
+      /* TODO: alocati v, cititi si copiati numele, sortati, afisati, eliberati */
+      return 0;
+  }
+hints:
+  - "Parcurge cele două nume cu doi pointeri `p` și `q` (avansează independent, pentru că numerele egale pot avea lungimi diferite: `007` și `7`). La fiecare pas te uiți dacă `*p` și `*q` sunt ambele cifre (`isdigit`) și alegi regula 1 sau 2."
+  - "Cum compari două numere de 100 de cifre fără să le transformi în `long long`? Sari întâi peste zerourile din față; apoi numărul cu mai multe cifre rămase e mai mare; la același număr de cifre, prima cifră diferită decide (exact ca la `strcmp` pe acele cifre)."
+  - "Sortarea: inserție sau selecție pe `char **v`, unde în loc de `v[j] > x` scrii `compara_natural(v[j], x) > 0`; interschimbi pointerii, nu conținutul șirurilor. Numele nu au spații, deci le poți citi cu `scanf(\"%100s\", buf)` și copia cu `malloc(strlen(buf) + 1)` + `strcpy`."
+pitfalls:
+  - "`atoi`/`strtol` pe secvența de cifre dau rezultate greșite peste 19 cifre (depășire)."
+  - "Dacă la numere egale returnezi 0 imediat, `a1b2` și `a1b10` ies egale; comparația trebuie să continue după numere."
+  - "`img02.jpg` și `img2.JPG` nu sunt egale în ordinea finală: fără departajarea cu `strcmp`, ordinea lor ar depinde de algoritmul de sortare."
+  - "Eliberează fiecare nume și apoi vectorul de pointeri."

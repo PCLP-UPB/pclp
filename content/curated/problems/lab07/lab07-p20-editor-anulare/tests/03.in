@@ -1,0 +1,9 @@
+INS 0    trei spatii in fata si doua la final  
+PRINT
+DEL 0 3
+PRINT
+INS 37 !
+INS 38 ?
+PRINT
+UNDO
+PRINT

@@ -1,0 +1,16 @@
+SET bani 1000000000000
+ADD bani 1000000000000
+ADD bani -3000000000000
+GET bani
+SET viteza 2.15
+ADD viteza 1
+GET viteza
+ADD viteza -5
+GET viteza
+SET viteza 3
+GET viteza
+SET viteza false
+TOGGLE viteza
+TOGGLE viteza
+TOGGLE viteza
+GET viteza

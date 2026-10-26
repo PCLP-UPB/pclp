@@ -1,0 +1,103 @@
+id: lab06-p14-distante-orase
+lab: lab06
+number: 14
+title: "Tabelul distanțelor"
+difficulty: 2
+estimated_minutes: 25
+concepts: [matrice cu linii de lungimi diferite, vector de pointeri, malloc, eliberarea unei matrice, verificarea rezultatului alocării]
+statement: |
+  O agenție care organizează excursii pentru studenți are un tabel cu distanțele rutiere (în km) dintre `n` orașe, numerotate de la 1 la `n`. Distanța de la `a` la `b` este aceeași cu cea de la `b` la `a`, iar distanța de la un oraș la el însuși este 0, deci o matrice `n × n` ar memora fiecare valoare de două ori.
+
+  Memorați doar **jumătatea de sub diagonală**, inclusiv diagonala, într-o matrice alocată dinamic cu linii de lungimi diferite: linia `i` (numerotată de la 0) are exact `i + 1` elemente, iar `t[i][j]` (cu `j ≤ i`) este distanța dintre orașele `i + 1` și `j + 1`. Implementați și folosiți:
+
+  ```c
+  int **aloca_triunghi(int n);                 /* linia i are i + 1 elemente; NULL la eroare */
+  void elibereaza_triunghi(int **t, int n);
+  int distanta(int **t, int a, int b);         /* a, b numerotate de la 1 */
+  ```
+
+  Agenția verifică apoi `q` itinerarii. Un itinerariu este o succesiune de orașe `c1 c2 … ck`; lungimea lui este suma distanțelor dintre orașe consecutive. Dacă itinerariul conține un oraș inexistent, se afișează `INVALID`.
+
+  **Date de intrare**
+
+  Pe prima linie `n`. Urmează `n - 1` linii: linia cu numărul `i` dintre ele (`i = 2, …, n`) conține `i - 1` numere — distanțele de la orașul `i` la orașele `1, 2, …, i - 1`. Apoi `q` și `q` linii, fiecare de forma `k c1 c2 … ck`.
+
+  **Date de ieșire**
+
+  Pe prima linie `elemente memorate: <numarul total de elemente din triunghi>`, apoi câte o linie pentru fiecare itinerariu: lungimea lui sau `INVALID`.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 2000`, `0 ≤ distanță ≤ 10^4`
+  - `1 ≤ q ≤ 10^4`, `1 ≤ k ≤ 1000`; suma tuturor valorilor `k` este cel mult `10^5`
+  - orașele din itinerarii sunt întregi din `[-10^4, 10^4]`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4
+  60
+  170 110
+  120 150 200
+  5
+  3 1 2 3
+  4 3 1 4 1
+  1 2
+  3 1 5 2
+  2 4 4
+  ```
+
+  Ieșire:
+  ```
+  elemente memorate: 10
+  170
+  410
+  0
+  INVALID
+  0
+  ```
+
+  Explicație: itinerariul `3 → 1 → 4 → 1` are `170 + 120 + 120 = 410` km; o matrice completă ar fi memorat 16 elemente.
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  int **aloca_triunghi(int n)
+  {
+      /* TODO: vector de n pointeri; linia i are i + 1 elemente */
+  }
+
+  void elibereaza_triunghi(int **t, int n)
+  {
+      /* TODO */
+  }
+
+  int distanta(int **t, int a, int b)
+  {
+      /* TODO: doar elementul de sub diagonala exista */
+  }
+
+  int main(void)
+  {
+      int n;
+      int **t;
+
+      scanf("%d", &n);
+      t = aloca_triunghi(n);
+      if (t == NULL) {
+          return 1;
+      }
+      /* TODO: citirea triunghiului (diagonala = 0), itinerariile */
+
+      elibereaza_triunghi(t, n);
+      return 0;
+  }
+hints:
+  - "Fiecare linie se alocă separat, deci poate avea propria lungime: linia `i` are nevoie de `(i + 1) * sizeof(int)` octeți. Total: `n(n+1)/2` elemente în loc de `n²`."
+  - "Distanța dintre `a` și `b` se află la `t[a-1][b-1]` doar dacă `a ≥ b`; altfel elementul acela nu există în memorie și trebuie citit `t[b-1][a-1]`. Pune această regulă într-un singur loc — funcția `distanta`."
+  - "La un itinerariu, citește toate cele `k` orașe chiar dacă unul e invalid (altfel restul liniei e citit ca alt itinerariu). Ține minte orașul anterior și adună distanța doar cât timp toate orașele de până acum sunt valide."
+pitfalls:
+  - "`t[a][b]` cu `b > a` citește în afara liniei `a` — comportament nedefinit, chiar dacă uneori dă o valoare plauzibilă."
+  - "Nu uita diagonala: `t[i][i] = 0` nu vine din intrare, dar itinerariile pot repeta un oraș (`4 4`)."
+  - "Verifică orașul înainte să-l folosești ca indice."

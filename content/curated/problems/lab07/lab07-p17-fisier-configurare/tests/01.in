@@ -1,0 +1,17 @@
+; configurarea serverului de teme
+nume = Verificator PCLP
+[Server]
+port = 8080
+gazda=  localhost
+[baza de date]
+utilizator = admin
+parola = s3cret = da
+[server]
+PORT = 9090
+---
+nume
+server.port
+Server.Gazda
+baza de date.parola
+server.timeout
+port

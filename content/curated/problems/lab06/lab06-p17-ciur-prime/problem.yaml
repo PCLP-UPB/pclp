@@ -1,0 +1,111 @@
+id: lab06-p17-ciur-prime
+lab: lab06
+number: 17
+title: "Ciurul de pe heap"
+difficulty: 3
+estimated_minutes: 40
+concepts: [calloc, malloc, vector alocat dinamic, heap, stivă, eliberarea memoriei alocate dinamic, căutare binară]
+statement: |
+  La seminarul de criptografie, studenții au nevoie de răspunsuri rapide la întrebări despre numerele prime mai mici sau egale cu un `N` care poate ajunge la zece milioane.
+
+  Programul procedează în doi pași:
+
+  1. Construiește **ciurul lui Eratostene** pentru `1 … N` într-un vector de `N + 1` octeți (`char`) alocat dinamic. Un vector local de 10 milioane de elemente nu încape pe stivă (de obicei 8 MB), de aceea memoria se ia din heap.
+  2. Numără numerele prime găsite, alocă un vector de `int` de **exact** atâtea elemente, copiază în el numerele prime (în ordine crescătoare) și **eliberează imediat ciurul** — de aici înainte se lucrează doar cu vectorul de prime.
+
+  Implementați și folosiți:
+
+  ```c
+  int *prime_pana_la(int n, int *cnt);              /* vectorul de prime (*cnt elemente) sau NULL la eroare */
+  int cate_cel_mult(const int *p, int cnt, int x);  /* cate prime din p sunt <= x */
+  ```
+
+  Întrebările sunt de trei tipuri:
+
+  - `P x` — este `x` prim? (`DA` / `NU`)
+  - `K k` — al `k`-lea număr prim (numerotat de la 1) sau `NU EXISTA` dacă sunt mai puțin de `k` prime până la `N`;
+  - `I a b` — câte numere prime sunt în intervalul `[a, b]`.
+
+  **Date de intrare**
+
+  Pe prima linie `N q`, apoi `q` linii, câte o întrebare.
+
+  **Date de ieșire**
+
+  Pe prima linie `prime pana la <N>: <numarul de prime>`, apoi câte o linie cu răspunsul fiecărei întrebări.
+
+  **Restricții**
+
+  - `2 ≤ N ≤ 10^7`, `1 ≤ q ≤ 10^5`
+  - `1 ≤ x ≤ N`, `1 ≤ k ≤ 10^7`, `1 ≤ a ≤ b ≤ N`
+  - parcurgerea intervalului `[a, b]` la fiecare întrebare `I` este prea lentă; fiecare întrebare trebuie rezolvată în `O(log N)`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  30 7
+  P 29
+  P 1
+  K 10
+  K 11
+  I 10 20
+  I 2 2
+  P 30
+  ```
+
+  Ieșire:
+  ```
+  prime pana la 30: 10
+  DA
+  NU
+  29
+  NU EXISTA
+  4
+  1
+  NU
+  ```
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  int *prime_pana_la(int n, int *cnt)
+  {
+      /* TODO: ciur alocat cu calloc (n + 1 octeti), numararea primelor,
+         vector de exact *cnt intregi, copierea primelor, free(ciur) */
+  }
+
+  int cate_cel_mult(const int *p, int cnt, int x)
+  {
+      /* TODO: cautare binara in vectorul sortat p */
+  }
+
+  int main(void)
+  {
+      int n, q, i, cnt;
+      char op;
+      int *prime;
+
+      scanf("%d %d", &n, &q);
+      prime = prime_pana_la(n, &cnt);
+      if (prime == NULL) {
+          return 1;
+      }
+      printf("prime pana la %d: %d\n", n, cnt);
+
+      for (i = 0; i < q; i++) {
+          scanf(" %c", &op);
+          /* TODO: P x, K k, I a b */
+      }
+
+      free(prime);
+      return 0;
+  }
+hints:
+  - "Ciurul: `calloc(n + 1, sizeof(char))` dă un vector plin de zerouri („nimic tăiat încă”). Pentru fiecare `i` de la 2 la `n` rămas netăiat, tai multiplii lui începând de la `i * i`. Ce a rămas netăiat (de la 2 încolo) e prim."
+  - "Cu numerele prime într-un vector sortat, toate întrebările se reduc la „câte prime sunt ≤ x?”, care se află prin căutare binară: `I a b` = cate(b) − cate(a − 1), iar `x` este prim dacă cate(x) − cate(x − 1) = 1. Pentru `K k`, răspunsul e direct `p[k − 1]`, dacă `k ≤ cnt`."
+  - "Pseudocod cate_cel_mult: st = 0, dr = cnt; cât timp st < dr: mij = (st + dr) / 2; dacă p[mij] ≤ x atunci st = mij + 1, altfel dr = mij. Returnează st. Atenție la ciur: `i * i` depășește `int` pentru `i > 46340`, deci compară în `long long` sau oprește bucla exterioară la `i * i > n`."
+pitfalls:
+  - "`char ciur[10000001];` ca variabilă locală depășește stiva și programul se oprește cu „segmentation fault” înainte să facă ceva."
+  - "Vectorul de prime trebuie alocat după numărare, cu `cnt * sizeof(int)` octeți; ciurul are elemente de un octet, vectorul de prime de patru."
+  - "Ciurul trebuie eliberat în funcție, înainte de `return` — altfel rămân 10 MB neeliberați."

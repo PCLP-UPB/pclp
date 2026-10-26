@@ -1,0 +1,5 @@
+t: nu e BOOL
+t: nu e BOOL
+t = 12.34 (REAL)
+t = false (BOOL)
+T: inexistent

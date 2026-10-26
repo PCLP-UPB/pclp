@@ -1,0 +1,104 @@
+id: lab06-p13-vizite-pagini
+lab: lab06
+number: 13
+title: "Contorul de vizite al site-ului"
+difficulty: 2
+estimated_minutes: 25
+concepts: [realloc, vector extensibil, realocare prin pointer auxiliar, vector de frecvență, free]
+statement: |
+  Site-ul asociației studenților are pagini identificate prin numere naturale. Serverul primește un șir de evenimente: vizite la o pagină și întrebări „de câte ori a fost vizitată pagina `id` până acum?”. Nu se știe dinainte cel mai mare `id` care va apărea, deci contoarele de vizite stau într-un vector `vizite` alocat dinamic, indexat chiar după `id`, care **crește doar când e nevoie**.
+
+  Inițial vectorul nu există (`NULL`, capacitate 0). La o vizită la pagina `id`, dacă `id ≥ cap`, capacitatea devine **`max(2 · cap, id + 1)`**, vectorul se realocă, iar contoarele noi pornesc de la 0. O întrebare nu modifică vectorul.
+
+  Implementați și folosiți funcția:
+
+  ```c
+  int *asigura_capacitate(int *v, int *cap, int id);
+  ```
+
+  care realocă vectorul dacă poziția `id` nu există și returnează noua adresă (sau `NULL` dacă realocarea eșuează, caz în care vectorul vechi rămâne valid).
+
+  **Date de intrare**
+
+  Pe prima linie `q`, apoi `q` linii, fiecare de forma `V id` (vizită) sau `? id` (întrebare).
+
+  **Date de ieșire**
+
+  Pentru fiecare întrebare, numărul de vizite ale paginii până în acel moment. La final:
+
+  ```
+  capacitate: <capacitatea finala a vectorului>
+  pagini vizitate: <cate pagini au cel putin o vizita>
+  cea mai vizitata: <id> (vizite: <numar>)
+  ```
+
+  La egalitate, cea mai vizitată este pagina cu `id` minim. Dacă nu a existat nicio vizită, ultima linie este `cea mai vizitata: -`.
+
+  **Restricții**
+
+  - `1 ≤ q ≤ 200000`
+  - `0 ≤ id ≤ 10^6`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  9
+  V 3
+  V 1
+  ? 3
+  V 3
+  V 10
+  ? 7
+  ? 50
+  V 2
+  ? 3
+  ```
+
+  Ieșire:
+  ```
+  1
+  0
+  0
+  2
+  capacitate: 11
+  pagini vizitate: 4
+  cea mai vizitata: 3 (vizite: 2)
+  ```
+
+  Explicație: `V 3` aduce capacitatea la `max(0, 4) = 4`, iar `V 10` la `max(8, 11) = 11`; pagina 7 există în vector după realocare, dar nu a fost vizitată.
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  int *asigura_capacitate(int *v, int *cap, int id)
+  {
+      /* TODO: daca id < *cap nu e nimic de facut;
+         altfel noua capacitate, realloc in pointer auxiliar, zerorizarea zonei noi */
+  }
+
+  int main(void)
+  {
+      int q, id, i, cap = 0;
+      char op;
+      int *vizite = NULL;
+
+      scanf("%d", &q);
+      for (i = 0; i < q; i++) {
+          scanf(" %c %d", &op, &id);
+          /* TODO: V -> asigura_capacitate + incrementare; ? -> afisare */
+      }
+
+      /* TODO: capacitate, pagini vizitate, cea mai vizitata */
+
+      free(vizite);
+      return 0;
+  }
+hints:
+  - "Vectorul de contoare e un vector de frecvență a cărui lungime nu se știe dinainte. Indicele `id` trebuie să fie mai mic decât capacitatea; dacă nu e, vectorul trebuie mărit înainte de incrementare."
+  - "`realloc` păstrează valorile vechi, dar **nu inițializează** elementele noi — ele conțin valori „gunoi”. După realocare, pune pe 0 elementele de la vechea capacitate până la cea nouă. `realloc(NULL, dim)` se comportă ca `malloc`, deci prima vizită nu e un caz special."
+  - "La o întrebare, dacă `id ≥ cap` pagina sigur nu a fost vizitată: răspunsul e 0, fără realocare (altfel capacitatea finală iese greșită). Pseudocod asigura_capacitate: dacă id < *cap returnează v; nou = max(2 · *cap, id + 1); tmp = realloc(v, nou · sizeof(int)); dacă tmp == NULL returnează NULL; zerorizează tmp[*cap .. nou-1]; *cap = nou; returnează tmp."
+pitfalls:
+  - "Citirea `vizite[id]` pentru `id ≥ cap` este acces în afara zonei alocate — comportament nedefinit, chiar dacă uneori „merge”."
+  - "Actualizează `*cap` doar după ce realocarea a reușit."
+  - "Dacă la o întrebare mărești vectorul, capacitatea afișată la final nu mai respectă regula."

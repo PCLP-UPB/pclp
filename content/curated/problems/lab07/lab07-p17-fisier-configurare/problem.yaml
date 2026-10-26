@@ -1,0 +1,128 @@
+id: lab07-p17-fisier-configurare
+lab: lab07
+number: 17
+title: "Fișierul de configurare"
+difficulty: 3
+estimated_minutes: 40
+concepts: [vector de pointeri la șiruri, strchr, strcmp, strcat, malloc, spațiu pentru terminator, tolower]
+statement: |
+  Multe programe își citesc setările dintr-un fișier de configurare în format INI. Scrieți cititorul de configurare și răspundeți la interogări.
+
+  Fiecare linie de configurare se prelucrează după ce i se elimină spațiile și tab-urile de la început și de la final:
+
+  - o linie goală, sau care începe cu `;` sau `#`, este comentariu și se ignoră;
+  - o linie care începe cu `[` și se termină cu `]` deschide o **secțiune**: numele ei este textul dintre paranteze, fără spațiile de la capete; setările următoare aparțin acestei secțiuni; `[]` revine la secțiunea globală (fără nume), cea în care sunt și setările de la începutul fișierului;
+  - o linie care conține `=` este o **setare**: cheia este textul dinaintea **primului** `=`, valoarea este textul de după el, ambele fără spațiile de la capete; valoarea poate fi vidă și poate conține orice (inclusiv `=`, `;`, `[`); dacă cheia e vidă, linia se ignoră;
+  - orice altă linie se ignoră.
+
+  Numele complet al unei setări este `sectiune.cheie`, sau doar `cheie` în secțiunea globală. Numele secțiunilor și cheile **nu țin cont de majuscule**: se memorează cu litere mici. Dacă aceeași setare apare de mai multe ori (chiar și în secțiuni redeschise), contează ultima valoare.
+
+  Numele complete și valorile se păstrează în doi vectori de pointeri la șiruri, fiecare șir fiind alocat exact cât îi trebuie.
+
+  **Date de intrare**
+
+  Liniile de configurare, apoi o linie `---` (eventual cu spații în jur), apoi interogările până la sfârșitul fișierului: câte un nume complet pe linie, eventual cu spații în jur și cu orice fel de litere. Doar prima linie `---` este separator; liniile de după ea sunt toate interogări. Ultima linie se poate termina sau nu cu `\n`.
+
+  **Date de ieșire**
+
+  Pentru fiecare interogare, cu numele scris cu litere mici și fără spațiile de la capete: `nume = valoare` dacă setarea există, altfel `nume: nedefinit`.
+
+  **Restricții**
+
+  - cel mult 1000 de linii de configurare și 1000 de interogări, fiecare linie de cel mult 300 de caractere ASCII (afișabile sau tab)
+  - numele secțiunilor și cheile nu conțin caracterele `.` `[` `]` `=`; interogările sunt nevide
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  ; configurarea serverului de teme
+  nume = Verificator PCLP
+  [Server]
+  port = 8080
+  gazda=  localhost
+  [baza de date]
+  utilizator = admin
+  parola = s3cret = da
+  [server]
+  PORT = 9090
+  ---
+  nume
+  server.port
+  Server.Gazda
+  baza de date.parola
+  server.timeout
+  port
+  ```
+
+  Ieșire:
+  ```
+  nume = Verificator PCLP
+  server.port = 9090
+  server.gazda = localhost
+  baza de date.parola = s3cret = da
+  server.timeout: nedefinit
+  port: nedefinit
+  ```
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+  #include <ctype.h>
+
+  #define LMAX 512
+  #define NMAX 1000
+
+  char *curata(char *s)
+  {
+      /* TODO: sterge '\n' si spatiile de la final, returneaza primul caracter nespatiu */
+      return s;
+  }
+
+  void litere_mici(char *s)
+  {
+      /* TODO */
+  }
+
+  char *copie(const char *s)
+  {
+      /* TODO: malloc + strcpy */
+      return NULL;
+  }
+
+  int cauta(char *nume[], int n, const char *x)
+  {
+      /* TODO */
+      return -1;
+  }
+
+  void seteaza(char *nume[], char *val[], int *n, const char *x, const char *v)
+  {
+      /* TODO: inlocuieste valoarea existenta sau adauga o intrare noua */
+  }
+
+  int main(void)
+  {
+      char linie[LMAX];
+      char sectiune[LMAX] = "";
+      char *nume[NMAX], *val[NMAX];
+      int n = 0;
+
+      while (fgets(linie, LMAX, stdin) != NULL) {
+          /* TODO: configurarea, pana la "---" */
+      }
+      while (fgets(linie, LMAX, stdin) != NULL) {
+          /* TODO: interogarile */
+      }
+      /* TODO: eliberati memoria */
+      return 0;
+  }
+hints:
+  - "Toată prelucrarea începe cu aceeași operație: „curățarea” capetelor. Șterge de la final `\\n`, spațiile și tab-urile punând `'\\0'` mai devreme, iar pentru început returnează un pointer avansat peste spații. O vei folosi pe linie, pe numele secțiunii, pe cheie și pe valoare."
+  - "Pentru o setare, `strchr(s, '=')` găsește primul `=`; pune acolo `'\\0'` și ai două șiruri: cheia (`s`) și valoarea (după `=`). Curăță-le separat. Numele complet se construiește într-un buffer cu `strcpy` + `strcat` (`sectiune`, `\".\"`, `cheie`) sau doar din cheie, dacă secțiunea curentă e vidă."
+  - "Memorarea: doi vectori `char *nume[]` și `char *val[]` cu aceeași poziție pentru aceeași setare. Înainte de adăugare caută numele cu `strcmp`; dacă există, eliberează valoarea veche și pune o copie a celei noi. Copiile se fac cu `malloc(strlen(s) + 1)` + `strcpy`, fiindcă bufferul liniei se suprascrie la următorul `fgets`."
+pitfalls:
+  - "Dacă pui în vector direct pointerul în bufferul `linie` (fără copie), după citirea liniei următoare toate valorile se schimbă."
+  - "La înlocuirea unei valori, eliberează copia veche, altfel ai memory leak."
+  - "`[ Retea ]` și `[retea]` sunt aceeași secțiune — curăță și transformă în litere mici numele secțiunii, nu doar cheile."
+  - "Comentariile se recunosc doar la începutul liniei: în `ip = 10.0.0.1 ; x`, textul `; x` face parte din valoare."

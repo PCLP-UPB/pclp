@@ -1,0 +1,123 @@
+id: lab07-p20-editor-anulare
+lab: lab07
+number: 20
+title: "Editor de text cu anulare"
+difficulty: 5
+estimated_minutes: 70
+concepts: [memmove, zone de memorie suprapuse, memcpy, realloc, vector de pointeri la șiruri, stivă, spațiu pentru terminator]
+statement: |
+  Scrieți nucleul unui editor de text: un singur șir de caractere, inițial vid, modificat prin comenzi, cu un **clipboard** pentru tăiere/lipire și cu **anularea** modificărilor (UNDO). Pozițiile se numără de la 0; `len` este lungimea textului în momentul comenzii.
+
+  | comandă | efect | e eroare dacă |
+  |---|---|---|
+  | `INS p text` | inserează `text` înaintea poziției `p` (la `p = len`, la final) | `p > len` |
+  | `DEL p k` | șterge `k` caractere începând cu poziția `p` | `k = 0` sau `p + k > len` |
+  | `CUT p k` | ca `DEL`, dar caracterele șterse devin conținutul clipboard-ului | ca la `DEL` |
+  | `PASTE p` | inserează conținutul clipboard-ului înaintea poziției `p` | clipboard-ul e gol (nu s-a făcut încă niciun `CUT`) sau `p > len` |
+  | `UNDO` | readuce textul la starea dinaintea ultimei modificări neanulate | nu există nicio modificare de anulat |
+  | `PRINT` | afișează textul între paranteze drepte: `[text]` | — |
+
+  Detalii:
+
+  - la `INS`, `text` este tot ce urmează după spațiul de după `p`, până la finalul liniei (fără `\n`); poate conține spații, inclusiv la început sau la final, și are cel puțin un caracter;
+  - **modificările** sunt `INS`, `DEL`, `CUT` și `PASTE` reușite; `UNDO` le anulează în ordine inversă (oricâte, până la textul vid inițial); `UNDO` schimbă doar textul, **nu** și clipboard-ul;
+  - o comandă eronată afișează `EROARE` și nu schimbă nimic (nici textul, nici clipboard-ul, nici istoricul).
+
+  Textul se ține într-un șir **alocat dinamic**, realocat la fiecare modificare la exact `lungime + 1` octeți; inserarea și ștergerea mută caracterele pe loc (zonele sursă și destinație se suprapun). Istoricul pentru `UNDO` este o stivă de copii ale textului (un vector de pointeri la șiruri care crește cu `realloc`). Implementați cel puțin:
+
+  ```c
+  int inserare(char **t, size_t poz, const char *s);
+  void stergere(char **t, size_t poz, size_t k);
+  ```
+
+  **Date de intrare**
+
+  Câte o comandă pe linie, până la sfârșitul fișierului, scrisă exact ca în tabel: numele cu majuscule, argumentele separate prin câte un spațiu. Ultima linie se poate termina sau nu cu `\n`.
+
+  **Date de ieșire**
+
+  Câte o linie pentru fiecare `PRINT` și pentru fiecare comandă eronată.
+
+  **Restricții**
+
+  - cel mult 2000 de comenzi, fiecare linie de cel mult 1000 de caractere ASCII afișabile
+  - `p` și `k` sunt numere naturale de cel mult 1 000 000 (pot depăși lungimea textului)
+  - textul nu depășește niciodată 10 000 de caractere
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  INS 0 PCLP e greu
+  INS 4 , zic unii,
+  PRINT
+  CUT 4 11
+  DEL 7 4
+  INS 7 usor
+  PASTE 11
+  PRINT
+  DEL 30 1
+  UNDO
+  UNDO
+  UNDO
+  PRINT
+  ```
+
+  Ieșire:
+  ```
+  [PCLP, zic unii, e greu]
+  [PCLP e usor, zic unii,]
+  EROARE
+  [PCLP e greu]
+  ```
+
+  Explicație: `CUT 4 11` pune `, zic unii,` în clipboard și lasă `PCLP e greu`; după `DEL 7 4` și `INS 7 usor` textul e `PCLP e usor`, iar `PASTE 11` lipește clipboard-ul la final. Cele trei `UNDO` anulează `PASTE`, `INS` și `DEL` (comanda eronată nu intră în istoric).
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+  #include <ctype.h>
+
+  #define LMAX 1100
+
+  char *copie(const char *s)
+  {
+      /* TODO */
+      return NULL;
+  }
+
+  int inserare(char **t, size_t poz, const char *s)
+  {
+      /* TODO: realloc, apoi muta coada textului, apoi copiaza s */
+      return 0;
+  }
+
+  void stergere(char **t, size_t poz, size_t k)
+  {
+      /* TODO: muta coada textului peste zona stearsa, apoi realloc */
+  }
+
+  int main(void)
+  {
+      char linie[LMAX];
+      char *text = copie("");     /* textul curent */
+      char *clip = NULL;          /* clipboard-ul */
+      char **ist = NULL;          /* stiva de stari pentru UNDO */
+      int nist = 0, cap = 0;
+
+      while (fgets(linie, LMAX, stdin) != NULL) {
+          /* TODO: separati numele comenzii de argumente si tratati fiecare comanda */
+      }
+      /* TODO: eliberati tot */
+      return 0;
+  }
+hints:
+  - "Desparte comanda în nume și argumente cu `strchr(linie, ' ')`: pune `'\\0'` pe primul spațiu și compară numele cu `strcmp`. Numerele le citești cifră cu cifră (sau cu `strtol`), avansând un pointer; după `p` sari exact **un** spațiu — ce rămâne este textul de inserat, cu spațiile lui."
+  - "Inserarea lui `s` (lungime `m`) la poziția `p`: `realloc` la `len + m + 1`, apoi mută cele `len - p + 1` caractere de la `p` (inclusiv `'\\0'`) cu `m` poziții la dreapta, apoi copiază `s` în gol. Ștergerea: mută coada `[p + k, len]` (inclusiv `'\\0'`) la poziția `p`, apoi micșorează cu `realloc`. Zonele se suprapun, deci mutarea se face cu `memmove`, nu cu `memcpy` sau `strcpy`."
+  - "UNDO cu instantanee: înainte de fiecare modificare **reușită**, pune în stivă o copie a textului curent. La `UNDO`, eliberezi textul curent și îl înlocuiești cu pointerul din vârful stivei (fără altă copie). Verifică toate condițiile de eroare **înainte** să salvezi ceva sau să modifici clipboard-ul. Atenție la comparațiile cu `size_t`: `p + k > len` se scrie sigur ca `k > len - p` după ce ai verificat `p <= len`."
+pitfalls:
+  - "`memcpy` și `strcpy` pe zone suprapuse au comportament nedefinit: textul se poate strica „uneori”, în funcție de bibliotecă."
+  - "Dacă uiți să muți și `'\\0'`, textul rămâne cu caractere vechi la final după o ștergere."
+  - "Rezultatul lui `realloc` poate fi altă adresă: folosește-l pe acesta, nu vechiul pointer. De aceea funcțiile primesc `char **t`."
+  - "O comandă eronată nu trebuie să intre în istoric: altfel `UNDO` ulterior „anulează” ceva ce nu s-a întâmplat."
+  - "La `CUT`, clipboard-ul vechi trebuie eliberat; la final, eliberează textul, clipboard-ul, fiecare stare din istoric și vectorul istoricului."

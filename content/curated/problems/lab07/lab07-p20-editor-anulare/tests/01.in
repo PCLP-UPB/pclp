@@ -1,0 +1,13 @@
+INS 0 PCLP e greu
+INS 4 , zic unii,
+PRINT
+CUT 4 11
+DEL 7 4
+INS 7 usor
+PASTE 11
+PRINT
+DEL 30 1
+UNDO
+UNDO
+UNDO
+PRINT

@@ -1,0 +1,616 @@
+[s0]
+k0 = valoare_0
+[s1]
+k1 = valoare_1
+[s2]
+k2 = valoare_2
+[s3]
+k3 = valoare_3
+[s4]
+k4 = valoare_4
+[s5]
+k5 = valoare_5
+[s6]
+k6 = valoare_6
+[s7]
+k7 = valoare_7
+[s8]
+k8 = valoare_8
+[s9]
+k9 = valoare_9
+[s0]
+k10 = valoare_10
+[s1]
+k11 = valoare_11
+[s2]
+k12 = valoare_12
+[s3]
+k13 = valoare_13
+[s4]
+k14 = valoare_14
+[s5]
+k15 = valoare_15
+[s6]
+k16 = valoare_16
+[s7]
+k17 = valoare_17
+[s8]
+k18 = valoare_18
+[s9]
+k19 = valoare_19
+[s0]
+k20 = valoare_20
+[s1]
+k21 = valoare_21
+[s2]
+k22 = valoare_22
+[s3]
+k23 = valoare_23
+[s4]
+k24 = valoare_24
+[s5]
+k25 = valoare_25
+[s6]
+k26 = valoare_26
+[s7]
+k27 = valoare_27
+[s8]
+k28 = valoare_28
+[s9]
+k29 = valoare_29
+[s0]
+k30 = valoare_30
+[s1]
+k31 = valoare_31
+[s2]
+k32 = valoare_32
+[s3]
+k33 = valoare_33
+[s4]
+k34 = valoare_34
+[s5]
+k35 = valoare_35
+[s6]
+k36 = valoare_36
+[s7]
+k37 = valoare_37
+[s8]
+k38 = valoare_38
+[s9]
+k39 = valoare_39
+[s0]
+k40 = valoare_40
+[s1]
+k41 = valoare_41
+[s2]
+k42 = valoare_42
+[s3]
+k43 = valoare_43
+[s4]
+k44 = valoare_44
+[s5]
+k45 = valoare_45
+[s6]
+k46 = valoare_46
+[s7]
+k47 = valoare_47
+[s8]
+k48 = valoare_48
+[s9]
+k49 = valoare_49
+[s0]
+k50 = valoare_50
+[s1]
+k51 = valoare_51
+[s2]
+k52 = valoare_52
+[s3]
+k53 = valoare_53
+[s4]
+k54 = valoare_54
+[s5]
+k55 = valoare_55
+[s6]
+k56 = valoare_56
+[s7]
+k57 = valoare_57
+[s8]
+k58 = valoare_58
+[s9]
+k59 = valoare_59
+[s0]
+k60 = valoare_60
+[s1]
+k61 = valoare_61
+[s2]
+k62 = valoare_62
+[s3]
+k63 = valoare_63
+[s4]
+k64 = valoare_64
+[s5]
+k65 = valoare_65
+[s6]
+k66 = valoare_66
+[s7]
+k67 = valoare_67
+[s8]
+k68 = valoare_68
+[s9]
+k69 = valoare_69
+[s0]
+k70 = valoare_70
+[s1]
+k71 = valoare_71
+[s2]
+k72 = valoare_72
+[s3]
+k73 = valoare_73
+[s4]
+k74 = valoare_74
+[s5]
+k75 = valoare_75
+[s6]
+k76 = valoare_76
+[s7]
+k77 = valoare_77
+[s8]
+k78 = valoare_78
+[s9]
+k79 = valoare_79
+[s0]
+k80 = valoare_80
+[s1]
+k81 = valoare_81
+[s2]
+k82 = valoare_82
+[s3]
+k83 = valoare_83
+[s4]
+k84 = valoare_84
+[s5]
+k85 = valoare_85
+[s6]
+k86 = valoare_86
+[s7]
+k87 = valoare_87
+[s8]
+k88 = valoare_88
+[s9]
+k89 = valoare_89
+[s0]
+k90 = valoare_90
+[s1]
+k91 = valoare_91
+[s2]
+k92 = valoare_92
+[s3]
+k93 = valoare_93
+[s4]
+k94 = valoare_94
+[s5]
+k95 = valoare_95
+[s6]
+k96 = valoare_96
+[s7]
+k97 = valoare_97
+[s8]
+k98 = valoare_98
+[s9]
+k99 = valoare_99
+[s0]
+k100 = valoare_100
+[s1]
+k101 = valoare_101
+[s2]
+k102 = valoare_102
+[s3]
+k103 = valoare_103
+[s4]
+k104 = valoare_104
+[s5]
+k105 = valoare_105
+[s6]
+k106 = valoare_106
+[s7]
+k107 = valoare_107
+[s8]
+k108 = valoare_108
+[s9]
+k109 = valoare_109
+[s0]
+k110 = valoare_110
+[s1]
+k111 = valoare_111
+[s2]
+k112 = valoare_112
+[s3]
+k113 = valoare_113
+[s4]
+k114 = valoare_114
+[s5]
+k115 = valoare_115
+[s6]
+k116 = valoare_116
+[s7]
+k117 = valoare_117
+[s8]
+k118 = valoare_118
+[s9]
+k119 = valoare_119
+[s0]
+k120 = valoare_120
+[s1]
+k121 = valoare_121
+[s2]
+k122 = valoare_122
+[s3]
+k123 = valoare_123
+[s4]
+k124 = valoare_124
+[s5]
+k125 = valoare_125
+[s6]
+k126 = valoare_126
+[s7]
+k127 = valoare_127
+[s8]
+k128 = valoare_128
+[s9]
+k129 = valoare_129
+[s0]
+k130 = valoare_130
+[s1]
+k131 = valoare_131
+[s2]
+k132 = valoare_132
+[s3]
+k133 = valoare_133
+[s4]
+k134 = valoare_134
+[s5]
+k135 = valoare_135
+[s6]
+k136 = valoare_136
+[s7]
+k137 = valoare_137
+[s8]
+k138 = valoare_138
+[s9]
+k139 = valoare_139
+[s0]
+k140 = valoare_140
+[s1]
+k141 = valoare_141
+[s2]
+k142 = valoare_142
+[s3]
+k143 = valoare_143
+[s4]
+k144 = valoare_144
+[s5]
+k145 = valoare_145
+[s6]
+k146 = valoare_146
+[s7]
+k147 = valoare_147
+[s8]
+k148 = valoare_148
+[s9]
+k149 = valoare_149
+[s0]
+k150 = valoare_150
+[s1]
+k151 = valoare_151
+[s2]
+k152 = valoare_152
+[s3]
+k153 = valoare_153
+[s4]
+k154 = valoare_154
+[s5]
+k155 = valoare_155
+[s6]
+k156 = valoare_156
+[s7]
+k157 = valoare_157
+[s8]
+k158 = valoare_158
+[s9]
+k159 = valoare_159
+[s0]
+k160 = valoare_160
+[s1]
+k161 = valoare_161
+[s2]
+k162 = valoare_162
+[s3]
+k163 = valoare_163
+[s4]
+k164 = valoare_164
+[s5]
+k165 = valoare_165
+[s6]
+k166 = valoare_166
+[s7]
+k167 = valoare_167
+[s8]
+k168 = valoare_168
+[s9]
+k169 = valoare_169
+[s0]
+k170 = valoare_170
+[s1]
+k171 = valoare_171
+[s2]
+k172 = valoare_172
+[s3]
+k173 = valoare_173
+[s4]
+k174 = valoare_174
+[s5]
+k175 = valoare_175
+[s6]
+k176 = valoare_176
+[s7]
+k177 = valoare_177
+[s8]
+k178 = valoare_178
+[s9]
+k179 = valoare_179
+[s0]
+k180 = valoare_180
+[s1]
+k181 = valoare_181
+[s2]
+k182 = valoare_182
+[s3]
+k183 = valoare_183
+[s4]
+k184 = valoare_184
+[s5]
+k185 = valoare_185
+[s6]
+k186 = valoare_186
+[s7]
+k187 = valoare_187
+[s8]
+k188 = valoare_188
+[s9]
+k189 = valoare_189
+[s0]
+k190 = valoare_190
+[s1]
+k191 = valoare_191
+[s2]
+k192 = valoare_192
+[s3]
+k193 = valoare_193
+[s4]
+k194 = valoare_194
+[s5]
+k195 = valoare_195
+[s6]
+k196 = valoare_196
+[s7]
+k197 = valoare_197
+[s8]
+k198 = valoare_198
+[s9]
+k199 = valoare_199
+[s0]
+k200 = valoare_200
+[s1]
+k201 = valoare_201
+[s2]
+k202 = valoare_202
+[s3]
+k203 = valoare_203
+[s4]
+k204 = valoare_204
+[s5]
+k205 = valoare_205
+[s6]
+k206 = valoare_206
+[s7]
+k207 = valoare_207
+[s8]
+k208 = valoare_208
+[s9]
+k209 = valoare_209
+[s0]
+k210 = valoare_210
+[s1]
+k211 = valoare_211
+[s2]
+k212 = valoare_212
+[s3]
+k213 = valoare_213
+[s4]
+k214 = valoare_214
+[s5]
+k215 = valoare_215
+[s6]
+k216 = valoare_216
+[s7]
+k217 = valoare_217
+[s8]
+k218 = valoare_218
+[s9]
+k219 = valoare_219
+[s0]
+k220 = valoare_220
+[s1]
+k221 = valoare_221
+[s2]
+k222 = valoare_222
+[s3]
+k223 = valoare_223
+[s4]
+k224 = valoare_224
+[s5]
+k225 = valoare_225
+[s6]
+k226 = valoare_226
+[s7]
+k227 = valoare_227
+[s8]
+k228 = valoare_228
+[s9]
+k229 = valoare_229
+[s0]
+k230 = valoare_230
+[s1]
+k231 = valoare_231
+[s2]
+k232 = valoare_232
+[s3]
+k233 = valoare_233
+[s4]
+k234 = valoare_234
+[s5]
+k235 = valoare_235
+[s6]
+k236 = valoare_236
+[s7]
+k237 = valoare_237
+[s8]
+k238 = valoare_238
+[s9]
+k239 = valoare_239
+[s0]
+k240 = valoare_240
+[s1]
+k241 = valoare_241
+[s2]
+k242 = valoare_242
+[s3]
+k243 = valoare_243
+[s4]
+k244 = valoare_244
+[s5]
+k245 = valoare_245
+[s6]
+k246 = valoare_246
+[s7]
+k247 = valoare_247
+[s8]
+k248 = valoare_248
+[s9]
+k249 = valoare_249
+[s0]
+k250 = valoare_250
+[s1]
+k251 = valoare_251
+[s2]
+k252 = valoare_252
+[s3]
+k253 = valoare_253
+[s4]
+k254 = valoare_254
+[s5]
+k255 = valoare_255
+[s6]
+k256 = valoare_256
+[s7]
+k257 = valoare_257
+[s8]
+k258 = valoare_258
+[s9]
+k259 = valoare_259
+[s0]
+k260 = valoare_260
+[s1]
+k261 = valoare_261
+[s2]
+k262 = valoare_262
+[s3]
+k263 = valoare_263
+[s4]
+k264 = valoare_264
+[s5]
+k265 = valoare_265
+[s6]
+k266 = valoare_266
+[s7]
+k267 = valoare_267
+[s8]
+k268 = valoare_268
+[s9]
+k269 = valoare_269
+[s0]
+k270 = valoare_270
+[s1]
+k271 = valoare_271
+[s2]
+k272 = valoare_272
+[s3]
+k273 = valoare_273
+[s4]
+k274 = valoare_274
+[s5]
+k275 = valoare_275
+[s6]
+k276 = valoare_276
+[s7]
+k277 = valoare_277
+[s8]
+k278 = valoare_278
+[s9]
+k279 = valoare_279
+[s0]
+k280 = valoare_280
+[s1]
+k281 = valoare_281
+[s2]
+k282 = valoare_282
+[s3]
+k283 = valoare_283
+[s4]
+k284 = valoare_284
+[s5]
+k285 = valoare_285
+[s6]
+k286 = valoare_286
+[s7]
+k287 = valoare_287
+[s8]
+k288 = valoare_288
+[s9]
+k289 = valoare_289
+[s0]
+k290 = valoare_290
+[s1]
+k291 = valoare_291
+[s2]
+k292 = valoare_292
+[s3]
+k293 = valoare_293
+[s4]
+k294 = valoare_294
+[s5]
+k295 = valoare_295
+[s6]
+k296 = valoare_296
+[s7]
+k297 = valoare_297
+[s8]
+k298 = valoare_298
+[s9]
+k299 = valoare_299
+[lung]
+cheie_lunga = vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+---
+s0.k0
+s7.k37
+s4.k74
+s1.k111
+s8.k148
+s5.k185
+s2.k222
+s9.k259
+s6.k296
+s1.k2
+lung.cheie_lunga
+s9.k299
+s0.k299

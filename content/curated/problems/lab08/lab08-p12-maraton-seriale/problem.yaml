@@ -1,0 +1,122 @@
+id: lab08-p12-maraton-seriale
+lab: lab08
+number: 12
+title: "Maraton de seriale"
+difficulty: 1
+estimated_minutes: 20
+concepts: [structură, typedef, apel prin valoare, atribuirea structurilor, inițializarea structurilor]
+statement: |
+  Vineri seara, după ultimul colocviu, Andrei își face un maraton de seriale: pornește primul episod la ora `start` și se uită la `n` episoade unul după altul, fără pauze. Afișați la ce oră se termină fiecare episod și cât a durat tot maratonul.
+
+  Folosiți tipul:
+
+  ```c
+  typedef struct {
+      int h;
+      int m;
+      int s;
+  } Timp;
+  ```
+
+  și implementați funcțiile de mai jos, care primesc structuri prin valoare și **returnează** structuri:
+
+  ```c
+  long in_secunde(Timp t);
+  Timp din_secunde(long sec);      /* m si s intre 0 si 59; h nu se reduce modulo 24 */
+  Timp aduna(Timp a, Timp b);
+  ```
+
+  Un moment al zilei se afișează `HH:MM:SS` (cu ora între 00 și 23). Dacă un episod se termină după miezul nopții, în altă zi decât cea în care a început maratonul, se adaugă ` (+d)`, unde `d` este numărul de zile trecute de la ziua de start.
+
+  **Date de intrare**
+
+  Pe prima linie ora de start, `HH:MM:SS`. Pe a doua linie `n`. Urmează `n` linii cu durata fiecărui episod, `minute:secunde` (numărul de minute poate depăși 59).
+
+  **Date de ieșire**
+
+  Pentru fiecare episod `i` (de la 1):
+
+  ```
+  Episodul <i> se termina la HH:MM:SS
+  ```
+
+  eventual urmat de ` (+d)`, apoi linia `Durata totala: <ore>:<MM>:<SS>`, unde orele se afișează fără zerouri în față și pot depăși 23.
+
+  **Restricții**
+
+  - `0 ≤ n ≤ 100`
+  - `0 ≤ minute ≤ 1440`, `0 ≤ secunde ≤ 59`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  22:30:00
+  4
+  45:00
+  50:30
+  42:15
+  60:00
+  ```
+
+  Ieșire:
+  ```
+  Episodul 1 se termina la 23:15:00
+  Episodul 2 se termina la 00:05:30 (+1)
+  Episodul 3 se termina la 00:47:45 (+1)
+  Episodul 4 se termina la 01:47:45 (+1)
+  Durata totala: 3:17:45
+  ```
+starter: |
+  #include <stdio.h>
+
+  typedef struct {
+      int h;
+      int m;
+      int s;
+  } Timp;
+
+  long in_secunde(Timp t)
+  {
+      /* TODO */
+      return 0;
+  }
+
+  Timp din_secunde(long sec)
+  {
+      Timp t = { 0, 0, 0 };
+
+      /* TODO: completati t.h, t.m, t.s */
+      return t;
+  }
+
+  Timp aduna(Timp a, Timp b)
+  {
+      Timp rez = { 0, 0, 0 };
+
+      /* TODO: rez = a + b */
+      return rez;
+  }
+
+  int main(void)
+  {
+      Timp start, ceas, total = { 0, 0, 0 };
+      int n, i, minute, secunde;
+
+      scanf("%d:%d:%d", &start.h, &start.m, &start.s);
+      scanf("%d", &n);
+      ceas = start;
+      for (i = 1; i <= n; i++) {
+          scanf("%d:%d", &minute, &secunde);
+          /* TODO: actualizati ceas si total, apoi afisati ora de final a episodului */
+      }
+      /* TODO: afisati durata totala */
+      return 0;
+  }
+hints:
+  - "Cel mai simplu e să faci toate calculele în secunde și să transformi înapoi într-un `Timp` doar la final. O funcție poate returna o structură întreagă, iar rezultatul se poate atribui direct: `ceas = aduna(ceas, durata);`."
+  - "`din_secunde`: orele sunt `sec / 3600`, minutele `(sec / 60) % 60`, secundele `sec % 60`. Nu reduce orele modulo 24 aici — ai nevoie de ele ca să știi câte zile au trecut."
+  - "La afișare, ora din zi este `ceas.h % 24`, iar numărul de zile trecute este `ceas.h / 24` (se afișează doar dacă e pozitiv). Folosește `%02d` pentru ore, minute și secunde, dar `%d` pentru orele din durata totală."
+pitfalls:
+  - "Un episod de `0:01` care începe la `23:59:59` se termină la `00:00:00` a doua zi — nu la `24:00:00`."
+  - "Structura `total` trebuie inițializată cu zero; o variabilă locală neinițializată conține valori oarecare."

@@ -1,0 +1,99 @@
+id: lab06-p16-zaruri-ciudate
+lab: lab06
+number: 16
+title: "Zarurile ciudate"
+difficulty: 3
+estimated_minutes: 35
+concepts: [calloc, vector alocat dinamic, pointer returnat de funcție, free, memory leak]
+statement: |
+  Clubul de jocuri de societate al căminului a primit un set de `k` zaruri ciudate: zarul `i` are `f_i` fețe, iar pe fiecare față e scrisă o valoare (valorile se pot repeta pe același zar). Se aruncă toate zarurile o dată și se adună valorile obținute. Toate fețele unui zar sunt la fel de probabile, deci există `f_1 · f_2 · … · f_k` rezultate posibile, considerate distincte chiar dacă dau aceeași sumă.
+
+  Pentru fiecare sumă posibilă, aflați **în câte moduri** se poate obține.
+
+  Lucrați cu o **distribuție** memorată într-un vector alocat dinamic: `dist[s]` = numărul de moduri de a obține suma `s` cu zarurile de până acum, pentru `0 ≤ s ≤ smax`. Fără niciun zar, singura sumă este 0, obținută într-un mod. La adăugarea unui zar, suma maximă crește, deci distribuția nouă se construiește într-un **vector nou** (mai lung), iar cel vechi se eliberează. Implementați și folosiți:
+
+  ```c
+  long long *adauga_zar(const long long *dist, int smax, const int *fete, int f, int *smax_nou);
+  ```
+
+  care returnează distribuția nouă (de `*smax_nou + 1` elemente) sau `NULL` la eroare. Valorile fețelor fiecărui zar se citesc și ele într-un vector alocat dinamic, de exact `f` elemente.
+
+  **Date de intrare**
+
+  Pe prima linie `k`. Urmează `k` linii, câte una pentru fiecare zar: `f v1 v2 … vf`.
+
+  **Date de ieșire**
+
+  ```
+  combinatii: <numarul total de rezultate>
+  <s>: <numarul de moduri>          (pentru fiecare suma posibila, crescator)
+  cea mai probabila: <s> (<numarul de moduri>)
+  ```
+
+  Se afișează doar sumele care se pot obține (cu cel puțin un mod). La egalitate, cea mai probabilă este suma cea mai mică.
+
+  **Restricții**
+
+  - `1 ≤ k ≤ 10`, `1 ≤ f ≤ 20`
+  - `1 ≤ valoare ≤ 100`
+  - numerele de moduri încap în `long long`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  2
+  3 1 2 3
+  4 1 1 2 5
+  ```
+
+  Ieșire:
+  ```
+  combinatii: 12
+  2: 2
+  3: 3
+  4: 3
+  5: 1
+  6: 1
+  7: 1
+  8: 1
+  cea mai probabila: 3 (3)
+  ```
+
+  Explicație: suma 3 se obține ca `2 + 1` (două fețe cu 1 pe al doilea zar) sau `1 + 2`.
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+
+  long long *adauga_zar(const long long *dist, int smax, const int *fete, int f, int *smax_nou)
+  {
+      /* TODO: noua suma maxima, vector nou initializat cu 0,
+         fiecare (suma veche, fata) contribuie la suma veche + fata */
+  }
+
+  int main(void)
+  {
+      int k, i, smax = 0;
+      long long *dist;
+
+      /* TODO: distributia initiala: un singur element, dist[0] = 1 */
+
+      scanf("%d", &k);
+      for (i = 0; i < k; i++) {
+          /* TODO: citeste zarul intr-un vector alocat dinamic,
+             construieste distributia noua, elibereaza ce nu mai trebuie */
+      }
+
+      /* TODO: afisare */
+
+      free(dist);
+      return 0;
+  }
+hints:
+  - "Gândește pas cu pas: dacă știi în câte moduri obții fiecare sumă cu primele `i` zaruri, atunci cu zarul `i+1` fiecare sumă veche `s` și fiecare față `v` contribuie cu `dist[s]` moduri la suma `s + v`."
+  - "Suma maximă nouă este `smax` plus cea mai mare valoare de pe zar. Vectorul nou trebuie să pornească plin de zerouri, pentru că doar aduni în el — `calloc` face exact asta."
+  - "În `main`, la fiecare zar: citești fețele (malloc), `nou = adauga_zar(...)`, `free(fete)`, `free(dist)`, `dist = nou`, `smax = smax_nou`. Ordinea contează: nu elibera `dist` înainte de apel. Totalul de combinații este produsul numerelor de fețe, în `long long`."
+pitfalls:
+  - "Dacă nu eliberezi distribuția veche la fiecare zar, programul pierde `k` vectori; dacă o eliberezi înainte să construiești distribuția nouă, citești memorie eliberată."
+  - "`malloc` în loc de `calloc` pentru distribuția nouă lasă valori „gunoi” în sumele la care doar aduni."
+  - "Numerele de moduri ajung la `20^10`: `int` nu ajunge, folosește `long long` și `%lld`."

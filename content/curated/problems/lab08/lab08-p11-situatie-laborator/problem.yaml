@@ -1,0 +1,117 @@
+id: lab08-p11-situatie-laborator
+lab: lab08
+number: 11
+title: "Situația de la laborator"
+difficulty: 1
+estimated_minutes: 15
+concepts: [structură, typedef, câmp, operatorul de acces la membru, vector de structuri]
+statement: |
+  La sfârșitul semestrului, asistentul are pentru fiecare student trei note: nota de laborator, nota de la testul practic și nota de la examen. Nota finală se calculează astfel: 30% laborator, 20% test, 50% examen. Un student **promovează** dacă are la examen cel puțin 5 **și** nota finală cel puțin 5.
+
+  Ca să nu apară erori de rotunjire, lucrați cu nota finală în **puncte întregi**, din 100: `puncte = 3·lab + 2·test + 5·examen`. Nota finală este `puncte / 10` și se afișează cu exact o zecimală (de exemplu 78 de puncte înseamnă nota `7.8`).
+
+  Definiți tipul:
+
+  ```c
+  typedef struct {
+      char nume[31];
+      int lab;
+      int test;
+      int examen;
+  } Student;
+  ```
+
+  și implementați funcțiile:
+
+  ```c
+  int puncte(Student s);
+  int promovat(Student s);       /* 1 daca studentul promoveaza, 0 altfel */
+  ```
+
+  **Date de intrare**
+
+  Pe prima linie `n`, numărul de studenți. Urmează `n` linii de forma `nume lab test examen`.
+
+  **Date de ieșire**
+
+  Pentru fiecare student, în ordinea citirii, o linie:
+
+  ```
+  <nume>: <nota finala cu o zecimala> <PROMOVAT sau RESTANTA>
+  ```
+
+  apoi liniile:
+
+  ```
+  Promovati: <numar promovati> din <n>
+  Cea mai mare nota: <nume> <nota finala cu o zecimala>
+  ```
+
+  Dacă mai mulți studenți au cea mai mare notă finală, se afișează primul dintre ei, în ordinea citirii.
+
+  **Restricții**
+
+  - `1 ≤ n ≤ 100`
+  - notele sunt întregi din `[1, 10]`
+  - numele au între 1 și 30 de caractere, fără spații
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  4
+  Ionescu_Ana 9 8 7
+  Popa_Mihai 10 10 4
+  Dumitru_Elena 5 5 5
+  Stan_Radu 4 3 6
+  ```
+
+  Ieșire:
+  ```
+  Ionescu_Ana: 7.8 PROMOVAT
+  Popa_Mihai: 7.0 RESTANTA
+  Dumitru_Elena: 5.0 PROMOVAT
+  Stan_Radu: 4.8 RESTANTA
+  Promovati: 2 din 4
+  Cea mai mare nota: Ionescu_Ana 7.8
+  ```
+
+  Explicație: Popa_Mihai are nota finală 7.0, dar 4 la examen, deci nu promovează.
+starter: |
+  #include <stdio.h>
+
+  #define NMAX 100
+
+  /* TODO: definiti tipul Student (nume, lab, test, examen) */
+
+  int puncte(Student s)
+  {
+      /* TODO: 3*lab + 2*test + 5*examen */
+      return 0;
+  }
+
+  int promovat(Student s)
+  {
+      /* TODO */
+      return 0;
+  }
+
+  int main(void)
+  {
+      Student grupa[NMAX];
+      int n, i;
+
+      scanf("%d", &n);
+      for (i = 0; i < n; i++) {
+          /* TODO: cititi campurile lui grupa[i] */
+      }
+      /* TODO: afisati situatia fiecarui student, numarul de promovati si cea mai mare nota */
+      return 0;
+  }
+hints:
+  - "Toate informațiile despre un student stau într-o singură variabilă de tip `Student`; grupa este un vector de astfel de structuri. Un câmp se accesează cu punct: `grupa[i].examen`."
+  - "La citire, `scanf` are nevoie de adresele câmpurilor: `&grupa[i].lab` (operatorul `.` se aplică înaintea lui `&`). Câmpul `nume` este un vector de caractere, deci se trimite fără `&`."
+  - "Nota cu o zecimală se poate afișa direct din puncte: partea întreagă este `p / 10`, iar zecimala `p % 10`. Pentru cea mai mare notă, ține indicele celui mai bun student și schimbă-l doar când găsești un punctaj **strict** mai mare."
+pitfalls:
+  - "Dacă folosești `double` cu `0.3 * lab + ...`, valoarea exactă 5.0 poate ieși 4.9999… și studentul ar fi declarat restanțier pe nedrept. Lucrează cu puncte întregi."
+  - "Nu uita a doua condiție de promovare: cel puțin 5 la examen, indiferent de nota finală."

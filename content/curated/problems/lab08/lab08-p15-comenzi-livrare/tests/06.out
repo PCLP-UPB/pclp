@@ -1,0 +1,12 @@
+Comanda 1 nu exista
+Comanda 2 nu exista
+Comanda 3: PLASATA
+Comanda 3: IN_PREGATIRE
+Comanda 3: PE_DRUM
+Comanda 3 nu mai poate fi anulata
+PLASATA: 0
+IN_PREGATIRE: 0
+PE_DRUM: 1
+LIVRATA: 0
+ANULATA: 0
+Timp mediu de livrare: -

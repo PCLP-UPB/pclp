@@ -1,0 +1,131 @@
+id: lab08-p20-calculator-polinoame
+lab: lab08
+number: 20
+title: "Calculator de polinoame"
+difficulty: 5
+estimated_minutes: 70
+concepts: [listă înlănțuită, nod, pointer la pointer, pointer la structură, operatorul săgeată, free, memory leak]
+statement: |
+  Pentru seminarul de analiză, Ioana își scrie un calculator de polinoame cu coeficienți întregi. Polinoamele pot avea grade mari, dar puțini termeni (de exemplu `1000x^1000 - 1000`), așa că fiecare polinom se memorează ca **listă simplu înlănțuită** de monoame, doar cu termenii nenuli, în ordinea **strict descrescătoare** a gradelor:
+
+  ```c
+  typedef struct Monom {
+      long long coef;     /* nenul */
+      int grad;
+      struct Monom *urm;
+  } Monom;
+  ```
+
+  Calculatorul are 26 de registre, `A`–`Z`, fiecare conținând un polinom (inițial polinomul nul, adică lista vidă). Comenzi:
+
+  | comandă | efect |
+  |---|---|
+  | `SET R k c1 g1 c2 g2 ... ck gk` | `R` devine suma termenilor `ci·x^gi`; termenii pot fi în orice ordine, gradele se pot repeta (coeficienții se adună), iar termenii care dau 0 dispar |
+  | `ADD R P Q` | `R = P + Q` |
+  | `SUB R P Q` | `R = P − Q` |
+  | `MUL R P Q` | `R = P · Q` |
+  | `DERIV R P` | `R = P'` (derivata) |
+  | `EVAL P x` | afișează `P(<x>) = <valoare>` |
+  | `PRINT P` | afișează `P = <polinom>` |
+
+  Registrul rezultat poate coincide cu unul dintre operanzi (de exemplu `MUL A A A` sau `DERIV C C`). Când un registru primește o valoare nouă, lista veche se eliberează; la final se eliberează toate listele.
+
+  Implementați cel puțin funcția centrală:
+
+  ```c
+  int adauga_termen(Monom **p, long long c, int g);   /* aduna c*x^g la polinomul *p */
+  ```
+
+  care păstrează lista ordonată și fără termeni nuli (inserează un nod nou, modifică un coeficient existent sau elimină nodul al cărui coeficient devine 0). Celelalte operații se pot construi cu ea.
+
+  Formatul de afișare: termenii în ordinea descrescătoare a gradelor, separați de ` + ` sau ` - ` după semnul coeficientului; primul termen are doar `-` în față, dacă e negativ. Un termen se scrie `<|c|>x^<g>`; coeficientul 1 nu se scrie (doar dacă gradul e 0), `x^1` se scrie `x`, iar la gradul 0 apare doar coeficientul. Polinomul nul se afișează `0`. Exemple: `3x^2 - x + 5`, `-x^3 + 2x - 1`, `x`, `-1`.
+
+  **Date de intrare**
+
+  Comenzi, câte una pe linie, până la sfârșitul fișierului. Registrele sunt litere mari.
+
+  **Date de ieșire**
+
+  Rezultatele comenzilor `EVAL` și `PRINT`, câte una pe linie.
+
+  **Restricții**
+
+  - cel mult 500 de comenzi; la `SET`, `0 ≤ k ≤ 50`, `|ci| ≤ 1000`, `0 ≤ gi ≤ 1000`
+  - la `EVAL`, `|x| ≤ 10`; pentru `x = 0`, termenul de grad 0 contează cu coeficientul lui (`0^0 = 1`)
+  - se garantează că orice polinom obținut are cel mult 500 de termeni și gradul cel mult `10^4`, iar toți coeficienții și toate valorile calculate la `EVAL` (puterile, fiecare termen, sumele parțiale) au valoarea absolută sub `10^18`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  SET P 3 2 1 -1 0 1 2
+  SET Q 2 1 1 -1 0
+  PRINT P
+  PRINT Q
+  ADD S P Q
+  PRINT S
+  MUL M P Q
+  PRINT M
+  DERIV D M
+  PRINT D
+  EVAL M 2
+  SUB Z P P
+  PRINT Z
+  ```
+
+  Ieșire:
+  ```
+  P = x^2 + 2x - 1
+  Q = x - 1
+  S = x^2 + 3x - 2
+  M = x^3 + x^2 - 3x + 1
+  D = 3x^2 + 2x - 3
+  M(2) = 7
+  Z = 0
+  ```
+
+  Explicație: în prima comandă, `k = 3` și termenii sunt `2·x^1`, `−1·x^0` și `1·x^2`.
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+
+  typedef struct Monom {
+      long long coef;
+      int grad;
+      struct Monom *urm;
+  } Monom;
+
+  int adauga_termen(Monom **p, long long c, int g)
+  {
+      /* TODO: cauta locul dupa grad; insereaza, modifica sau sterge un nod */
+      return 1;
+  }
+
+  void elibereaza(Monom *p)
+  {
+      /* TODO */
+  }
+
+  /* TODO: functii pentru suma/diferenta, produs, derivata, evaluare, afisare */
+
+  int main(void)
+  {
+      Monom *reg[26] = { NULL };
+      char cmd[16];
+
+      while (scanf("%15s", cmd) == 1) {
+          /* TODO: SET, ADD, SUB, MUL, DERIV, EVAL, PRINT
+             (registrul se citeste cu " %c", indicele lui este litera - 'A') */
+      }
+      /* TODO: eliberati toate registrele */
+      return 0;
+  }
+hints:
+  - "Totul se sprijină pe `adauga_termen`. Ea primește adresa pointerului spre primul nod (`Monom **`), pentru că uneori trebuie să schimbe chiar începutul listei. Parcurge cu un pointer la legătură, `leg`, cât timp nodul `*leg` are gradul mai mare decât `g`; apoi fie `*leg` are exact gradul `g` (aduni coeficientul și, dacă a devenit 0, scoți nodul), fie inserezi un nod nou chiar la `*leg`."
+  - "Construiește fiecare rezultat ca listă **nouă**, pornind de la `NULL`: suma = toți termenii lui `P` plus toți termenii lui `Q` (cu semn schimbat la scădere), produsul = câte un `adauga_termen` pentru fiecare pereche de termeni (coeficienții se înmulțesc, gradele se adună), derivata = `c·g` la gradul `g − 1` pentru termenii cu `g > 0`. Abia după ce rezultatul e gata eliberezi lista veche din registrul destinație și pui rezultatul în locul ei — așa `MUL A A A` funcționează corect."
+  - "Pentru afișare, tratează separat primul termen (doar `-` dacă e negativ) și pe următorii (` + ` sau ` - `); apoi lucrează cu valoarea absolută a coeficientului: îl scrii doar dacă e diferit de 1 sau dacă gradul e 0; după el, `x` pentru gradul 1 și `x^g` pentru grad mai mare. Lista vidă înseamnă `0`."
+pitfalls:
+  - "Dacă eliberezi registrul destinație înainte de calcul, la `MUL A A A` sau `DERIV C C` operanzii nu mai există."
+  - "Un nod cu coeficientul 0 rămas în listă se afișează greșit (`0x^2`) și strică testul pentru polinomul nul."
+  - "La `SET` pe un registru care avea deja un polinom, lista veche trebuie eliberată (altfel memory leak), iar termenii noi nu se adună la cei vechi."

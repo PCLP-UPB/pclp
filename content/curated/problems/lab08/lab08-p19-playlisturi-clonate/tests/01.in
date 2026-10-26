@@ -1,0 +1,13 @@
+NEW sesiune
+ADD sesiune Lofi_beats 3:25
+ADD sesiune Interstellar_theme 4:41
+ADD sesiune Clair_de_lune 5:03
+CLONE sesiune sesiune_noapte
+RENAME sesiune_noapte 2 Time
+REMOVE sesiune_noapte 1
+ADD sesiune_noapte Nocturne 4:30
+SHOW sesiune
+SHOW sesiune_noapte
+DELETE sesiune
+SHOW sesiune
+SHOW sesiune_noapte

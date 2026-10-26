@@ -1,0 +1,15 @@
+NEW original
+ADD original p1 1:01
+ADD original p2 1:02
+ADD original p3 1:03
+ADD original p4 1:04
+CLONE original copie
+ADD copie p5 1:05
+ADD copie p6 1:06
+RENAME copie 1 primul_titlu_mult_mai_lung_decat_originalul
+RENAME original 4 patru
+SHOW original
+SHOW copie
+DELETE original
+ADD copie p7 0:07
+SHOW copie

@@ -1,0 +1,113 @@
+id: lab08-p13-buget-lunar
+lab: lab08
+number: 13
+title: "Bugetul lunar"
+difficulty: 2
+estimated_minutes: 25
+concepts: [enumerare, structură, typedef, vector de structuri, strcmp]
+statement: |
+  Maria, studentă în anul I, își notează toate cheltuielile din luna aceasta, fiecare cu o categorie, o scurtă descriere și suma. La final vrea să vadă cât a cheltuit pe fiecare categorie, ce procent din total reprezintă fiecare și care a fost cea mai mare cheltuială.
+
+  Folosiți tipurile:
+
+  ```c
+  typedef enum { MANCARE, TRANSPORT, CHIRIE, DISTRACTIE, ALTELE, NR_CATEGORII } Categorie;
+
+  typedef struct {
+      char descriere[31];
+      Categorie cat;
+      int suma;
+  } Cheltuiala;
+  ```
+
+  Categoriile se scriu în intrare și se afișează cu litere mici: `mancare`, `transport`, `chirie`, `distractie`, `altele`. Țineți numele lor într-un vector de șiruri indexat cu valorile enumerării și implementați:
+
+  ```c
+  Categorie categorie_din_text(const char *s);   /* NR_CATEGORII daca s nu e o categorie */
+  ```
+
+  Totalurile pe categorii se țin într-un vector cu `NR_CATEGORII` elemente, indexat tot cu valoarea enumerării. O cheltuială cu o categorie necunoscută (inclusiv scrisă cu majuscule) nu se ia în calcul; pentru ea se afișează `Categorie necunoscuta: <cuvant>`, în ordinea citirii, înaintea raportului.
+
+  **Date de intrare**
+
+  Pe prima linie `n`. Urmează `n` linii de forma `categorie descriere suma`.
+
+  **Date de ieșire**
+
+  Mesajele pentru categoriile necunoscute, apoi câte o linie pentru fiecare categorie, în ordinea din enumerare:
+
+  ```
+  <categorie>: <total> lei (<procent>%)
+  ```
+
+  unde `procent = 100 · total_categorie / total`, **partea întreagă** (0 dacă totalul general e 0). Urmează `Total: <total> lei` și linia `Cea mai mare cheltuiala: <descriere> (<categorie>) <suma> lei`; la egalitate se alege prima cheltuială validă, în ordinea citirii. Dacă nu există nicio cheltuială validă, ultima linie este `Nicio cheltuiala`.
+
+  **Restricții**
+
+  - `0 ≤ n ≤ 1000`, `1 ≤ suma ≤ 10^6`
+  - descrierile au între 1 și 30 de caractere, fără spații; cuvintele pentru categorie au cel mult 30 de caractere
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  7
+  chirie camin 450
+  mancare cantina 320
+  transport abonament 40
+  distractie film 35
+  mancare pizza 60
+  carti curs_PCLP 25
+  altele imprimanta 90
+  ```
+
+  Ieșire:
+  ```
+  Categorie necunoscuta: carti
+  mancare: 380 lei (38%)
+  transport: 40 lei (4%)
+  chirie: 450 lei (45%)
+  distractie: 35 lei (3%)
+  altele: 90 lei (9%)
+  Total: 995 lei
+  Cea mai mare cheltuiala: camin (chirie) 450 lei
+  ```
+starter: |
+  #include <stdio.h>
+  #include <string.h>
+
+  #define NMAX 1000
+
+  typedef enum { MANCARE, TRANSPORT, CHIRIE, DISTRACTIE, ALTELE, NR_CATEGORII } Categorie;
+
+  /* TODO: vectorul cu numele categoriilor, indexat cu valorile enumerarii */
+
+  typedef struct {
+      char descriere[31];
+      Categorie cat;
+      int suma;
+  } Cheltuiala;
+
+  Categorie categorie_din_text(const char *s)
+  {
+      /* TODO: cautati s printre numele categoriilor */
+      return NR_CATEGORII;
+  }
+
+  int main(void)
+  {
+      Cheltuiala v[NMAX];
+      int n;
+
+      scanf("%d", &n);
+      /* TODO: cititi cheltuielile, pastrati-le doar pe cele valide */
+      /* TODO: totaluri pe categorii, procente, cea mai mare cheltuiala */
+      return 0;
+  }
+hints:
+  - "Valorile unei enumerări sunt întregi consecutivi începând de la 0, deci pot fi folosite direct ca indici: `NUME[CHIRIE]` este `\"chirie\"`, iar `totaluri[v[i].cat] += v[i].suma` adună suma la categoria potrivită. `NR_CATEGORII` pus la final este chiar numărul de categorii."
+  - "`categorie_din_text` parcurge categoriile de la `MANCARE` la `NR_CATEGORII - 1` și compară cu `strcmp`; dacă nu găsește nimic, returnează `NR_CATEGORII`, o valoare care nu e categorie validă și pe care o poți testa la apel."
+  - "Pentru cea mai mare cheltuială păstrează indicele ei (de exemplu `-1` cât timp nu există niciuna) și schimbă-l doar la o sumă strict mai mare. Procentul se calculează cu împărțire întreagă, după ce verifici că totalul nu e 0."
+pitfalls:
+  - "`100 · total_categorie` poate trece de limita lui `int` (sumele ajung la 10^9); calculează totalurile în `long long`."
+  - "Fără verificarea totalului 0, pentru `n = 0` programul împarte la zero."

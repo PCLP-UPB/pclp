@@ -1,0 +1,150 @@
+id: lab08-p18-tren-vagoane
+lab: lab08
+number: 18
+title: "Garnitura de tren"
+difficulty: 4
+estimated_minutes: 45
+concepts: [listă înlănțuită, nod, pointer la structură, operatorul săgeată, eticheta structurii, free]
+statement: |
+  Într-o stație de triaj, un program ține evidența vagoanelor unei garnituri de tren, în ordine, de la locomotivă spre coadă. Vagoanele se pot atașa în spatele trenului sau imediat după locomotivă, ultimele vagoane se pot detașa, iar locomotiva se poate muta la celălalt capăt (ordinea vagoanelor, văzută de la locomotivă, se inversează).
+
+  Reprezentați garnitura ca **listă simplu înlănțuită**, cu un nod alocat dinamic pentru fiecare vagon:
+
+  ```c
+  typedef struct Vagon {
+      int numar;
+      char tip[16];
+      struct Vagon *urm;
+  } Vagon;
+
+  typedef struct {
+      Vagon *primul;      /* vagonul legat direct de locomotiva */
+      int n;
+  } Tren;
+  ```
+
+  Comenzi:
+
+  | comandă | efect |
+  |---|---|
+  | `ATASEAZA nr tip` | atașează vagonul la coada trenului |
+  | `FATA nr tip` | atașează vagonul imediat după locomotivă |
+  | `DETASEAZA k` | detașează ultimele `k` vagoane (toate, dacă trenul are mai puțin de `k`) și afișează `Detasate <numar>:` urmat de numerele lor, fiecare precedat de un spațiu, în ordinea din tren |
+  | `INVERSEAZA` | locomotiva trece la celălalt capăt: ultimul vagon devine primul etc. |
+  | `PRINT` | afișează `Tren (<n>): LOC` urmat, pentru fiecare vagon în ordine, de un spațiu și `<nr>:<tip>` |
+
+  Dacă la `ATASEAZA` sau `FATA` există deja un vagon cu același număr, se afișează `Vagonul <nr> exista deja` și comanda se ignoră.
+
+  Cerințe de implementare: `INVERSEAZA` se face **pe loc**, doar prin schimbarea legăturilor (fără noduri noi și fără copierea datelor dintr-un nod în altul); vagoanele detașate se eliberează imediat, iar la final se eliberează toată lista.
+
+  **Date de intrare**
+
+  Comenzi, câte una pe linie, până la sfârșitul fișierului.
+
+  **Date de ieșire**
+
+  Mesajele comenzilor, în ordine.
+
+  **Restricții**
+
+  - cel mult 2000 de comenzi
+  - `0 ≤ nr ≤ 10^6`, `0 ≤ k ≤ 10^6`; tipurile au între 1 și 15 caractere, fără spații
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  ATASEAZA 12 CL2
+  ATASEAZA 7 CL1
+  FATA 30 POSTA
+  ATASEAZA 5 RESTAURANT
+  ATASEAZA 7 CL2
+  PRINT
+  INVERSEAZA
+  PRINT
+  DETASEAZA 2
+  PRINT
+  ATASEAZA 9 CUSETA
+  PRINT
+  ```
+
+  Ieșire:
+  ```
+  Vagonul 7 exista deja
+  Tren (4): LOC 30:POSTA 12:CL2 7:CL1 5:RESTAURANT
+  Tren (4): LOC 5:RESTAURANT 7:CL1 12:CL2 30:POSTA
+  Detasate 2: 12 30
+  Tren (2): LOC 5:RESTAURANT 7:CL1
+  Tren (3): LOC 5:RESTAURANT 7:CL1 9:CUSETA
+  ```
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+
+  typedef struct Vagon {
+      int numar;
+      char tip[16];
+      struct Vagon *urm;
+  } Vagon;
+
+  typedef struct {
+      Vagon *primul;
+      int n;
+  } Tren;
+
+  Vagon *cauta(const Tren *t, int numar)
+  {
+      /* TODO */
+      return NULL;
+  }
+
+  void ataseaza_fata(Tren *t, Vagon *v)
+  {
+      /* TODO */
+  }
+
+  void ataseaza_spate(Tren *t, Vagon *v)
+  {
+      /* TODO */
+  }
+
+  void detaseaza(Tren *t, int k)
+  {
+      /* TODO: gasiti ultimul vagon care ramane, rupeti legatura, afisati si eliberati restul */
+  }
+
+  void inverseaza(Tren *t)
+  {
+      /* TODO: pe loc, doar prin schimbarea campurilor urm */
+  }
+
+  void afiseaza(const Tren *t)
+  {
+      /* TODO */
+  }
+
+  void elibereaza(Tren *t)
+  {
+      /* TODO */
+  }
+
+  int main(void)
+  {
+      Tren t = { NULL, 0 };
+      char cmd[32];
+
+      while (scanf("%31s", cmd) == 1) {
+          /* TODO: ATASEAZA, FATA, DETASEAZA, INVERSEAZA, PRINT */
+      }
+      elibereaza(&t);
+      return 0;
+  }
+hints:
+  - "În interiorul structurii, câmpul `urm` trebuie declarat `struct Vagon *` — numele `Vagon` dat de `typedef` nu există încă în acel punct. Trenul gol are `primul = NULL`; ultimul vagon are `urm = NULL`."
+  - "Ca să detașezi ultimele `k` vagoane, mergi `n − k` pași de la începutul listei: vagonul la care ajungi e ultimul care rămâne. Partea de după el se afișează și se eliberează, iar legătura lui devine `NULL`. Dacă rămân 0 vagoane, se modifică chiar `primul` — un pointer la legătură (`Vagon **`) tratează ambele cazuri la fel."
+  - "Inversarea pe loc folosește trei pointeri: `anterior` (inițial `NULL`), `p` (vagonul curent) și `urm`. La fiecare pas: salvezi `urm = p->urm`, întorci legătura `p->urm = anterior`, apoi avansezi `anterior = p`, `p = urm`. La final, `primul` devine `anterior`."
+pitfalls:
+  - "La inversare, dacă schimbi `p->urm` înainte să salvezi vechea valoare, pierzi restul trenului."
+  - "După `free(p)`, nu mai ai voie să citești `p->urm`; salvează-l înainte."
+  - "`DETASEAZA` pe un tren gol sau cu `k = 0` afișează `Detasate 0:` și nu schimbă nimic."

@@ -1,0 +1,136 @@
+id: lab08-p14-lifturi-bloc
+lab: lab08
+number: 14
+title: "Lifturile căminului"
+difficulty: 2
+estimated_minutes: 25
+concepts: [pointer la structură, operatorul săgeată, vector de structuri, structură, "NULL"]
+statement: |
+  Căminul are `k` lifturi, numerotate de la 1 la `k`, care pornesc toate de la parter (etajul 0). Un program simplu de dispecerat primește cereri: o persoană aflată la etajul `e` vrea să ajungă la etajul `d`. Dispecerul trimite liftul **disponibil** cel mai apropiat de etajul `e` (la egalitate, pe cel cu numărul cel mai mic); liftul merge de unde se află până la `e`, apoi până la `d`, unde rămâne. Un lift poate fi scos în revizie (nu mai primește cereri) și apoi repus în funcțiune.
+
+  Folosiți structura:
+
+  ```c
+  typedef struct {
+      int id;
+      int etaj;
+      int parcurs;        /* numar total de etaje parcurse */
+      int curse;
+      int in_revizie;
+  } Lift;
+  ```
+
+  și implementați funcțiile:
+
+  ```c
+  Lift *alege_lift(Lift *v, int k, int e);   /* adresa liftului ales sau NULL daca niciunul nu e disponibil */
+  void deplaseaza(Lift *l, int e, int d);
+  void afiseaza(const Lift *l);
+  ```
+
+  Comenzi:
+
+  | comandă | efect |
+  |---|---|
+  | `CHEAMA e d` | alege liftul și afișează `Liftul <id>: <etaj curent> -> <e> -> <d>`, apoi îl deplasează (parcursul crește cu `\|etaj − e\| + \|e − d\|`, cursele cu 1); dacă niciun lift nu e disponibil, afișează `Niciun lift disponibil` |
+  | `REVIZIE id` | schimbă starea liftului: dacă era disponibil intră în revizie și se afișează `Liftul <id>: in revizie`, altfel revine și se afișează `Liftul <id>: disponibil` |
+  | `STARE` | pentru fiecare lift, în ordinea numerelor: `Liftul <id>: etaj <etaj>, parcurs <p>, curse <c>`, urmat de `, in revizie` dacă e cazul |
+
+  **Date de intrare**
+
+  Pe prima linie `k`. Urmează comenzi, câte una pe linie, până la sfârșitul fișierului.
+
+  **Date de ieșire**
+
+  Mesajele comenzilor, în ordine.
+
+  **Restricții**
+
+  - `1 ≤ k ≤ 9`, cel mult 1000 de comenzi
+  - `0 ≤ e, d ≤ 100` (se poate ca `e = d`); la `REVIZIE`, `1 ≤ id ≤ k`
+
+  **Exemplu**
+
+  Intrare:
+  ```
+  3
+  CHEAMA 5 0
+  CHEAMA 3 10
+  CHEAMA 8 2
+  REVIZIE 1
+  CHEAMA 1 4
+  STARE
+  REVIZIE 1
+  CHEAMA 0 6
+  STARE
+  ```
+
+  Ieșire:
+  ```
+  Liftul 1: 0 -> 5 -> 0
+  Liftul 1: 0 -> 3 -> 10
+  Liftul 1: 10 -> 8 -> 2
+  Liftul 1: in revizie
+  Liftul 2: 0 -> 1 -> 4
+  Liftul 1: etaj 2, parcurs 28, curse 3, in revizie
+  Liftul 2: etaj 4, parcurs 4, curse 1
+  Liftul 3: etaj 0, parcurs 0, curse 0
+  Liftul 1: disponibil
+  Liftul 3: 0 -> 0 -> 6
+  Liftul 1: etaj 2, parcurs 28, curse 3
+  Liftul 2: etaj 4, parcurs 4, curse 1
+  Liftul 3: etaj 6, parcurs 6, curse 1
+  ```
+
+  Explicație: la a doua cerere, toate lifturile sunt la aceeași distanță de etajul 3, deci pleacă liftul 1. La penultima cerere, liftul 3 (la parter) e mai aproape de etajul 0 decât lifturile 1 și 2.
+starter: |
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <string.h>
+
+  #define KMAX 9
+
+  typedef struct {
+      int id;
+      int etaj;
+      int parcurs;
+      int curse;
+      int in_revizie;
+  } Lift;
+
+  Lift *alege_lift(Lift *v, int k, int e)
+  {
+      /* TODO: liftul disponibil cel mai apropiat de e sau NULL */
+      return NULL;
+  }
+
+  void deplaseaza(Lift *l, int e, int d)
+  {
+      /* TODO: actualizati campurile prin l-> */
+  }
+
+  void afiseaza(const Lift *l)
+  {
+      /* TODO */
+  }
+
+  int main(void)
+  {
+      Lift lifturi[KMAX];
+      char cmd[32];
+      int k;
+
+      scanf("%d", &k);
+      /* TODO: initializati cele k lifturi */
+      while (scanf("%31s", cmd) == 1) {
+          /* TODO: CHEAMA, REVIZIE, STARE */
+      }
+      return 0;
+  }
+hints:
+  - "Funcția de alegere nu returnează o copie a liftului, ci **adresa** lui din vector (`&v[i]`). Astfel, modificările făcute prin acel pointer (`l->etaj = d`) se văd în vectorul din `main`."
+  - "Pentru căutare, ține un pointer `best`, inițial `NULL`. Pentru fiecare lift care nu e în revizie: dacă `best` e `NULL` sau liftul curent e strict mai aproape, `best` devine adresa lui. Parcurgând lifturile în ordinea numerelor și folosind „strict”, egalitățile se rezolvă singure."
+  - "La `CHEAMA`, afișează mesajul **înainte** de deplasare (are nevoie de etajul curent), apoi apelează `deplaseaza`. Verifică rezultatul lui `alege_lift` față de `NULL` înainte să folosești `->`. Distanța dintre etaje este `abs(a - b)` din `<stdlib.h>`."
+pitfalls:
+  - "Dacă `alege_lift` returnează o structură (`Lift`) în loc de `Lift *`, deplasarea se face pe o copie și lifturile din vector rămân pe loc."
+  - "Accesul `l->id` când `l` e `NULL` (toate lifturile în revizie) oprește programul."
